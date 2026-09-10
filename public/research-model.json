@@ -14,8 +14,11 @@
       "events": 262,
       "researchTasks": 19,
       "negativeSearches": 10,
-      "completenessGates": 8
-    }
+      "completenessGates": 8,
+      "contextRelationships": 4
+    },
+    "release": "11.1",
+    "graphPolicy": "Pedigree relationships remain separate from contextual sibling, sponsor, and derivative spouse-lead associations."
   },
   "people": [
     {
@@ -11833,7 +11836,7 @@
     }
   ],
   "audit": {
-    "version": 11,
+    "version": "11.1",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "generatedFrom": "public/corpus.json",
     "pass": true,
@@ -11885,19 +11888,153 @@
         "label": "Every structured relationship retains a source section",
         "pass": true,
         "detail": "94/94 relationships carry source section IDs"
+      },
+      {
+        "id": "AUD-009",
+        "label": "Previously unlinked inventory entries have explicit contextual disposition",
+        "pass": true,
+        "detail": "Virginia Martha Kinsman, Mary Monica Manning, David Fleming, and Elie Davin are represented only with source-supported contextual edges."
       }
     ],
     "exceptions": {
-      "orphanPeople": [
+      "orphanPeople": [],
+      "unresolvedSourceRefs": [],
+      "relationshipOrphans": [],
+      "livingLeaks": [],
+      "rejectedActive": [],
+      "structuralOrphans": [
         "P-VIRGINIA-MARTHA-KINSMAN",
         "P-MARY-MONICA-MANNING",
         "P-DAVID-FLEMING",
         "P-ELIE-DAVIN"
-      ],
-      "unresolvedSourceRefs": [],
-      "relationshipOrphans": [],
-      "livingLeaks": [],
-      "rejectedActive": []
+      ]
     }
-  }
+  },
+  "contextRelationships": [
+    {
+      "id": "CTX-KIN-001",
+      "type": "sibling-context",
+      "from": "P-KATHERINE-MAY-KINSMAN",
+      "to": "P-VIRGINIA-MARTHA-KINSMAN",
+      "state": "PROVISIONAL / DERIVATIVE collateral sibling lead",
+      "role": "Derivative sibling-context lead; not proved parentage",
+      "active": true,
+      "stateTokens": [
+        "PROVISIONAL",
+        "DERIVATIVE"
+      ],
+      "claimIds": [],
+      "sourceIds": [],
+      "source": {
+        "section": "s204",
+        "basis": "Appendix F identifies Virginia as a derivative collateral family-context sibling lead. Public genealogy places her in the same George Walter Kinsman family context; no parent-child edge is asserted."
+      }
+    },
+    {
+      "id": "CTX-KIN-002",
+      "type": "sibling-context",
+      "from": "P-KATHERINE-MAY-KINSMAN",
+      "to": "P-MARY-MONICA-MANNING",
+      "state": "PROVISIONAL / DERIVATIVE collateral sibling lead",
+      "role": "Derivative sibling-context lead; not proved parentage",
+      "active": true,
+      "stateTokens": [
+        "PROVISIONAL",
+        "DERIVATIVE"
+      ],
+      "claimIds": [],
+      "sourceIds": [],
+      "source": {
+        "section": "s204",
+        "basis": "Appendix F identifies Mary Monica Manning as a derivative collateral family-context sibling lead. Public genealogy places her in the same George Walter Kinsman family context; no parent-child edge is asserted."
+      }
+    },
+    {
+      "id": "CTX-FER-001",
+      "type": "baptism-sponsor",
+      "from": "P-DAVID-FLEMING",
+      "to": "P-EDWARD-ELLERY-DEVINE-DEVEINE",
+      "state": "SUPPORTED sponsor relationship only",
+      "role": "1918 baptism sponsor; not a kinship assertion",
+      "active": true,
+      "stateTokens": [
+        "SUPPORTED"
+      ],
+      "claimIds": [],
+      "sourceIds": [
+        "C001"
+      ],
+      "source": {
+        "section": "s028",
+        "basis": "The St. Anne parish extract names David Fleming as a baptism sponsor for Edward Ellery DeVine/DeVeine. This is a FAN-network association, not a family relationship."
+      }
+    },
+    {
+      "id": "CTX-RAH-001",
+      "type": "spouse-lead",
+      "from": "P-SARAH-FERRY",
+      "to": "P-ELIE-DAVIN",
+      "state": "PROVISIONAL / DERIVATIVE high-value lead",
+      "role": "Public-profile spouse lead; not proof",
+      "active": true,
+      "stateTokens": [
+        "PROVISIONAL",
+        "DERIVATIVE"
+      ],
+      "claimIds": [],
+      "sourceIds": [
+        "W006"
+      ],
+      "source": {
+        "section": "s058",
+        "basis": "The retained Ancestry Sarah Ferry profile lists Elie Davin among spouse entries. The dossier classifies that profile as a derivative high-value lead only; no proved spouse edge is asserted."
+      }
+    }
+  ],
+  "orphanResolution": [
+    {
+      "personId": "P-KATHERINE-MAY-KINSMAN",
+      "peerId": "P-VIRGINIA-MARTHA-KINSMAN",
+      "relationshipId": "CTX-KIN-001",
+      "disposition": "Derivative sibling-context lead; not proved parentage",
+      "state": "PROVISIONAL / DERIVATIVE collateral sibling lead",
+      "source": {
+        "section": "s204",
+        "basis": "Appendix F identifies Virginia as a derivative collateral family-context sibling lead. Public genealogy places her in the same George Walter Kinsman family context; no parent-child edge is asserted."
+      }
+    },
+    {
+      "personId": "P-KATHERINE-MAY-KINSMAN",
+      "peerId": "P-MARY-MONICA-MANNING",
+      "relationshipId": "CTX-KIN-002",
+      "disposition": "Derivative sibling-context lead; not proved parentage",
+      "state": "PROVISIONAL / DERIVATIVE collateral sibling lead",
+      "source": {
+        "section": "s204",
+        "basis": "Appendix F identifies Mary Monica Manning as a derivative collateral family-context sibling lead. Public genealogy places her in the same George Walter Kinsman family context; no parent-child edge is asserted."
+      }
+    },
+    {
+      "personId": "P-DAVID-FLEMING",
+      "peerId": "P-EDWARD-ELLERY-DEVINE-DEVEINE",
+      "relationshipId": "CTX-FER-001",
+      "disposition": "1918 baptism sponsor; not a kinship assertion",
+      "state": "SUPPORTED sponsor relationship only",
+      "source": {
+        "section": "s028",
+        "basis": "The St. Anne parish extract names David Fleming as a baptism sponsor for Edward Ellery DeVine/DeVeine. This is a FAN-network association, not a family relationship."
+      }
+    },
+    {
+      "personId": "P-SARAH-FERRY",
+      "peerId": "P-ELIE-DAVIN",
+      "relationshipId": "CTX-RAH-001",
+      "disposition": "Public-profile spouse lead; not proof",
+      "state": "PROVISIONAL / DERIVATIVE high-value lead",
+      "source": {
+        "section": "s058",
+        "basis": "The retained Ancestry Sarah Ferry profile lists Elie Davin among spouse entries. The dossier classifies that profile as a derivative high-value lead only; no proved spouse edge is asserted."
+      }
+    }
+  ]
 }

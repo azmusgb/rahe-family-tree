@@ -1,5 +1,5 @@
 {
-  "version": 11,
+  "version": "11.1",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -51,18 +51,25 @@
       "label": "Every structured relationship retains a source section",
       "pass": true,
       "detail": "94/94 relationships carry source section IDs"
+    },
+    {
+      "id": "AUD-009",
+      "label": "Previously unlinked inventory entries have explicit contextual disposition",
+      "pass": true,
+      "detail": "Virginia Martha Kinsman, Mary Monica Manning, David Fleming, and Elie Davin are represented only with source-supported contextual edges."
     }
   ],
   "exceptions": {
-    "orphanPeople": [
+    "orphanPeople": [],
+    "unresolvedSourceRefs": [],
+    "relationshipOrphans": [],
+    "livingLeaks": [],
+    "rejectedActive": [],
+    "structuralOrphans": [
       "P-VIRGINIA-MARTHA-KINSMAN",
       "P-MARY-MONICA-MANNING",
       "P-DAVID-FLEMING",
       "P-ELIE-DAVIN"
-    ],
-    "unresolvedSourceRefs": [],
-    "relationshipOrphans": [],
-    "livingLeaks": [],
-    "rejectedActive": []
+    ]
   }
 }
