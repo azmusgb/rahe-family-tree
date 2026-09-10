@@ -1,5 +1,5 @@
 {
-  "version": "12.6",
+  "version": "12.6.1",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -321,6 +321,30 @@
       "label": "Mobile family browsing retains the visual tree",
       "pass": true,
       "detail": "The visual focal-person tree remains the dominant family exploration surface. Full-tree expert mode remains available and mobile retains the visual tree instead of replacing it with a list-only experience."
+    },
+    {
+      "id": "AUD-054",
+      "label": "Family polish remains presentation-only",
+      "detail": "Family-mode layout, portrait presentation, and navigation cannot change canonical evidence.",
+      "pass": true
+    },
+    {
+      "id": "AUD-055",
+      "label": "Public portrait media privacy gate",
+      "detail": "Only media already returned as public image media may become a family-facing portrait.",
+      "pass": true
+    },
+    {
+      "id": "AUD-056",
+      "label": "Research detail remains reachable",
+      "detail": "Family profiles simplify research detail presentation while Research Mode retains full evidence access.",
+      "pass": true
+    },
+    {
+      "id": "AUD-057",
+      "label": "Tree scope labels remain literal",
+      "detail": "Bounded six-hop context is no longer described as all connected; Full tree remains the explicit complete-tree control.",
+      "pass": true
     }
   ],
   "exceptions": {
