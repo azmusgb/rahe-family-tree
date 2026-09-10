@@ -16,11 +16,14 @@ const legacyAuthorized=(req:Request)=>{const expected=bootstrapKey(),supplied=re
 const mediaStoreFor=(context:Context)=>context.deploy?.context==='production'?getStore('rahe-family-media',{consistency:'strong'}):getDeployStore('rahe-family-media');
 const collaborationStoreFor=(context:Context)=>context.deploy?.context==='production'?getStore('rahe-family-collaboration',{consistency:'strong'}):getDeployStore('rahe-family-collaboration');
 const safeId=(value:string)=>/^MED-[A-Z0-9-]+$/.test(value);
+const cleanIds=(values:unknown[])=>[...new Set(values.map(v=>String(v||'').trim()).filter(v=>/^[-A-Z0-9]+$/i.test(v)).slice(0,25))];
 async function currentUser(req:Request,store:any){const token=parseCookies(req)[cookieName];if(!token)return null;const session:any=await store.get(sessionKey(token),{type:'json'});if(!session||new Date(session.expiresAt).getTime()<=Date.now())return null;const user:any=await store.get(emailKey(session.email),{type:'json'});return user?.active===false?null:user||null;}
+async function privacyIndex(req:Request){try{const res=await fetch(`${new URL(req.url).origin}/research-model.json`,{headers:{'cache-control':'no-cache'}});if(!res.ok)return new Map<string,boolean>();const m:any=await res.json(),all=[...(m.people||[]),...(m.familySupplement?.people||[])];return new Map(all.map((p:any)=>[String(p.id),Boolean(p.living)]));}catch{return new Map<string,boolean>();}}
+const privateRequired=(ids:string[],index:Map<string,boolean>)=>ids.some(id=>!index.has(id)||index.get(id)===true);
 
 export default async (req:Request,context:Context)=>{
   const store=mediaStoreFor(context),collaboration=collaborationStoreFor(context),url=new URL(req.url),user=await currentUser(req,collaboration),legacy=legacyAuthorized(req);
-  const authenticated=!!user||legacy,canUpload=legacy||!!user&&roleRank(user.role)>=roleRank('contributor'),canDelete=legacy||!!user&&roleRank(user.role)>=roleRank('editor');
+  const authenticated=!!user||legacy,canUpload=legacy||!!user&&roleRank(user.role)>=roleRank('contributor'),canEdit=legacy||!!user&&roleRank(user.role)>=roleRank('editor');
 
   if(req.method==='GET'){
     const fileId=url.searchParams.get('file');
@@ -43,20 +46,30 @@ export default async (req:Request,context:Context)=>{
       if(meta.visibility!=='public'&&!authenticated)continue;
       listed.push(meta);
     }
-    listed.sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
-    return json({ok:true,media:listed,authenticated,canUpload,canDelete,user:user?{displayName:user.displayName,role:user.role}:null});
+    listed.sort((a,b)=>Number(Boolean(b.featured))-Number(Boolean(a.featured))||String(b.eventDate||b.createdAt||'').localeCompare(String(a.eventDate||a.createdAt||'')));
+    return json({ok:true,media:listed,authenticated,canUpload,canDelete:canEdit,canEdit,user:user?{displayName:user.displayName,role:user.role}:null});
   }
 
   if(req.method!=='POST')return json({ok:false,error:'Method not allowed.'},405);
   const type=req.headers.get('content-type')||'';
   if(type.includes('application/json')){
-    if(!canDelete)return json({ok:false,error:'Editor or administrator account required to remove media.'},403);
     let body:any;try{body=await req.json();}catch{return json({ok:false,error:'Invalid JSON.'},400);}
-    if(body.action!=='delete')return json({ok:false,error:'Unsupported media action.'},400);
     const id=String(body.id||'');if(!safeId(id))return json({ok:false,error:'Invalid media ID.'},400);
     const meta:any=await store.get(`meta/${id}.json`,{type:'json'});if(!meta)return json({ok:false,error:'Media not found.'},404);
-    await store.setJSON(`meta/${id}.json`,{...meta,deletedAt:new Date().toISOString(),deletedBy:user?.displayName||String(body.contributor||'Legacy family editor').slice(0,120)});
-    return json({ok:true,id,deleted:true});
+    if(body.action==='delete'){
+      if(!canEdit)return json({ok:false,error:'Editor or administrator account required to remove media.'},403);
+      await store.setJSON(`meta/${id}.json`,{...meta,deletedAt:new Date().toISOString(),deletedBy:user?.displayName||'Legacy family editor'});
+      return json({ok:true,id,deleted:true});
+    }
+    if(body.action==='update'){
+      if(!canEdit)return json({ok:false,error:'Editor or administrator account required to update media metadata.'},403);
+      const ids=cleanIds(Array.isArray(body.personIds)?body.personIds:meta.personIds||[]);if(!ids.length)return json({ok:false,error:'At least one linked person is required.'},400);
+      const privacy=await privacyIndex(req),mustPrivate=privateRequired(ids,privacy),requested=body.visibility==='public'?'public':'private';
+      const updated={...meta,title:String(body.title??meta.title).slice(0,180),caption:String(body.caption??meta.caption??'').slice(0,2000),eventDate:String(body.eventDate??meta.eventDate??'').slice(0,32),location:String(body.location??meta.location??'').slice(0,240),personIds:ids,sourceId:String(body.sourceId??meta.sourceId??'').trim().toUpperCase().slice(0,40),visibility:mustPrivate?'private':requested,featured:Boolean(body.featured)&&String(meta.mime||'').startsWith('image/'),livingPersonLinked:mustPrivate,privacyAuthority:mustPrivate?'PRIVATE — LIVING OR UNRESOLVED PERSON LINK':'EXPLICIT VISIBILITY CHOICE',updatedAt:new Date().toISOString(),updatedBy:user?.displayName||'Legacy family editor'};
+      if(updated.featured){const result:any=await store.list({prefix:'meta/'});for(const item of result.blobs||[]){const other:any=await store.get(item.key,{type:'json'});if(!other||other.id===id||other.deletedAt||!other.featured)continue;if((other.personIds||[]).some((x:string)=>ids.includes(x)))await store.setJSON(item.key,{...other,featured:false,updatedAt:new Date().toISOString()});}}
+      await store.setJSON(`meta/${id}.json`,updated);return json({ok:true,media:updated});
+    }
+    return json({ok:false,error:'Unsupported media action.'},400);
   }
 
   if(!canUpload)return json({ok:false,error:'Contributor account or higher required to add media.'},403);
@@ -65,11 +78,11 @@ export default async (req:Request,context:Context)=>{
   if(!(file instanceof File))return json({ok:false,error:'File is required.'},400);
   if(!allowed.has(file.type))return json({ok:false,error:'Supported files: JPEG, PNG, WebP, PDF.'},400);
   if(file.size>15*1024*1024)return json({ok:false,error:'File exceeds the 15 MB limit.'},413);
-  const personId=String(form.get('personId')||'').trim();if(!personId)return json({ok:false,error:'Linked person is required.'},400);
-  const living=String(form.get('living')||'true')==='true',requested=String(form.get('visibility')||'private');
-  const visibility=living?'private':requested==='public'?'public':'private';
+  const ids=cleanIds([form.get('personId'),...form.getAll('personIds')]);if(!ids.length)return json({ok:false,error:'Linked person is required.'},400);
+  const privacy=await privacyIndex(req),mustPrivate=privateRequired(ids,privacy),requested=String(form.get('visibility')||'private');
+  const visibility=mustPrivate?'private':requested==='public'?'public':'private';
   const id=`MED-${Date.now().toString(36).toUpperCase()}-${crypto.randomUUID().slice(0,8).toUpperCase()}`;
-  const meta={id,title:String(form.get('title')||file.name).slice(0,180),caption:String(form.get('caption')||'').slice(0,2000),fileName:file.name.slice(0,240),mime:file.type,size:file.size,personIds:[personId],sourceId:String(form.get('sourceId')||'').trim().toUpperCase().slice(0,40),contributor:user?.displayName||String(form.get('contributor')||'Legacy family editor').slice(0,120),contributorUserId:user?.id||null,livingPersonLinked:living,visibility,createdAt:new Date().toISOString(),deletedAt:null,evidenceAuthority:'MEDIA ATTACHMENT — DOES NOT PROMOTE GENEALOGY EVIDENCE',privacyAuthority:living?'PRIVATE — LIVING PERSON MEDIA':'EXPLICIT VISIBILITY CHOICE'};
+  const meta={id,title:String(form.get('title')||file.name).slice(0,180),caption:String(form.get('caption')||'').slice(0,2000),eventDate:String(form.get('eventDate')||'').slice(0,32),location:String(form.get('location')||'').slice(0,240),fileName:file.name.slice(0,240),mime:file.type,size:file.size,personIds:ids,sourceId:String(form.get('sourceId')||'').trim().toUpperCase().slice(0,40),contributor:user?.displayName||'Legacy family editor',contributorUserId:user?.id||null,livingPersonLinked:mustPrivate,visibility,featured:Boolean(form.get('featured'))&&file.type.startsWith('image/'),createdAt:new Date().toISOString(),deletedAt:null,evidenceAuthority:'MEDIA ATTACHMENT — DOES NOT PROMOTE GENEALOGY EVIDENCE',privacyAuthority:mustPrivate?'PRIVATE — LIVING OR UNRESOLVED PERSON LINK':'EXPLICIT VISIBILITY CHOICE'};
   await store.set(`file/${id}`,await file.arrayBuffer());
   await store.setJSON(`meta/${id}.json`,meta);
   return json({ok:true,media:meta},201);
