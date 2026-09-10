@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "12.2",
+    "version": "12.3",
     "title": "Rahe Family Research Workbench",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "sourceTitle": "Rahe_Family_Tree_Canonical_Single_Source_v10_FULL_LOSSLESS_2026-09-10.docx",
@@ -25,11 +25,11 @@
       "canonicalRelationships": 94,
       "supplementalRelationships": 15
     },
-    "release": "12.2",
+    "release": "12.3",
     "graphPolicy": "Pedigree relationships remain separate from contextual sibling, sponsor, and derivative spouse-lead associations.",
     "eventPolicy": "Normalized events retain source row text and exact dossier location. Event type/place labels are display aids and do not promote claims.",
     "operationsPolicy": "Research task workflow status is operational metadata only and cannot mutate evidence state.",
-    "releaseTitle": "Family Experience — Focal Tree + Contextual Editing",
+    "releaseTitle": "Visual Family Experience — Rich Tree + Profiles + Media Foundation",
     "stateOverlayPolicy": "Workbench task progress and evidence-intake drafts never modify a claim, relationship, person, source, or canonical corpus automatically."
   },
   "people": [
@@ -12358,7 +12358,7 @@
     }
   ],
   "audit": {
-    "version": "12.2",
+    "version": "12.3",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "generatedFrom": "public/corpus.json",
     "pass": true,
@@ -12578,6 +12578,30 @@
         "label": "Evidence state provenance and workflow remain separate concepts",
         "pass": true,
         "detail": "Evidence state, provenance, and workflow are distinct concepts and must not be visually conflated."
+      },
+      {
+        "id": "AUD-037",
+        "label": "Visual tree controls cannot mutate canonical evidence",
+        "pass": true,
+        "detail": "v12.3 changes visual presentation and navigation only. Canonical v10 evidence, source states, rejected assertions, and unresolved identity semantics remain immutable."
+      },
+      {
+        "id": "AUD-038",
+        "label": "Media metadata cannot promote genealogy evidence",
+        "pass": true,
+        "detail": "Attaching media to a person does not promote a claim, relationship, identity bridge, or evidence state."
+      },
+      {
+        "id": "AUD-039",
+        "label": "Living-person media has an explicit privacy gate",
+        "pass": true,
+        "detail": "Living-person media must be public only when explicitly marked public; media visibility never overrides living-person field redaction."
+      },
+      {
+        "id": "AUD-040",
+        "label": "Identity bridge remains distinct from pedigree",
+        "pass": true,
+        "detail": "The DeVine/Rahe identity bridge remains unresolved and visually distinct from descent."
       }
     ],
     "exceptions": {
@@ -22495,5 +22519,36 @@
     "searchRule": "Search results are grouped by People, Family groups, Evidence, Sources, Research tasks, and Archive. Active branch/evidence filters remain authoritative.",
     "evidenceDisplayRule": "Evidence state, provenance, and workflow are distinct concepts and must not be visually conflated.",
     "canonicalRule": "Family-first presentation changes navigation and editing ergonomics only; it does not promote, merge, or rewrite canonical evidence."
-  }
+  },
+  "visualFamilyExperience": {
+    "version": "12.3",
+    "title": "Visual Family Experience",
+    "tree": {
+      "nodeRule": "Tree nodes may show initials or a linked public portrait, human-readable dates/privacy, evidence state, and provenance without changing genealogy semantics.",
+      "familyDepth": "Family mode supports explicit 1/2/3 generation context or all connected family; Ancestors and Descendants remain structural traversals.",
+      "mobileRule": "On small screens the default family experience becomes a card-based relative navigator while the SVG remains optional rather than compressed beyond usability."
+    },
+    "media": {
+      "authority": "MEDIA METADATA IS PRESENTATION/ARCHIVE DATA — NOT GENEALOGY EVIDENCE BY DEFAULT",
+      "fields": [
+        "id",
+        "kind",
+        "title",
+        "caption",
+        "personIds",
+        "sourceId",
+        "provenance",
+        "public",
+        "privacy"
+      ],
+      "privacyRule": "Living-person media must be public only when explicitly marked public; media visibility never overrides living-person field redaction.",
+      "evidenceRule": "Attaching media to a person does not promote a claim, relationship, identity bridge, or evidence state."
+    },
+    "relationshipSemantics": {
+      "rule": "Spouse, parent-child, contextual, step/adoptive, and identity relationships remain distinct edge types and must not be visually collapsed into generic pedigree.",
+      "identityBridge": "The DeVine/Rahe identity bridge remains unresolved and visually distinct from descent."
+    },
+    "canonicalRule": "v12.3 changes visual presentation and navigation only. Canonical v10 evidence, source states, rejected assertions, and unresolved identity semantics remain immutable."
+  },
+  "mediaAssets": []
 }

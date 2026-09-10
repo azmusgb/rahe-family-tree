@@ -1,5 +1,5 @@
 {
-  "version": "12.2",
+  "version": "12.3",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -219,6 +219,30 @@
       "label": "Evidence state provenance and workflow remain separate concepts",
       "pass": true,
       "detail": "Evidence state, provenance, and workflow are distinct concepts and must not be visually conflated."
+    },
+    {
+      "id": "AUD-037",
+      "label": "Visual tree controls cannot mutate canonical evidence",
+      "pass": true,
+      "detail": "v12.3 changes visual presentation and navigation only. Canonical v10 evidence, source states, rejected assertions, and unresolved identity semantics remain immutable."
+    },
+    {
+      "id": "AUD-038",
+      "label": "Media metadata cannot promote genealogy evidence",
+      "pass": true,
+      "detail": "Attaching media to a person does not promote a claim, relationship, identity bridge, or evidence state."
+    },
+    {
+      "id": "AUD-039",
+      "label": "Living-person media has an explicit privacy gate",
+      "pass": true,
+      "detail": "Living-person media must be public only when explicitly marked public; media visibility never overrides living-person field redaction."
+    },
+    {
+      "id": "AUD-040",
+      "label": "Identity bridge remains distinct from pedigree",
+      "pass": true,
+      "detail": "The DeVine/Rahe identity bridge remains unresolved and visually distinct from descent."
     }
   ],
   "exceptions": {
