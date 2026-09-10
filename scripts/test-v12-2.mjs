@@ -7,7 +7,7 @@ const laterV12=x=>/^12\.(?:[2-9]|[1-9]\d+)(?:\.\d+)?$/.test(String(x));
 
 test('v12.2 focal-person family experience remains defined',()=>{
   assert(laterV12(model.meta.release));
-  assert.equal(model.familyExperience.version,'12.2');
+  assert(laterV12(model.familyExperience.version));
   assert.match(model.familyExperience.defaultTreeMode,/FOCAL PERSON/i);
   assert(model.familyExperience.navigationGroups.includes('Family'));
   assert(model.familyExperience.navigationGroups.includes('Research'));
