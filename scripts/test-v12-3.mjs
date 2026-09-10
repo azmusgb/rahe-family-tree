@@ -3,9 +3,10 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
+const laterV12=x=>/^12\.(?:[3-9]|[1-9]\d+)(?:\.\d+)?$/.test(String(x));
 
 test('v12.3 visual family experience remains presentation-only',()=>{
-  assert.match(String(model.meta.release),/^12\.(?:[3-9]|[1-9]\d+)$/);
+  assert(laterV12(model.meta.release));
   assert.equal(model.visualFamilyExperience.version,'12.3');
   assert.match(model.visualFamilyExperience.canonicalRule,/Canonical v10 evidence/i);
   assert.match(model.visualFamilyExperience.canonicalRule,/immutable/i);
@@ -25,6 +26,6 @@ test('tree semantics keep identity bridge distinct',()=>{
 
 test('v12.3 audit gates remain passing',()=>{
   for(const id of ['AUD-037','AUD-038','AUD-039','AUD-040'])assert.equal(audit.checks.find(c=>c.id===id)?.pass,true,id);
-  assert.match(String(audit.version),/^12\.(?:[3-9]|[1-9]\d+)$/);
+  assert(laterV12(audit.version));
   assert.equal(audit.pass,true);
 });
