@@ -1,5 +1,5 @@
 {
-  "version": "11.6",
+  "version": "12.0",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -153,6 +153,24 @@
       "label": "Family editor defaults living-person privacy",
       "pass": true,
       "detail": "New living people default to Living / birth details withheld. Local edits do not alter the canonical corpus or source-controlled evidence states."
+    },
+    {
+      "id": "AUD-026",
+      "label": "v12 editor preserves immutable canonical evidence",
+      "pass": true,
+      "detail": "Canonical v10 evidence remains immutable in the browser editor."
+    },
+    {
+      "id": "AUD-027",
+      "label": "v12 family groups are defined from effective relationships",
+      "pass": true,
+      "detail": "Live family units require spouse pairs and explicit effective parent-child edges."
+    },
+    {
+      "id": "AUD-028",
+      "label": "shared-data architecture cannot silently overwrite canonical evidence",
+      "pass": true,
+      "detail": "A future shared backend must store contributed revisions separately from the canonical evidence corpus and may not silently overwrite source-controlled evidence states."
     }
   ],
   "exceptions": {
