@@ -1,0 +1,9 @@
+import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';
+const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8')),audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
+const graph=fs.readFileSync('graph.js','utf8'),ui=fs.readFileSync('v12-9-1.js','utf8'),css=fs.readFileSync('v12-9-1.css','utf8'),family=fs.readFileSync('v12-6.js','utf8');
+test('v12.9.1 tree polish is active',()=>{assert.equal(model.meta.release,'12.9.1');assert.equal(model.treeEnginePolish.version,'12.9.1');});
+test('couple-centered child routing requires explicit spouse plus two explicit parents',()=>{assert.match(graph,/spousePairForChild/);assert.match(graph,/parents\.length!==2/);assert.match(graph,/\['spouse','spouse-lead'\]/);assert.match(graph,/couple-child/);assert.match(model.treeEnginePolish.coupleRule,/BOTH EXPLICIT PARENT RELATIONSHIPS REMAIN/i);});
+test('mobile recenter and tree trail are navigation only',()=>{assert.match(ui,/data-v1291-go/);assert.match(ui,/max-width:760px/);assert.match(ui,/mobileCentered/);assert.match(model.treeEnginePolish.navigationRule,/BROWSER NAVIGATION STATE ONLY/i);});
+test('print mode preserves identity semantics while simplifying portraits',()=>{assert.match(css,/@media print/);assert.match(css,/identity-bridge/);assert.match(css,/v128-svg-photo/);assert.match(model.treeEnginePolish.printRule,/IDENTITY-BRIDGE DISTINCTION/i);});
+test('family research mode transitions invalidate stale family home DOM',()=>{assert.match(family,/delete content\.dataset\.familyHome/);assert.match(family,/new HashChangeEvent\('hashchange'\)/);assert.match(family,/!content\.querySelector\('\.family-home-hero'\)/);});
+test('v12.9.1 semantic gates pass',()=>{for(const id of['AUD-078','AUD-079','AUD-080','AUD-081','AUD-082'])assert.equal(audit.checks.find(c=>c.id===id)?.pass,true,id);assert.equal(audit.version,'12.9.1');assert.equal(audit.pass,true);});
