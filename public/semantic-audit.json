@@ -1,5 +1,5 @@
 {
-  "version": "12.9",
+  "version": "12.9.1",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -464,6 +464,36 @@
       "id": "AUD-077",
       "label": "Full-tree expert mode remains available",
       "detail": "The complete named-person tree remains explicitly accessible independently from focal connected-family mode.",
+      "pass": true
+    },
+    {
+      "id": "AUD-078",
+      "label": "Couple-centered child connectors preserve explicit parentage",
+      "detail": "Visual dual-parent routing is permitted only when two explicit parent-child edges and an explicit spouse relationship exist; the underlying relationships remain unchanged.",
+      "pass": true
+    },
+    {
+      "id": "AUD-079",
+      "label": "Mobile recentering is navigation-only",
+      "detail": "Tap-to-recenter changes viewport/navigation state only and cannot alter genealogy.",
+      "pass": true
+    },
+    {
+      "id": "AUD-080",
+      "label": "Tree trail is non-canonical",
+      "detail": "Home/recent/breadcrumb tree navigation is browser state only.",
+      "pass": true
+    },
+    {
+      "id": "AUD-081",
+      "label": "Print simplification preserves genealogy semantics",
+      "detail": "Print styling may simplify media/chrome but must retain relationship meaning and unresolved identity-bridge distinction.",
+      "pass": true
+    },
+    {
+      "id": "AUD-082",
+      "label": "Family and Research dashboard transitions cannot leave stale DOM",
+      "detail": "Mode changes invalidate the family-home marker and force core rerendering before the overlay reapplies.",
       "pass": true
     }
   ],

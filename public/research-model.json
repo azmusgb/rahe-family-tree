@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "12.9",
+    "version": "12.9.1",
     "title": "Rahe Family Research Workbench",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "sourceTitle": "Rahe_Family_Tree_Canonical_Single_Source_v10_FULL_LOSSLESS_2026-09-10.docx",
@@ -25,11 +25,11 @@
       "canonicalRelationships": 94,
       "supplementalRelationships": 15
     },
-    "release": "12.9",
+    "release": "12.9.1",
     "graphPolicy": "Pedigree relationships remain separate from contextual sibling, sponsor, and derivative spouse-lead associations.",
     "eventPolicy": "Normalized events retain source row text and exact dossier location. Event type/place labels are display aids and do not promote claims.",
     "operationsPolicy": "Research task workflow status is operational metadata only and cannot mutate evidence state.",
-    "releaseTitle": "Family Tree Engine — Connected Traversal + Generation Lanes + Direct Line",
+    "releaseTitle": "Tree Visual + Interaction Polish — Couple Connectors + Mobile Recenter + Navigation Trail",
     "stateOverlayPolicy": "Workbench task progress and evidence-intake drafts never modify a claim, relationship, person, source, or canonical corpus automatically."
   },
   "people": [
@@ -22754,5 +22754,15 @@
     "privacyRule": "TREE PORTRAITS CONTINUE TO USE ONLY MEDIA ALREADY AUTHORIZED FOR PUBLIC PRESENTATION; LIVING-PERSON PRIVACY REMAINS BINDING",
     "navigationRule": "HOME PERSON, RECENT PEOPLE, CENTER-ON-PERSON, AND SCOPE MEMORY ARE NAVIGATION STATE ONLY",
     "canonicalRule": "TREE ENGINE OPERATIONS NEVER CREATE, PROMOTE, MERGE, OR DELETE CANONICAL GENEALOGY"
+  },
+  "treeEnginePolish": {
+    "version": "12.9.1",
+    "title": "Tree Visual + Interaction Polish",
+    "coupleRule": "DUAL-PARENT CHILD CONNECTORS MAY BE VISUALLY CENTERED ON AN EXPLICIT SPOUSE COUPLE; BOTH EXPLICIT PARENT RELATIONSHIPS REMAIN IN THE MODEL AND RELATIONSHIP INDEX",
+    "collapseRule": "COLLAPSE CONTROLS REMAIN PRESENTATION-ONLY AND MUST DESCRIBE THEIR DESCENDANT EFFECT",
+    "mobileRule": "ON SMALL SCREENS THE FIRST TAP RECENTERS A TREE PERSON; SUBSEQUENT ACTIVATION OPENS THE PROFILE",
+    "navigationRule": "TREE TRAIL, HOME PERSON, RECENT PEOPLE, AND CENTERING REMAIN BROWSER NAVIGATION STATE ONLY",
+    "printRule": "PRINT MODE MAY SIMPLIFY PORTRAITS AND CHROME BUT MUST RETAIN RELATIONSHIP SEMANTICS AND IDENTITY-BRIDGE DISTINCTION",
+    "dashboardRule": "FAMILY/RESEARCH MODE TRANSITIONS MUST FORCE A CORE RERENDER AND MUST NOT LEAVE STALE FAMILY-HOME DOM"
   }
 }
