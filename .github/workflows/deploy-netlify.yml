@@ -45,6 +45,21 @@ jobs:
           GITHUB_SHA: ${{ github.sha }}
         run: npm run build
 
+      - name: Provision temporary production smoke credential
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: |
+          set -euo pipefail
+          SMOKE_KEY=$(openssl rand -hex 32)
+          echo "::add-mask::$SMOKE_KEY"
+          echo "FAMILY_EDITOR_WRITE_KEY=$SMOKE_KEY" >> "$GITHUB_ENV"
+          npx --yes netlify-cli@latest env:set FAMILY_EDITOR_WRITE_KEY "$SMOKE_KEY" \
+            --scope functions \
+            --context production \
+            --secret \
+            --site="$NETLIFY_SITE_ID" >/dev/null
+          echo "Temporary production smoke credential provisioned."
+
       - name: Deploy current commit to production
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -79,8 +94,6 @@ jobs:
           exit 1
 
       - name: Smoke-test media privacy and genealogy immutability
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         run: |
           set -euo pipefail
 
@@ -92,16 +105,12 @@ jobs:
           BEFORE_CORPUS=$(sha256sum /tmp/corpus-before.json | awk '{print $1}')
 
           ANON_STATUS=$(curl --silent --show-error -o /tmp/media-anon.json -w '%{http_code}' "$PRODUCTION_URL/api/media")
+          echo "Anonymous media enumeration: HTTP $ANON_STATUS"
           test "$ANON_STATUS" = "200"
           node -e "const x=require('/tmp/media-anon.json'); if(!x.ok||x.authenticated) process.exit(1); if((x.media||[]).some(m=>m.visibility!=='public')) process.exit(2)"
 
-          FAMILY_EDITOR_WRITE_KEY=$(npx --yes netlify-cli@latest env:get FAMILY_EDITOR_WRITE_KEY --site="$NETLIFY_SITE_ID" 2>/dev/null | tail -n 1 | tr -d '\r')
-          if [ -z "$FAMILY_EDITOR_WRITE_KEY" ]; then
-            echo "FAMILY_EDITOR_WRITE_KEY is not available from the Netlify project environment."
-            exit 1
-          fi
-
           AUTH_STATUS=$(curl --silent --show-error -o /tmp/media-auth.json -w '%{http_code}' -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" "$PRODUCTION_URL/api/media")
+          echo "Authenticated media enumeration: HTTP $AUTH_STATUS"
           test "$AUTH_STATUS" = "200"
           node -e "const x=require('/tmp/media-auth.json'); if(!x.ok||!x.authenticated||!x.canUpload||!x.canEdit) process.exit(1)"
 
@@ -115,6 +124,7 @@ jobs:
             -F "title=v12.8 privacy smoke" \
             -F "visibility=public" \
             "$PRODUCTION_URL/api/media")
+          echo "Living-person public-request upload: HTTP $UPLOAD_STATUS"
           test "$UPLOAD_STATUS" = "201"
           MEDIA_ID=$(node -e "const x=require('/tmp/media-upload.json');if(!x.ok||x.media?.visibility!=='private'||!x.media?.livingPersonLinked)process.exit(1);process.stdout.write(x.media.id)")
 
@@ -125,8 +135,10 @@ jobs:
           node -e "const x=require('/tmp/media-auth-after.json');const id=process.argv[1];const m=(x.media||[]).find(m=>m.id===id);if(!m||m.visibility!=='private')process.exit(1)" "$MEDIA_ID"
 
           DIRECT_ANON=$(curl --silent --show-error -o /tmp/direct-anon.json -w '%{http_code}' "$PRODUCTION_URL/api/media?file=$MEDIA_ID")
+          echo "Anonymous private direct access: HTTP $DIRECT_ANON"
           test "$DIRECT_ANON" = "401"
           DIRECT_AUTH=$(curl --silent --show-error -o /tmp/direct-auth.bin -w '%{http_code}' -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" "$PRODUCTION_URL/api/media?file=$MEDIA_ID")
+          echo "Authenticated private direct access: HTTP $DIRECT_AUTH"
           test "$DIRECT_AUTH" = "200"
 
           UPDATE_STATUS=$(curl --silent --show-error -o /tmp/media-update.json -w '%{http_code}' \
@@ -134,6 +146,7 @@ jobs:
             -H 'content-type: application/json' \
             --data "{\"action\":\"update\",\"id\":\"$MEDIA_ID\",\"personIds\":[\"$LIVING_ID\"],\"visibility\":\"public\",\"title\":\"v12.8 privacy smoke updated\"}" \
             "$PRODUCTION_URL/api/media")
+          echo "Living-person public-request update: HTTP $UPDATE_STATUS"
           test "$UPDATE_STATUS" = "200"
           node -e "const x=require('/tmp/media-update.json');if(!x.ok||x.media?.visibility!=='private')process.exit(1)"
 
@@ -142,6 +155,7 @@ jobs:
             -H 'content-type: application/json' \
             --data "{\"action\":\"delete\",\"id\":\"$MEDIA_ID\"}" \
             "$PRODUCTION_URL/api/media")
+          echo "Smoke media soft-delete: HTTP $DELETE_STATUS"
           test "$DELETE_STATUS" = "200"
 
           curl --fail --silent --show-error "$PRODUCTION_URL/research-model.json" -o /tmp/model-after.json
@@ -151,3 +165,39 @@ jobs:
           test "$BEFORE_AUDIT" = "$(sha256sum /tmp/audit-after.json | awk '{print $1}')"
           test "$BEFORE_CORPUS" = "$(sha256sum /tmp/corpus-after.json | awk '{print $1}')"
           echo "Anonymous/authenticated media privacy and genealogy immutability smoke tests passed."
+
+      - name: Remove temporary production smoke credential
+        if: always()
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: |
+          npx --yes netlify-cli@latest env:unset FAMILY_EDITOR_WRITE_KEY \
+            --context production \
+            --site="$NETLIFY_SITE_ID" >/dev/null 2>&1 || true
+          echo "FAMILY_EDITOR_WRITE_KEY=" >> "$GITHUB_ENV"
+          echo "Temporary production smoke credential removed from project configuration."
+
+      - name: Redeploy exact commit without temporary credential
+        if: always()
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: |
+          npx --yes netlify-cli@latest deploy \
+            --prod \
+            --dir=dist \
+            --functions=netlify/functions \
+            --site="$NETLIFY_SITE_ID" \
+            --message="GitHub ${GITHUB_SHA} final credential-clean deployment"
+
+      - name: Verify final production fingerprint and anonymous privacy
+        if: always()
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error "$PRODUCTION_URL/build-info.json?sha=$EXPECTED_SHA" -o /tmp/build-info-final.json
+          node -e "const x=require('/tmp/build-info-final.json');const expected=process.argv[1];if(x.gitSha!==expected||x.release!=='12.8')process.exit(1)" "$EXPECTED_SHA"
+          STATUS=$(curl --silent --show-error -o /tmp/media-final-anon.json -w '%{http_code}' "$PRODUCTION_URL/api/media")
+          test "$STATUS" = "200"
+          node -e "const x=require('/tmp/media-final-anon.json');if(!x.ok||x.authenticated||(x.media||[]).some(m=>m.visibility!=='public'))process.exit(1)"
+          echo "Final production is release 12.8 at $EXPECTED_SHA with anonymous private-media exclusion intact."
