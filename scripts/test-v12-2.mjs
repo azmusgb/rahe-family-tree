@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
-const laterV12=x=>/^12\.(?:[2-9]|[1-9]\d+)(?:\.\d+)?$/.test(String(x));
+const laterV12=x=>{const [a=0,b=0]=String(x).split('.').map(Number);return a>12||(a===12&&b>=2);};
 
 test('v12.2 focal-person family experience remains defined',()=>{
   assert(laterV12(model.meta.release));
