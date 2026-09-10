@@ -68,6 +68,7 @@ jobs:
             --prod \
             --dir=dist \
             --functions=netlify/functions \
+            --skip-functions-cache \
             --site="$NETLIFY_SITE_ID" \
             --message="GitHub ${GITHUB_SHA}"
 
@@ -186,6 +187,7 @@ jobs:
             --prod \
             --dir=dist \
             --functions=netlify/functions \
+            --skip-functions-cache \
             --site="$NETLIFY_SITE_ID" \
             --message="GitHub ${GITHUB_SHA} final credential-clean deployment"
 
