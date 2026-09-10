@@ -11,7 +11,7 @@ const hashToken=(x:string)=>createHash('sha256').update(x).digest('hex');
 const sessionKey=(token:string)=>`session/${hashToken(token)}.json`;
 const emailKey=(email:string)=>`user/${hashToken(email.trim().toLowerCase())}.json`;
 const parseCookies=(req:Request)=>Object.fromEntries((req.headers.get('cookie')||'').split(';').map(x=>x.trim()).filter(Boolean).map(x=>{const i=x.indexOf('=');return[decodeURIComponent(x.slice(0,i)),decodeURIComponent(x.slice(i+1))]}));
-const bootstrapKey=()=>Netlify.env.get('FAMILY_EDITOR_WRITE_KEY')||'';
+const bootstrapKey=()=>process.env.FAMILY_EDITOR_WRITE_KEY||Netlify.env.get('FAMILY_EDITOR_WRITE_KEY')||'';
 const legacyAuthorized=(req:Request)=>{const expected=bootstrapKey(),supplied=req.headers.get('x-family-editor-key')||'';return !!expected&&supplied.length===expected.length&&timingSafeEqual(Buffer.from(supplied),Buffer.from(expected));};
 const mediaStoreFor=(context:Context)=>context.deploy?.context==='production'?getStore('rahe-family-media',{consistency:'strong'}):getDeployStore('rahe-family-media');
 const collaborationStoreFor=(context:Context)=>context.deploy?.context==='production'?getStore('rahe-family-collaboration',{consistency:'strong'}):getDeployStore('rahe-family-collaboration');
