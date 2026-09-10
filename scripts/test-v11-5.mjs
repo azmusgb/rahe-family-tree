@@ -5,7 +5,7 @@ const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
 
 test('v11.5 family supplement includes visible Hardesty family and named Rahe children',()=>{
-  assert.equal(model.meta.release,'11.5');
+  assert.match(String(model.meta.release),/^11\.[5-9]$/);
   assert.equal(model.familySupplement.people.length,8);
   const names=model.familySupplement.people.map(p=>p.name);
   for(const n of ['Aimee Hardesty','Walter T. Hardesty Sr.','Elizabeth A. Hardesty','Walter Hardesty Jr.','William John Rahe IV','Abel M. Rahe','Owen G. Rahe','Declan S. Rahe'])assert(names.includes(n));
@@ -39,8 +39,8 @@ test('canonical aggregate row remains retained but display count reflects named 
   assert.equal(model.meta.counts.supplementalRelationships,15);
 });
 
-test('v11.5 supplement audit gates pass',()=>{
+test('v11.5 supplement audit gates remain passing',()=>{
   for(const id of ['AUD-020','AUD-021','AUD-022'])assert.equal(audit.checks.find(c=>c.id===id)?.pass,true,id);
-  assert.equal(audit.version,'11.5');
+  assert.match(String(audit.version),/^11\.[5-9]$/);
   assert.equal(audit.pass,true);
 });
