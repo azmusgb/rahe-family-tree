@@ -1,5 +1,5 @@
 {
-  "version": "12.1",
+  "version": "12.2",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -195,6 +195,30 @@
       "label": "Local editor state has a controlled cross-device migration path",
       "pass": true,
       "detail": "Existing browser-local editor state can be submitted as a pending shared revision and later pulled on another device after approval."
+    },
+    {
+      "id": "AUD-033",
+      "label": "Family-first UX cannot change canonical evidence",
+      "pass": true,
+      "detail": "Family-first presentation changes navigation and editing ergonomics only; it does not promote, merge, or rewrite canonical evidence."
+    },
+    {
+      "id": "AUD-034",
+      "label": "Contextual add-relative requires explicit relationship edges",
+      "pass": true,
+      "detail": "Contextual Add Relative creates a new local person plus explicit relationship edges only. It may auto-link a second parent only when exactly one spouse is already explicitly structured."
+    },
+    {
+      "id": "AUD-035",
+      "label": "Second-parent convenience cannot infer unknown parentage",
+      "pass": true,
+      "detail": "Contextual Add Relative creates a new local person plus explicit relationship edges only. It may auto-link a second parent only when exactly one spouse is already explicitly structured."
+    },
+    {
+      "id": "AUD-036",
+      "label": "Evidence state provenance and workflow remain separate concepts",
+      "pass": true,
+      "detail": "Evidence state, provenance, and workflow are distinct concepts and must not be visually conflated."
     }
   ],
   "exceptions": {
