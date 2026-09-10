@@ -15,6 +15,7 @@ export const routes={
   evidence:['Evidence','Claim register, relationship assertions, promotion gate, and source traceability.'],
   sources:['Sources','Canonical source IDs, source-use cautions, crosswalks, and claim/relationship usage.'],
   research:['Research Queue','Operational research workflow layered on the source-controlled acquisition queue.'],
+  intelligence:['Research Intelligence','Advisory duplicate, chronology, structural-integrity, privacy, and evidence-gap signals for human review.'],
   conflicts:['Conflicts','Unresolved, rejected, conflicted, and quarantined material retained without promotion.'],
   migration:['Migration','Source-controlled migration and geographic reconstruction from the canonical dossier.'],
   archive:['Archive','Complete public-safe canonical corpus, Appendices A–G, Part II legacy annexes, and final certification.']
