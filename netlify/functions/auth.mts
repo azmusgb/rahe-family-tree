@@ -1,19 +1,65 @@
-import type { Config } from '@netlify/functions';
-import { getDatabase } from '@netlify/database';
+import type { Config, Context } from '@netlify/functions';
+import { getStore, getDeployStore } from '@netlify/blobs';
 import { randomBytes, scrypt as scryptCb, timingSafeEqual, createHash } from 'node:crypto';
 import { promisify } from 'node:util';
+
 const scrypt=promisify(scryptCb);
 const json=(body:unknown,status=200,headers:Record<string,string>={})=>new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store',...headers}});
 const cookieName='rahe_family_session';
 const roles=['viewer','contributor','researcher','editor','admin'];
 const roleRank=(role:string)=>roles.indexOf(role);
 const hashToken=(x:string)=>createHash('sha256').update(x).digest('hex');
+const emailKey=(email:string)=>`user/${hashToken(email.trim().toLowerCase())}.json`;
+const sessionKey=(token:string)=>`session/${hashToken(token)}.json`;
 const parseCookies=(req:Request)=>Object.fromEntries((req.headers.get('cookie')||'').split(';').map(x=>x.trim()).filter(Boolean).map(x=>{const i=x.indexOf('=');return[decodeURIComponent(x.slice(0,i)),decodeURIComponent(x.slice(i+1))]}));
 const bootstrapKey=()=>Netlify.env.get('FAMILY_EDITOR_WRITE_KEY')||'';
 const legacyAuthorized=(req:Request)=>{const expected=bootstrapKey(),supplied=req.headers.get('x-family-editor-key')||'';return !!expected&&supplied.length===expected.length&&timingSafeEqual(Buffer.from(supplied),Buffer.from(expected));};
-async function ensure(db:any){await db.sql`CREATE TABLE IF NOT EXISTS family_users (id text primary key,email text unique not null,display_name text not null,role text not null,password_hash text not null,password_salt text not null,active boolean not null default true,created_at timestamptz not null default now(),updated_at timestamptz not null default now())`;await db.sql`CREATE TABLE IF NOT EXISTS family_sessions (token_hash text primary key,user_id text not null references family_users(id),expires_at timestamptz not null,created_at timestamptz not null default now())`;}
+const storeFor=(context:Context)=>context.deploy?.context==='production'?getStore('rahe-family-collaboration',{consistency:'strong'}):getDeployStore('rahe-family-collaboration');
 async function passwordHash(password:string,salt:string){return Buffer.from(await scrypt(password,salt,64) as Buffer).toString('hex');}
-async function currentUser(req:Request,db:any){const token=parseCookies(req)[cookieName];if(!token)return null;const rows=await db.sql`SELECT u.id,u.email,u.display_name,u.role,u.active FROM family_sessions s JOIN family_users u ON u.id=s.user_id WHERE s.token_hash=${hashToken(token)} AND s.expires_at>NOW() AND u.active=true LIMIT 1`;return rows[0]||null;}
-const publicUser=(u:any)=>u?{id:u.id,email:u.email,displayName:u.display_name,role:u.role}:null;
-export default async(req:Request)=>{const db=getDatabase();await ensure(db);if(req.method==='GET'){const me=await currentUser(req,db);const count=(await db.sql`SELECT count(*)::int AS n FROM family_users`)[0]?.n||0;return json({ok:true,user:publicUser(me),bootstrapAvailable:count===0});}if(req.method!=='POST')return json({ok:false,error:'Method not allowed.'},405);let body:any;try{body=await req.json();}catch{return json({ok:false,error:'Invalid JSON.'},400);}if(body.action==='bootstrap'){const count=(await db.sql`SELECT count(*)::int AS n FROM family_users`)[0]?.n||0;if(count!==0)return json({ok:false,error:'Family account bootstrap is already complete.'},409);if(!legacyAuthorized(req))return json({ok:false,error:'Bootstrap key required.'},401);const email=String(body.email||'').trim().toLowerCase(),name=String(body.displayName||'').trim(),password=String(body.password||'');if(!email||!name||password.length<10)return json({ok:false,error:'Name, email, and a password of at least 10 characters are required.'},400);const salt=randomBytes(16).toString('hex'),hash=await passwordHash(password,salt),id=`USR-${crypto.randomUUID()}`;await db.sql`INSERT INTO family_users(id,email,display_name,role,password_hash,password_salt) VALUES(${id},${email},${name},'admin',${hash},${salt})`;return json({ok:true,user:{id,email,displayName:name,role:'admin'}});}if(body.action==='login'){const email=String(body.email||'').trim().toLowerCase(),password=String(body.password||'');const rows=await db.sql`SELECT * FROM family_users WHERE email=${email} AND active=true LIMIT 1`;const u=rows[0];if(!u)return json({ok:false,error:'Invalid email or password.'},401);const actual=await passwordHash(password,u.password_salt);if(actual.length!==u.password_hash.length||!timingSafeEqual(Buffer.from(actual),Buffer.from(u.password_hash)))return json({ok:false,error:'Invalid email or password.'},401);const token=randomBytes(32).toString('base64url'),expires=new Date(Date.now()+14*864e5);await db.sql`INSERT INTO family_sessions(token_hash,user_id,expires_at) VALUES(${hashToken(token)},${u.id},${expires.toISOString()})`;return json({ok:true,user:publicUser(u)},200,{'set-cookie':`${cookieName}=${encodeURIComponent(token)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${14*86400}`});}if(body.action==='logout'){const token=parseCookies(req)[cookieName];if(token)await db.sql`DELETE FROM family_sessions WHERE token_hash=${hashToken(token)}`;return json({ok:true},200,{'set-cookie':`${cookieName}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`});}const me=await currentUser(req,db);if(!me||roleRank(me.role)<roleRank('admin'))return json({ok:false,error:'Admin account required.'},403);if(body.action==='create-user'){const email=String(body.email||'').trim().toLowerCase(),name=String(body.displayName||'').trim(),password=String(body.password||''),role=roles.includes(body.role)?body.role:'viewer';if(!email||!name||password.length<10)return json({ok:false,error:'Name, email, and a password of at least 10 characters are required.'},400);const salt=randomBytes(16).toString('hex'),hash=await passwordHash(password,salt),id=`USR-${crypto.randomUUID()}`;try{await db.sql`INSERT INTO family_users(id,email,display_name,role,password_hash,password_salt) VALUES(${id},${email},${name},${role},${hash},${salt})`;}catch{return json({ok:false,error:'That email already has an account.'},409);}return json({ok:true,user:{id,email,displayName:name,role}});}if(body.action==='list-users'){const rows=await db.sql`SELECT id,email,display_name,role,active,created_at FROM family_users ORDER BY display_name`;return json({ok:true,users:rows.map(publicUser)});}return json({ok:false,error:'Unknown action.'},400);};
+async function currentUser(req:Request,store:any){const token=parseCookies(req)[cookieName];if(!token)return null;const session:any=await store.get(sessionKey(token),{type:'json'});if(!session||new Date(session.expiresAt).getTime()<=Date.now())return null;const user:any=await store.get(emailKey(session.email),{type:'json'});return user?.active===false?null:user||null;}
+const publicUser=(u:any)=>u?{id:u.id,email:u.email,displayName:u.displayName,role:u.role}:null;
+async function listUsers(store:any){const result:any=await store.list({prefix:'user/'}),users=[];for(const item of result.blobs||[]){const u:any=await store.get(item.key,{type:'json'});if(u)users.push(u);}return users.sort((a:any,b:any)=>String(a.displayName).localeCompare(String(b.displayName)));}
+
+export default async(req:Request,context:Context)=>{
+  const store=storeFor(context);
+  if(req.method==='GET'){
+    const me=await currentUser(req,store),users=await listUsers(store);
+    return json({ok:true,user:publicUser(me),bootstrapAvailable:users.length===0,storage:'Netlify Blobs'});
+  }
+  if(req.method!=='POST')return json({ok:false,error:'Method not allowed.'},405);
+  let body:any;try{body=await req.json();}catch{return json({ok:false,error:'Invalid JSON.'},400);}
+  if(body.action==='bootstrap'){
+    const users=await listUsers(store);if(users.length!==0)return json({ok:false,error:'Family account bootstrap is already complete.'},409);
+    if(!legacyAuthorized(req))return json({ok:false,error:'Bootstrap key required.'},401);
+    const email=String(body.email||'').trim().toLowerCase(),name=String(body.displayName||'').trim(),password=String(body.password||'');
+    if(!email||!name||password.length<10)return json({ok:false,error:'Name, email, and a password of at least 10 characters are required.'},400);
+    const salt=randomBytes(16).toString('hex'),passwordHashHex=await passwordHash(password,salt),id=`USR-${crypto.randomUUID()}`;
+    const user={id,email,displayName:name,role:'admin',passwordHash:passwordHashHex,passwordSalt:salt,active:true,version:1,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
+    await store.setJSON(emailKey(email),user);return json({ok:true,user:publicUser(user)});
+  }
+  if(body.action==='login'){
+    const email=String(body.email||'').trim().toLowerCase(),password=String(body.password||''),u:any=await store.get(emailKey(email),{type:'json'});
+    if(!u||u.active===false)return json({ok:false,error:'Invalid email or password.'},401);
+    const actual=await passwordHash(password,u.passwordSalt);if(actual.length!==u.passwordHash.length||!timingSafeEqual(Buffer.from(actual),Buffer.from(u.passwordHash)))return json({ok:false,error:'Invalid email or password.'},401);
+    const token=randomBytes(32).toString('base64url'),expires=new Date(Date.now()+14*864e5);
+    await store.setJSON(sessionKey(token),{email:u.email,userId:u.id,expiresAt:expires.toISOString(),createdAt:new Date().toISOString(),version:1});
+    return json({ok:true,user:publicUser(u)},200,{'set-cookie':`${cookieName}=${encodeURIComponent(token)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${14*86400}`});
+  }
+  if(body.action==='logout'){
+    const token=parseCookies(req)[cookieName];if(token)await store.delete(sessionKey(token));
+    return json({ok:true},200,{'set-cookie':`${cookieName}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`});
+  }
+  const me=await currentUser(req,store);if(!me||roleRank(me.role)<roleRank('admin'))return json({ok:false,error:'Admin account required.'},403);
+  if(body.action==='create-user'){
+    const email=String(body.email||'').trim().toLowerCase(),name=String(body.displayName||'').trim(),password=String(body.password||''),role=roles.includes(body.role)?body.role:'viewer';
+    if(!email||!name||password.length<10)return json({ok:false,error:'Name, email, and a password of at least 10 characters are required.'},400);
+    if(await store.get(emailKey(email),{type:'json'}))return json({ok:false,error:'That email already has an account.'},409);
+    const salt=randomBytes(16).toString('hex'),passwordHashHex=await passwordHash(password,salt),id=`USR-${crypto.randomUUID()}`;
+    const user={id,email,displayName:name,role,passwordHash:passwordHashHex,passwordSalt:salt,active:true,version:1,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
+    await store.setJSON(emailKey(email),user);return json({ok:true,user:publicUser(user)});
+  }
+  if(body.action==='list-users'){const users=await listUsers(store);return json({ok:true,users:users.map(publicUser)});}
+  return json({ok:false,error:'Unknown action.'},400);
+};
+
 export const config:Config={path:'/api/auth'};
