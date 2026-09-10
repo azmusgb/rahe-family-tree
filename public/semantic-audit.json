@@ -128,13 +128,13 @@
       "id": "AUD-021",
       "label": "Named living descendants replace aggregate display placeholder without deleting source row",
       "pass": true,
-      "detail": "5 named family-supplied people added; canonical aggregate row retained but superseded in display."
+      "detail": "8 named family-supplied people added; canonical aggregate row retained but superseded in display."
     },
     {
       "id": "AUD-022",
-      "label": "Hardesty branch does not invent an unidentified spouse",
+      "label": "Hardesty spouse and visible children are explicit without inferring cropped people",
       "pass": true,
-      "detail": "Aimee’s Hardesty married-name identity is family-supplied. No Hardesty spouse node or spouse edge is asserted because the spouse identity has not been supplied."
+      "detail": "The family screenshot directly supports Walter T. Hardesty Sr. as Aimee Hardesty’s spouse and shows Elizabeth A. Hardesty and Walter Hardesty Jr. as their children. Only fully visible named family members are added; partially cropped people are not inferred."
     }
   ],
   "exceptions": {

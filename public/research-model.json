@@ -20,16 +20,16 @@
       "familyGroups": 19,
       "evidenceGaps": 13,
       "canonicalPeople": 70,
-      "supplementalPeople": 5,
-      "displayPeople": 74,
+      "supplementalPeople": 8,
+      "displayPeople": 77,
       "canonicalRelationships": 94,
-      "supplementalRelationships": 10
+      "supplementalRelationships": 15
     },
     "release": "11.5",
     "graphPolicy": "Pedigree relationships remain separate from contextual sibling, sponsor, and derivative spouse-lead associations.",
     "eventPolicy": "Normalized events retain source row text and exact dossier location. Event type/place labels are display aids and do not promote claims.",
     "operationsPolicy": "Research task workflow status is operational metadata only and cannot mutate evidence state.",
-    "releaseTitle": "Named Living-Family Supplement + Hardesty Branch",
+    "releaseTitle": "Named Living-Family Supplement + Complete Visible Hardesty Branch",
     "stateOverlayPolicy": "Workbench task progress and evidence-intake drafts never modify a claim, relationship, person, source, or canonical corpus automatically."
   },
   "people": [
@@ -12487,13 +12487,13 @@
         "id": "AUD-021",
         "label": "Named living descendants replace aggregate display placeholder without deleting source row",
         "pass": true,
-        "detail": "5 named family-supplied people added; canonical aggregate row retained but superseded in display."
+        "detail": "8 named family-supplied people added; canonical aggregate row retained but superseded in display."
       },
       {
         "id": "AUD-022",
-        "label": "Hardesty branch does not invent an unidentified spouse",
+        "label": "Hardesty spouse and visible children are explicit without inferring cropped people",
         "pass": true,
-        "detail": "Aimee’s Hardesty married-name identity is family-supplied. No Hardesty spouse node or spouse edge is asserted because the spouse identity has not been supplied."
+        "detail": "The family screenshot directly supports Walter T. Hardesty Sr. as Aimee Hardesty’s spouse and shows Elizabeth A. Hardesty and Walter Hardesty Jr. as their children. Only fully visible named family members are added; partially cropped people are not inferred."
       }
     ],
     "exceptions": {
@@ -21869,27 +21869,84 @@
     "promotionRule": "Review packets document proposed research interpretation only. They cannot alter canonical evidence state."
   },
   "familySupplement": {
-    "version": 1,
+    "version": 2,
     "authority": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS",
     "evidenceRule": "These living-family identities and relationships were supplied directly by the family/user after v10. They are displayed as family-established supplemental facts and are not represented as if they originated in the v10 source document.",
-    "privacyRule": "Public display withholds living-person birth dates and years.",
+    "privacyRule": "Public display withholds living-person birth dates and years, even when supplied in a family screenshot.",
     "aggregateReplacement": {
       "canonicalPersonId": "P-CURRENT-RAHE-CHILDREN",
       "displayTreatment": "SUPERSEDED IN UI BY NAMED FAMILY-SUPPLIED CHILDREN; canonical row retained in model for traceability."
     },
-    "hardestyRule": "Aimee’s Hardesty married-name identity is family-supplied. No Hardesty spouse node or spouse edge is asserted because the spouse identity has not been supplied.",
+    "hardestyRule": "The family screenshot directly supports Walter T. Hardesty Sr. as Aimee Hardesty’s spouse and shows Elizabeth A. Hardesty and Walter Hardesty Jr. as their children. Only fully visible named family members are added; partially cropped people are not inferred.",
     "people": [
       {
         "id": "P-AIMEE-MICHELLE-RAHE-HARDESTY",
-        "name": "Aimee Michelle Rahe / Aimee Rahe Hardesty",
+        "name": "Aimee Hardesty",
         "aliases": [
+          "Aimee Hardesty",
           "Aimee Michelle Rahe",
-          "Aimee Rahe Hardesty",
-          "Aimee Hardesty"
+          "Aimee Rahe Hardesty"
         ],
         "branch": "Rahe/Hardesty",
         "dates": "Living / birth details withheld",
-        "role": "daughter of William John Rahe Jr. + Kathleen Ann Dennewitz Rahe; Hardesty married-name identity family-supplied; spouse identity not supplied",
+        "role": "daughter of William John Rahe Jr. + Kathleen Ann Dennewitz Rahe; spouse Walter T. Hardesty Sr.",
+        "state": "SUPPORTED / family-established",
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "living": true,
+        "references": [],
+        "sourceLocation": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "P-WALTER-T-HARDESTY-SR",
+        "name": "Walter T. Hardesty Sr.",
+        "aliases": [
+          "Walter T Hardesty Sr",
+          "Walter T. Hardesty Sr."
+        ],
+        "branch": "Hardesty",
+        "dates": "Living / birth details withheld",
+        "role": "spouse Aimee Hardesty; father of Elizabeth A. Hardesty and Walter Hardesty Jr.",
+        "state": "SUPPORTED / family-established",
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "living": true,
+        "references": [],
+        "sourceLocation": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "P-ELIZABETH-A-HARDESTY",
+        "name": "Elizabeth A. Hardesty",
+        "aliases": [
+          "Elizabeth A Hardesty",
+          "Elizabeth A. Hardesty"
+        ],
+        "branch": "Hardesty",
+        "dates": "Living / birth details withheld",
+        "role": "child of Walter T. Hardesty Sr. + Aimee Hardesty",
+        "state": "SUPPORTED / family-established",
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "living": true,
+        "references": [],
+        "sourceLocation": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "P-WALTER-HARDESTY-JR",
+        "name": "Walter Hardesty Jr.",
+        "aliases": [
+          "Walter Hardesty Jr",
+          "Walter Hardesty Jr."
+        ],
+        "branch": "Hardesty",
+        "dates": "Living / birth details withheld",
+        "role": "child of Walter T. Hardesty Sr. + Aimee Hardesty",
         "state": "SUPPORTED / family-established",
         "stateTokens": [
           "SUPPORTED"
@@ -22007,10 +22064,10 @@
       },
       {
         "id": "SUP-REL-003",
-        "type": "parent-child",
-        "from": "P-WILLIAM-JOHN-RAHE-III",
-        "to": "P-WILLIAM-JOHN-RAHE-IV",
-        "role": "father → child",
+        "type": "spouse",
+        "from": "P-AIMEE-MICHELLE-RAHE-HARDESTY",
+        "to": "P-WALTER-T-HARDESTY-SR",
+        "role": "spouse",
         "state": "SUPPORTED / family-established",
         "active": true,
         "stateTokens": [
@@ -22024,6 +22081,86 @@
       {
         "id": "SUP-REL-004",
         "type": "parent-child",
+        "from": "P-AIMEE-MICHELLE-RAHE-HARDESTY",
+        "to": "P-ELIZABETH-A-HARDESTY",
+        "role": "mother → daughter",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "SUP-REL-005",
+        "type": "parent-child",
+        "from": "P-WALTER-T-HARDESTY-SR",
+        "to": "P-ELIZABETH-A-HARDESTY",
+        "role": "father → daughter",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "SUP-REL-006",
+        "type": "parent-child",
+        "from": "P-AIMEE-MICHELLE-RAHE-HARDESTY",
+        "to": "P-WALTER-HARDESTY-JR",
+        "role": "mother → son",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "SUP-REL-007",
+        "type": "parent-child",
+        "from": "P-WALTER-T-HARDESTY-SR",
+        "to": "P-WALTER-HARDESTY-JR",
+        "role": "father → son",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "SUP-REL-008",
+        "type": "parent-child",
+        "from": "P-WILLIAM-JOHN-RAHE-III",
+        "to": "P-WILLIAM-JOHN-RAHE-IV",
+        "role": "father → child",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "SUP-REL-009",
+        "type": "parent-child",
         "from": "P-MELISSA-RAHE",
         "to": "P-WILLIAM-JOHN-RAHE-IV",
         "role": "mother → child",
@@ -22038,7 +22175,7 @@
         "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
       },
       {
-        "id": "SUP-REL-005",
+        "id": "SUP-REL-010",
         "type": "parent-child",
         "from": "P-WILLIAM-JOHN-RAHE-III",
         "to": "P-ABEL-M-RAHE",
@@ -22054,7 +22191,7 @@
         "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
       },
       {
-        "id": "SUP-REL-006",
+        "id": "SUP-REL-011",
         "type": "parent-child",
         "from": "P-MELISSA-RAHE",
         "to": "P-ABEL-M-RAHE",
@@ -22070,7 +22207,7 @@
         "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
       },
       {
-        "id": "SUP-REL-007",
+        "id": "SUP-REL-012",
         "type": "parent-child",
         "from": "P-WILLIAM-JOHN-RAHE-III",
         "to": "P-OWEN-G-RAHE",
@@ -22086,7 +22223,7 @@
         "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
       },
       {
-        "id": "SUP-REL-008",
+        "id": "SUP-REL-013",
         "type": "parent-child",
         "from": "P-MELISSA-RAHE",
         "to": "P-OWEN-G-RAHE",
@@ -22102,7 +22239,7 @@
         "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
       },
       {
-        "id": "SUP-REL-009",
+        "id": "SUP-REL-014",
         "type": "parent-child",
         "from": "P-WILLIAM-JOHN-RAHE-III",
         "to": "P-DECLAN-S-RAHE",
@@ -22118,7 +22255,7 @@
         "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
       },
       {
-        "id": "SUP-REL-010",
+        "id": "SUP-REL-015",
         "type": "parent-child",
         "from": "P-MELISSA-RAHE",
         "to": "P-DECLAN-S-RAHE",
@@ -22152,6 +22289,21 @@
       },
       {
         "id": "SUP-FG-002",
+        "label": "Aimee Hardesty × Walter T. Hardesty Sr.",
+        "branch": "Rahe/Hardesty",
+        "spouseIds": [
+          "P-AIMEE-MICHELLE-RAHE-HARDESTY",
+          "P-WALTER-T-HARDESTY-SR"
+        ],
+        "childIds": [
+          "P-ELIZABETH-A-HARDESTY",
+          "P-WALTER-HARDESTY-JR"
+        ],
+        "state": "SUPPORTED / family-established",
+        "supplemental": true
+      },
+      {
+        "id": "SUP-FG-003",
         "label": "William John Rahe III × Melissa Rahe",
         "branch": "Rahe",
         "spouseIds": [
