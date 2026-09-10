@@ -1,5 +1,5 @@
 {
-  "version": "12.6.2",
+  "version": "12.7",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -368,6 +368,36 @@
       "id": "AUD-061",
       "label": "Portrait privacy invariant retained",
       "detail": "Family-facing portrait presentation remains restricted to media already public.",
+      "pass": true
+    },
+    {
+      "id": "AUD-062",
+      "label": "Relative creation is atomic",
+      "detail": "A new relative and every relationship selected for that operation are prevalidated and saved through one family-edit commit.",
+      "pass": true
+    },
+    {
+      "id": "AUD-063",
+      "label": "Contribution parentage remains explicit",
+      "detail": "Second-parent and sibling connections are limited to already structured parent/spouse relationships and cannot invent parentage.",
+      "pass": true
+    },
+    {
+      "id": "AUD-064",
+      "label": "Media uses account authorization",
+      "detail": "Private media requires family sign-in; Contributor+ may upload and Editor+ may soft-delete while public media remains public.",
+      "pass": true
+    },
+    {
+      "id": "AUD-065",
+      "label": "Hidden source records remain restorable",
+      "detail": "Local hiding never deletes canonical or family-supplied source records and the editor exposes restore controls.",
+      "pass": true
+    },
+    {
+      "id": "AUD-066",
+      "label": "Contribution remains non-canonical",
+      "detail": "Local and shared contribution workflows cannot rewrite or promote canonical v10 evidence.",
       "pass": true
     }
   ],
