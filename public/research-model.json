@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "12.0",
+    "version": "12.1",
     "title": "Rahe Family Research Workbench",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "sourceTitle": "Rahe_Family_Tree_Canonical_Single_Source_v10_FULL_LOSSLESS_2026-09-10.docx",
@@ -25,11 +25,11 @@
       "canonicalRelationships": 94,
       "supplementalRelationships": 15
     },
-    "release": "12.0",
+    "release": "12.1",
     "graphPolicy": "Pedigree relationships remain separate from contextual sibling, sponsor, and derivative spouse-lead associations.",
     "eventPolicy": "Normalized events retain source row text and exact dossier location. Event type/place labels are display aids and do not promote claims.",
     "operationsPolicy": "Research task workflow status is operational metadata only and cannot mutate evidence state.",
-    "releaseTitle": "v12 Foundation — Editor Pro + Live Family Model",
+    "releaseTitle": "Persistent Family Revisions + Cross-Device Sync",
     "stateOverlayPolicy": "Workbench task progress and evidence-intake drafts never modify a claim, relationship, person, source, or canonical corpus automatically."
   },
   "people": [
@@ -12358,7 +12358,7 @@
     }
   ],
   "audit": {
-    "version": "12.0",
+    "version": "12.1",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "generatedFrom": "public/corpus.json",
     "pass": true,
@@ -12530,6 +12530,30 @@
         "label": "shared-data architecture cannot silently overwrite canonical evidence",
         "pass": true,
         "detail": "A future shared backend must store contributed revisions separately from the canonical evidence corpus and may not silently overwrite source-controlled evidence states."
+      },
+      {
+        "id": "AUD-029",
+        "label": "Shared family data remains separate from canonical evidence",
+        "pass": true,
+        "detail": "APPEND-ONLY SHARED FAMILY REVISION LAYER — CANONICAL v10 REMAINS IMMUTABLE"
+      },
+      {
+        "id": "AUD-030",
+        "label": "Shared writes require a server-side editor key",
+        "pass": true,
+        "detail": "Writes and review actions require FAMILY_EDITOR_WRITE_KEY. The key is never embedded in the public bundle."
+      },
+      {
+        "id": "AUD-031",
+        "label": "Shared revisions require explicit review before publication",
+        "pass": true,
+        "detail": "local edit → submit pending revision → explicit approve or reject → pull latest approved revision"
+      },
+      {
+        "id": "AUD-032",
+        "label": "Local editor state has a controlled cross-device migration path",
+        "pass": true,
+        "detail": "Existing browser-local editor state can be submitted as a pending shared revision and later pulled on another device after approval."
       }
     ],
     "exceptions": {
@@ -22413,5 +22437,22 @@
       ],
       "rule": "A future shared backend must store contributed revisions separately from the canonical evidence corpus and may not silently overwrite source-controlled evidence states."
     }
+  },
+  "sharedFamilyData": {
+    "version": "12.1",
+    "authority": "APPEND-ONLY SHARED FAMILY REVISION LAYER — CANONICAL v10 REMAINS IMMUTABLE",
+    "storage": "Netlify Database / PostgreSQL",
+    "api": "/api/family-sync",
+    "workflow": [
+      "local edit",
+      "submit pending revision",
+      "explicit approve or reject",
+      "pull latest approved revision"
+    ],
+    "writeProtection": "Writes and review actions require FAMILY_EDITOR_WRITE_KEY. The key is never embedded in the public bundle.",
+    "readPolicy": "Only the latest approved family-edit snapshot is available without the editor key. Pending/rejected revision history requires the editor key.",
+    "privacyRule": "Shared revisions carry the same living-person suppression as the Family Editor. Canonical evidence states are never modified by shared revisions.",
+    "migrationRule": "Existing browser-local editor state can be submitted as a pending shared revision and later pulled on another device after approval.",
+    "rollbackRule": "Revisions are append-only; restoring an earlier state is performed by approving a new revision based on the desired prior snapshot rather than mutating canonical evidence."
   }
 }

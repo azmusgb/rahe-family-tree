@@ -1,5 +1,5 @@
 {
-  "version": "12.0",
+  "version": "12.1",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -171,6 +171,30 @@
       "label": "shared-data architecture cannot silently overwrite canonical evidence",
       "pass": true,
       "detail": "A future shared backend must store contributed revisions separately from the canonical evidence corpus and may not silently overwrite source-controlled evidence states."
+    },
+    {
+      "id": "AUD-029",
+      "label": "Shared family data remains separate from canonical evidence",
+      "pass": true,
+      "detail": "APPEND-ONLY SHARED FAMILY REVISION LAYER — CANONICAL v10 REMAINS IMMUTABLE"
+    },
+    {
+      "id": "AUD-030",
+      "label": "Shared writes require a server-side editor key",
+      "pass": true,
+      "detail": "Writes and review actions require FAMILY_EDITOR_WRITE_KEY. The key is never embedded in the public bundle."
+    },
+    {
+      "id": "AUD-031",
+      "label": "Shared revisions require explicit review before publication",
+      "pass": true,
+      "detail": "local edit → submit pending revision → explicit approve or reject → pull latest approved revision"
+    },
+    {
+      "id": "AUD-032",
+      "label": "Local editor state has a controlled cross-device migration path",
+      "pass": true,
+      "detail": "Existing browser-local editor state can be submitted as a pending shared revision and later pulled on another device after approval."
     }
   ],
   "exceptions": {
