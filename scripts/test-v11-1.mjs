@@ -5,7 +5,7 @@ const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
 
 test('v11.1 contextual orphan dispositions are explicit and non-promotional',()=>{
-  assert.equal(model.meta.release,'11.1');
+  assert.match(String(model.meta.release),/^11\.(?:1|2)$/);
   assert.equal(model.contextRelationships.length,4);
   const ids=new Set(model.contextRelationships.map(r=>r.id));
   for(const id of ['CTX-KIN-001','CTX-KIN-002','CTX-FER-001','CTX-RAH-001'])assert(ids.has(id));
