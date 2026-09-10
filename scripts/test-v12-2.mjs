@@ -3,9 +3,10 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
+const laterV12=x=>/^12\.(?:[2-9]|[1-9]\d+)(?:\.\d+)?$/.test(String(x));
 
 test('v12.2 focal-person family experience remains defined',()=>{
-  assert.match(model.meta.release,/^12\.[2-9]$/);
+  assert(laterV12(model.meta.release));
   assert.equal(model.familyExperience.version,'12.2');
   assert.match(model.familyExperience.defaultTreeMode,/FOCAL PERSON/i);
   assert(model.familyExperience.navigationGroups.includes('Family'));
@@ -25,6 +26,6 @@ test('family-first UX remains non-promotional',()=>{
 
 test('v12.2 semantic audit gates remain passing',()=>{
   for(const id of ['AUD-033','AUD-034','AUD-035','AUD-036'])assert.equal(audit.checks.find(c=>c.id===id)?.pass,true,id);
-  assert.match(audit.version,/^12\.[2-9]$/);
+  assert(laterV12(audit.version));
   assert.equal(audit.pass,true);
 });
