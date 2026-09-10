@@ -3,9 +3,10 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
+const v121plus=x=>{const [a=0,b=0]=String(x).split('.').map(Number);return a>12||(a===12&&b>=1);};
 
 test('v12.1 shared family data remains append-only and non-canonical',()=>{
-  assert.match(String(model.meta.release),/^12\.[1-9]/);
+  assert(v121plus(model.meta.release));
   assert.match(model.sharedFamilyData.authority,/CANONICAL v10 REMAINS IMMUTABLE/i);
   assert.match(model.sharedFamilyData.storage,/PostgreSQL|Netlify Blobs/i);
 });
@@ -23,5 +24,5 @@ test('browser-local edits retain cross-device migration without promotion',()=>{
 
 test('v12.1 audit gates remain passing',()=>{
   for(const id of ['AUD-029','AUD-030','AUD-031','AUD-032'])assert.equal(audit.checks.find(c=>c.id===id)?.pass,true,id);
-  assert.match(String(audit.version),/^12\.[1-9]/);assert.equal(audit.pass,true);
+  assert(v121plus(audit.version));assert.equal(audit.pass,true);
 });
