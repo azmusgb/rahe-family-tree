@@ -1,5 +1,5 @@
 {
-  "version": "12.5.1",
+  "version": "12.6",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -297,6 +297,30 @@
       "label": "Shared collaboration no longer requires Netlify Database",
       "pass": true,
       "detail": "Netlify Blobs · Each revision is an independent append-only Blob object with an incrementing version. Review requests carry expectedVersion and stale reviews are rejected."
+    },
+    {
+      "id": "AUD-050",
+      "label": "Family-first presentation cannot rewrite canonical evidence",
+      "pass": true,
+      "detail": "v12.6 changes presentation and navigation only. Canonical v10 evidence, claims, relationships, source states, identity bridge status, and promotion gates remain immutable."
+    },
+    {
+      "id": "AUD-051",
+      "label": "Research mode remains available without dominating family browsing",
+      "pass": true,
+      "detail": "Family mode prioritizes Home, Tree, People, and Family Groups. Research and archive navigation remain available but visually secondary."
+    },
+    {
+      "id": "AUD-052",
+      "label": "Plain-language evidence labels are presentation-only",
+      "pass": true,
+      "detail": "Family mode may translate controlled evidence tokens into plain-language labels for presentation only; stored evidence states are never rewritten."
+    },
+    {
+      "id": "AUD-053",
+      "label": "Mobile family browsing retains the visual tree",
+      "pass": true,
+      "detail": "The visual focal-person tree remains the dominant family exploration surface. Full-tree expert mode remains available and mobile retains the visual tree instead of replacing it with a list-only experience."
     }
   ],
   "exceptions": {
