@@ -5,7 +5,7 @@ const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
 
 test('v11.2 normalized events preserve source rows and do not promote evidence',()=>{
-  assert.equal(model.meta.release,'11.2');
+  assert.match(String(model.meta.release),/^11\.[2-9]/);
   assert.equal(model.normalizedEvents.length,model.events.length);
   assert(model.normalizedEvents.every(e=>e.eventId&&e.sourceLocation?.section&&e.recordText));
   assert(model.normalizedEvents.every(e=>/NOT A CLAIM PROMOTION/i.test(e.eventTypeAuthority)));
@@ -48,8 +48,8 @@ test('evidence gaps preserve source claim states and next actions',()=>{
   }
 });
 
-test('v11.2 semantic audit gates pass',()=>{
+test('v11.2 semantic audit gates remain present and passing',()=>{
   for(const id of ['AUD-010','AUD-011','AUD-012','AUD-013'])assert.equal(audit.checks.find(c=>c.id===id)?.pass,true,id);
-  assert.equal(audit.version,'11.2');
+  assert.match(String(audit.version),/^11\.[2-9]/);
   assert.equal(audit.pass,true);
 });
