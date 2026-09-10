@@ -1,5 +1,5 @@
 {
-  "version": "12.5",
+  "version": "12.5.1",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -272,13 +272,13 @@
       "id": "AUD-045",
       "label": "Family collaboration is account-attributed and non-canonical",
       "pass": true,
-      "detail": "Authentication, roles, attribution, and review workflow never promote or rewrite canonical v10 evidence."
+      "detail": "Authentication, roles, attribution, storage, and review workflow never promote or rewrite canonical v10 evidence."
     },
     {
       "id": "AUD-046",
       "label": "Revision submission and review are role-gated",
       "pass": true,
-      "detail": "Approve/reject requires Editor or Admin role and remains an explicit review action. Optional review notes are stored with the revision."
+      "detail": "Approve/reject requires Editor or Admin role and remains an explicit review action. Revision objects carry a version field and review requests include the expected version so stale review attempts fail instead of silently overwriting a newer state."
     },
     {
       "id": "AUD-047",
@@ -291,6 +291,12 @@
       "label": "Production build exposes non-genealogical deployment provenance",
       "pass": true,
       "detail": "Production can be compared directly with repository HEAD using build-info.json; deployment provenance does not alter genealogy data."
+    },
+    {
+      "id": "AUD-049",
+      "label": "Shared collaboration no longer requires Netlify Database",
+      "pass": true,
+      "detail": "Netlify Blobs · Each revision is an independent append-only Blob object with an incrementing version. Review requests carry expectedVersion and stale reviews are rejected."
     }
   ],
   "exceptions": {

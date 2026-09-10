@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "12.5",
+    "version": "12.5.1",
     "title": "Rahe Family Research Workbench",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "sourceTitle": "Rahe_Family_Tree_Canonical_Single_Source_v10_FULL_LOSSLESS_2026-09-10.docx",
@@ -25,11 +25,11 @@
       "canonicalRelationships": 94,
       "supplementalRelationships": 15
     },
-    "release": "12.5",
+    "release": "12.5.1",
     "graphPolicy": "Pedigree relationships remain separate from contextual sibling, sponsor, and derivative spouse-lead associations.",
     "eventPolicy": "Normalized events retain source row text and exact dossier location. Event type/place labels are display aids and do not promote claims.",
     "operationsPolicy": "Research task workflow status is operational metadata only and cannot mutate evidence state.",
-    "releaseTitle": "Family Accounts + Role-Based Collaboration + Deployment Provenance",
+    "releaseTitle": "Blob-Backed Family Collaboration + Deployment Repair",
     "stateOverlayPolicy": "Workbench task progress and evidence-intake drafts never modify a claim, relationship, person, source, or canonical corpus automatically."
   },
   "people": [
@@ -12358,7 +12358,7 @@
     }
   ],
   "audit": {
-    "version": "12.5",
+    "version": "12.5.1",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "generatedFrom": "public/corpus.json",
     "pass": true,
@@ -12631,13 +12631,13 @@
         "id": "AUD-045",
         "label": "Family collaboration is account-attributed and non-canonical",
         "pass": true,
-        "detail": "Authentication, roles, attribution, and review workflow never promote or rewrite canonical v10 evidence."
+        "detail": "Authentication, roles, attribution, storage, and review workflow never promote or rewrite canonical v10 evidence."
       },
       {
         "id": "AUD-046",
         "label": "Revision submission and review are role-gated",
         "pass": true,
-        "detail": "Approve/reject requires Editor or Admin role and remains an explicit review action. Optional review notes are stored with the revision."
+        "detail": "Approve/reject requires Editor or Admin role and remains an explicit review action. Revision objects carry a version field and review requests include the expected version so stale review attempts fail instead of silently overwriting a newer state."
       },
       {
         "id": "AUD-047",
@@ -12650,6 +12650,12 @@
         "label": "Production build exposes non-genealogical deployment provenance",
         "pass": true,
         "detail": "Production can be compared directly with repository HEAD using build-info.json; deployment provenance does not alter genealogy data."
+      },
+      {
+        "id": "AUD-049",
+        "label": "Shared collaboration no longer requires Netlify Database",
+        "pass": true,
+        "detail": "Netlify Blobs · Each revision is an independent append-only Blob object with an incrementing version. Review requests carry expectedVersion and stale reviews are rejected."
       }
     ],
     "exceptions": {
@@ -22535,9 +22541,9 @@
     }
   },
   "sharedFamilyData": {
-    "version": "12.1",
+    "version": "12.5.1",
     "authority": "APPEND-ONLY SHARED FAMILY REVISION LAYER — CANONICAL v10 REMAINS IMMUTABLE",
-    "storage": "Netlify Database / PostgreSQL",
+    "storage": "Netlify Blobs",
     "api": "/api/family-sync",
     "workflow": [
       "local edit",
@@ -22545,11 +22551,12 @@
       "explicit approve or reject",
       "pull latest approved revision"
     ],
-    "writeProtection": "Writes and review actions require FAMILY_EDITOR_WRITE_KEY. The key is never embedded in the public bundle.",
-    "readPolicy": "Only the latest approved family-edit snapshot is available without the editor key. Pending/rejected revision history requires the editor key.",
+    "writeProtection": "Submission requires an authenticated Contributor-or-higher account; review requires Editor or Admin. FAMILY_EDITOR_WRITE_KEY is restricted to first-admin bootstrap or temporary legacy migration.",
+    "readPolicy": "Only the latest approved family-edit snapshot is available anonymously. Pending/rejected revision history requires an Editor or Admin account.",
     "privacyRule": "Shared revisions carry the same living-person suppression as the Family Editor. Canonical evidence states are never modified by shared revisions.",
     "migrationRule": "Existing browser-local editor state can be submitted as a pending shared revision and later pulled on another device after approval.",
-    "rollbackRule": "Revisions are append-only; restoring an earlier state is performed by approving a new revision based on the desired prior snapshot rather than mutating canonical evidence."
+    "rollbackRule": "Revisions are append-only; restoring an earlier state is performed by approving a new revision based on the desired prior snapshot rather than mutating canonical evidence.",
+    "concurrencyRule": "Each revision is an independent append-only Blob object with an incrementing version. Review requests carry expectedVersion and stale reviews are rejected."
   },
   "familyExperience": {
     "version": "12.2",
@@ -22631,9 +22638,10 @@
     "approvalRule": "Approve and Reject remain explicit actions separate from the diff display."
   },
   "collaborationIdentity": {
-    "version": "12.5",
+    "version": "12.5.1",
     "authority": "ACCOUNT-ATTRIBUTED FAMILY COLLABORATION — NON-CANONICAL",
     "authentication": "Server-side password verification with scrypt-derived hashes and HttpOnly SameSite session cookies.",
+    "storage": "Netlify Blobs with strong consistency in production; users, sessions, and append-only revisions are separate keyed objects.",
     "roles": [
       "viewer",
       "contributor",
@@ -22650,11 +22658,11 @@
     },
     "bootstrapRule": "The existing FAMILY_EDITOR_WRITE_KEY may be used only to bootstrap the first administrator or as a temporary legacy migration credential. It is not the normal collaboration identity.",
     "attributionRule": "Submitted revisions are attributed from the authenticated family account rather than free-text contributor identity.",
-    "reviewRule": "Approve/reject requires Editor or Admin role and remains an explicit review action. Optional review notes are stored with the revision.",
-    "canonicalRule": "Authentication, roles, attribution, and review workflow never promote or rewrite canonical v10 evidence."
+    "reviewRule": "Approve/reject requires Editor or Admin role and remains an explicit review action. Revision objects carry a version field and review requests include the expected version so stale review attempts fail instead of silently overwriting a newer state.",
+    "canonicalRule": "Authentication, roles, attribution, storage, and review workflow never promote or rewrite canonical v10 evidence."
   },
   "deploymentProvenance": {
-    "version": "12.5",
+    "version": "12.5.1",
     "artifact": "build-info.json",
     "fields": [
       "release",
