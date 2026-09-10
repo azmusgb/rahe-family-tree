@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "11.3",
+    "version": "11.4",
     "title": "Rahe Family Research Workbench",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "sourceTitle": "Rahe_Family_Tree_Canonical_Single_Source_v10_FULL_LOSSLESS_2026-09-10.docx",
@@ -20,11 +20,11 @@
       "familyGroups": 19,
       "evidenceGaps": 13
     },
-    "release": "11.3",
+    "release": "11.4",
     "graphPolicy": "Pedigree relationships remain separate from contextual sibling, sponsor, and derivative spouse-lead associations.",
     "eventPolicy": "Normalized events retain source row text and exact dossier location. Event type/place labels are display aids and do not promote claims.",
     "operationsPolicy": "Research task workflow status is operational metadata only and cannot mutate evidence state.",
-    "releaseTitle": "Private Research State + Evidence Intake Readiness",
+    "releaseTitle": "Evidence Review Packets + Effective Research Workflow",
     "stateOverlayPolicy": "Workbench task progress and evidence-intake drafts never modify a claim, relationship, person, source, or canonical corpus automatically."
   },
   "people": [
@@ -12353,7 +12353,7 @@
     }
   ],
   "audit": {
-    "version": "11.3",
+    "version": "11.4",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "generatedFrom": "public/corpus.json",
     "pass": true,
@@ -12453,6 +12453,24 @@
         "label": "Evidence intake cannot promote claims",
         "pass": true,
         "detail": "No staged intake draft can promote evidence. Canonical dossier revision remains the only promotion path."
+      },
+      {
+        "id": "AUD-017",
+        "label": "Evidence-intake source references are validation-aware",
+        "pass": true,
+        "detail": "If a draft supplies a source ID, the UI must distinguish a registered canonical source from an unregistered/local reference."
+      },
+      {
+        "id": "AUD-018",
+        "label": "Evidence review packets remain non-canonical",
+        "pass": true,
+        "detail": "PRIVATE REVIEW ARTIFACT — NON-CANONICAL"
+      },
+      {
+        "id": "AUD-019",
+        "label": "Private research progress changes display only",
+        "pass": true,
+        "detail": "Saved task status and notes override display only; canonical task rows remain unchanged."
       }
     ],
     "exceptions": {
@@ -20497,7 +20515,12 @@
       "BLOCKED"
     ],
     "statusAuthority": "WORKBENCH ONLY",
-    "rule": "Changing task workflow status never changes a claim, relationship, or person evidence state."
+    "rule": "Changing task workflow status never changes a claim, relationship, or person evidence state.",
+    "persistence": {
+      "authority": "PRIVATE BROWSER OVERLAY",
+      "key": "rahe.family.research-state.v1",
+      "behavior": "Saved task status and notes override display only; canonical task rows remain unchanged."
+    }
   },
   "identityWorkspace": {
     "id": "IW-DEVINE-RAHE-001",
@@ -21807,5 +21830,19 @@
       "READY FOR CANONICAL REVIEW"
     ],
     "promotionRule": "No staged intake draft can promote evidence. Canonical dossier revision remains the only promotion path."
+  },
+  "reviewPacketSchema": {
+    "version": 1,
+    "authority": "PRIVATE REVIEW ARTIFACT — NON-CANONICAL",
+    "fields": [
+      "draft",
+      "linkedPeople",
+      "linkedClaims",
+      "registeredSource",
+      "promotionRule",
+      "generatedAt"
+    ],
+    "sourceIdPolicy": "If a draft supplies a source ID, the UI must distinguish a registered canonical source from an unregistered/local reference.",
+    "promotionRule": "Review packets document proposed research interpretation only. They cannot alter canonical evidence state."
   }
 }

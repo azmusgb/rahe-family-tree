@@ -1,5 +1,5 @@
 {
-  "version": "11.3",
+  "version": "11.4",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -99,6 +99,24 @@
       "label": "Evidence intake cannot promote claims",
       "pass": true,
       "detail": "No staged intake draft can promote evidence. Canonical dossier revision remains the only promotion path."
+    },
+    {
+      "id": "AUD-017",
+      "label": "Evidence-intake source references are validation-aware",
+      "pass": true,
+      "detail": "If a draft supplies a source ID, the UI must distinguish a registered canonical source from an unregistered/local reference."
+    },
+    {
+      "id": "AUD-018",
+      "label": "Evidence review packets remain non-canonical",
+      "pass": true,
+      "detail": "PRIVATE REVIEW ARTIFACT — NON-CANONICAL"
+    },
+    {
+      "id": "AUD-019",
+      "label": "Private research progress changes display only",
+      "pass": true,
+      "detail": "Saved task status and notes override display only; canonical task rows remain unchanged."
     }
   ],
   "exceptions": {
