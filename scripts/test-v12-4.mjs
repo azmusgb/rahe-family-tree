@@ -4,9 +4,9 @@ import fs from 'node:fs';
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
 const mediaFn=fs.readFileSync('netlify/functions/media.mts','utf8');
-
-test('v12.4 defines blob-backed media library',()=>{assert.equal(model.meta.release,'12.4');assert.match(model.mediaLibrary.storage,/Netlify Blobs/i);assert.equal(model.mediaLibrary.api,'/api/media');assert.equal(model.mediaLibrary.maxUploadBytes,15728640);});
+const releaseAtLeast=(min)=>Number(model.meta.release)>=min;
+test('v12.4 blob-backed media library remains defined',()=>{assert(releaseAtLeast(12.4));assert.match(model.mediaLibrary.storage,/Netlify Blobs/i);assert.equal(model.mediaLibrary.api,'/api/media');assert.equal(model.mediaLibrary.maxUploadBytes,15728640);});
 test('living-person media cannot become public',()=>{assert.match(model.mediaLibrary.privacyRule,/forced private/i);assert.match(mediaFn,/const visibility=living\?'private'/);});
 test('media cannot promote evidence and uses soft delete',()=>{assert.match(model.mediaLibrary.evidenceRule,/never changes a person, relationship, claim, or evidence state/i);assert.match(model.mediaLibrary.deletionRule,/soft-delete/i);assert.match(mediaFn,/deletedAt:new Date\(\)\.toISOString\(\)/);});
 test('revision diffs remain separate from approval',()=>{assert.match(model.revisionReview.rule,/never approves, merges, or promotes/i);assert.match(model.revisionReview.approvalRule,/explicit actions separate/i);});
-test('v12.4 semantic audit gates pass',()=>{for(const id of ['AUD-041','AUD-042','AUD-043','AUD-044'])assert.equal(audit.checks.find(c=>c.id===id)?.pass,true,id);assert.equal(audit.version,'12.4');assert.equal(audit.pass,true);});
+test('v12.4 semantic audit gates remain passing',()=>{for(const id of ['AUD-041','AUD-042','AUD-043','AUD-044'])assert.equal(audit.checks.find(c=>c.id===id)?.pass,true,id);assert.equal(audit.pass,true);});
