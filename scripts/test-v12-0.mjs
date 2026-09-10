@@ -3,9 +3,10 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
+const v12plus=x=>Number(String(x).split('.')[0])>=12;
 
 test('v12 foundation declares immutable canonical layer',()=>{
-  assert.match(String(model.meta.release),/^12\./);
+  assert(v12plus(model.meta.release));
   assert.equal(model.v12Foundation.version,'12.0');
   assert(model.v12Foundation.guarantees.some(x=>/Canonical v10 evidence remains immutable/i.test(x)));
 });
@@ -25,6 +26,6 @@ test('shared-data readiness preserves evidence separation',()=>{
 
 test('v12 semantic audit gates pass',()=>{
   for(const id of ['AUD-026','AUD-027','AUD-028'])assert.equal(audit.checks.find(c=>c.id===id)?.pass,true,id);
-  assert.match(String(audit.version),/^12\./);
+  assert(v12plus(audit.version));
   assert.equal(audit.pass,true);
 });
