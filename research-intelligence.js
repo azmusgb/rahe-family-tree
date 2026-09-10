@@ -1,4 +1,4 @@
-import{model,displayPeople,allPedigreeRelationships,personById,esc,stateBadges}from'./core.js';
+import{model,displayPeople,allPeople,allPedigreeRelationships,personById,esc}from'./core.js';
 
 const activeRels=()=>allPedigreeRelationships().filter(r=>r.active!==false&&!/REJECTED/i.test(r.state||''));
 const pedigreeTypes=new Set(['parent-child','direct-line-succession']);
@@ -33,7 +33,7 @@ function structuralIntegrity(people,rels){
 }
 function chronology(people,rels){
   const out=[],birth=new Map();
-  for(const p of people){if(p.living)continue;const ys=years(p.dates);if(ys.length){birth.set(p.id,Math.min(...ys));if(ys.length>1&&Math.max(...ys)<Math.min(...ys))out.push(make('chronology','high','Impossible life chronology',`${p.name} appears to have a death year before birth year.`,{personIds:[p.id]}));}}
+  for(const p of people){if(p.living)continue;const ys=years(p.dates);if(ys.length){birth.set(p.id,ys[0]);if(ys.length>1&&ys[1]<ys[0])out.push(make('chronology','high','Impossible life chronology',`${p.name} appears to have a death year before birth year.`,{personIds:[p.id]}));}}
   for(const r of rels.filter(r=>pedigreeTypes.has(r.type))){const py=birth.get(r.from),cy=birth.get(r.to);if(!py||!cy)continue;const age=cy-py;if(age<12)out.push(make('chronology','high','Implausibly young parent',`${personById(r.from)?.name||r.from} would be about ${age} at the birth of ${personById(r.to)?.name||r.to}. Treat as a review flag, not a correction.`,{personIds:[r.from,r.to]}));else if(age>70)out.push(make('chronology','medium','Unusually old parent',`${personById(r.from)?.name||r.from} would be about ${age} at the birth of ${personById(r.to)?.name||r.to}. Verify dates and identity.`,{personIds:[r.from,r.to]}));}
   return out;
 }
@@ -47,8 +47,8 @@ function evidenceGaps(){
 function claimConflicts(){const out=[];for(const c of model.claims||[]){if(/CONFLICTED|UNRESOLVED|PROVISIONAL/i.test(c.state||''))out.push(make('evidence',/CONFLICTED|UNRESOLVED/i.test(c.state||'')?'high':'medium',`Qualified claim · ${c.id}`,`${c.claim} — ${c.nextAction||'Review supporting evidence.'}`,{claimId:c.id}));}return out;}
 
 export function analyzeResearchIntelligence(){
-  const people=displayPeople(),rels=activeRels();
-  const findings=[...privacy(people),...structuralIntegrity(people,rels),...duplicateRelationships(rels),...duplicatePeople(people),...chronology(people,rels),...evidenceGaps(),...claimConflicts()];
+  const people=displayPeople(),effective=allPeople(),rels=activeRels();
+  const findings=[...privacy(people),...structuralIntegrity(effective,rels),...duplicateRelationships(rels),...duplicatePeople(people),...chronology(people,rels),...evidenceGaps(),...claimConflicts()];
   findings.sort((a,b)=>(priorityRank[a.severity]??9)-(priorityRank[b.severity]??9)||a.category.localeCompare(b.category)||a.title.localeCompare(b.title));
   return{generatedAt:new Date().toISOString(),peopleCount:people.length,relationshipCount:rels.length,findings};
 }
