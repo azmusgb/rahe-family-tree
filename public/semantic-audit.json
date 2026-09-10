@@ -1,5 +1,5 @@
 {
-  "version": "12.9.1",
+  "version": "13.0",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -494,6 +494,48 @@
       "id": "AUD-082",
       "label": "Family and Research dashboard transitions cannot leave stale DOM",
       "detail": "Mode changes invalidate the family-home marker and force core rerendering before the overlay reapplies.",
+      "pass": true
+    },
+    {
+      "id": "AUD-083",
+      "label": "Research intelligence is advisory only",
+      "detail": "Research-intelligence outputs are review signals and have no mutation or promotion authority.",
+      "pass": true
+    },
+    {
+      "id": "AUD-084",
+      "label": "Duplicate detection cannot merge identities",
+      "detail": "Duplicate-name, alias, and relationship signals remain candidate reviews only and cannot merge people.",
+      "pass": true
+    },
+    {
+      "id": "AUD-085",
+      "label": "Chronology heuristics cannot override evidence",
+      "detail": "Age and chronology plausibility checks are heuristic and cannot change source-qualified genealogy.",
+      "pass": true
+    },
+    {
+      "id": "AUD-086",
+      "label": "Parentage analysis remains explicit",
+      "detail": "Parentage detectors follow explicit active relationships only and never infer a second parent.",
+      "pass": true
+    },
+    {
+      "id": "AUD-087",
+      "label": "Living privacy remains critical",
+      "detail": "Living-person year exposure is treated as a critical defect and existing public-redaction controls remain binding.",
+      "pass": true
+    },
+    {
+      "id": "AUD-088",
+      "label": "Identity bridge remains unresolved",
+      "detail": "The DeVine/DeVeine to William John Rahe Sr. bridge remains non-pedigree and cannot be auto-merged.",
+      "pass": true
+    },
+    {
+      "id": "AUD-089",
+      "label": "Evidence-gap prioritization is non-promotional",
+      "detail": "Research priority recommendations cannot alter claim or relationship evidence state.",
       "pass": true
     }
   ],

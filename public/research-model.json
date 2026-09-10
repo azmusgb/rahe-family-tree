@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "12.9.1",
+    "version": "13.0",
     "title": "Rahe Family Research Workbench",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "sourceTitle": "Rahe_Family_Tree_Canonical_Single_Source_v10_FULL_LOSSLESS_2026-09-10.docx",
@@ -25,11 +25,11 @@
       "canonicalRelationships": 94,
       "supplementalRelationships": 15
     },
-    "release": "12.9.1",
+    "release": "13.0",
     "graphPolicy": "Pedigree relationships remain separate from contextual sibling, sponsor, and derivative spouse-lead associations.",
     "eventPolicy": "Normalized events retain source row text and exact dossier location. Event type/place labels are display aids and do not promote claims.",
     "operationsPolicy": "Research task workflow status is operational metadata only and cannot mutate evidence state.",
-    "releaseTitle": "Tree Visual + Interaction Polish — Couple Connectors + Mobile Recenter + Navigation Trail",
+    "releaseTitle": "Research Intelligence — Integrity Signals + Evidence Gap Prioritization",
     "stateOverlayPolicy": "Workbench task progress and evidence-intake drafts never modify a claim, relationship, person, source, or canonical corpus automatically."
   },
   "people": [
@@ -22764,5 +22764,28 @@
     "navigationRule": "TREE TRAIL, HOME PERSON, RECENT PEOPLE, AND CENTERING REMAIN BROWSER NAVIGATION STATE ONLY",
     "printRule": "PRINT MODE MAY SIMPLIFY PORTRAITS AND CHROME BUT MUST RETAIN RELATIONSHIP SEMANTICS AND IDENTITY-BRIDGE DISTINCTION",
     "dashboardRule": "FAMILY/RESEARCH MODE TRANSITIONS MUST FORCE A CORE RERENDER AND MUST NOT LEAVE STALE FAMILY-HOME DOM"
+  },
+  "researchIntelligence": {
+    "version": "13.0",
+    "title": "Research Intelligence",
+    "authority": "ADVISORY / REVIEW-ONLY — NEVER CANONICAL",
+    "rules": {
+      "mutation": "DETECTORS MAY FLAG OR PRIORITIZE CONDITIONS BUT MUST NEVER CREATE, PROMOTE, MERGE, DELETE, OR MODIFY GENEALOGY EVIDENCE",
+      "duplicates": "DUPLICATE PERSON AND RELATIONSHIP RESULTS ARE CANDIDATES FOR HUMAN REVIEW ONLY; NORMALIZED NAME OR ALIAS MATCHES ARE NOT IDENTITY FINDINGS",
+      "chronology": "CHRONOLOGY CHECKS ARE HEURISTIC REVIEW SIGNALS AND CANNOT OVERRIDE SOURCE QUALIFICATION",
+      "parentage": "PARENTAGE CHECKS USE ONLY EXPLICIT ACTIVE PARENT-CHILD OR DIRECT-LINE RELATIONSHIPS; NO SECOND PARENT MAY BE INFERRED",
+      "privacy": "ANY LIVING-PERSON YEAR EXPOSURE IS A CRITICAL DEFECT; EXISTING PUBLIC REDACTION CONTROLS REMAIN BINDING",
+      "identity": "THE DEVINE/DEVEINE TO WILLIAM JOHN RAHE SR. BRIDGE REMAINS UNRESOLVED AND MUST NEVER BE AUTO-MERGED OR RECAST AS PEDIGREE",
+      "prioritization": "EVIDENCE-GAP AND CLAIM PRIORITIES GUIDE RESEARCH ATTENTION ONLY; SOURCE-DEFINED PROMOTION GATES CONTROL EVIDENCE STATUS"
+    },
+    "priorityAcquisitions": [
+      "William J. Rahe SS-5 and Numident",
+      "Cook County birth record for 1 Dec 1918 under DeVine/DeVeine/Devine/Deveine/Rahe and Edward/Ellery/William variants",
+      "Original St. Anne 1918 register",
+      "Census continuity across the DeVine/Rahe identity transition",
+      "Sarah Ferry marriage/divorce records",
+      "1942 Cook County Rahe-Racky civil marriage",
+      "1920 Jean Mary Racky birth record"
+    ]
   }
 }
