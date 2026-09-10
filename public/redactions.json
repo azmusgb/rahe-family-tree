@@ -1,0 +1,795 @@
+{
+  "policy": "Living-person birth details are withheld in the public/shareable edition. Locations are recorded without publishing removed values.",
+  "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
+  "entries": [
+    {
+      "id": "R0001",
+      "location": {
+        "section": "s002",
+        "block": 4,
+        "type": "paragraph"
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0002",
+      "location": {
+        "section": "s008",
+        "block": 0,
+        "type": "table",
+        "row": 8,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0003",
+      "location": {
+        "section": "s008",
+        "block": 0,
+        "type": "table",
+        "row": 9,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0004",
+      "location": {
+        "section": "s008",
+        "block": 0,
+        "type": "table",
+        "row": 10,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0005",
+      "location": {
+        "section": "s009",
+        "block": 2,
+        "type": "table",
+        "row": 3,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0006",
+      "location": {
+        "section": "s009",
+        "block": 2,
+        "type": "table",
+        "row": 4,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0007",
+      "location": {
+        "section": "s009",
+        "block": 2,
+        "type": "table",
+        "row": 5,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0008",
+      "location": {
+        "section": "s044",
+        "block": 1,
+        "type": "table",
+        "row": 7,
+        "column": 0
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0009",
+      "location": {
+        "section": "s044",
+        "block": 1,
+        "type": "table",
+        "row": 8,
+        "column": 0
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0010",
+      "location": {
+        "section": "s058",
+        "block": 1,
+        "type": "table",
+        "row": 13,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0011",
+      "location": {
+        "section": "s058",
+        "block": 1,
+        "type": "table",
+        "row": 14,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0012",
+      "location": {
+        "section": "s058",
+        "block": 1,
+        "type": "table",
+        "row": 15,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0013",
+      "location": {
+        "section": "s058",
+        "block": 1,
+        "type": "table",
+        "row": 67,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0014",
+      "location": {
+        "section": "s058",
+        "block": 1,
+        "type": "table",
+        "row": 68,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0015",
+      "location": {
+        "section": "s058",
+        "block": 1,
+        "type": "table",
+        "row": 69,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0016",
+      "location": {
+        "section": "s058",
+        "block": 1,
+        "type": "table",
+        "row": 70,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0017",
+      "location": {
+        "section": "s070",
+        "block": 0,
+        "type": "table",
+        "row": 8,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0018",
+      "location": {
+        "section": "s070",
+        "block": 0,
+        "type": "table",
+        "row": 9,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0019",
+      "location": {
+        "section": "s070",
+        "block": 0,
+        "type": "table",
+        "row": 10,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0020",
+      "location": {
+        "section": "s071",
+        "block": 2,
+        "type": "table",
+        "row": 3,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0021",
+      "location": {
+        "section": "s071",
+        "block": 2,
+        "type": "table",
+        "row": 4,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0022",
+      "location": {
+        "section": "s071",
+        "block": 2,
+        "type": "table",
+        "row": 5,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0023",
+      "location": {
+        "section": "s087",
+        "block": 0,
+        "type": "table",
+        "row": 8,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0024",
+      "location": {
+        "section": "s087",
+        "block": 0,
+        "type": "table",
+        "row": 9,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0025",
+      "location": {
+        "section": "s087",
+        "block": 0,
+        "type": "table",
+        "row": 10,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0026",
+      "location": {
+        "section": "s088",
+        "block": 2,
+        "type": "table",
+        "row": 3,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0027",
+      "location": {
+        "section": "s088",
+        "block": 2,
+        "type": "table",
+        "row": 4,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0028",
+      "location": {
+        "section": "s088",
+        "block": 2,
+        "type": "table",
+        "row": 5,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0029",
+      "location": {
+        "section": "s107",
+        "block": 0,
+        "type": "table",
+        "row": 8,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0030",
+      "location": {
+        "section": "s107",
+        "block": 0,
+        "type": "table",
+        "row": 9,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0031",
+      "location": {
+        "section": "s107",
+        "block": 0,
+        "type": "table",
+        "row": 10,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0032",
+      "location": {
+        "section": "s108",
+        "block": 2,
+        "type": "table",
+        "row": 3,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0033",
+      "location": {
+        "section": "s108",
+        "block": 2,
+        "type": "table",
+        "row": 4,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0034",
+      "location": {
+        "section": "s108",
+        "block": 2,
+        "type": "table",
+        "row": 5,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0035",
+      "location": {
+        "section": "s125",
+        "block": 30,
+        "type": "table",
+        "row": 8,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0036",
+      "location": {
+        "section": "s125",
+        "block": 30,
+        "type": "table",
+        "row": 9,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0037",
+      "location": {
+        "section": "s125",
+        "block": 30,
+        "type": "table",
+        "row": 10,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0038",
+      "location": {
+        "section": "s125",
+        "block": 35,
+        "type": "table",
+        "row": 3,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0039",
+      "location": {
+        "section": "s125",
+        "block": 35,
+        "type": "table",
+        "row": 4,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0040",
+      "location": {
+        "section": "s125",
+        "block": 35,
+        "type": "table",
+        "row": 5,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0041",
+      "location": {
+        "section": "s150",
+        "block": 1,
+        "type": "table",
+        "row": 8,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0042",
+      "location": {
+        "section": "s150",
+        "block": 1,
+        "type": "table",
+        "row": 9,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0043",
+      "location": {
+        "section": "s150",
+        "block": 1,
+        "type": "table",
+        "row": 10,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0044",
+      "location": {
+        "section": "s151",
+        "block": 2,
+        "type": "table",
+        "row": 3,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0045",
+      "location": {
+        "section": "s151",
+        "block": 2,
+        "type": "table",
+        "row": 4,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0046",
+      "location": {
+        "section": "s151",
+        "block": 2,
+        "type": "table",
+        "row": 5,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0047",
+      "location": {
+        "section": "s181",
+        "block": 20,
+        "type": "table",
+        "row": 8,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0048",
+      "location": {
+        "section": "s181",
+        "block": 20,
+        "type": "table",
+        "row": 9,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0049",
+      "location": {
+        "section": "s181",
+        "block": 20,
+        "type": "table",
+        "row": 10,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0050",
+      "location": {
+        "section": "s182",
+        "block": 20,
+        "type": "table",
+        "row": 8,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0051",
+      "location": {
+        "section": "s182",
+        "block": 20,
+        "type": "table",
+        "row": 9,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0052",
+      "location": {
+        "section": "s182",
+        "block": 20,
+        "type": "table",
+        "row": 10,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0053",
+      "location": {
+        "section": "s185",
+        "block": 4,
+        "type": "paragraph"
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0054",
+      "location": {
+        "section": "s191",
+        "block": 0,
+        "type": "table",
+        "row": 8,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0055",
+      "location": {
+        "section": "s191",
+        "block": 0,
+        "type": "table",
+        "row": 9,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 2
+    },
+    {
+      "id": "R0056",
+      "location": {
+        "section": "s191",
+        "block": 0,
+        "type": "table",
+        "row": 10,
+        "column": 2
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0057",
+      "location": {
+        "section": "s192",
+        "block": 2,
+        "type": "table",
+        "row": 3,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0058",
+      "location": {
+        "section": "s192",
+        "block": 2,
+        "type": "table",
+        "row": 4,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0059",
+      "location": {
+        "section": "s192",
+        "block": 2,
+        "type": "table",
+        "row": 5,
+        "column": 1
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0060",
+      "location": {
+        "section": "s227",
+        "block": 1,
+        "type": "table",
+        "row": 7,
+        "column": 0
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    },
+    {
+      "id": "R0061",
+      "location": {
+        "section": "s227",
+        "block": 1,
+        "type": "table",
+        "row": 8,
+        "column": 0
+      },
+      "person": "Living-person context",
+      "reason": "Living-person birth detail withheld in public/shareable edition",
+      "occurrences": 1
+    }
+  ]
+}

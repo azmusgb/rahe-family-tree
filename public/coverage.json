@@ -5,6 +5,12 @@
   "tables": 386,
   "people": 70,
   "annexes": 9,
-  "privacyRedactions": 48,
-  "edition": "Public research edition; living birth details withheld"
+  "privacyRedactions": 87,
+  "edition": "Public research edition; living birth details withheld",
+  "relationships": 94,
+  "claims": 21,
+  "sources": 24,
+  "events": 262,
+  "redactionEntries": 61,
+  "canonicalFinalCertificationSection": "s230"
 }
