@@ -1,0 +1,68 @@
+{
+  "version": 11,
+  "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
+  "generatedFrom": "public/corpus.json",
+  "pass": true,
+  "checks": [
+    {
+      "id": "AUD-001",
+      "label": "Appendix F person inventory preserved",
+      "pass": true,
+      "detail": "70 structured people / identities"
+    },
+    {
+      "id": "AUD-002",
+      "label": "Relationship endpoints resolve",
+      "pass": true,
+      "detail": "All endpoints resolve to stable person IDs"
+    },
+    {
+      "id": "AUD-003",
+      "label": "Rejected relationships excluded from active graph",
+      "pass": true,
+      "detail": "No rejected relationship is active"
+    },
+    {
+      "id": "AUD-004",
+      "label": "DeVine/Rahe bridge remains unresolved and separate",
+      "pass": true,
+      "detail": "P-EDWARD-ELLERY-DEVINE-DEVEINE ↔ P-WILLIAM-JOHN-RAHE-SR: UNRESOLVED / strongly corroborated hypothesis"
+    },
+    {
+      "id": "AUD-005",
+      "label": "v10 final certification remains canonical/control",
+      "pass": true,
+      "detail": "s230 legacy=false"
+    },
+    {
+      "id": "AUD-006",
+      "label": "Living-person person-card dates are withheld",
+      "pass": true,
+      "detail": "No living person date field contains a year"
+    },
+    {
+      "id": "AUD-007",
+      "label": "Claim source IDs resolve to canonical/verified source register",
+      "pass": true,
+      "detail": "All explicit C/W/V IDs resolve"
+    },
+    {
+      "id": "AUD-008",
+      "label": "Every structured relationship retains a source section",
+      "pass": true,
+      "detail": "94/94 relationships carry source section IDs"
+    }
+  ],
+  "exceptions": {
+    "orphanPeople": [
+      "P-VIRGINIA-MARTHA-KINSMAN",
+      "P-MARY-MONICA-MANNING",
+      "P-DAVID-FLEMING",
+      "P-ELIE-DAVIN"
+    ],
+    "unresolvedSourceRefs": [],
+    "relationshipOrphans": [],
+    "livingLeaks": [],
+    "rejectedActive": []
+  }
+}
