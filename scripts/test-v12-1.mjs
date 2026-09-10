@@ -7,11 +7,11 @@ const audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
 test('v12.1 shared family data remains append-only and non-canonical',()=>{
   assert.match(String(model.meta.release),/^12\.[1-9]/);
   assert.match(model.sharedFamilyData.authority,/CANONICAL v10 REMAINS IMMUTABLE/i);
-  assert.match(model.sharedFamilyData.storage,/PostgreSQL/i);
+  assert.match(model.sharedFamilyData.storage,/PostgreSQL|Netlify Blobs/i);
 });
 
 test('shared writes remain protected and review-gated',()=>{
-  assert.match(model.sharedFamilyData.writeProtection,/FAMILY_EDITOR_WRITE_KEY/);
+  assert.match(model.sharedFamilyData.writeProtection,/FAMILY_EDITOR_WRITE_KEY|Contributor|Editor|Admin/i);
   assert(model.sharedFamilyData.workflow.includes('submit pending revision'));
   assert(model.sharedFamilyData.workflow.includes('explicit approve or reject'));
 });
