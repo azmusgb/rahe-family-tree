@@ -1,5 +1,5 @@
 {
-  "version": "12.8",
+  "version": "12.9",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -428,6 +428,42 @@
       "id": "AUD-071",
       "label": "Media authorization remains role based",
       "detail": "Contributor+ may upload while Editor+ controls metadata changes, featured portraits, and soft deletion.",
+      "pass": true
+    },
+    {
+      "id": "AUD-072",
+      "label": "Connected traversal cannot invent genealogy",
+      "detail": "All-connected traversal follows only active explicit family relationships and never synthesizes edges.",
+      "pass": true
+    },
+    {
+      "id": "AUD-073",
+      "label": "Generation lanes are presentation-only",
+      "detail": "Generation rank and ordering alter display only and cannot change evidence or pedigree.",
+      "pass": true
+    },
+    {
+      "id": "AUD-074",
+      "label": "Identity bridge remains non-pedigree",
+      "detail": "The unresolved DeVine/Rahe identity bridge remains semantically and visually distinct from pedigree relationships.",
+      "pass": true
+    },
+    {
+      "id": "AUD-075",
+      "label": "Collapsed branches preserve source data",
+      "detail": "Collapse state only filters the rendered descendant view and never deletes or hides records from the underlying model.",
+      "pass": true
+    },
+    {
+      "id": "AUD-076",
+      "label": "Tree navigation state is non-canonical",
+      "detail": "Home person, recent people, centering, and tree scope are browser navigation state only.",
+      "pass": true
+    },
+    {
+      "id": "AUD-077",
+      "label": "Full-tree expert mode remains available",
+      "detail": "The complete named-person tree remains explicitly accessible independently from focal connected-family mode.",
       "pass": true
     }
   ],
