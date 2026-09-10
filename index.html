@@ -1,1 +1,88 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="The Rahe family research archive: complete canonical dossier, family inventory, evidence, sources, and legacy annexes."><title>Rahe · Family research archive</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 fill=%22%23173e34%22/%3E%3Ctext x=%2218%22 y=%2247%22 fill=%22white%22 font-size=%2244%22%3ER%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="style.css"><script type="module" src="app.js"></script></head><body><a class="skip" href="#main">Skip to research</a><aside><a class="brand" href="#tree"><span class="monogram">R</span><span>RAHE<small>FAMILY RESEARCH ARCHIVE</small></span></a><nav aria-label="Main navigation" id="nav"></nav><div class="edition"><span class="dot"></span> CANONICAL DOSSIER v10<small>Research state · 10 September 2026</small><p>Public edition<br>Living birth details withheld</p></div></aside><div class="workspace"><header><span>Family history / <b id="crumb">Tree</b></span><div><button id="export">Export view</button><button id="print">Print</button></div></header><main id="main" tabindex="-1"><div class="heading"><div><p class="eyebrow">THE RAHE COLLECTION</p><h1 id="title">Family tree</h1><p id="description"></p></div><span class="version">v10 / 2026</span></div><form id="filters" role="search"><label class="search">Search the entire dossier<input id="search" type="search" placeholder="Search people, places, claims, source IDs…"></label><label>Branch<select id="branch"><option value="">All branches</option></select></label><label>Evidence state<select id="state"><option value="">All evidence states</option><option>SUPPORTED</option><option>PROVISIONAL</option><option>UNRESOLVED</option><option>REJECTED</option><option>DERIVATIVE</option></select></label><button type="reset">Clear</button></form><div id="status" role="status" aria-live="polite">Loading the research collection…</div><div id="content"></div></main><footer>Evidence before inference. Historical claims retain their original qualifications.<a href="#archive">Explore the complete archive ↗</a></footer></div><dialog id="person"><button id="close" aria-label="Close person details">Close ×</button><div id="person-content"></div></dialog></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Rahe family research archive: canonical dossier, connected family graph, evidence, sources, timeline, research queue, and lossless legacy annexes.">
+  <meta name="theme-color" content="#163f35">
+  <title>Rahe Family Research Archive</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%23163f35%22/%3E%3Ctext x=%2218%22 y=%2247%22 fill=%22white%22 font-family=%22Georgia%22 font-size=%2244%22%3ER%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to research content</a>
+  <aside class="sidebar">
+    <a class="brand" href="#tree" aria-label="Rahe family research archive home">
+      <span class="monogram">R</span>
+      <span>RAHE<small>FAMILY RESEARCH ARCHIVE</small></span>
+    </a>
+    <nav id="nav" aria-label="Primary"></nav>
+    <div class="edition">
+      <span class="dot"></span> CANONICAL SINGLE SOURCE v10
+      <small>Research state · 10 September 2026</small>
+      <p>Public research edition<br>Living birth details withheld</p>
+    </div>
+  </aside>
+
+  <div class="workspace">
+    <header class="topbar">
+      <span>Family history / <b id="crumb">Tree</b></span>
+      <div class="top-actions">
+        <button id="share" type="button" title="Copy a link to the current filtered view">Share view</button>
+        <button id="export" type="button">Export view</button>
+        <button id="print" type="button">Print</button>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <div class="heading">
+        <div>
+          <p class="eyebrow">THE RAHE COLLECTION</p>
+          <h1 id="title">Family tree</h1>
+          <p id="description"></p>
+        </div>
+        <div class="heading-badges">
+          <span class="version">v10 / 2026</span>
+          <span class="privacy-pill">PUBLIC · REDACTED</span>
+        </div>
+      </div>
+
+      <form id="filters" role="search" aria-label="Research filters">
+        <label class="search">Search the entire dossier
+          <input id="search" type="search" autocomplete="off" placeholder="People, places, claims, source IDs…">
+        </label>
+        <label>Branch
+          <select id="branch"><option value="">All branches</option></select>
+        </label>
+        <label>Evidence state
+          <select id="state">
+            <option value="">All evidence states</option>
+            <option>SUPPORTED</option>
+            <option>PROVISIONAL</option>
+            <option>UNRESOLVED</option>
+            <option>REJECTED</option>
+            <option>DERIVATIVE</option>
+          </select>
+        </label>
+        <button type="reset">Clear</button>
+      </form>
+
+      <div id="status" role="status" aria-live="polite">Loading the research collection…</div>
+      <div id="content"></div>
+    </main>
+
+    <footer>
+      <span>Evidence before inference. Historical claims retain their original qualifications.</span>
+      <a href="#archive">Complete archive ↗</a>
+    </footer>
+  </div>
+
+  <dialog id="detail">
+    <button id="close-detail" class="dialog-close" aria-label="Close details">Close ×</button>
+    <div id="detail-content"></div>
+  </dialog>
+
+  <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

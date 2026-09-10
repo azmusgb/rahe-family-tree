@@ -1,0 +1,32 @@
+name: Canonical corpus audit
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    if: ${{ !contains(github.event.head_commit.message || '', '[generated corpus]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Upgrade public corpus and validate
+        run: npm test
+      - name: Commit generated public corpus
+        run: |
+          git config user.name "rahe-research-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/corpus.json public/coverage.json public/redactions.json
+          if git diff --cached --quiet; then
+            echo "Generated corpus already current."
+          else
+            git commit -m "chore: publish audited research corpus [generated corpus]"
+            git push
+          fi

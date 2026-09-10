@@ -1,1 +1,1 @@
-{"name":"rahe-family-research","version":"10.0.0","private":true,"type":"module","scripts":{"build":"node scripts/build.mjs","test":"node --test scripts/test.mjs","dev":"python3 -m http.server 4173 -d dist"}}
+{"name":"rahe-family-research","version":"10.1.0","private":true,"type":"module","scripts":{"upgrade-corpus":"node scripts/upgrade-corpus.mjs","test":"node scripts/upgrade-corpus.mjs && node --test scripts/test.mjs","build":"node scripts/upgrade-corpus.mjs && node scripts/build.mjs","dev":"python3 -m http.server 4173 -d dist"}}
