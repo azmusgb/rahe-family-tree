@@ -3,9 +3,10 @@ import{renderTree,fitGraph,zoomGraph}from'./graph.js';
 import{renderDashboard,renderPeople,renderPerson,renderClaim,renderSource,renderTask}from'./dossiers.js';
 import{renderBranches,renderEvidence,renderSources,renderResearch,renderConflicts,renderMigration,renderArchive}from'./archive-views.js';
 import{renderNormalizedTimeline,renderIdentityWorkspace,renderFamilyGroups,renderResearchOperations,renderEvidenceGapDashboard}from'./operations.js';
-import{renderPrivateResearchControls,renderTaskWorkflowEditor,renderEvidenceIntake,updateTaskOverlay,clearTaskOverlay,stageIntake,updateIntake,deleteIntake,exportPrivateState,importPrivateState}from'./research-state.js';
+import{renderPrivateResearchControls,renderTaskWorkflowEditor,renderEvidenceIntake,updateTaskOverlay,clearTaskOverlay,stageIntake,updateIntake,deleteIntake,exportPrivateState,importPrivateState,exportReviewPacket}from'./research-state.js';
 
-routes.intake=['Evidence Intake','Private staging area for newly acquired records before any canonical evidence review.'];
+routes.intake=['Evidence Intake','Private staging and review packets for newly acquired records before canonical evidence review.'];
+const cssEscape=value=>globalThis.CSS?.escape?CSS.escape(value):String(value).replace(/[^a-zA-Z0-9_-]/g,c=>`\\${c}`);
 
 function mainRoute(){
   const[key,id]=location.hash.slice(1).split('/');
@@ -13,23 +14,9 @@ function mainRoute(){
   if(key==='claim')return{key:'evidence',title:'Claim dossier',desc:'Claim state, basis, sources, people, relationships, and next action.',html:renderClaim(id)};
   if(key==='source')return{key:'sources',title:'Source dossier',desc:'Source-control record and structured usage.',html:renderSource(id)};
   if(key==='task'){const task=taskById(id);return{key:'research',title:'Research task',desc:'Controlled acquisition target, private progress, and expected evidentiary payoff.',html:renderTask(id)+(task?renderTaskWorkflowEditor(task):'')}}
+  if(key==='intake')return{key:'intake',title:id?'Evidence review':'Evidence Intake',desc:id?'Review a private evidence draft and its linked canonical context without changing evidence state.':'Private staging and review packets for newly acquired records before canonical evidence review.',html:renderEvidenceIntake(id||'')};
   const r=routes[key]?key:'dashboard';setRoute(r);
-  const fn={
-    dashboard:()=>renderDashboard()+renderEvidenceGapDashboard()+renderPrivateResearchControls(),
-    tree:renderTree,
-    people:renderPeople,
-    families:renderFamilyGroups,
-    identity:renderIdentityWorkspace,
-    branches:renderBranches,
-    timeline:renderNormalizedTimeline,
-    evidence:renderEvidence,
-    sources:renderSources,
-    research:()=>renderPrivateResearchControls()+renderResearch()+renderResearchOperations(),
-    intake:renderEvidenceIntake,
-    conflicts:renderConflicts,
-    migration:renderMigration,
-    archive:()=>renderArchive(id)
-  }[r];
+  const fn={dashboard:()=>renderDashboard()+renderEvidenceGapDashboard()+renderPrivateResearchControls(),tree:renderTree,people:renderPeople,families:renderFamilyGroups,identity:renderIdentityWorkspace,branches:renderBranches,timeline:renderNormalizedTimeline,evidence:renderEvidence,sources:renderSources,research:()=>renderPrivateResearchControls()+renderResearch()+renderResearchOperations(),conflicts:renderConflicts,migration:renderMigration,archive:()=>renderArchive(id)}[r];
   return{key:r,title:routes[r][0],desc:routes[r][1],html:fn()};
 }
 function injectPersonFocus(id){const hero=$('.person-hero');if(!hero||!id)return;const actions=document.createElement('div');actions.className='focus-actions';actions.innerHTML=`<span>Graph focus</span><button data-focus-tree="${esc(id)}" data-scope="ancestors">Ancestors</button><button data-focus-tree="${esc(id)}" data-scope="descendants">Descendants</button><button data-focus-tree="${esc(id)}" data-scope="family">Connected family</button>`;hero.insertAdjacentElement('afterend',actions);}
@@ -39,12 +26,13 @@ function setGraphFocus(id,scope){const u=new URL(location.href);u.searchParams.s
 function clearGraphFocus(){const u=new URL(location.href);u.searchParams.delete('focus');u.searchParams.delete('scope');history.replaceState(null,'',u);render();}
 
 $('#filters').addEventListener('submit',e=>e.preventDefault());for(const id of['search','branch','state'])$('#'+id).addEventListener('input',render);$('#filters').addEventListener('reset',()=>setTimeout(render));window.addEventListener('hashchange',render);
-document.addEventListener('submit',e=>{if(e.target.id!=='intake-form')return;e.preventDefault();const form=new FormData(e.target),selected=name=>[...e.target.querySelector(`[name="${name}"]`).selectedOptions].map(o=>o.value),file=e.target.querySelector('[name="fileName"]').files?.[0];stageIntake({title:form.get('title'),recordType:form.get('recordType'),repository:form.get('repository'),recordDate:form.get('recordDate'),place:form.get('place'),sourceId:form.get('sourceId'),personIds:selected('personIds'),claimIds:selected('claimIds'),transcription:form.get('transcription'),analysisNote:form.get('analysisNote'),fileName:file?.name||''});render();});
+document.addEventListener('submit',e=>{if(e.target.id!=='intake-form')return;e.preventDefault();const form=new FormData(e.target),selected=name=>[...e.target.querySelector(`[name="${name}"]`).selectedOptions].map(o=>o.value),file=e.target.querySelector('[name="fileName"]').files?.[0],draft=stageIntake({title:form.get('title'),recordType:form.get('recordType'),repository:form.get('repository'),recordDate:form.get('recordDate'),place:form.get('place'),sourceId:form.get('sourceId'),personIds:selected('personIds'),claimIds:selected('claimIds'),transcription:form.get('transcription'),analysisNote:form.get('analysisNote'),fileName:file?.name||''});location.hash=`intake/${draft.id}`;});
 document.addEventListener('change',async e=>{const status=e.target.closest('[data-intake-status]');if(status){updateIntake(status.dataset.intakeStatus,{status:status.value});render();return;}const imp=e.target.closest('[data-private-import]');if(imp?.files?.[0]){try{importPrivateState(await imp.files[0].text());render();}catch(error){alert(`Could not import research state: ${error.message}`);}return;}});
 document.addEventListener('click',async e=>{
-  const save=e.target.closest('[data-task-save]');if(save){const id=save.dataset.taskSave,status=$(`[data-task-status="${CSS.escape(id)}"]`)?.value,note=$(`[data-task-note="${CSS.escape(id)}"]`)?.value||'';updateTaskOverlay(id,{status,note});render();return;}
+  const save=e.target.closest('[data-task-save]');if(save){const id=save.dataset.taskSave,status=$(`[data-task-status="${cssEscape(id)}"]`)?.value,note=$(`[data-task-note="${cssEscape(id)}"]`)?.value||'';updateTaskOverlay(id,{status,note});render();return;}
   const clear=e.target.closest('[data-task-clear]');if(clear){clearTaskOverlay(clear.dataset.taskClear);render();return;}
-  const del=e.target.closest('[data-intake-delete]');if(del){if(confirm('Delete this private intake draft?')){deleteIntake(del.dataset.intakeDelete);render();}return;}
+  const packet=e.target.closest('[data-intake-export]');if(packet){exportReviewPacket(packet.dataset.intakeExport);return;}
+  const del=e.target.closest('[data-intake-delete]');if(del){if(confirm('Delete this private intake draft?')){deleteIntake(del.dataset.intakeDelete);if(location.hash.includes(del.dataset.intakeDelete))location.hash='intake';else render();}return;}
   if(e.target.closest('[data-private-export]')){exportPrivateState();return;}
   if(e.target.closest('[data-route-intake]')){location.hash='intake';return;}
   const focus=e.target.closest('[data-focus-tree]');if(focus){setGraphFocus(focus.dataset.focusTree,focus.dataset.scope||'family');return;}if(e.target.closest('[data-clear-focus]')){clearGraphFocus();return;}const scroll=e.target.closest('[data-scroll]');if(scroll){e.preventDefault();document.getElementById(scroll.dataset.scroll)?.scrollIntoView({block:'start'});return;}const p=e.target.closest('[data-person]');if(p){location.hash=`person/${p.dataset.person}`;return;}const c=e.target.closest('[data-claim]');if(c){location.hash=`claim/${c.dataset.claim}`;return;}const s=e.target.closest('[data-source]');if(s){location.hash=`source/${s.dataset.source}`;return;}const t=e.target.closest('[data-task]');if(t){location.hash=`task/${t.dataset.task}`;return;}const b=e.target.closest('[data-branch]');if(b){$('#branch').value=b.dataset.branch;location.hash='people';render();return;}const st=e.target.closest('[data-filter-state]');if(st){$('#state').value=st.dataset.filterState;location.hash='evidence';render();return;}const g=e.target.closest('[data-graph]');if(g){({fit:fitGraph,in:()=>zoomGraph(.8),out:()=>zoomGraph(1.25)})[g.dataset.graph]?.();return;}if(e.target.closest('#share'))try{await navigator.clipboard.writeText(location.href);$('#share').textContent='Copied';setTimeout(()=>$('#share').textContent='Share view',1200);}catch{$('#share').textContent='Copy URL manually';}
