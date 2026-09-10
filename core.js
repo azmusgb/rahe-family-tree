@@ -1,3 +1,4 @@
+import{buildBranchIndex,recordMatchesBranch}from'./branch-index.js';
 export const $=(s,root=document)=>root.querySelector(s);
 export const $$=(s,root=document)=>[...root.querySelectorAll(s)];
 export const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -22,7 +23,8 @@ export const routes={
 };
 
 export let model=null,corpus=null,route='dashboard';
-export function setData(m,c){model=m;corpus=c;}
+let branchMemo={key:'',value:null};
+export function setData(m,c){model=m;corpus=c;branchMemo={key:'',value:null};}
 export function setRoute(r){route=r;}
 const familyEditState=()=>{try{const x=JSON.parse(localStorage.getItem('rahe.family.editor.v1')||'null');return x?.version===1?x:null;}catch{return null;}};
 export function supplementalPeople(){return model?.familySupplement?.people||[];}
@@ -36,10 +38,13 @@ export function allFamilyGroups(){
   const seeds=[...(model?.familyGroups||[]),...(model?.familySupplement?.familyGroups||[])].map(g=>({id:g.id,label:g.label||'',branch:g.branch||'',spouseIds:[...(g.spouseIds||[])],state:g.state||'SUPPORTED',supplemental:Boolean(g.supplemental),sourceLocation:g.sourceLocation||null,contextRelationshipIds:g.contextRelationshipIds||[]}));
   const pairKey=(a,b)=>[a,b].sort().join('|'),seen=new Set(seeds.map(g=>pairKey(...g.spouseIds)));
   for(const r of spouses){const key=pairKey(r.from,r.to);if(seen.has(key))continue;seen.add(key);seeds.push({id:r.id.startsWith('LOCAL-')?`FG-${r.id}`:`DERIVED-${r.id}`,label:`${personById(r.from)?.name||r.from} × ${personById(r.to)?.name||r.to}`,branch:personById(r.from)?.branch||personById(r.to)?.branch||'Family',spouseIds:[r.from,r.to],state:r.state||'SUPPORTED',supplemental:Boolean(r.provenance),sourceLocation:r.source||null,contextRelationshipIds:[]});}
-  return seeds.filter(g=>g.spouseIds.length===2&&g.spouseIds.every(id=>people.has(id))).map(g=>{const [a,b]=g.spouseIds,achild=new Set(parents.filter(r=>r.from===a).map(r=>r.to)),childIds=[...new Set(parents.filter(r=>r.from===b&&achild.has(r.to)).map(r=>r.to))].filter(id=>people.has(id));return{...g,label:g.label||`${personById(a)?.name||a} × ${personById(b)?.name||b}`,childIds,memberCount:2+childIds.length,hasChildren:childIds.length>0,derivedLive:true};});
+  return seeds.filter(g=>g.spouseIds.length===2&&g.spouseIds.every(id=>people.has(id))).map(g=>{const[a,b]=g.spouseIds,achild=new Set(parents.filter(r=>r.from===a).map(r=>r.to)),childIds=[...new Set(parents.filter(r=>r.from===b&&achild.has(r.to)).map(r=>r.to))].filter(id=>people.has(id));return{...g,label:g.label||`${personById(a)?.name||a} × ${personById(b)?.name||b}`,childIds,memberCount:2+childIds.length,hasChildren:childIds.length>0,derivedLive:true};});
 }
+function branchIndex(){const st=familyEditState(),key=`${model?.meta?.release||''}|${JSON.stringify(st||{})}`;if(branchMemo.key!==key||!branchMemo.value)branchMemo={key,value:buildBranchIndex({model,corpus,people:displayPeople(),relationships:allPedigreeRelationships(),familyGroups:allFamilyGroups()})};return branchMemo.value;}
+export function matchesBranch(value,branch){return recordMatchesBranch(branchIndex(),value,branch);}
+export function branchMembership(value){const index=branchIndex(),out=[];for(const b of index.branches)if(recordMatchesBranch(index,value,b))out.push(b);return out;}
 export function localEditSummary(){const st=familyEditState();return{peopleAdded:st?.peopleAdded?.length||0,peopleEdited:Object.keys(st?.personPatches||{}).length,peopleHidden:st?.peopleHidden?.length||0,relationshipsAdded:st?.relationshipsAdded?.length||0,relationshipsEdited:Object.keys(st?.relationshipPatches||{}).length,relationshipsHidden:st?.relationshipsHidden?.length||0};}
-export function stateClass(value=''){const u=String(value).toUpperCase();return ['REJECTED','UNRESOLVED','PROVISIONAL','DERIVATIVE','SUPPORTED'].find(s=>u.includes(s))?.toLowerCase()||'neutral';}
+export function stateClass(value=''){const u=String(value).toUpperCase();return['REJECTED','UNRESOLVED','PROVISIONAL','DERIVATIVE','SUPPORTED'].find(s=>u.includes(s))?.toLowerCase()||'neutral';}
 export function stateBadges(value=''){const u=String(value).toUpperCase();const t=['SUPPORTED','PROVISIONAL','UNRESOLVED','REJECTED','DERIVATIVE'].filter(x=>u.includes(x));return(t.length?t:['QUALIFIED']).map(x=>`<span class="badge ${x.toLowerCase()}">${x}</span>`).join('');}
 export function sourceIds(value=''){return[...new Set(String(value).match(/\b[CWV]\d{3}\b/g)||[])];}
 export function sectionById(id){return corpus.sections.find(s=>s.id===id);}
@@ -48,7 +53,7 @@ export function claimById(id){return model.claims.find(c=>c.id===id);}
 export function sourceById(id){return model.sources.find(s=>s.id===id);}
 export function taskById(id){return model.researchTasks.find(t=>t.id===id);}
 export function currentFilters(){return{q:$('#search').value.trim(),branch:$('#branch').value,state:$('#state').value};}
-export function matches(value){const{q,branch,state}=currentFilters();const raw=JSON.stringify(value),n=norm(raw);return(!q||n.includes(norm(q)))&&(!branch||n.includes(norm(branch)))&&(!state||raw.toUpperCase().includes(state));}
+export function matches(value){const{q,branch,state}=currentFilters();const raw=JSON.stringify(value),n=norm(raw);return(!q||n.includes(norm(q)))&&matchesBranch(value,branch)&&(!state||raw.toUpperCase().includes(state));}
 export function syncUrl(){const u=new URL(location.href);for(const[k,v]of Object.entries(currentFilters()))v?u.searchParams.set(k,v):u.searchParams.delete(k);history.replaceState(null,'',u);}
 export function hydrateUrl(){const u=new URL(location.href);$('#search').value=u.searchParams.get('q')||'';$('#branch').value=u.searchParams.get('branch')||'';$('#state').value=u.searchParams.get('state')||'';}
 export function sourceButtons(text=''){let safe=esc(text);for(const id of sourceIds(text))safe=safe.replaceAll(id,`<button class="text-link" data-source="${id}">${id}</button>`);return safe;}
