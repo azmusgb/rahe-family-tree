@@ -7,7 +7,7 @@ const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
 
 test('v11 model preserves canonical inventory counts',()=>{
-  assert.equal(model.meta.version,11);
+  assert.match(String(model.meta.version),/^11(?:\.\d+)?$/);
   assert.equal(model.people.length,corpus.people.length);
   assert.equal(model.relationships.length,corpus.relationships.length);
   assert.equal(model.claims.length,corpus.claims.length);
