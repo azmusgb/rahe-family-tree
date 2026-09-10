@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "11.4",
+    "version": "11.5",
     "title": "Rahe Family Research Workbench",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "sourceTitle": "Rahe_Family_Tree_Canonical_Single_Source_v10_FULL_LOSSLESS_2026-09-10.docx",
@@ -18,13 +18,18 @@
       "contextRelationships": 4,
       "normalizedEvents": 262,
       "familyGroups": 19,
-      "evidenceGaps": 13
+      "evidenceGaps": 13,
+      "canonicalPeople": 70,
+      "supplementalPeople": 5,
+      "displayPeople": 74,
+      "canonicalRelationships": 94,
+      "supplementalRelationships": 10
     },
-    "release": "11.4",
+    "release": "11.5",
     "graphPolicy": "Pedigree relationships remain separate from contextual sibling, sponsor, and derivative spouse-lead associations.",
     "eventPolicy": "Normalized events retain source row text and exact dossier location. Event type/place labels are display aids and do not promote claims.",
     "operationsPolicy": "Research task workflow status is operational metadata only and cannot mutate evidence state.",
-    "releaseTitle": "Evidence Review Packets + Effective Research Workflow",
+    "releaseTitle": "Named Living-Family Supplement + Hardesty Branch",
     "stateOverlayPolicy": "Workbench task progress and evidence-intake drafts never modify a claim, relationship, person, source, or canonical corpus automatically."
   },
   "people": [
@@ -12353,7 +12358,7 @@
     }
   ],
   "audit": {
-    "version": "11.4",
+    "version": "11.5",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "generatedFrom": "public/corpus.json",
     "pass": true,
@@ -12471,6 +12476,24 @@
         "label": "Private research progress changes display only",
         "pass": true,
         "detail": "Saved task status and notes override display only; canonical task rows remain unchanged."
+      },
+      {
+        "id": "AUD-020",
+        "label": "Family-supplied supplement is provenance-separated from v10",
+        "pass": true,
+        "detail": "These living-family identities and relationships were supplied directly by the family/user after v10. They are displayed as family-established supplemental facts and are not represented as if they originated in the v10 source document."
+      },
+      {
+        "id": "AUD-021",
+        "label": "Named living descendants replace aggregate display placeholder without deleting source row",
+        "pass": true,
+        "detail": "5 named family-supplied people added; canonical aggregate row retained but superseded in display."
+      },
+      {
+        "id": "AUD-022",
+        "label": "Hardesty branch does not invent an unidentified spouse",
+        "pass": true,
+        "detail": "Aimee’s Hardesty married-name identity is family-supplied. No Hardesty spouse node or spouse edge is asserted because the spouse identity has not been supplied."
       }
     ],
     "exceptions": {
@@ -21844,5 +21867,306 @@
     ],
     "sourceIdPolicy": "If a draft supplies a source ID, the UI must distinguish a registered canonical source from an unregistered/local reference.",
     "promotionRule": "Review packets document proposed research interpretation only. They cannot alter canonical evidence state."
+  },
+  "familySupplement": {
+    "version": 1,
+    "authority": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS",
+    "evidenceRule": "These living-family identities and relationships were supplied directly by the family/user after v10. They are displayed as family-established supplemental facts and are not represented as if they originated in the v10 source document.",
+    "privacyRule": "Public display withholds living-person birth dates and years.",
+    "aggregateReplacement": {
+      "canonicalPersonId": "P-CURRENT-RAHE-CHILDREN",
+      "displayTreatment": "SUPERSEDED IN UI BY NAMED FAMILY-SUPPLIED CHILDREN; canonical row retained in model for traceability."
+    },
+    "hardestyRule": "Aimee’s Hardesty married-name identity is family-supplied. No Hardesty spouse node or spouse edge is asserted because the spouse identity has not been supplied.",
+    "people": [
+      {
+        "id": "P-AIMEE-MICHELLE-RAHE-HARDESTY",
+        "name": "Aimee Michelle Rahe / Aimee Rahe Hardesty",
+        "aliases": [
+          "Aimee Michelle Rahe",
+          "Aimee Rahe Hardesty",
+          "Aimee Hardesty"
+        ],
+        "branch": "Rahe/Hardesty",
+        "dates": "Living / birth details withheld",
+        "role": "daughter of William John Rahe Jr. + Kathleen Ann Dennewitz Rahe; Hardesty married-name identity family-supplied; spouse identity not supplied",
+        "state": "SUPPORTED / family-established",
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "living": true,
+        "references": [],
+        "sourceLocation": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "P-WILLIAM-JOHN-RAHE-IV",
+        "name": "William John Rahe IV",
+        "aliases": [
+          "William John Rahe IV"
+        ],
+        "branch": "Rahe",
+        "dates": "Living / birth details withheld",
+        "role": "child of William John Rahe III + Melissa Rahe",
+        "state": "SUPPORTED / family-established",
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "living": true,
+        "references": [],
+        "sourceLocation": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "P-ABEL-M-RAHE",
+        "name": "Abel M. Rahe",
+        "aliases": [
+          "Abel M. Rahe"
+        ],
+        "branch": "Rahe",
+        "dates": "Living / birth details withheld",
+        "role": "child of William John Rahe III + Melissa Rahe",
+        "state": "SUPPORTED / family-established",
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "living": true,
+        "references": [],
+        "sourceLocation": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "P-OWEN-G-RAHE",
+        "name": "Owen G. Rahe",
+        "aliases": [
+          "Owen G. Rahe"
+        ],
+        "branch": "Rahe",
+        "dates": "Living / birth details withheld",
+        "role": "child of William John Rahe III + Melissa Rahe",
+        "state": "SUPPORTED / family-established",
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "living": true,
+        "references": [],
+        "sourceLocation": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "P-DECLAN-S-RAHE",
+        "name": "Declan S. Rahe",
+        "aliases": [
+          "Declan S. Rahe"
+        ],
+        "branch": "Rahe",
+        "dates": "Living / birth details withheld",
+        "role": "child of William John Rahe III + Melissa Rahe",
+        "state": "SUPPORTED / family-established",
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "living": true,
+        "references": [],
+        "sourceLocation": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      }
+    ],
+    "relationships": [
+      {
+        "id": "SUP-REL-001",
+        "type": "parent-child",
+        "from": "P-WILLIAM-JOHN-RAHE-JR",
+        "to": "P-AIMEE-MICHELLE-RAHE-HARDESTY",
+        "role": "father → daughter",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "SUP-REL-002",
+        "type": "parent-child",
+        "from": "P-KATHLEEN-ANN-DENNEWITZ-RAHE",
+        "to": "P-AIMEE-MICHELLE-RAHE-HARDESTY",
+        "role": "mother → daughter",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "SUP-REL-003",
+        "type": "parent-child",
+        "from": "P-WILLIAM-JOHN-RAHE-III",
+        "to": "P-WILLIAM-JOHN-RAHE-IV",
+        "role": "father → child",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "SUP-REL-004",
+        "type": "parent-child",
+        "from": "P-MELISSA-RAHE",
+        "to": "P-WILLIAM-JOHN-RAHE-IV",
+        "role": "mother → child",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "SUP-REL-005",
+        "type": "parent-child",
+        "from": "P-WILLIAM-JOHN-RAHE-III",
+        "to": "P-ABEL-M-RAHE",
+        "role": "father → child",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "SUP-REL-006",
+        "type": "parent-child",
+        "from": "P-MELISSA-RAHE",
+        "to": "P-ABEL-M-RAHE",
+        "role": "mother → child",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "SUP-REL-007",
+        "type": "parent-child",
+        "from": "P-WILLIAM-JOHN-RAHE-III",
+        "to": "P-OWEN-G-RAHE",
+        "role": "father → child",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "SUP-REL-008",
+        "type": "parent-child",
+        "from": "P-MELISSA-RAHE",
+        "to": "P-OWEN-G-RAHE",
+        "role": "mother → child",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "SUP-REL-009",
+        "type": "parent-child",
+        "from": "P-WILLIAM-JOHN-RAHE-III",
+        "to": "P-DECLAN-S-RAHE",
+        "role": "father → child",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      },
+      {
+        "id": "SUP-REL-010",
+        "type": "parent-child",
+        "from": "P-MELISSA-RAHE",
+        "to": "P-DECLAN-S-RAHE",
+        "role": "mother → child",
+        "state": "SUPPORTED / family-established",
+        "active": true,
+        "stateTokens": [
+          "SUPPORTED"
+        ],
+        "claimIds": [],
+        "sourceIds": [],
+        "source": null,
+        "provenance": "FAMILY-SUPPLIED SUPPLEMENT — OUTSIDE v10 CONTROLLING CORPUS"
+      }
+    ],
+    "familyGroups": [
+      {
+        "id": "SUP-FG-001",
+        "label": "William John Rahe Jr. × Kathleen Ann Dennewitz Rahe",
+        "branch": "Rahe/Dennewitz",
+        "spouseIds": [
+          "P-WILLIAM-JOHN-RAHE-JR",
+          "P-KATHLEEN-ANN-DENNEWITZ-RAHE"
+        ],
+        "childIds": [
+          "P-WILLIAM-JOHN-RAHE-III",
+          "P-AIMEE-MICHELLE-RAHE-HARDESTY"
+        ],
+        "state": "SUPPORTED / family-established",
+        "supplemental": true
+      },
+      {
+        "id": "SUP-FG-002",
+        "label": "William John Rahe III × Melissa Rahe",
+        "branch": "Rahe",
+        "spouseIds": [
+          "P-WILLIAM-JOHN-RAHE-III",
+          "P-MELISSA-RAHE"
+        ],
+        "childIds": [
+          "P-WILLIAM-JOHN-RAHE-IV",
+          "P-ABEL-M-RAHE",
+          "P-OWEN-G-RAHE",
+          "P-DECLAN-S-RAHE"
+        ],
+        "state": "SUPPORTED / family-established",
+        "supplemental": true
+      }
+    ]
   }
 }

@@ -1,5 +1,5 @@
 {
-  "version": "11.4",
+  "version": "11.5",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -117,6 +117,24 @@
       "label": "Private research progress changes display only",
       "pass": true,
       "detail": "Saved task status and notes override display only; canonical task rows remain unchanged."
+    },
+    {
+      "id": "AUD-020",
+      "label": "Family-supplied supplement is provenance-separated from v10",
+      "pass": true,
+      "detail": "These living-family identities and relationships were supplied directly by the family/user after v10. They are displayed as family-established supplemental facts and are not represented as if they originated in the v10 source document."
+    },
+    {
+      "id": "AUD-021",
+      "label": "Named living descendants replace aggregate display placeholder without deleting source row",
+      "pass": true,
+      "detail": "5 named family-supplied people added; canonical aggregate row retained but superseded in display."
+    },
+    {
+      "id": "AUD-022",
+      "label": "Hardesty branch does not invent an unidentified spouse",
+      "pass": true,
+      "detail": "Aimee’s Hardesty married-name identity is family-supplied. No Hardesty spouse node or spouse edge is asserted because the spouse identity has not been supplied."
     }
   ],
   "exceptions": {
