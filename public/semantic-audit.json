@@ -1,5 +1,5 @@
 {
-  "version": "12.6.1",
+  "version": "12.6.2",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -344,6 +344,30 @@
       "id": "AUD-057",
       "label": "Tree scope labels remain literal",
       "detail": "Bounded six-hop context is no longer described as all connected; Full tree remains the explicit complete-tree control.",
+      "pass": true
+    },
+    {
+      "id": "AUD-058",
+      "label": "Visual QA remains presentation-only",
+      "detail": "Responsive and accessibility corrections do not alter canonical genealogy or evidence state.",
+      "pass": true
+    },
+    {
+      "id": "AUD-059",
+      "label": "Mobile capability parity retained",
+      "detail": "Mobile retains visual tree, profile navigation, and access to Research Mode.",
+      "pass": true
+    },
+    {
+      "id": "AUD-060",
+      "label": "Accessibility semantics remain non-genealogical",
+      "detail": "ARIA, focus, reduced-motion, and touch-target changes affect interaction only.",
+      "pass": true
+    },
+    {
+      "id": "AUD-061",
+      "label": "Portrait privacy invariant retained",
+      "detail": "Family-facing portrait presentation remains restricted to media already public.",
       "pass": true
     }
   ],
