@@ -17,31 +17,62 @@ const mediaStoreFor=(context:Context)=>context.deploy?.context==='production'?ge
 const collaborationStoreFor=(context:Context)=>context.deploy?.context==='production'?getStore('rahe-family-collaboration',{consistency:'strong'}):getDeployStore('rahe-family-collaboration');
 const safeId=(value:string)=>/^MED-[A-Z0-9-]+$/.test(value);
 const cleanIds=(values:unknown[])=>[...new Set(values.map(v=>String(v||'').trim()).filter(v=>/^[-A-Z0-9]+$/i.test(v)).slice(0,25))];
-async function currentUser(req:Request,store:any){const token=parseCookies(req)[cookieName];if(!token)return null;const session:any=await store.get(sessionKey(token),{type:'json'});if(!session||new Date(session.expiresAt).getTime()<=Date.now())return null;const user:any=await store.get(emailKey(session.email),{type:'json'});return user?.active===false?null:user||null;}
-async function privacyIndex(req:Request){try{const res=await fetch(`${new URL(req.url).origin}/research-model.json`,{headers:{'cache-control':'no-cache'}});if(!res.ok)return new Map<string,boolean>();const m:any=await res.json(),all=[...(m.people||[]),...(m.familySupplement?.people||[])];return new Map(all.map((p:any)=>[String(p.id),Boolean(p.living)]));}catch{return new Map<string,boolean>();}}
-const privateRequired=(ids:string[],index:Map<string,boolean>)=>ids.some(id=>!index.has(id)||index.get(id)===true);
+
+async function currentUser(req:Request,store:any){
+  const token=parseCookies(req)[cookieName];
+  if(!token)return null;
+  const session:any=await store.get(sessionKey(token),{type:'json'});
+  if(!session||new Date(session.expiresAt).getTime()<=Date.now())return null;
+  const user:any=await store.get(emailKey(session.email),{type:'json'});
+  return user?.active===false?null:user||null;
+}
+
+type PrivacyState={living:boolean;unresolved:boolean};
+async function privacyIndex(req:Request){
+  try{
+    const res=await fetch(`${new URL(req.url).origin}/research-model.json`,{headers:{'cache-control':'no-cache'}});
+    if(!res.ok)return new Map<string,PrivacyState>();
+    const m:any=await res.json(),all=[...(m.people||[]),...(m.familySupplement?.people||[])];
+    return new Map<string,PrivacyState>(all.map((p:any)=>{
+      const state=String(p.state||'').toUpperCase();
+      return[String(p.id),{living:Boolean(p.living),unresolved:state.includes('UNRESOLVED')}];
+    }));
+  }catch{return new Map<string,PrivacyState>();}
+}
+const privateRequired=(ids:string[],index:Map<string,PrivacyState>)=>ids.some(id=>{const p=index.get(id);return !p||p.living||p.unresolved;});
+const forcePrivate=(meta:any,index:Map<string,PrivacyState>)=>{
+  const ids=cleanIds(Array.isArray(meta?.personIds)?meta.personIds:[]);
+  const mustPrivate=privateRequired(ids,index);
+  return mustPrivate?{...meta,personIds:ids,visibility:'private',livingPersonLinked:true,privacyAuthority:'PRIVATE — LIVING OR UNRESOLVED PERSON LINK'}:{...meta,personIds:ids};
+};
+const privacyChanged=(a:any,b:any)=>a.visibility!==b.visibility||Boolean(a.livingPersonLinked)!==Boolean(b.livingPersonLinked)||String(a.privacyAuthority||'')!==String(b.privacyAuthority||'');
 
 export default async (req:Request,context:Context)=>{
   const store=mediaStoreFor(context),collaboration=collaborationStoreFor(context),url=new URL(req.url),user=await currentUser(req,collaboration),legacy=legacyAuthorized(req);
   const authenticated=!!user||legacy,canUpload=legacy||!!user&&roleRank(user.role)>=roleRank('contributor'),canEdit=legacy||!!user&&roleRank(user.role)>=roleRank('editor');
 
   if(req.method==='GET'){
+    const privacy=await privacyIndex(req);
     const fileId=url.searchParams.get('file');
     if(fileId){
       if(!safeId(fileId))return json({ok:false,error:'Invalid media ID.'},400);
-      const meta:any=await store.get(`meta/${fileId}.json`,{type:'json'});
-      if(!meta||meta.deletedAt)return json({ok:false,error:'Media not found.'},404);
+      const stored:any=await store.get(`meta/${fileId}.json`,{type:'json'});
+      if(!stored||stored.deletedAt)return json({ok:false,error:'Media not found.'},404);
+      const meta=forcePrivate(stored,privacy);
+      if(privacyChanged(stored,meta))await store.setJSON(`meta/${fileId}.json`,{...meta,updatedAt:new Date().toISOString(),updatedBy:'privacy-enforcement'});
       if(meta.visibility!=='public'&&!authenticated)return json({ok:false,error:'Family account sign-in required for private media.'},401);
       const data=await store.get(`file/${fileId}`,{type:'arrayBuffer'});
       if(!data)return json({ok:false,error:'Media file missing.'},404);
-      return new Response(data,{headers:{'content-type':meta.mime||'application/octet-stream','content-disposition':`inline; filename="${String(meta.fileName||fileId).replace(/["\r\n]/g,'')}"`,'cache-control':meta.visibility==='public'?'public, max-age=3600':'no-store'}});
+      return new Response(data,{headers:{'content-type':meta.mime||'application/octet-stream','content-disposition':`inline; filename="${String(meta.fileName||fileId).replace(/["\r\n]/g,'')}"`,'cache-control':'no-store','x-content-type-options':'nosniff'}});
     }
 
     const person=url.searchParams.get('person')||'',listed:any[]=[];
     const result:any=await store.list({prefix:'meta/'});
     for(const item of result.blobs||[]){
-      const meta:any=await store.get(item.key,{type:'json'});
-      if(!meta||meta.deletedAt)continue;
+      const stored:any=await store.get(item.key,{type:'json'});
+      if(!stored||stored.deletedAt)continue;
+      const meta=forcePrivate(stored,privacy);
+      if(privacyChanged(stored,meta))await store.setJSON(item.key,{...meta,updatedAt:new Date().toISOString(),updatedBy:'privacy-enforcement'});
       if(person&&(!Array.isArray(meta.personIds)||!meta.personIds.includes(person)))continue;
       if(meta.visibility!=='public'&&!authenticated)continue;
       listed.push(meta);

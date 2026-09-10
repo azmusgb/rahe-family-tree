@@ -34,6 +34,9 @@ jobs:
             exit 1
           fi
 
+      - name: Install Netlify runtime dependencies
+        run: npm install --no-audit --no-fund
+
       - name: Validate canonical model and application
         run: npm test
 
@@ -74,3 +77,77 @@ jobs:
           echo "Production fingerprint did not converge to $EXPECTED_SHA"
           cat /tmp/build-info.json 2>/dev/null || true
           exit 1
+
+      - name: Smoke-test media privacy and genealogy immutability
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          curl --fail --silent --show-error "$PRODUCTION_URL/research-model.json" -o /tmp/model-before.json
+          curl --fail --silent --show-error "$PRODUCTION_URL/semantic-audit.json" -o /tmp/audit-before.json
+          curl --fail --silent --show-error "$PRODUCTION_URL/corpus.json" -o /tmp/corpus-before.json
+          BEFORE_MODEL=$(sha256sum /tmp/model-before.json | awk '{print $1}')
+          BEFORE_AUDIT=$(sha256sum /tmp/audit-before.json | awk '{print $1}')
+          BEFORE_CORPUS=$(sha256sum /tmp/corpus-before.json | awk '{print $1}')
+
+          ANON_STATUS=$(curl --silent --show-error -o /tmp/media-anon.json -w '%{http_code}' "$PRODUCTION_URL/api/media")
+          test "$ANON_STATUS" = "200"
+          node -e "const x=require('/tmp/media-anon.json'); if(!x.ok||x.authenticated) process.exit(1); if((x.media||[]).some(m=>m.visibility!=='public')) process.exit(2)"
+
+          FAMILY_EDITOR_WRITE_KEY=$(npx --yes netlify-cli@latest env:get FAMILY_EDITOR_WRITE_KEY --site="$NETLIFY_SITE_ID" 2>/dev/null | tail -n 1 | tr -d '\r')
+          if [ -z "$FAMILY_EDITOR_WRITE_KEY" ]; then
+            echo "FAMILY_EDITOR_WRITE_KEY is not available from the Netlify project environment."
+            exit 1
+          fi
+
+          AUTH_STATUS=$(curl --silent --show-error -o /tmp/media-auth.json -w '%{http_code}' -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" "$PRODUCTION_URL/api/media")
+          test "$AUTH_STATUS" = "200"
+          node -e "const x=require('/tmp/media-auth.json'); if(!x.ok||!x.authenticated||!x.canUpload||!x.canEdit) process.exit(1)"
+
+          LIVING_ID=$(node -e "const x=require('/tmp/model-before.json');const all=[...(x.people||[]),...(x.familySupplement?.people||[])];const p=all.find(p=>p.living===true);if(!p)process.exit(2);process.stdout.write(String(p.id))")
+          printf '%s' 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=' | base64 -d > /tmp/privacy-smoke.png
+
+          UPLOAD_STATUS=$(curl --silent --show-error -o /tmp/media-upload.json -w '%{http_code}' \
+            -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" \
+            -F "file=@/tmp/privacy-smoke.png;type=image/png" \
+            -F "personId=$LIVING_ID" \
+            -F "title=v12.8 privacy smoke" \
+            -F "visibility=public" \
+            "$PRODUCTION_URL/api/media")
+          test "$UPLOAD_STATUS" = "201"
+          MEDIA_ID=$(node -e "const x=require('/tmp/media-upload.json');if(!x.ok||x.media?.visibility!=='private'||!x.media?.livingPersonLinked)process.exit(1);process.stdout.write(x.media.id)")
+
+          curl --fail --silent --show-error "$PRODUCTION_URL/api/media" -o /tmp/media-anon-after.json
+          node -e "const x=require('/tmp/media-anon-after.json');const id=process.argv[1];if((x.media||[]).some(m=>m.id===id))process.exit(1)" "$MEDIA_ID"
+
+          curl --fail --silent --show-error -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" "$PRODUCTION_URL/api/media" -o /tmp/media-auth-after.json
+          node -e "const x=require('/tmp/media-auth-after.json');const id=process.argv[1];const m=(x.media||[]).find(m=>m.id===id);if(!m||m.visibility!=='private')process.exit(1)" "$MEDIA_ID"
+
+          DIRECT_ANON=$(curl --silent --show-error -o /tmp/direct-anon.json -w '%{http_code}' "$PRODUCTION_URL/api/media?file=$MEDIA_ID")
+          test "$DIRECT_ANON" = "401"
+          DIRECT_AUTH=$(curl --silent --show-error -o /tmp/direct-auth.bin -w '%{http_code}' -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" "$PRODUCTION_URL/api/media?file=$MEDIA_ID")
+          test "$DIRECT_AUTH" = "200"
+
+          UPDATE_STATUS=$(curl --silent --show-error -o /tmp/media-update.json -w '%{http_code}' \
+            -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" \
+            -H 'content-type: application/json' \
+            --data "{\"action\":\"update\",\"id\":\"$MEDIA_ID\",\"personIds\":[\"$LIVING_ID\"],\"visibility\":\"public\",\"title\":\"v12.8 privacy smoke updated\"}" \
+            "$PRODUCTION_URL/api/media")
+          test "$UPDATE_STATUS" = "200"
+          node -e "const x=require('/tmp/media-update.json');if(!x.ok||x.media?.visibility!=='private')process.exit(1)"
+
+          DELETE_STATUS=$(curl --silent --show-error -o /tmp/media-delete.json -w '%{http_code}' \
+            -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" \
+            -H 'content-type: application/json' \
+            --data "{\"action\":\"delete\",\"id\":\"$MEDIA_ID\"}" \
+            "$PRODUCTION_URL/api/media")
+          test "$DELETE_STATUS" = "200"
+
+          curl --fail --silent --show-error "$PRODUCTION_URL/research-model.json" -o /tmp/model-after.json
+          curl --fail --silent --show-error "$PRODUCTION_URL/semantic-audit.json" -o /tmp/audit-after.json
+          curl --fail --silent --show-error "$PRODUCTION_URL/corpus.json" -o /tmp/corpus-after.json
+          test "$BEFORE_MODEL" = "$(sha256sum /tmp/model-after.json | awk '{print $1}')"
+          test "$BEFORE_AUDIT" = "$(sha256sum /tmp/audit-after.json | awk '{print $1}')"
+          test "$BEFORE_CORPUS" = "$(sha256sum /tmp/corpus-after.json | awk '{print $1}')"
+          echo "Anonymous/authenticated media privacy and genealogy immutability smoke tests passed."
