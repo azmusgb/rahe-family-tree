@@ -7,8 +7,8 @@ export const routes={
   dashboard:['Dashboard','Research state, evidence gaps, priority acquisitions, and completeness controls.'],
   tree:['Tree','Connected family research graph with canonical, family-supplied, and private local-edit relationships.'],
   people:['People','Canonical Appendix F inventory plus named family-supplied and locally edited people.'],
-  families:['Family Groups','Spouse-centered family units from explicit canonical or family-supplied parentage.'],
-  editor:['Family Editor','Add, update, hide, restore, export, and import family-tree changes without rewriting canonical evidence.'],
+  families:['Family Groups','Live spouse-centered family units recalculated from effective parentage and local edits.'],
+  editor:['Family Editor','Add, update, hide, restore, review, undo, export, and import family-tree changes without rewriting canonical evidence.'],
   identity:['Identity Lab','Dedicated DeVine/DeVeine → William John Rahe Sr. identity-transition investigation.'],
   branches:['Branches','Branch-oriented navigation across people, claims, tasks, and canonical dossier sections.'],
   timeline:['Timeline','Normalized source-dated genealogy events with exact dossier-row traceability.'],
@@ -30,7 +30,13 @@ export function allPeople(){const st=familyEditState(),hidden=new Set(st?.people
 export function displayPeople(){const superseded=model?.familySupplement?.aggregateReplacement?.canonicalPersonId;return allPeople().filter(p=>!superseded||p.id!==superseded);}
 export function basePedigreeRelationships(){return[...(model?.relationships||[]),...(model?.familySupplement?.relationships||[])];}
 export function allPedigreeRelationships(){const st=familyEditState(),hiddenPeople=new Set(st?.peopleHidden||[]),hidden=new Set(st?.relationshipsHidden||[]),patches=st?.relationshipPatches||{},added=st?.relationshipsAdded||[];return[...basePedigreeRelationships().filter(r=>!hidden.has(r.id)&&!hiddenPeople.has(r.from)&&!hiddenPeople.has(r.to)).map(r=>patches[r.id]?{...r,...patches[r.id]}:r),...added.filter(r=>!hidden.has(r.id)&&!hiddenPeople.has(r.from)&&!hiddenPeople.has(r.to))];}
-export function allFamilyGroups(){return[...(model?.familyGroups||[]),...(model?.familySupplement?.familyGroups||[])];}
+export function allFamilyGroups(){
+  const rels=allPedigreeRelationships().filter(r=>r.active!==false&&!/REJECTED/i.test(r.state||'')),parents=rels.filter(r=>r.type==='parent-child'),spouses=rels.filter(r=>r.type==='spouse'),people=new Set(displayPeople().map(p=>p.id));
+  const seeds=[...(model?.familyGroups||[]),...(model?.familySupplement?.familyGroups||[])].map(g=>({id:g.id,label:g.label||'',branch:g.branch||'',spouseIds:[...(g.spouseIds||[])],state:g.state||'SUPPORTED',supplemental:Boolean(g.supplemental),sourceLocation:g.sourceLocation||null,contextRelationshipIds:g.contextRelationshipIds||[]}));
+  const pairKey=(a,b)=>[a,b].sort().join('|'),seen=new Set(seeds.map(g=>pairKey(...g.spouseIds)));
+  for(const r of spouses){const key=pairKey(r.from,r.to);if(seen.has(key))continue;seen.add(key);seeds.push({id:r.id.startsWith('LOCAL-')?`FG-${r.id}`:`DERIVED-${r.id}`,label:`${personById(r.from)?.name||r.from} × ${personById(r.to)?.name||r.to}`,branch:personById(r.from)?.branch||personById(r.to)?.branch||'Family',spouseIds:[r.from,r.to],state:r.state||'SUPPORTED',supplemental:Boolean(r.provenance),sourceLocation:r.source||null,contextRelationshipIds:[]});}
+  return seeds.filter(g=>g.spouseIds.length===2&&g.spouseIds.every(id=>people.has(id))).map(g=>{const [a,b]=g.spouseIds,achild=new Set(parents.filter(r=>r.from===a).map(r=>r.to)),childIds=[...new Set(parents.filter(r=>r.from===b&&achild.has(r.to)).map(r=>r.to))].filter(id=>people.has(id));return{...g,label:g.label||`${personById(a)?.name||a} × ${personById(b)?.name||b}`,childIds,memberCount:2+childIds.length,hasChildren:childIds.length>0,derivedLive:true};});
+}
 export function localEditSummary(){const st=familyEditState();return{peopleAdded:st?.peopleAdded?.length||0,peopleEdited:Object.keys(st?.personPatches||{}).length,peopleHidden:st?.peopleHidden?.length||0,relationshipsAdded:st?.relationshipsAdded?.length||0,relationshipsEdited:Object.keys(st?.relationshipPatches||{}).length,relationshipsHidden:st?.relationshipsHidden?.length||0};}
 export function stateClass(value=''){const u=String(value).toUpperCase();return ['REJECTED','UNRESOLVED','PROVISIONAL','DERIVATIVE','SUPPORTED'].find(s=>u.includes(s))?.toLowerCase()||'neutral';}
 export function stateBadges(value=''){const u=String(value).toUpperCase();const t=['SUPPORTED','PROVISIONAL','UNRESOLVED','REJECTED','DERIVATIVE'].filter(x=>u.includes(x));return(t.length?t:['QUALIFIED']).map(x=>`<span class="badge ${x.toLowerCase()}">${x}</span>`).join('');}
