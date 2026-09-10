@@ -1,0 +1,9 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
+const audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
+test('v12.5 collaboration uses family accounts and roles',()=>{assert.equal(model.meta.release,'12.5');assert.equal(model.collaborationIdentity.version,'12.5');for(const role of ['viewer','contributor','researcher','editor','admin'])assert(model.collaborationIdentity.roles.includes(role));assert.match(model.collaborationIdentity.authentication,/HttpOnly/i);});
+test('editor key is bootstrap or legacy migration only',()=>{assert.match(model.collaborationIdentity.bootstrapRule,/bootstrap the first administrator/i);assert.match(model.collaborationIdentity.attributionRule,/authenticated family account/i);});
+test('collaboration cannot modify canonical evidence',()=>{assert.match(model.collaborationIdentity.canonicalRule,/never promote or rewrite canonical v10 evidence/i);assert.equal(model.deploymentProvenance.artifact,'build-info.json');});
+test('v12.5 semantic gates pass',()=>{for(const id of ['AUD-045','AUD-046','AUD-047','AUD-048'])assert.equal(audit.checks.find(c=>c.id===id)?.pass,true,id);assert.equal(audit.version,'12.5');assert.equal(audit.pass,true);});
