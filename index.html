@@ -3,86 +3,37 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Rahe family research archive: canonical dossier, connected family graph, evidence, sources, timeline, research queue, and lossless legacy annexes.">
-  <meta name="theme-color" content="#163f35">
-  <title>Rahe Family Research Archive</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%23163f35%22/%3E%3Ctext x=%2218%22 y=%2247%22 fill=%22white%22 font-family=%22Georgia%22 font-size=%2244%22%3ER%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="app.js"></script>
+  <meta name="description" content="Rahe Family Research Workbench: canonical family tree, evidence, claims, sources, timeline, research queue, conflicts, migration, and lossless archive.">
+  <meta name="theme-color" content="#173f35">
+  <title>Rahe Family Research Workbench</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2210%22 fill=%22%23173f35%22/%3E%3Ctext x=%2218%22 y=%2247%22 fill=%22white%22 font-size=%2244%22%3ER%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="v11.css">
+  <link rel="stylesheet" href="v11-nav.css">
+  <script type="module" src="v11.js"></script>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to research content</a>
+<a class="skip" href="#main">Skip to research</a>
+<div class="shell">
   <aside class="sidebar">
-    <a class="brand" href="#tree" aria-label="Rahe family research archive home">
-      <span class="monogram">R</span>
-      <span>RAHE<small>FAMILY RESEARCH ARCHIVE</small></span>
-    </a>
-    <nav id="nav" aria-label="Primary"></nav>
-    <div class="edition">
-      <span class="dot"></span> CANONICAL SINGLE SOURCE v10
-      <small>Research state · 10 September 2026</small>
-      <p>Public research edition<br>Living birth details withheld</p>
-    </div>
+    <a class="brand" href="#dashboard"><span class="monogram">R</span><span>RAHE<small>FAMILY RESEARCH WORKBENCH</small></span></a>
+    <nav id="nav" aria-label="Primary research navigation"></nav>
+    <div class="edition"><b>CANONICAL DOSSIER v10</b>Workbench model v11<br>Research state · 10 September 2026<br><br>Public-safe edition<br>Living birth details withheld</div>
   </aside>
-
   <div class="workspace">
-    <header class="topbar">
-      <span>Family history / <b id="crumb">Tree</b></span>
-      <div class="top-actions">
-        <button id="share" type="button" title="Copy a link to the current filtered view">Share view</button>
-        <button id="export" type="button">Export view</button>
-        <button id="print" type="button">Print</button>
-      </div>
-    </header>
-
-    <main id="main" tabindex="-1">
-      <div class="heading">
-        <div>
-          <p class="eyebrow">THE RAHE COLLECTION</p>
-          <h1 id="title">Family tree</h1>
-          <p id="description"></p>
-        </div>
-        <div class="heading-badges">
-          <span class="version">v10 / 2026</span>
-          <span class="privacy-pill">PUBLIC · REDACTED</span>
-        </div>
-      </div>
-
-      <form id="filters" role="search" aria-label="Research filters">
-        <label class="search">Search the entire dossier
-          <input id="search" type="search" autocomplete="off" placeholder="People, places, claims, source IDs…">
-        </label>
-        <label>Branch
-          <select id="branch"><option value="">All branches</option></select>
-        </label>
-        <label>Evidence state
-          <select id="state">
-            <option value="">All evidence states</option>
-            <option>SUPPORTED</option>
-            <option>PROVISIONAL</option>
-            <option>UNRESOLVED</option>
-            <option>REJECTED</option>
-            <option>DERIVATIVE</option>
-          </select>
-        </label>
+    <header class="topbar"><span>Family research / <b id="crumb">Dashboard</b></span><div class="topbar-actions"><button id="share" type="button">Share view</button><button id="export" type="button">Export view</button><button id="print" type="button">Print</button></div></header>
+    <main id="main" class="main" tabindex="-1">
+      <div class="page-heading"><div><p class="eyebrow">THE RAHE COLLECTION · EVIDENCE FIRST</p><h1 id="title">Dashboard</h1><p id="description">Loading research model…</p></div><span class="version">v11 WORKBENCH</span></div>
+      <form id="filters" class="filters" role="search">
+        <label class="search">Search all research layers<input id="search" type="search" autocomplete="off" placeholder="Person, place, claim ID, source ID, record…"></label>
+        <label>Branch<select id="branch"><option value="">All branches</option></select></label>
+        <label>Evidence state<select id="state"><option value="">All states</option><option>SUPPORTED</option><option>PROVISIONAL</option><option>UNRESOLVED</option><option>REJECTED</option><option>DERIVATIVE</option></select></label>
         <button type="reset">Clear</button>
       </form>
-
-      <div id="status" role="status" aria-live="polite">Loading the research collection…</div>
+      <div id="status" role="status" aria-live="polite">Loading canonical research data…</div>
       <div id="content"></div>
     </main>
-
-    <footer>
-      <span>Evidence before inference. Historical claims retain their original qualifications.</span>
-      <a href="#archive">Complete archive ↗</a>
-    </footer>
+    <footer class="footer"><span>Evidence before inference. No provisional or unresolved claim is silently promoted.</span><a href="#archive">Open complete archive ↗</a></footer>
   </div>
-
-  <dialog id="detail">
-    <button id="close-detail" class="dialog-close" aria-label="Close details">Close ×</button>
-    <div id="detail-content"></div>
-  </dialog>
-
-  <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+</div>
 </body>
 </html>

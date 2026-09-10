@@ -1,38 +1,51 @@
-# Rahe Family Research Archive
+# Rahe Family Research Workbench
 
-Public, responsive research application generated from **Rahe_Family_Tree_Canonical_Single_Source_v10_FULL_LOSSLESS_2026-09-10.docx** (research state 10 September 2026).
+Version 11 evolves the public research archive into an evidence-first genealogy workbench while keeping the controlling source unchanged: `Rahe_Family_Tree_Canonical_Single_Source_v10_FULL_LOSSLESS_2026-09-10.docx`.
 
-## What this build provides
+## Architecture
 
-The site is no longer only a document browser. It now exposes a structured research model while preserving the source dossier as the controlling authority:
+The application deliberately separates the lossless archival layer from the interactive research model:
 
-- **233 source sections**, **386 tables**, **70 Appendix F person/identity entries**, and **9 Part II legacy annexes**.
-- Stable public IDs for people and structured IDs for relationships, claims, sources, timeline entries, and redactions.
-- A connected, zoomable family research graph with supported/provisional/unresolved styling.
-- Edward Ellery DeVine/DeVeine and William John Rahe Sr. remain **separate nodes** connected by an explicit **UNRESOLVED / strongly corroborated hypothesis** identity bridge.
-- Rejected claims do not create active graph edges.
-- Person dossiers include source locations, connected relatives/identity links, related claim-register items, and dossier references.
-- Claim cards link evidence basis, source IDs, current state, and next action.
-- Source detail views expose canonical IDs, class/type, weight/control, legacy IDs, and claim links.
-- Timeline uses dated **source rows**, rather than treating a person's first year as an inferred event.
-- Global search returns categorized people/claim/source results plus matching source excerpts with highlighting and deep links.
-- Branch and evidence-state filters are URL-persisted for shareable filtered views.
-- Research Queue is promoted into a usable priority-card workflow while preserving the full source tables.
-- Export, print, public corpus download, coverage manifest, and redaction ledger are included.
+```text
+controlling v10 DOCX
+        ↓
+public/corpus.json              canonical/public-safe transcription
+        ↓
+scripts/build-research-model.mjs
+        ↓
+public/research-model.json      normalized interactive model
+public/semantic-audit.json      deterministic integrity checks
+        ↓
+v11.js / v11.css               research workbench UI
+```
 
-## Fidelity and evidence controls
+The normalized layer does **not** replace the dossier. It provides stable navigation across people, relationships, claims, sources, events, research tasks, negative searches, stop rules, and completeness gates.
 
-The source DOCX is not modified. Evidence states are transcribed from the dossier; the application does not recalculate or silently promote them.
+## Evidence controls
 
-The v10 **final certification (section 25)** is canonical/control content. The earlier build incorrectly inherited the Part II legacy flag into that final section; the upgrade step explicitly closes the legacy boundary before section 25.
+- Evidence-state strings are carried forward rather than recalculated.
+- Rejected relationships are excluded from the active graph.
+- Edward Ellery DeVine/DeVeine and William John Rahe Sr. remain separate stable person/identity nodes.
+- Their connection is an explicit `identity-bridge` whose state remains `UNRESOLVED / strongly corroborated hypothesis`.
+- Timeline event types are marked as derived display classifications only; they do not promote evidence.
+- Completeness gates are displayed as source-defined pass conditions and are intentionally **not automatically scored**.
+- Part II remains a legacy evidence layer. Section 25 remains canonical v10 final certification.
 
-Part II remains archival evidence. Its content is searchable and readable, but legacy material does not supersede the canonical/current interpretation controls.
+## Workbench features
+
+- Dashboard with research-state metrics, critical acquisitions, completeness controls, and semantic-audit status.
+- Connected SVG family graph with zoom, fit, keyboard-openable nodes, source-state styling, and an accessible relationship index.
+- Dedicated person dossier routes with facts, relatives, claims, source-dated timeline rows, sources, research tasks, canonical references, and legacy-annex mentions.
+- Dedicated claim, source, and research-task routes.
+- Global search across people, claims, sources, tasks, and canonical/legacy sections.
+- URL-persisted branch and evidence-state filters for shareable research views.
+- Structured Research Queue, branch acquisition sequences, stop rules, and negative-search log.
+- Complete public-safe archive, JSON export, print support, research-model download, semantic-audit download, and redaction ledger.
+- Responsive layout, keyboard focus handling, semantic landmarks, reduced-motion handling, and print styles.
 
 ## Public privacy
 
-The public corpus intentionally withholds living-person birth details. The privacy pass recognizes both canonical full names and shortened legacy variants, including separate name/date columns in legacy tables.
-
-`public/redactions.json` records every redaction **by source location and reason only**. It never republishes the removed value. The unredacted DOCX is never committed or deployed.
+Living-person birth details remain withheld in the public corpus before the v11 model is generated. `public/redactions.json` stores source locations and reasons without republishing removed values. The unredacted DOCX is not committed or deployed.
 
 ## Development
 
@@ -45,24 +58,20 @@ npm run build
 npm run dev
 ```
 
-`npm test` and `npm run build` first run `scripts/upgrade-corpus.mjs`, so an older v10 public corpus is upgraded deterministically before validation or deployment.
+The local site opens at `http://localhost:4173` and Netlify publishes `dist/`.
 
-Local site: `http://localhost:4173`
+## Validation
 
-Netlify publishes `dist/`.
+`npm test` runs the legacy v10 coverage/identity/privacy checks, rebuilds the v11 research model, runs v11 semantic invariants, and syntax-checks the browser module. The GitHub workflow also executes a production build and commits generated public research artifacts when they change.
 
-## Validation gates
-
-Automated checks verify source section/table/person/annex counts, Appendix A–G presence, the corrected Part II/final-certification boundary, separate Edward/William identities, unresolved bridge state, structured relationship/claim/source/event data, rejected-edge exclusion, living-person public redaction, and the controlling source checksum.
-
-Controlling source SHA-256:
-
-`f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4`
+Key v11 gates include resolved relationship endpoints, rejected-edge exclusion, living-person date suppression, source-location-backed research tasks, canonical section-25 treatment, and preservation of the separate unresolved DeVine/Rahe identity bridge.
 
 ## Deployment
 
-Existing Netlify project: `rahe-family-tree`
+Repository: `azmusgb/rahe-family-tree`
 
-Existing Netlify site ID: `1b3ef6d9-2b3a-47c4-8bc4-c3185ce94a87`
+Netlify project: `rahe-family-tree`
 
-Production URL: `https://rahe-family-tree.netlify.app`
+Site ID: `1b3ef6d9-2b3a-47c4-8bc4-c3185ce94a87`
+
+Production: `https://rahe-family-tree.netlify.app`

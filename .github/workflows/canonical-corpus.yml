@@ -17,16 +17,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Upgrade public corpus and validate
+      - name: Upgrade corpus, build normalized model, and validate
         run: npm test
-      - name: Commit generated public corpus
+      - name: Verify production build
+        run: npm run build
+      - name: Commit generated research artifacts
         run: |
           git config user.name "rahe-research-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add public/corpus.json public/coverage.json public/redactions.json
+          git add public/corpus.json public/coverage.json public/redactions.json public/research-model.json public/semantic-audit.json
           if git diff --cached --quiet; then
-            echo "Generated corpus already current."
+            echo "Generated research artifacts already current."
           else
-            git commit -m "chore: publish audited research corpus [generated corpus]"
+            git commit -m "chore: publish audited v11 research artifacts [generated corpus]"
             git push
           fi
