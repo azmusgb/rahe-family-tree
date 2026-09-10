@@ -1,5 +1,5 @@
 {
-  "version": "11.1",
+  "version": "11.2",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -57,6 +57,30 @@
       "label": "Previously unlinked inventory entries have explicit contextual disposition",
       "pass": true,
       "detail": "Virginia Martha Kinsman, Mary Monica Manning, David Fleming, and Elie Davin are represented only with source-supported contextual edges."
+    },
+    {
+      "id": "AUD-010",
+      "label": "Normalized events retain exact source locations",
+      "pass": true,
+      "detail": "262/262 source-dated rows normalized with dossier locations"
+    },
+    {
+      "id": "AUD-011",
+      "label": "Research workflow cannot promote evidence",
+      "pass": true,
+      "detail": "19 queue tasks carry operational-only status metadata"
+    },
+    {
+      "id": "AUD-012",
+      "label": "Identity workspace preserves unresolved DeVine/Rahe wording",
+      "pass": true,
+      "detail": "Edward Ellery DeVine (b. 1 Dec 1918) probable same person as William John Rahe Sr. (b. 1 Dec 1918); transition mechanism unresolved."
+    },
+    {
+      "id": "AUD-013",
+      "label": "Family groups derive children only from explicit dual-parent edges",
+      "pass": true,
+      "detail": "19 spouse-centered groups generated without inferred parentage"
     }
   ],
   "exceptions": {
