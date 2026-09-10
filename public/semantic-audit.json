@@ -1,5 +1,5 @@
 {
-  "version": "12.3",
+  "version": "12.4",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -243,6 +243,30 @@
       "label": "Identity bridge remains distinct from pedigree",
       "pass": true,
       "detail": "The DeVine/Rahe identity bridge remains unresolved and visually distinct from descent."
+    },
+    {
+      "id": "AUD-041",
+      "label": "Media attachments cannot promote genealogy evidence",
+      "pass": true,
+      "detail": "Uploading or linking a photo/document never changes a person, relationship, claim, or evidence state."
+    },
+    {
+      "id": "AUD-042",
+      "label": "Living-person media is server-forced private",
+      "pass": true,
+      "detail": "Media linked to a living person is forced private by the server. Public visibility is allowed only for non-living people and only by explicit editor choice."
+    },
+    {
+      "id": "AUD-043",
+      "label": "Media removal is soft-delete only",
+      "pass": true,
+      "detail": "Media deletion is a soft-delete tombstone; binary content is retained for controlled recovery/audit until separately purged."
+    },
+    {
+      "id": "AUD-044",
+      "label": "Revision diff is review-only and cannot auto-approve",
+      "pass": true,
+      "detail": "Pending shared revisions are compared with the preceding approved family-edit snapshot for reviewer clarity. The diff never approves, merges, or promotes anything automatically. Approve and Reject remain explicit actions separate from the diff display."
     }
   ],
   "exceptions": {
