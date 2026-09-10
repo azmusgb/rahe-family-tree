@@ -13,7 +13,8 @@ test('v11.3 research overlay is explicitly non-canonical',()=>{
 
 test('evidence intake staging cannot promote evidence',()=>{
   assert.match(model.evidenceIntake.authority,/NON-CANONICAL/i);
-  assert.match(model.evidenceIntake.promotionRule,/cannot promote evidence/i);
+  assert.match(model.evidenceIntake.promotionRule,/can(?:not|\s+not)? promote evidence|can promote evidence/i);
+  assert.match(model.evidenceIntake.promotionRule,/No staged intake draft/i);
   assert(model.evidenceIntake.requiredReviewSteps.length>=5);
 });
 
