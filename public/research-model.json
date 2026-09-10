@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "11.2",
+    "version": "11.3",
     "title": "Rahe Family Research Workbench",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "sourceTitle": "Rahe_Family_Tree_Canonical_Single_Source_v10_FULL_LOSSLESS_2026-09-10.docx",
@@ -20,10 +20,12 @@
       "familyGroups": 19,
       "evidenceGaps": 13
     },
-    "release": "11.2",
+    "release": "11.3",
     "graphPolicy": "Pedigree relationships remain separate from contextual sibling, sponsor, and derivative spouse-lead associations.",
     "eventPolicy": "Normalized events retain source row text and exact dossier location. Event type/place labels are display aids and do not promote claims.",
-    "operationsPolicy": "Research task workflow status is operational metadata only and cannot mutate evidence state."
+    "operationsPolicy": "Research task workflow status is operational metadata only and cannot mutate evidence state.",
+    "releaseTitle": "Private Research State + Evidence Intake Readiness",
+    "stateOverlayPolicy": "Workbench task progress and evidence-intake drafts never modify a claim, relationship, person, source, or canonical corpus automatically."
   },
   "people": [
     {
@@ -12351,7 +12353,7 @@
     }
   ],
   "audit": {
-    "version": "11.2",
+    "version": "11.3",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "generatedFrom": "public/corpus.json",
     "pass": true,
@@ -12433,6 +12435,24 @@
         "label": "Family groups derive children only from explicit dual-parent edges",
         "pass": true,
         "detail": "19 spouse-centered groups generated without inferred parentage"
+      },
+      {
+        "id": "AUD-014",
+        "label": "Normalized event IDs are unique",
+        "pass": true,
+        "detail": "262 normalized events have unique event IDs"
+      },
+      {
+        "id": "AUD-015",
+        "label": "Workbench state overlay is explicitly non-canonical",
+        "pass": true,
+        "detail": "PRIVATE WORKBENCH OVERLAY — NON-CANONICAL"
+      },
+      {
+        "id": "AUD-016",
+        "label": "Evidence intake cannot promote claims",
+        "pass": true,
+        "detail": "No staged intake draft can promote evidence. Canonical dossier revision remains the only promotion path."
       }
     ],
     "exceptions": {
@@ -12600,7 +12620,8 @@
       },
       "sourceSectionTitle": "0. Document control, provenance, and revision scope",
       "recordText": "Research state | 10 September 2026",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00002",
@@ -12625,7 +12646,8 @@
       },
       "sourceSectionTitle": "0. Document control, provenance, and revision scope",
       "recordText": "Source basis | Canonical v8.0 whole-tree consolidation (8 Sep 2026) + Master Source & Evidence v4.1 forensic/web-verification update (10 Sep 2026); v3/v7 retained as archived source layers.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00003",
@@ -12651,7 +12673,8 @@
       },
       "sourceSectionTitle": "2. Executive research assessment and whole-tree coverage",
       "recordText": "Dennewitz / Rungert / Huebler / Hyde | Up to ~10 displayed generations | 20th-c. core strong; early 1710–1843 compiled and PROVISIONAL | German parish images + U.S. vital/census originals; do not extend further before proof.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00004",
@@ -12678,7 +12701,8 @@
       },
       "sourceSectionTitle": "2. Executive research assessment and whole-tree coverage",
       "recordText": "Kinsman / Hickey / Moore | 2–4 generations | PROVISIONAL-STRONG derivative Canadian framework | 1898 Katherine Ontario birth + parental civil/church records.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00005",
@@ -12711,7 +12735,8 @@
       },
       "sourceSectionTitle": "2. Executive research assessment and whole-tree coverage",
       "recordText": "Ferry / O’Donnell / McFadden | 3 generations + collateral siblings | 1918 baptism direct; 1864 Irish civil lead strong; collateral group mixed | Raw 1910/1920/1930 censuses + Owen/Isabella marriage + Irish originals.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00006",
@@ -12738,7 +12763,8 @@
       },
       "sourceSectionTitle": "2. Executive research assessment and whole-tree coverage",
       "recordText": "DeVine / DeVeine | 1918 parent-child event | SUPPORTED for 1918 event / UNRESOLVED continuation | Cook County birth + original St. Anne entry + census chain + SSA.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00007",
@@ -12765,7 +12791,8 @@
       },
       "sourceSectionTitle": "2. Executive research assessment and whole-tree coverage",
       "recordText": "Racky / Hoffman / Kopczynski | 3–4 generations + collateral siblings | MODERATE-HIGH / derivative source-rich | 1904 Racky–Hoffman marriage; 1920 Jean birth; 1942 Rahe–Racky civil marriage.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00008",
@@ -12795,7 +12822,8 @@
       },
       "sourceSectionTitle": "3. Direct-line relationship register",
       "recordText": "10 | Johann Ernst Dennewitz + Eva Maria | c.1710–1760 / d.1780 | PROVISIONAL | Compiled genealogy only; German parish originals not inspected.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00009",
@@ -12827,7 +12855,8 @@
       },
       "sourceSectionTitle": "3. Direct-line relationship register",
       "recordText": "9 | Johann Gottlieb Dennewitz + Johanna D. Rungert | c.1740–1832 / 1750–1820 | PROVISIONAL | Compiled genealogy only.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00010",
@@ -12856,7 +12885,8 @@
       },
       "sourceSectionTitle": "3. Direct-line relationship register",
       "recordText": "8 | Johann Gottlieb Dennewitz | 1778–1843 | PROVISIONAL | Compiled genealogy only.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00011",
@@ -12887,7 +12917,8 @@
       },
       "sourceSectionTitle": "3. Direct-line relationship register",
       "recordText": "7 | John C. Dennewitz + Dorothee R. Huebler | 1821–1907 / 1838–1911 | PROVISIONAL-HIGH | Converging later U.S. genealogy; attach civil/church originals before promotion.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00012",
@@ -12918,7 +12949,8 @@
       },
       "sourceSectionTitle": "3. Direct-line relationship register",
       "recordText": "6 | Otto Christian Dennewitz + Sarah Alice Hyde | 1861–1910 / c.1857–58–1912 | PROVISIONAL-HIGH | Relationship stable in derivative collections; Sarah birth-year conflict retained; underlying originals not inspected.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00013",
@@ -12951,7 +12983,8 @@
       },
       "sourceSectionTitle": "3. Direct-line relationship register",
       "recordText": "5 | George Otto Dennewitz Sr. + Kate Alice Holman | 25 Jul 1886–30 Dec 1976 / 30 Aug 1889–8 Jul 1973 | PROVISIONAL-HIGH exact dates | Derivative corroboration + record pointers; originals still required.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00014",
@@ -12984,7 +13017,8 @@
       },
       "sourceSectionTitle": "3. Direct-line relationship register",
       "recordText": "4 | George Otto Dennewitz Jr. + Hazel Emma Berg | 26 Apr 1913–3 Jun 1998 / 29 Oct 1918–2 Nov 1997 | SUPPORTED / VERY HIGH | 1950 census + veterans cemetery + family evidence.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00015",
@@ -13020,7 +13054,8 @@
       },
       "sourceSectionTitle": "4. Dennewitz–Berg documentary core",
       "recordText": "George Otto Dennewitz Jr. | 26 Apr 1913–3 Jun 1998; 1950 age 36 | Husband of Hazel; father of Linda, Jean, Kathleen; WWII U.S. Navy, PHM3C. | SUPPORTED / VERY HIGH; C003/C004 + family.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00016",
@@ -13056,7 +13091,8 @@
       },
       "sourceSectionTitle": "4. Dennewitz–Berg documentary core",
       "recordText": "Hazel Emma Berg Dennewitz | 29 Oct 1918–2 Nov 1997; 1950 age 31 | Wife of George; same burial site. | SUPPORTED / VERY HIGH; C003/C004.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00017",
@@ -13083,7 +13119,8 @@
       },
       "sourceSectionTitle": "4. Dennewitz–Berg documentary core",
       "recordText": "Linda Kay Dennewitz | [birth detail withheld]–; 1950 age 7 | Daughter; original schedule reads Linda K. | SUPPORTED relationship / VERY HIGH; exact date family-derived.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00018",
@@ -13110,7 +13147,8 @@
       },
       "sourceSectionTitle": "4. Dennewitz–Berg documentary core",
       "recordText": "Jean C./Carol Dennewitz | family date [birth detail withheld]; 1950 age 2 | Daughter; exact date remains family-derived. | SUPPORTED relationship; date family-derived.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00019",
@@ -13135,7 +13173,8 @@
       },
       "sourceSectionTitle": "4. Dennewitz–Berg documentary core",
       "recordText": "Kathleen Ann Dennewitz | [birth detail withheld]– | Youngest daughter; born after 1950 census; later Rahe. | SUPPORTED / family-established.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00020",
@@ -13160,7 +13199,8 @@
       },
       "sourceSectionTitle": "4. Dennewitz–Berg documentary core",
       "recordText": "“Laura K. Dennewitz” | c.1943 duplicate context | Apparent OCR/tree duplicate of Linda K. | REJECTED as separate person.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00021",
@@ -13186,7 +13226,8 @@
       },
       "sourceSectionTitle": "4.1 Dennewitz–Berg marriage controls",
       "recordText": "Marriage hint: 19 Jun 1937 | UNRESOLVED lead only | Conflicts with reported 1940 single-status chronology; civil image not inspected.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00022",
@@ -13213,7 +13254,8 @@
       },
       "sourceSectionTitle": "4.1 Dennewitz–Berg marriage controls",
       "recordText": "Earlier “1940” Cook County marriage assertion | WITHDRAWN / date not established | Prior source register asserted 1940 without attached evidence. Do not reuse the date until a civil record is inspected.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00023",
@@ -13245,7 +13287,8 @@
       },
       "sourceSectionTitle": "4.2 Collateral Dennewitz leverage",
       "recordText": "William Holman Dennewitz | b. 19 Jun 1916; son of George Sr. + Kate; m. Dorothy Cecelia Kinsman 30 Jun 1943 | PROVISIONAL-HIGH collateral lead; FamilySearch profile points to 1930 census, Cook County birth certificate, WWII draft, marriage sources.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00024",
@@ -13276,7 +13319,8 @@
       },
       "sourceSectionTitle": "5. Berg–Kinsman branch",
       "recordText": "Oscar Ferdinand Berg | c.1868–11 Jun 1950 | Proposed father of Arnold Eric Berg. | PROVISIONAL / probable | 1900 census; Arnold birth; Oscar death.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00025",
@@ -13304,7 +13348,8 @@
       },
       "sourceSectionTitle": "5. Berg–Kinsman branch",
       "recordText": "Emma Matilda [maiden unknown] | 14 Jul 1872–4 Sep 1955 | Proposed mother of Arnold; maiden surname unresolved. | PROVISIONAL identity / surname UNKNOWN | Marriage/death + Swedish household/birth records.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00026",
@@ -13334,7 +13379,8 @@
       },
       "sourceSectionTitle": "5. Berg–Kinsman branch",
       "recordText": "Arnold “Carl” Eric Berg | 10 Mar 1897–3 Feb 1948 | Husband of Katherine; father of Hazel. | PROVISIONAL-STRONG; identity highly likely | Kane County birth; 1900 census; 1917 marriage; 1948 death certificate. Canonical original images remain incomplete.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00027",
@@ -13367,7 +13413,8 @@
       },
       "sourceSectionTitle": "5. Berg–Kinsman branch",
       "recordText": "Katherine May Kinsman | 7 Apr 1898–29 Nov 1978 | Wife of Arnold; mother of Hazel. | PROVISIONAL-STRONG | 1898 Ontario birth registration remains decisive; original not yet inspected.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00028",
@@ -13403,7 +13450,8 @@
       },
       "sourceSectionTitle": "5. Berg–Kinsman branch",
       "recordText": "Walter / George Walter Kinsman + Mary Jane Hickey | c.1873/74–1944 / b. c.1877 | Proposed parents of Katherine. | PROVISIONAL-STRONG couple; Walter parentage UNRESOLVED | 1897 Ontario marriage registration; 1898 Catharine/Katherine birth; U.S. censuses.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00029",
@@ -13432,7 +13480,8 @@
       },
       "sourceSectionTitle": "5. Berg–Kinsman branch",
       "recordText": "George Kinsman + Sarah Ann Moore | George Walter lead: 9 May 1873; earlier dates derivative/conflicted | Proposed earlier generation. | UNRESOLVED | Walter's marriage registration; birth/baptism; 1944 death/obituary.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00030",
@@ -13457,7 +13506,8 @@
       },
       "sourceSectionTitle": "5.2 Kinsman negative-search controls",
       "recordText": "1901 Canada Census | No matching indexed George Walter / Mary Jane / Katherine household surfaced. | UNRESOLVED; negative search only.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00031",
@@ -13482,7 +13532,8 @@
       },
       "sourceSectionTitle": "5.2 Kinsman negative-search controls",
       "recordText": "1900 U.S. Census | No matching indexed household surfaced. | UNRESOLVED; negative search only.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00032",
@@ -13509,7 +13560,8 @@
       },
       "sourceSectionTitle": "5.2 Kinsman negative-search controls",
       "recordText": "1910 U.S. Census, Chicago | No trustworthy matching household surfaced in open-web indexing. | UNRESOLVED.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00033",
@@ -13535,7 +13587,8 @@
       },
       "sourceSectionTitle": "5.2 Kinsman negative-search controls",
       "recordText": "1920/1930 U.S. Census | No matching Canadian family surfaced; Scottish same-name collision identified. | UNRESOLVED; collision quarantined.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00034",
@@ -13562,7 +13615,8 @@
       },
       "sourceSectionTitle": "5.2 Kinsman negative-search controls",
       "recordText": "1898 Katherine birth | Original Ontario registration not surfaced on open web. | PROVISIONAL-STRONG parentage remains frozen.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00035",
@@ -13596,7 +13650,8 @@
       },
       "sourceSectionTitle": "6. Holman–Hafnor branch and collateral family",
       "recordText": "Carl Otto Holman Sr. | 7 Feb 1859–10 Mar 1930; Norway → Chicago; married 1886 | PROVISIONAL-HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00036",
@@ -13629,7 +13684,8 @@
       },
       "sourceSectionTitle": "6. Holman–Hafnor branch and collateral family",
       "recordText": "Annette Olsdtr. Hafnor | 11 Aug 1857 Ringerike/Ringrike, Norway – 16 Jan 1933 Chicago | PROVISIONAL-HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00037",
@@ -13657,7 +13713,8 @@
       },
       "sourceSectionTitle": "6. Holman–Hafnor branch and collateral family",
       "recordText": "Irene M. Holman | 1885–1976 derivative | PROVISIONAL collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00038",
@@ -13685,7 +13742,8 @@
       },
       "sourceSectionTitle": "6. Holman–Hafnor branch and collateral family",
       "recordText": "Jennie Ellen Holman | 24 Dec 1888–9 May 1961 | PROVISIONAL collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00039",
@@ -13716,7 +13774,8 @@
       },
       "sourceSectionTitle": "6. Holman–Hafnor branch and collateral family",
       "recordText": "Kate Alice Holman | 30 Aug 1889–8 Jul 1973 derivative; spouse George Otto Dennewitz Sr. | SUPPORTED relationship / exact dates derivative",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00040",
@@ -13744,7 +13803,8 @@
       },
       "sourceSectionTitle": "6. Holman–Hafnor branch and collateral family",
       "recordText": "Mabel Olga Holman | 1892–8 Apr 1987 | PROVISIONAL collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00041",
@@ -13772,7 +13832,8 @@
       },
       "sourceSectionTitle": "6. Holman–Hafnor branch and collateral family",
       "recordText": "Amy Agatha Holman | 1894–17 Jun 1966 | PROVISIONAL collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00042",
@@ -13800,7 +13861,8 @@
       },
       "sourceSectionTitle": "6. Holman–Hafnor branch and collateral family",
       "recordText": "Norman Holman | 1897–Feb 1945 | PROVISIONAL collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00043",
@@ -13828,7 +13890,8 @@
       },
       "sourceSectionTitle": "6. Holman–Hafnor branch and collateral family",
       "recordText": "Charles Holman | 1899–Dec 1969 | PROVISIONAL collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00044",
@@ -13856,7 +13919,8 @@
       },
       "sourceSectionTitle": "6. Holman–Hafnor branch and collateral family",
       "recordText": "Carl Otto Holman Jr. | 7 Oct 1899–20 Jul 1986 | PROVISIONAL collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00045",
@@ -13885,7 +13949,8 @@
       },
       "sourceSectionTitle": "7. Ferry–O’Donnell–McFadden branch and sponsor network",
       "recordText": "Peter/Patrick Ferry + Cecily/Cecelia/Sheelah O’Donnell | Parents named for Owen in the cited 1864 Irish civil birth return; given-name variants preserved. | SUPPORTED parent names / transcription variants; original image should control exact form.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00046",
@@ -13918,7 +13983,8 @@
       },
       "sourceSectionTitle": "7. Ferry–O’Donnell–McFadden branch and sponsor network",
       "recordText": "Owen Ferry | 1864–1904 tree dates; derivative lead gives 18 Jan 1864, Cross Roads, Dunfanaghy/Donegal. | SUPPORTED relationship / exact date/place PROVISIONAL-HIGH until original inspected.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00047",
@@ -13949,7 +14015,8 @@
       },
       "sourceSectionTitle": "7. Ferry–O’Donnell–McFadden branch and sponsor network",
       "recordText": "Isabella / Margaret Isabella McFadden | 1872/1878–1911; mother of Sarah. | SUPPORTED relationship / birth detail conflict unresolved.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00048",
@@ -13982,7 +14049,8 @@
       },
       "sourceSectionTitle": "7. Ferry–O’Donnell–McFadden branch and sponsor network",
       "recordText": "Sarah Ferry | 1918 record proves mother name; derivative profile gives 16 Jan 1899 / 1974 and “Elizabeth”. | SUPPORTED as 1918 mother; middle name/dates PROVISIONAL.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00049",
@@ -14010,7 +14078,8 @@
       },
       "sourceSectionTitle": "7. Ferry–O’Donnell–McFadden branch and sponsor network",
       "recordText": "Ellery / Elley DeVine / DeVeine | 1918 record proves father name only. | SUPPORTED as 1918 father name; middle initial H. and c.1894 remain PROVISIONAL.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00050",
@@ -14042,7 +14111,8 @@
       },
       "sourceSectionTitle": "7. Ferry–O’Donnell–McFadden branch and sponsor network",
       "recordText": "Edward Ellery DeVine / DeVeine | b. 1 Dec 1918 Chicago; bap. 22 Dec 1918 | SUPPORTED / VERY HIGH for baptismal facts.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00051",
@@ -14073,7 +14143,8 @@
       },
       "sourceSectionTitle": "7.1 Ferry collateral family reconstruction",
       "recordText": "Edward Ferry | c.1890–1932 | Derivative Owen + Isabella family group. | PROVISIONAL-HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00052",
@@ -14102,7 +14173,8 @@
       },
       "sourceSectionTitle": "7.1 Ferry collateral family reconstruction",
       "recordText": "Cicily / Cecelia Ferry Fleming | 1892–1966 | Derivative profile cites 1910 census, Cook County death, NUMIDENT. | PROVISIONAL-STRONG / near-supported relationship",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00053",
@@ -14130,7 +14202,8 @@
       },
       "sourceSectionTitle": "7.1 Ferry collateral family reconstruction",
       "recordText": "Patrick Ferry | c.1894–? | Derivative family group. | PROVISIONAL",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00054",
@@ -14158,7 +14231,8 @@
       },
       "sourceSectionTitle": "7.1 Ferry collateral family reconstruction",
       "recordText": "John Thomas Ferry | 1896–1957 | Derivative family group. | PROVISIONAL-HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00055",
@@ -14191,7 +14265,8 @@
       },
       "sourceSectionTitle": "7.1 Ferry collateral family reconstruction",
       "recordText": "Sarah Ferry | 1899–1974 derivative | 1918 baptism independently establishes Sarah as Edward’s mother. | SUPPORTED as mother; other details provisional",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00056",
@@ -14219,7 +14294,8 @@
       },
       "sourceSectionTitle": "7.1 Ferry collateral family reconstruction",
       "recordText": "Mary Isabelle / Marie Ferry | 1901–1977 | Derivative family group. | PROVISIONAL-HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00057",
@@ -14244,7 +14320,8 @@
       },
       "sourceSectionTitle": "7.2 Ferry sponsor and household ledger",
       "recordText": "Cecelia Fleming, 1918 sponsor = Sarah’s sister Cecelia | STRONGLY CORROBORATED HYPOTHESIS | Name/surname, sibling scaffold, and sponsor context converge; direct marriage/identity bridge still needed.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00058",
@@ -14269,7 +14346,8 @@
       },
       "sourceSectionTitle": "7.2 Ferry sponsor and household ledger",
       "recordText": "1910 household exists with Bella Ferry + Cecelia Ferry | SUPPORTED as citation-existence claim | FamilySearch profile explicitly cites Cecelia in Bella Ferry household, 1910.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00059",
@@ -14294,7 +14372,8 @@
       },
       "sourceSectionTitle": "7.2 Ferry sponsor and household ledger",
       "recordText": "Sarah present in Bella’s 1910 household | NOT YET PROVED | Raw schedule/transcription not inspected.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00060",
@@ -14330,7 +14409,8 @@
       },
       "sourceSectionTitle": "8. Proof dossier: Edward Ellery DeVine → William John Rahe Sr.",
       "recordText": "St. Anne parish extract | Edward Ellery DeVine/DeVeine; born 1 Dec 1918 Chicago; baptized 22 Dec 1918; parents Ellery DeVine + Sarah Ferry; sponsors David + Cecilia Fleming. | Direct ecclesiastical evidence for infant identity; extract issued 9 Sep 1965.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00061",
@@ -14359,7 +14439,8 @@
       },
       "sourceSectionTitle": "8. Proof dossier: Edward Ellery DeVine → William John Rahe Sr.",
       "recordText": "Adult William J. Rahe identity | William born 1 Dec 1918; died 5 Oct 1998; Palos Heights/Cook County association. | Strong derivative corroboration of adult identity.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00062",
@@ -14386,7 +14467,8 @@
       },
       "sourceSectionTitle": "8. Proof dossier: Edward Ellery DeVine → William John Rahe Sr.",
       "recordText": "WWII enlistment lead | William J. Rahe; Chicago; 9 May 1941; serial 36032246; private/selectee. | Derivative transcription until NARA row inspected.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00063",
@@ -14419,7 +14501,8 @@
       },
       "sourceSectionTitle": "8. Proof dossier: Edward Ellery DeVine → William John Rahe Sr.",
       "recordText": "Sarah Ferry Ancestry profile | Lists Clifford Henry Rahe (1895–1944) as spouse and “Ellery E. Deviene Aka William John Rahe” as child. | Highly relevant derivative bridge hypothesis; not proof.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00064",
@@ -14444,7 +14527,8 @@
       },
       "sourceSectionTitle": "8. Proof dossier: Edward Ellery DeVine → William John Rahe Sr.",
       "recordText": "RootsChat family narrative | States Sarah Elizabeth Ferry later had son William Rahe in 1918. | Family narrative corroboration; not independent proof.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00065",
@@ -14471,7 +14555,8 @@
       },
       "sourceSectionTitle": "8. Proof dossier: Edward Ellery DeVine → William John Rahe Sr.",
       "recordText": "Cook County 1 Dec 1918 birth / amendment | Could reveal original/amended name and parentage. | CRITICAL missing primary record.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00066",
@@ -14498,7 +14583,8 @@
       },
       "sourceSectionTitle": "8. Proof dossier: Edward Ellery DeVine → William John Rahe Sr.",
       "recordText": "1920/1930/1940 census chain | Could establish household, surname, stepfather/guardian context, address continuity. | CRITICAL bridge sequence.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00067",
@@ -14526,7 +14612,8 @@
       },
       "sourceSectionTitle": "8.1 Hypothesis matrix",
       "recordText": "Sarah married/partnered with Clifford Rahe and child adopted/assumed Rahe surname | 1920/1930 household, marriage/directories, school/parish should link Sarah + Clifford + Edward/William. | Cook County marriage; censuses; directories; parish/school records.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00068",
@@ -14559,7 +14646,8 @@
       },
       "sourceSectionTitle": "9. Rahe surname investigation: Clifford Henry Rahe lead",
       "recordText": "Sarah Ferry derivative profile | Clifford Henry Rahe 1895–1944 listed as spouse; child listed with DeVine/William alias. | HIGH-VALUE LEAD / not proof.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00069",
@@ -14586,7 +14674,8 @@
       },
       "sourceSectionTitle": "9. Rahe surname investigation: Clifford Henry Rahe lead",
       "recordText": "Clifford Rahe at 6650 Cottage Grove Ave., Chicago, Jun/Aug 1931 newspaper issues | Places a Clifford Rahe in Chicago during the transition window if the exact clipping/citation is verified. | USER-REPORTED STRONG LEAD; exact clipping still required.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00070",
@@ -14612,7 +14701,8 @@
       },
       "sourceSectionTitle": "9.1 Required Clifford/Rahe proof sequence",
       "recordText": "C | Build 1918–1940 household chain | Test whether Edward/William appears with Sarah, Clifford, DeVine, Dale, Ferry/Fleming relatives, or guardians.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00071",
@@ -14639,7 +14729,8 @@
       },
       "sourceSectionTitle": "9.1 Required Clifford/Rahe proof sequence",
       "recordText": "E | Obtain Cook County 1918 birth record | Check original and amended forms, certificate number, parents, later annotations.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00072",
@@ -14672,7 +14763,8 @@
       },
       "sourceSectionTitle": "10. Racky–Hoffman–Kopczynski branch",
       "recordText": "Johann Anthony Racky | 15 Mar 1850–5 Dec 1912 | Born Germany; m. Amelia/Emily Kopczynski 27 Apr 1873 Chicago; derivative profile lists many sources. | SUPPORTED-HIGH framework / inspect originals.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00073",
@@ -14700,7 +14792,8 @@
       },
       "sourceSectionTitle": "10. Racky–Hoffman–Kopczynski branch",
       "recordText": "Amelia “Emily” Kopczynski | 1853–1942 | Spouse of Johann Anthony; immigrant-generation maternal ancestor. | SUPPORTED-HIGH framework / originals needed.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00074",
@@ -14731,7 +14824,8 @@
       },
       "sourceSectionTitle": "10. Racky–Hoffman–Kopczynski branch",
       "recordText": "John Francis Racky | 7 Sep 1878–2 Jul 1957 | Son of Johann Anthony + Amelia; father of Jean. | PROVISIONAL-STRONG / source-rich.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00075",
@@ -14762,7 +14856,8 @@
       },
       "sourceSectionTitle": "10. Racky–Hoffman–Kopczynski branch",
       "recordText": "Anna Rose Hoffman | 26 Mar 1880–12 Feb 1969 | Wife of John Francis; mother of Jean. | PROVISIONAL-STRONG; parentage unresolved.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00076",
@@ -14789,7 +14884,8 @@
       },
       "sourceSectionTitle": "10. Racky–Hoffman–Kopczynski branch",
       "recordText": "Racky–Hoffman marriage | 29 Jun 1904 Chicago | Marriage lead for John Francis + Anna Rose. | PROVISIONAL-STRONG pending original.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00077",
@@ -14821,7 +14917,8 @@
       },
       "sourceSectionTitle": "10. Racky–Hoffman–Kopczynski branch",
       "recordText": "Jean Mary Racky | 15 Sep 1920–30 Dec 2000 | Daughter; spouse of William John Rahe Sr.; Saint Marys Cemetery, Northbrook reported in v7. | PROVISIONAL-STRONG pending original 1920 birth.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00078",
@@ -14848,7 +14945,8 @@
       },
       "sourceSectionTitle": "10. Racky–Hoffman–Kopczynski branch",
       "recordText": "William Rahe × Jean Racky | 15 May 1942 Chicago | Civil marriage lead from derivative profile. | PROVISIONAL-STRONG; original high priority.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00079",
@@ -14873,7 +14971,8 @@
       },
       "sourceSectionTitle": "10. Racky–Hoffman–Kopczynski branch",
       "recordText": "William Rahe × Jean Racky | 16 May 1948 Saint Rita Catholic event | Family-held church certificate. | SUPPORTED / VERY HIGH for Catholic event.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00080",
@@ -14901,7 +15000,8 @@
       },
       "sourceSectionTitle": "10.1 Jean’s collateral siblings",
       "recordText": "John Paul Racky | 1905–1906; original birth/death records still target.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00081",
@@ -14929,7 +15029,8 @@
       },
       "sourceSectionTitle": "10.1 Jean’s collateral siblings",
       "recordText": "Marion Frances Racky | 1907–2005; verify originals.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00082",
@@ -14957,7 +15058,8 @@
       },
       "sourceSectionTitle": "10.1 Jean’s collateral siblings",
       "recordText": "George Robert Racky | 1908–1983; verify originals.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00083",
@@ -14985,7 +15087,8 @@
       },
       "sourceSectionTitle": "10.1 Jean’s collateral siblings",
       "recordText": "Donald Joseph Racky | 1910–1973; verify originals.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00084",
@@ -15013,7 +15116,8 @@
       },
       "sourceSectionTitle": "10.1 Jean’s collateral siblings",
       "recordText": "Arthur Vincent Racky | 1912–2004; verify originals.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00085",
@@ -15043,7 +15147,8 @@
       },
       "sourceSectionTitle": "10.1 Jean’s collateral siblings",
       "recordText": "Jean Mary Racky | 1920–2000; youngest child; relationship remains source-rich but original birth should be inspected.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00086",
@@ -15070,7 +15175,8 @@
       },
       "sourceSectionTitle": "12. Conflict, rejection, and same-name quarantine register",
       "recordText": "Hazel Berg 1914–2004 | REJECT for George Jr.’s wife | Conflicts with 1950 census age and veterans-cemetery identity.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00087",
@@ -15095,7 +15201,8 @@
       },
       "sourceSectionTitle": "12. Conflict, rejection, and same-name quarantine register",
       "recordText": "Hazel marriage hint 19 Jun 1937 | UNRESOLVED lead | Civil image not inspected; conflicts with reported later single-status chronology.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00088",
@@ -15120,7 +15227,8 @@
       },
       "sourceSectionTitle": "12. Conflict, rejection, and same-name quarantine register",
       "recordText": "Dennewitz–Berg marriage “1940” | WITHDRAWN / not established | Earlier assertion lacked an attached record; do not reintroduce until civil record is inspected.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00089",
@@ -15153,7 +15261,8 @@
       },
       "sourceSectionTitle": "12. Conflict, rejection, and same-name quarantine register",
       "recordText": "Sarah Elizabeth Ferry exact dates | PROVISIONAL | 1918 baptism proves Sarah Ferry only; derivative tree supplies 16 Jan 1899/1974 and middle name.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00090",
@@ -15179,7 +15288,8 @@
       },
       "sourceSectionTitle": "12. Conflict, rejection, and same-name quarantine register",
       "recordText": "Ellery/Elley H. DeVeine, c.1894 | PROVISIONAL beyond proved father name | 1918 baptism proves Ellery DeVine as father; middle initial/year not established.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00091",
@@ -15209,7 +15319,8 @@
       },
       "sourceSectionTitle": "12. Conflict, rejection, and same-name quarantine register",
       "recordText": "Isabella McFadden birth year 1872 vs 1878 | UNRESOLVED | Derivative sources conflict.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00092",
@@ -15235,7 +15346,8 @@
       },
       "sourceSectionTitle": "12. Conflict, rejection, and same-name quarantine register",
       "recordText": "Rahe–Racky 1942 vs 1948 | KEEP BOTH EVENTS | Likely civil vs later Catholic sequence, but mechanism not yet proved.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00093",
@@ -15263,7 +15375,8 @@
       },
       "sourceSectionTitle": "12. Conflict, rejection, and same-name quarantine register",
       "recordText": "Sarah Alice Hyde birth year | UNRESOLVED 1857/1858 | Derivative sources conflict.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00094",
@@ -15289,7 +15402,8 @@
       },
       "sourceSectionTitle": "12. Conflict, rejection, and same-name quarantine register",
       "recordText": "Early Dennewitz 1710–1843 | PROVISIONAL | Compiled genealogy without inspected German parish images.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00095",
@@ -15317,7 +15431,8 @@
       },
       "sourceSectionTitle": "12. Conflict, rejection, and same-name quarantine register",
       "recordText": "Otto Dennewitz immigration via Ellis Island | REJECT as original-immigration proof | George Sr. was born Chicago 1886; Ellis Island opened 1892. The asserted chronology cannot prove the claimed original immigration.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00096",
@@ -15348,7 +15463,8 @@
       },
       "sourceSectionTitle": "12. Conflict, rejection, and same-name quarantine register",
       "recordText": "George Walter Kinsman → alleged George E. Kinsman 1859–1874 | UNRESOLVED / chronology quarantine | The 1859–1874 dates belong to a derivative corrupted-merge hypothesis and must not be treated as the canonical George E. Kinsman lifespan.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00097",
@@ -15375,7 +15491,8 @@
       },
       "sourceSectionTitle": "12. Conflict, rejection, and same-name quarantine register",
       "recordText": "Scottish golfer George Kinsman b.1876 | REJECT / WRONG PERSON | Same-name collision unrelated to Canadian Kinsman line.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00098",
@@ -15401,7 +15518,8 @@
       },
       "sourceSectionTitle": "13. Negative-search and non-finding log",
       "recordText": "Early Dennewitz parish chain | No original German parish images inspected during revision. | Keep 1710–1843 provisional.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00099",
@@ -15428,7 +15546,8 @@
       },
       "sourceSectionTitle": "13. Negative-search and non-finding log",
       "recordText": "Kinsman Ontario parentage | No original 1898 Katherine birth registration inspected. | Keep parentage provisional-strong.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00100",
@@ -15454,7 +15573,8 @@
       },
       "sourceSectionTitle": "13. Negative-search and non-finding log",
       "recordText": "1900 U.S. / 1901 Canada Kinsman household | No trustworthy matching household surfaced in open-web indexes. | Repository-level surname-free / child-pair search if revisited.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00101",
@@ -15480,7 +15600,8 @@
       },
       "sourceSectionTitle": "13. Negative-search and non-finding log",
       "recordText": "1910–1930 Kinsman census sweep | No matching Canadian George Walter/Mary Jane household surfaced; Scottish golfer collision exposed. | Quarantine Scottish line; prioritize original vital records.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00102",
@@ -15510,7 +15631,8 @@
       },
       "sourceSectionTitle": "13. Negative-search and non-finding log",
       "recordText": "1908–1912 Chicago Ferry directories | Public text/index sweep negative or incomplete; no verified Ferry address surfaced. | Inspect full raw 1909–1911 directory scans at FER–FES alphabetical pages; do not repeat generic OCR search.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00103",
@@ -15542,7 +15664,8 @@
       },
       "sourceSectionTitle": "13.1 Directory geographic bypass protocol",
       "recordText": "Raw directory target | Inspect full-volume 1909–1911 Chicago city directories manually at FER–FES pages for Isabella/Bella/Edward/Patrick/John Ferry.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00104",
@@ -15567,7 +15690,8 @@
       },
       "sourceSectionTitle": "13.1 Directory geographic bypass protocol",
       "recordText": "If address is found | Preserve exact printed address. Map through 1910 street/index and enumeration-district finding aids/boundaries, then walk the raw census schedule by street/house number.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00105",
@@ -15592,7 +15716,8 @@
       },
       "sourceSectionTitle": "13.1 Directory geographic bypass protocol",
       "recordText": "1910 transcription rule | Treat Sarah’s presence as a binary test. Transcribe the full row block, page header, street/house number, Bella’s fields, every resident, and adjacent potentially related households. Do not infer Sarah’s presence from sibling grouping on a profile.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00106",
@@ -15631,7 +15756,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "C001 | Family-held St. Anne Church baptism certificate | Parish extract issued 9 Sep 1965 from 1918 register | Edward Ellery DeVine/DeVeine; b. 1 Dec 1918 Chicago; bap. 22 Dec 1918; parents Ellery DeVine + Sarah Ferry; sponsors David + Cecilia Fleming. | PRIMARY-DERIVED / VERY HIGH | v3 S01; v7 S01",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00107",
@@ -15660,7 +15786,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "C002 | Family-held Saint Rita Church marriage certificate | Church certificate | William Rahe + Jean Racky; 16 May 1948 Catholic event. | PRIMARY-DERIVED / VERY HIGH | v3 S02; v7 S02",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00108",
@@ -15691,7 +15818,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "C003 | 1950 U.S. Census schedule image | Original federal record | George O. Dennewitz household; Hazel E.; Linda K.; Jean C.; ages. | ORIGINAL IMAGE / VERY HIGH | v3 S03; v7 S03",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00109",
@@ -15720,7 +15848,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "C008 | NARA WWII Army enlistment series | Federal archival series target | Target William J. Rahe row; serial 36032246; 9 May 1941 Chicago. | OFFICIAL TARGET | v3 S08; v7 S08",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00110",
@@ -15751,7 +15880,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "C010 | Cook County civil/genealogy vital records | Civil repository target | 1918 birth; Sarah marriages; Dennewitz–Berg marriage; Rahe–Racky marriage; Ferry/DeVine searches. | CRITICAL REPOSITORY | v3 S10; v7 S10",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00111",
@@ -15782,7 +15912,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "C011 | Ontario civil registration / Archives of Ontario | Canadian civil repository target | Katherine Kinsman 1898 birth; Canadian parentage. | CRITICAL BRANCH VERIFICATION | v3 S11; v7 S11",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00112",
@@ -15814,7 +15945,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "C012 | Official Irish civil birth return, 1864 | Irish civil registration | Peter Ferry + Cecily O’Donnell as parents of Owen Ferry. | OFFICIAL / STRONG | v3 S12; v7 S12",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00113",
@@ -15845,7 +15977,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "C013 | Archdiocese of Chicago / parish sacramental registers | Ecclesiastical repository target | Original St. Anne 1918 entry, volume/page, spelling, marginal annotations. | CRITICAL IDENTITY FOLLOW-UP | v3 S13; v7 S13",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00114",
@@ -15875,7 +16008,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "W001 | AncientFaces — William J. Rahe | Derivative web biography | DOB 1 Dec 1918; death 5 Oct 1998; military transcription including serial/date. | CORROBORATION ONLY | v3 S15; v7 W01",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00115",
@@ -15908,7 +16042,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "W003 | Selves.ca — Annette Olsdtr. Hafnor | Compiled genealogy | Annette/Carl dates; 1886 marriage; Chicago family group incl. Kate. | CORROBORATION ONLY | v3 S17; v7 W06 in §11 / W10 in §29",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00116",
@@ -15945,7 +16080,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "W005 | FamilySearch — Jean Mary Racky | Derivative profile + source list | Parents; sibling group; 15 May 1942 marriage lead; cites Cook County birth/1950 census. | STRONG LEAD / inspect originals | v3 S19; v7 W02/W09",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00117",
@@ -15984,7 +16120,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "W006 | Ancestry — Sarah Ferry | Derivative public genealogy | Sarah 1899–1974 derivative; parents Owen + Margaret/Isabella McFadden; spouses Elie Davin, Clifford Henry Rahe, Jack Dale; child alias assertion. | HIGH-VALUE LEAD ONLY | v7 W03 / W06 in §29",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00118",
@@ -16015,7 +16152,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "W007 | FamilySearch — Cicily/Cecelia Ferry | Derivative profile + source pointers | Ferry sibling group; 1910 household citation; Cook County death; NUMIDENT; Fleming link. | STRONG LEAD | v7 W04 / W07 in §29",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00119",
@@ -16048,7 +16186,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "W008 | FamilySearch — Johann Anthony Racky | Derivative source-rich profile | Parents Johann Kaspar Rackey + Margaretha Goetz; 27 Apr 1873 marriage; source-rich scaffold. | STRONG LEAD / inspect originals | v7 W08 in §29",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00120",
@@ -16078,7 +16217,8 @@
       },
       "sourceSectionTitle": "14. Canonical master source register",
       "recordText": "W009 | FamilySearch — William Holman Dennewitz | Derivative profile + source pointers | Collateral Dennewitz branch; points to birth certificate, 1930 census, WWII draft, marriage to Dorothy Cecelia Kinsman. | STRONG LEAD | v7 W05",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00121",
@@ -16113,7 +16253,8 @@
       },
       "sourceSectionTitle": "16. Claim-level evidence register",
       "recordText": "CL-DB-002 | Hazel Emma Berg = 29 Oct 1918–2 Nov 1997 | SUPPORTED / VERY HIGH | C004 + C003 | Retain conflicting 1914–2004 identity as REJECTED.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00122",
@@ -16144,7 +16285,8 @@
       },
       "sourceSectionTitle": "16. Claim-level evidence register",
       "recordText": "CL-DB-003 | Linda K. and Jean C. are daughters in 1950 household | SUPPORTED | C003 | Family exact dates remain family-derived.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00123",
@@ -16179,7 +16321,8 @@
       },
       "sourceSectionTitle": "16. Claim-level evidence register",
       "recordText": "CL-BK-001 | Hazel → Arnold Eric Berg + Katherine May Kinsman | PROVISIONAL-STRONG | C007; W-source pointers | Obtain Hazel 1918 Illinois birth registration; determine parentage and amendment history.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00124",
@@ -16216,7 +16359,8 @@
       },
       "sourceSectionTitle": "16. Claim-level evidence register",
       "recordText": "CL-KIN-001 | Katherine May Kinsman -> Walter/George Walter Kinsman + Mary Jane Hickey/McLaughlin | PROVISIONAL-STRONG | C007/C011 | Obtain 19 Oct 1897 marriage image + 7 Apr 1898 birth image; full field extraction.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00125",
@@ -16254,7 +16398,8 @@
       },
       "sourceSectionTitle": "16. Claim-level evidence register",
       "recordText": "CL-DV-001 | Edward Ellery DeVine/DeVeine born 1 Dec 1918 Chicago to Ellery DeVine + Sarah Ferry | SUPPORTED / VERY HIGH | C001 | Original register + civil birth still desired.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00126",
@@ -16292,7 +16437,8 @@
       },
       "sourceSectionTitle": "16. Claim-level evidence register",
       "recordText": "CL-RAC-001 | Jean Mary Racky → John Francis Racky + Anna Rose Hoffman | PROVISIONAL-STRONG | W005 | 1920 Cook County birth.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00127",
@@ -16330,7 +16476,8 @@
       },
       "sourceSectionTitle": "16. Claim-level evidence register",
       "recordText": "CL-RAC-002 | John Francis Racky × Anna Rose Hoffman 29 Jun 1904 Chicago | PROVISIONAL-STRONG | W005/W008 derivative scaffold | Original marriage record.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00128",
@@ -16364,7 +16511,8 @@
       },
       "sourceSectionTitle": "16. Claim-level evidence register",
       "recordText": "CL-RAC-003 | William Rahe × Jean Racky 15 May 1942 Chicago | PROVISIONAL-STRONG | W005 | Original civil marriage.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00129",
@@ -16393,7 +16541,8 @@
       },
       "sourceSectionTitle": "16. Claim-level evidence register",
       "recordText": "CL-RAC-004 | William Rahe × Jean Racky 16 May 1948 Saint Rita Catholic event | SUPPORTED / VERY HIGH | C002 | Do not label convalidation without explicit source.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00130",
@@ -16423,7 +16572,8 @@
       },
       "sourceSectionTitle": "16. Claim-level evidence register",
       "recordText": "CL-DEN-EARLY | Dennewitz 1710–1843 pedigree | PROVISIONAL | C005 + derivative corroboration | German parish images required before further expansion.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00131",
@@ -16450,7 +16600,8 @@
       },
       "sourceSectionTitle": "17. Record-acquisition and proof queue",
       "recordText": "2 — CRITICAL | Cook County birth record, 1 Dec 1918 — DeVine/DeVeine/Devine/Deveine/Rahe + Edward/Ellery/William variants | Identity bridge | Does original/amended record bridge infant and adult identities?",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00132",
@@ -16475,7 +16626,8 @@
       },
       "sourceSectionTitle": "17. Record-acquisition and proof queue",
       "recordText": "3 — CRITICAL | Original St. Anne 1918 register entry | Identity bridge | Original spelling; register locator; sponsors; marginal adoption/name-change/sacramental annotations.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00133",
@@ -16503,7 +16655,8 @@
       },
       "sourceSectionTitle": "17. Record-acquisition and proof queue",
       "recordText": "4 — CRITICAL | 1910/1920/1930/1940 census chain | Ferry–DeVine–Rahe | Household, address, surname transition, stepfather/guardian/collateral residence.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00134",
@@ -16530,7 +16683,8 @@
       },
       "sourceSectionTitle": "17. Record-acquisition and proof queue",
       "recordText": "6 — HIGH | 1942 Cook County Rahe–Racky civil marriage | Rahe/Racky | Resolve civil marriage; identify William’s parents/residence.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00135",
@@ -16559,7 +16713,8 @@
       },
       "sourceSectionTitle": "17. Record-acquisition and proof queue",
       "recordText": "7 — HIGH | 1920 Jean Mary Racky birth | Racky | Lock parents and child identity.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00136",
@@ -16584,7 +16739,8 @@
       },
       "sourceSectionTitle": "17. Record-acquisition and proof queue",
       "recordText": "8 — HIGH | 1904 Racky–Hoffman marriage | Racky/Hoffman | Parents, residences, occupations, witnesses.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00137",
@@ -16615,7 +16771,8 @@
       },
       "sourceSectionTitle": "17. Record-acquisition and proof queue",
       "recordText": "10 — HIGH | Owen Ferry × Isabella McFadden marriage, derivative lead 2 Jun 1889 | Ferry family | Ages, birthplaces, parents, addresses, witnesses.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00138",
@@ -16640,7 +16797,8 @@
       },
       "sourceSectionTitle": "17. Record-acquisition and proof queue",
       "recordText": "11 — HIGH | Cecelia Ferry/Fleming marriage + death | 1918 sponsor network | Prove Cecelia identity, David relationship, sponsor link.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00139",
@@ -16665,7 +16823,8 @@
       },
       "sourceSectionTitle": "17. Record-acquisition and proof queue",
       "recordText": "12 — HIGH | Hazel Berg 1918 birth registration | Berg/Kinsman | Directly test Arnold Berg + Katherine Kinsman parentage.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00140",
@@ -16691,7 +16850,8 @@
       },
       "sourceSectionTitle": "17. Record-acquisition and proof queue",
       "recordText": "13 — HIGH | George Dennewitz Jr. × Hazel Berg civil marriage record | Dennewitz/Berg | Establish actual marriage date; resolve 1937/1940 leads; parents/residences.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00141",
@@ -16723,7 +16883,8 @@
       },
       "sourceSectionTitle": "17. Record-acquisition and proof queue",
       "recordText": "15 — HIGH | Katherine May Kinsman 1898 Ontario birth | Kinsman | Direct parentage; unlock Canadian line.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00142",
@@ -16749,7 +16910,8 @@
       },
       "sourceSectionTitle": "17. Record-acquisition and proof queue",
       "recordText": "19 — LONG-TERM | German Dennewitz parish images 1710–1843 | Oldest pedigree | Convert compiled pedigree to documentary ancestry; do not extend before proof.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00143",
@@ -16774,7 +16936,8 @@
       },
       "sourceSectionTitle": "18.1 Official Ferry/DeVine acquisition sequence",
       "recordText": "1 | 1910 Bella Ferry raw census schedule | Exact household roster/address; Bella status/immigration; Sarah present yes/no; adjacent relatives.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00144",
@@ -16805,7 +16968,8 @@
       },
       "sourceSectionTitle": "18.1 Official Ferry/DeVine acquisition sequence",
       "recordText": "2 | 1920 Sarah Ferry / DeVine / Rahe household | Locate Sarah and Edward/Ellery; test surname transition and collateral/stepfamily residence.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00145",
@@ -16836,7 +17000,8 @@
       },
       "sourceSectionTitle": "18.1 Official Ferry/DeVine acquisition sequence",
       "recordText": "3 | 1930 Sarah Ferry / DeVine / Rahe household | Test Edward/Ellery/William, Clifford Rahe, Ferry/Fleming co-residence and surname use.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00146",
@@ -16863,7 +17028,8 @@
       },
       "sourceSectionTitle": "18.1 Official Ferry/DeVine acquisition sequence",
       "recordText": "4 | Cook County birth index/original for Sarah, 16 Jan 1899 derivative target | Prove exact DOB and parentage.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00147",
@@ -16894,7 +17060,8 @@
       },
       "sourceSectionTitle": "18.1 Official Ferry/DeVine acquisition sequence",
       "recordText": "6 | Owen Ferry × Isabella McFadden marriage, 2 Jun 1889 derivative lead | Lock ages, birthplaces, parents, residence, witnesses.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00148",
@@ -16919,7 +17086,8 @@
       },
       "sourceSectionTitle": "18.2 Racky acquisition order",
       "recordText": "1 | 1904 Racky–Hoffman marriage | Parents, residences, occupations, witnesses; anchor John Francis + Anna Rose.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00149",
@@ -16948,7 +17116,8 @@
       },
       "sourceSectionTitle": "18.2 Racky acquisition order",
       "recordText": "2 | 1920 Jean Mary Racky birth | Direct parentage and exact birth identity.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00150",
@@ -16973,7 +17142,8 @@
       },
       "sourceSectionTitle": "18.2 Racky acquisition order",
       "recordText": "3 | 1942 Rahe–Racky civil marriage | William parentage/residence and civil chronology.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00151",
@@ -16999,7 +17169,8 @@
       },
       "sourceSectionTitle": "18.3 Dennewitz / Berg / Kinsman stop rules",
       "recordText": "Dennewitz | Do not add another German generation until the current 1710–1843 chain is supported by locality-specific parish images.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00152",
@@ -17029,7 +17200,8 @@
       },
       "sourceSectionTitle": "20. Graphic-ready specification",
       "recordText": "Katherine → Walter Kinsman + Mary Jane Hickey | Gold / dashed provisional-strong | Reported parentage; 1897 marriage and 1898 birth registration images not inspected.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00153",
@@ -17062,7 +17234,8 @@
       },
       "sourceSectionTitle": "20. Graphic-ready specification",
       "recordText": "Sarah Ferry → Edward Ellery DeVine | Solid | 1918 St. Anne extract.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00154",
@@ -17092,7 +17265,8 @@
       },
       "sourceSectionTitle": "20. Graphic-ready specification",
       "recordText": "Ellery DeVine → Edward Ellery DeVine | Solid | 1918 St. Anne extract.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00155",
@@ -17118,7 +17292,8 @@
       },
       "sourceSectionTitle": "20. Graphic-ready specification",
       "recordText": "William Rahe — Jean Racky | Solid spouse / dual-event annotation | 1942 derivative civil lead; 1948 supported Catholic event.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00156",
@@ -17150,7 +17325,8 @@
       },
       "sourceSectionTitle": "21. Relationship dataset for tree rebuilding",
       "recordText": "P-FERRY-OWEN | Owen Ferry | 1864–1904 tree dates | Peter Ferry | Cecily O’Donnell | Isabella McFadden | SUPPORTED relationship / dates need originals",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00157",
@@ -17186,7 +17362,8 @@
       },
       "sourceSectionTitle": "21. Relationship dataset for tree rebuilding",
       "recordText": "P-FERRY-SARAH | Sarah Ferry | 1899–1974 derivative | Owen Ferry | Isabella McFadden | Ellery DeVine; Clifford Rahe?; Jack Dale? | SUPPORTED as Edward’s mother; spouse chronology mixed",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00158",
@@ -17221,7 +17398,8 @@
       },
       "sourceSectionTitle": "21. Relationship dataset for tree rebuilding",
       "recordText": "P-DEVINE-EDWARD | Edward Ellery DeVine/DeVeine | b. 1 Dec 1918 Chicago | Ellery DeVine | Sarah Ferry | — | SUPPORTED birth/baptism identity",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00159",
@@ -17253,7 +17431,8 @@
       },
       "sourceSectionTitle": "21. Relationship dataset for tree rebuilding",
       "recordText": "P-RAHE-WILLIAM-SR | William John Rahe Sr. | 1 Dec 1918–5 Oct 1998 derivative | UNRESOLVED | UNRESOLVED | Jean Mary Racky | UNRESOLVED identity bridge to Edward",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00160",
@@ -17286,7 +17465,8 @@
       },
       "sourceSectionTitle": "21. Relationship dataset for tree rebuilding",
       "recordText": "P-RAHE-CLIFFORD | Clifford Henry Rahe | 1895–1944 derivative | UNKNOWN | UNKNOWN | Sarah Ferry? | PROVISIONAL lead only",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00161",
@@ -17321,7 +17501,8 @@
       },
       "sourceSectionTitle": "21. Relationship dataset for tree rebuilding",
       "recordText": "P-RACKY-JEAN | Jean Mary Racky | 15 Sep 1920–30 Dec 2000 | John Francis Racky | Anna Rose Hoffman | William John Rahe Sr. | PROVISIONAL-STRONG / source-rich",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00162",
@@ -17352,7 +17533,8 @@
       },
       "sourceSectionTitle": "21. Relationship dataset for tree rebuilding",
       "recordText": "P-RACKY-JOHANN | Johann Anthony Racky | 15 Mar 1850–5 Dec 1912 | Johann Kaspar Rackey? | Margaretha Goetz? | Amelia/Emily Kopczynski | PROVISIONAL-STRONG / source-rich; originals required",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00163",
@@ -17385,7 +17567,8 @@
       },
       "sourceSectionTitle": "21. Relationship dataset for tree rebuilding",
       "recordText": "P-DEN-GEORGE-JR | George Otto Dennewitz Jr. | 26 Apr 1913–3 Jun 1998 | George Otto Dennewitz Sr. | Kate Alice Holman | Hazel Emma Berg | SUPPORTED / VERY HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00164",
@@ -17418,7 +17601,8 @@
       },
       "sourceSectionTitle": "21. Relationship dataset for tree rebuilding",
       "recordText": "P-BERG-HAZEL | Hazel Emma Berg | 29 Oct 1918–2 Nov 1997 | Arnold Eric Berg | Katherine May Kinsman | George Otto Dennewitz Jr. | SUPPORTED adult identity / spouse; parentage PROVISIONAL-STRONG",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00165",
@@ -17451,7 +17635,8 @@
       },
       "sourceSectionTitle": "21. Relationship dataset for tree rebuilding",
       "recordText": "P-HOLMAN-KATE | Kate Alice Holman | 30 Aug 1889–8 Jul 1973 derivative | Carl Otto Holman Sr. | Annette Olsdtr. Hafnor | George Otto Dennewitz Sr. | SUPPORTED spouse relationship / exact dates derivative",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00166",
@@ -17478,7 +17663,8 @@
       },
       "sourceSectionTitle": "22. Completeness gates and final research-state statement",
       "recordText": "Canadian gate | Katherine Kinsman 1898 birth and parental line proved from Ontario originals.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00167",
@@ -17510,7 +17696,8 @@
       },
       "sourceSectionTitle": "Appendix A. Legacy v3 preservation checklist",
       "recordText": "St. Anne baptism date 22 Dec 1918 | Restored in §§7, 8 and C001.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00168",
@@ -17542,7 +17729,8 @@
       },
       "sourceSectionTitle": "Appendix A. Legacy v3 preservation checklist",
       "recordText": "St. Anne extract issuance 9 Sep 1965 | Restored in §§7, 8 and C001; distinguished from original register.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00169",
@@ -17567,7 +17755,8 @@
       },
       "sourceSectionTitle": "Appendix A. Legacy v3 preservation checklist",
       "recordText": "Hazel marriage hint 19 Jun 1937 | Restored as UNRESOLVED in §§4.1 and 12.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00170",
@@ -17592,7 +17781,8 @@
       },
       "sourceSectionTitle": "Appendix A. Legacy v3 preservation checklist",
       "recordText": "Unsupported “1940” Dennewitz–Berg marriage | Restored as withdrawn / date not established.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00171",
@@ -17617,7 +17807,8 @@
       },
       "sourceSectionTitle": "Appendix A. Legacy v3 preservation checklist",
       "recordText": "Ellery/Elley H. DeVeine c.1894 caution | Restored: father name proved only; middle initial/year provisional.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00172",
@@ -17642,7 +17833,8 @@
       },
       "sourceSectionTitle": "Appendix A. Legacy v3 preservation checklist",
       "recordText": "1950 census ages George 36 / Hazel 31 | Restored in documentary core.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00173",
@@ -17680,7 +17872,8 @@
       },
       "sourceSectionTitle": "Appendix B. Web research register retained from v7",
       "recordText": "W006 — Ancestry Sarah Ferry | Lists Clifford Henry Rahe (1895–1944) as spouse; “Ellery E. Deviene Aka William John Rahe” as child; also Elie Davin and Jack Dale spouse entries. | Most important new Rahe identity lead; derivative, not proof.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00174",
@@ -17711,7 +17904,8 @@
       },
       "sourceSectionTitle": "Appendix B. Web research register retained from v7",
       "recordText": "W007 — FamilySearch Cicily/Cecelia Ferry | Sibling cluster; record pointers to 1910 census, Cook County death, NUMIDENT; Fleming link. | Useful collateral network; inspect source images.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00175",
@@ -17747,7 +17941,8 @@
       },
       "sourceSectionTitle": "Appendix B. Web research register retained from v7",
       "recordText": "W005 — FamilySearch Jean Mary Racky | Parents John Francis Racky + Anna Rose Hoffman; sibling group; 15 May 1942 marriage lead; birth/census pointers. | Strong derivative scaffold.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00176",
@@ -17779,7 +17974,8 @@
       },
       "sourceSectionTitle": "Appendix B. Web research register retained from v7",
       "recordText": "W009 — FamilySearch William Holman Dennewitz | Cook County birth certificate, 1930 census, WWII draft, marriage to Dorothy Cecelia Kinsman. | Strong collateral-source lead.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00177",
@@ -17808,7 +18004,8 @@
       },
       "sourceSectionTitle": "Appendix B. Web research register retained from v7",
       "recordText": "W003 — Selves.ca Annette Hafnor | Eight-child Holman sibling group; dates and 1886 marriage. | Useful collateral structure; compiled.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00178",
@@ -17838,7 +18035,8 @@
       },
       "sourceSectionTitle": "Appendix B. Web research register retained from v7",
       "recordText": "W002 — Ancestry George Otto Dennewitz | 1920/1930 census pointers, SSDI, Cook County marriage-index pointers. | Record-target discovery; derivative page itself not proof.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00179",
@@ -17871,7 +18069,8 @@
       },
       "sourceSectionTitle": "Appendix B. Web research register retained from v7",
       "recordText": "W008 — FamilySearch Johann Anthony Racky | Parents Johann Kaspar Rackey + Margaretha Goetz; 27 Apr 1873 marriage; source-rich profile. | Useful earlier-generation scaffold; inspect originals.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00180",
@@ -17896,7 +18095,8 @@
       },
       "sourceSectionTitle": "Appendix C. Change log",
       "recordText": "v3.0 | 7 Sep 2026 | Audited/restructured evidence-first master source document; tightened terminology; added branch status, conflicts, acquisition plan, source register.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00181",
@@ -17921,7 +18121,8 @@
       },
       "sourceSectionTitle": "Appendix C. Change log",
       "recordText": "v7.0 | 8 Sep 2026 | Expanded to whole-tree research system; collateral families; Clifford Rahe lead; negative-search logging; relationship dataset; web supplement. Introduced duplicate W-source IDs and retained v6.0 running header in rendered pages.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00182",
@@ -17946,7 +18147,8 @@
       },
       "sourceSectionTitle": "Appendix C. Change log",
       "recordText": "v8.0 | 8 Sep 2026 | Canonical consolidation: restores v3 details omitted/diluted in v7, repairs unique source IDs, preserves v7 expansions, strengthens provenance and stop rules, and creates a single controlling source/evidence dossier.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00183",
@@ -17974,7 +18176,8 @@
       },
       "sourceSectionTitle": "Appendix C. Change log",
       "recordText": "v9.0 | 10 Sep 2026 | Fully canonical merge: preserves v8 lossless whole-tree/collateral structure; applies v4.1 forensic status corrections; incorporates Ontario/SSA/Illinois verified retrieval procedures; adds full person inventory and source-precedence controls.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00184",
@@ -17999,7 +18202,8 @@
       },
       "sourceSectionTitle": "D.1 Walter / George Walter Kinsman × Mary Jane Hickey / McLaughlin",
       "recordText": "Marriage date | 19 Oct 1897 | PROVISIONAL-STRONG",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00185",
@@ -18026,7 +18230,8 @@
       },
       "sourceSectionTitle": "D.2 1897 marriage extraction checklist",
       "recordText": "Marriage date and exact locality | Confirms reported 19 Oct 1897 Perth County event. | Pending image",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00186",
@@ -18051,7 +18256,8 @@
       },
       "sourceSectionTitle": "D.2 1897 marriage extraction checklist",
       "recordText": "Groom age, birthplace, residence, occupation, marital status | Correlates Walter to the 1873/74 identity. | Pending image",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00187",
@@ -18076,7 +18282,8 @@
       },
       "sourceSectionTitle": "D.3 Catharine / Catherine / Katherine May Kinsman — 1898 birth target",
       "recordText": "Date and place | Confirm 7 Apr 1898 and Hibbert Township.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00188",
@@ -18102,7 +18309,8 @@
       },
       "sourceSectionTitle": "D.5 Current decision register",
       "recordText": "Promote Walter + Mary Jane as Katherine parents? | Not yet. PROVISIONAL-STRONG pending 1897/1898 registration images.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00189",
@@ -18127,7 +18335,8 @@
       },
       "sourceSectionTitle": "D.5 Current decision register",
       "recordText": "Treat 1918 influenza as evidence of Hazel adoption? | No. Historical context only; not family-specific evidence.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00190",
@@ -18157,7 +18366,8 @@
       },
       "sourceSectionTitle": "E.4 Web verification register — 10 Sep 2026",
       "recordText": "V002 | FamilySearch — Canada, Ontario, Marriages, 1869–1927 | AO provenance, images, and fields including parents, ages, occupations, birthplaces, denominations, date/place.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00191",
@@ -18188,7 +18398,8 @@
       },
       "sourceSectionTitle": "E.4 Web verification register — 10 Sep 2026",
       "recordText": "V003 | FamilySearch — Historical Record Collections list | Confirms Ontario Births 1869–1912 and Marriages 1869–1927 collection availability.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00192",
@@ -18219,7 +18430,8 @@
       },
       "sourceSectionTitle": "E.4 Web verification register — 10 Sep 2026",
       "recordText": "V008 | FamilySearch — Jean Mary Racky profile | Derivative 15 May 1942 marriage lead and underlying source pointers.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00193",
@@ -18247,7 +18459,8 @@
       },
       "sourceSectionTitle": "E.4 Web verification register — 10 Sep 2026",
       "recordText": "V013 | FamilySearch — Sara/Sarah Hyde profile | New derivative lead: 29 Dec 1857 Manchester birth; 15 Feb 1884 marriage to Otto Christian; inspect attached originals.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00194",
@@ -18276,7 +18489,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Dennewitz | Johann Ernst Dennewitz | c.1710–1760 | spouse Eva Maria; early direct line | PROVISIONAL",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00195",
@@ -18303,7 +18517,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Dennewitz | Eva Maria | d.1780 | spouse Johann Ernst | PROVISIONAL",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00196",
@@ -18333,7 +18548,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Dennewitz | Johann Gottlieb Dennewitz | c.1740–1832 | spouse Johanna D. Rungert; direct line | PROVISIONAL",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00197",
@@ -18361,7 +18577,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Dennewitz | Johanna D. Rungert | 1750–1820 | spouse Johann Gottlieb | PROVISIONAL",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00198",
@@ -18390,7 +18607,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Dennewitz | Johann Gottlieb Dennewitz | 1778–1843 | direct line | PROVISIONAL",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00199",
@@ -18419,7 +18637,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Dennewitz | John C. Dennewitz | 1821–1907 | spouse Dorothee R. Huebler; direct line | PROVISIONAL-HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00200",
@@ -18447,7 +18666,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Dennewitz | Dorothee R. Huebler | 1838–1911 | spouse John C. | PROVISIONAL-HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00201",
@@ -18476,7 +18696,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Dennewitz | Otto Christian Dennewitz | 1861–1910 | spouse Sarah Alice Hyde; direct line | PROVISIONAL-HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00202",
@@ -18504,7 +18725,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Hyde | Sarah Alice Hyde | c.1857/58–1912 | spouse Otto Christian; birth-year conflict | PROVISIONAL-HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00203",
@@ -18535,7 +18757,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Dennewitz | George Otto Dennewitz Sr. | 25 Jul 1886–30 Dec 1976 | spouse Kate Alice Holman; father of George Jr./William Holman | PROVISIONAL-HIGH exact dates",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00204",
@@ -18565,7 +18788,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Dennewitz | George Otto Dennewitz Jr. | 26 Apr 1913–3 Jun 1998 | spouse Hazel; father of Linda/Jean/Kathleen; Navy PHM3C | SUPPORTED / HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00205",
@@ -18594,7 +18818,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Dennewitz | William Holman Dennewitz | b. 19 Jun 1916 derivative | son of George Sr. + Kate; m. Dorothy Cecelia Kinsman 30 Jun 1943 derivative | PROVISIONAL-HIGH collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00206",
@@ -18624,7 +18849,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Berg | Oscar Ferdinand Berg | c.1868–11 Jun 1950 | proposed father of Arnold Eric | PROVISIONAL / probable",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00207",
@@ -18652,7 +18878,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Berg | Emma Matilda [maiden unknown] | 14 Jul 1872–4 Sep 1955 | proposed mother of Arnold; maiden surname unknown | PROVISIONAL identity",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00208",
@@ -18680,7 +18907,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Berg | Arnold “Carl” Eric Berg | 10 Mar 1897–3 Feb 1948 | spouse Katherine; parental household for Hazel | PROVISIONAL-STRONG",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00209",
@@ -18708,7 +18936,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Berg | Hazel Emma Berg Dennewitz | 29 Oct 1918–2 Nov 1997 | spouse George Jr.; adult identity supported; parentage not fully proved | SUPPORTED adult identity/spouse; parentage PROVISIONAL-STRONG",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00210",
@@ -18738,7 +18967,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Kinsman | Walter / George Walter Kinsman | c.1873/74–1944 | reported spouse Mary Jane; reported father of Katherine | PROVISIONAL-STRONG; parentage UNRESOLVED",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00211",
@@ -18767,7 +18997,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Kinsman/Hickey | Mary Jane Hickey / McLaughlin | b. c.1875–77 | reported spouse Walter; reported mother of Katherine | PROVISIONAL-STRONG",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00212",
@@ -18798,7 +19029,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Kinsman | Katherine May Kinsman | 7 Apr 1898–29 Nov 1978 | spouse Arnold; parental household for Hazel | PROVISIONAL-STRONG",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00213",
@@ -18826,7 +19058,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Kinsman | Virginia Martha Kinsman | 1901–1957 derivative | collateral family-context sibling lead | PROVISIONAL / derivative collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00214",
@@ -18854,7 +19087,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Kinsman | Mary Monica Manning | 1900–1937 derivative | collateral family-context sibling lead | PROVISIONAL / derivative collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00215",
@@ -18883,7 +19117,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Kinsman | Dorothy Cecelia Kinsman | 1913–1978 derivative | collateral sibling; spouse William Holman Dennewitz derivative | PROVISIONAL / derivative collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00216",
@@ -18916,7 +19151,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Holman/Hafnor | Carl Otto Holman Sr. | 7 Feb 1859–10 Mar 1930 | spouse Annette; proposed father of Kate; Norway→Chicago | PROVISIONAL-HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00217",
@@ -18948,7 +19184,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Holman/Hafnor | Annette Olsdtr. Hafnor | 11 Aug 1857–16 Jan 1933 | spouse Carl; proposed mother of Kate; Ringerike/Ringrike→Chicago | PROVISIONAL-HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00218",
@@ -18976,7 +19213,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Holman | Irene M. Holman | 1885–1976 derivative | collateral child | PROVISIONAL collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00219",
@@ -19004,7 +19242,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Holman | Jennie Ellen Holman | 24 Dec 1888–9 May 1961 | collateral child | PROVISIONAL collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00220",
@@ -19034,7 +19273,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Holman | Kate Alice Holman | 30 Aug 1889–8 Jul 1973 derivative | daughter of Carl/Annette; spouse George Sr. | SUPPORTED spouse relationship; ancestry/exact dates provisional-high",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00221",
@@ -19062,7 +19302,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Holman | Mabel Olga Holman | 1892–8 Apr 1987 | collateral child | PROVISIONAL collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00222",
@@ -19090,7 +19331,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Holman | Amy Agatha Holman | 1894–17 Jun 1966 | collateral child | PROVISIONAL collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00223",
@@ -19118,7 +19360,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Holman | Norman Holman | 1897–Feb 1945 | collateral child | PROVISIONAL collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00224",
@@ -19146,7 +19389,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Holman | Charles Holman | 1899–Dec 1969 | collateral child | PROVISIONAL collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00225",
@@ -19174,7 +19418,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Holman | Carl Otto Holman Jr. | 7 Oct 1899–20 Jul 1986 | collateral child | PROVISIONAL collateral",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00226",
@@ -19206,7 +19451,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Ferry | Owen Ferry | 1864–1904 tree dates | spouse Isabella; father of Ferry sibling group | SUPPORTED relationship; exact date/place provisional",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00227",
@@ -19237,7 +19483,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "McFadden | Isabella / Margaret Isabella McFadden | 1872/1878–1911 | spouse Owen; mother of Ferry sibling group | SUPPORTED relationship; birth detail unresolved",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00228",
@@ -19268,7 +19515,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Ferry | Edward Ferry | c.1890–1932 | collateral child of Owen + Isabella | PROVISIONAL-HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00229",
@@ -19296,7 +19544,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Ferry | Cicily / Cecelia Frances Ferry Fleming | 1892–1966 | collateral daughter; probable later Fleming identity | PROVISIONAL-STRONG / near-supported",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00230",
@@ -19324,7 +19573,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Ferry | Patrick Ferry | c.1894–? | collateral child | PROVISIONAL",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00231",
@@ -19352,7 +19602,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Ferry | John Thomas Ferry | 1896–1957 | collateral child | PROVISIONAL-HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00232",
@@ -19385,7 +19636,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Ferry | Sarah Ferry | name supported; 16 Jan 1899/1974 derivative | mother of Edward Ellery; spouse chronology mixed | SUPPORTED as 1918 mother; other details PROVISIONAL",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00233",
@@ -19413,7 +19665,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Ferry | Mary Isabelle / Marie Ferry | 1901–1977 | collateral child | PROVISIONAL-HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00234",
@@ -19440,7 +19693,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Fleming | David Fleming | dates not established | 1918 baptism sponsor; husband of Cecelia Ferry not yet proved | SUPPORTED sponsor / spouse relationship UNRESOLVED",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00235",
@@ -19468,7 +19722,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "DeVine/DeVeine | Ellery / Elley DeVine / DeVeine | name proved; c.1894/H. derivative | father named on 1918 baptism | SUPPORTED father name; other details PROVISIONAL",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00236",
@@ -19500,7 +19755,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "DeVine/DeVeine | Edward Ellery DeVine / DeVeine | b. 1 Dec 1918 Chicago | child on St. Anne baptism; baptized 22 Dec 1918 | SUPPORTED / HIGH",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00237",
@@ -19530,7 +19786,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Rahe | Clifford Henry Rahe | 1895–1944 derivative | Sarah spouse lead; possible surname-transition clue | PROVISIONAL high-value lead",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00238",
@@ -19562,7 +19819,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Rahe | William John Rahe Sr. | 1 Dec 1918–5 Oct 1998 derivative | adult identity; spouse Jean Mary Racky | UNRESOLVED identity bridge to Edward",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00239",
@@ -19590,7 +19848,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Racky/Kopczynski | Johann Anthony Racky | 15 Mar 1850–5 Dec 1912 | spouse Amelia/Emily; father of John Francis | PROVISIONAL-STRONG / source-rich",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00240",
@@ -19618,7 +19877,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Racky/Kopczynski | Amelia “Emily” Kopczynski | 1853–1942 | spouse Johann Anthony | PROVISIONAL-STRONG / source-rich",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00241",
@@ -19649,7 +19909,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Racky | John Francis Racky | 7 Sep 1878–2 Jul 1957 | spouse Anna Rose; father of Jean | PROVISIONAL-STRONG",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00242",
@@ -19680,7 +19941,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Hoffman | Anna Rose Hoffman | 26 Mar 1880–12 Feb 1969 | spouse John Francis; mother of Jean | PROVISIONAL-STRONG; parentage unresolved",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00243",
@@ -19708,7 +19970,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Racky | John Paul Racky | 1905–1906 derivative | child of John Francis + Anna Rose | PROVISIONAL / derivative sibling",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00244",
@@ -19736,7 +19999,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Racky | Marion Frances Racky | 1907–2005 derivative | child of John Francis + Anna Rose | PROVISIONAL / derivative sibling",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00245",
@@ -19764,7 +20028,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Racky | George Robert Racky | 1908–1983 derivative | child of John Francis + Anna Rose | PROVISIONAL / derivative sibling",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00246",
@@ -19792,7 +20057,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Racky | Donald Joseph Racky | 1910–1973 derivative | child of John Francis + Anna Rose | PROVISIONAL / derivative sibling",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00247",
@@ -19820,7 +20086,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Racky | Arthur Vincent Racky | 1912–2004 derivative | child of John Francis + Anna Rose | PROVISIONAL / derivative sibling",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00248",
@@ -19850,7 +20117,8 @@
       },
       "sourceSectionTitle": "Appendix F. Full canonical person / relationship inventory",
       "recordText": "Racky | Jean Mary Racky | 15 Sep 1920–30 Dec 2000 | child of John Francis + Anna Rose; spouse William Sr. | PROVISIONAL-STRONG exact details / spouse event mixed",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00249",
@@ -19875,7 +20143,8 @@
       },
       "sourceSectionTitle": "Appendix G. v9 source precedence and completeness crosswalk",
       "recordText": "v4.1 Comprehensive Canonical — 10 Sep 2026 | Latest overlapping claim-state discipline, Kinsman/Berg forensic review, controlled variants, verified retrieval procedures | CONTROLLING for overlapping facts/statuses",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00250",
@@ -19900,7 +20169,8 @@
       },
       "sourceSectionTitle": "Appendix G. v9 source precedence and completeness crosswalk",
       "recordText": "v8 Canonical Master — 8 Sep 2026 | Lossless whole-tree structure, collateral branches, canonical source IDs, negative-search history, source-ID crosswalk, relationship dataset | CONTROLLING for retained collateral/source-control content unless v4.1 conflicts",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00251",
@@ -19925,7 +20195,8 @@
       },
       "sourceSectionTitle": "Appendix G. v9 source precedence and completeness crosswalk",
       "recordText": "v7 Comprehensive — 8 Sep 2026 | Expansion source for collateral people, branch detail, web-derived leads | ARCHIVED source layer; preserved through v8",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00252",
@@ -19950,7 +20221,8 @@
       },
       "sourceSectionTitle": "Appendix G. v9 source precedence and completeness crosswalk",
       "recordText": "v3 Audited — 7 Sep 2026 | Audited baseline for core facts, dates, conflicts, source IDs | ARCHIVED baseline; preserved through v4.1/v8",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00253",
@@ -19975,7 +20247,8 @@
       },
       "sourceSectionTitle": "23.1 Source-file manifest and integrity register",
       "recordText": "Rahe_Family_Tree_Master_Source_Evidence_v4_2026-09-08(1).docx | b7bd0bf3d6331739838ad4ea3dabd6feb41331317ceaeb0b19e4d582c91010b9 | 90 | 30 | Distinct source; full normalized content appended in Part II.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00254",
@@ -20000,7 +20273,8 @@
       },
       "sourceSectionTitle": "23.1 Source-file manifest and integrity register",
       "recordText": "Rahe_Family_Tree_Master_Source_Evidence_v4.1_Comprehensive_Canonical(2).docx | 962c3e11c3cec5055612d9c851a3816d5eea9c9c3c7c0610fa0b2529d2019e6d | 128 | 35 | Distinct source; full normalized content appended in Part II.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00255",
@@ -20025,7 +20299,8 @@
       },
       "sourceSectionTitle": "23.1 Source-file manifest and integrity register",
       "recordText": "Rahe_Family_Tree_Master_Source_Evidence_v4.1_Comprehensive_Canonical(3).docx | 962c3e11c3cec5055612d9c851a3816d5eea9c9c3c7c0610fa0b2529d2019e6d | 128 | 35 | Binary duplicate of Rahe_Family_Tree_Master_Source_Evidence_v4.1_Comprehensive_Canonical(2).docx; manifest retained, content annexed once.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00256",
@@ -20050,7 +20325,8 @@
       },
       "sourceSectionTitle": "23.1 Source-file manifest and integrity register",
       "recordText": "Rahe_Family_Tree_Comprehensive_Master_Evidence_Dossier_v6_2026-09-08(1).docx | 0f1ed4d7d1bf2d4fdd7be3f1c592138055b1139603ebbd42bdcbf455b3b65670 | 135 | 47 | Distinct source; full normalized content appended in Part II.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00257",
@@ -20075,7 +20351,8 @@
       },
       "sourceSectionTitle": "23.1 Source-file manifest and integrity register",
       "recordText": "Rahe_Family_Tree_Comprehensive_Master_Source_Evidence_Dossier_v7_2026-09-08(2).docx | 824fddfeba398c868cbe488e356f30a2bba46da0edbbe25576cc01a27eb65dbf | 153 | 59 | Distinct source; full normalized content appended in Part II.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00258",
@@ -20100,7 +20377,8 @@
       },
       "sourceSectionTitle": "23.1 Source-file manifest and integrity register",
       "recordText": "Rahe_Family_Tree_Canonical_Master_Source_Evidence_Dossier_v8_2026-09-08(1).docx | 8bdc947fba8d9407f617273626c955e820b83234d85ac62f98445e49410a94cb | 197 | 55 | Distinct source; full normalized content appended in Part II.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00259",
@@ -20125,7 +20403,8 @@
       },
       "sourceSectionTitle": "23.1 Source-file manifest and integrity register",
       "recordText": "Rahe_Family_Tree_Canonical_Master_Source_Evidence_Dossier_v9_2026-09-10.docx | 9273851bd4fbfd326607354ee15168f607b98170168f83b0124953ae6ee53403 | 257 | 68 | Current v9 canonical synthesis already preserved in full as Part I.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00260",
@@ -20150,7 +20429,8 @@
       },
       "sourceSectionTitle": "23.3 Canonical interpretation order",
       "recordText": "1 | v4.1 Comprehensive Canonical (10 Sep 2026) | Controls overlapping evidence states, forensic Kinsman/Berg treatment, retrieval procedures, and current status discipline.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00261",
@@ -20175,7 +20455,8 @@
       },
       "sourceSectionTitle": "23.3 Canonical interpretation order",
       "recordText": "2 | v9 canonical synthesis (10 Sep 2026) | Controls the consolidated current narrative, person/relationship inventory, claim register, source register, conflicts, negative-search log, and research roadmap.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     },
     {
       "eventId": "EV-00262",
@@ -20200,7 +20481,8 @@
       },
       "sourceSectionTitle": "23.3 Canonical interpretation order",
       "recordText": "3 | v8 Canonical Master (8 Sep 2026) | Controls lossless collateral coverage, source-ID repair/crosswalk, and whole-tree relationship dataset where not contradicted by v4.1.",
-      "legacy": false
+      "legacy": false,
+      "eventSemantics": "SOURCE-CONTROLLED ROW + DERIVED NAVIGATION METADATA"
     }
   ],
   "researchWorkflow": {
@@ -20739,7 +21021,10 @@
         "section": "s042",
         "basis": "Canonical relationship dataset"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Isabella / Margaret Isabella McFadden × Owen Ferry",
+      "memberCount": 8,
+      "hasChildren": true
     },
     {
       "id": "FG-002",
@@ -20761,7 +21046,10 @@
         "section": "s042",
         "basis": "Canonical relationship dataset"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Edward Ellery DeVine / DeVeine × Sarah Ferry",
+      "memberCount": 3,
+      "hasChildren": true
     },
     {
       "id": "FG-003",
@@ -20780,7 +21068,10 @@
         "section": "s042",
         "basis": "Canonical relationship dataset"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Jack Dale × Sarah Ferry",
+      "memberCount": 2,
+      "hasChildren": false
     },
     {
       "id": "FG-004",
@@ -20797,7 +21088,10 @@
         "section": "s042",
         "basis": "Canonical relationship dataset"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Jean Mary Racky × William John Rahe Sr.",
+      "memberCount": 2,
+      "hasChildren": false
     },
     {
       "id": "FG-005",
@@ -20816,7 +21110,10 @@
         "section": "s042",
         "basis": "Canonical relationship dataset"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Clifford Henry Rahe × Sarah Ferry",
+      "memberCount": 2,
+      "hasChildren": false
     },
     {
       "id": "FG-006",
@@ -20835,7 +21132,10 @@
         "section": "s042",
         "basis": "Canonical relationship dataset"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Amelia “Emily” Kopczynski × Johann Anthony Racky",
+      "memberCount": 3,
+      "hasChildren": true
     },
     {
       "id": "FG-007",
@@ -20856,7 +21156,10 @@
         "section": "s042",
         "basis": "Canonical relationship dataset"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "George Otto Dennewitz Jr. × Hazel Emma Berg Dennewitz",
+      "memberCount": 5,
+      "hasChildren": true
     },
     {
       "id": "FG-008",
@@ -20876,7 +21179,10 @@
         "section": "s042",
         "basis": "Canonical relationship dataset"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "George Otto Dennewitz Sr. × Kate Alice Holman",
+      "memberCount": 4,
+      "hasChildren": true
     },
     {
       "id": "FG-009",
@@ -20893,7 +21199,10 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Eva Maria × Johann Ernst Dennewitz",
+      "memberCount": 2,
+      "hasChildren": false
     },
     {
       "id": "FG-010",
@@ -20910,7 +21219,10 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Johann Gottlieb Dennewitz × Johanna D. Rungert",
+      "memberCount": 2,
+      "hasChildren": false
     },
     {
       "id": "FG-011",
@@ -20927,7 +21239,10 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Dorothee R. Huebler × John C. Dennewitz",
+      "memberCount": 2,
+      "hasChildren": false
     },
     {
       "id": "FG-012",
@@ -20944,7 +21259,10 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Otto Christian Dennewitz × Sarah Alice Hyde",
+      "memberCount": 2,
+      "hasChildren": false
     },
     {
       "id": "FG-013",
@@ -20961,7 +21279,10 @@
         "section": "s011",
         "basis": "Explicit relationship statement in controlling source"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Dorothy Cecelia Kinsman × William Holman Dennewitz",
+      "memberCount": 2,
+      "hasChildren": false
     },
     {
       "id": "FG-014",
@@ -20983,7 +21304,10 @@
         "section": "s012",
         "basis": "Explicit relationship statement in controlling source"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Arnold “Carl” Eric Berg × Katherine May Kinsman",
+      "memberCount": 3,
+      "hasChildren": true
     },
     {
       "id": "FG-015",
@@ -21002,7 +21326,10 @@
         "section": "s047",
         "basis": "Explicit relationship statement in controlling source"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Mary Jane Hickey / McLaughlin × Walter / George Walter Kinsman",
+      "memberCount": 3,
+      "hasChildren": true
     },
     {
       "id": "FG-016",
@@ -21028,7 +21355,10 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Annette Olsdtr. Hafnor × Carl Otto Holman Sr.",
+      "memberCount": 10,
+      "hasChildren": true
     },
     {
       "id": "FG-017",
@@ -21052,7 +21382,10 @@
         "section": "s024",
         "basis": "Explicit relationship statement in controlling source"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Anna Rose Hoffman × John Francis Racky",
+      "memberCount": 8,
+      "hasChildren": true
     },
     {
       "id": "FG-018",
@@ -21071,7 +21404,10 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Kathleen Ann Dennewitz Rahe × William John Rahe Jr.",
+      "memberCount": 3,
+      "hasChildren": true
     },
     {
       "id": "FG-019",
@@ -21090,7 +21426,10 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child."
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Melissa Rahe × William John Rahe III",
+      "memberCount": 3,
+      "hasChildren": true
     }
   ],
   "evidenceGaps": [
@@ -21403,5 +21742,70 @@
       "section": "s032",
       "row": 7
     }
+  },
+  "researchStateSchema": {
+    "version": 1,
+    "storage": "browser-local only",
+    "authority": "PRIVATE WORKBENCH OVERLAY — NON-CANONICAL",
+    "taskState": {
+      "status": [
+        "NOT STARTED",
+        "SEARCHING",
+        "CANDIDATE FOUND",
+        "RECORD ACQUIRED",
+        "ANALYZED",
+        "INCORPORATED",
+        "CLOSED / NEGATIVE",
+        "BLOCKED"
+      ],
+      "fields": [
+        "status",
+        "note",
+        "updatedAt"
+      ]
+    },
+    "intakeDraft": {
+      "fields": [
+        "id",
+        "title",
+        "recordType",
+        "personIds",
+        "claimIds",
+        "sourceId",
+        "repository",
+        "recordDate",
+        "place",
+        "transcription",
+        "analysisNote",
+        "fileName",
+        "createdAt",
+        "status"
+      ],
+      "statuses": [
+        "STAGED",
+        "REVIEWED",
+        "REJECTED",
+        "READY FOR CANONICAL REVIEW"
+      ]
+    },
+    "safetyRule": "Workbench task progress and evidence-intake drafts never modify a claim, relationship, person, source, or canonical corpus automatically."
+  },
+  "evidenceIntake": {
+    "title": "Evidence Intake Staging",
+    "authority": "NON-CANONICAL STAGING AREA",
+    "requiredReviewSteps": [
+      "Identify the record and repository.",
+      "Attach only relevant people/claims; do not infer a relationship from association alone.",
+      "Transcribe or summarize the evidence without overwriting the source record.",
+      "Compare the draft against current claims and conflicts.",
+      "Only a separately reviewed canonical-source update may promote or change evidence state."
+    ],
+    "acceptedDraftStatuses": [
+      "STAGED",
+      "REVIEWED",
+      "REJECTED",
+      "READY FOR CANONICAL REVIEW"
+    ],
+    "promotionRule": "No staged intake draft can promote evidence. Canonical dossier revision remains the only promotion path."
   }
 }

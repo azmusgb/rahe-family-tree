@@ -1,5 +1,5 @@
 {
-  "version": "11.2",
+  "version": "11.3",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -81,6 +81,24 @@
       "label": "Family groups derive children only from explicit dual-parent edges",
       "pass": true,
       "detail": "19 spouse-centered groups generated without inferred parentage"
+    },
+    {
+      "id": "AUD-014",
+      "label": "Normalized event IDs are unique",
+      "pass": true,
+      "detail": "262 normalized events have unique event IDs"
+    },
+    {
+      "id": "AUD-015",
+      "label": "Workbench state overlay is explicitly non-canonical",
+      "pass": true,
+      "detail": "PRIVATE WORKBENCH OVERLAY — NON-CANONICAL"
+    },
+    {
+      "id": "AUD-016",
+      "label": "Evidence intake cannot promote claims",
+      "pass": true,
+      "detail": "No staged intake draft can promote evidence. Canonical dossier revision remains the only promotion path."
     }
   ],
   "exceptions": {
