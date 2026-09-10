@@ -1,5 +1,5 @@
 {
-  "version": "11.5",
+  "version": "11.6",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -135,6 +135,24 @@
       "label": "Hardesty spouse and visible children are explicit without inferring cropped people",
       "pass": true,
       "detail": "The family screenshot directly supports Walter T. Hardesty Sr. as Aimee Hardesty’s spouse and shows Elizabeth A. Hardesty and Walter Hardesty Jr. as their children. Only fully visible named family members are added; partially cropped people are not inferred."
+    },
+    {
+      "id": "AUD-023",
+      "label": "Family editor is explicitly non-canonical",
+      "pass": true,
+      "detail": "LOCAL BROWSER EDIT OVERLAY — NON-CANONICAL"
+    },
+    {
+      "id": "AUD-024",
+      "label": "Family editor protects published records from deletion",
+      "pass": true,
+      "detail": "Deleting a published person or relationship from the editor only hides it in the local overlay; the source-controlled record remains intact."
+    },
+    {
+      "id": "AUD-025",
+      "label": "Family editor defaults living-person privacy",
+      "pass": true,
+      "detail": "New living people default to Living / birth details withheld. Local edits do not alter the canonical corpus or source-controlled evidence states."
     }
   ],
   "exceptions": {
