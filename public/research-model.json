@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "12.7",
+    "version": "12.8",
     "title": "Rahe Family Research Workbench",
     "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
     "sourceTitle": "Rahe_Family_Tree_Canonical_Single_Source_v10_FULL_LOSSLESS_2026-09-10.docx",
@@ -25,11 +25,11 @@
       "canonicalRelationships": 94,
       "supplementalRelationships": 15
     },
-    "release": "12.7",
+    "release": "12.8",
     "graphPolicy": "Pedigree relationships remain separate from contextual sibling, sponsor, and derivative spouse-lead associations.",
     "eventPolicy": "Normalized events retain source row text and exact dossier location. Event type/place labels are display aids and do not promote claims.",
     "operationsPolicy": "Research task workflow status is operational metadata only and cannot mutate evidence state.",
-    "releaseTitle": "Collaboration & Contribution — Atomic Relatives + Account Media + Restore",
+    "releaseTitle": "Media-first Family History — Portraits + Galleries + Rich Metadata",
     "stateOverlayPolicy": "Workbench task progress and evidence-intake drafts never modify a claim, relationship, person, source, or canonical corpus automatically."
   },
   "people": [
@@ -22731,5 +22731,16 @@
     "mediaAuthorization": "PUBLIC MEDIA IS PUBLIC; SIGNED-IN FAMILY ACCOUNTS MAY VIEW PRIVATE MEDIA; CONTRIBUTOR+ MAY UPLOAD; EDITOR+ MAY SOFT-DELETE",
     "mediaEvidenceRule": "MEDIA ATTACHMENTS REMAIN EVIDENCE-ADJACENT AND CANNOT PROMOTE GENEALOGY EVIDENCE",
     "canonicalRule": "CONTRIBUTION WORKFLOWS CHANGE ONLY LOCAL OR REVIEW-GATED SHARED OVERLAYS; CANONICAL v10 IS IMMUTABLE"
+  },
+  "mediaExperience": {
+    "version": "12.8",
+    "title": "Media-first Family History",
+    "portraitRule": "FEATURED PUBLIC IMAGE MEDIA MAY PRESENT AS A PERSON PORTRAIT; INITIALS REMAIN THE FALLBACK",
+    "privacyRule": "SERVER-SIDE PRIVACY LOOKUP FORCES MEDIA PRIVATE WHEN ANY LINKED PERSON IS LIVING OR UNRESOLVED",
+    "taggingRule": "MEDIA MAY LINK TO MULTIPLE EXPLICIT PERSON IDS PLUS DATE, PLACE, CAPTION, AND SOURCE METADATA",
+    "galleryRule": "FAMILY MEDIA MAY BE BROWSED BY PERSON, DECADE, AND TYPE WITHOUT CHANGING GENEALOGY EVIDENCE",
+    "documentRule": "PDF DOCUMENTS REMAIN VIEWABLE MEDIA ATTACHMENTS AND DO NOT BECOME CANONICAL SOURCES BY UPLOAD ALONE",
+    "authorizationRule": "CONTRIBUTOR+ MAY UPLOAD; EDITOR+ MAY CHANGE MEDIA METADATA, FEATURE PORTRAITS, OR SOFT-DELETE",
+    "evidenceRule": "MEDIA METADATA AND FEATURED-PORTRAIT CHOICES ARE PRESENTATION/ARCHIVE DATA ONLY AND CANNOT PROMOTE EVIDENCE"
   }
 }

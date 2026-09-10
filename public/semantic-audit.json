@@ -1,5 +1,5 @@
 {
-  "version": "12.7",
+  "version": "12.8",
   "sourceSha256": "f5af06930f4753c46f77ec0edf52e97519a7a68e94682963b2858878b870a6e4",
   "generatedFrom": "public/corpus.json",
   "pass": true,
@@ -398,6 +398,36 @@
       "id": "AUD-066",
       "label": "Contribution remains non-canonical",
       "detail": "Local and shared contribution workflows cannot rewrite or promote canonical v10 evidence.",
+      "pass": true
+    },
+    {
+      "id": "AUD-067",
+      "label": "Featured portraits remain presentation-only",
+      "detail": "Featured photo selection changes presentation only and cannot alter person identity, relationship, claim, or evidence state.",
+      "pass": true
+    },
+    {
+      "id": "AUD-068",
+      "label": "Media privacy is server-enforced",
+      "detail": "Any media linked to a living or unresolved person is forced private from the server-side research-model privacy index.",
+      "pass": true
+    },
+    {
+      "id": "AUD-069",
+      "label": "Media tagging stays explicit",
+      "detail": "Multi-person tags store only explicitly selected person IDs and cannot infer genealogy relationships.",
+      "pass": true
+    },
+    {
+      "id": "AUD-070",
+      "label": "Uploaded documents do not self-promote",
+      "detail": "PDF and image uploads remain media attachments and do not become canonical sources or claims without separate evidence review.",
+      "pass": true
+    },
+    {
+      "id": "AUD-071",
+      "label": "Media authorization remains role based",
+      "detail": "Contributor+ may upload while Editor+ controls metadata changes, featured portraits, and soft deletion.",
       "pass": true
     }
   ],
