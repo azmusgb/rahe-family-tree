@@ -1,0 +1,9 @@
+import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';
+const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8')),audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
+const atomic=fs.readFileSync('family-editor-atomic.js','utf8'),media=fs.readFileSync('netlify/functions/media.mts','utf8'),client=fs.readFileSync('media.js','utf8'),ui=fs.readFileSync('v12-7.js','utf8');
+test('v12.7 contribution experience is active',()=>{assert.equal(model.meta.release,'12.7');assert.equal(model.contributionExperience.version,'12.7');assert.match(model.contributionExperience.relativeCreation,/ATOMIC/i);});
+test('relative creation prevalidates and saves once',()=>{assert.match(atomic,/const specs=\[\]/);assert.match(atomic,/existing=new Set/);assert.match(atomic,/saveFamilyEdits\(st\)/);assert.equal((atomic.match(/saveFamilyEdits\(st\)/g)||[]).length,1);});
+test('parentage cannot be invented',()=>{assert.match(model.contributionExperience.parentageRule,/already structured/i);assert.match(atomic,/Choose which existing parent/);assert.match(ui,/explicitParent/);});
+test('media uses account roles instead of browser editor key',()=>{assert.match(media,/rahe_family_session/);assert.match(media,/roleRank\(user\.role\)>=roleRank\('contributor'\)/);assert.match(media,/roleRank\(user\.role\)>=roleRank\('editor'\)/);assert.doesNotMatch(client,/x-family-editor-key/);});
+test('hidden source records remain restorable',()=>{assert.match(ui,/data-restore-person/);assert.match(ui,/data-restore-relationship/);assert.match(model.contributionExperience.restoreRule,/SOURCE-PRESERVED/i);});
+test('v12.7 semantic gates pass',()=>{for(const id of['AUD-062','AUD-063','AUD-064','AUD-065','AUD-066'])assert.equal(audit.checks.find(c=>c.id===id)?.pass,true,id);assert.equal(audit.version,'12.7');assert.equal(audit.pass,true);});
