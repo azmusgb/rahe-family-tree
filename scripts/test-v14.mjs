@@ -3,6 +3,7 @@ import assert from'node:assert/strict';
 import fs from'node:fs';
 
 const index=fs.readFileSync('index.html','utf8');
+const entry=fs.readFileSync('app-entry.js','utf8');
 const v14=fs.readFileSync('v14.css','utf8');
 const familyRuntime=fs.readFileSync('v12-6.js','utf8');
 const portraitRuntime=fs.readFileSync('v12-6-1.js','utf8');
@@ -20,27 +21,26 @@ const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
 test('v14 design-system gains remain under the current v15 entrypoint',()=>{
   assert.equal((index.match(/<link rel="stylesheet"/g)||[]).length,1);
-  assert.match(index,/styles-v15\.css\?v=15\.[1-9]\.0/);
-  assert.match(index,/FAMILY VIEW · v15\.[1-9]/);
+  assert.match(index,/styles-v15\.css\?v=15\.4\.0/);
+  assert.match(index,/FAMILY VIEW · v15\.4\.0/);
   for(const token of['--space-4','--radius-md','--shadow-md','--mobile-nav-height'])assert.match(v14,new RegExp(token));
 });
 
-test('current browser runtime is uniformly cache-busted',()=>{
+test('current browser runtime uses one cache-busted application entry',()=>{
   const scripts=[...index.matchAll(/<script type="module" src="([^"]+)"/g)].map(m=>m[1]);
-  assert.ok(scripts.length>=10);
-  const versions=scripts.map(src=>src.split('?v=')[1]).filter(Boolean);
-  assert.equal(versions.length,scripts.length,scripts.join('\n'));
-  assert.equal(new Set(versions).size,1,scripts.join('\n'));
-  assert.match(versions[0],/^15\.[1-9]\.0$/);
+  assert.deepEqual(scripts,['app-entry.js?v=15.4.0']);
+  for(const moduleName of['v11.js','search-v13-2.js','media-page-v13-5.js','v15-runtime.js','v15-1-runtime.js','v15-family-focus.js','platform-v13-runtime.js'])assert.match(entry,new RegExp(moduleName.replaceAll('.','\\.')));
 });
 
-test('production build retains the historical visual cascade and emits the current v15 experience',()=>{
+test('production build retains the historical visual cascade and emits centralized release metadata',()=>{
   assert.match(build,/const cssSources=/);
   assert.match(build,/v14\.css/);
   assert.match(build,/v15\.css/);
   assert.match(build,/v15-1\.css/);
   assert.match(build,/dist\/styles-v15\.css/);
-  assert.match(build,/experience:'15\.[1-9]'/);
+  assert.match(build,/const appVersion='15\.4\.0'/);
+  assert.match(build,/canonicalSourceVersion='10\.0'/);
+  assert.match(build,/genealogySchemaVersion='13\.0'/);
 });
 
 test('legacy family dashboard replacement remains retired',()=>{
