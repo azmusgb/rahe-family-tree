@@ -6,6 +6,7 @@ const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
 const runtime=fs.readFileSync('v15-1-runtime.js','utf8');
 const css=fs.readFileSync('v15-1.css','utf8');
+const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
@@ -52,7 +53,7 @@ test('v15.1 relayout remains carried by the bundled current release',()=>{
   assert.match(index,/app\.bundle\.js\?v=15\.4\.0/);
   assert.match(entry,/v15-1-runtime\.js/);
   assert.match(build,/app-entry\.js/);
-  assert.match(build,/v15-1\.css/);
+  assert.match(styleRoot,/v15-1\.css/);
   assert.match(build,/const appVersion='15\.4\.0'/);
 });
 

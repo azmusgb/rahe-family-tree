@@ -32,22 +32,16 @@ await esbuild([
   '--outfile=dist/app.bundle.js'
 ]);
 
-// Preserve the proven cascade order while emitting only one minified stylesheet.
-// This is an explicit compatibility boundary: historical source files are build
-// inputs only and are not individually published.
-const cssSources=['v11.css','v11-nav.css','v11-2.css','v11-3.css','v11-4.css','v11-6.css','v12.css','v12-2.css','v12-3.css','v12-4.css','v12-5.css','v12-6.css','v12-6-1.css','v12-6-2.css','v12-7.css','v12-8.css','v12-9.css','v12-9-1.css','v13-0.css','dashboard-v13-2.css','media-page-v13-4.css','experience-v13-5.css','v14.css','v15.css','v15-1.css','v15-family-focus.css','platform-v13.css'];
-const cssParts=[];
-for(const f of cssSources)cssParts.push(await readFile(f,'utf8'));
-const cssSourcePath='dist/.styles-v15.source.css';
-await writeFile(cssSourcePath,cssParts.join('\n'));
+// Build one production stylesheet from the semantic style composition root.
+// src/styles/index.css owns the historical cascade order; individual versioned
+// stylesheets remain source inputs only and are not published as browser assets.
 await esbuild([
-  cssSourcePath,
+  'src/styles/index.css',
   '--bundle',
   '--minify',
   '--legal-comments=none',
   '--outfile=dist/styles-v15.css'
 ]);
-await rm(cssSourcePath,{force:true});
 
 for(const f of ['corpus.json','coverage.json','redactions.json','research-model.json','semantic-audit.json','canonical-graph.json','provenance-index.json','canonical-diff.json'])await copyFile(`public/${f}`,`dist/${f}`);
 const completeness=JSON.parse(await readFile('public/canonical-completeness.json','utf8'));
