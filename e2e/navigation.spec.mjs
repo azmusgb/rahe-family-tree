@@ -80,7 +80,7 @@ test('desktop page architecture removes the utility bar and reduces Home chrome 
   expect(shellBox.height).toBeLessThan(100);
   expect(shellBox.width).toBeGreaterThan(1000);
   await expect(page.locator('.dashboard-hero')).toBeVisible();
-  await expect(page.locator('.dashboard-family-layout')).toBeVisible();
+  await expect(page.locator('.v157-tree-preview')).toBeVisible();
 });
 
 test('desktop research menu exposes advanced routes without crowding primary family navigation',async({page},testInfo)=>{
@@ -94,17 +94,21 @@ test('desktop research menu exposes advanced routes without crowding primary fam
   await expect(page.locator('#title')).toHaveText('Sources');
 });
 
-test('v15.2 home presents family discovery before research material',async({page})=>{
+test('v15.7 home prioritizes family tree and people before the research center',async({page})=>{
   await page.goto('/#dashboard');
-  const hero=page.locator('.v152-home-hero');
+  const hero=page.locator('.v157-hero');
   await expect(hero).toBeVisible();
-  await expect(hero.getByRole('heading',{name:/Discover the people, places, and stories/})).toBeVisible();
-  await expect(page.locator('.v152-start-here')).toBeVisible();
-  await expect(page.locator('.dashboard-family-layout')).toBeVisible();
+  await expect(hero.getByRole('heading',{name:'The Rahe family, connected.'})).toBeVisible();
+  await expect(page.locator('.v157-tree-preview')).toBeVisible();
+  await expect(page.locator('#dashboard-featured-title')).toBeVisible();
+  await expect(page.locator('.v157-research-center')).toBeVisible();
+  await expect(page.locator('.dashboard-research-split')).toHaveCount(0);
+  await expect(page.locator('[aria-labelledby="dashboard-records-title"]')).toHaveCount(0);
   const order=await page.evaluate(()=>{
-    const family=document.querySelector('.dashboard-family-layout');
-    const research=document.querySelector('.v152-research-secondary');
-    return Boolean(family&&research&&(family.compareDocumentPosition(research)&Node.DOCUMENT_POSITION_FOLLOWING));
+    const tree=document.querySelector('.v157-tree-preview');
+    const people=document.querySelector('#dashboard-featured-title')?.closest('.dashboard-section');
+    const research=document.querySelector('.v157-research-center');
+    return Boolean(tree&&people&&research&&(tree.compareDocumentPosition(people)&Node.DOCUMENT_POSITION_FOLLOWING)&&(people.compareDocumentPosition(research)&Node.DOCUMENT_POSITION_FOLLOWING));
   });
   expect(order).toBeTruthy();
 });
