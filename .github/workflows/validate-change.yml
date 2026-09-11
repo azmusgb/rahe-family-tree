@@ -5,6 +5,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: validate-change-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
@@ -34,6 +38,13 @@ jobs:
           test -f dist/provenance-index.json
           test -f dist/canonical-diff.json
           node -e "const g=require('./dist/canonical-graph.json'),d=require('./dist/canonical-diff.json');if(g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1)"
+      - name: Upload built site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-dist-${{ github.event.pull_request.number || github.run_id }}
+          path: dist/
+          if-no-files-found: error
+          retention-days: 7
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
       - name: Run browser interaction smoke tests
