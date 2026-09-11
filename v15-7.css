@@ -1,0 +1,155 @@
+/* v15.7 — Family Experience Redesign
+   Tightens the home flow around tree, people, branches, stories, and media.
+   Research remains fully available but moves to a dedicated secondary entry. */
+
+body[data-route="dashboard"] .v157-home{
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+body[data-route="dashboard"] .v157-home>.dashboard-section,
+body[data-route="dashboard"] .v157-tree-preview,
+body[data-route="dashboard"] .v157-research-center{margin:0!important}
+
+/* Compact hero: identity and first actions, not a full-screen poster. */
+body[data-route="dashboard"] .v157-hero{
+  min-height:0!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  padding:clamp(28px,4vw,52px)!important;
+  border-radius:18px!important;
+}
+body[data-route="dashboard"] .v157-hero .dashboard-hero-copy{max-width:860px!important}
+body[data-route="dashboard"] .v157-hero h2{
+  max-width:760px!important;
+  margin:.15em 0 .25em!important;
+  font-size:clamp(40px,5.4vw,76px)!important;
+  line-height:.96!important;
+}
+body[data-route="dashboard"] .v157-hero .dashboard-hero-copy>p:not(.eyebrow){
+  max-width:720px!important;
+  margin:0 0 20px!important;
+  font-size:clamp(16px,1.55vw,20px)!important;
+  line-height:1.55!important;
+}
+body[data-route="dashboard"] .v157-hero .dashboard-hero-actions{display:flex!important;flex-wrap:wrap;gap:10px!important;margin:0!important}
+body[data-route="dashboard"] .v157-hero .dashboard-family-metrics{
+  margin-top:22px!important;
+  padding-top:18px!important;
+  gap:28px!important;
+  border-top:1px solid var(--line)!important;
+}
+body[data-route="dashboard"] .v157-hero .dashboard-family-metrics span{min-width:0!important}
+body[data-route="dashboard"] .v157-hero::after{font-size:clamp(120px,15vw,220px)!important;bottom:-34px!important}
+
+/* Tree preview is the first substantive content above the fold. */
+.v157-tree-preview{
+  padding:22px 24px 24px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:var(--surface);
+  box-shadow:var(--shadow-sm);
+}
+.v157-tree-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px}
+.v157-tree-heading h2{margin:3px 0 0;font:600 clamp(27px,3vw,40px)/1.05 Georgia,"Times New Roman",serif;letter-spacing:-.025em}
+.v157-tree-heading>a{color:var(--green);font-weight:750;text-decoration:none;white-space:nowrap}
+.v157-tree-canvas{position:relative;overflow:auto;padding:14px 8px 4px;border-radius:14px;background:linear-gradient(180deg,#f8faf7,#f2f6f2)}
+.v157-tree-row{display:flex;justify-content:center;gap:14px;min-width:max-content;position:relative;z-index:1}
+.v157-tree-row.children{gap:10px}
+.v157-tree-line{width:1px;height:18px;margin:0 auto;background:#aab9af}
+.v157-tree-line.children{position:relative;width:min(64%,420px);height:22px;border-top:1px solid #aab9af;background:transparent}
+.v157-tree-line.children::before{content:"";position:absolute;left:50%;top:-18px;height:18px;border-left:1px solid #aab9af}
+.v157-tree-person{
+  width:190px;min-height:84px;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:left;color:var(--text);cursor:pointer;box-shadow:0 2px 10px rgba(20,45,37,.04)
+}
+.v157-tree-person>span{display:grid;place-items:center;width:30px;height:30px;margin-bottom:8px;border-radius:50%;background:var(--brand-soft);color:var(--green);font-weight:800;font-size:11px}
+.v157-tree-person small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+.v157-tree-person b{display:block;margin-top:3px;font-size:14px;line-height:1.25}
+.v157-tree-person:hover{border-color:#9eb3a7;box-shadow:var(--shadow-sm)}
+
+/* People are the dominant visual content. */
+body[data-route="dashboard"] .dashboard-section:has(#dashboard-featured-title){padding:20px!important}
+body[data-route="dashboard"] .dashboard-people-strip{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important}
+body[data-route="dashboard"] .v157-person-card{min-width:0!important}
+body[data-route="dashboard"] .v157-person-card .dashboard-person-open{
+  min-height:168px!important;height:100%;display:grid!important;grid-template-columns:76px 1fr;grid-template-rows:auto auto;column-gap:14px;align-content:start;padding:18px!important;border:1px solid var(--line)!important;border-radius:14px!important;background:#fff!important;text-align:left!important
+}
+body[data-route="dashboard"] .v157-person-card .dashboard-avatar,
+body[data-route="dashboard"] .v157-person-card .v157-portrait{grid-row:1/3;width:76px!important;height:76px!important;border-radius:16px!important;object-fit:cover;background:var(--brand-soft)!important}
+body[data-route="dashboard"] .v157-person-card .dashboard-person-open>span:not(.dashboard-avatar):not(.v157-person-copy){align-self:start}
+body[data-route="dashboard"] .v157-person-card b{font-size:16px!important;line-height:1.2}
+body[data-route="dashboard"] .v157-person-card .dashboard-person-open>span small{display:block;margin-top:4px;color:var(--muted)!important}
+.v157-person-copy{grid-column:2;display:grid;gap:4px;margin-top:10px!important;color:var(--muted)!important;font-size:12px;line-height:1.35}
+
+/* Branches communicate place/time/story first; count becomes supporting metadata. */
+body[data-route="dashboard"] .family-branch-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}
+body[data-route="dashboard"] .v157-branch-card{min-height:172px!important;padding:18px!important;display:flex!important;flex-direction:column;align-items:flex-start!important}
+body[data-route="dashboard"] .v157-branch-card .family-branch-count{order:3;margin-top:auto!important;padding-top:14px;background:none!important;color:var(--muted)!important;font-size:11px!important;font-weight:700!important}
+body[data-route="dashboard"] .v157-branch-card h3{font-size:22px!important;margin:0 0 9px!important}
+body[data-route="dashboard"] .v157-branch-card p{margin:0!important;color:var(--muted-strong)!important;line-height:1.4}
+body[data-route="dashboard"] .v157-branch-card p>span{display:block;font-weight:700;color:var(--green)!important}
+body[data-route="dashboard"] .v157-branch-card p>small{display:block;margin-top:8px;color:var(--muted)!important;line-height:1.4}
+body[data-route="dashboard"] .v157-branch-card>small:last-child{margin-top:10px!important;color:var(--green)!important;font-weight:750!important}
+
+/* Continuous rhythm: no presentation-slide whitespace. */
+body[data-route="dashboard"] .dashboard-section{padding:20px!important;border-radius:16px!important}
+body[data-route="dashboard"] .section-title{margin-bottom:14px!important;padding-bottom:10px!important}
+body[data-route="dashboard"] .history-highlight-grid{gap:12px!important}
+body[data-route="dashboard"] .history-highlight-grid article{min-height:150px!important;padding:18px!important}
+body[data-route="dashboard"] .dashboard-recent{padding-block:18px!important}
+
+/* Research becomes one clear secondary doorway instead of evidence/workbench content in the family flow. */
+.v157-research-center{
+  display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:24px;align-items:center;padding:22px 24px;border:1px solid var(--line);border-radius:16px;background:#f7f8f5;box-shadow:none
+}
+.v157-research-center h2{margin:3px 0 7px;font:600 clamp(25px,2.4vw,34px)/1.08 Georgia,"Times New Roman",serif;letter-spacing:-.02em}
+.v157-research-center p{max-width:680px;margin:0;color:var(--muted);line-height:1.55}
+.v157-research-meta{display:flex;gap:18px}
+.v157-research-meta span{min-width:78px;text-align:center}
+.v157-research-meta b{display:block;font:600 24px/1 Georgia,"Times New Roman",serif;color:var(--green)}
+.v157-research-meta small{display:block;margin-top:5px;color:var(--muted);font-size:10px;line-height:1.2}
+
+/* Mobile is deliberately recomposed rather than stacked desktop. */
+@media(max-width:720px){
+  body[data-route="dashboard"] .v157-home{gap:14px;padding-bottom:12px}
+  body[data-route="dashboard"] .v157-hero{padding:22px 18px!important;border-radius:14px!important}
+  body[data-route="dashboard"] .v157-hero h2{font-size:42px!important;line-height:.98!important}
+  body[data-route="dashboard"] .v157-hero .dashboard-hero-copy>p:not(.eyebrow){font-size:15px!important;line-height:1.45!important;margin-bottom:16px!important}
+  body[data-route="dashboard"] .v157-hero .dashboard-hero-actions{display:grid!important;grid-template-columns:1fr 1fr!important}
+  body[data-route="dashboard"] .v157-hero .dashboard-hero-actions .action:first-child{grid-column:1/-1}
+  body[data-route="dashboard"] .v157-hero .dashboard-family-metrics{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:10px!important;margin-top:16px!important;padding-top:14px!important}
+  body[data-route="dashboard"] .v157-hero .dashboard-family-metrics b{font-size:20px!important}
+  body[data-route="dashboard"] .v157-hero .dashboard-family-metrics small{font-size:9px!important;line-height:1.2!important}
+
+  .v157-tree-preview{padding:16px 14px;border-radius:14px}
+  .v157-tree-heading{align-items:flex-start;margin-bottom:10px}
+  .v157-tree-heading h2{font-size:27px}
+  .v157-tree-heading>a{font-size:12px}
+  .v157-tree-canvas{margin-inline:-2px;padding:10px 4px 2px}
+  .v157-tree-person{width:146px;min-height:74px;padding:9px}
+  .v157-tree-person>span{width:25px;height:25px;margin-bottom:5px}
+  .v157-tree-row{gap:8px}
+
+  body[data-route="dashboard"] .dashboard-people-strip{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px!important;padding-bottom:4px}
+  body[data-route="dashboard"] .v157-person-card{flex:0 0 82%;scroll-snap-align:start}
+  body[data-route="dashboard"] .v157-person-card .dashboard-person-open{min-height:142px!important;grid-template-columns:62px 1fr;padding:14px!important}
+  body[data-route="dashboard"] .v157-person-card .dashboard-avatar,
+  body[data-route="dashboard"] .v157-person-card .v157-portrait{width:62px!important;height:62px!important;border-radius:14px!important}
+
+  body[data-route="dashboard"] .family-branch-grid{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px!important}
+  body[data-route="dashboard"] .v157-branch-card{flex:0 0 78%;min-height:150px!important;scroll-snap-align:start;padding:15px!important}
+  body[data-route="dashboard"] .history-highlight-grid{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory}
+  body[data-route="dashboard"] .history-highlight-grid article{flex:0 0 84%;scroll-snap-align:start}
+
+  .v157-research-center{grid-template-columns:1fr;gap:14px;padding:18px;border-radius:14px}
+  .v157-research-center h2{font-size:27px}
+  .v157-research-meta{justify-content:space-between;gap:8px}
+  .v157-research-meta span{min-width:0;flex:1}
+  .v157-research-center>.action{width:100%;justify-content:center}
+}
+
+@media(min-width:721px) and (max-width:1050px){
+  body[data-route="dashboard"] .dashboard-people-strip,
+  body[data-route="dashboard"] .family-branch-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .v157-research-center{grid-template-columns:1fr auto}.v157-research-center>.action{grid-column:1/-1;justify-self:start}
+}
