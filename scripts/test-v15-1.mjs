@@ -3,6 +3,7 @@ import assert from'node:assert/strict';
 import fs from'node:fs';
 
 const index=fs.readFileSync('index.html','utf8');
+const entry=fs.readFileSync('app-entry.js','utf8');
 const runtime=fs.readFileSync('v15-1-runtime.js','utf8');
 const css=fs.readFileSync('v15-1.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
@@ -47,11 +48,12 @@ test('v15.1 remains responsive and retains the mobile dock breakpoint',()=>{
 });
 
 test('v15.1 relayout assets remain carried by the current v15 release',()=>{
-  assert.match(index,/styles-v15\.css\?v=15\.[1-9]\.0/);
-  assert.match(index,/v15-1-runtime\.js\?v=15\.[1-9]\.0/);
+  assert.match(index,/styles-v15\.css\?v=15\.4\.0/);
+  assert.match(index,/app-entry\.js\?v=15\.4\.0/);
+  assert.match(entry,/v15-1-runtime\.js/);
   assert.match(build,/v15-1-runtime\.js/);
   assert.match(build,/v15-1\.css/);
-  assert.match(build,/experience:'15\.[1-9]'/);
+  assert.match(build,/const appVersion='15\.4\.0'/);
 });
 
 test('v15.1 relayout cannot alter canonical genealogy semantics',()=>{
