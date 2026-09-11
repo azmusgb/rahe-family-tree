@@ -55,14 +55,7 @@ jobs:
           for file in canonical-completeness.json canonical-graph.json provenance-index.json canonical-diff.json; do
             test -f "dist/$file" || { echo "$file is missing from dist/."; exit 1; }
           done
-          node - <<'NODE'
-          const c=require('./dist/canonical-completeness.json');
-          const g=require('./dist/canonical-graph.json');
-          const d=require('./dist/canonical-diff.json');
-          if(c.pass!==true||!Array.isArray(c.failed)||c.failed.length)process.exit(1);
-          if(g.integrity?.pass!==true)process.exit(1);
-          if(d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1);
-          NODE
+          node -e "const c=require('./dist/canonical-completeness.json');const g=require('./dist/canonical-graph.json');const d=require('./dist/canonical-diff.json');if(c.pass!==true||!Array.isArray(c.failed)||c.failed.length||g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1)"
           echo "EXPECTED_RELEASE=$EXPECTED_RELEASE" >> "$GITHUB_ENV"
           echo "EXPECTED_PLATFORM=$EXPECTED_PLATFORM" >> "$GITHUB_ENV"
           echo "Built release $EXPECTED_RELEASE / platform $EXPECTED_PLATFORM at $GITHUB_SHA with canonical gates PASS."
@@ -112,15 +105,7 @@ jobs:
                 curl --fail --silent --show-error "$PRODUCTION_URL/canonical-graph.json?sha=$EXPECTED_SHA" -o /tmp/canonical-graph.json
                 curl --fail --silent --show-error "$PRODUCTION_URL/canonical-diff.json?sha=$EXPECTED_SHA" -o /tmp/canonical-diff.json
                 curl --fail --silent --show-error "$PRODUCTION_URL/provenance-index.json?sha=$EXPECTED_SHA" -o /tmp/provenance-index.json
-                node - <<'NODE'
-                const c=require('/tmp/canonical-completeness.json');
-                const g=require('/tmp/canonical-graph.json');
-                const d=require('/tmp/canonical-diff.json');
-                const p=require('/tmp/provenance-index.json');
-                if(c.pass!==true||!Array.isArray(c.failed)||c.failed.length)process.exit(1);
-                if(g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1);
-                if(!p.entities||!Object.keys(p.entities).length)process.exit(1);
-                NODE
+                node -e "const c=require('/tmp/canonical-completeness.json');const g=require('/tmp/canonical-graph.json');const d=require('/tmp/canonical-diff.json');const p=require('/tmp/provenance-index.json');if(c.pass!==true||!Array.isArray(c.failed)||c.failed.length||g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion||!p.entities||!Object.keys(p.entities).length)process.exit(1)"
                 exit 0
               fi
             fi
@@ -239,12 +224,7 @@ jobs:
           curl --fail --silent --show-error "$PRODUCTION_URL/canonical-completeness.json?sha=$EXPECTED_SHA" -o /tmp/canonical-completeness-final.json
           curl --fail --silent --show-error "$PRODUCTION_URL/canonical-graph.json?sha=$EXPECTED_SHA" -o /tmp/canonical-graph-final.json
           curl --fail --silent --show-error "$PRODUCTION_URL/canonical-diff.json?sha=$EXPECTED_SHA" -o /tmp/canonical-diff-final.json
-          node - <<'NODE'
-          const c=require('/tmp/canonical-completeness-final.json');
-          const g=require('/tmp/canonical-graph-final.json');
-          const d=require('/tmp/canonical-diff-final.json');
-          if(c.pass!==true||!Array.isArray(c.failed)||c.failed.length||g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1);
-          NODE
+          node -e "const c=require('/tmp/canonical-completeness-final.json');const g=require('/tmp/canonical-graph-final.json');const d=require('/tmp/canonical-diff-final.json');if(c.pass!==true||!Array.isArray(c.failed)||c.failed.length||g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1)"
           STATUS=$(curl --silent --show-error -o /tmp/media-final-anon.json -w '%{http_code}' "$PRODUCTION_URL/api/media")
           test "$STATUS" = "200"
           node -e "const x=require('/tmp/media-final-anon.json');if(!x.ok||x.authenticated||(x.media||[]).some(m=>m.visibility!=='public'))process.exit(1)"
