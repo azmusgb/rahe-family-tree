@@ -10,9 +10,11 @@ const baseControls=fs.readFileSync('src/runtime/base-controls.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const runtime=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const homeFlow=fs.readFileSync('src/runtime/home-flow.js','utf8');
+const navShell=fs.readFileSync('src/runtime/navigation-shell.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const css=fs.readFileSync('v15.css','utf8');
 const homeCss=fs.readFileSync('v15-7.css','utf8');
+const navCss=fs.readFileSync('v15-8.css','utf8');
 const mainRuntime=fs.readFileSync('v11.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
@@ -23,11 +25,13 @@ test('browser bootstrap delegates historical layers through stable runtime domai
 
 test('base boundary preserves bootstrap order and owns recent-person controls',()=>{const expected=['../../v11.js','./base-controls.js'];const actual=[...base.matchAll(/import ['"]([^'"]+\.js)['"]/g)].map(match=>match[1]);assert.deepEqual(actual,expected);assert.match(baseControls,/rahe\.family\.recent-people\.v1/);assert.match(baseControls,/data-tree-depth/);assert.match(baseControls,/data-tree-person/);assert.doesNotMatch(entry,/v12-3-controls\.js/);assert.equal(fs.existsSync('v12-3-controls.js'),false);});
 
-test('experience boundary preserves initialization order through family home flow',()=>{const expected=['./experience-core.js','../../v15-1-runtime.js','../../v15-family-focus.js','../../platform-v13-runtime.js','./page-architecture.js','./home-flow.js'];const actual=[...experience.matchAll(/import ['"]([^'"]+\.js)['"]/g)].map(match=>match[1]);assert.deepEqual(actual,expected);});
+test('experience boundary preserves initialization order through navigation shell',()=>{const expected=['./experience-core.js','../../v15-1-runtime.js','../../v15-family-focus.js','../../platform-v13-runtime.js','./page-architecture.js','./home-flow.js','./navigation-shell.js'];const actual=[...experience.matchAll(/import ['"]([^'"]+\.js)['"]/g)].map(match=>match[1]);assert.deepEqual(actual,expected);});
 
 test('v15.7 family home prioritizes tree people branches media and a separate research center',()=>{assert.match(homeFlow,/See how the family connects/);assert.match(homeFlow,/personContext/);assert.match(homeFlow,/branchPlaces/);assert.match(homeFlow,/dashboard-research-split'\)\?\.remove/);assert.match(homeFlow,/Open Research Center/);assert.match(homeFlow,/installMediaPreview/);assert.match(homeFlow,/visibility==='public'/);assert.doesNotMatch(homeFlow,/\.state\s*=\s*[^=]/);assert.match(homeCss,/Mobile is deliberately recomposed rather than stacked desktop/);assert.match(homeCss,/\.v157-media-grid/);assert.match(homeCss,/scroll-snap-type:x mandatory/);});
 
-test('semantic stylesheet boundary preserves the deployed cascade order',()=>{const expected=['v11.css','v11-nav.css','v11-2.css','v11-3.css','v11-4.css','v11-6.css','v12.css','v12-2.css','v12-3.css','v12-4.css','v12-5.css','v12-6.css','v12-6-1.css','v12-6-2.css','v12-7.css','v12-8.css','v12-9.css','v12-9-1.css','v13-0.css','dashboard-v13-2.css','media-page-v13-4.css','experience-v13-5.css','v14.css','v15.css','v15-1.css','v15-family-focus.css','platform-v13.css','v15-5.css','v15-6.css','v15-7.css'];const actual=[...styleRoot.matchAll(/@import ['"]\.\.\/\.\.\/([^'"]+\.css)['"]/g)].map(match=>match[1]);assert.deepEqual(actual,expected);assert.match(build,/src\/styles\/index\.css/);assert.doesNotMatch(build,/const cssSources=/);assert.doesNotMatch(build,/\.styles-v15\.source\.css/);});
+test('v15.8 simplifies family navigation and separates the research center shell',()=>{assert.match(navShell,/Home<\/a><a href="#tree"[^>]*>Tree<\/a><a href="#people"[^>]*>People<\/a><a href="#media"[^>]*>Photos<\/a>/);assert.match(navShell,/Timeline/);assert.match(navShell,/Places & Migration/);assert.match(navShell,/Stories/);assert.match(navShell,/Research Center/);assert.match(navShell,/RESEARCH CENTER/);assert.match(navShell,/Find someone in the family/);assert.match(navShell,/data-dock-route="media"[^>]*><span>Photos<\/span>/);assert.match(navShell,/v158-mobile-more/);assert.match(navCss,/body\[data-v158-context="research"\]/);assert.match(navCss,/Reduce card-on-card framing/);});
+
+test('semantic stylesheet boundary preserves the deployed cascade order',()=>{const expected=['v11.css','v11-nav.css','v11-2.css','v11-3.css','v11-4.css','v11-6.css','v12.css','v12-2.css','v12-3.css','v12-4.css','v12-5.css','v12-6.css','v12-6-1.css','v12-6-2.css','v12-7.css','v12-8.css','v12-9.css','v12-9-1.css','v13-0.css','dashboard-v13-2.css','media-page-v13-4.css','experience-v13-5.css','v14.css','v15.css','v15-1.css','v15-family-focus.css','platform-v13.css','v15-5.css','v15-6.css','v15-7.css','v15-8.css'];const actual=[...styleRoot.matchAll(/@import ['"]\.\.\/\.\.\/([^'"]+\.css)['"]/g)].map(match=>match[1]);assert.deepEqual(actual,expected);assert.match(build,/src\/styles\/index\.css/);assert.doesNotMatch(build,/const cssSources=/);assert.doesNotMatch(build,/\.styles-v15\.source\.css/);});
 
 test('mobile dock is a real touch surface above application content',()=>{assert.match(css,/#family-mobile-dock:not\(\[hidden\]\)/);assert.match(css,/z-index:2147483000!important/);assert.match(css,/pointer-events:auto!important/);assert.match(css,/touch-action:manipulation/);assert.match(css,/--tap-target:48px/);});
 
