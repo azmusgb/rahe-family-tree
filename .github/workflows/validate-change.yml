@@ -11,19 +11,29 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Install dependencies
-        run: npm install --no-audit --no-fund
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Verify dependency lock is unchanged
+        run: git diff --exit-code -- package.json package-lock.json
       - name: Run canonical and experience regression suite
         run: npm test
       - name: Verify production build
         env:
           GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: npm run build
+        run: |
+          npm run build
+          test -f dist/canonical-completeness.json
+          test -f dist/canonical-graph.json
+          test -f dist/provenance-index.json
+          test -f dist/canonical-diff.json
+          node -e "const g=require('./dist/canonical-graph.json'),d=require('./dist/canonical-diff.json');if(g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1)"
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
       - name: Run browser interaction smoke tests
