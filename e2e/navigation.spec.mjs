@@ -12,6 +12,7 @@ test('mobile dock is tappable and routes Home Tree People Media and Search',asyn
   test.skip(testInfo.project.name!=='mobile-chromium','mobile navigation contract');
   await page.goto('/#dashboard');
   await expect(page.locator('.dashboard-hero')).toBeVisible();
+  await expect(page.locator('.sidebar')).toBeHidden();
   const dock=page.locator('#family-mobile-dock');
   await expect(dock).toBeVisible();
 
@@ -60,8 +61,33 @@ test('desktop primary navigation includes and opens Media as a core route',async
   test.skip(testInfo.project.name!=='desktop-chromium','desktop navigation contract');
   await page.goto('/#dashboard');
   const nav=page.locator('#nav');
-  await expect(nav.getByRole('link',{name:/Media/})).toBeVisible();
-  await nav.getByRole('link',{name:/Media/}).click();
+  await expect(nav.getByRole('link',{name:'Media',exact:true})).toBeVisible();
+  await nav.getByRole('link',{name:'Media',exact:true}).click();
   await expect(page).toHaveURL(/#media$/);
   await expect(page.locator('[data-media-page]')).toBeVisible();
+});
+
+test('desktop relayout uses a horizontal masthead and side-by-side route tools',async({page},testInfo)=>{
+  test.skip(testInfo.project.name!=='desktop-chromium','desktop relayout contract');
+  await page.goto('/#dashboard');
+  const sidebar=page.locator('.sidebar'),heading=page.locator('.route-shell .page-heading'),filters=page.locator('.route-shell #filters');
+  await expect(sidebar).toBeVisible();
+  await expect(page.locator('.v151-primary-nav')).toBeVisible();
+  const shellBox=await sidebar.boundingBox(),headingBox=await heading.boundingBox(),filterBox=await filters.boundingBox();
+  expect(shellBox.height).toBeLessThan(100);
+  expect(shellBox.width).toBeGreaterThan(1000);
+  expect(Math.abs(headingBox.y-filterBox.y)).toBeLessThan(80);
+  expect(filterBox.x).toBeGreaterThan(headingBox.x);
+  await expect(page.locator('.dashboard-family-layout')).toBeVisible();
+});
+
+test('desktop research menu exposes advanced routes without crowding primary family navigation',async({page},testInfo)=>{
+  test.skip(testInfo.project.name!=='desktop-chromium','desktop relayout contract');
+  await page.goto('/#dashboard');
+  const menu=page.locator('.v151-nav-menu').filter({hasText:'Research'}).first();
+  await menu.locator('summary').click();
+  await expect(menu.getByRole('link',{name:/Evidence/}).first()).toBeVisible();
+  await menu.getByRole('link',{name:/Sources/}).first().click();
+  await expect(page).toHaveURL(/#sources$/);
+  await expect(page.locator('#title')).toHaveText('Sources');
 });
