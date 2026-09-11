@@ -22,8 +22,22 @@ body[data-page-architecture="15.5"]{--app-utility-height:0px}
 
 .v155-original-actions{display:none!important}
 
-/* Minimal family routes start with their real page content, not a generic command deck. */
-body[data-page-architecture="15.5"][data-page-layout="minimal"] .route-shell{display:none!important}
+/* Minimal family routes keep global search reachable without repeating the full command deck. */
+body[data-page-architecture="15.5"][data-page-layout="minimal"] .route-shell{
+  display:block!important;margin:0 0 12px;padding:8px 10px;border-radius:14px;
+  background:transparent;border-color:rgba(23,63,53,.07);box-shadow:none
+}
+body[data-page-architecture="15.5"][data-page-layout="minimal"] .route-shell .page-heading,
+body[data-page-architecture="15.5"][data-page-layout="minimal"] .route-shell #status,
+body[data-page-architecture="15.5"][data-page-layout="minimal"] .route-shell .filters>label:not(.search),
+body[data-page-architecture="15.5"][data-page-layout="minimal"] .route-shell .filters>button{display:none!important}
+body[data-page-architecture="15.5"][data-page-layout="minimal"] .route-shell .filters{
+  display:block;margin:0;padding:0;background:transparent;box-shadow:none
+}
+body[data-page-architecture="15.5"][data-page-layout="minimal"] .route-shell .filters .search{display:block}
+body[data-page-architecture="15.5"][data-page-layout="minimal"] .route-shell .filters .search input{
+  min-height:46px;border-radius:12px;background:#fff
+}
 body[data-page-architecture="15.5"][data-page-layout="minimal"] #content{margin-top:0}
 body[data-page-architecture="15.5"][data-route="dashboard"] .dashboard-hero{margin-top:0}
 body[data-page-architecture="15.5"][data-route="person"] #content.v153-profile{padding-top:2px}
@@ -86,7 +100,7 @@ body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-relations b{fo
 body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-controls{margin-bottom:8px;padding:9px 11px}
 body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-help{padding:6px 11px;font-size:8px}
 body[data-page-architecture="15.5"][data-route="tree"] .graph-scroll{
-  min-height:620px;max-height:calc(100vh - 210px)
+  min-height:620px;max-height:calc(100vh - 258px)
 }
 body[data-page-architecture="15.5"][data-route="tree"] .v129-tree-memory,
 body[data-page-architecture="15.5"][data-route="tree"] .v1291-breadcrumb{margin-top:7px;margin-bottom:7px}
@@ -121,7 +135,10 @@ body[data-page-architecture="15.5"][data-route="people"] .person-card:hover{tran
     padding:8px 10px;color:var(--ink,#21352f);font:inherit;font-size:11px;font-weight:720
   }
   body[data-page-architecture="15.5"] .main{padding-top:12px}
-  body[data-page-architecture="15.5"][data-page-layout="minimal"] .route-shell{display:none!important}
+  body[data-page-architecture="15.5"][data-page-layout="minimal"] .route-shell{
+    display:block!important;padding:6px 8px;margin-bottom:10px
+  }
+  body[data-page-architecture="15.5"][data-page-layout="minimal"] .route-shell .filters .search input{min-height:44px}
   body[data-page-architecture="15.5"][data-page-layout="browse"] .route-shell,
   body[data-page-architecture="15.5"][data-page-layout="media-browse"] .route-shell{
     display:block;padding:12px 13px;border-radius:15px;margin-bottom:12px
@@ -133,7 +150,7 @@ body[data-page-architecture="15.5"][data-route="people"] .person-card:hover{tran
   body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-person{grid-template-columns:1fr;padding:12px;gap:10px}
   body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-relations{order:3;overflow-x:auto}
   body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-actions{justify-content:flex-start;overflow-x:auto}
-  body[data-page-architecture="15.5"][data-route="tree"] .graph-scroll{min-height:520px;max-height:72vh}
+  body[data-page-architecture="15.5"][data-route="tree"] .graph-scroll{min-height:520px;max-height:68vh}
   body[data-page-architecture="15.5"][data-route="person"] .v153-profile-nav{top:48px}
 }
 
