@@ -1,6 +1,6 @@
 import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8')),audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
-const atomic=fs.readFileSync('family-editor-atomic.js','utf8'),media=fs.readFileSync('netlify/functions/media.mts','utf8'),client=fs.readFileSync('media.js','utf8'),ui=fs.readFileSync('v12-7.js','utf8');
+const atomic=fs.readFileSync('family-editor-atomic.js','utf8'),media=fs.readFileSync('netlify/functions/media.mts','utf8'),client=fs.readFileSync('media.js','utf8'),ui=fs.readFileSync('src/runtime/family-contributions.js','utf8');
 const atLeast127=x=>{const m=String(x).match(/^(\d+)\.(\d+)(?:\.(\d+))?$/);return !!m&&(Number(m[1])>12||Number(m[1])===12&&Number(m[2])>=7);};
 test('v12.7 contribution experience remains active',()=>{assert(atLeast127(model.meta.release));assert.equal(model.contributionExperience.version,'12.7');assert.match(model.contributionExperience.relativeCreation,/ATOMIC/i);});
 test('relative creation prevalidates and saves once',()=>{assert.match(atomic,/const specs=\[\]/);assert.match(atomic,/existing=new Set/);assert.match(atomic,/saveFamilyEdits\(st\)/);assert.equal((atomic.match(/saveFamilyEdits\(st\)/g)||[]).length,1);});
