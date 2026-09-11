@@ -1,6 +1,6 @@
 import{personById,esc}from'./core.js';
 
-const UI_RELEASE='15.0';
+const UI_RELEASE='15.4.0';
 const RECENT_KEY='rahe.family.recentPeople.v1';
 const STALE_RELOAD_KEY='rahe.family.uiReload.v15';
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
