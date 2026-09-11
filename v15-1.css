@@ -1,0 +1,286 @@
+/* v15.1 — family-first relayout
+   Presentation-only application layout. Canonical genealogy, evidence states,
+   privacy rules, source IDs, and relationship semantics are unchanged. */
+
+:root{
+  --app-masthead-height:76px;
+  --app-utility-height:52px;
+  --content-max:1560px;
+  --layout-gap:24px;
+}
+
+html[data-ui-release="15.1"]{scroll-padding-top:calc(var(--app-masthead-height) + var(--app-utility-height) + 18px)}
+
+/* Desktop/tablet application shell: horizontal family navigation replaces the tall left rail. */
+@media (min-width:721px){
+  .shell{display:block;min-height:100vh}
+  .sidebar{
+    position:sticky;
+    top:0;
+    z-index:90;
+    height:var(--app-masthead-height);
+    width:100%;
+    padding:0 24px;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    gap:24px;
+    overflow:visible;
+    background:var(--green,#173f35);
+    box-shadow:0 8px 28px rgba(12,32,26,.16);
+  }
+  .brand{flex:0 0 auto;gap:10px;font-size:19px;letter-spacing:1.7px}
+  .brand .monogram{width:40px;height:40px;font-size:24px;border-radius:12px}
+  .brand small{margin-top:2px;font-size:7px}
+  .sidebar #nav{
+    min-width:0;
+    flex:1 1 auto;
+    margin:0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    overflow:visible;
+  }
+  .v151-primary-nav{display:flex;align-items:center;gap:3px;min-width:0}
+  .v151-primary-nav a,
+  .v151-nav-menu summary{
+    min-height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:11px;
+    color:#c8d6d1;
+    text-decoration:none;
+    font-size:12px;
+    font-weight:720;
+    letter-spacing:.01em;
+    padding:0 11px;
+    white-space:nowrap;
+  }
+  .v151-primary-nav a:hover,
+  .v151-primary-nav a.active,
+  .v151-primary-nav a[aria-current="page"],
+  .v151-nav-menu summary:hover,
+  .v151-nav-menu.active>summary{
+    color:#fff;
+    background:rgba(255,255,255,.11);
+  }
+  .v151-nav-menus{display:flex;align-items:center;gap:4px;margin-left:auto}
+  .v151-nav-menu{position:relative;margin:0}
+  .v151-nav-menu summary{list-style:none;cursor:pointer;user-select:none}
+  .v151-nav-menu summary::-webkit-details-marker{display:none}
+  .v151-nav-menu summary::after{content:'▾';margin-left:7px;font-size:9px;opacity:.7}
+  .v151-nav-menu[open]>summary{color:#fff;background:rgba(255,255,255,.12)}
+  .v151-nav-popover{
+    position:absolute;
+    top:calc(100% + 10px);
+    right:0;
+    z-index:120;
+    width:248px;
+    display:grid;
+    gap:3px;
+    padding:9px;
+    border:1px solid rgba(23,63,53,.14);
+    border-radius:16px;
+    background:#fff;
+    box-shadow:0 20px 56px rgba(12,32,26,.22);
+  }
+  .v151-nav-popover a{
+    display:grid;
+    gap:2px;
+    color:var(--ink,#21352f);
+    text-decoration:none;
+    border-radius:10px;
+    padding:10px 12px;
+    font-size:12px;
+    line-height:1.25;
+  }
+  .v151-nav-popover a:hover,
+  .v151-nav-popover a.active,
+  .v151-nav-popover a[aria-current="page"]{background:#edf3ef;color:var(--green,#173f35)}
+  .v151-nav-popover a small{font-size:9px;font-weight:500;color:var(--muted,#6e7a74)}
+  .edition{
+    flex:0 0 auto;
+    margin:0;
+    border:0;
+    padding:0;
+    max-width:155px;
+    color:#aac0b7;
+    font-size:8px;
+    line-height:1.35;
+  }
+  .edition b{font-size:8px;letter-spacing:.08em}
+  .workspace{min-width:0;width:100%}
+  .topbar{
+    top:var(--app-masthead-height);
+    height:var(--app-utility-height);
+    padding:0 28px;
+    z-index:70;
+    border-bottom:1px solid rgba(23,63,53,.10);
+    background:rgba(251,250,246,.96);
+  }
+  .topbar-actions{gap:6px}
+  .topbar button{padding:7px 10px;font-size:11px}
+}
+
+@media (min-width:721px) and (max-width:1180px){
+  .sidebar{padding:0 16px;gap:14px}
+  .edition{display:none}
+  .v151-primary-nav a,.v151-nav-menu summary{padding:0 8px;font-size:11px}
+  .v151-primary-nav a[data-nav-key="timeline"]{display:none}
+}
+
+/* Route heading and filters share one compact command deck instead of stacking vertically. */
+.route-shell{
+  display:grid;
+  grid-template-columns:minmax(260px,.72fr) minmax(560px,1.28fr);
+  gap:22px 28px;
+  align-items:end;
+  margin:0 0 18px;
+  padding:20px 22px;
+  border:1px solid var(--line,#d8ddd6);
+  border-radius:22px;
+  background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(245,248,245,.92));
+  box-shadow:0 10px 32px rgba(20,40,34,.045);
+}
+.route-shell .page-heading{margin:0;min-width:0;align-self:center}
+.route-shell .page-heading h1{font-size:clamp(2rem,3vw,2.8rem);margin-bottom:8px}
+.route-shell .page-heading p:last-child{font-size:13px;max-width:58ch}
+.route-shell .version{align-self:flex-start;background:#fff}
+.route-shell .filters{
+  margin:0;
+  padding:12px;
+  grid-template-columns:minmax(220px,1.5fr) 150px 145px auto;
+  box-shadow:none;
+  background:rgba(255,255,255,.82);
+  border-radius:15px;
+}
+.route-shell #status{grid-column:1/-1;margin:0;padding-top:2px;border-top:1px solid rgba(23,63,53,.07);font-size:10px}
+.main{max-width:var(--content-max);padding-top:28px}
+#content{min-width:0}
+
+/* Family home: one strong hero, then a two-column family discovery canvas. */
+body[data-experience="family"][data-route="dashboard"] .dashboard-hero{
+  grid-template-columns:minmax(0,1.55fr) minmax(280px,.65fr);
+  gap:34px;
+  padding:42px;
+  margin:0 0 20px;
+  border-radius:28px;
+}
+body[data-experience="family"][data-route="dashboard"] .dashboard-hero-copy h2{max-width:15ch;font-size:clamp(2.5rem,4.4vw,4.15rem)}
+body[data-experience="family"][data-route="dashboard"] .dashboard-hero-card{min-height:320px;border-radius:24px}
+body[data-experience="family"][data-route="dashboard"] .dashboard-paths{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  margin:0 0 38px;
+}
+body[data-experience="family"][data-route="dashboard"] .dashboard-paths a{
+  min-height:92px;
+  display:grid;
+  align-content:center;
+  gap:5px;
+  padding:18px 20px;
+  border:1px solid var(--line,#d8ddd6);
+  border-radius:16px;
+  background:#fff;
+  text-decoration:none;
+  box-shadow:0 8px 22px rgba(20,40,34,.04);
+}
+body[data-experience="family"][data-route="dashboard"] .dashboard-paths a:hover{border-color:#9fb7ad;transform:translateY(-1px)}
+body[data-experience="family"][data-route="dashboard"] .dashboard-paths b{font-size:15px;color:var(--green,#173f35)}
+body[data-experience="family"][data-route="dashboard"] .dashboard-paths span{font-size:11px;line-height:1.4;color:var(--muted,#6e7a74)}
+.dashboard-family-layout{
+  display:grid;
+  grid-template-columns:minmax(320px,.9fr) minmax(0,1.35fr);
+  gap:28px;
+  margin:38px 0 44px;
+  align-items:start;
+}
+.dashboard-family-layout>.dashboard-section{margin:0}
+.dashboard-family-layout .dashboard-people-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+.dashboard-family-layout .dashboard-person-open{min-height:138px}
+.dashboard-family-layout .family-branch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.dashboard-family-layout .family-branch-card{min-height:138px}
+body[data-route="dashboard"] .dashboard-recent{margin:34px 0 10px}
+body[data-route="dashboard"] .history-highlight-grid article{min-height:160px}
+body[data-route="dashboard"] .dashboard-research-split{margin-top:52px}
+body[data-route="dashboard"] .dashboard-research-details{margin-top:52px}
+
+/* People browsing becomes a denser visual library on large screens. */
+body[data-route="people"] .people-grid{grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:14px}
+body[data-route="people"] .person-card{border-radius:16px;box-shadow:0 7px 20px rgba(20,40,34,.035)}
+body[data-route="people"] .person-open{padding:20px;min-height:190px;display:grid;align-content:start}
+
+/* Person pages lead with the family overview; the source dossier summary moves below it. */
+body[data-experience="family"][data-route="person"] .family-overview-card{margin:6px 0 16px;border-radius:24px}
+body[data-experience="family"][data-route="person"] .focus-actions{margin:0 0 16px}
+body[data-experience="family"][data-route="person"] .person-source-summary{
+  margin:0 0 22px;
+  padding:16px 18px;
+  border-top-width:1px;
+  border-style:dashed;
+  background:rgba(255,255,255,.58);
+  box-shadow:none;
+}
+body[data-experience="family"][data-route="person"] .person-source-summary h1{font-size:27px;margin-bottom:6px}
+body[data-experience="family"][data-route="person"] .person-source-summary .eyebrow{margin-bottom:5px}
+body[data-experience="family"][data-route="person"] .person-source-summary p{margin:4px 0;font-size:11px}
+body[data-experience="family"][data-route="person"] .person-source-summary .person-summary{max-width:430px;gap:5px}
+
+/* Tree and media get the largest uninterrupted canvas. */
+body[data-route="tree"] .graph-shell{border-radius:18px;box-shadow:0 12px 34px rgba(20,40,34,.045)}
+body[data-route="tree"] .graph-scroll{max-height:calc(100vh - 310px);min-height:560px}
+body[data-route="media"] [data-media-page]{margin-top:4px}
+
+@media (max-width:980px){
+  .route-shell{grid-template-columns:1fr;align-items:stretch}
+  .route-shell .filters{grid-template-columns:minmax(220px,1fr) 150px 145px auto}
+  .dashboard-family-layout{grid-template-columns:1fr}
+  .dashboard-family-layout .dashboard-people-strip{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .dashboard-family-layout .family-branch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  body[data-experience="family"][data-route="dashboard"] .dashboard-paths{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media (max-width:720px){
+  :root{--app-masthead-height:0px;--app-utility-height:48px}
+  .shell{display:block}
+  .sidebar{display:none!important}
+  .topbar{top:0;height:48px;padding:0 14px}
+  .topbar>span{max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .topbar-actions{gap:3px}
+  .topbar button{font-size:10px;padding:6px 7px}
+  .main{padding:18px 14px calc(var(--mobile-nav-height) + 44px)}
+  .route-shell{display:block;margin-bottom:16px;padding:16px;border-radius:18px}
+  .route-shell .page-heading{display:block}
+  .route-shell .page-heading h1{font-size:2rem}
+  .route-shell .version{display:inline-block;margin-top:12px}
+  .route-shell .filters{margin-top:16px;grid-template-columns:1fr 1fr;padding:10px}
+  .route-shell .filters .search{grid-column:1/-1}
+  .route-shell .filters button{min-height:44px}
+  .route-shell #status{margin-top:12px;padding-top:10px}
+  body[data-experience="family"][data-route="dashboard"] .dashboard-hero{grid-template-columns:1fr;padding:22px;border-radius:20px}
+  body[data-experience="family"][data-route="dashboard"] .dashboard-hero-copy h2{font-size:2.35rem}
+  body[data-experience="family"][data-route="dashboard"] .dashboard-hero-card{min-height:190px}
+  body[data-experience="family"][data-route="dashboard"] .dashboard-paths{grid-template-columns:1fr 1fr;gap:9px;margin-bottom:28px}
+  body[data-experience="family"][data-route="dashboard"] .dashboard-paths a{min-height:82px;padding:14px}
+  .dashboard-family-layout{display:block;margin:28px 0 34px}
+  .dashboard-family-layout>.dashboard-section{margin:30px 0}
+  .dashboard-family-layout .dashboard-people-strip,.dashboard-family-layout .family-branch-grid{grid-template-columns:1fr}
+  body[data-route="people"] .people-grid{grid-template-columns:1fr}
+  body[data-route="people"] .person-open{min-height:auto}
+  body[data-route="tree"] .graph-scroll{min-height:440px;max-height:68vh}
+}
+
+@media (max-width:430px){
+  .route-shell .filters{grid-template-columns:1fr}
+  .route-shell .filters .search{grid-column:auto}
+  body[data-experience="family"][data-route="dashboard"] .dashboard-paths{grid-template-columns:1fr}
+}
+
+@media print{
+  .route-shell{display:block;border:0;box-shadow:none;padding:0}
+  .route-shell .filters,.topbar,.sidebar{display:none!important}
+  .dashboard-family-layout{display:block}
+}
