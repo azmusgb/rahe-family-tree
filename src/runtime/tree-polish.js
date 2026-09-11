@@ -1,4 +1,4 @@
-import{personById,esc}from'./core.js';
+import{personById,esc}from'../../core.js';
 const HOME_KEY='rahe.family.home-person.v1',RECENT_KEY='rahe.family.recent-people.v1';
 const focusId=()=>new URL(location.href).searchParams.get('focus')||'';
 const route=()=>location.hash.slice(1).split('/')[0]||'dashboard';
