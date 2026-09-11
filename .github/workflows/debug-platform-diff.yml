@@ -1,0 +1,34 @@
+name: Debug platform canonical diff
+
+on:
+  push:
+    branches: [platform/v13-full-block]
+
+permissions:
+  contents: read
+
+jobs:
+  debug:
+    if: ${{ !contains(github.event.head_commit.message, '[debug diff]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: platform/v13-full-block
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Build model through platform layer and print state changes
+        run: |
+          node scripts/upgrade-corpus.mjs
+          node scripts/canonical-integrity.mjs
+          node scripts/build-research-model.mjs
+          for f in scripts/enrich-v11-1.mjs scripts/enrich-v11-2.mjs scripts/enrich-v11-3.mjs scripts/enrich-v11-4.mjs scripts/enrich-v11-5.mjs scripts/enrich-v11-6.mjs scripts/enrich-v12-0.mjs scripts/enrich-v12-1.mjs scripts/enrich-v12-2.mjs scripts/enrich-v12-3.mjs scripts/enrich-v12-4.mjs scripts/enrich-v12-5.mjs scripts/enrich-v12-6.mjs scripts/enrich-v12-6-1.mjs scripts/enrich-v12-6-2.mjs scripts/enrich-v12-7.mjs scripts/enrich-v12-8.mjs scripts/enrich-v12-9.mjs scripts/enrich-v12-9-1.mjs scripts/enrich-v13-0.mjs; do node "$f"; done
+          node scripts/enrich-v13-platform.mjs || true
+          node - <<'NODE'
+          const d=require('./public/canonical-diff.json');
+          console.log(JSON.stringify({people:d.people.stateChanged,relationships:d.relationships.stateChanged,claims:d.claims.stateChanged,hasEvidencePromotion:d.hasEvidencePromotion},null,2));
+          NODE
