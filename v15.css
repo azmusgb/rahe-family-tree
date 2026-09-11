@@ -1,0 +1,102 @@
+/* v15 — application convergence layer
+   One persistent mobile shell, stronger tap behavior, and family-first hierarchy.
+   This file changes presentation only; genealogy evidence semantics remain source-controlled. */
+
+:root{
+  --mobile-nav-height:72px;
+  --tap-target:48px;
+}
+
+html[data-ui-release="15.0"]{scroll-padding-bottom:calc(var(--mobile-nav-height) + 24px)}
+
+/* Persistent primary navigation: present in the application shell, never created by a late enhancer. */
+#family-mobile-dock{display:none}
+body[data-experience="research"] #family-mobile-dock{display:none!important}
+
+@media(max-width:720px){
+  body[data-experience="family"]{padding-bottom:calc(var(--mobile-nav-height) + 18px + env(safe-area-inset-bottom,0px))}
+  body[data-experience="family"] .footer{padding-bottom:calc(var(--mobile-nav-height) + 34px + env(safe-area-inset-bottom,0px))}
+  #family-mobile-dock:not([hidden]){
+    position:fixed!important;
+    display:grid!important;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    left:max(7px,env(safe-area-inset-left,0px));
+    right:max(7px,env(safe-area-inset-right,0px));
+    bottom:calc(7px + env(safe-area-inset-bottom,0px));
+    z-index:2147483000!important;
+    isolation:isolate;
+    gap:4px;
+    padding:6px;
+    border:1px solid rgba(23,63,53,.18);
+    border-radius:18px;
+    background:rgba(255,255,255,.97);
+    box-shadow:0 14px 44px rgba(13,35,28,.22);
+    -webkit-backdrop-filter:blur(18px);
+    backdrop-filter:blur(18px);
+    pointer-events:auto!important;
+    touch-action:manipulation;
+    transform:translateZ(0);
+  }
+  #family-mobile-dock a,
+  #family-mobile-dock button{
+    appearance:none;
+    -webkit-appearance:none;
+    min-width:0;
+    min-height:var(--tap-target);
+    display:grid;
+    grid-template-rows:18px auto;
+    place-items:center;
+    align-content:center;
+    gap:3px;
+    border:0;
+    border-radius:12px;
+    background:transparent;
+    color:#55635e;
+    text-decoration:none;
+    font:760 10.5px/1.1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    padding:5px 2px;
+    pointer-events:auto!important;
+    touch-action:manipulation;
+    cursor:pointer;
+    user-select:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+  #family-mobile-dock .dock-icon{font-size:16px;line-height:1;color:inherit}
+  #family-mobile-dock a.active,
+  #family-mobile-dock a[aria-current="page"]{background:var(--family-green,#173f35);color:#fff;box-shadow:0 4px 12px rgba(23,63,53,.18)}
+  #family-mobile-dock a:active,
+  #family-mobile-dock button:active{transform:scale(.96);background:#e9f0ec;color:var(--family-green,#173f35)}
+  #family-mobile-dock :focus-visible{outline:3px solid #d4a34d;outline-offset:2px}
+
+  /* Search remains part of the main application, but the dock action reliably brings it into view. */
+  body[data-experience="family"] #filters{scroll-margin-top:72px}
+  body[data-experience="family"] #search{font-size:16px;min-height:50px}
+
+  /* Keep route content clear of the persistent dock and browser chrome. */
+  body[data-experience="family"] .main{padding-bottom:calc(var(--mobile-nav-height) + 42px)}
+  body[data-experience="family"] .media-viewer{z-index:2147483100}
+  body[data-experience="family"] .media-viewer::backdrop{z-index:2147483050}
+}
+
+/* Family-facing home: storytelling first, research controls later. */
+body[data-experience="family"][data-route="dashboard"] .dashboard-research-split{margin-top:56px}
+body[data-experience="family"][data-route="dashboard"] .dashboard-research-details{margin-top:48px;opacity:.94}
+body[data-experience="family"][data-route="dashboard"] .dashboard-paths a{min-height:78px}
+body[data-experience="family"][data-route="dashboard"] .dashboard-paths b{font-size:14px}
+
+/* Profiles should read as family profiles before research dossiers. */
+body[data-experience="family"][data-route="person"] .family-overview-card{box-shadow:var(--shadow-sm);border-radius:20px}
+body[data-experience="family"][data-route="person"] .family-profile-kicker{font-size:12px}
+body[data-experience="family"][data-route="person"] .family-research-teaser{margin-top:28px}
+
+/* Ensure interactive family surfaces clearly read as controls on touch devices. */
+@media(pointer:coarse){
+  :where(.family-branch-card,.dashboard-person-open,.person-open,.mini-person,.media-person-chip,.dashboard-paths a,[data-person],[data-branch]){touch-action:manipulation;-webkit-tap-highlight-color:rgba(23,63,53,.08)}
+}
+
+@media(max-width:430px){
+  #family-mobile-dock:not([hidden]){left:5px;right:5px;bottom:calc(5px + env(safe-area-inset-bottom,0px));padding:5px;border-radius:16px}
+  #family-mobile-dock a,#family-mobile-dock button{font-size:10px;min-height:47px}
+}
+
+@media print{#family-mobile-dock{display:none!important}}

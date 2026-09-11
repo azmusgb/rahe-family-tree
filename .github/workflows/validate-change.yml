@@ -24,3 +24,7 @@ jobs:
         env:
           GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: npm run build
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run browser interaction smoke tests
+        run: npm run test:e2e

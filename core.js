@@ -5,9 +5,10 @@ export const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<
 export const norm=value=>String(value??'').toLowerCase().normalize('NFKD').replace(/[^\x00-\x7F]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
 
 export const routes={
-  dashboard:['Dashboard','Research state, evidence gaps, priority acquisitions, and completeness controls.'],
-  tree:['Tree','Connected family research graph with canonical, family-supplied, and private local-edit relationships.'],
-  people:['People','Canonical Appendix F inventory plus named family-supplied and locally edited people.'],
+  dashboard:['Home','Explore the family, branches, people, photographs, timeline, and open questions.'],
+  tree:['Tree','Explore connected family relationships while preserving the evidence state of every asserted connection.'],
+  people:['People','Browse the canonical, family-supplied, and locally edited people in the family archive.'],
+  media:['Photos & Documents','Browse family photographs and documents by person, branch, date, location, and source context.'],
   families:['Family Groups','Live spouse-centered family units recalculated from effective parentage and local edits.'],
   editor:['Family Editor','Add, update, hide, restore, review, undo, export, and import family-tree changes without rewriting canonical evidence.'],
   identity:['Identity Lab','Dedicated DeVine/DeVeine → William John Rahe Sr. identity-transition investigation.'],

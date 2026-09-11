@@ -4,6 +4,17 @@ const initials=name=>String(name||'?').replace(/\/.*/,'').trim().split(/\s+/).fi
 const cleanBranch=value=>String(value||'Family').split('/')[0].trim();
 const pct=(part,total)=>total?Math.round((part/total)*100):0;
 const dashboardPerson=p=>`<article class="dashboard-person"><button type="button" data-person="${esc(p.id)}" class="dashboard-person-open"><span class="dashboard-avatar" aria-hidden="true">${esc(initials(p.name))}</span><span><b>${esc(p.name)}</b><small>${esc(cleanBranch(p.branch))}${p.dates?` · ${esc(p.dates)}`:''}</small></span></button></article>`;
+function pedigreeGenerationCount(){
+  const people=new Set(displayPeople().map(p=>p.id));
+  const parentRels=allPedigreeRelationships().filter(r=>r.type==='parent-child'&&r.active!==false&&!/REJECTED/i.test(String(r.state||''))&&people.has(r.from)&&people.has(r.to));
+  if(!parentRels.length)return 1;
+  const childrenByParent=new Map(),childIds=new Set();
+  for(const rel of parentRels){if(!childrenByParent.has(rel.from))childrenByParent.set(rel.from,[]);childrenByParent.get(rel.from).push(rel.to);childIds.add(rel.to);}
+  const roots=[...people].filter(id=>childrenByParent.has(id)&&!childIds.has(id));
+  const starts=roots.length?roots:[...childrenByParent.keys()];
+  const depth=(id,path=new Set())=>{if(path.has(id))return 1;const kids=childrenByParent.get(id)||[];if(!kids.length)return 1;const next=new Set(path);next.add(id);return 1+Math.max(...kids.map(child=>depth(child,next)));};
+  return Math.max(1,Math.min(12,...starts.map(id=>depth(id))));
+}
 
 export function renderDashboard(){
   const c=model.meta.counts;
@@ -28,8 +39,7 @@ export function renderDashboard(){
   const evidenceTotal=Object.values(evidence).reduce((sum,n)=>sum+n,0);
   const bridge=model.relationships.find(r=>r.type==='identity-bridge');
   const a=bridge&&personById(bridge.from),b=bridge&&personById(bridge.to);
-  const generationCount=Math.max(1,Math.min(12,new Set((model.events||[]).map(e=>String(e.year||'').slice(0,2)).filter(Boolean)).size));
-  const publicMedia=(model.mediaAssets||[]).filter(m=>m.public!==false).length;
+  const generationCount=pedigreeGenerationCount();
   const topHighlights=[
     ['Chicago family roots','Multiple branches converge in Chicago-area records, vital registrations, directories, military records, and family households.'],
     ['Migration & origins','The archive preserves origin and migration research for the Ferry, Kinsman, Rahe, Racky/Hoffman, Berg, and related branches.'],
@@ -44,18 +54,17 @@ export function renderDashboard(){
         <div class="dashboard-hero-actions">
           <a class="action primary" href="#tree">Explore family tree</a>
           <a class="action" href="#people">Browse people</a>
-          <a class="action" href="#people">View photos & documents</a>
+          <a class="action" href="#media">View photos & documents</a>
         </div>
         <div class="dashboard-family-metrics" aria-label="Family overview">
-          <span><b>${people.length}</b><small>people / identities</small></span>
-          <span><b>${branches.length}</b><small>major branches</small></span>
-          <span><b>${generationCount}+</b><small>generational eras</small></span>
-          ${publicMedia?`<span><b>${publicMedia}</b><small>public media items</small></span>`:''}
+          <span><b>${people.length}</b><small>people in the archive</small></span>
+          <span><b>${branches.length}</b><small>family branches</small></span>
+          <span><b>${generationCount}</b><small>connected generations</small></span>
         </div>
       </div>
       <aside class="dashboard-hero-card" aria-label="Family snapshot">
         <div class="hero-tree-mark" aria-hidden="true">R</div>
-        <div><small>Family snapshot</small><strong>${relationships.length}</strong><span>active family relationships</span></div>
+        <div><small>Family snapshot</small><strong>${relationships.length}</strong><span>family connections</span></div>
         <a href="#tree">Open the connected tree →</a>
       </aside>
     </section>
@@ -77,28 +86,28 @@ export function renderDashboard(){
 
     <div class="dashboard-grid dashboard-research-split">
       <section class="panel mystery-panel" aria-labelledby="dashboard-mystery-title">
-        <p class="eyebrow">OPEN FAMILY MYSTERY</p>
+        <p class="eyebrow">OPEN FAMILY QUESTION</p>
         <h2 id="dashboard-mystery-title">DeVine / DeVeine → Rahe identity bridge</h2>
-        <p>The two identities remain separate in the canonical graph. The connection is preserved as unresolved rather than silently promoted.</p>
+        <p>The two identities remain separate in the family tree. The possible connection is preserved as unresolved rather than presented as established fact.</p>
         <div class="bridge-pair">${a?miniPerson(a):''}<div class="bridge-state">${bridge?stateBadges(bridge.state):''}<b>${esc(bridge?.state||'UNRESOLVED')}</b></div>${b?miniPerson(b):''}</div>
-        <a class="action" href="#identity">Open Identity Lab</a>
+        <a class="action" href="#identity">Review the identity question</a>
       </section>
       <section class="panel evidence-health" aria-labelledby="dashboard-health-title">
-        <p class="eyebrow">RESEARCH HEALTH</p>
-        <h2 id="dashboard-health-title">Evidence confidence</h2>
+        <p class="eyebrow">DOCUMENTATION STATUS</p>
+        <h2 id="dashboard-health-title">How well documented is the family history?</h2>
         <div class="evidence-health-bar" aria-label="Evidence confidence distribution">
           <span style="--value:${pct(evidence.SUPPORTED,evidenceTotal)}%"><b>${pct(evidence.SUPPORTED,evidenceTotal)}%</b><small>Supported</small></span>
           <span style="--value:${pct(evidence.PROVISIONAL,evidenceTotal)}%"><b>${pct(evidence.PROVISIONAL,evidenceTotal)}%</b><small>Provisional</small></span>
           <span style="--value:${pct(evidence.UNRESOLVED,evidenceTotal)}%"><b>${pct(evidence.UNRESOLVED,evidenceTotal)}%</b><small>Unresolved</small></span>
           <span style="--value:${pct(evidence.REJECTED,evidenceTotal)}%"><b>${pct(evidence.REJECTED,evidenceTotal)}%</b><small>Rejected</small></span>
         </div>
-        <p class="muted">${model.claims.length} claim-register items · ${model.sources.length} registered sources · audit ${model.audit.pass?'passing':'requires review'}.</p>
+        <p class="muted">${model.claims.length} documented facts and questions · ${model.sources.length} registered sources · integrity check ${model.audit.pass?'passing':'requires review'}.</p>
         <a class="action" href="#evidence">View evidence details</a>
       </section>
     </div>
 
     <section class="dashboard-section" aria-labelledby="dashboard-records-title">
-      <div class="section-title"><div><p class="eyebrow">RECORDS WE'RE LOOKING FOR</p><h2 id="dashboard-records-title">Top research targets</h2></div><a href="#research">Open full queue ↗</a></div>
+      <div class="section-title"><div><p class="eyebrow">RECORDS WE'RE STILL LOOKING FOR</p><h2 id="dashboard-records-title">Top research targets</h2></div><a href="#research">Open full queue ↗</a></div>
       <div class="task-grid dashboard-task-grid">${critical.map(taskCard).join('')}</div>
     </section>
 
