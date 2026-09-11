@@ -18,3 +18,18 @@ import './v15-runtime.js';
 import './v15-1-runtime.js';
 import './v15-family-focus.js';
 import './platform-v13-runtime.js';
+
+const APP_VERSION='15.4.0';
+const syncAppVersion=()=>{
+  document.documentElement.dataset.uiRelease=APP_VERSION;
+  const version=document.querySelector('.version');
+  if(version){
+    const mode=document.body.dataset.experience==='research'?'RESEARCH MODE':'FAMILY VIEW';
+    version.textContent=`${mode} · v${APP_VERSION}`;
+  }
+};
+
+window.addEventListener('family-view-rendered',syncAppVersion);
+window.addEventListener('hashchange',syncAppVersion);
+window.addEventListener('family-auth-ui-refresh',syncAppVersion);
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',syncAppVersion):syncAppVersion();
