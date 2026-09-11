@@ -12,5 +12,7 @@
   "sources": 24,
   "events": 262,
   "redactionEntries": 61,
-  "canonicalFinalCertificationSection": "s230"
+  "canonicalFinalCertificationSection": "s230",
+  "canonicalCompletenessPass": true,
+  "canonicalCompletenessReport": "canonical-completeness.json"
 }

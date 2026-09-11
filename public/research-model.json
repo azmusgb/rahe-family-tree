@@ -10,14 +10,14 @@
       "people": 70,
       "relationships": 94,
       "claims": 21,
-      "sources": 24,
+      "sources": 37,
       "events": 262,
       "researchTasks": 19,
       "negativeSearches": 10,
       "completenessGates": 8,
       "contextRelationships": 4,
       "normalizedEvents": 262,
-      "familyGroups": 19,
+      "familyGroups": 17,
       "evidenceGaps": 13,
       "canonicalPeople": 70,
       "supplementalPeople": 8,
@@ -1892,7 +1892,11 @@
         "section": "s042",
         "basis": "Canonical relationship dataset"
       },
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -1911,7 +1915,11 @@
         "row": 2,
         "canonicalPersonId": "P-FERRY-SARAH"
       },
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -1934,7 +1942,11 @@
         "row": 2,
         "canonicalPersonId": "P-FERRY-SARAH"
       },
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -1952,48 +1964,11 @@
         "section": "s042",
         "basis": "Canonical relationship dataset"
       },
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
-      "stateTokens": [
-        "SUPPORTED"
-      ],
-      "claimIds": [
-        "CL-DV-001"
-      ],
-      "sourceIds": [
-        "C001"
-      ]
-    },
-    {
-      "id": "REL-0005",
-      "type": "spouse",
-      "from": "P-SARAH-FERRY",
-      "to": "P-JACK-DALE",
-      "role": "spouse",
-      "state": "SUPPORTED as Edward’s mother; spouse chronology mixed",
-      "source": {
-        "section": "s042",
-        "basis": "Canonical relationship dataset"
-      },
-      "active": true,
-      "stateTokens": [
-        "SUPPORTED"
-      ],
-      "claimIds": [],
-      "sourceIds": []
-    },
-    {
-      "id": "REL-0006",
-      "type": "parent-child",
-      "from": "P-EDWARD-ELLERY-DEVINE-DEVEINE",
-      "to": "P-EDWARD-ELLERY-DEVINE-DEVEINE",
-      "role": "father",
-      "state": "SUPPORTED birth/baptism identity",
-      "source": {
-        "section": "s042",
-        "row": 3,
-        "canonicalPersonId": "P-DEVINE-EDWARD"
-      },
-      "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2010,13 +1985,18 @@
       "from": "P-SARAH-FERRY",
       "to": "P-EDWARD-ELLERY-DEVINE-DEVEINE",
       "role": "mother",
-      "state": "SUPPORTED birth/baptism identity",
+      "state": "SUPPORTED / VERY HIGH",
       "source": {
         "section": "s042",
         "row": 3,
-        "canonicalPersonId": "P-DEVINE-EDWARD"
+        "canonicalPersonId": "P-DEVINE-EDWARD",
+        "basis": "1918 St. Anne extract"
       },
+      "controllingState": "SUPPORTED",
+      "strength": "VERY HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2038,34 +2018,16 @@
         "section": "s042",
         "basis": "Canonical relationship dataset"
       },
+      "controllingState": "UNRESOLVED",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "UNRESOLVED"
       ],
       "claimIds": [],
       "sourceIds": []
-    },
-    {
-      "id": "REL-0009",
-      "type": "spouse",
-      "from": "P-CLIFFORD-HENRY-RAHE",
-      "to": "P-SARAH-FERRY",
-      "role": "spouse",
-      "state": "PROVISIONAL lead only",
-      "source": {
-        "section": "s042",
-        "basis": "Canonical relationship dataset"
-      },
-      "active": true,
-      "stateTokens": [
-        "PROVISIONAL"
-      ],
-      "claimIds": [
-        "CL-RAHE-001"
-      ],
-      "sourceIds": [
-        "W006"
-      ]
     },
     {
       "id": "REL-0010",
@@ -2079,7 +2041,11 @@
         "row": 6,
         "canonicalPersonId": "P-RACKY-JEAN"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2102,7 +2068,11 @@
         "row": 6,
         "canonicalPersonId": "P-RACKY-JEAN"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2125,7 +2095,11 @@
         "row": 7,
         "canonicalPersonId": "P-RACKY-JOHANN"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2144,7 +2118,11 @@
         "row": 7,
         "canonicalPersonId": "P-RACKY-JOHANN"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2162,7 +2140,11 @@
         "section": "s042",
         "basis": "Canonical relationship dataset"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2181,7 +2163,11 @@
         "row": 8,
         "canonicalPersonId": "P-DEN-GEORGE-JR"
       },
+      "controllingState": "SUPPORTED",
+      "strength": "VERY HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2200,7 +2186,11 @@
         "row": 8,
         "canonicalPersonId": "P-DEN-GEORGE-JR"
       },
+      "controllingState": "SUPPORTED",
+      "strength": "VERY HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2218,7 +2208,11 @@
         "section": "s042",
         "basis": "Canonical relationship dataset"
       },
+      "controllingState": "SUPPORTED",
+      "strength": "VERY HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2231,15 +2225,18 @@
       "from": "P-KATHERINE-MAY-KINSMAN",
       "to": "P-HAZEL-EMMA-BERG-DENNEWITZ",
       "role": "mother",
-      "state": "SUPPORTED adult identity / spouse; parentage PROVISIONAL-STRONG",
+      "state": "PROVISIONAL-STRONG",
       "source": {
         "section": "s042",
         "row": 9,
         "canonicalPersonId": "P-BERG-HAZEL"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
-        "SUPPORTED",
         "PROVISIONAL"
       ],
       "claimIds": [],
@@ -2257,7 +2254,13 @@
         "row": 10,
         "canonicalPersonId": "P-HOLMAN-KATE"
       },
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [
+        "DERIVATIVE"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED",
         "DERIVATIVE"
@@ -2281,7 +2284,13 @@
         "row": 10,
         "canonicalPersonId": "P-HOLMAN-KATE"
       },
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [
+        "DERIVATIVE"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED",
         "DERIVATIVE"
@@ -2300,7 +2309,13 @@
         "section": "s042",
         "basis": "Canonical relationship dataset"
       },
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [
+        "DERIVATIVE"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED",
         "DERIVATIVE"
@@ -2319,25 +2334,11 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
-      "stateTokens": [
-        "PROVISIONAL"
-      ],
-      "claimIds": [],
-      "sourceIds": []
-    },
-    {
-      "id": "REL-0023",
-      "type": "spouse",
-      "from": "P-JOHANN-GOTTLIEB-DENNEWITZ-2",
-      "to": "P-JOHANNA-D-RUNGERT",
-      "role": "spouse",
-      "state": "PROVISIONAL",
-      "source": {
-        "section": "s008",
-        "basis": "Explicit relationship statement in controlling source"
-      },
-      "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2355,7 +2356,11 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2373,7 +2378,11 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2391,7 +2400,13 @@
         "section": "s011",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2409,7 +2424,11 @@
         "section": "s012",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2427,7 +2446,11 @@
         "section": "s047",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2450,7 +2473,11 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2468,7 +2495,11 @@
         "section": "s024",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2492,7 +2523,11 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": "FAMILY-ESTABLISHED",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2510,7 +2545,11 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": "FAMILY-ESTABLISHED",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2528,7 +2567,13 @@
         "section": "s011",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2546,7 +2591,13 @@
         "section": "s011",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2564,7 +2615,11 @@
         "section": "s009",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2582,7 +2637,11 @@
         "section": "s009",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2600,7 +2659,11 @@
         "section": "s009",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2618,7 +2681,11 @@
         "section": "s009",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2636,7 +2703,11 @@
         "section": "s009",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": "FAMILY-ESTABLISHED",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2654,7 +2725,11 @@
         "section": "s009",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": "FAMILY-ESTABLISHED",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2672,7 +2747,13 @@
         "section": "s012",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "PROBABLE"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2690,7 +2771,11 @@
         "section": "s012",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "UNRESOLVED",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2708,7 +2793,11 @@
         "section": "s047",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2726,7 +2815,11 @@
         "section": "s047",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "UNRESOLVED",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "UNRESOLVED"
       ],
@@ -2744,7 +2837,11 @@
         "section": "s047",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "UNRESOLVED",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "UNRESOLVED"
       ],
@@ -2762,7 +2859,11 @@
         "section": "s047",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2785,7 +2886,11 @@
         "section": "s047",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2808,7 +2913,11 @@
         "section": "s016",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2826,7 +2935,11 @@
         "section": "s016",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -2844,7 +2957,11 @@
         "section": "s017",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2862,7 +2979,11 @@
         "section": "s017",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2880,7 +3001,11 @@
         "section": "s017",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED",
         "PROVISIONAL"
@@ -2899,7 +3024,11 @@
         "section": "s017",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED",
         "PROVISIONAL"
@@ -2918,7 +3047,11 @@
         "section": "s017",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2936,7 +3069,11 @@
         "section": "s017",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2954,7 +3091,11 @@
         "section": "s017",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2972,7 +3113,11 @@
         "section": "s017",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -2990,7 +3135,11 @@
         "section": "s017",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3008,7 +3157,11 @@
         "section": "s017",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3020,13 +3173,17 @@
       "type": "parent-child",
       "from": "P-ELLERY-ELLEY-DEVINE-DEVEINE",
       "to": "P-EDWARD-ELLERY-DEVINE-DEVEINE",
-      "role": "parent-child",
+      "role": "father",
       "state": "SUPPORTED / VERY HIGH",
       "source": {
         "section": "s020",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": "VERY HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -3044,7 +3201,11 @@
         "section": "s024",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3062,7 +3223,11 @@
         "section": "s024",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3080,7 +3245,13 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3098,7 +3269,13 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3116,7 +3293,13 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3134,7 +3317,13 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3152,7 +3341,13 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3170,7 +3365,13 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3188,7 +3389,13 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3206,7 +3413,13 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3224,7 +3437,13 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3242,7 +3461,13 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3260,7 +3485,13 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3278,7 +3509,13 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3296,7 +3533,13 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3314,7 +3557,13 @@
         "section": "s015",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "COLLATERAL"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3332,7 +3581,13 @@
         "section": "s025",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "DERIVATIVE"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL",
         "DERIVATIVE"
@@ -3351,7 +3606,13 @@
         "section": "s025",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "DERIVATIVE"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL",
         "DERIVATIVE"
@@ -3370,7 +3631,13 @@
         "section": "s025",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "DERIVATIVE"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL",
         "DERIVATIVE"
@@ -3389,7 +3656,13 @@
         "section": "s025",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "DERIVATIVE"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL",
         "DERIVATIVE"
@@ -3408,7 +3681,13 @@
         "section": "s025",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "DERIVATIVE"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL",
         "DERIVATIVE"
@@ -3427,7 +3706,13 @@
         "section": "s025",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "DERIVATIVE"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL",
         "DERIVATIVE"
@@ -3446,7 +3731,13 @@
         "section": "s025",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "DERIVATIVE"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL",
         "DERIVATIVE"
@@ -3465,7 +3756,13 @@
         "section": "s025",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "DERIVATIVE"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL",
         "DERIVATIVE"
@@ -3484,7 +3781,13 @@
         "section": "s025",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "DERIVATIVE"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL",
         "DERIVATIVE"
@@ -3503,7 +3806,13 @@
         "section": "s025",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [
+        "DERIVATIVE"
+      ],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL",
         "DERIVATIVE"
@@ -3522,7 +3831,11 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": "FAMILY-ESTABLISHED",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -3540,7 +3853,11 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": "FAMILY-ESTABLISHED",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -3558,7 +3875,11 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": "FAMILY-ESTABLISHED",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -3576,7 +3897,11 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "SUPPORTED",
+      "strength": "FAMILY-ESTABLISHED",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -3594,7 +3919,11 @@
         "section": "s008",
         "basis": "Direct-line relationship register"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3612,7 +3941,11 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3630,7 +3963,11 @@
         "section": "s008",
         "basis": "Explicit relationship statement in controlling source"
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [],
       "active": true,
+      "activePedigree": true,
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -3648,7 +3985,13 @@
         "section": "s020",
         "claimId": "CL-DV-002"
       },
+      "controllingState": "UNRESOLVED",
+      "strength": "STRONG",
+      "qualifiers": [
+        "HYPOTHESIS"
+      ],
       "active": true,
+      "activePedigree": false,
       "stateTokens": [
         "UNRESOLVED"
       ],
@@ -3661,6 +4004,106 @@
         "W005",
         "W006"
       ]
+    },
+    {
+      "id": "REL-CANON-JOHANN-RUNGERT",
+      "type": "spouse",
+      "from": "P-JOHANN-GOTTLIEB-DENNEWITZ",
+      "to": "P-JOHANNA-D-RUNGERT",
+      "role": "spouse",
+      "state": "PROVISIONAL",
+      "source": {
+        "section": "s008",
+        "basis": "Direct-line relationship register; earlier same-named Johann Gottlieb"
+      },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [],
+      "active": true,
+      "activePedigree": true,
+      "stateTokens": [
+        "PROVISIONAL"
+      ],
+      "claimIds": [],
+      "sourceIds": []
+    },
+    {
+      "id": "REL-LEAD-SARAH-P-ELIE-DAVIN",
+      "type": "spouse-lead",
+      "from": "P-SARAH-FERRY",
+      "to": "P-ELIE-DAVIN",
+      "role": "derivative spouse chronology lead",
+      "state": "DERIVATIVE lead",
+      "controllingState": "UNRESOLVED",
+      "strength": null,
+      "qualifiers": [
+        "LEAD",
+        "DERIVATIVE"
+      ],
+      "active": true,
+      "activePedigree": false,
+      "source": {
+        "section": "s022",
+        "basis": "Canonical source preserves spouse chronology as derivative/provisional lead only"
+      },
+      "stateTokens": [
+        "DERIVATIVE"
+      ],
+      "claimIds": [],
+      "sourceIds": []
+    },
+    {
+      "id": "REL-LEAD-SARAH-P-CLIFFORD-HENRY-RAHE",
+      "type": "spouse-lead",
+      "from": "P-SARAH-FERRY",
+      "to": "P-CLIFFORD-HENRY-RAHE",
+      "role": "derivative spouse chronology lead",
+      "state": "PROVISIONAL high-value lead",
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [
+        "LEAD"
+      ],
+      "active": true,
+      "activePedigree": false,
+      "source": {
+        "section": "s022",
+        "basis": "Canonical source preserves spouse chronology as derivative/provisional lead only"
+      },
+      "stateTokens": [
+        "PROVISIONAL"
+      ],
+      "claimIds": [
+        "CL-RAHE-001"
+      ],
+      "sourceIds": [
+        "W006"
+      ]
+    },
+    {
+      "id": "REL-LEAD-SARAH-P-JACK-DALE",
+      "type": "spouse-lead",
+      "from": "P-SARAH-FERRY",
+      "to": "P-JACK-DALE",
+      "role": "derivative spouse chronology lead",
+      "state": "DERIVATIVE lead",
+      "controllingState": "UNRESOLVED",
+      "strength": null,
+      "qualifiers": [
+        "LEAD",
+        "DERIVATIVE"
+      ],
+      "active": true,
+      "activePedigree": false,
+      "source": {
+        "section": "s022",
+        "basis": "Canonical source preserves spouse chronology as derivative/provisional lead only"
+      },
+      "stateTokens": [
+        "DERIVATIVE"
+      ],
+      "claimIds": [],
+      "sourceIds": []
     }
   ],
   "claims": [
@@ -3674,12 +4117,15 @@
         "section": "s032",
         "row": 1
       },
+      "controllingState": "SUPPORTED",
+      "strength": "VERY HIGH",
+      "qualifiers": [],
+      "peopleIds": [
+        "P-GEORGE-OTTO-DENNEWITZ-JR"
+      ],
       "sourceIds": [
         "C003",
         "C004"
-      ],
-      "peopleIds": [
-        "P-GEORGE-OTTO-DENNEWITZ-JR"
       ],
       "stateTokens": [
         "SUPPORTED"
@@ -3696,11 +4142,14 @@
         "section": "s032",
         "row": 2
       },
+      "controllingState": "SUPPORTED",
+      "strength": "VERY HIGH",
+      "qualifiers": [],
+      "peopleIds": [],
       "sourceIds": [
         "C004",
         "C003"
       ],
-      "peopleIds": [],
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -3716,10 +4165,13 @@
         "section": "s032",
         "row": 3
       },
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [],
+      "peopleIds": [],
       "sourceIds": [
         "C003"
       ],
-      "peopleIds": [],
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -3735,8 +4187,11 @@
         "section": "s032",
         "row": 4
       },
-      "sourceIds": [],
+      "controllingState": "SUPPORTED",
+      "strength": "FAMILY-ESTABLISHED",
+      "qualifiers": [],
       "peopleIds": [],
+      "sourceIds": [],
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -3752,11 +4207,14 @@
         "section": "s032",
         "row": 5
       },
-      "sourceIds": [
-        "C007"
-      ],
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "peopleIds": [
         "P-KATHERINE-MAY-KINSMAN"
+      ],
+      "sourceIds": [
+        "C007"
       ],
       "stateTokens": [
         "PROVISIONAL"
@@ -3773,11 +4231,14 @@
         "section": "s032",
         "row": 6
       },
-      "sourceIds": [
-        "C007"
-      ],
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [],
       "peopleIds": [
         "P-OSCAR-FERDINAND-BERG"
+      ],
+      "sourceIds": [
+        "C007"
       ],
       "stateTokens": [
         "PROVISIONAL"
@@ -3794,8 +4255,11 @@
         "section": "s032",
         "row": 7
       },
-      "sourceIds": [],
+      "controllingState": "UNRESOLVED",
+      "strength": null,
+      "qualifiers": [],
       "peopleIds": [],
+      "sourceIds": [],
       "stateTokens": [
         "UNRESOLVED"
       ],
@@ -3811,14 +4275,17 @@
         "section": "s032",
         "row": 8
       },
-      "sourceIds": [
-        "C007",
-        "C011"
-      ],
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "peopleIds": [
         "P-WALTER-GEORGE-WALTER-KINSMAN",
         "P-MARY-JANE-HICKEY-MCLAUGHLIN",
         "P-KATHERINE-MAY-KINSMAN"
+      ],
+      "sourceIds": [
+        "C007",
+        "C011"
       ],
       "stateTokens": [
         "PROVISIONAL"
@@ -3835,12 +4302,15 @@
         "section": "s032",
         "row": 9
       },
-      "sourceIds": [
-        "W003"
-      ],
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [],
       "peopleIds": [
         "P-CARL-OTTO-HOLMAN-SR",
         "P-KATE-ALICE-HOLMAN"
+      ],
+      "sourceIds": [
+        "W003"
       ],
       "stateTokens": [
         "PROVISIONAL"
@@ -3857,11 +4327,14 @@
         "section": "s032",
         "row": 10
       },
-      "sourceIds": [
-        "C012"
-      ],
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [],
       "peopleIds": [
         "P-OWEN-FERRY"
+      ],
+      "sourceIds": [
+        "C012"
       ],
       "stateTokens": [
         "SUPPORTED"
@@ -3878,13 +4351,16 @@
         "section": "s032",
         "row": 11
       },
-      "sourceIds": [
-        "C001"
-      ],
+      "controllingState": "SUPPORTED",
+      "strength": null,
+      "qualifiers": [],
       "peopleIds": [
         "P-OWEN-FERRY",
         "P-ISABELLA-MARGARET-ISABELLA-MCFADDEN",
         "P-SARAH-FERRY"
+      ],
+      "sourceIds": [
+        "C001"
       ],
       "stateTokens": [
         "SUPPORTED"
@@ -3901,11 +4377,16 @@
         "section": "s032",
         "row": 12
       },
+      "controllingState": null,
+      "strength": "STRONG",
+      "qualifiers": [
+        "HYPOTHESIS"
+      ],
+      "peopleIds": [],
       "sourceIds": [
         "C001",
         "W007"
       ],
-      "peopleIds": [],
       "stateTokens": [],
       "branchCode": "FER"
     },
@@ -3919,12 +4400,15 @@
         "section": "s032",
         "row": 13
       },
-      "sourceIds": [
-        "C001"
-      ],
+      "controllingState": "SUPPORTED",
+      "strength": "VERY HIGH",
+      "qualifiers": [],
       "peopleIds": [
         "P-SARAH-FERRY",
         "P-EDWARD-ELLERY-DEVINE-DEVEINE"
+      ],
+      "sourceIds": [
+        "C001"
       ],
       "stateTokens": [
         "SUPPORTED"
@@ -3941,6 +4425,13 @@
         "section": "s032",
         "row": 14
       },
+      "controllingState": "UNRESOLVED",
+      "strength": "STRONG",
+      "qualifiers": [],
+      "peopleIds": [
+        "P-EDWARD-ELLERY-DEVINE-DEVEINE",
+        "P-WILLIAM-JOHN-RAHE-SR"
+      ],
       "sourceIds": [
         "C001",
         "W001",
@@ -3949,10 +4440,6 @@
         "C009",
         "C010",
         "C013"
-      ],
-      "peopleIds": [
-        "P-EDWARD-ELLERY-DEVINE-DEVEINE",
-        "P-WILLIAM-JOHN-RAHE-SR"
       ],
       "stateTokens": [
         "UNRESOLVED"
@@ -3969,12 +4456,17 @@
         "section": "s032",
         "row": 15
       },
-      "sourceIds": [
-        "W006"
+      "controllingState": "PROVISIONAL",
+      "strength": "HIGH",
+      "qualifiers": [
+        "LEAD"
       ],
       "peopleIds": [
         "P-SARAH-FERRY",
         "P-CLIFFORD-HENRY-RAHE"
+      ],
+      "sourceIds": [
+        "W006"
       ],
       "stateTokens": [
         "PROVISIONAL"
@@ -3991,8 +4483,11 @@
         "section": "s032",
         "row": 16
       },
-      "sourceIds": [],
+      "controllingState": "UNRESOLVED",
+      "strength": null,
+      "qualifiers": [],
       "peopleIds": [],
+      "sourceIds": [],
       "stateTokens": [
         "UNRESOLVED"
       ],
@@ -4008,13 +4503,16 @@
         "section": "s032",
         "row": 17
       },
-      "sourceIds": [
-        "W005"
-      ],
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "peopleIds": [
         "P-JOHN-FRANCIS-RACKY",
         "P-ANNA-ROSE-HOFFMAN",
         "P-JEAN-MARY-RACKY"
+      ],
+      "sourceIds": [
+        "W005"
       ],
       "stateTokens": [
         "PROVISIONAL"
@@ -4031,13 +4529,16 @@
         "section": "s032",
         "row": 18
       },
-      "sourceIds": [
-        "W005",
-        "W008"
-      ],
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
       "peopleIds": [
         "P-JOHN-FRANCIS-RACKY",
         "P-ANNA-ROSE-HOFFMAN"
+      ],
+      "sourceIds": [
+        "W005",
+        "W008"
       ],
       "stateTokens": [
         "PROVISIONAL"
@@ -4054,10 +4555,13 @@
         "section": "s032",
         "row": 19
       },
+      "controllingState": "PROVISIONAL",
+      "strength": "STRONG",
+      "qualifiers": [],
+      "peopleIds": [],
       "sourceIds": [
         "W005"
       ],
-      "peopleIds": [],
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -4073,10 +4577,13 @@
         "section": "s032",
         "row": 20
       },
+      "controllingState": "SUPPORTED",
+      "strength": "VERY HIGH",
+      "qualifiers": [],
+      "peopleIds": [],
       "sourceIds": [
         "C002"
       ],
-      "peopleIds": [],
       "stateTokens": [
         "SUPPORTED"
       ],
@@ -4092,10 +4599,13 @@
         "section": "s032",
         "row": 21
       },
+      "controllingState": "PROVISIONAL",
+      "strength": null,
+      "qualifiers": [],
+      "peopleIds": [],
       "sourceIds": [
         "C005"
       ],
-      "peopleIds": [],
       "stateTokens": [
         "PROVISIONAL"
       ],
@@ -4123,7 +4633,6 @@
       "relationshipIds": [
         "REL-0002",
         "REL-0004",
-        "REL-0006",
         "REL-0007",
         "REL-IDENTITY-BRIDGE"
       ]
@@ -4447,8 +4956,8 @@
         "CL-RAHE-001"
       ],
       "relationshipIds": [
-        "REL-0009",
-        "REL-IDENTITY-BRIDGE"
+        "REL-IDENTITY-BRIDGE",
+        "REL-LEAD-SARAH-P-CLIFFORD-HENRY-RAHE"
       ]
     },
     {
@@ -4509,6 +5018,188 @@
       "location": {
         "section": "s030",
         "row": 24
+      },
+      "claimIds": [],
+      "relationshipIds": []
+    },
+    {
+      "id": "V001",
+      "name": "Archives of Ontario — Birth, marriage and death registrations",
+      "class": "Verified web/repository source",
+      "use": "Repository structure; RG 80 reference codes; certified-copy/search procedure.",
+      "weight": "Procedure/source verification only",
+      "legacyIds": "",
+      "location": {
+        "section": "s057",
+        "row": 1
+      },
+      "claimIds": [],
+      "relationshipIds": []
+    },
+    {
+      "id": "V002",
+      "name": "FamilySearch — Canada, Ontario, Marriages, 1869–1927",
+      "class": "Verified web/repository source",
+      "use": "AO provenance, images, and fields including parents, ages, occupations, birthplaces, denominations, date/place.",
+      "weight": "Procedure/source verification only",
+      "legacyIds": "",
+      "location": {
+        "section": "s057",
+        "row": 2
+      },
+      "claimIds": [],
+      "relationshipIds": []
+    },
+    {
+      "id": "V003",
+      "name": "FamilySearch — Historical Record Collections list",
+      "class": "Verified web/repository source",
+      "use": "Confirms Ontario Births 1869–1912 and Marriages 1869–1927 collection availability.",
+      "weight": "Procedure/source verification only",
+      "legacyIds": "",
+      "location": {
+        "section": "s057",
+        "row": 3
+      },
+      "claimIds": [],
+      "relationshipIds": []
+    },
+    {
+      "id": "V004",
+      "name": "Social Security Administration — Make a FOIA Request",
+      "class": "Verified web/repository source",
+      "use": "Current SS-5/Numident request methods, fees, proof-of-death/parent-name disclosure guidance.",
+      "weight": "Procedure/source verification only",
+      "legacyIds": "",
+      "location": {
+        "section": "s057",
+        "row": 4
+      },
+      "claimIds": [],
+      "relationshipIds": []
+    },
+    {
+      "id": "V005",
+      "name": "Illinois Department of Public Health — Adoption",
+      "class": "Verified web/repository source",
+      "use": "Original/amended birth-record framework after adoption.",
+      "weight": "Procedure/source verification only",
+      "legacyIds": "",
+      "location": {
+        "section": "s057",
+        "row": 5
+      },
+      "claimIds": [],
+      "relationshipIds": []
+    },
+    {
+      "id": "V006",
+      "name": "Illinois Adoption Registry and Medical Information Exchange",
+      "class": "Verified web/repository source",
+      "use": "Eligible surviving-relative registration pathway.",
+      "weight": "Procedure/source verification only",
+      "legacyIds": "",
+      "location": {
+        "section": "s057",
+        "row": 6
+      },
+      "claimIds": [],
+      "relationshipIds": []
+    },
+    {
+      "id": "V007",
+      "name": "Interment.net — Southern Nevada Veterans Memorial Cemetery p.114",
+      "class": "Verified web/repository source",
+      "use": "Derivative corroboration for George Jr./Hazel dates, shared plot, and Navy service.",
+      "weight": "Procedure/source verification only",
+      "legacyIds": "",
+      "location": {
+        "section": "s057",
+        "row": 7
+      },
+      "claimIds": [],
+      "relationshipIds": []
+    },
+    {
+      "id": "V008",
+      "name": "FamilySearch — Jean Mary Racky profile",
+      "class": "Verified web/repository source",
+      "use": "Derivative 15 May 1942 marriage lead and underlying source pointers.",
+      "weight": "Procedure/source verification only",
+      "legacyIds": "",
+      "location": {
+        "section": "s057",
+        "row": 8
+      },
+      "claimIds": [],
+      "relationshipIds": []
+    },
+    {
+      "id": "V009",
+      "name": "AncientFaces — William J. Rahe",
+      "class": "Verified web/repository source",
+      "use": "Derivative DOB/death and military-transcription corroboration.",
+      "weight": "Procedure/source verification only",
+      "legacyIds": "",
+      "location": {
+        "section": "s057",
+        "row": 9
+      },
+      "claimIds": [],
+      "relationshipIds": []
+    },
+    {
+      "id": "V010",
+      "name": "Ancestry — George Otto Dennewitz",
+      "class": "Verified web/repository source",
+      "use": "Derivative George Sr. dates/parents/spouse/record-match pointers.",
+      "weight": "Procedure/source verification only",
+      "legacyIds": "",
+      "location": {
+        "section": "s057",
+        "row": 10
+      },
+      "claimIds": [],
+      "relationshipIds": []
+    },
+    {
+      "id": "V011",
+      "name": "Selves.ca — Annette Olsdtr. Hafnor",
+      "class": "Verified web/repository source",
+      "use": "Compiled Holman/Hafnor dates and sibling group.",
+      "weight": "Procedure/source verification only",
+      "legacyIds": "",
+      "location": {
+        "section": "s057",
+        "row": 11
+      },
+      "claimIds": [],
+      "relationshipIds": []
+    },
+    {
+      "id": "V012",
+      "name": "AncientFaces — Dennewitz family history",
+      "class": "Verified web/repository source",
+      "use": "Derivative George Sr./Kate/George Jr./Hazel corroboration.",
+      "weight": "Procedure/source verification only",
+      "legacyIds": "",
+      "location": {
+        "section": "s057",
+        "row": 12
+      },
+      "claimIds": [],
+      "relationshipIds": []
+    },
+    {
+      "id": "V013",
+      "name": "FamilySearch — Sara/Sarah Hyde profile",
+      "class": "Verified web/repository source",
+      "use": "New derivative lead: 29 Dec 1857 Manchester birth; 15 Feb 1884 marriage to Otto Christian; inspect attached originals.",
+      "weight": "Procedure/source verification only",
+      "legacyIds": "",
+      "location": {
+        "section": "s057",
+        "row": 13
       },
       "claimIds": [],
       "relationshipIds": []
@@ -12439,7 +13130,7 @@
         "id": "AUD-013",
         "label": "Family groups derive children only from explicit dual-parent edges",
         "pass": true,
-        "detail": "19 spouse-centered groups generated without inferred parentage"
+        "detail": "17 spouse-centered groups generated without inferred parentage"
       },
       {
         "id": "AUD-014",
@@ -21264,9 +21955,7 @@
         "P-EDWARD-ELLERY-DEVINE-DEVEINE",
         "P-SARAH-FERRY"
       ],
-      "childIds": [
-        "P-EDWARD-ELLERY-DEVINE-DEVEINE"
-      ],
+      "childIds": [],
       "contextRelationshipIds": [
         "CTX-FER-001",
         "CTX-RAH-001"
@@ -21280,33 +21969,11 @@
       },
       "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
       "label": "Edward Ellery DeVine / DeVeine × Sarah Ferry",
-      "memberCount": 3,
-      "hasChildren": true
-    },
-    {
-      "id": "FG-003",
-      "spouseIds": [
-        "P-JACK-DALE",
-        "P-SARAH-FERRY"
-      ],
-      "childIds": [],
-      "contextRelationshipIds": [
-        "CTX-RAH-001"
-      ],
-      "branch": "Dale / Ferry",
-      "state": "SUPPORTED as Edward’s mother; spouse chronology mixed",
-      "relationshipId": "REL-0005",
-      "sourceLocation": {
-        "section": "s042",
-        "basis": "Canonical relationship dataset"
-      },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
-      "label": "Jack Dale × Sarah Ferry",
       "memberCount": 2,
       "hasChildren": false
     },
     {
-      "id": "FG-004",
+      "id": "FG-003",
       "spouseIds": [
         "P-JEAN-MARY-RACKY",
         "P-WILLIAM-JOHN-RAHE-SR"
@@ -21326,29 +21993,7 @@
       "hasChildren": false
     },
     {
-      "id": "FG-005",
-      "spouseIds": [
-        "P-CLIFFORD-HENRY-RAHE",
-        "P-SARAH-FERRY"
-      ],
-      "childIds": [],
-      "contextRelationshipIds": [
-        "CTX-RAH-001"
-      ],
-      "branch": "Rahe / Ferry",
-      "state": "PROVISIONAL lead only",
-      "relationshipId": "REL-0009",
-      "sourceLocation": {
-        "section": "s042",
-        "basis": "Canonical relationship dataset"
-      },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
-      "label": "Clifford Henry Rahe × Sarah Ferry",
-      "memberCount": 2,
-      "hasChildren": false
-    },
-    {
-      "id": "FG-006",
+      "id": "FG-004",
       "spouseIds": [
         "P-AMELIA-EMILY-KOPCZYNSKI",
         "P-JOHANN-ANTHONY-RACKY"
@@ -21370,7 +22015,7 @@
       "hasChildren": true
     },
     {
-      "id": "FG-007",
+      "id": "FG-005",
       "spouseIds": [
         "P-GEORGE-OTTO-DENNEWITZ-JR",
         "P-HAZEL-EMMA-BERG-DENNEWITZ"
@@ -21394,7 +22039,7 @@
       "hasChildren": true
     },
     {
-      "id": "FG-008",
+      "id": "FG-006",
       "spouseIds": [
         "P-GEORGE-OTTO-DENNEWITZ-SR",
         "P-KATE-ALICE-HOLMAN"
@@ -21417,7 +22062,7 @@
       "hasChildren": true
     },
     {
-      "id": "FG-009",
+      "id": "FG-007",
       "spouseIds": [
         "P-EVA-MARIA",
         "P-JOHANN-ERNST-DENNEWITZ"
@@ -21437,27 +22082,7 @@
       "hasChildren": false
     },
     {
-      "id": "FG-010",
-      "spouseIds": [
-        "P-JOHANN-GOTTLIEB-DENNEWITZ-2",
-        "P-JOHANNA-D-RUNGERT"
-      ],
-      "childIds": [],
-      "contextRelationshipIds": [],
-      "branch": "Dennewitz",
-      "state": "PROVISIONAL",
-      "relationshipId": "REL-0023",
-      "sourceLocation": {
-        "section": "s008",
-        "basis": "Explicit relationship statement in controlling source"
-      },
-      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
-      "label": "Johann Gottlieb Dennewitz × Johanna D. Rungert",
-      "memberCount": 2,
-      "hasChildren": false
-    },
-    {
-      "id": "FG-011",
+      "id": "FG-008",
       "spouseIds": [
         "P-DOROTHEE-R-HUEBLER",
         "P-JOHN-C-DENNEWITZ"
@@ -21477,7 +22102,7 @@
       "hasChildren": false
     },
     {
-      "id": "FG-012",
+      "id": "FG-009",
       "spouseIds": [
         "P-OTTO-CHRISTIAN-DENNEWITZ",
         "P-SARAH-ALICE-HYDE"
@@ -21497,7 +22122,7 @@
       "hasChildren": false
     },
     {
-      "id": "FG-013",
+      "id": "FG-010",
       "spouseIds": [
         "P-DOROTHY-CECELIA-KINSMAN",
         "P-WILLIAM-HOLMAN-DENNEWITZ"
@@ -21517,7 +22142,7 @@
       "hasChildren": false
     },
     {
-      "id": "FG-014",
+      "id": "FG-011",
       "spouseIds": [
         "P-ARNOLD-CARL-ERIC-BERG",
         "P-KATHERINE-MAY-KINSMAN"
@@ -21542,7 +22167,7 @@
       "hasChildren": true
     },
     {
-      "id": "FG-015",
+      "id": "FG-012",
       "spouseIds": [
         "P-MARY-JANE-HICKEY-MCLAUGHLIN",
         "P-WALTER-GEORGE-WALTER-KINSMAN"
@@ -21564,7 +22189,7 @@
       "hasChildren": true
     },
     {
-      "id": "FG-016",
+      "id": "FG-013",
       "spouseIds": [
         "P-ANNETTE-OLSDTR-HAFNOR",
         "P-CARL-OTTO-HOLMAN-SR"
@@ -21593,7 +22218,7 @@
       "hasChildren": true
     },
     {
-      "id": "FG-017",
+      "id": "FG-014",
       "spouseIds": [
         "P-ANNA-ROSE-HOFFMAN",
         "P-JOHN-FRANCIS-RACKY"
@@ -21620,7 +22245,7 @@
       "hasChildren": true
     },
     {
-      "id": "FG-018",
+      "id": "FG-015",
       "spouseIds": [
         "P-KATHLEEN-ANN-DENNEWITZ-RAHE",
         "P-WILLIAM-JOHN-RAHE-JR"
@@ -21642,7 +22267,7 @@
       "hasChildren": true
     },
     {
-      "id": "FG-019",
+      "id": "FG-016",
       "spouseIds": [
         "P-MELISSA-RAHE",
         "P-WILLIAM-JOHN-RAHE-III"
@@ -21662,6 +22287,26 @@
       "label": "Melissa Rahe × William John Rahe III",
       "memberCount": 3,
       "hasChildren": true
+    },
+    {
+      "id": "FG-017",
+      "spouseIds": [
+        "P-JOHANN-GOTTLIEB-DENNEWITZ",
+        "P-JOHANNA-D-RUNGERT"
+      ],
+      "childIds": [],
+      "contextRelationshipIds": [],
+      "branch": "Dennewitz",
+      "state": "PROVISIONAL",
+      "relationshipId": "REL-CANON-JOHANN-RUNGERT",
+      "sourceLocation": {
+        "section": "s008",
+        "basis": "Direct-line relationship register; earlier same-named Johann Gottlieb"
+      },
+      "rule": "Children appear only when both spouse nodes have explicit active parent-child edges to that child.",
+      "label": "Johann Gottlieb Dennewitz × Johanna D. Rungert",
+      "memberCount": 2,
+      "hasChildren": false
     }
   ],
   "evidenceGaps": [

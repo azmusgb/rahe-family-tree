@@ -80,7 +80,7 @@
       "id": "AUD-013",
       "label": "Family groups derive children only from explicit dual-parent edges",
       "pass": true,
-      "detail": "19 spouse-centered groups generated without inferred parentage"
+      "detail": "17 spouse-centered groups generated without inferred parentage"
     },
     {
       "id": "AUD-014",
