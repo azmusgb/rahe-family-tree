@@ -1,0 +1,33 @@
+/* Stable stylesheet composition root.
+ *
+ * Import order is intentional and preserves the deployed historical cascade.
+ * Legacy source files remain individually versioned for now, but production
+ * consumes this semantic boundary and emits a single styles-v15.css asset.
+ */
+@import '../../v11.css';
+@import '../../v11-nav.css';
+@import '../../v11-2.css';
+@import '../../v11-3.css';
+@import '../../v11-4.css';
+@import '../../v11-6.css';
+@import '../../v12.css';
+@import '../../v12-2.css';
+@import '../../v12-3.css';
+@import '../../v12-4.css';
+@import '../../v12-5.css';
+@import '../../v12-6.css';
+@import '../../v12-6-1.css';
+@import '../../v12-6-2.css';
+@import '../../v12-7.css';
+@import '../../v12-8.css';
+@import '../../v12-9.css';
+@import '../../v12-9-1.css';
+@import '../../v13-0.css';
+@import '../../dashboard-v13-2.css';
+@import '../../media-page-v13-4.css';
+@import '../../experience-v13-5.css';
+@import '../../v14.css';
+@import '../../v15.css';
+@import '../../v15-1.css';
+@import '../../v15-family-focus.css';
+@import '../../platform-v13.css';
