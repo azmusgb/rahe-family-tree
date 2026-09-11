@@ -58,10 +58,11 @@ test('family enhancements remain isolated from research mode',()=>{
   assert.match(v15Runtime,/RESEARCH MODE · v\$\{UI_RELEASE\}/);
 });
 
-test('all surviving presentation enhancers use shallow content observers',()=>{
-  const modules=[familyRuntime,portraitRuntime,qaRuntime,contributionRuntime,mediaRuntime,treeRuntime,treePolish,dashboard,mediaPage,v15Runtime];
-  for(const source of modules)assert.doesNotMatch(source,/subtree:true/);
-  for(const source of modules)assert.match(source,/subtree:false/);
+test('legacy presentation enhancers remain shallow while v15 consumes render events',()=>{
+  const modules=[familyRuntime,portraitRuntime,qaRuntime,contributionRuntime,mediaRuntime,treeRuntime,treePolish,dashboard,mediaPage];
+  for(const source of modules){assert.doesNotMatch(source,/subtree:true/);assert.match(source,/subtree:false/);}
+  assert.doesNotMatch(v15Runtime,/MutationObserver/);
+  assert.match(v15Runtime,/family-view-rendered/);
 });
 
 test('mobile tree nodes use one-tap native person navigation',()=>{
