@@ -5,7 +5,7 @@ import fs from'node:fs';
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
 const runtimeIndex=fs.readFileSync('src/runtime/index.js','utf8');
-const runtime=fs.readFileSync('v15-runtime.js','utf8');
+const runtime=fs.readFileSync('src/runtime/experience.js','utf8');
 const css=fs.readFileSync('v15.css','utf8');
 const mainRuntime=fs.readFileSync('v11.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
@@ -20,7 +20,8 @@ test('v15 owns a persistent mobile navigation shell',()=>{
   assert.match(index,/href="#media"[^>]*data-dock-route="media"/);
   assert.doesNotMatch(index,/experience-v13-5\.js/);
   assert.match(index,/app\.bundle\.js\?v=15\.4\.0/);
-  assert.match(entry,/v15-runtime\.js/);
+  assert.doesNotMatch(entry,/v15-runtime\.js/);
+  assert.match(runtimeIndex,/import '\.\/experience\.js'/);
 });
 
 test('browser bootstrap delegates historical layers through stable runtime domains',()=>{
@@ -40,7 +41,7 @@ test('mobile dock is a real touch surface above application content',()=>{
   assert.match(css,/--tap-target:48px/);
 });
 
-test('v15 runtime routes dock clicks directly and refreshes restored iOS documents',()=>{
+test('semantic experience runtime routes dock clicks directly and refreshes restored iOS documents',()=>{
   assert.match(runtime,/#family-mobile-dock a\[href\^="#"\]/);
   assert.match(runtime,/event\.preventDefault\(\);navigate/);
   assert.match(runtime,/pageshow/);
@@ -49,7 +50,7 @@ test('v15 runtime routes dock clicks directly and refreshes restored iOS documen
   assert.match(runtime,/build-info\.json\?ui-check=/);
 });
 
-test('v15 consumes the authoritative render lifecycle instead of observing DOM mutations',()=>{
+test('semantic experience consumes the authoritative render lifecycle instead of observing DOM mutations',()=>{
   assert.doesNotMatch(runtime,/MutationObserver/);
   assert.match(runtime,/family-view-rendered/);
   assert.match(mainRuntime,/dispatchEvent\(new CustomEvent\('family-view-rendered'/);
