@@ -1,0 +1,136 @@
+{
+  "version": "13.10",
+  "authority": "CANONICAL CORPUS → STRUCTURED MODEL COMPLETENESS DIFF; ZERO-CHANGE DOES NOT PROMOTE EVIDENCE",
+  "people": {
+    "missing": [],
+    "extra": [],
+    "stateChanged": [
+      {
+        "id": "P-HAZEL-EMMA-BERG-DENNEWITZ",
+        "from": "PROVISIONAL",
+        "to": "SUPPORTED"
+      },
+      {
+        "id": "P-WALTER-GEORGE-WALTER-KINSMAN",
+        "from": "UNRESOLVED",
+        "to": "PROVISIONAL"
+      },
+      {
+        "id": "P-KATE-ALICE-HOLMAN",
+        "from": "PROVISIONAL",
+        "to": "SUPPORTED"
+      },
+      {
+        "id": "P-OWEN-FERRY",
+        "from": "PROVISIONAL",
+        "to": "SUPPORTED"
+      },
+      {
+        "id": "P-ISABELLA-MARGARET-ISABELLA-MCFADDEN",
+        "from": "UNRESOLVED",
+        "to": "SUPPORTED"
+      },
+      {
+        "id": "P-CICILY-CECELIA-FRANCES-FERRY-FLEMING",
+        "from": "PROVISIONAL",
+        "to": "SUPPORTED"
+      },
+      {
+        "id": "P-SARAH-FERRY",
+        "from": "PROVISIONAL",
+        "to": "SUPPORTED"
+      },
+      {
+        "id": "P-DAVID-FLEMING",
+        "from": "UNRESOLVED",
+        "to": "SUPPORTED"
+      },
+      {
+        "id": "P-ELLERY-ELLEY-DEVINE-DEVEINE",
+        "from": "PROVISIONAL",
+        "to": "SUPPORTED"
+      },
+      {
+        "id": "P-ANNA-ROSE-HOFFMAN",
+        "from": "UNRESOLVED",
+        "to": "PROVISIONAL"
+      }
+    ]
+  },
+  "relationships": {
+    "missing": [],
+    "extra": [],
+    "stateChanged": []
+  },
+  "claims": {
+    "missing": [],
+    "extra": [],
+    "stateChanged": []
+  },
+  "sources": {
+    "missing": [],
+    "extra": [],
+    "stateChanged": []
+  },
+  "hasCanonicalLoss": false,
+  "hasEvidencePromotion": false,
+  "personStateReclassifications": [
+    {
+      "id": "P-HAZEL-EMMA-BERG-DENNEWITZ",
+      "from": "PROVISIONAL",
+      "to": "SUPPORTED"
+    },
+    {
+      "id": "P-WALTER-GEORGE-WALTER-KINSMAN",
+      "from": "UNRESOLVED",
+      "to": "PROVISIONAL"
+    },
+    {
+      "id": "P-KATE-ALICE-HOLMAN",
+      "from": "PROVISIONAL",
+      "to": "SUPPORTED"
+    },
+    {
+      "id": "P-OWEN-FERRY",
+      "from": "PROVISIONAL",
+      "to": "SUPPORTED"
+    },
+    {
+      "id": "P-ISABELLA-MARGARET-ISABELLA-MCFADDEN",
+      "from": "UNRESOLVED",
+      "to": "SUPPORTED"
+    },
+    {
+      "id": "P-CICILY-CECELIA-FRANCES-FERRY-FLEMING",
+      "from": "PROVISIONAL",
+      "to": "SUPPORTED"
+    },
+    {
+      "id": "P-SARAH-FERRY",
+      "from": "PROVISIONAL",
+      "to": "SUPPORTED"
+    },
+    {
+      "id": "P-DAVID-FLEMING",
+      "from": "UNRESOLVED",
+      "to": "SUPPORTED"
+    },
+    {
+      "id": "P-ELLERY-ELLEY-DEVINE-DEVEINE",
+      "from": "PROVISIONAL",
+      "to": "SUPPORTED"
+    },
+    {
+      "id": "P-ANNA-ROSE-HOFFMAN",
+      "from": "UNRESOLVED",
+      "to": "PROVISIONAL"
+    }
+  ],
+  "personStatePolicy": "INFORMATIONAL ONLY — PERSON-ROW STATUS MAY SUMMARIZE IDENTITY/EXISTENCE WHILE RELATIONSHIP AND CLAIM STATES REMAIN THE ASSERTION-LEVEL RELEASE GATES",
+  "assertionEvidencePromotions": [],
+  "releaseBlocking": {
+    "canonicalLoss": false,
+    "assertionEvidencePromotion": false,
+    "graphIntegrity": false
+  }
+}

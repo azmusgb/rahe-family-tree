@@ -19,12 +19,13 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: npm
 
       - name: Verify deploy credential exists
         env:
@@ -32,8 +33,11 @@ jobs:
         run: |
           test -n "$NETLIFY_AUTH_TOKEN" || { echo "NETLIFY_AUTH_TOKEN is not configured."; exit 1; }
 
-      - name: Install Netlify runtime dependencies
-        run: npm install --no-audit --no-fund
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Verify dependency lock is unchanged
+        run: git diff --exit-code -- package.json package-lock.json
 
       - name: Validate canonical model and application
         run: npm test
@@ -45,11 +49,23 @@ jobs:
           set -euo pipefail
           npm run build
           EXPECTED_RELEASE=$(node -e "const x=require('./dist/build-info.json');process.stdout.write(String(x.release||''))")
+          EXPECTED_PLATFORM=$(node -e "const x=require('./dist/build-info.json');process.stdout.write(String(x.platform||''))")
           test -n "$EXPECTED_RELEASE" || { echo "Built release is empty."; exit 1; }
-          test -f dist/canonical-completeness.json || { echo "Canonical completeness report is missing from dist/."; exit 1; }
-          node -e "const x=require('./dist/canonical-completeness.json');if(x.pass!==true||!Array.isArray(x.failed)||x.failed.length)process.exit(1)"
+          test -n "$EXPECTED_PLATFORM" || { echo "Built platform version is empty."; exit 1; }
+          for file in canonical-completeness.json canonical-graph.json provenance-index.json canonical-diff.json; do
+            test -f "dist/$file" || { echo "$file is missing from dist/."; exit 1; }
+          done
+          node - <<'NODE'
+          const c=require('./dist/canonical-completeness.json');
+          const g=require('./dist/canonical-graph.json');
+          const d=require('./dist/canonical-diff.json');
+          if(c.pass!==true||!Array.isArray(c.failed)||c.failed.length)process.exit(1);
+          if(g.integrity?.pass!==true)process.exit(1);
+          if(d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1);
+          NODE
           echo "EXPECTED_RELEASE=$EXPECTED_RELEASE" >> "$GITHUB_ENV"
-          echo "Built expected production release $EXPECTED_RELEASE at $GITHUB_SHA with canonical completeness PASS."
+          echo "EXPECTED_PLATFORM=$EXPECTED_PLATFORM" >> "$GITHUB_ENV"
+          echo "Built release $EXPECTED_RELEASE / platform $EXPECTED_PLATFORM at $GITHUB_SHA with canonical gates PASS."
 
       - name: Provision temporary production smoke credential
         env:
@@ -59,7 +75,7 @@ jobs:
           SMOKE_KEY=$(openssl rand -hex 32)
           echo "::add-mask::$SMOKE_KEY"
           echo "FAMILY_EDITOR_WRITE_KEY=$SMOKE_KEY" >> "$GITHUB_ENV"
-          npx --yes netlify-cli@latest env:set FAMILY_EDITOR_WRITE_KEY "$SMOKE_KEY" \
+          npx netlify env:set FAMILY_EDITOR_WRITE_KEY "$SMOKE_KEY" \
             --context production \
             --secret \
             --site="$NETLIFY_SITE_ID" >/dev/null
@@ -71,7 +87,7 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         run: |
           set -euo pipefail
-          npx --yes netlify-cli@latest deploy \
+          npx netlify deploy \
             --prod \
             --dir=dist \
             --functions=netlify/functions \
@@ -79,53 +95,65 @@ jobs:
             --site="$NETLIFY_SITE_ID" \
             --message="GitHub ${GITHUB_SHA}"
 
-      - name: Verify production fingerprint and canonical report
+      - name: Verify production fingerprint and canonical platform reports
         env:
           EXPECTED_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
-          test -n "$EXPECTED_RELEASE" || { echo "EXPECTED_RELEASE was not propagated from the build."; exit 1; }
+          test -n "$EXPECTED_RELEASE" && test -n "$EXPECTED_PLATFORM"
           for attempt in 1 2 3 4 5 6; do
-            if curl --fail --silent --show-error --max-time 20 \
-              "$PRODUCTION_URL/build-info.json?sha=$EXPECTED_SHA" -o /tmp/build-info.json; then
+            if curl --fail --silent --show-error --max-time 20 "$PRODUCTION_URL/build-info.json?sha=$EXPECTED_SHA" -o /tmp/build-info.json; then
               LIVE_SHA=$(node -e "const x=require('/tmp/build-info.json');process.stdout.write(String(x.gitSha||''))")
               LIVE_RELEASE=$(node -e "const x=require('/tmp/build-info.json');process.stdout.write(String(x.release||''))")
-              echo "Production reports release $LIVE_RELEASE at $LIVE_SHA; expected release $EXPECTED_RELEASE at $EXPECTED_SHA"
-              if [ "$LIVE_SHA" = "$EXPECTED_SHA" ] && [ "$LIVE_RELEASE" = "$EXPECTED_RELEASE" ]; then
-                curl --fail --silent --show-error --max-time 20 \
-                  "$PRODUCTION_URL/canonical-completeness.json?sha=$EXPECTED_SHA" -o /tmp/canonical-completeness.json
-                node -e "const x=require('/tmp/canonical-completeness.json');if(x.pass!==true||!Array.isArray(x.failed)||x.failed.length)process.exit(1)"
+              LIVE_PLATFORM=$(node -e "const x=require('/tmp/build-info.json');process.stdout.write(String(x.platform||''))")
+              echo "Production reports release $LIVE_RELEASE / platform $LIVE_PLATFORM at $LIVE_SHA"
+              if [ "$LIVE_SHA" = "$EXPECTED_SHA" ] && [ "$LIVE_RELEASE" = "$EXPECTED_RELEASE" ] && [ "$LIVE_PLATFORM" = "$EXPECTED_PLATFORM" ]; then
+                curl --fail --silent --show-error "$PRODUCTION_URL/canonical-completeness.json?sha=$EXPECTED_SHA" -o /tmp/canonical-completeness.json
+                curl --fail --silent --show-error "$PRODUCTION_URL/canonical-graph.json?sha=$EXPECTED_SHA" -o /tmp/canonical-graph.json
+                curl --fail --silent --show-error "$PRODUCTION_URL/canonical-diff.json?sha=$EXPECTED_SHA" -o /tmp/canonical-diff.json
+                curl --fail --silent --show-error "$PRODUCTION_URL/provenance-index.json?sha=$EXPECTED_SHA" -o /tmp/provenance-index.json
+                node - <<'NODE'
+                const c=require('/tmp/canonical-completeness.json');
+                const g=require('/tmp/canonical-graph.json');
+                const d=require('/tmp/canonical-diff.json');
+                const p=require('/tmp/provenance-index.json');
+                if(c.pass!==true||!Array.isArray(c.failed)||c.failed.length)process.exit(1);
+                if(g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1);
+                if(!p.entities||!Object.keys(p.entities).length)process.exit(1);
+                NODE
                 exit 0
               fi
             fi
             sleep 10
           done
-          echo "Production fingerprint did not converge to release $EXPECTED_RELEASE at $EXPECTED_SHA"
+          echo "Production fingerprint/platform reports did not converge."
           exit 1
 
       - name: Smoke-test media privacy and genealogy immutability
         run: |
           set -euo pipefail
 
-          curl --fail --silent --show-error "$PRODUCTION_URL/research-model.json" -o /tmp/model-before.json
-          curl --fail --silent --show-error "$PRODUCTION_URL/semantic-audit.json" -o /tmp/audit-before.json
-          curl --fail --silent --show-error "$PRODUCTION_URL/corpus.json" -o /tmp/corpus-before.json
-          BEFORE_MODEL=$(sha256sum /tmp/model-before.json | awk '{print $1}')
-          BEFORE_AUDIT=$(sha256sum /tmp/audit-before.json | awk '{print $1}')
-          BEFORE_CORPUS=$(sha256sum /tmp/corpus-before.json | awk '{print $1}')
+          for file in research-model.json semantic-audit.json corpus.json canonical-graph.json provenance-index.json canonical-diff.json; do
+            curl --fail --silent --show-error "$PRODUCTION_URL/$file" -o "/tmp/before-$file"
+          done
+          BEFORE_MODEL=$(sha256sum /tmp/before-research-model.json | awk '{print $1}')
+          BEFORE_AUDIT=$(sha256sum /tmp/before-semantic-audit.json | awk '{print $1}')
+          BEFORE_CORPUS=$(sha256sum /tmp/before-corpus.json | awk '{print $1}')
+          BEFORE_GRAPH=$(sha256sum /tmp/before-canonical-graph.json | awk '{print $1}')
+          BEFORE_PROV=$(sha256sum /tmp/before-provenance-index.json | awk '{print $1}')
+          BEFORE_DIFF=$(sha256sum /tmp/before-canonical-diff.json | awk '{print $1}')
 
           ANON_STATUS=$(curl --silent --show-error -o /tmp/media-anon.json -w '%{http_code}' "$PRODUCTION_URL/api/media")
           echo "Anonymous media enumeration: HTTP $ANON_STATUS"
           test "$ANON_STATUS" = "200"
           node -e "const x=require('/tmp/media-anon.json');if(!x.ok||x.authenticated||(x.media||[]).some(m=>m.visibility!=='public'))process.exit(1)"
 
-          AUTH_STATUS=$(curl --silent --show-error -o /tmp/media-auth.json -w '%{http_code}' \
-            -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" "$PRODUCTION_URL/api/media")
+          AUTH_STATUS=$(curl --silent --show-error -o /tmp/media-auth.json -w '%{http_code}' -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" "$PRODUCTION_URL/api/media")
           echo "Authenticated media enumeration: HTTP $AUTH_STATUS"
           test "$AUTH_STATUS" = "200"
-          node -e "const x=require('/tmp/media-auth.json');console.log('Auth flags:',JSON.stringify({authenticated:x.authenticated,canUpload:x.canUpload,canEdit:x.canEdit}));if(!x.ok||!x.authenticated||!x.canUpload||!x.canEdit)process.exit(1)"
+          node -e "const x=require('/tmp/media-auth.json');if(!x.ok||!x.authenticated||!x.canUpload||!x.canEdit)process.exit(1)"
 
-          LIVING_ID=$(node -e "const x=require('/tmp/model-before.json');const all=[...(x.people||[]),...(x.familySupplement?.people||[])];const p=all.find(p=>p.living===true);if(!p)process.exit(2);process.stdout.write(String(p.id))")
+          LIVING_ID=$(node -e "const x=require('/tmp/before-research-model.json');const all=[...(x.people||[]),...(x.familySupplement?.people||[])];const p=all.find(p=>p.living===true);if(!p)process.exit(2);process.stdout.write(String(p.id))")
           printf '%s' 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=' | base64 -d > /tmp/privacy-smoke.png
 
           UPLOAD_STATUS=$(curl --silent --show-error -o /tmp/media-upload.json -w '%{http_code}' \
@@ -142,23 +170,19 @@ jobs:
           curl --fail --silent --show-error "$PRODUCTION_URL/api/media" -o /tmp/media-anon-after.json
           node -e "const x=require('/tmp/media-anon-after.json');const id=process.argv[1];if((x.media||[]).some(m=>m.id===id))process.exit(1)" "$MEDIA_ID"
 
-          curl --fail --silent --show-error -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" \
-            "$PRODUCTION_URL/api/media" -o /tmp/media-auth-after.json
+          curl --fail --silent --show-error -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" "$PRODUCTION_URL/api/media" -o /tmp/media-auth-after.json
           node -e "const x=require('/tmp/media-auth-after.json');const id=process.argv[1];const m=(x.media||[]).find(m=>m.id===id);if(!m||m.visibility!=='private')process.exit(1)" "$MEDIA_ID"
 
-          DIRECT_ANON=$(curl --silent --show-error -o /tmp/direct-anon.json -w '%{http_code}' \
-            "$PRODUCTION_URL/api/media?file=$MEDIA_ID")
+          DIRECT_ANON=$(curl --silent --show-error -o /tmp/direct-anon.json -w '%{http_code}' "$PRODUCTION_URL/api/media?file=$MEDIA_ID")
           echo "Anonymous private direct access: HTTP $DIRECT_ANON"
           test "$DIRECT_ANON" = "401"
 
-          DIRECT_AUTH=$(curl --silent --show-error -o /tmp/direct-auth.bin -w '%{http_code}' \
-            -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" "$PRODUCTION_URL/api/media?file=$MEDIA_ID")
+          DIRECT_AUTH=$(curl --silent --show-error -o /tmp/direct-auth.bin -w '%{http_code}' -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" "$PRODUCTION_URL/api/media?file=$MEDIA_ID")
           echo "Authenticated private direct access: HTTP $DIRECT_AUTH"
           test "$DIRECT_AUTH" = "200"
 
           UPDATE_STATUS=$(curl --silent --show-error -o /tmp/media-update.json -w '%{http_code}' \
-            -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" \
-            -H 'content-type: application/json' \
+            -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" -H 'content-type: application/json' \
             --data "{\"action\":\"update\",\"id\":\"$MEDIA_ID\",\"personIds\":[\"$LIVING_ID\"],\"visibility\":\"public\",\"title\":\"production privacy smoke updated\"}" \
             "$PRODUCTION_URL/api/media")
           echo "Living-person public-request update: HTTP $UPDATE_STATUS"
@@ -166,28 +190,28 @@ jobs:
           node -e "const x=require('/tmp/media-update.json');if(!x.ok||x.media?.visibility!=='private')process.exit(1)"
 
           DELETE_STATUS=$(curl --silent --show-error -o /tmp/media-delete.json -w '%{http_code}' \
-            -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" \
-            -H 'content-type: application/json' \
-            --data "{\"action\":\"delete\",\"id\":\"$MEDIA_ID\"}" \
-            "$PRODUCTION_URL/api/media")
+            -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" -H 'content-type: application/json' \
+            --data "{\"action\":\"delete\",\"id\":\"$MEDIA_ID\"}" "$PRODUCTION_URL/api/media")
           echo "Smoke media soft-delete: HTTP $DELETE_STATUS"
           test "$DELETE_STATUS" = "200"
 
-          curl --fail --silent --show-error "$PRODUCTION_URL/research-model.json" -o /tmp/model-after.json
-          curl --fail --silent --show-error "$PRODUCTION_URL/semantic-audit.json" -o /tmp/audit-after.json
-          curl --fail --silent --show-error "$PRODUCTION_URL/corpus.json" -o /tmp/corpus-after.json
-          test "$BEFORE_MODEL" = "$(sha256sum /tmp/model-after.json | awk '{print $1}')"
-          test "$BEFORE_AUDIT" = "$(sha256sum /tmp/audit-after.json | awk '{print $1}')"
-          test "$BEFORE_CORPUS" = "$(sha256sum /tmp/corpus-after.json | awk '{print $1}')"
-          echo "Authenticated/anonymous media privacy and genealogy immutability smoke tests passed."
+          for file in research-model.json semantic-audit.json corpus.json canonical-graph.json provenance-index.json canonical-diff.json; do
+            curl --fail --silent --show-error "$PRODUCTION_URL/$file" -o "/tmp/after-$file"
+          done
+          test "$BEFORE_MODEL" = "$(sha256sum /tmp/after-research-model.json | awk '{print $1}')"
+          test "$BEFORE_AUDIT" = "$(sha256sum /tmp/after-semantic-audit.json | awk '{print $1}')"
+          test "$BEFORE_CORPUS" = "$(sha256sum /tmp/after-corpus.json | awk '{print $1}')"
+          test "$BEFORE_GRAPH" = "$(sha256sum /tmp/after-canonical-graph.json | awk '{print $1}')"
+          test "$BEFORE_PROV" = "$(sha256sum /tmp/after-provenance-index.json | awk '{print $1}')"
+          test "$BEFORE_DIFF" = "$(sha256sum /tmp/after-canonical-diff.json | awk '{print $1}')"
+          echo "Media privacy and canonical graph/model immutability smoke tests passed."
 
       - name: Remove temporary production smoke credential
         if: always()
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         run: |
-          npx --yes netlify-cli@latest env:unset FAMILY_EDITOR_WRITE_KEY \
-            --context production --site="$NETLIFY_SITE_ID" >/dev/null 2>&1 || true
+          npx netlify env:unset FAMILY_EDITOR_WRITE_KEY --context production --site="$NETLIFY_SITE_ID" >/dev/null 2>&1 || true
           echo "FAMILY_EDITOR_WRITE_KEY=" >> "$GITHUB_ENV"
           sleep 5
           echo "Temporary production smoke credential removed."
@@ -197,7 +221,7 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         run: |
           set -euo pipefail
-          npx --yes netlify-cli@latest deploy \
+          npx netlify deploy \
             --prod \
             --dir=dist \
             --functions=netlify/functions \
@@ -205,17 +229,23 @@ jobs:
             --site="$NETLIFY_SITE_ID" \
             --message="GitHub ${GITHUB_SHA} final credential-clean deployment"
 
-      - name: Verify final production fingerprint, completeness, and anonymous privacy
+      - name: Verify final production fingerprint, graph integrity, and anonymous privacy
         env:
           EXPECTED_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
-          test -n "$EXPECTED_RELEASE" || { echo "EXPECTED_RELEASE was not propagated from the build."; exit 1; }
           curl --fail --silent --show-error "$PRODUCTION_URL/build-info.json?sha=$EXPECTED_SHA" -o /tmp/build-info-final.json
-          node -e "const x=require('/tmp/build-info-final.json');const expectedSha=process.argv[1],expectedRelease=process.argv[2];if(x.gitSha!==expectedSha||String(x.release)!==String(expectedRelease))process.exit(1)" "$EXPECTED_SHA" "$EXPECTED_RELEASE"
+          node -e "const x=require('/tmp/build-info-final.json');const sha=process.argv[1],release=process.argv[2],platform=process.argv[3];if(x.gitSha!==sha||String(x.release)!==release||String(x.platform)!==platform)process.exit(1)" "$EXPECTED_SHA" "$EXPECTED_RELEASE" "$EXPECTED_PLATFORM"
           curl --fail --silent --show-error "$PRODUCTION_URL/canonical-completeness.json?sha=$EXPECTED_SHA" -o /tmp/canonical-completeness-final.json
-          node -e "const x=require('/tmp/canonical-completeness-final.json');if(x.pass!==true||!Array.isArray(x.failed)||x.failed.length)process.exit(1)"
+          curl --fail --silent --show-error "$PRODUCTION_URL/canonical-graph.json?sha=$EXPECTED_SHA" -o /tmp/canonical-graph-final.json
+          curl --fail --silent --show-error "$PRODUCTION_URL/canonical-diff.json?sha=$EXPECTED_SHA" -o /tmp/canonical-diff-final.json
+          node - <<'NODE'
+          const c=require('/tmp/canonical-completeness-final.json');
+          const g=require('/tmp/canonical-graph-final.json');
+          const d=require('/tmp/canonical-diff-final.json');
+          if(c.pass!==true||!Array.isArray(c.failed)||c.failed.length||g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1);
+          NODE
           STATUS=$(curl --silent --show-error -o /tmp/media-final-anon.json -w '%{http_code}' "$PRODUCTION_URL/api/media")
           test "$STATUS" = "200"
           node -e "const x=require('/tmp/media-final-anon.json');if(!x.ok||x.authenticated||(x.media||[]).some(m=>m.visibility!=='public'))process.exit(1)"
-          echo "Final production is release $EXPECTED_RELEASE at $EXPECTED_SHA with canonical completeness PASS and anonymous private-media exclusion intact."
+          echo "Final production is release $EXPECTED_RELEASE / platform $EXPECTED_PLATFORM at $EXPECTED_SHA with canonical graph integrity and anonymous privacy intact."

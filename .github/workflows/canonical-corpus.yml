@@ -21,9 +21,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: npm
 
-      - name: Install dependencies
-        run: npm install --no-audit --no-fund
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Verify dependency lock is unchanged
+        run: git diff --exit-code -- package.json package-lock.json
 
       - name: Build canonical model and run regression suite
         run: npm test
@@ -33,16 +37,20 @@ jobs:
           GITHUB_SHA: ${{ github.sha }}
         run: npm run build
 
-      - name: Verify canonical completeness report
+      - name: Verify canonical completeness and graph reports
         run: |
           set -euo pipefail
-          test -f public/canonical-completeness.json
+          for file in public/canonical-completeness.json public/canonical-graph.json public/provenance-index.json public/canonical-diff.json; do test -f "$file"; done
           node - <<'NODE'
           const report = require('./public/canonical-completeness.json');
+          const graph = require('./public/canonical-graph.json');
+          const diff = require('./public/canonical-diff.json');
           if (report.pass !== true) throw new Error('Canonical completeness report did not pass.');
           const failed = (report.checks || []).filter(check => check.pass !== true).map(check => check.id);
           if (failed.length !== 0) throw new Error(`Canonical completeness failures: ${JSON.stringify(failed)}`);
-          console.log('Canonical completeness report passed with no failures.');
+          if (graph.integrity?.pass !== true) throw new Error('Canonical graph integrity did not pass.');
+          if (diff.hasCanonicalLoss || diff.hasEvidencePromotion) throw new Error('Canonical diff detected loss or evidence promotion.');
+          console.log('Canonical completeness, graph integrity, and canonical diff passed.');
           NODE
 
       - name: Verify checked-in generated artifacts are deterministic
@@ -53,8 +61,11 @@ jobs:
             public/coverage.json \
             public/redactions.json \
             public/research-model.json \
-            public/semantic-audit.json; then
+            public/semantic-audit.json \
+            public/canonical-graph.json \
+            public/provenance-index.json \
+            public/canonical-diff.json; then
             echo "Generated canonical artifacts are stale. Regenerate and commit them through a reviewed pull request."
             exit 1
           fi
-          echo "Checked-in canonical artifacts match the deterministic build."
+          echo "Checked-in canonical and platform artifacts match the deterministic build."

@@ -537,6 +537,66 @@
       "label": "Evidence-gap prioritization is non-promotional",
       "detail": "Research priority recommendations cannot alter claim or relationship evidence state.",
       "pass": true
+    },
+    {
+      "id": "AUD-090",
+      "label": "Canonical graph has no duplicate node IDs",
+      "pass": true,
+      "detail": "0 duplicate node IDs"
+    },
+    {
+      "id": "AUD-091",
+      "label": "Canonical graph has no orphan edges",
+      "pass": true,
+      "detail": "0 orphan graph edges"
+    },
+    {
+      "id": "AUD-092",
+      "label": "Rejected evidence never appears as an active graph edge",
+      "pass": true,
+      "detail": "0 active rejected graph edges"
+    },
+    {
+      "id": "AUD-093",
+      "label": "DeVine/DeVeine identity bridge remains unresolved and non-pedigree",
+      "pass": true,
+      "detail": "Identity bridge graph semantics preserved"
+    },
+    {
+      "id": "AUD-094",
+      "label": "Canonical graph has no person self-edges",
+      "pass": true,
+      "detail": "0 self person edges"
+    },
+    {
+      "id": "AUD-095",
+      "label": "Structured model has no canonical person loss",
+      "pass": true,
+      "detail": "0 missing people"
+    },
+    {
+      "id": "AUD-096",
+      "label": "Structured model has no canonical relationship loss",
+      "pass": true,
+      "detail": "0 missing relationships"
+    },
+    {
+      "id": "AUD-097",
+      "label": "Structured model has no canonical claim loss",
+      "pass": true,
+      "detail": "0 missing claims"
+    },
+    {
+      "id": "AUD-098",
+      "label": "Structured model has no canonical source loss",
+      "pass": true,
+      "detail": "0 missing sources"
+    },
+    {
+      "id": "AUD-099",
+      "label": "Canonical diff detects no silent relationship/claim evidence promotion",
+      "pass": true,
+      "detail": "10 person-level status reclassifications retained as informational; 0 assertion promotions"
     }
   ],
   "exceptions": {
@@ -551,5 +611,6 @@
       "P-DAVID-FLEMING",
       "P-ELIE-DAVIN"
     ]
-  }
+  },
+  "platformVersion": "13.10"
 }
