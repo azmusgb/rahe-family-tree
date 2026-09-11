@@ -40,7 +40,7 @@ test('current browser runtime uses one cache-busted production bundle',()=>{
   assert.doesNotMatch(entry,/v15-runtime\.js/);
   assert.match(runtimeIndex,/import '\.\/search\.js'/);
   assert.match(runtimeIndex,/import '\.\/experience\.js'/);
-  const expected=['experience-core','../../v15-1-runtime','../../v15-family-focus','../../platform-v13-runtime'];
+  const expected=['experience-core','../../v15-1-runtime','../../v15-family-focus','../../platform-v13-runtime','page-architecture'];
   const actual=[...experience.matchAll(/import ['"]([^'"]+)\.js['"]/g)].map(match=>match[1].replace(/^\.\//,''));
   assert.deepEqual(actual,expected);
 });
@@ -73,6 +73,7 @@ test('production build bundles JavaScript and rationalizes historical CSS into o
   assert.match(styleRoot,/v14\.css/);
   assert.match(styleRoot,/v15\.css/);
   assert.match(styleRoot,/v15-1\.css/);
+  assert.match(styleRoot,/v15-5\.css/);
   assert.match(build,/outfile=dist\/styles-v15\.css/);
   assert.match(build,/browserAssets:\['app\.bundle\.js','styles-v15\.css'\]/);
 });

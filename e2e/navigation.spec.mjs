@@ -34,6 +34,7 @@ test('mobile dock is tappable and routes Home Tree People Media and Search',asyn
 test('typing search does not destroy the current page and a result opens',async({page})=>{
   await page.goto('/#dashboard');
   await expect(page.locator('.dashboard-hero')).toBeVisible();
+  await expect(page.locator('#search')).toBeVisible();
   await page.locator('#search').fill('Hazel Berg');
   await expect(page.locator('.dashboard-hero')).toBeVisible();
   const result=page.locator('#search-v13-2-results [data-person]').filter({hasText:'Hazel'}).first();
@@ -62,18 +63,23 @@ test('desktop primary navigation includes and opens Media as a core route',async
   await expect(page.locator('[data-media-page]')).toBeVisible();
 });
 
-test('desktop relayout uses a horizontal masthead and side-by-side route tools',async({page},testInfo)=>{
-  test.skip(testInfo.project.name!=='desktop-chromium','desktop relayout contract');
+test('desktop page architecture removes the utility bar and reduces Home chrome to search',async({page},testInfo)=>{
+  test.skip(testInfo.project.name!=='desktop-chromium','desktop page architecture contract');
   await page.goto('/#dashboard');
-  const sidebar=page.locator('.sidebar'),heading=page.locator('.route-shell .page-heading'),filters=page.locator('.route-shell #filters');
+  const sidebar=page.locator('.sidebar');
   await expect(sidebar).toBeVisible();
   await expect(page.locator('.v151-primary-nav')).toBeVisible();
-  const shellBox=await sidebar.boundingBox(),headingBox=await heading.boundingBox(),filterBox=await filters.boundingBox();
+  await expect(page.locator('.topbar')).toBeHidden();
+  await expect(page.locator('.v155-desktop-actions>summary')).toBeVisible();
+  await expect(page.locator('.route-shell')).toBeVisible();
+  await expect(page.locator('.route-shell .page-heading')).toBeHidden();
+  await expect(page.locator('#search')).toBeVisible();
+  await expect(page.locator('#branch')).toBeHidden();
+  await expect(page.locator('#state')).toBeHidden();
+  const shellBox=await sidebar.boundingBox();
   expect(shellBox.height).toBeLessThan(100);
   expect(shellBox.width).toBeGreaterThan(1000);
-  expect(filterBox.x).toBeGreaterThan(headingBox.x+headingBox.width*.6);
-  expect(filterBox.y).toBeLessThan(headingBox.y+headingBox.height);
-  expect(filterBox.y+filterBox.height).toBeGreaterThan(headingBox.y);
+  await expect(page.locator('.dashboard-hero')).toBeVisible();
   await expect(page.locator('.dashboard-family-layout')).toBeVisible();
 });
 
@@ -126,4 +132,11 @@ test('v15.4 tree gives the focal person a persistent context panel and keeps pro
   await focal.getByRole('link',{name:'Open profile'}).click();
   await expect(page).toHaveURL(/#person\//);
   await expect(page.locator('.v153-profile-overview')).toBeVisible();
+});
+
+test('v15.5 Media delegates filtering to its own page controls',async({page})=>{
+  await page.goto('/#media');
+  await expect(page.locator('[data-media-page]')).toBeVisible();
+  await expect(page.locator('.route-shell .page-heading')).toBeVisible();
+  await expect(page.locator('.route-shell #filters')).toBeHidden();
 });
