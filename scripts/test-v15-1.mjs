@@ -46,12 +46,12 @@ test('v15.1 remains responsive and retains the mobile dock breakpoint',()=>{
   assert.match(index,/id="family-mobile-dock"/);
 });
 
-test('v15.1 build carries the relayout assets and a distinct UI fingerprint',()=>{
-  assert.match(index,/styles-v15\.css\?v=15\.1\.0/);
-  assert.match(index,/v15-1-runtime\.js\?v=15\.1\.0/);
+test('v15.1 relayout assets remain carried by the current v15 release',()=>{
+  assert.match(index,/styles-v15\.css\?v=15\.[1-9]\.0/);
+  assert.match(index,/v15-1-runtime\.js\?v=15\.[1-9]\.0/);
   assert.match(build,/v15-1-runtime\.js/);
   assert.match(build,/v15-1\.css/);
-  assert.match(build,/experience:'15\.1'/);
+  assert.match(build,/experience:'15\.[1-9]'/);
 });
 
 test('v15.1 relayout cannot alter canonical genealogy semantics',()=>{

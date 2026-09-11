@@ -15,23 +15,18 @@ test('mobile dock is tappable and routes Home Tree People Media and Search',asyn
   await expect(page.locator('.sidebar')).toBeHidden();
   const dock=page.locator('#family-mobile-dock');
   await expect(dock).toBeVisible();
-
   await dock.getByRole('link',{name:'Tree'}).click();
   await expect(page).toHaveURL(/#tree$/);
   await expect(page.locator('#title')).toHaveText('Tree');
-
   await dock.getByRole('link',{name:'People'}).click();
   await expect(page).toHaveURL(/#people$/);
   await expect(page.locator('#title')).toHaveText('People');
-
   await dock.getByRole('link',{name:'Media'}).click();
   await expect(page).toHaveURL(/#media$/);
   await expect(page.locator('[data-media-page]')).toBeVisible();
-
   await dock.getByRole('link',{name:'Home'}).click();
   await expect(page).toHaveURL(/#dashboard$/);
   await expect(page.locator('.dashboard-hero')).toBeVisible();
-
   await dock.getByRole('button',{name:'Search'}).click();
   await expect(page.locator('#search')).toBeFocused();
 });
@@ -91,4 +86,44 @@ test('desktop research menu exposes advanced routes without crowding primary fam
   await menu.getByRole('link',{name:/Sources/}).first().click();
   await expect(page).toHaveURL(/#sources$/);
   await expect(page.locator('#title')).toHaveText('Sources');
+});
+
+test('v15.2 home presents family discovery before research material',async({page})=>{
+  await page.goto('/#dashboard');
+  const hero=page.locator('.v152-home-hero');
+  await expect(hero).toBeVisible();
+  await expect(hero.getByRole('heading',{name:/Discover the people, places, and stories/})).toBeVisible();
+  await expect(page.locator('.v152-start-here')).toBeVisible();
+  await expect(page.locator('.dashboard-family-layout')).toBeVisible();
+  const order=await page.evaluate(()=>{
+    const family=document.querySelector('.dashboard-family-layout');
+    const research=document.querySelector('.v152-research-secondary');
+    return Boolean(family&&research&&(family.compareDocumentPosition(research)&Node.DOCUMENT_POSITION_FOLLOWING));
+  });
+  expect(order).toBeTruthy();
+});
+
+test('v15.3 profile leads with immediate family and family-record context',async({page})=>{
+  await page.goto('/#dashboard');
+  await page.locator('#search').fill('Hazel Berg');
+  const result=page.locator('#search-v13-2-results [data-person]').filter({hasText:'Hazel'}).first();
+  await expect(result).toBeVisible();
+  await result.click();
+  await expect(page.locator('.v153-profile-overview')).toBeVisible();
+  await expect(page.locator('.v153-profile-nav')).toBeVisible();
+  await expect(page.locator('.v153-family-network')).toBeVisible();
+  await expect(page.locator('.v153-life-story')).toBeVisible();
+  await expect(page.locator('.v153-family-network').getByRole('heading',{name:'Family connections'})).toBeVisible();
+});
+
+test('v15.4 tree gives the focal person a persistent context panel and keeps profile navigation one tap away',async({page})=>{
+  await page.goto('/#tree');
+  const focal=page.locator('.v154-tree-person');
+  await expect(focal).toBeVisible();
+  await expect(page.locator('.v154-tree-controls')).toBeVisible();
+  await expect(page.locator('.v154-graph-shell')).toBeVisible();
+  await expect(page.locator('.v154-tree-help')).toBeVisible();
+  await focal.getByRole('link',{name:'Open profile'}).click();
+  await expect(page).toHaveURL(/#person\//);
+  await expect(page.locator('.v153-profile-overview')).toBeVisible();
 });
