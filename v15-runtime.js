@@ -42,6 +42,16 @@ function installDockControls(){
     if(link){event.preventDefault();navigate(link.getAttribute('href'));}
   });
 }
+function installTreeNodeControls(){
+  document.addEventListener('click',event=>{
+    if(routeKey()!=='tree')return;
+    if(event.target.closest?.('[data-collapse-person]'))return;
+    const node=event.target.closest?.('.graph-node[data-person]');
+    if(!node)return;
+    event.preventDefault();
+    navigate(`#person/${node.dataset.person}`);
+  },true);
+}
 
 let mediaSummary=null,mediaPromise=null;
 async function getMediaSummary(){
@@ -88,6 +98,6 @@ function installFreshnessGuard(){
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')checkCurrentBuild();});
 }
 
-installDockControls();installFreshnessGuard();
+installDockControls();installTreeNodeControls();installFreshnessGuard();
 window.addEventListener('hashchange',schedule);window.addEventListener('popstate',schedule);window.addEventListener('family-view-rendered',schedule);window.addEventListener('family-edits-changed',schedule);window.addEventListener('family-media-changed',()=>{mediaSummary=null;mediaPromise=null;schedule();});window.addEventListener('family-auth-changed',()=>{mediaSummary=null;mediaPromise=null;schedule();});window.addEventListener('family-auth-ui-refresh',schedule);
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
