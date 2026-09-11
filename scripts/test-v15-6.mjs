@@ -6,6 +6,8 @@ const css=fs.readFileSync('v15-6.css','utf8');
 const styles=fs.readFileSync('src/styles/index.css','utf8');
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
+const experience=fs.readFileSync('src/runtime/experience-core.js','utf8');
+const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
 test('v15.6 family archive design is the final presentation layer',()=>{
@@ -30,12 +32,27 @@ test('v15.6 styles all primary family surfaces with shared archive materials',()
   assert.match(css,/#family-mobile-dock/);
 });
 
-test('browser assets and runtime version move together to 15.6.0',()=>{
+test('light dashboard hero preserves readable actions and metrics',()=>{
+  assert.match(css,/dashboard-hero-actions \.action:not\(\.primary\).*color:var\(--green\)!important/);
+  assert.match(css,/dashboard-family-metrics b\{color:var\(--green\)!important\}/);
+  assert.match(css,/dashboard-family-metrics small\{color:var\(--muted-strong\)!important\}/);
+});
+
+test('keyboard focus indicators use the solid accessible focus token',()=>{
+  assert.match(css,/:where\(input,select,textarea\):focus\{[^}]*outline:3px solid var\(--focus\)!important/);
+  assert.match(css,/:where\(button,\.action,\[role="button"\]\):focus-visible,[^{]*\{outline:3px solid var\(--focus\)!important/);
+  assert.doesNotMatch(css,/outline:3px solid rgba\(42,107,91,/);
+});
+
+test('browser assets build metadata and freshness guard move together to 15.6.0',()=>{
   assert.match(index,/data-ui-release="15\.6\.0"/);
   assert.match(index,/styles-v15\.css\?v=15\.6\.0/);
   assert.match(index,/app\.bundle\.js\?v=15\.6\.0/);
   assert.match(index,/FAMILY VIEW · v15\.6\.0/);
   assert.match(entry,/APP_VERSION='15\.6\.0'/);
+  assert.match(build,/const appVersion='15\.6\.0'/);
+  assert.match(experience,/const UI_RELEASE='15\.6\.0'/);
+  assert.match(experience,/rahe\.family\.uiReload\.v15\.6/);
 });
 
 test('visual release cannot alter canonical genealogy semantics',()=>{
