@@ -5,30 +5,57 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: canonical-corpus-main
+  cancel-in-progress: true
+
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   audit:
-    if: ${{ !contains(github.event.head_commit.message || '', '[generated corpus]') }}
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Upgrade corpus, build normalized model, and validate
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build canonical model and run regression suite
         run: npm test
+
       - name: Verify production build
+        env:
+          GITHUB_SHA: ${{ github.sha }}
         run: npm run build
-      - name: Commit generated research artifacts
+
+      - name: Verify canonical completeness report
         run: |
-          git config user.name "rahe-research-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add public/corpus.json public/coverage.json public/redactions.json public/research-model.json public/semantic-audit.json
-          if git diff --cached --quiet; then
-            echo "Generated research artifacts already current."
-          else
-            git commit -m "chore: publish audited v11 research artifacts [generated corpus]"
-            git push
+          set -euo pipefail
+          test -f public/canonical-completeness.json
+          node - <<'NODE'
+          const report = require('./public/canonical-completeness.json');
+          if (report.pass !== true) throw new Error('Canonical completeness report did not pass.');
+          if (!Array.isArray(report.failed) || report.failed.length !== 0) {
+            throw new Error(`Canonical completeness failures: ${JSON.stringify(report.failed)}`);
+          }
+          console.log('Canonical completeness report passed with no failures.');
+          NODE
+
+      - name: Verify checked-in generated artifacts are deterministic
+        run: |
+          set -euo pipefail
+          if ! git diff --exit-code -- \
+            public/corpus.json \
+            public/coverage.json \
+            public/redactions.json \
+            public/research-model.json \
+            public/semantic-audit.json; then
+            echo "Generated canonical artifacts are stale. Regenerate and commit them through a reviewed pull request."
+            exit 1
           fi
+          echo "Checked-in canonical artifacts match the deterministic build."

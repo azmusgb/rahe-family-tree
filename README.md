@@ -1,77 +1,147 @@
-# Rahe Family Research Workbench
+# Rahe Family Tree
 
-Version 11 evolves the public research archive into an evidence-first genealogy workbench while keeping the controlling source unchanged: `Rahe_Family_Tree_Canonical_Single_Source_v10_FULL_LOSSLESS_2026-09-10.docx`.
+Public-safe family history and genealogy research platform for the Rahe / DeVine / Ferry / Racky / Berg / Kinsman branches.
+
+The application currently ships a **v13.0 canonical research model** under the newer **v15.4 family experience**. The controlling genealogy source remains:
+
+`Rahe_Family_Tree_Canonical_Single_Source_v10_FULL_LOSSLESS_2026-09-10.docx`
+
+The unredacted DOCX is intentionally **not** committed or deployed.
 
 ## Architecture
 
-The application deliberately separates the lossless archival layer from the interactive research model:
+The repository separates the controlling archival source, canonical/public-safe data, normalized research model, presentation layers, and user-contributed overlays:
 
 ```text
 controlling v10 DOCX
         ↓
-public/corpus.json              canonical/public-safe transcription
+scripts/upgrade-corpus.mjs
+        ↓
+public/corpus.json                    canonical/public-safe transcription
+        ↓
+scripts/canonical-integrity.mjs      deterministic completeness + integrity gate
+        ↓
+public/canonical-completeness.json    machine-readable canonical audit
         ↓
 scripts/build-research-model.mjs
         ↓
-public/research-model.json      normalized interactive model
-public/semantic-audit.json      deterministic integrity checks
+public/research-model.json            normalized interactive research model
+public/semantic-audit.json            deterministic semantic checks
         ↓
-v11.js / v11.css               research workbench UI
+v13 research capabilities + v15.4 family experience
+        ↓
+family/editor/media overlays          non-canonical; review/privacy constrained
 ```
 
-The normalized layer does **not** replace the dossier. It provides stable navigation across people, relationships, claims, sources, events, research tasks, negative searches, stop rules, and completeness gates.
+The interactive model does **not** replace the controlling dossier. Canonical genealogy remains source-derived and evidence-state aware.
 
-## Evidence controls
+## Canonical evidence controls
 
-- Evidence-state strings are carried forward rather than recalculated.
-- Rejected relationships are excluded from the active graph.
-- Edward Ellery DeVine/DeVeine and William John Rahe Sr. remain separate stable person/identity nodes.
-- Their connection is an explicit `identity-bridge` whose state remains `UNRESOLVED / strongly corroborated hypothesis`.
-- Timeline event types are marked as derived display classifications only; they do not promote evidence.
-- Completeness gates are displayed as source-defined pass conditions and are intentionally **not automatically scored**.
-- Part II remains a legacy evidence layer. Section 25 remains canonical v10 final certification.
+The build and regression suite enforce the following invariants:
 
-## Workbench features
+- Controlling evidence states remain distinct: `SUPPORTED`, `PROVISIONAL`, `UNRESOLVED`, and `REJECTED`.
+- Strength qualifiers are stored separately from controlling evidence state.
+- Rejected relationships cannot become active pedigree edges.
+- Edward Ellery DeVine/DeVeine and William John Rahe Sr. remain separate identity nodes.
+- Their identity connection remains explicitly unresolved; the application does not infer adoption, legal name change, guardianship, or stepfather mechanism without direct evidence.
+- Same-name people are resolved deterministically rather than by nearest/fuzzy name matching.
+- Derivative spouse leads and contextual associates cannot silently become supported pedigree relationships.
+- Living-person birth details are withheld from public payloads.
+- User edits, research intelligence, media metadata, and presentation features cannot promote or mutate canonical evidence state.
 
-- Dashboard with research-state metrics, critical acquisitions, completeness controls, and semantic-audit status.
-- Connected SVG family graph with zoom, fit, keyboard-openable nodes, source-state styling, and an accessible relationship index.
-- Dedicated person dossier routes with facts, relatives, claims, source-dated timeline rows, sources, research tasks, canonical references, and legacy-annex mentions.
-- Dedicated claim, source, and research-task routes.
-- Global search across people, claims, sources, tasks, and canonical/legacy sections.
-- URL-persisted branch and evidence-state filters for shareable research views.
-- Structured Research Queue, branch acquisition sequences, stop rules, and negative-search log.
-- Complete public-safe archive, JSON export, print support, research-model download, semantic-audit download, and redaction ledger.
-- Responsive layout, keyboard focus handling, semantic landmarks, reduced-motion handling, and print styles.
+## Canonical completeness
 
-## Public privacy
+`npm test` and `npm run build` regenerate and validate the canonical model before the site is considered releasable.
 
-Living-person birth details remain withheld in the public corpus before the v11 model is generated. `public/redactions.json` stores source locations and reasons without republishing removed values. The unredacted DOCX is not committed or deployed.
+Current deterministic gate coverage includes:
+
+- complete Appendix F person inventory
+- relationship integrity and cycle guards
+- complete claim register linkage
+- complete source registry / source-ID crosswalk
+- conflicts, rejections, and quarantines
+- negative-search controls
+- research/acquisition queue
+- Appendix A-G presence
+- Part II / legacy annex preservation
+- living-person privacy controls
+- unresolved identity-bridge safeguards
+
+The generated `canonical-completeness.json` is included in production builds and must report `pass: true` with an empty `failed` array.
+
+## Product capabilities
+
+The current application includes:
+
+- family-first dashboard and navigation
+- evidence-aware interactive family tree
+- connected-component and ancestor/descendant traversal
+- spouse/couple grouping and generation lanes
+- person profiles with immediate-family context
+- source, claim, evidence, and archive views
+- research command center and acquisition queue
+- timeline and geography/migration views
+- global search and branch/evidence filters
+- media library, featured portraits, multi-person tagging, and galleries
+- responsive/mobile tree navigation
+- print/export support
+- relationship and genealogy audit tooling
+- advisory research intelligence that remains non-canonical until explicit review/promotion
+
+## Privacy and media security
+
+Living-person and unresolved/private media are protected server-side. Production release smoke tests verify that:
+
+- anonymous media enumeration exposes only public media
+- living-person uploads requested as public are forced private
+- private direct media access is rejected anonymously
+- authenticated access follows role permissions
+- media operations do not change `corpus.json`, `research-model.json`, or `semantic-audit.json`
+
+`public/redactions.json` records public-redaction locations and reasons without republishing removed values.
 
 ## Development
 
-Requirements: Node.js 20+ and Python 3.12+.
+Requirements: **Node.js 24** and **Python 3.12+** when re-extracting the controlling DOCX.
 
 ```bash
 python3 scripts/extract.py /path/to/Rahe_Family_Tree_Canonical_Single_Source_v10_FULL_LOSSLESS_2026-09-10.docx
+npm install
 npm test
 npm run build
 npm run dev
 ```
 
-The local site opens at `http://localhost:4173` and Netlify publishes `dist/`.
+`npm run dev` uses Netlify Dev. The site is published from `dist/` and serverless functions live under `netlify/functions/`.
 
-## Validation
+## Validation and CI/CD
 
-`npm test` runs the legacy v10 coverage/identity/privacy checks, rebuilds the v11 research model, runs v11 semantic invariants, and syntax-checks the browser module. The GitHub workflow also executes a production build and commits generated public research artifacts when they change.
+Pull requests run:
 
-Key v11 gates include resolved relationship endpoints, rejected-edge exclusion, living-person date suppression, source-location-backed research tasks, canonical section-25 treatment, and preservation of the separate unresolved DeVine/Rahe identity bridge.
+1. dependency installation
+2. canonical + experience regression suite
+3. production build
+4. Chromium installation
+5. browser interaction smoke tests
+
+Main-branch canonical audit runs the same canonical/build validation and verifies generated tracked artifacts remain deterministic; it does not create an extra post-release bot commit.
+
+Production deployment is serialized and gated. The deployment workflow:
+
+1. validates the canonical model/application
+2. builds an exact Git SHA fingerprint
+3. provisions a temporary smoke credential
+4. deploys and verifies the candidate production fingerprint
+5. performs authenticated/anonymous privacy and genealogy-immutability smoke tests
+6. removes the temporary credential even on failure
+7. performs the final credential-clean redeploy only after all prior release gates succeed
+8. verifies `/build-info.json`, `canonical-completeness.json`, and anonymous private-media exclusion
 
 ## Deployment
 
-Repository: `azmusgb/rahe-family-tree`
+- Repository: `azmusgb/rahe-family-tree`
+- Netlify project: `rahe-family-tree`
+- Site ID: `1b3ef6d9-2b3a-47c4-8bc4-c3185ce94a87`
+- Production: `https://rahe-family-tree.netlify.app`
 
-Netlify project: `rahe-family-tree`
-
-Site ID: `1b3ef6d9-2b3a-47c4-8bc4-c3185ce94a87`
-
-Production: `https://rahe-family-tree.netlify.app`
+A production release is considered valid only when the deployed `/build-info.json` Git SHA matches the intended GitHub commit and the canonical/privacy gates pass.
