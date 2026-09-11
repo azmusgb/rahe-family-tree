@@ -10,8 +10,8 @@ const experience=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
-test('v15.6 family archive design is the final presentation layer',()=>{
-  assert.match(styles,/@import '\.\.\/\.\.\/v15-6\.css';\s*$/);
+test('v15.6 family archive design remains the shared material layer beneath v15.7',()=>{
+  assert.match(styles,/@import '\.\.\/\.\.\/v15-6\.css';\s*@import '\.\.\/\.\.\/v15-7\.css';/);
   assert.match(css,/Family Archive Design System/);
   for(const token of['--bg:#f3f5f1','--surface:#fff','--ink:#18201d','--green:#173f35','--brand-soft:#e8f0eb','--line:#dce3dd','--focus:#2a6b5b'])assert.match(css,new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
 });
@@ -44,7 +44,7 @@ test('keyboard focus indicators use the solid accessible focus token',()=>{
   assert.doesNotMatch(css,/outline:3px solid rgba\(42,107,91,/);
 });
 
-test('browser assets build metadata and freshness guard move together to 15.6.0',()=>{
+test('browser assets build metadata and freshness guard remain synchronized at 15.6.0',()=>{
   assert.match(index,/data-ui-release="15\.6\.0"/);
   assert.match(index,/styles-v15\.css\?v=15\.6\.0/);
   assert.match(index,/app\.bundle\.js\?v=15\.6\.0/);
