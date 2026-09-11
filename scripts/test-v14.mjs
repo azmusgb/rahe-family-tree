@@ -4,6 +4,7 @@ import fs from'node:fs';
 
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
+const runtimeIndex=fs.readFileSync('src/runtime/index.js','utf8');
 const v14=fs.readFileSync('v14.css','utf8');
 const familyRuntime=fs.readFileSync('v12-6.js','utf8');
 const portraitRuntime=fs.readFileSync('v12-6-1.js','utf8');
@@ -29,7 +30,9 @@ test('v14 design-system gains remain under the current v15 entrypoint',()=>{
 test('current browser runtime uses one cache-busted production bundle',()=>{
   const scripts=[...index.matchAll(/<script type="module" src="([^"]+)"/g)].map(m=>m[1]);
   assert.deepEqual(scripts,['app.bundle.js?v=15.4.0']);
-  for(const moduleName of['v11.js','search-v13-2.js','media-page-v13-5.js','v15-runtime.js','v15-1-runtime.js','v15-family-focus.js','platform-v13-runtime.js'])assert.match(entry,new RegExp(moduleName.replaceAll('.','\\.')));
+  for(const moduleName of['v11.js','media-page-v13-5.js','v15-runtime.js','v15-1-runtime.js','v15-family-focus.js','platform-v13-runtime.js'])assert.match(entry,new RegExp(moduleName.replaceAll('.','\\.')));
+  assert.doesNotMatch(entry,/search-v13-2\.js/);
+  assert.match(runtimeIndex,/import '\.\/search\.js'/);
 });
 
 test('production build bundles JavaScript and rationalizes historical CSS into one asset',()=>{
