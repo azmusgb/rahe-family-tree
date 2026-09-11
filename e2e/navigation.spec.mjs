@@ -88,49 +88,48 @@ test('Research Center switches to a distinct research navigation shell',async({p
   await expect(nav.getByRole('link',{name:/Back to Family/})).toBeVisible();
 });
 
-test('v15.7 home prioritizes family tree and people before the research center',async({page})=>{
+test('Home keeps secondary branches and stories collapsed by default',async({page})=>{
   await page.goto('/#dashboard');
   await expect(page.locator('.v157-hero')).toBeVisible();
   await expect(page.locator('.v157-tree-preview')).toBeVisible();
   await expect(page.locator('#dashboard-featured-title')).toBeVisible();
+  const more=page.locator('.v1510-home-more');
+  await expect(more).toBeVisible();
+  await expect(more).not.toHaveAttribute('open','');
   await expect(page.locator('.v157-research-center')).toBeVisible();
-  await expect(page.locator('.dashboard-research-split')).toHaveCount(0);
 });
 
-test('People is a family-first directory with branch browsing and richer person cards',async({page})=>{
+test('People is family-first but initially limits the card wall',async({page},testInfo)=>{
   await page.goto('/#people');
   await expect(page.locator('.v159-people-header')).toBeVisible();
-  await expect(page.locator('.v159-people-header')).toContainText('Meet the people in the family');
   await expect(page.locator('.v159-branch-browser')).toBeVisible();
   const cards=page.locator('.v159-person-card');
   await expect(cards.first()).toBeVisible();
   await expect(cards.first().locator('.v159-card-context')).toBeVisible();
-  await expect(cards.first().locator('.v159-card-relations')).toBeVisible();
+  const expected=testInfo.project.name==='mobile-chromium'?6:12;
+  await expect.poll(()=>page.locator('.v159-person-card:visible').count()).toBe(expected);
+  const more=page.locator('[data-v1510-people-more]');
+  await expect(more).toBeVisible();
+  await more.click();
+  await expect.poll(()=>page.locator('.v159-person-card:visible').count()).toBeGreaterThan(expected);
 });
 
-test('Person profile leads with family context and a life-at-a-glance summary',async({page})=>{
+test('Person profile defaults to one compact Overview and exposes tabs for deeper sections',async({page})=>{
   await page.goto('/#dashboard');
   await page.locator('#search').fill('Hazel Berg');
   const result=page.locator('#search-v13-2-results [data-person]').filter({hasText:'Hazel'}).first();
-  await expect(result).toBeVisible();
   await result.click();
   await expect(page.locator('.v159-person-overview')).toBeVisible();
+  await expect(page.locator('.v1510-profile-tabs')).toBeVisible();
   await expect(page.locator('.v159-life-summary')).toBeVisible();
-  await expect(page.locator('.v159-life-summary')).toContainText('LIFE AT A GLANCE');
+  await expect(page.locator('.profile-family-grid')).toBeHidden();
+  await expect(page.locator('.profile-media')).toBeHidden();
+  await expect(page.locator('.v153-family-network')).toBeHidden();
+  await page.getByRole('button',{name:'Family',exact:true}).click();
   await expect(page.locator('.profile-family-grid')).toBeVisible();
-  await expect(page.locator('.person-hero')).toBeHidden();
-});
-
-test('v15.3 profile still exposes immediate family and family-record context',async({page})=>{
-  await page.goto('/#dashboard');
-  await page.locator('#search').fill('Hazel Berg');
-  const result=page.locator('#search-v13-2-results [data-person]').filter({hasText:'Hazel'}).first();
-  await expect(result).toBeVisible();
-  await result.click();
-  await expect(page.locator('.v153-profile-overview')).toBeVisible();
-  await expect(page.locator('.v153-profile-nav')).toBeVisible();
-  await expect(page.locator('.v153-family-network')).toBeVisible();
-  await expect(page.locator('.v153-life-story')).toBeVisible();
+  await expect(page.locator('.v159-life-summary')).toBeHidden();
+  await page.getByRole('button',{name:'Photos',exact:true}).click();
+  await expect(page.locator('.profile-media')).toBeVisible();
 });
 
 test('v15.4 tree gives the focal person persistent context and profile navigation',async({page})=>{

@@ -1,0 +1,58 @@
+/* v15.10 — Compact disclosure
+   Reduce vertical page length without changing genealogy or research semantics. */
+
+/* Home: keep primary discovery visible; secondary material is one disclosure. */
+.v1510-home-more{margin:18px 0 24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.v1510-home-more>summary{min-height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;list-style:none;font-weight:780;color:var(--green)}
+.v1510-home-more>summary::-webkit-details-marker{display:none}
+.v1510-home-more>summary::after{content:'+';font-size:22px;font-weight:400;color:var(--muted)}
+.v1510-home-more[open]>summary::after{content:'–'}
+.v1510-home-more>summary span{font-size:10px;font-weight:650;color:var(--muted);letter-spacing:.03em}
+.v1510-home-more-slot{display:grid;gap:18px;padding:4px 0 22px}
+.v1510-home-more-slot>.dashboard-section,.v1510-home-more-slot>.dashboard-recent{margin:0!important}
+
+/* People: progressive disclosure instead of a 70+ card wall. */
+.v1510-people-more{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:18px 0 8px;padding:14px 0;border-top:1px solid var(--line)}
+.v1510-people-more span{font-size:11px;color:var(--muted)}
+.v1510-people-more b{color:var(--text)}
+body[data-v158-context="family"][data-route="people"] .v159-person-card[hidden]{display:none!important}
+body[data-v158-context="family"][data-route="people"] .v159-people-header{margin-bottom:12px;padding-top:12px;padding-bottom:12px;gap:12px}
+body[data-v158-context="family"][data-route="people"] .v159-people-heading h2{font-size:clamp(1.75rem,3vw,2.65rem)}
+body[data-v158-context="family"][data-route="people"] .v159-people-heading>div>p:last-child{font-size:12px;line-height:1.45}
+body[data-v158-context="family"][data-route="people"] .v159-person-card .person-open{min-height:196px}
+
+/* Person: one section at a time. */
+.v1510-profile-tabs{position:sticky;top:calc(var(--app-masthead-height) + 8px);z-index:38;display:flex;gap:4px;overflow-x:auto;margin:12px 0 16px;padding:6px;border:1px solid var(--line);border-radius:13px;background:rgba(251,250,246,.96);backdrop-filter:blur(10px)}
+.v1510-profile-tabs button,.v1510-profile-tabs a{flex:0 0 auto;min-height:38px;padding:0 12px;border:0;border-radius:8px;background:transparent;color:var(--muted-strong);font:inherit;font-size:11px;font-weight:760;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.v1510-profile-tabs button[aria-current="page"]{background:var(--brand-soft);color:var(--green)}
+.v1510-profile-tabs button:focus-visible,.v1510-profile-tabs a:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+body[data-v158-context="family"][data-route="person"] #content.v159-profile [data-v1510-panel]{display:none!important}
+body[data-v158-context="family"][data-route="person"] #content.v159-profile[data-v1510-profile-tab="overview"] [data-v1510-panel="overview"],
+body[data-v158-context="family"][data-route="person"] #content.v159-profile[data-v1510-profile-tab="family"] [data-v1510-panel="family"],
+body[data-v158-context="family"][data-route="person"] #content.v159-profile[data-v1510-profile-tab="timeline"] [data-v1510-panel="timeline"],
+body[data-v158-context="family"][data-route="person"] #content.v159-profile[data-v1510-profile-tab="photos"] [data-v1510-panel="photos"]{display:block!important}
+body[data-v158-context="family"][data-route="person"] #content.v159-profile[data-v1510-profile-tab="family"] .profile-family-grid{display:grid!important}
+body[data-v158-context="family"][data-route="person"] .v153-profile-nav,
+body[data-v158-context="family"][data-route="person"] .v153-family-network,
+body[data-v158-context="family"][data-route="person"] .v153-life-story,
+body[data-v158-context="family"][data-route="person"] .family-research-teaser{display:none!important}
+body[data-v158-context="family"][data-route="person"] .v159-person-overview{padding:20px!important;padding-bottom:16px!important}
+body[data-v158-context="family"][data-route="person"] .v159-person-overview .profile-primary{margin-bottom:0!important}
+body[data-v158-context="family"][data-route="person"] .v159-person-overview .profile-avatar.xl{width:92px!important;height:92px!important;min-width:92px!important}
+body[data-v158-context="family"][data-route="person"] .v159-person-overview .profile-headline h2{font-size:clamp(2rem,4vw,3.2rem)!important}
+body[data-v158-context="family"][data-route="person"] .v159-life-summary{margin:14px 0 0;padding:16px 0 0;border-bottom:0;gap:14px}
+body[data-v158-context="family"][data-route="person"] .v159-life-facts span{min-height:64px;padding:10px}
+
+@media(max-width:720px){
+  .v1510-home-more>summary{align-items:flex-start;flex-direction:column;justify-content:center;gap:3px;padding:10px 28px 10px 0;position:relative}
+  .v1510-home-more>summary::after{position:absolute;right:2px;top:15px}
+  .v1510-people-more{position:sticky;bottom:calc(var(--mobile-nav-height,64px) + 8px);z-index:20;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.96);box-shadow:0 10px 26px rgba(20,45,37,.08)}
+  .v1510-people-more span{font-size:10px}
+  .v1510-people-more .action{min-height:40px;padding-inline:12px}
+  .v1510-profile-tabs{top:48px;margin-inline:-4px;padding:5px}
+  .v1510-profile-tabs button,.v1510-profile-tabs a{min-height:36px;padding-inline:10px;font-size:10px}
+  body[data-v158-context="family"][data-route="person"] .family-overview-card.v159-person-overview{padding:14px!important}
+  body[data-v158-context="family"][data-route="person"] .v159-person-overview .profile-avatar.xl{width:64px!important;height:64px!important;min-width:64px!important}
+  body[data-v158-context="family"][data-route="person"] .v159-person-overview .profile-headline h2{font-size:28px!important}
+  body[data-v158-context="family"][data-route="person"] .v159-person-overview .profile-media{margin-top:8px!important;padding-top:8px!important}
+}
