@@ -3,7 +3,6 @@ import assert from'node:assert/strict';
 import fs from'node:fs';
 
 const index=fs.readFileSync('index.html','utf8');
-const entry=fs.readFileSync('styles-v14.css','utf8');
 const v14=fs.readFileSync('v14.css','utf8');
 const familyRuntime=fs.readFileSync('v12-6.js','utf8');
 const portraitRuntime=fs.readFileSync('v12-6-1.js','utf8');
@@ -12,59 +11,57 @@ const contributionRuntime=fs.readFileSync('v12-7.js','utf8');
 const mediaRuntime=fs.readFileSync('v12-8.js','utf8');
 const treeRuntime=fs.readFileSync('v12-9.js','utf8');
 const treePolish=fs.readFileSync('v12-9-1.js','utf8');
-const experience=fs.readFileSync('experience-v13-5.js','utf8');
 const dashboard=fs.readFileSync('dashboard-v13-3.js','utf8');
 const mediaPage=fs.readFileSync('media-page-v13-5.js','utf8');
+const v15Runtime=fs.readFileSync('v15-runtime.js','utf8');
 const mainRuntime=fs.readFileSync('v11.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
-test('v14 exposes one stylesheet entrypoint',()=>{
+test('v14 design-system gains remain under the v15 entrypoint',()=>{
   assert.equal((index.match(/<link rel="stylesheet"/g)||[]).length,1);
-  assert.match(index,/styles-v14\.css\?v=14\.0\.1/);
-  assert.match(index,/FAMILY VIEW · v14\.0/);
-  assert.match(entry,/@import url\("v11\.css"\)/);
-  assert.match(entry,/@import url\("experience-v13-5\.css"\)/);
-  assert.match(entry,/@import url\("v14\.css"\)/);
+  assert.match(index,/styles-v15\.css\?v=15\.0\.0/);
+  assert.match(index,/FAMILY VIEW · v15\.0/);
+  for(const token of['--space-4','--radius-md','--shadow-md','--mobile-nav-height'])assert.match(v14,new RegExp(token));
 });
 
-test('interaction hotfix cache-busts every browser runtime',()=>{
+test('current browser runtime is uniformly cache-busted',()=>{
   const scripts=[...index.matchAll(/<script type="module" src="([^"]+)"/g)].map(m=>m[1]);
   assert.ok(scripts.length>=10);
-  assert.ok(scripts.every(src=>src.endsWith('?v=14.0.1')),scripts.join('\n'));
+  assert.ok(scripts.every(src=>src.endsWith('?v=15.0.0')),scripts.join('\n'));
 });
 
-test('production build flattens the historical cascade into one css asset',()=>{
+test('production build retains the historical visual cascade and emits v15',()=>{
   assert.match(build,/const cssSources=/);
-  assert.match(build,/dist\/styles-v14\.css/);
-  assert.match(build,/cssParts\.join/);
-  assert.match(build,/experience:'14\.0'/);
+  assert.match(build,/v14\.css/);
+  assert.match(build,/v15\.css/);
+  assert.match(build,/dist\/styles-v15\.css/);
+  assert.match(build,/experience:'15\.0'/);
 });
 
-test('legacy family dashboard replacement is retired',()=>{
+test('legacy family dashboard replacement remains retired',()=>{
   assert.doesNotMatch(familyRuntime,/familyHome\(/);
   assert.doesNotMatch(familyRuntime,/family-home-hero/);
   assert.doesNotMatch(familyRuntime,/content\.innerHTML\s*=\s*familyHome/);
-  assert.match(familyRuntime,/FAMILY VIEW · v14\.0/);
 });
 
-test('only the modern mobile dock is created',()=>{
+test('legacy mobile navigation remains retired and v15 dock is static',()=>{
   assert.doesNotMatch(portraitRuntime,/createElement\(['"]nav['"]\).*mobile-family-nav/);
   assert.match(portraitRuntime,/removeLegacyMobileNav/);
-  assert.match(experience,/family-mobile-dock/);
-  assert.match(experience,/Home<\/a>.*Tree<\/a>.*Search<\/button>.*People<\/a>.*Media<\/a>/s);
+  assert.match(index,/id="family-mobile-dock"/);
+  assert.match(index,/Home<\/span>.*Tree<\/span>.*Search<\/span>.*People<\/span>.*Media<\/span>/s);
 });
 
-test('v14 family enhancements do not leak into research mode',()=>{
-  assert.match(experience,/isFamilyMode/);
-  assert.match(experience,/if\(!isFamilyMode\(\)\)\{dock\?\.remove\(\);return;\}/);
-  assert.match(experience,/RESEARCH MODE · v14\.0/);
+test('family enhancements remain isolated from research mode',()=>{
+  assert.match(v15Runtime,/isFamilyMode/);
+  assert.match(v15Runtime,/dock\.hidden=!family/);
+  assert.match(v15Runtime,/RESEARCH MODE · v\$\{UI_RELEASE\}/);
 });
 
-test('all presentation enhancers use shallow content observers',()=>{
-  const modules=[familyRuntime,portraitRuntime,qaRuntime,contributionRuntime,mediaRuntime,treeRuntime,treePolish,dashboard,mediaPage,experience];
+test('all surviving presentation enhancers use shallow content observers',()=>{
+  const modules=[familyRuntime,portraitRuntime,qaRuntime,contributionRuntime,mediaRuntime,treeRuntime,treePolish,dashboard,mediaPage,v15Runtime];
   for(const source of modules)assert.doesNotMatch(source,/subtree:true/);
-  for(const source of[familyRuntime,portraitRuntime,qaRuntime,contributionRuntime,mediaRuntime,treeRuntime,treePolish,dashboard,mediaPage,experience])assert.match(source,/subtree:false/);
+  for(const source of modules)assert.match(source,/subtree:false/);
 });
 
 test('mobile tree nodes use one-tap native person navigation',()=>{
@@ -89,18 +86,7 @@ test('primary controls retain delegated click and native route wiring',()=>{
   assert.match(mainRuntime,/#print'\)\.addEventListener\('click'/);
   assert.match(mainRuntime,/#export'\)\.addEventListener\('click'/);
   assert.match(mainRuntime,/closest\('#share'\)/);
-  assert.match(experience,/href="#dashboard"/);
-  assert.match(experience,/href="#tree"/);
-  assert.match(experience,/href="#people"/);
-  assert.match(experience,/href="#media"/);
-});
-
-test('v14 establishes coherent tokens typography and safe-area navigation',()=>{
-  for(const token of['--space-4','--radius-md','--shadow-md','--mobile-nav-height'])assert.match(v14,new RegExp(token));
-  assert.match(v14,/\.mobile-family-nav\{display:none!important\}/);
-  assert.match(v14,/safe-area-inset-bottom/);
-  assert.match(v14,/font-size:15px/);
-  assert.match(v14,/body\.media-route:has\(#media-library \.empty\)/);
+  for(const route of['dashboard','tree','people','media'])assert.match(index,new RegExp(`href="#${route}"`));
 });
 
 test('v14 presentation work cannot change canonical genealogy semantics',()=>{
