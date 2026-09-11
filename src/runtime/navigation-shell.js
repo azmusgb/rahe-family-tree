@@ -68,12 +68,24 @@ function returnToFamily(event){
   return true;
 }
 
+function focusContextSearch(event){
+  const trigger=event.target.closest?.('[data-dock-search]');
+  if(!trigger)return false;
+  document.querySelector('.v158-mobile-more')?.removeAttribute('open');
+  const input=document.getElementById('search');
+  if(!input)return true;
+  input.scrollIntoView({behavior:'smooth',block:'center'});
+  requestAnimationFrame(()=>input.focus({preventScroll:true}));
+  return true;
+}
+
 function apply(){rebuildDesktopNav();syncBrand();contextualSearch();rebuildMobileDock();syncCrumb();}
 let queued=false;
 function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;apply();}));}
 
 document.addEventListener('click',event=>{
   if(returnToFamily(event)){event.preventDefault();schedule();return;}
+  if(focusContextSearch(event)){event.preventDefault();return;}
   const stories=event.target.closest?.('[data-v158-stories]');
   if(stories){
     if(routeKey()==='dashboard'){event.preventDefault();document.getElementById('dashboard-history-title')?.scrollIntoView({behavior:'smooth',block:'start'});}else setTimeout(()=>document.getElementById('dashboard-history-title')?.scrollIntoView({behavior:'smooth',block:'start'}),180);
