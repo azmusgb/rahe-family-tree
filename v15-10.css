@@ -16,6 +16,10 @@
 .v1510-people-more span{font-size:11px;color:var(--muted)}
 .v1510-people-more b{color:var(--text)}
 body[data-v158-context="family"][data-route="people"] .v159-person-card[hidden]{display:none!important}
+body[data-v158-context="family"][data-route="people"] .v159-people-header{margin-bottom:12px;padding-top:12px;padding-bottom:12px;gap:12px}
+body[data-v158-context="family"][data-route="people"] .v159-people-heading h2{font-size:clamp(1.75rem,3vw,2.65rem)}
+body[data-v158-context="family"][data-route="people"] .v159-people-heading>div>p:last-child{font-size:12px;line-height:1.45}
+body[data-v158-context="family"][data-route="people"] .v159-person-card .person-open{min-height:196px}
 
 /* Person: one section at a time. */
 .v1510-profile-tabs{position:sticky;top:calc(var(--app-masthead-height) + 8px);z-index:38;display:flex;gap:4px;overflow-x:auto;margin:12px 0 16px;padding:6px;border:1px solid var(--line);border-radius:13px;background:rgba(251,250,246,.96);backdrop-filter:blur(10px)}
@@ -28,9 +32,16 @@ body[data-v158-context="family"][data-route="person"] #content.v159-profile[data
 body[data-v158-context="family"][data-route="person"] #content.v159-profile[data-v1510-profile-tab="timeline"] [data-v1510-panel="timeline"],
 body[data-v158-context="family"][data-route="person"] #content.v159-profile[data-v1510-profile-tab="photos"] [data-v1510-panel="photos"]{display:block!important}
 body[data-v158-context="family"][data-route="person"] #content.v159-profile[data-v1510-profile-tab="family"] .profile-family-grid{display:grid!important}
-body[data-v158-context="family"][data-route="person"] .v159-person-overview{padding-bottom:18px!important}
+body[data-v158-context="family"][data-route="person"] .v153-profile-nav,
+body[data-v158-context="family"][data-route="person"] .v153-family-network,
+body[data-v158-context="family"][data-route="person"] .v153-life-story,
+body[data-v158-context="family"][data-route="person"] .family-research-teaser{display:none!important}
+body[data-v158-context="family"][data-route="person"] .v159-person-overview{padding:20px!important;padding-bottom:16px!important}
 body[data-v158-context="family"][data-route="person"] .v159-person-overview .profile-primary{margin-bottom:0!important}
-body[data-v158-context="family"][data-route="person"] .v159-life-summary{margin-bottom:0!important}
+body[data-v158-context="family"][data-route="person"] .v159-person-overview .profile-avatar.xl{width:92px!important;height:92px!important;min-width:92px!important}
+body[data-v158-context="family"][data-route="person"] .v159-person-overview .profile-headline h2{font-size:clamp(2rem,4vw,3.2rem)!important}
+body[data-v158-context="family"][data-route="person"] .v159-life-summary{margin:14px 0 0;padding:16px 0 0;border-bottom:0;gap:14px}
+body[data-v158-context="family"][data-route="person"] .v159-life-facts span{min-height:64px;padding:10px}
 
 @media(max-width:720px){
   .v1510-home-more>summary{align-items:flex-start;flex-direction:column;justify-content:center;gap:3px;padding:10px 28px 10px 0;position:relative}
@@ -40,5 +51,8 @@ body[data-v158-context="family"][data-route="person"] .v159-life-summary{margin-
   .v1510-people-more .action{min-height:40px;padding-inline:12px}
   .v1510-profile-tabs{top:48px;margin-inline:-4px;padding:5px}
   .v1510-profile-tabs button,.v1510-profile-tabs a{min-height:36px;padding-inline:10px;font-size:10px}
+  body[data-v158-context="family"][data-route="person"] .family-overview-card.v159-person-overview{padding:14px!important}
+  body[data-v158-context="family"][data-route="person"] .v159-person-overview .profile-avatar.xl{width:64px!important;height:64px!important;min-width:64px!important}
+  body[data-v158-context="family"][data-route="person"] .v159-person-overview .profile-headline h2{font-size:28px!important}
   body[data-v158-context="family"][data-route="person"] .v159-person-overview .profile-media{margin-top:8px!important;padding-top:8px!important}
 }
