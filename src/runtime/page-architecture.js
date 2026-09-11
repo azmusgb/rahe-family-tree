@@ -14,6 +14,11 @@ function classifyRoute(route){
 function forwardButton(id,label){
   return`<button type="button" data-v155-forward="${id}">${label}</button>`;
 }
+function modeButton(){
+  const original=document.querySelector('.experience-toggle');
+  const label=original?.textContent?.trim()||'Research mode';
+  return`<button type="button" data-v155-mode>${label}</button>`;
+}
 
 function installActionMenus(){
   const original=document.querySelector('.topbar-actions');
@@ -24,7 +29,7 @@ function installActionMenus(){
   if(menus&&!menus.querySelector('.v155-desktop-actions')){
     const details=document.createElement('details');
     details.className='v151-nav-menu v155-desktop-actions';
-    details.innerHTML=`<summary>Actions</summary><div class="v151-nav-popover v155-actions-popover">${forwardButton('share','Share view')}${forwardButton('export','Export view')}${forwardButton('print','Print')}</div>`;
+    details.innerHTML=`<summary>Actions</summary><div class="v151-nav-popover v155-actions-popover">${modeButton()}${forwardButton('share','Share view')}${forwardButton('export','Export view')}${forwardButton('print','Print')}</div>`;
     menus.append(details);
   }
 
@@ -32,9 +37,18 @@ function installActionMenus(){
   if(topbar&&!topbar.querySelector('.v155-mobile-actions')){
     const details=document.createElement('details');
     details.className='v155-mobile-actions';
-    details.innerHTML=`<summary aria-label="Page actions">•••</summary><div class="v155-mobile-actions-menu">${forwardButton('share','Share')}${forwardButton('export','Export')}${forwardButton('print','Print')}</div>`;
+    details.innerHTML=`<summary aria-label="Page actions">•••</summary><div class="v155-mobile-actions-menu">${modeButton()}${forwardButton('share','Share')}${forwardButton('export','Export')}${forwardButton('print','Print')}</div>`;
     topbar.append(details);
   }
+}
+
+function syncModeActions(){
+  const original=document.querySelector('.experience-toggle');
+  if(!original)return;
+  document.querySelectorAll('[data-v155-mode]').forEach(button=>{
+    button.textContent=original.textContent||'Research mode';
+    button.dataset.experienceMode=original.dataset.experienceMode||'';
+  });
 }
 
 function syncLayout(){
@@ -44,6 +58,7 @@ function syncLayout(){
   const routeShell=document.querySelector('.route-shell');
   if(routeShell)routeShell.dataset.pageLayout=document.body.dataset.pageLayout;
   installActionMenus();
+  syncModeActions();
 }
 
 let queued=false;
@@ -54,6 +69,13 @@ function schedule(){
 }
 
 document.addEventListener('click',event=>{
+  const mode=event.target.closest?.('[data-v155-mode]');
+  if(mode){
+    document.querySelector('.experience-toggle')?.click();
+    mode.closest('details')?.removeAttribute('open');
+    schedule();
+    return;
+  }
   const button=event.target.closest?.('[data-v155-forward]');
   if(!button)return;
   const target=document.getElementById(button.dataset.v155Forward);
