@@ -40,9 +40,8 @@ jobs:
           node - <<'NODE'
           const report = require('./public/canonical-completeness.json');
           if (report.pass !== true) throw new Error('Canonical completeness report did not pass.');
-          if (!Array.isArray(report.failed) || report.failed.length !== 0) {
-            throw new Error(`Canonical completeness failures: ${JSON.stringify(report.failed)}`);
-          }
+          const failed = (report.checks || []).filter(check => check.pass !== true).map(check => check.id);
+          if (failed.length !== 0) throw new Error(`Canonical completeness failures: ${JSON.stringify(failed)}`);
           console.log('Canonical completeness report passed with no failures.');
           NODE
 
