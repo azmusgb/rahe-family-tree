@@ -1,6 +1,6 @@
 // Family/person interaction boundary. Tree-specific runtime remains separate so
 // the historical initialization sequence is preserved exactly.
-import '../../v12-6.js';
-import '../../v12-6-1.js';
-import '../../v12-6-2.js';
-import '../../v12-7.js';
+import './family-mode.js';
+import './family-profile.js';
+import './family-qa.js';
+import './family-contributions.js';
