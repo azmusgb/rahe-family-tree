@@ -1,0 +1,62 @@
+/* v15.8 — Navigation & Experience Shell */
+
+@media (min-width:721px){
+  .sidebar{gap:20px!important}
+  .v151-primary-nav{gap:4px!important}
+  .v151-primary-nav a,.v151-nav-menu summary,.v158-research-entry,.v158-family-return{
+    min-height:42px;display:flex;align-items:center;justify-content:center;padding:0 11px;border-radius:9px;text-decoration:none;font-size:12px;font-weight:720;white-space:nowrap
+  }
+  .v158-research-entry{margin-left:4px;color:#fff;background:rgba(255,255,255,.12)}
+  .v158-research-entry:hover{background:rgba(255,255,255,.18)}
+  .v158-family-return{color:#fff;background:rgba(255,255,255,.10)}
+  .edition{max-width:170px;font-size:8px;line-height:1.35}
+  body[data-v158-context="research"] .sidebar{background:#2f3437!important}
+  body[data-v158-context="research"] .brand .monogram{color:#2f3437!important}
+  body[data-v158-context="research"] .v151-primary-nav a:hover,
+  body[data-v158-context="research"] .v151-primary-nav a[aria-current="true"],
+  body[data-v158-context="research"] .v151-primary-nav a[aria-current="page"]{background:rgba(255,255,255,.12)!important}
+}
+
+/* Family search is contextual and visually subordinate to content. */
+body[data-v158-context="family"] .route-shell.v158-context-search{padding:4px 6px!important;margin-bottom:10px!important}
+body[data-v158-context="family"] .route-shell.v158-context-search .filters{background:transparent!important;border:0!important;padding:0!important}
+body[data-v158-context="family"] .route-shell.v158-context-search .filters .search{font-size:10px!important;color:var(--muted)!important}
+body[data-v158-context="family"] .route-shell.v158-context-search .filters .search input{margin-top:5px;box-shadow:none!important;border-color:var(--line)!important;background:rgba(255,255,255,.92)!important}
+
+/* Research Center is intentionally denser and visually distinct. */
+body[data-v158-context="research"]{--bg:#eef0f1;--surface-soft:#f3f4f5}
+body[data-v158-context="research"] .main{max-width:1500px}
+body[data-v158-context="research"] .route-shell{border-radius:12px!important;background:#fff!important;box-shadow:none!important;border-color:#d7dcdf!important}
+body[data-v158-context="research"] .page-heading h1{font-family:Inter,ui-sans-serif,system-ui,sans-serif!important;font-weight:760!important;letter-spacing:-.02em!important}
+body[data-v158-context="research"] .eyebrow{color:#5e6870!important}
+body[data-v158-context="research"] :where(.claim-card,.source-card,.task-card,.panel,.research-detail-section){border-radius:10px!important;box-shadow:none!important}
+
+/* Reduce card-on-card framing in Family mode. */
+body[data-v158-context="family"] .dashboard-section,
+body[data-v158-context="family"][data-route="people"] .person-card,
+body[data-v158-context="family"][data-route="person"] .person-source-summary,
+body[data-v158-context="family"][data-route="tree"] .v154-tree-controls{box-shadow:none!important}
+body[data-v158-context="family"] .dashboard-section{background:transparent!important;border-color:transparent!important;padding-inline:0!important}
+body[data-v158-context="family"] .v157-tree-preview{box-shadow:none!important}
+
+@media (max-width:900px) and (min-width:721px){
+  .sidebar{padding-inline:12px!important;gap:10px!important}
+  .brand small{display:none}
+  .v151-primary-nav a,.v151-nav-menu summary,.v158-research-entry,.v158-family-return{padding-inline:8px;font-size:11px}
+  .edition{display:none!important}
+}
+
+@media (max-width:720px){
+  #family-mobile-dock:not([hidden]){display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;align-items:stretch!important;padding:6px!important}
+  #family-mobile-dock>a,#family-mobile-dock>button,#family-mobile-dock>.v158-mobile-more>summary{min-height:46px;display:flex;align-items:center;justify-content:center;border:0;background:transparent;color:var(--muted)!important;text-decoration:none;font-size:10px;font-weight:720;list-style:none;border-radius:10px}
+  #family-mobile-dock>a[aria-current="page"],#family-mobile-dock>a.active{background:var(--brand-soft)!important;color:var(--green)!important}
+  .v158-mobile-more{position:relative}
+  .v158-mobile-more>summary::-webkit-details-marker{display:none}
+  .v158-mobile-more[open]>summary{background:var(--brand-soft);color:var(--green)!important}
+  .v158-mobile-more>div{position:absolute;right:0;bottom:54px;z-index:2147483001;width:190px;padding:8px;display:grid;gap:3px;border:1px solid var(--line);border-radius:13px;background:#fff;box-shadow:0 18px 46px rgba(20,45,37,.18)}
+  .v158-mobile-more a,.v158-mobile-more button{display:block;width:100%;min-height:40px;padding:10px;border:0;border-radius:8px;background:transparent;color:var(--text);text-align:left;text-decoration:none;font:inherit;font-size:12px;font-weight:700}
+  .v158-mobile-more a:hover,.v158-mobile-more button:hover{background:var(--brand-soft)}
+  body[data-v158-context="research"] #family-mobile-dock:not([hidden]){grid-template-columns:repeat(4,minmax(0,1fr))!important}
+  body[data-v158-context="research"] .topbar{background:#2f3437!important;color:#fff!important;border-color:#2f3437!important}
+  body[data-v158-context="research"] .topbar>span{color:#fff!important}
+}
