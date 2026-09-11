@@ -17,7 +17,7 @@ test('v15 owns a persistent mobile navigation shell',()=>{
   assert.match(index,/href="#people"[^>]*data-dock-route="people"/);
   assert.match(index,/href="#media"[^>]*data-dock-route="media"/);
   assert.doesNotMatch(index,/experience-v13-5\.js/);
-  assert.match(index,/v15-runtime\.js\?v=15\.0\.0/);
+  assert.match(index,/v15-runtime\.js\?v=15\.1\.0/);
 });
 
 test('mobile dock is a real touch surface above application content',()=>{
@@ -50,12 +50,12 @@ test('media is owned by the main router and search typing does not rerender the 
   assert.doesNotMatch(mainRuntime,/for\(const id of\['search','branch','state'\]\)\$\('#'\+id\)\.addEventListener\('input',render\)/);
 });
 
-test('v15 production build emits one versioned stylesheet and build fingerprint',()=>{
-  assert.match(index,/styles-v15\.css\?v=15\.0\.0/);
+test('v15 production build still emits one stylesheet and the current experience fingerprint',()=>{
+  assert.match(index,/styles-v15\.css\?v=15\.1\.0/);
   assert.match(build,/dist\/styles-v15\.css/);
   assert.match(build,/v15-runtime\.js/);
   assert.match(build,/v15\.css/);
-  assert.match(build,/experience:'15\.0'/);
+  assert.match(build,/experience:'15\.1'/);
 });
 
 test('v15 shell work cannot alter canonical genealogy semantics',()=>{

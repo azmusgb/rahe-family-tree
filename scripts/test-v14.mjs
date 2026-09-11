@@ -18,25 +18,26 @@ const mainRuntime=fs.readFileSync('v11.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
-test('v14 design-system gains remain under the v15 entrypoint',()=>{
+test('v14 design-system gains remain under the current v15 entrypoint',()=>{
   assert.equal((index.match(/<link rel="stylesheet"/g)||[]).length,1);
-  assert.match(index,/styles-v15\.css\?v=15\.0\.0/);
-  assert.match(index,/FAMILY VIEW · v15\.0/);
+  assert.match(index,/styles-v15\.css\?v=15\.1\.0/);
+  assert.match(index,/FAMILY VIEW · v15\.1/);
   for(const token of['--space-4','--radius-md','--shadow-md','--mobile-nav-height'])assert.match(v14,new RegExp(token));
 });
 
 test('current browser runtime is uniformly cache-busted',()=>{
   const scripts=[...index.matchAll(/<script type="module" src="([^"]+)"/g)].map(m=>m[1]);
   assert.ok(scripts.length>=10);
-  assert.ok(scripts.every(src=>src.endsWith('?v=15.0.0')),scripts.join('\n'));
+  assert.ok(scripts.every(src=>src.endsWith('?v=15.1.0')),scripts.join('\n'));
 });
 
-test('production build retains the historical visual cascade and emits v15',()=>{
+test('production build retains the historical visual cascade and emits the current v15 experience',()=>{
   assert.match(build,/const cssSources=/);
   assert.match(build,/v14\.css/);
   assert.match(build,/v15\.css/);
+  assert.match(build,/v15-1\.css/);
   assert.match(build,/dist\/styles-v15\.css/);
-  assert.match(build,/experience:'15\.0'/);
+  assert.match(build,/experience:'15\.1'/);
 });
 
 test('legacy family dashboard replacement remains retired',()=>{
