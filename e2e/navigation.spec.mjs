@@ -41,6 +41,18 @@ test('typing search does not destroy the current page and a result opens',async(
   await expect(page.locator('#title')).toHaveText('Person profile');
 });
 
+test('mobile search results open as a bounded sheet instead of extending the home page',async({page},testInfo)=>{
+  test.skip(testInfo.project.name!=='mobile-chromium','mobile search-sheet contract');
+  await page.goto('/#dashboard');
+  await page.locator('#search').fill('Aimee');
+  const sheet=page.locator('#search-v13-2-results.v1511-search-sheet');
+  await expect(sheet).toBeVisible();
+  await expect(sheet).toHaveCSS('position','fixed');
+  const box=await sheet.boundingBox();
+  expect(box?.height||0).toBeLessThan(page.viewportSize().height-80);
+  await expect(page.locator('.v1511-home-lead')).toBeAttached();
+});
+
 test('tree person visual is a one-click route to a profile',async({page})=>{
   await page.goto('/#tree');
   const node=page.locator('.graph-node[data-person]').first();
@@ -86,6 +98,17 @@ test('Research Center switches to a distinct research navigation shell',async({p
   await expect(nav.getByRole('link',{name:'Sources',exact:true})).toBeVisible();
   await expect(nav.getByRole('link',{name:'Archive',exact:true})).toBeVisible();
   await expect(nav.getByRole('link',{name:/Back to Family/})).toBeVisible();
+});
+
+test('Home is composed as one family lead instead of stacked hero snapshot and tree cards',async({page})=>{
+  await page.goto('/#dashboard');
+  const lead=page.locator('.v1511-home-lead');
+  await expect(lead).toBeVisible();
+  await expect(lead.locator('.v157-hero')).toBeVisible();
+  await expect(lead.locator('.v1511-tree-preview')).toBeVisible();
+  await expect(lead.locator('.dashboard-hero-card')).toBeHidden();
+  await expect(page.locator('.v1511-featured')).toBeVisible();
+  await expect(page.locator('.v1511-research-center')).toBeVisible();
 });
 
 test('Home keeps secondary branches and stories collapsed by default',async({page})=>{
