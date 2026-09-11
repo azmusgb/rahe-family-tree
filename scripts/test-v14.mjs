@@ -27,14 +27,14 @@ const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
 test('v14 design-system gains remain under the current v15 entrypoint',()=>{
   assert.equal((index.match(/<link rel="stylesheet"/g)||[]).length,1);
-  assert.match(index,/styles-v15\.css\?v=15\.4\.0/);
-  assert.match(index,/FAMILY VIEW · v15\.4\.0/);
+  assert.match(index,/styles-v15\.css\?v=15\.6\.0/);
+  assert.match(index,/FAMILY VIEW · v15\.6\.0/);
   for(const token of['--space-4','--radius-md','--shadow-md','--mobile-nav-height'])assert.match(v14,new RegExp(token));
 });
 
 test('current browser runtime uses one cache-busted production bundle',()=>{
   const scripts=[...index.matchAll(/<script type="module" src="([^"]+)"/g)].map(m=>m[1]);
-  assert.deepEqual(scripts,['app.bundle.js?v=15.4.0']);
+  assert.deepEqual(scripts,['app.bundle.js?v=15.6.0']);
   for(const moduleName of['v11.js','media-page-v13-5.js','v15-1-runtime.js','v15-family-focus.js','platform-v13-runtime.js'])assert.match(entry,new RegExp(moduleName.replaceAll('.','\\.')));
   assert.doesNotMatch(entry,/search-v13-2\.js/);
   assert.doesNotMatch(entry,/v15-runtime\.js/);
@@ -74,6 +74,7 @@ test('production build bundles JavaScript and rationalizes historical CSS into o
   assert.match(styleRoot,/v15\.css/);
   assert.match(styleRoot,/v15-1\.css/);
   assert.match(styleRoot,/v15-5\.css/);
+  assert.match(styleRoot,/v15-6\.css/);
   assert.match(build,/outfile=dist\/styles-v15\.css/);
   assert.match(build,/browserAssets:\['app\.bundle\.js','styles-v15\.css'\]/);
 });
