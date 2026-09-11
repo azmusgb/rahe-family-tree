@@ -4,11 +4,11 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@netlify/blobs": "latest",
-    "@netlify/functions": "latest"
+    "@netlify/blobs": "11.0.3",
+    "@netlify/functions": "6.0.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.55.0"
+    "@playwright/test": "1.63.0"
   },
   "scripts": {
     "upgrade-corpus": "node scripts/upgrade-corpus.mjs && node scripts/canonical-integrity.mjs",
