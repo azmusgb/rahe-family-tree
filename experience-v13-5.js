@@ -6,10 +6,11 @@ const routeId=()=>location.hash.slice(1).split('/')[1]||'';
 const isFamilyMode=()=>document.body.dataset.experience!=='research';
 const initials=name=>String(name||'?').replace(/\/.*/,'').trim().split(/\s+/).filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase();
 const cleanBranch=value=>String(value||'Family').split('/')[0].trim();
+const setText=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
 
 function readRecent(){try{const v=JSON.parse(localStorage.getItem(RECENT_KEY)||'[]');return Array.isArray(v)?v.filter(x=>typeof x==='string').slice(0,6):[];}catch{return[];}}
 function writeRecent(ids){try{localStorage.setItem(RECENT_KEY,JSON.stringify(ids.slice(0,6)));}catch{}}
-function recordCurrentPerson(){if(!isFamilyMode()||routeKey()!=='person')return;const id=routeId(),p=personById(id);if(!p)return;writeRecent([id,...readRecent().filter(x=>x!==id)]);}
+function recordCurrentPerson(){if(!isFamilyMode()||routeKey()!=='person')return;const id=routeId(),p=personById(id);if(!p)return;const ids=[id,...readRecent().filter(x=>x!==id)].slice(0,6);if(JSON.stringify(ids)!==JSON.stringify(readRecent()))writeRecent(ids);}
 
 function ensureMobileDock(){
   let dock=document.querySelector('.family-mobile-dock');
@@ -41,8 +42,10 @@ function enhanceRecentPeople(){
 async function enhanceMediaMetric(){
   if(!isFamilyMode()||routeKey()!=='dashboard')return;const metrics=document.querySelector('.dashboard-family-metrics');if(!metrics)return;
   const data=await getMediaSummary();if(!data||!isFamilyMode()||routeKey()!=='dashboard'||!document.body.contains(metrics))return;
-  let metric=metrics.querySelector('[data-live-media-metric]');if(!metric){metric=document.createElement('span');metric.dataset.liveMediaMetric='';metrics.appendChild(metric);}metric.innerHTML=`<b>${data.count}</b><small>${data.authenticated?'visible media items':'public media items'}</small>`;
-  const mediaAction=[...document.querySelectorAll('.dashboard-hero-actions .action')].find(a=>/photos|documents|media/i.test(a.textContent||''));if(mediaAction){mediaAction.href='#media';mediaAction.textContent=data.count?`Browse ${data.count} media item${data.count===1?'':'s'}`:'Browse photos & documents';}
+  let metric=metrics.querySelector('[data-live-media-metric]');if(!metric){metric=document.createElement('span');metric.dataset.liveMediaMetric='';metrics.appendChild(metric);}
+  const html=`<b>${data.count}</b><small>${data.authenticated?'visible media items':'public media items'}</small>`;if(metric.innerHTML!==html)metric.innerHTML=html;
+  const mediaAction=[...document.querySelectorAll('.dashboard-hero-actions .action')].find(a=>/photos|documents|media/i.test(a.textContent||''));
+  if(mediaAction){if(mediaAction.getAttribute('href')!=='#media')mediaAction.setAttribute('href','#media');setText(mediaAction,data.count?`Browse ${data.count} media item${data.count===1?'':'s'}`:'Browse photos & documents');}
 }
 function addDashboardPaths(){
   if(!isFamilyMode()||routeKey()!=='dashboard')return;const hero=document.querySelector('.dashboard-hero');if(!hero||document.querySelector('.dashboard-paths'))return;
@@ -50,10 +53,10 @@ function addDashboardPaths(){
 }
 function updateVersion(){
   const badge=document.querySelector('.version');if(!badge||routeKey().startsWith('intake'))return;
-  badge.textContent=isFamilyMode()?'FAMILY VIEW · v14.0':'RESEARCH MODE · v14.0';
+  setText(badge,isFamilyMode()?'FAMILY VIEW · v14.0':'RESEARCH MODE · v14.0');
 }
 function apply(){recordCurrentPerson();ensureMobileDock();updateVersion();enhanceRecentPeople();addDashboardPaths();enhanceMediaMetric();}
 let scheduled=false;function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{scheduled=false;apply();}));}
 window.addEventListener('hashchange',schedule);window.addEventListener('popstate',schedule);window.addEventListener('family-edits-changed',schedule);window.addEventListener('family-media-changed',()=>{mediaSummary=null;mediaPromise=null;schedule();});window.addEventListener('family-auth-changed',()=>{mediaSummary=null;mediaPromise=null;schedule();});window.addEventListener('family-auth-ui-refresh',schedule);
-const content=document.querySelector('#content');if(content)new MutationObserver(schedule).observe(content,{childList:true,subtree:true});
+const content=document.querySelector('#content');if(content)new MutationObserver(schedule).observe(content,{childList:true,subtree:false});
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
