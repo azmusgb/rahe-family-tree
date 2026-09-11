@@ -29,6 +29,7 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters>label
 body[data-v158-context="family"][data-route="media"] .route-shell .filters>button{display:none!important}
 body[data-v158-context="family"][data-route="media"] .route-shell .filters .search{display:block!important}
 body[data-v158-context="family"][data-route="media"] .route-shell .filters .search input{min-height:44px!important}
+body[data-v158-context="family"][data-route="media"] .media-library-controls{display:grid!important}
 
 /* Research Center is intentionally denser and visually distinct. */
 body[data-v158-context="research"]{--bg:#eef0f1;--surface-soft:#f3f4f5}
