@@ -38,14 +38,14 @@ test('v15.2 home polish keeps family discovery before research material',()=>{
   assert.match(css,/v15\.2 — family home polish/);
 });
 
-test('v15.4 build fingerprints and bundles the combined family-focus layer',()=>{
-  assert.match(index,/data-ui-release="15\.4\.0"/);
-  assert.match(index,/styles-v15\.css\?v=15\.4\.0/);
-  assert.match(index,/app\.bundle\.js\?v=15\.4\.0/);
+test('v15.4 family-focus layer remains bundled by the current v15.6 shell',()=>{
+  assert.match(index,/data-ui-release="15\.6\.0"/);
+  assert.match(index,/styles-v15\.css\?v=15\.6\.0/);
+  assert.match(index,/app\.bundle\.js\?v=15\.6\.0/);
   assert.match(entry,/v15-family-focus\.js/);
   assert.match(build,/app-entry\.js/);
   assert.match(styleRoot,/v15-family-focus\.css/);
-  assert.match(build,/const appVersion='15\.4\.0'/);
+  assert.match(build,/const appVersion='15\.6\.0'/);
 });
 
 test('family-focus presentation cannot mutate canonical genealogy semantics',()=>{
