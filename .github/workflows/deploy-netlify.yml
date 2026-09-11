@@ -7,7 +7,7 @@ on:
 
 concurrency:
   group: netlify-production
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -19,6 +19,7 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -45,8 +46,10 @@ jobs:
           npm run build
           EXPECTED_RELEASE=$(node -e "const x=require('./dist/build-info.json');process.stdout.write(String(x.release||''))")
           test -n "$EXPECTED_RELEASE" || { echo "Built release is empty."; exit 1; }
+          test -f dist/canonical-completeness.json || { echo "Canonical completeness report is missing from dist/."; exit 1; }
+          node -e "const x=require('./dist/canonical-completeness.json');if(x.pass!==true||!Array.isArray(x.failed)||x.failed.length)process.exit(1)"
           echo "EXPECTED_RELEASE=$EXPECTED_RELEASE" >> "$GITHUB_ENV"
-          echo "Built expected production release $EXPECTED_RELEASE at $GITHUB_SHA"
+          echo "Built expected production release $EXPECTED_RELEASE at $GITHUB_SHA with canonical completeness PASS."
 
       - name: Provision temporary production smoke credential
         env:
@@ -56,8 +59,6 @@ jobs:
           SMOKE_KEY=$(openssl rand -hex 32)
           echo "::add-mask::$SMOKE_KEY"
           echo "FAMILY_EDITOR_WRITE_KEY=$SMOKE_KEY" >> "$GITHUB_ENV"
-          # Omit --scope deliberately. Netlify documents that omitting scope applies
-          # the value to all scopes, which also works on plans without scoped vars.
           npx --yes netlify-cli@latest env:set FAMILY_EDITOR_WRITE_KEY "$SMOKE_KEY" \
             --context production \
             --secret \
@@ -69,6 +70,7 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         run: |
+          set -euo pipefail
           npx --yes netlify-cli@latest deploy \
             --prod \
             --dir=dist \
@@ -77,7 +79,7 @@ jobs:
             --site="$NETLIFY_SITE_ID" \
             --message="GitHub ${GITHUB_SHA}"
 
-      - name: Verify production fingerprint
+      - name: Verify production fingerprint and canonical report
         env:
           EXPECTED_SHA: ${{ github.sha }}
         run: |
@@ -90,6 +92,9 @@ jobs:
               LIVE_RELEASE=$(node -e "const x=require('/tmp/build-info.json');process.stdout.write(String(x.release||''))")
               echo "Production reports release $LIVE_RELEASE at $LIVE_SHA; expected release $EXPECTED_RELEASE at $EXPECTED_SHA"
               if [ "$LIVE_SHA" = "$EXPECTED_SHA" ] && [ "$LIVE_RELEASE" = "$EXPECTED_RELEASE" ]; then
+                curl --fail --silent --show-error --max-time 20 \
+                  "$PRODUCTION_URL/canonical-completeness.json?sha=$EXPECTED_SHA" -o /tmp/canonical-completeness.json
+                node -e "const x=require('/tmp/canonical-completeness.json');if(x.pass!==true||!Array.isArray(x.failed)||x.failed.length)process.exit(1)"
                 exit 0
               fi
             fi
@@ -188,10 +193,10 @@ jobs:
           echo "Temporary production smoke credential removed."
 
       - name: Redeploy exact commit without temporary credential
-        if: always()
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         run: |
+          set -euo pipefail
           npx --yes netlify-cli@latest deploy \
             --prod \
             --dir=dist \
@@ -200,8 +205,7 @@ jobs:
             --site="$NETLIFY_SITE_ID" \
             --message="GitHub ${GITHUB_SHA} final credential-clean deployment"
 
-      - name: Verify final production fingerprint and anonymous privacy
-        if: always()
+      - name: Verify final production fingerprint, completeness, and anonymous privacy
         env:
           EXPECTED_SHA: ${{ github.sha }}
         run: |
@@ -209,7 +213,9 @@ jobs:
           test -n "$EXPECTED_RELEASE" || { echo "EXPECTED_RELEASE was not propagated from the build."; exit 1; }
           curl --fail --silent --show-error "$PRODUCTION_URL/build-info.json?sha=$EXPECTED_SHA" -o /tmp/build-info-final.json
           node -e "const x=require('/tmp/build-info-final.json');const expectedSha=process.argv[1],expectedRelease=process.argv[2];if(x.gitSha!==expectedSha||String(x.release)!==String(expectedRelease))process.exit(1)" "$EXPECTED_SHA" "$EXPECTED_RELEASE"
+          curl --fail --silent --show-error "$PRODUCTION_URL/canonical-completeness.json?sha=$EXPECTED_SHA" -o /tmp/canonical-completeness-final.json
+          node -e "const x=require('/tmp/canonical-completeness-final.json');if(x.pass!==true||!Array.isArray(x.failed)||x.failed.length)process.exit(1)"
           STATUS=$(curl --silent --show-error -o /tmp/media-final-anon.json -w '%{http_code}' "$PRODUCTION_URL/api/media")
           test "$STATUS" = "200"
           node -e "const x=require('/tmp/media-final-anon.json');if(!x.ok||x.authenticated||(x.media||[]).some(m=>m.visibility!=='public'))process.exit(1)"
-          echo "Final production is release $EXPECTED_RELEASE at $EXPECTED_SHA with anonymous private-media exclusion intact."
+          echo "Final production is release $EXPECTED_RELEASE at $EXPECTED_SHA with canonical completeness PASS and anonymous private-media exclusion intact."
