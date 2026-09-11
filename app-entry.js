@@ -2,6 +2,11 @@
 // Runtime implementation details live behind stable domain boundaries so
 // historical version-layer files can be retired incrementally without changing
 // the public browser entry or production bundle contract.
+// Transitional implementation inventory (owned by src/runtime/*):
+// v11.js, v12-3-controls.js, media.js, deployment.js, v12-6.js,
+// v12-6-1.js, v12-6-2.js, v12-7.js, v12-8.js, v12-9.js, v12-9-1.js,
+// search-v13-2.js, media-page-v13-5.js, v15-runtime.js, v15-1-runtime.js,
+// v15-family-focus.js, platform-v13-runtime.js.
 import './src/runtime/index.js';
 
 const APP_VERSION='15.4.0';
