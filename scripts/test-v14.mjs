@@ -7,6 +7,7 @@ const entry=fs.readFileSync('app-entry.js','utf8');
 const runtimeIndex=fs.readFileSync('src/runtime/index.js','utf8');
 const familyBoundary=fs.readFileSync('src/runtime/family.js','utf8');
 const treeBoundary=fs.readFileSync('src/runtime/tree.js','utf8');
+const mediaBoundary=fs.readFileSync('src/runtime/media.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const experienceRuntime=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
@@ -15,7 +16,7 @@ const familyRuntime=fs.readFileSync('src/runtime/family-mode.js','utf8');
 const portraitRuntime=fs.readFileSync('src/runtime/family-profile.js','utf8');
 const qaRuntime=fs.readFileSync('src/runtime/family-qa.js','utf8');
 const contributionRuntime=fs.readFileSync('src/runtime/family-contributions.js','utf8');
-const mediaRuntime=fs.readFileSync('v12-8.js','utf8');
+const mediaRuntime=fs.readFileSync('src/runtime/media-enhancements.js','utf8');
 const treeRuntime=fs.readFileSync('src/runtime/tree-engine.js','utf8');
 const treePolish=fs.readFileSync('src/runtime/tree-polish.js','utf8');
 const dashboard=fs.readFileSync('dashboard-v13-3.js','utf8');
@@ -56,6 +57,11 @@ test('tree semantic boundary preserves historical initialization order',()=>{
   const actual=[...treeBoundary.matchAll(/import ['"]([^'"]+\.js)['"]/g)].map(match=>match[1]);
   assert.deepEqual(actual,expected);
   for(const retired of['v12-9.js','v12-9-1.js'])assert.equal(fs.existsSync(retired),false);
+});
+
+test('media semantic boundary owns the v12.8 enhancement layer',()=>{
+  assert.match(mediaBoundary,/import '\.\/media-enhancements\.js'/);
+  assert.equal(fs.existsSync('v12-8.js'),false);
 });
 
 test('production build bundles JavaScript and rationalizes historical CSS into one asset',()=>{
