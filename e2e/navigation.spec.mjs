@@ -22,6 +22,7 @@ test('mobile dock is simplified to Home Tree People Photos and More',async({page
   await dock.getByRole('link',{name:'Photos'}).click();
   await expect(page).toHaveURL(/#media$/);
   await expect(page.locator('[data-media-page]')).toBeVisible();
+  await expect(page.locator('#search')).toBeVisible();
   await dock.locator('.v158-mobile-more>summary').click();
   await dock.getByRole('button',{name:'Search'}).click();
   await expect(page.locator('#search')).toBeFocused();
@@ -118,11 +119,13 @@ test('v15.4 tree gives the focal person persistent context and profile navigatio
   await expect(page).toHaveURL(/#person\//);
 });
 
-test('Media route still delegates filtering to its own page controls while family label is Photos',async({page},testInfo)=>{
+test('Photos keeps contextual search plus its dedicated media filters',async({page},testInfo)=>{
   await page.goto('/#media');
   await expect(page.locator('[data-media-page]')).toBeVisible();
   await expect(page.locator('.route-shell .page-heading')).toBeVisible();
-  await expect(page.locator('.route-shell #filters')).toBeHidden();
+  await expect(page.locator('.route-shell #filters')).toBeVisible();
+  await expect(page.locator('#search')).toBeVisible();
+  await expect(page.locator('.media-library-controls')).toBeVisible();
   if(testInfo.project.name==='desktop-chromium')await expect(page.locator('#nav').getByRole('link',{name:'Photos',exact:true})).toBeVisible();
   if(testInfo.project.name==='mobile-chromium')await expect(page.locator('#family-mobile-dock').getByRole('link',{name:'Photos',exact:true})).toBeVisible();
 });
