@@ -29,3 +29,5 @@ Do not re-enable Netlify continuous builds simply to obtain preview URLs. Pull-r
 Deployment changes must not mutate or silently promote genealogy evidence states. The canonical corpus audit and production workflow must continue to fail on canonical loss, graph-integrity failure, or evidence promotion.
 
 The unresolved Edward Ellery DeVine/DeVeine ↔ William John Rahe Sr. identity bridge remains governed by the canonical research model; deployment tooling must not alter that state.
+
+<!-- temporary branch-protection smoke test; close without merging -->
