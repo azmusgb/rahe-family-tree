@@ -5,6 +5,7 @@ const isFamilyHome=()=>document.body.dataset.experience!=='research'&&routeKey()
 const initials=name=>String(name||'?').replace(/\/.*/,'').trim().split(/\s+/).filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase();
 const cleanBranch=value=>String(value||'Family').split('/')[0].trim();
 const publicDate=p=>p?.living?'Living':String(p?.dates||'Dates not recorded');
+const normalizedEvents=()=>Array.isArray(model.normalizedEvents)?model.normalizedEvents:[];
 
 function directFamily(person){
   if(!person)return{parents:[],spouses:[],children:[]};
@@ -34,11 +35,11 @@ function buildTreePreview(){
   return`<section class="v157-tree-preview" aria-labelledby="v157-tree-title"><div class="v157-tree-heading"><div><p class="eyebrow">YOUR FAMILY TREE</p><h2 id="v157-tree-title">See how the family connects</h2></div><a href="#tree">Explore the full tree ↗</a></div><div class="v157-tree-canvas"><div class="v157-tree-row parents">${miniPerson(parent,'Parent')}</div><div class="v157-tree-line" aria-hidden="true"></div><div class="v157-tree-row couple">${miniPerson(person,'Focus')}${miniPerson(spouse,'Spouse')}</div>${children.length?`<div class="v157-tree-line children" aria-hidden="true"></div><div class="v157-tree-row children">${children.map(child=>miniPerson(child,'Child')).join('')}</div>`:''}</div></section>`;
 }
 
+function eventPlaces(event){return Array.isArray(event?.place)?event.place.map(value=>String(value||'').trim()).filter(Boolean):[];}
 function personContext(person){
-  const events=(model.events||[]).filter(e=>(e.peopleIds||[]).includes(person.id));
-  const location=events.map(e=>String(e.location||'').trim()).find(Boolean);
+  const place=normalizedEvents().filter(e=>(e.personIds||[]).includes(person.id)).flatMap(eventPlaces)[0]||'';
   const role=String(person.role||'Family member').replace(/\s+/g,' ').trim();
-  return [role,location].filter(Boolean).slice(0,2).join(' · ');
+  return [role,place].filter(Boolean).slice(0,2).join(' · ');
 }
 
 function enrichPeople(content){
@@ -57,11 +58,9 @@ function branchYears(members){
 }
 function branchPlaces(members){
   const ids=new Set(members.map(p=>p.id)),counts=new Map();
-  for(const event of model.events||[]){
-    if(!(event.peopleIds||[]).some(id=>ids.has(id)))continue;
-    const place=String(event.location||'').trim();if(!place)continue;
-    const short=place.split(/\s*[|;]\s*/)[0].trim();
-    if(short)counts.set(short,(counts.get(short)||0)+1);
+  for(const event of normalizedEvents()){
+    if(!(event.personIds||[]).some(id=>ids.has(id)))continue;
+    for(const place of eventPlaces(event))counts.set(place,(counts.get(place)||0)+1);
   }
   return [...counts].sort((a,b)=>b[1]-a[1]).slice(0,2).map(([place])=>place);
 }
@@ -105,7 +104,7 @@ function installResearchCenter(content){
   content.querySelector('.dashboard-research-details')?.remove();
   let center=content.querySelector('.v157-research-center');if(center)return;
   center=document.createElement('section');center.className='v157-research-center';
-  const critical=(model.researchTasks||[]).filter(t=>t.state==='CRITICAL').length;
+  const critical=(model.researchTasks||[]).filter(t=>/CRITICAL/i.test(String(t.priority||''))).length;
   center.innerHTML=`<div><p class="eyebrow">RESEARCH CENTER</p><h2>Sources, open questions & research work</h2><p>Keep the family experience focused on people and stories. Evidence states, unresolved questions, source analysis, and the research queue live in one dedicated workspace.</p></div><div class="v157-research-meta"><span><b>${model.sources?.length||0}</b><small>registered sources</small></span><span><b>${model.claims?.length||0}</b><small>documented claims</small></span><span><b>${critical}</b><small>critical targets</small></span></div><a class="action primary" href="#research">Open Research Center</a>`;
   content.appendChild(center);
 }
@@ -117,7 +116,7 @@ function installMediaPreview(content,media){
   const peopleSection=[...content.querySelectorAll('.dashboard-section')].find(s=>/FEATURED PEOPLE/i.test(s.querySelector('.eyebrow')?.textContent||''));
   let section=existing;
   if(!section){section=document.createElement('section');section.className='v157-media-preview dashboard-section';peopleSection?.insertAdjacentElement('afterend',section);}
-  section.innerHTML=`<div class="section-title"><div><p class="eyebrow">FAMILY PHOTOS</p><h2>Faces from the archive</h2></div><a href="#media">Browse all media ↗</a></div><div class="v157-media-grid">${images.map(m=>`<a href="#media" class="v157-media-card"><img src="/api/media?file=${encodeURIComponent(m.id)}" alt="${esc(m.caption||m.title||'Family photograph')}" loading="lazy" decoding="async"><span><b>${esc(m.title||'Family photograph')}</b><small>${esc([m.eventDate,m.location].filter(Boolean).join(' · ')||'Family archive')}</small></span></a>`).join('')}</div>`;
+  section.innerHTML=`<div class="section-title"><div><p class="eyebrow">FAMILY PHOTOS</p><h2>Faces from the archive</h2></div><a href="#media">Browse all media ↗</a></div><div class="v157-media-grid">${images.map(m=>`<a href="#media" class="v157-media-card"><img src="/api/media?file=${encodeURIComponent(m.id)}" alt="${esc(m.caption||m.title||'Family photograph')}" loading="lazy" decoding="async"><span><b>${esc(m.title||'Family photograph')}</b><small>${esc([m.eventDate,typeof m.location==='string'?m.location:''].filter(Boolean).join(' · ')||'Family archive')}</small></span></a>`).join('')}</div>`;
 }
 
 async function hydrateDashboardMedia(content){
