@@ -49,12 +49,12 @@ test('v15.1 remains responsive and retains the mobile dock breakpoint',()=>{
 });
 
 test('v15.1 relayout remains carried by the bundled current release',()=>{
-  assert.match(index,/styles-v15\.css\?v=15\.4\.0/);
-  assert.match(index,/app\.bundle\.js\?v=15\.4\.0/);
+  assert.match(index,/styles-v15\.css\?v=15\.6\.0/);
+  assert.match(index,/app\.bundle\.js\?v=15\.6\.0/);
   assert.match(entry,/v15-1-runtime\.js/);
   assert.match(build,/app-entry\.js/);
   assert.match(styleRoot,/v15-1\.css/);
-  assert.match(build,/const appVersion='15\.4\.0'/);
+  assert.match(build,/const appVersion='15\.6\.0'/);
 });
 
 test('v15.1 relayout cannot alter canonical genealogy semantics',()=>{
