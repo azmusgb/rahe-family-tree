@@ -11,7 +11,7 @@ const cssParts=[];
 for(const f of cssSources){cssParts.push(`/* source: ${f} */\n${await readFile(f,'utf8')}`);}
 await writeFile('dist/styles-v15.css',cssParts.join('\n\n'));
 
-for(const f of ['corpus.json','coverage.json','redactions.json','research-model.json','semantic-audit.json'])await copyFile(`public/${f}`,`dist/${f}`);
+for(const f of ['corpus.json','coverage.json','redactions.json','research-model.json','semantic-audit.json','canonical-completeness.json'])await copyFile(`public/${f}`,`dist/${f}`);
 const model=JSON.parse(await readFile('public/research-model.json','utf8'));
 const buildInfo={release:model.meta.release||model.meta.version,gitSha:process.env.COMMIT_REF||process.env.GITHUB_SHA||process.env.HEAD||'local-build',sourceSha256:model.meta.sourceSha256,builtAt:new Date().toISOString(),experience:'15.4'};
 await writeFile('dist/build-info.json',JSON.stringify(buildInfo,null,2));
