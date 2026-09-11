@@ -1,6 +1,6 @@
 import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8')),audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
-const graph=fs.readFileSync('graph.js','utf8'),ui=fs.readFileSync('v12-9-1.js','utf8'),css=fs.readFileSync('v12-9-1.css','utf8'),family=fs.readFileSync('v12-6.js','utf8');
+const graph=fs.readFileSync('graph.js','utf8'),ui=fs.readFileSync('v12-9-1.js','utf8'),css=fs.readFileSync('v12-9-1.css','utf8'),family=fs.readFileSync('src/runtime/family-mode.js','utf8');
 const v1291plus=x=>{const [a=0,b=0,c=0]=String(x).split('.').map(Number);return a>12||(a===12&&(b>9||(b===9&&c>=1)));};
 test('v12.9.1 tree polish is active',()=>{assert(v1291plus(model.meta.release));assert.equal(model.treeEnginePolish.version,'12.9.1');});
 test('couple-centered child routing requires explicit spouse plus two explicit parents',()=>{assert.match(graph,/spousePairForChild/);assert.match(graph,/parents\.length!==2/);assert.match(graph,/\['spouse','spouse-lead'\]/);assert.match(graph,/couple-child/);assert.match(model.treeEnginePolish.coupleRule,/BOTH EXPLICIT PARENT RELATIONSHIPS REMAIN/i);});
