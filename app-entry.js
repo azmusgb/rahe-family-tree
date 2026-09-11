@@ -28,8 +28,9 @@ const syncAppVersion=()=>{
     version.textContent=`${mode} · v${APP_VERSION}`;
   }
 };
+const scheduleVersionSync=()=>requestAnimationFrame(()=>requestAnimationFrame(syncAppVersion));
 
-window.addEventListener('family-view-rendered',syncAppVersion);
-window.addEventListener('hashchange',syncAppVersion);
-window.addEventListener('family-auth-ui-refresh',syncAppVersion);
-document.readyState==='loading'?document.addEventListener('DOMContentLoaded',syncAppVersion):syncAppVersion();
+window.addEventListener('family-view-rendered',scheduleVersionSync);
+window.addEventListener('hashchange',scheduleVersionSync);
+window.addEventListener('family-auth-ui-refresh',scheduleVersionSync);
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',scheduleVersionSync):scheduleVersionSync();
