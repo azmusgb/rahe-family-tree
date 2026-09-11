@@ -23,7 +23,7 @@ test('v15 owns a persistent mobile navigation shell',()=>{
   assert.match(index,/href="#people"[^>]*data-dock-route="people"/);
   assert.match(index,/href="#media"[^>]*data-dock-route="media"/);
   assert.doesNotMatch(index,/experience-v13-5\.js/);
-  assert.match(index,/app\.bundle\.js\?v=15\.4\.0/);
+  assert.match(index,/app\.bundle\.js\?v=15\.6\.0/);
   assert.doesNotMatch(entry,/v15-runtime\.js/);
   assert.match(runtimeIndex,/import '\.\/experience\.js'/);
 });
@@ -55,7 +55,7 @@ test('experience boundary preserves initialization order through page architectu
 });
 
 test('semantic stylesheet boundary preserves the deployed cascade order',()=>{
-  const expected=['v11.css','v11-nav.css','v11-2.css','v11-3.css','v11-4.css','v11-6.css','v12.css','v12-2.css','v12-3.css','v12-4.css','v12-5.css','v12-6.css','v12-6-1.css','v12-6-2.css','v12-7.css','v12-8.css','v12-9.css','v12-9-1.css','v13-0.css','dashboard-v13-2.css','media-page-v13-4.css','experience-v13-5.css','v14.css','v15.css','v15-1.css','v15-family-focus.css','platform-v13.css','v15-5.css'];
+  const expected=['v11.css','v11-nav.css','v11-2.css','v11-3.css','v11-4.css','v11-6.css','v12.css','v12-2.css','v12-3.css','v12-4.css','v12-5.css','v12-6.css','v12-6-1.css','v12-6-2.css','v12-7.css','v12-8.css','v12-9.css','v12-9-1.css','v13-0.css','dashboard-v13-2.css','media-page-v13-4.css','experience-v13-5.css','v14.css','v15.css','v15-1.css','v15-family-focus.css','platform-v13.css','v15-5.css','v15-6.css'];
   const actual=[...styleRoot.matchAll(/@import ['"]\.\.\/\.\.\/([^'"]+\.css)['"]/g)].map(match=>match[1]);
   assert.deepEqual(actual,expected);
   assert.match(build,/src\/styles\/index\.css/);
@@ -94,8 +94,8 @@ test('media is owned by the main router and search typing does not rerender the 
 });
 
 test('v15 production build emits exactly one JavaScript bundle and one stylesheet',()=>{
-  assert.match(index,/app\.bundle\.js\?v=15\.4\.0/);
-  assert.match(index,/styles-v15\.css\?v=15\.4\.0/);
+  assert.match(index,/app\.bundle\.js\?v=15\.6\.0/);
+  assert.match(index,/styles-v15\.css\?v=15\.6\.0/);
   assert.match(build,/outfile=dist\/app\.bundle\.js/);
   assert.match(build,/outfile=dist\/styles-v15\.css/);
   assert.match(build,/bundler:`esbuild@\$\{ESBUILD_VERSION\}`/);

@@ -19,28 +19,12 @@ async function esbuild(args){
   if(stderr?.trim())console.error(stderr.trim());
 }
 
-// Build one production JavaScript asset. Source modules remain in the repository
-// for maintainability and tests, but are no longer shipped as browser requests.
 await esbuild([
-  'app-entry.js',
-  '--bundle',
-  '--format=esm',
-  '--platform=browser',
-  '--target=es2022',
-  '--minify',
-  '--legal-comments=none',
-  '--outfile=dist/app.bundle.js'
+  'app-entry.js','--bundle','--format=esm','--platform=browser','--target=es2022','--minify','--legal-comments=none','--outfile=dist/app.bundle.js'
 ]);
 
-// Build one production stylesheet from the semantic style composition root.
-// src/styles/index.css owns the historical cascade order; individual versioned
-// stylesheets remain source inputs only and are not published as browser assets.
 await esbuild([
-  'src/styles/index.css',
-  '--bundle',
-  '--minify',
-  '--legal-comments=none',
-  '--outfile=dist/styles-v15.css'
+  'src/styles/index.css','--bundle','--minify','--legal-comments=none','--outfile=dist/styles-v15.css'
 ]);
 
 for(const f of ['corpus.json','coverage.json','redactions.json','research-model.json','semantic-audit.json','canonical-graph.json','provenance-index.json','canonical-diff.json'])await copyFile(`public/${f}`,`dist/${f}`);
@@ -51,7 +35,7 @@ completeness.failed=Array.isArray(completeness.failed)
 await writeFile('dist/canonical-completeness.json',JSON.stringify(completeness,null,2));
 
 const model=JSON.parse(await readFile('public/research-model.json','utf8'));
-const appVersion='15.4.0';
+const appVersion='15.6.0';
 const genealogySchemaVersion='13.0';
 const canonicalSourceVersion='10.0';
 const buildInfo={
