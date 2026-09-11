@@ -33,13 +33,14 @@ function isDashboard(){
   return !key||key==='dashboard';
 }
 
+const setText=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
+
 function polishDashboard(){
   if(!isDashboard())return;
   const content=document.querySelector('#content');
   if(!content||!content.querySelector('.dashboard-hero'))return;
 
-  const description=document.querySelector('#description');
-  if(description)description.textContent='Explore the family, major branches, people, history, media, and open research questions from one family-first home page.';
+  setText(document.querySelector('#description'),'Explore the family, major branches, people, history, media, and open research questions from one family-first home page.');
 
   for(const section of [...content.querySelectorAll(':scope > section')]){
     const eyebrow=section.querySelector('.eyebrow')?.textContent?.trim();
@@ -47,17 +48,18 @@ function polishDashboard(){
   }
   content.querySelectorAll(':scope > .private-state-panel').forEach(el=>el.remove());
 
-  const generationMetric=[...content.querySelectorAll('.dashboard-family-metrics span')].find(el=>/generational eras/i.test(el.querySelector('small')?.textContent||''));
+  const generationMetric=[...content.querySelectorAll('.dashboard-family-metrics span')].find(el=>/generational eras|documented generations?/i.test(el.querySelector('small')?.textContent||''));
   if(generationMetric){
     const count=generationCount();
-    const strong=generationMetric.querySelector('b');
-    const small=generationMetric.querySelector('small');
-    if(strong)strong.textContent=count?`${count}`:'—';
-    if(small)small.textContent=count===1?'documented generation':'documented generations';
+    setText(generationMetric.querySelector('b'),count?`${count}`:'—');
+    setText(generationMetric.querySelector('small'),count===1?'documented generation':'documented generations');
   }
 
-  const mediaAction=[...content.querySelectorAll('.dashboard-hero-actions .action')].find(a=>/photos|documents/i.test(a.textContent||''));
-  if(mediaAction){mediaAction.textContent='Browse people & media';mediaAction.href='#people';}
+  const mediaAction=[...content.querySelectorAll('.dashboard-hero-actions .action')].find(a=>/photos|documents|media/i.test(a.textContent||''));
+  if(mediaAction){
+    if(mediaAction.getAttribute('href')!=='#media')mediaAction.setAttribute('href','#media');
+    setText(mediaAction,'Browse photos & documents');
+  }
 
   const advanced=content.querySelector('.dashboard-research-details-body');
   if(advanced&&!advanced.querySelector('.dashboard-research-links')){
@@ -75,5 +77,6 @@ function schedule(){
 window.addEventListener('hashchange',schedule);
 window.addEventListener('family-edits-changed',schedule);
 document.addEventListener('DOMContentLoaded',schedule);
-new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true});
+const content=document.querySelector('#content');
+if(content)new MutationObserver(schedule).observe(content,{childList:true,subtree:false});
 schedule();
