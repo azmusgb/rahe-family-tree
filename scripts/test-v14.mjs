@@ -26,21 +26,23 @@ test('v14 design-system gains remain under the current v15 entrypoint',()=>{
   for(const token of['--space-4','--radius-md','--shadow-md','--mobile-nav-height'])assert.match(v14,new RegExp(token));
 });
 
-test('current browser runtime uses one cache-busted application entry',()=>{
+test('current browser runtime uses one cache-busted production bundle',()=>{
   const scripts=[...index.matchAll(/<script type="module" src="([^"]+)"/g)].map(m=>m[1]);
-  assert.deepEqual(scripts,['app-entry.js?v=15.4.0']);
+  assert.deepEqual(scripts,['app.bundle.js?v=15.4.0']);
   for(const moduleName of['v11.js','search-v13-2.js','media-page-v13-5.js','v15-runtime.js','v15-1-runtime.js','v15-family-focus.js','platform-v13-runtime.js'])assert.match(entry,new RegExp(moduleName.replaceAll('.','\\.')));
 });
 
-test('production build retains the historical visual cascade and emits centralized release metadata',()=>{
+test('production build bundles JavaScript and rationalizes historical CSS into one asset',()=>{
+  assert.match(build,/ESBUILD_VERSION='0\.25\.10'/);
+  assert.match(build,/app-entry\.js/);
+  assert.match(build,/--bundle/);
+  assert.match(build,/outfile=dist\/app\.bundle\.js/);
   assert.match(build,/const cssSources=/);
   assert.match(build,/v14\.css/);
   assert.match(build,/v15\.css/);
   assert.match(build,/v15-1\.css/);
-  assert.match(build,/dist\/styles-v15\.css/);
-  assert.match(build,/const appVersion='15\.4\.0'/);
-  assert.match(build,/canonicalSourceVersion='10\.0'/);
-  assert.match(build,/genealogySchemaVersion='13\.0'/);
+  assert.match(build,/outfile=dist\/styles-v15\.css/);
+  assert.match(build,/browserAssets:\['app\.bundle\.js','styles-v15\.css'\]/);
 });
 
 test('legacy family dashboard replacement remains retired',()=>{

@@ -18,7 +18,7 @@ test('v15 owns a persistent mobile navigation shell',()=>{
   assert.match(index,/href="#people"[^>]*data-dock-route="people"/);
   assert.match(index,/href="#media"[^>]*data-dock-route="media"/);
   assert.doesNotMatch(index,/experience-v13-5\.js/);
-  assert.match(index,/app-entry\.js\?v=15\.4\.0/);
+  assert.match(index,/app\.bundle\.js\?v=15\.4\.0/);
   assert.match(entry,/v15-runtime\.js/);
 });
 
@@ -52,13 +52,13 @@ test('media is owned by the main router and search typing does not rerender the 
   assert.doesNotMatch(mainRuntime,/for\(const id of\['search','branch','state'\]\)\$\('#'\+id\)\.addEventListener\('input',render\)/);
 });
 
-test('v15 production build emits one stylesheet and centralized current experience metadata',()=>{
+test('v15 production build emits exactly one JavaScript bundle and one stylesheet',()=>{
+  assert.match(index,/app\.bundle\.js\?v=15\.4\.0/);
   assert.match(index,/styles-v15\.css\?v=15\.4\.0/);
-  assert.match(build,/dist\/styles-v15\.css/);
-  assert.match(build,/v15-runtime\.js/);
-  assert.match(build,/v15\.css/);
-  assert.match(build,/const appVersion='15\.4\.0'/);
-  assert.match(build,/experience:appVersion/);
+  assert.match(build,/outfile=dist\/app\.bundle\.js/);
+  assert.match(build,/outfile=dist\/styles-v15\.css/);
+  assert.match(build,/bundler:`esbuild@\$\{ESBUILD_VERSION\}`/);
+  assert.match(build,/browserAssets:\['app\.bundle\.js','styles-v15\.css'\]/);
 });
 
 test('v15 shell work cannot alter canonical genealogy semantics',()=>{
