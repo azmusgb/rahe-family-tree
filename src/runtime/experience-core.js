@@ -1,4 +1,6 @@
-import{personById,esc}from'./core.js';
+// Primary experience behavior: family/research mode, responsive shell,
+// navigation, dashboard continuation, and production freshness guards.
+import{personById,esc}from'../../core.js';
 
 const UI_RELEASE='15.4.0';
 const RECENT_KEY='rahe.family.recentPeople.v1';

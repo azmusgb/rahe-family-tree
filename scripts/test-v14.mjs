@@ -5,6 +5,8 @@ import fs from'node:fs';
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
 const runtimeIndex=fs.readFileSync('src/runtime/index.js','utf8');
+const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const experienceRuntime=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const v14=fs.readFileSync('v14.css','utf8');
 const familyRuntime=fs.readFileSync('v12-6.js','utf8');
 const portraitRuntime=fs.readFileSync('v12-6-1.js','utf8');
@@ -15,7 +17,6 @@ const treeRuntime=fs.readFileSync('v12-9.js','utf8');
 const treePolish=fs.readFileSync('v12-9-1.js','utf8');
 const dashboard=fs.readFileSync('dashboard-v13-3.js','utf8');
 const mediaPage=fs.readFileSync('media-page-v13-5.js','utf8');
-const v15Runtime=fs.readFileSync('v15-runtime.js','utf8');
 const mainRuntime=fs.readFileSync('v11.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
@@ -30,9 +31,14 @@ test('v14 design-system gains remain under the current v15 entrypoint',()=>{
 test('current browser runtime uses one cache-busted production bundle',()=>{
   const scripts=[...index.matchAll(/<script type="module" src="([^"]+)"/g)].map(m=>m[1]);
   assert.deepEqual(scripts,['app.bundle.js?v=15.4.0']);
-  for(const moduleName of['v11.js','media-page-v13-5.js','v15-runtime.js','v15-1-runtime.js','v15-family-focus.js','platform-v13-runtime.js'])assert.match(entry,new RegExp(moduleName.replaceAll('.','\\.')));
+  for(const moduleName of['v11.js','media-page-v13-5.js','v15-1-runtime.js','v15-family-focus.js','platform-v13-runtime.js'])assert.match(entry,new RegExp(moduleName.replaceAll('.','\\.')));
   assert.doesNotMatch(entry,/search-v13-2\.js/);
+  assert.doesNotMatch(entry,/v15-runtime\.js/);
   assert.match(runtimeIndex,/import '\.\/search\.js'/);
+  assert.match(runtimeIndex,/import '\.\/experience\.js'/);
+  const expected=['experience-core','../../v15-1-runtime','../../v15-family-focus','../../platform-v13-runtime'];
+  const actual=[...experience.matchAll(/import ['"]([^'"]+)\.js['"]/g)].map(match=>match[1].replace(/^\.\//,''));
+  assert.deepEqual(actual,expected);
 });
 
 test('production build bundles JavaScript and rationalizes historical CSS into one asset',()=>{
@@ -62,16 +68,16 @@ test('legacy mobile navigation remains retired and v15 dock is static',()=>{
 });
 
 test('family enhancements remain isolated from research mode',()=>{
-  assert.match(v15Runtime,/isFamilyMode/);
-  assert.match(v15Runtime,/dock\.hidden=!family/);
-  assert.match(v15Runtime,/RESEARCH MODE · v\$\{UI_RELEASE\}/);
+  assert.match(experienceRuntime,/isFamilyMode/);
+  assert.match(experienceRuntime,/dock\.hidden=!family/);
+  assert.match(experienceRuntime,/RESEARCH MODE · v\$\{UI_RELEASE\}/);
 });
 
-test('legacy presentation enhancers remain shallow while v15 consumes render events',()=>{
+test('legacy presentation enhancers remain shallow while semantic experience consumes render events',()=>{
   const modules=[familyRuntime,portraitRuntime,qaRuntime,contributionRuntime,mediaRuntime,treeRuntime,treePolish,dashboard,mediaPage];
   for(const source of modules){assert.doesNotMatch(source,/subtree:true/);assert.match(source,/subtree:false/);}
-  assert.doesNotMatch(v15Runtime,/MutationObserver/);
-  assert.match(v15Runtime,/family-view-rendered/);
+  assert.doesNotMatch(experienceRuntime,/MutationObserver/);
+  assert.match(experienceRuntime,/family-view-rendered/);
 });
 
 test('mobile tree nodes use one-tap native person navigation',()=>{
