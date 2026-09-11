@@ -43,8 +43,14 @@ function simplifyResearch(content){
 function labelSearchOverlay(){
   const overlay=document.getElementById('search-v13-2-results');if(!overlay)return;
   overlay.classList.add('v1511-search-sheet');
+  if(document.body.dataset.experience==='research')return;
   const summary=overlay.querySelector('.search-summary small');
-  if(summary&&document.body.dataset.experience!=='research')summary.textContent='Search people and family groups. Research records remain available in Research Center.';
+  if(summary)summary.textContent='Search people and family groups. Research records remain available in Research Center.';
+  const groups=[...overlay.querySelectorAll('.search-group')];
+  groups.slice(2).forEach(group=>group.remove());
+  const familyCount=groups.slice(0,2).reduce((sum,group)=>sum+(Number(group.querySelector('h3 span')?.textContent)||0),0);
+  const count=overlay.querySelector('.search-summary-count b');if(count)count.textContent=String(familyCount);
+  const label=overlay.querySelector('.search-summary-count span');if(label)label.textContent=familyCount===1?'family match':'family matches';
 }
 
 function apply(){
@@ -56,6 +62,7 @@ function apply(){
 }
 let queued=false;
 function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;apply();}));}
+function scheduleSearchPolish(){schedule();setTimeout(schedule,60);}
 window.addEventListener('family-view-rendered',schedule);window.addEventListener('hashchange',schedule);window.addEventListener('family-experience-changed',schedule);
-document.addEventListener('input',event=>{if(event.target?.id==='search')schedule();});
+document.addEventListener('input',event=>{if(event.target?.id==='search')scheduleSearchPolish();});
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
