@@ -7,6 +7,11 @@ const entry=fs.readFileSync('styles-v14.css','utf8');
 const v14=fs.readFileSync('v14.css','utf8');
 const familyRuntime=fs.readFileSync('v12-6.js','utf8');
 const portraitRuntime=fs.readFileSync('v12-6-1.js','utf8');
+const qaRuntime=fs.readFileSync('v12-6-2.js','utf8');
+const contributionRuntime=fs.readFileSync('v12-7.js','utf8');
+const mediaRuntime=fs.readFileSync('v12-8.js','utf8');
+const treeRuntime=fs.readFileSync('v12-9.js','utf8');
+const treePolish=fs.readFileSync('v12-9-1.js','utf8');
 const experience=fs.readFileSync('experience-v13-5.js','utf8');
 const dashboard=fs.readFileSync('dashboard-v13-3.js','utf8');
 const mediaPage=fs.readFileSync('media-page-v13-5.js','utf8');
@@ -16,11 +21,17 @@ const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
 test('v14 exposes one stylesheet entrypoint',()=>{
   assert.equal((index.match(/<link rel="stylesheet"/g)||[]).length,1);
-  assert.match(index,/styles-v14\.css\?v=14\.0\.0/);
+  assert.match(index,/styles-v14\.css\?v=14\.0\.1/);
   assert.match(index,/FAMILY VIEW · v14\.0/);
   assert.match(entry,/@import url\("v11\.css"\)/);
   assert.match(entry,/@import url\("experience-v13-5\.css"\)/);
   assert.match(entry,/@import url\("v14\.css"\)/);
+});
+
+test('interaction hotfix cache-busts every browser runtime',()=>{
+  const scripts=[...index.matchAll(/<script type="module" src="([^"]+)"/g)].map(m=>m[1]);
+  assert.ok(scripts.length>=10);
+  assert.ok(scripts.every(src=>src.endsWith('?v=14.0.1')),scripts.join('\n'));
 });
 
 test('production build flattens the historical cascade into one css asset',()=>{
@@ -50,14 +61,26 @@ test('v14 family enhancements do not leak into research mode',()=>{
   assert.match(experience,/RESEARCH MODE · v14\.0/);
 });
 
-test('dashboard and media enhancers cannot create deep mutation feedback loops',()=>{
-  assert.doesNotMatch(dashboard,/subtree:true/);
-  assert.doesNotMatch(experience,/subtree:true/);
-  assert.doesNotMatch(mediaPage,/subtree:true/);
-  assert.match(dashboard,/subtree:false/);
-  assert.match(experience,/subtree:false/);
-  assert.match(mediaPage,/subtree:false/);
-  assert.match(mediaPage,/FAMILY VIEW · v14\.0/);
+test('all presentation enhancers use shallow content observers',()=>{
+  const modules=[familyRuntime,portraitRuntime,qaRuntime,contributionRuntime,mediaRuntime,treeRuntime,treePolish,dashboard,mediaPage,experience];
+  for(const source of modules)assert.doesNotMatch(source,/subtree:true/);
+  for(const source of[familyRuntime,portraitRuntime,qaRuntime,contributionRuntime,mediaRuntime,treeRuntime,treePolish,dashboard,mediaPage,experience])assert.match(source,/subtree:false/);
+});
+
+test('mobile tree nodes use one-tap native person navigation',()=>{
+  assert.doesNotMatch(treePolish,/mobileCentered/);
+  assert.doesNotMatch(treePolish,/stopImmediatePropagation/);
+  assert.match(treePolish,/Tap a person to open their profile/);
+  assert.match(mainRuntime,/const p=e\.target\.closest\('\[data-person\]'\)/);
+});
+
+test('dedicated media page owns its viewer without legacy click collisions',()=>{
+  assert.match(mediaRuntime,/#person-media-viewer/);
+  assert.doesNotMatch(mediaRuntime,/querySelector\('#media-viewer/);
+  assert.match(mediaRuntime,/\.person-media-section \[data-media-open\]/);
+  assert.doesNotMatch(mediaRuntime,/hydrateTree\(items\);mountDashboardLibrary\(items,force\)/);
+  assert.match(mediaPage,/id="media-viewer"/);
+  assert.match(mediaPage,/data-media-open/);
 });
 
 test('primary controls retain delegated click and native route wiring',()=>{
