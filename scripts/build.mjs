@@ -1,15 +1,53 @@
 import {mkdir,copyFile,rm,writeFile,readFile} from 'node:fs/promises';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
+
+const run=promisify(execFile);
+const ESBUILD_VERSION='0.25.10';
+const NPX=process.platform==='win32'?'npx.cmd':'npx';
+
 await rm('dist',{recursive:true,force:true});
 await mkdir('dist');
+await copyFile('index.html','dist/index.html');
 
-const browserFiles=['index.html','app-entry.js','v11.js','core.js','branch-index.js','graph.js','dossiers.js','archive-views.js','traceability.js','operations.js','research-intelligence.js','research-state.js','family-editor.js','family-editor-atomic.js','shared-sync.js','family-experience.js','canonical-graph-engine.js','platform-v13-ui.js','platform-v13-runtime.js','search-v13-1.js','search-v13-2.js','media-page-v13-4.js','media-page-v13-5.js','v15-runtime.js','v15-1-runtime.js','v15-family-focus.js','v12-3-controls.js','media.js','auth.js','deployment.js','v12-6.js','v12-6-1.js','v12-6-2.js','v12-7.js','v12-8.js','v12-9.js','v12-9-1.js'];
-for(const f of browserFiles)await copyFile(f,`dist/${f}`);
+async function esbuild(args){
+  const {stdout,stderr}=await run(NPX,['--yes',`esbuild@${ESBUILD_VERSION}`,...args],{
+    maxBuffer:16*1024*1024,
+    windowsHide:true
+  });
+  if(stdout?.trim())console.log(stdout.trim());
+  if(stderr?.trim())console.error(stderr.trim());
+}
 
-// Preserve the proven historical visual cascade while v15 converges live runtime ownership.
+// Build one production JavaScript asset. Source modules remain in the repository
+// for maintainability and tests, but are no longer shipped as browser requests.
+await esbuild([
+  'app-entry.js',
+  '--bundle',
+  '--format=esm',
+  '--platform=browser',
+  '--target=es2022',
+  '--minify',
+  '--legal-comments=none',
+  '--outfile=dist/app.bundle.js'
+]);
+
+// Preserve the proven cascade order while emitting only one minified stylesheet.
+// This is an explicit compatibility boundary: historical source files are build
+// inputs only and are not individually published.
 const cssSources=['v11.css','v11-nav.css','v11-2.css','v11-3.css','v11-4.css','v11-6.css','v12.css','v12-2.css','v12-3.css','v12-4.css','v12-5.css','v12-6.css','v12-6-1.css','v12-6-2.css','v12-7.css','v12-8.css','v12-9.css','v12-9-1.css','v13-0.css','dashboard-v13-2.css','media-page-v13-4.css','experience-v13-5.css','v14.css','v15.css','v15-1.css','v15-family-focus.css','platform-v13.css'];
 const cssParts=[];
-for(const f of cssSources){cssParts.push(`/* source: ${f} */\n${await readFile(f,'utf8')}`);}
-await writeFile('dist/styles-v15.css',cssParts.join('\n\n'));
+for(const f of cssSources)cssParts.push(await readFile(f,'utf8'));
+const cssSourcePath='dist/.styles-v15.source.css';
+await writeFile(cssSourcePath,cssParts.join('\n'));
+await esbuild([
+  cssSourcePath,
+  '--bundle',
+  '--minify',
+  '--legal-comments=none',
+  '--outfile=dist/styles-v15.css'
+]);
+await rm(cssSourcePath,{force:true});
 
 for(const f of ['corpus.json','coverage.json','redactions.json','research-model.json','semantic-audit.json','canonical-graph.json','provenance-index.json','canonical-diff.json'])await copyFile(`public/${f}`,`dist/${f}`);
 const completeness=JSON.parse(await readFile('public/canonical-completeness.json','utf8'));
@@ -31,7 +69,9 @@ const buildInfo={
   gitSha:process.env.COMMIT_REF||process.env.GITHUB_SHA||process.env.HEAD||'local-build',
   sourceSha256:model.meta.sourceSha256,
   builtAt:new Date().toISOString(),
-  experience:appVersion
+  experience:appVersion,
+  bundler:`esbuild@${ESBUILD_VERSION}`,
+  browserAssets:['app.bundle.js','styles-v15.css']
 };
 await writeFile('dist/build-info.json',JSON.stringify(buildInfo,null,2));
-console.log(`Built Rahe Family Experience v${appVersion} on research model ${buildInfo.release} / platform ${buildInfo.platform||'n/a'} · ${buildInfo.gitSha}.`);
+console.log(`Built Rahe Family Experience v${appVersion} as one JS bundle + one CSS bundle on research model ${buildInfo.release} / platform ${buildInfo.platform||'n/a'} · ${buildInfo.gitSha}.`);
