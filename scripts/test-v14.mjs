@@ -8,6 +8,9 @@ const v14=fs.readFileSync('v14.css','utf8');
 const familyRuntime=fs.readFileSync('v12-6.js','utf8');
 const portraitRuntime=fs.readFileSync('v12-6-1.js','utf8');
 const experience=fs.readFileSync('experience-v13-5.js','utf8');
+const dashboard=fs.readFileSync('dashboard-v13-3.js','utf8');
+const mediaPage=fs.readFileSync('media-page-v13-5.js','utf8');
+const mainRuntime=fs.readFileSync('v11.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
@@ -42,10 +45,31 @@ test('only the modern mobile dock is created',()=>{
 });
 
 test('v14 family enhancements do not leak into research mode',()=>{
-  assert.match(experience,/const isFamilyMode=/);
+  assert.match(experience,/isFamilyMode/);
   assert.match(experience,/if\(!isFamilyMode\(\)\)\{dock\?\.remove\(\);return;\}/);
-  assert.match(experience,/badge\.textContent=isFamilyMode\(\)\?'FAMILY VIEW · v14\.0':'RESEARCH MODE · v14\.0'/);
-  assert.match(experience,/if\(!isFamilyMode\(\)\|\|routeKey\(\)!=='dashboard'\)return/);
+  assert.match(experience,/RESEARCH MODE · v14\.0/);
+});
+
+test('dashboard and media enhancers cannot create deep mutation feedback loops',()=>{
+  assert.doesNotMatch(dashboard,/subtree:true/);
+  assert.doesNotMatch(experience,/subtree:true/);
+  assert.doesNotMatch(mediaPage,/subtree:true/);
+  assert.match(dashboard,/subtree:false/);
+  assert.match(experience,/subtree:false/);
+  assert.match(mediaPage,/subtree:false/);
+  assert.match(mediaPage,/FAMILY VIEW · v14\.0/);
+});
+
+test('primary controls retain delegated click and native route wiring',()=>{
+  for(const selector of['data-person','data-claim','data-source','data-task','data-branch','data-filter-state','data-graph'])assert.match(mainRuntime,new RegExp(selector));
+  assert.match(mainRuntime,/window\.addEventListener\('hashchange',render\)/);
+  assert.match(mainRuntime,/#print'\)\.addEventListener\('click'/);
+  assert.match(mainRuntime,/#export'\)\.addEventListener\('click'/);
+  assert.match(mainRuntime,/closest\('#share'\)/);
+  assert.match(experience,/href="#dashboard"/);
+  assert.match(experience,/href="#tree"/);
+  assert.match(experience,/href="#people"/);
+  assert.match(experience,/href="#media"/);
 });
 
 test('v14 establishes coherent tokens typography and safe-area navigation',()=>{
