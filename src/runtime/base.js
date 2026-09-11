@@ -1,5 +1,4 @@
-// Stable base/runtime boundary. Historical modules remain implementation details
-// until their behavior is migrated into named domain modules.
+// Stable application bootstrap boundary. Keep these imports first because the
+// historical runtime still has side-effectful initialization semantics.
 import '../../v11.js';
 import '../../v12-3-controls.js';
-import '../../deployment.js';
