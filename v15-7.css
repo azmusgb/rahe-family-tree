@@ -91,6 +91,15 @@ body[data-route="dashboard"] .v157-branch-card p>span{display:block;font-weight:
 body[data-route="dashboard"] .v157-branch-card p>small{display:block;margin-top:8px;color:var(--muted)!important;line-height:1.4}
 body[data-route="dashboard"] .v157-branch-card>small:last-child{margin-top:10px!important;color:var(--green)!important;font-weight:750!important}
 
+/* Public photographs become part of the family flow whenever they exist. */
+.v157-media-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.v157-media-card{display:block;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--text);text-decoration:none;box-shadow:var(--shadow-sm)}
+.v157-media-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--surface-soft)}
+.v157-media-card>span{display:block;padding:11px 12px 13px}
+.v157-media-card b{display:block;font-size:13px;line-height:1.3}
+.v157-media-card small{display:block;margin-top:4px;color:var(--muted);font-size:11px;line-height:1.3}
+.v157-media-card:hover{border-color:#9eb3a7;box-shadow:var(--shadow-md)}
+
 /* Continuous rhythm: no presentation-slide whitespace. */
 body[data-route="dashboard"] .dashboard-section{padding:20px!important;border-radius:16px!important}
 body[data-route="dashboard"] .section-title{margin-bottom:14px!important;padding-bottom:10px!important}
@@ -140,6 +149,8 @@ body[data-route="dashboard"] .dashboard-recent{padding-block:18px!important}
   body[data-route="dashboard"] .v157-branch-card{flex:0 0 78%;min-height:150px!important;scroll-snap-align:start;padding:15px!important}
   body[data-route="dashboard"] .history-highlight-grid{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory}
   body[data-route="dashboard"] .history-highlight-grid article{flex:0 0 84%;scroll-snap-align:start}
+  .v157-media-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px}
+  .v157-media-card{flex:0 0 76%;scroll-snap-align:start}
 
   .v157-research-center{grid-template-columns:1fr;gap:14px;padding:18px;border-radius:14px}
   .v157-research-center h2{font-size:27px}
@@ -151,5 +162,6 @@ body[data-route="dashboard"] .dashboard-recent{padding-block:18px!important}
 @media(min-width:721px) and (max-width:1050px){
   body[data-route="dashboard"] .dashboard-people-strip,
   body[data-route="dashboard"] .family-branch-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .v157-media-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .v157-research-center{grid-template-columns:1fr auto}.v157-research-center>.action{grid-column:1/-1;justify-self:start}
 }
