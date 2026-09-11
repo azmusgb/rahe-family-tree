@@ -76,8 +76,9 @@ test('desktop relayout uses a horizontal masthead and side-by-side route tools',
   const shellBox=await sidebar.boundingBox(),headingBox=await heading.boundingBox(),filterBox=await filters.boundingBox();
   expect(shellBox.height).toBeLessThan(100);
   expect(shellBox.width).toBeGreaterThan(1000);
-  expect(Math.abs(headingBox.y-filterBox.y)).toBeLessThan(80);
-  expect(filterBox.x).toBeGreaterThan(headingBox.x);
+  expect(filterBox.x).toBeGreaterThan(headingBox.x+headingBox.width*.6);
+  expect(filterBox.y).toBeLessThan(headingBox.y+headingBox.height);
+  expect(filterBox.y+filterBox.height).toBeGreaterThan(headingBox.y);
   await expect(page.locator('.dashboard-family-layout')).toBeVisible();
 });
 
