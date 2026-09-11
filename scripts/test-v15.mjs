@@ -3,6 +3,7 @@ import assert from'node:assert/strict';
 import fs from'node:fs';
 
 const index=fs.readFileSync('index.html','utf8');
+const entry=fs.readFileSync('app-entry.js','utf8');
 const runtime=fs.readFileSync('v15-runtime.js','utf8');
 const css=fs.readFileSync('v15.css','utf8');
 const mainRuntime=fs.readFileSync('v11.js','utf8');
@@ -17,7 +18,8 @@ test('v15 owns a persistent mobile navigation shell',()=>{
   assert.match(index,/href="#people"[^>]*data-dock-route="people"/);
   assert.match(index,/href="#media"[^>]*data-dock-route="media"/);
   assert.doesNotMatch(index,/experience-v13-5\.js/);
-  assert.match(index,/v15-runtime\.js\?v=15\.[1-9]\.0/);
+  assert.match(index,/app-entry\.js\?v=15\.4\.0/);
+  assert.match(entry,/v15-runtime\.js/);
 });
 
 test('mobile dock is a real touch surface above application content',()=>{
@@ -50,12 +52,13 @@ test('media is owned by the main router and search typing does not rerender the 
   assert.doesNotMatch(mainRuntime,/for\(const id of\['search','branch','state'\]\)\$\('#'\+id\)\.addEventListener\('input',render\)/);
 });
 
-test('v15 production build still emits one stylesheet and the current experience fingerprint',()=>{
-  assert.match(index,/styles-v15\.css\?v=15\.[1-9]\.0/);
+test('v15 production build emits one stylesheet and centralized current experience metadata',()=>{
+  assert.match(index,/styles-v15\.css\?v=15\.4\.0/);
   assert.match(build,/dist\/styles-v15\.css/);
   assert.match(build,/v15-runtime\.js/);
   assert.match(build,/v15\.css/);
-  assert.match(build,/experience:'15\.[1-9]'/);
+  assert.match(build,/const appVersion='15\.4\.0'/);
+  assert.match(build,/experience:appVersion/);
 });
 
 test('v15 shell work cannot alter canonical genealogy semantics',()=>{
