@@ -46,7 +46,7 @@ function addDashboardPaths(){
   if(routeKey()!=='dashboard')return;const hero=document.querySelector('.dashboard-hero');if(!hero||document.querySelector('.dashboard-paths'))return;
   hero.insertAdjacentHTML('afterend','<nav class="dashboard-paths" aria-label="Explore family history"><a href="#timeline"><b>Timeline</b><span>Follow the family through time</span></a><a href="#media"><b>Media</b><span>Browse photographs and documents</span></a><a href="#research"><b>Open research</b><span>See the records still being sought</span></a><a href="#archive"><b>Archive</b><span>Open the complete source-controlled dossier</span></a></nav>');
 }
-function updateVersion(){const badge=document.querySelector('.version');if(badge&&!routeKey().startsWith('intake'))badge.textContent='FAMILY VIEW · v13.5';}
+function updateVersion(){const badge=document.querySelector('.version');if(badge&&!routeKey().startsWith('intake'))badge.textContent='FAMILY VIEW · v14.0';}
 function apply(){recordCurrentPerson();ensureMobileDock();updateVersion();enhanceRecentPeople();addDashboardPaths();enhanceMediaMetric();}
 let scheduled=false;function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{scheduled=false;apply();}));}
 window.addEventListener('hashchange',schedule);window.addEventListener('popstate',schedule);window.addEventListener('family-edits-changed',schedule);window.addEventListener('family-media-changed',()=>{mediaSummary=null;mediaPromise=null;schedule();});window.addEventListener('family-auth-changed',()=>{mediaSummary=null;mediaPromise=null;schedule();});
