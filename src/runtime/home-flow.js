@@ -87,6 +87,7 @@ function compactHero(content){
 
 function moveSections(content){
   const hero=content.querySelector('.dashboard-hero');if(!hero)return;
+  content.querySelector('.dashboard-paths')?.remove();
   let tree=content.querySelector('.v157-tree-preview');if(!tree){hero.insertAdjacentHTML('afterend',buildTreePreview());tree=content.querySelector('.v157-tree-preview');}
   const layout=content.querySelector('.dashboard-family-layout');
   const featured=[...content.querySelectorAll('.dashboard-section')].find(s=>/FEATURED PEOPLE/i.test(s.querySelector('.eyebrow')?.textContent||''));
@@ -109,6 +110,16 @@ function installResearchCenter(content){
   content.appendChild(center);
 }
 
+function installMediaPreview(content,media){
+  const images=media.filter(m=>m.visibility==='public'&&String(m.mime||'').startsWith('image/')).sort((a,b)=>Number(Boolean(b.featured))-Number(Boolean(a.featured))).slice(0,4);
+  const existing=content.querySelector('.v157-media-preview');
+  if(!images.length){existing?.remove();return;}
+  const peopleSection=[...content.querySelectorAll('.dashboard-section')].find(s=>/FEATURED PEOPLE/i.test(s.querySelector('.eyebrow')?.textContent||''));
+  let section=existing;
+  if(!section){section=document.createElement('section');section.className='v157-media-preview dashboard-section';peopleSection?.insertAdjacentElement('afterend',section);}
+  section.innerHTML=`<div class="section-title"><div><p class="eyebrow">FAMILY PHOTOS</p><h2>Faces from the archive</h2></div><a href="#media">Browse all media ↗</a></div><div class="v157-media-grid">${images.map(m=>`<a href="#media" class="v157-media-card"><img src="/api/media?file=${encodeURIComponent(m.id)}" alt="${esc(m.caption||m.title||'Family photograph')}" loading="lazy" decoding="async"><span><b>${esc(m.title||'Family photograph')}</b><small>${esc([m.eventDate,m.location].filter(Boolean).join(' · ')||'Family archive')}</small></span></a>`).join('')}</div>`;
+}
+
 async function hydrateDashboardMedia(content){
   try{
     const response=await fetch('/api/media',{credentials:'same-origin',cache:'no-store'});if(!response.ok)return;
@@ -118,6 +129,7 @@ async function hydrateDashboardMedia(content){
       const image=media.filter(m=>m.visibility==='public'&&String(m.mime||'').startsWith('image/')&&(m.personIds||[]).includes(id)).sort((a,b)=>Number(Boolean(b.featured))-Number(Boolean(a.featured)))[0];
       if(!image)continue;const portrait=document.createElement('img');portrait.className='v157-portrait';portrait.src=`/api/media?file=${encodeURIComponent(image.id)}`;portrait.alt='';portrait.loading='lazy';portrait.decoding='async';button.prepend(portrait);button.querySelector('.dashboard-avatar')?.setAttribute('hidden','');
     }
+    installMediaPreview(content,media);
   }catch{}
 }
 
