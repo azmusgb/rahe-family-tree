@@ -47,12 +47,13 @@ test('typing search does not destroy the current page and a result opens',async(
   await expect(page.locator('#title')).toHaveText('Person profile');
 });
 
-test('tree person is a one-click route to a profile',async({page})=>{
+test('tree person visual is a one-click route to a profile',async({page})=>{
   await page.goto('/#tree');
   const node=page.locator('.graph-node[data-person]').first();
   await expect(node).toBeAttached();
-  await node.click({force:true});
+  await node.locator('.node-avatar').click();
   await expect(page).toHaveURL(/#person\//);
+  await expect(page.locator('#title')).toHaveText('Person profile');
 });
 
 test('desktop primary navigation includes and opens Media as a core route',async({page},testInfo)=>{
