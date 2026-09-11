@@ -5,6 +5,7 @@ import fs from'node:fs';
 const index=fs.readFileSync('index.html','utf8');
 const runtime=fs.readFileSync('v15-runtime.js','utf8');
 const css=fs.readFileSync('v15.css','utf8');
+const mainRuntime=fs.readFileSync('v11.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
@@ -36,10 +37,17 @@ test('v15 runtime routes dock clicks directly and refreshes restored iOS documen
   assert.match(runtime,/build-info\.json\?ui-check=/);
 });
 
-test('v15 uses one shallow observer only for post-render enhancement sync',()=>{
-  assert.match(runtime,/MutationObserver\(schedule\)/);
-  assert.match(runtime,/subtree:false/);
-  assert.doesNotMatch(runtime,/subtree:true/);
+test('v15 consumes the authoritative render lifecycle instead of observing DOM mutations',()=>{
+  assert.doesNotMatch(runtime,/MutationObserver/);
+  assert.match(runtime,/family-view-rendered/);
+  assert.match(mainRuntime,/dispatchEvent\(new CustomEvent\('family-view-rendered'/);
+});
+
+test('media is owned by the main router and search typing does not rerender the whole app',()=>{
+  assert.match(mainRuntime,/routes\.media=/);
+  assert.match(mainRuntime,/media:\(\)=>'<section data-media-route-host/);
+  assert.match(mainRuntime,/\$\('#search'\)\.addEventListener\('input',\(\)=>syncUrl\(\)\)/);
+  assert.doesNotMatch(mainRuntime,/for\(const id of\['search','branch','state'\]\)\$\('#'\+id\)\.addEventListener\('input',render\)/);
 });
 
 test('v15 production build emits one versioned stylesheet and build fingerprint',()=>{
