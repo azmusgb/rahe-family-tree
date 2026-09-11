@@ -7,6 +7,7 @@ const entry=fs.readFileSync('app-entry.js','utf8');
 const runtimeIndex=fs.readFileSync('src/runtime/index.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const runtime=fs.readFileSync('src/runtime/experience-core.js','utf8');
+const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const css=fs.readFileSync('v15.css','utf8');
 const mainRuntime=fs.readFileSync('v11.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
@@ -38,6 +39,15 @@ test('experience boundary preserves historical layer initialization order',()=>{
   const expected=['./experience-core.js','../../v15-1-runtime.js','../../v15-family-focus.js','../../platform-v13-runtime.js'];
   const actual=[...experience.matchAll(/import ['"]([^'"]+\.js)['"]/g)].map(match=>match[1]);
   assert.deepEqual(actual,expected);
+});
+
+test('semantic stylesheet boundary preserves the deployed cascade order',()=>{
+  const expected=['v11.css','v11-nav.css','v11-2.css','v11-3.css','v11-4.css','v11-6.css','v12.css','v12-2.css','v12-3.css','v12-4.css','v12-5.css','v12-6.css','v12-6-1.css','v12-6-2.css','v12-7.css','v12-8.css','v12-9.css','v12-9-1.css','v13-0.css','dashboard-v13-2.css','media-page-v13-4.css','experience-v13-5.css','v14.css','v15.css','v15-1.css','v15-family-focus.css','platform-v13.css'];
+  const actual=[...styleRoot.matchAll(/@import ['"]\.\.\/\.\.\/([^'"]+\.css)['"]/g)].map(match=>match[1]);
+  assert.deepEqual(actual,expected);
+  assert.match(build,/src\/styles\/index\.css/);
+  assert.doesNotMatch(build,/const cssSources=/);
+  assert.doesNotMatch(build,/\.styles-v15\.source\.css/);
 });
 
 test('mobile dock is a real touch surface above application content',()=>{
