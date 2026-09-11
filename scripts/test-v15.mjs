@@ -1,0 +1,59 @@
+import test from'node:test';
+import assert from'node:assert/strict';
+import fs from'node:fs';
+
+const index=fs.readFileSync('index.html','utf8');
+const runtime=fs.readFileSync('v15-runtime.js','utf8');
+const css=fs.readFileSync('v15.css','utf8');
+const build=fs.readFileSync('scripts/build.mjs','utf8');
+const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
+
+test('v15 owns a persistent mobile navigation shell',()=>{
+  assert.match(index,/id="family-mobile-dock"/);
+  assert.match(index,/href="#dashboard"[^>]*data-dock-route="dashboard"/);
+  assert.match(index,/href="#tree"[^>]*data-dock-route="tree"/);
+  assert.match(index,/data-dock-search/);
+  assert.match(index,/href="#people"[^>]*data-dock-route="people"/);
+  assert.match(index,/href="#media"[^>]*data-dock-route="media"/);
+  assert.doesNotMatch(index,/experience-v13-5\.js/);
+  assert.match(index,/v15-runtime\.js\?v=15\.0\.0/);
+});
+
+test('mobile dock is a real touch surface above application content',()=>{
+  assert.match(css,/#family-mobile-dock:not\(\[hidden\]\)/);
+  assert.match(css,/z-index:2147483000!important/);
+  assert.match(css,/pointer-events:auto!important/);
+  assert.match(css,/touch-action:manipulation/);
+  assert.match(css,/--tap-target:48px/);
+});
+
+test('v15 runtime routes dock clicks directly and refreshes restored iOS documents',()=>{
+  assert.match(runtime,/#family-mobile-dock a\[href\^="#"\]/);
+  assert.match(runtime,/event\.preventDefault\(\);navigate/);
+  assert.match(runtime,/pageshow/);
+  assert.match(runtime,/event\.persisted/);
+  assert.match(runtime,/location\.reload\(\)/);
+  assert.match(runtime,/build-info\.json\?ui-check=/);
+});
+
+test('v15 uses one shallow observer only for post-render enhancement sync',()=>{
+  assert.match(runtime,/MutationObserver\(schedule\)/);
+  assert.match(runtime,/subtree:false/);
+  assert.doesNotMatch(runtime,/subtree:true/);
+});
+
+test('v15 production build emits one versioned stylesheet and build fingerprint',()=>{
+  assert.match(index,/styles-v15\.css\?v=15\.0\.0/);
+  assert.match(build,/dist\/styles-v15\.css/);
+  assert.match(build,/v15-runtime\.js/);
+  assert.match(build,/v15\.css/);
+  assert.match(build,/experience:'15\.0'/);
+});
+
+test('v15 shell work cannot alter canonical genealogy semantics',()=>{
+  assert.equal(model.meta.release,'13.0');
+  const bridge=(model.relationships||[]).find(r=>r.type==='identity-bridge');
+  assert.ok(bridge);
+  assert.match(String(bridge.state||''),/UNRESOLVED/i);
+  assert.ok((model.relationships||[]).filter(r=>/REJECTED/i.test(String(r.state||''))).every(r=>r.active===false));
+});
