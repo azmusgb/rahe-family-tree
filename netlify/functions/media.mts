@@ -2,7 +2,8 @@ import type { Config, Context } from '@netlify/functions';
 import { getStore, getDeployStore } from '@netlify/blobs';
 import { createHash, timingSafeEqual } from 'node:crypto';
 
-const json=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store'}});
+const apiHeaders={'x-content-type-options':'nosniff','x-robots-tag':'noindex, noarchive','referrer-policy':'no-referrer'};
+const json=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store',...apiHeaders}});
 const allowed=new Set(['image/jpeg','image/png','image/webp','application/pdf']);
 const roles=['viewer','contributor','researcher','editor','admin'];
 const roleRank=(role:string)=>roles.indexOf(role);
@@ -10,8 +11,8 @@ const cookieName='rahe_family_session';
 const hashToken=(x:string)=>createHash('sha256').update(x).digest('hex');
 const sessionKey=(token:string)=>`session/${hashToken(token)}.json`;
 const emailKey=(email:string)=>`user/${hashToken(email.trim().toLowerCase())}.json`;
-const parseCookies=(req:Request)=>Object.fromEntries((req.headers.get('cookie')||'').split(';').map(x=>x.trim()).filter(Boolean).map(x=>{const i=x.indexOf('=');return[decodeURIComponent(x.slice(0,i)),decodeURIComponent(x.slice(i+1))]}));
-const bootstrapKey=()=>process.env.FAMILY_EDITOR_WRITE_KEY||Netlify.env.get('FAMILY_EDITOR_WRITE_KEY')||'';
+const parseCookies=(req:Request)=>Object.fromEntries((req.headers.get('cookie')||'').split(';').map(x=>x.trim()).filter(Boolean).map(x=>{const i=x.indexOf('=');return i>0?[decodeURIComponent(x.slice(0,i)),decodeURIComponent(x.slice(i+1))]:['','']}));
+const bootstrapKey=()=>Netlify.env.get('FAMILY_EDITOR_WRITE_KEY')||'';
 const legacyAuthorized=(req:Request)=>{const expected=bootstrapKey(),supplied=req.headers.get('x-family-editor-key')||'';return !!expected&&supplied.length===expected.length&&timingSafeEqual(Buffer.from(supplied),Buffer.from(expected));};
 const mediaStoreFor=(context:Context)=>context.deploy?.context==='production'?getStore('rahe-family-media',{consistency:'strong'}):getDeployStore('rahe-family-media');
 const collaborationStoreFor=(context:Context)=>context.deploy?.context==='production'?getStore('rahe-family-collaboration',{consistency:'strong'}):getDeployStore('rahe-family-collaboration');
@@ -63,7 +64,7 @@ export default async (req:Request,context:Context)=>{
       if(meta.visibility!=='public'&&!authenticated)return json({ok:false,error:'Family account sign-in required for private media.'},401);
       const data=await store.get(`file/${fileId}`,{type:'arrayBuffer'});
       if(!data)return json({ok:false,error:'Media file missing.'},404);
-      return new Response(data,{headers:{'content-type':meta.mime||'application/octet-stream','content-disposition':`inline; filename="${String(meta.fileName||fileId).replace(/["\r\n]/g,'')}"`,'cache-control':'no-store','x-content-type-options':'nosniff'}});
+      return new Response(data,{headers:{'content-type':meta.mime||'application/octet-stream','content-disposition':`inline; filename="${String(meta.fileName||fileId).replace(/["\r\n]/g,'')}"`,'content-length':String(data.byteLength||0),'cache-control':'no-store','cross-origin-resource-policy':'same-origin',...apiHeaders}});
     }
 
     const person=url.searchParams.get('person')||'',listed:any[]=[];
