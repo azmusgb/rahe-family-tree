@@ -23,6 +23,13 @@ body[data-v158-context="family"] .route-shell.v158-context-search .filters{backg
 body[data-v158-context="family"] .route-shell.v158-context-search .filters .search{font-size:10px!important;color:var(--muted)!important}
 body[data-v158-context="family"] .route-shell.v158-context-search .filters .search input{margin-top:5px;box-shadow:none!important;border-color:var(--line)!important;background:rgba(255,255,255,.92)!important}
 
+/* Photos owns media-specific filters but keeps one contextual family search field visible. */
+body[data-v158-context="family"][data-route="media"] .route-shell .filters{display:block!important;margin-top:10px!important}
+body[data-v158-context="family"][data-route="media"] .route-shell .filters>label:not(.search),
+body[data-v158-context="family"][data-route="media"] .route-shell .filters>button{display:none!important}
+body[data-v158-context="family"][data-route="media"] .route-shell .filters .search{display:block!important}
+body[data-v158-context="family"][data-route="media"] .route-shell .filters .search input{min-height:44px!important}
+
 /* Research Center is intentionally denser and visually distinct. */
 body[data-v158-context="research"]{--bg:#eef0f1;--surface-soft:#f3f4f5}
 body[data-v158-context="research"] .main{max-width:1500px}
