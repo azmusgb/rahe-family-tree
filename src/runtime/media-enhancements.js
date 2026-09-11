@@ -1,4 +1,4 @@
-import{displayPeople,personById,esc}from'./core.js';
+import{displayPeople,personById,esc}from'../../core.js';
 
 const api='/api/media';
 let cache=null,capabilities={canEdit:false,canUpload:false,authenticated:false};
