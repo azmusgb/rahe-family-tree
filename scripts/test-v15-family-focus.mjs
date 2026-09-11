@@ -3,6 +3,7 @@ import assert from'node:assert/strict';
 import fs from'node:fs';
 
 const index=fs.readFileSync('index.html','utf8');
+const entry=fs.readFileSync('app-entry.js','utf8');
 const runtime=fs.readFileSync('v15-family-focus.js','utf8');
 const css=fs.readFileSync('v15-family-focus.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
@@ -37,12 +38,13 @@ test('v15.2 home polish keeps family discovery before research material',()=>{
 });
 
 test('v15.4 build fingerprints and ships the combined family-focus layer',()=>{
-  assert.match(index,/data-ui-release="15\.4"/);
+  assert.match(index,/data-ui-release="15\.4\.0"/);
   assert.match(index,/styles-v15\.css\?v=15\.4\.0/);
-  assert.match(index,/v15-family-focus\.js\?v=15\.4\.0/);
+  assert.match(index,/app-entry\.js\?v=15\.4\.0/);
+  assert.match(entry,/v15-family-focus\.js/);
   assert.match(build,/v15-family-focus\.js/);
   assert.match(build,/v15-family-focus\.css/);
-  assert.match(build,/experience:'15\.4'/);
+  assert.match(build,/const appVersion='15\.4\.0'/);
 });
 
 test('family-focus presentation cannot mutate canonical genealogy semantics',()=>{
