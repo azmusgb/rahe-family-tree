@@ -5,6 +5,8 @@ import fs from'node:fs';
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
 const runtimeIndex=fs.readFileSync('src/runtime/index.js','utf8');
+const base=fs.readFileSync('src/runtime/base.js','utf8');
+const baseControls=fs.readFileSync('src/runtime/base-controls.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const runtime=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
@@ -33,6 +35,17 @@ test('browser bootstrap delegates historical layers through stable runtime domai
   const expected=['base','media-core','deployment','family','media','tree','search','media-page','experience'];
   const actual=[...runtimeIndex.matchAll(/import '\.\/([^']+)\.js'/g)].map(match=>match[1]);
   assert.deepEqual(actual,expected);
+});
+
+test('base boundary preserves bootstrap order and owns recent-person controls',()=>{
+  const expected=['../../v11.js','./base-controls.js'];
+  const actual=[...base.matchAll(/import ['"]([^'"]+\.js)['"]/g)].map(match=>match[1]);
+  assert.deepEqual(actual,expected);
+  assert.match(baseControls,/rahe\.family\.recent-people\.v1/);
+  assert.match(baseControls,/data-tree-depth/);
+  assert.match(baseControls,/data-tree-person/);
+  assert.doesNotMatch(entry,/v12-3-controls\.js/);
+  assert.equal(fs.existsSync('v12-3-controls.js'),false);
 });
 
 test('experience boundary preserves historical layer initialization order',()=>{
