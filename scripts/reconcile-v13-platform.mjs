@@ -29,6 +29,9 @@ if(check){
   check.pass=!diff.hasEvidencePromotion;
   check.detail=diff.hasEvidencePromotion?JSON.stringify(assertionPromotions):`${personStateReclassifications.length} person-level status reclassifications retained as informational; 0 assertion promotions`;
 }
+// Preserve the established semantic-audit release contract; platform evolution is tracked separately.
+audit.version='13.0';
+audit.platformVersion='13.10';
 audit.pass=(audit.checks||[]).every(x=>x.pass!==false);
 
 fs.writeFileSync(diffPath,JSON.stringify(diff,null,2)+'\n');
@@ -36,5 +39,5 @@ fs.writeFileSync(modelPath,JSON.stringify(model,null,2)+'\n');
 fs.writeFileSync(auditPath,JSON.stringify(audit,null,2)+'\n');
 
 const pass=graph.integrity?.pass===true&&!diff.hasCanonicalLoss&&!diff.hasEvidencePromotion&&audit.pass;
-console.log(JSON.stringify({pass,personStateReclassifications:personStateReclassifications.length,assertionEvidencePromotions:assertionPromotions,canonicalLoss:diff.hasCanonicalLoss,graphPass:graph.integrity?.pass,auditPass:audit.pass},null,2));
+console.log(JSON.stringify({pass,personStateReclassifications:personStateReclassifications.length,assertionEvidencePromotions:assertionPromotions,canonicalLoss:diff.hasCanonicalLoss,graphPass:graph.integrity?.pass,auditPass:audit.pass,auditVersion:audit.version,platformVersion:audit.platformVersion},null,2));
 if(!pass)process.exitCode=1;
