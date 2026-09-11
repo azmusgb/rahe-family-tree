@@ -28,10 +28,13 @@ test('browse and media routes use route-specific filtering',()=>{
   assert.match(css,/data-page-layout="media-browse"[^\n]*\.route-shell \.filters/);
 });
 
-test('desktop utility bar is replaced by a masthead actions menu while mobile keeps one compact menu',()=>{
+test('desktop utility bar is replaced while family research mode remains reachable',()=>{
   assert.match(runtime,/v155-desktop-actions/);
   assert.match(runtime,/v155-mobile-actions/);
   assert.match(runtime,/data-v155-forward/);
+  assert.match(runtime,/data-v155-mode/);
+  assert.match(runtime,/\.experience-toggle/);
+  assert.match(runtime,/dataset\.experienceMode/);
   assert.match(css,/\.topbar\{display:none!important\}/);
   assert.match(css,/\.v155-original-actions\{display:none!important\}/);
 });
