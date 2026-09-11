@@ -4,6 +4,7 @@ import fs from'node:fs';
 
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
+const runtimeIndex=fs.readFileSync('src/runtime/index.js','utf8');
 const runtime=fs.readFileSync('v15-runtime.js','utf8');
 const css=fs.readFileSync('v15.css','utf8');
 const mainRuntime=fs.readFileSync('v11.js','utf8');
@@ -20,6 +21,15 @@ test('v15 owns a persistent mobile navigation shell',()=>{
   assert.doesNotMatch(index,/experience-v13-5\.js/);
   assert.match(index,/app\.bundle\.js\?v=15\.4\.0/);
   assert.match(entry,/v15-runtime\.js/);
+});
+
+test('browser bootstrap delegates historical layers through stable runtime domains',()=>{
+  assert.match(entry,/import '\.\/src\/runtime\/index\.js'/);
+  assert.doesNotMatch(entry,/^import '\.\/v\d/m);
+  for(const domain of['base','media-core','deployment','family','media','tree','search','media-page','experience'])assert.match(runtimeIndex,new RegExp(`import './${domain}\\.js'`));
+  const expected=['base','media-core','deployment','family','media','tree','search','media-page','experience'];
+  const actual=[...runtimeIndex.matchAll(/import '\.\/([^']+)\.js'/g)].map(match=>match[1]);
+  assert.deepEqual(actual,expected);
 });
 
 test('mobile dock is a real touch surface above application content',()=>{
