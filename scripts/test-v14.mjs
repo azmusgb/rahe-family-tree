@@ -5,7 +5,8 @@ import fs from'node:fs';
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
 const runtimeIndex=fs.readFileSync('src/runtime/index.js','utf8');
-const experienceRuntime=fs.readFileSync('src/runtime/experience.js','utf8');
+const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const experienceRuntime=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const v14=fs.readFileSync('v14.css','utf8');
 const familyRuntime=fs.readFileSync('v12-6.js','utf8');
 const portraitRuntime=fs.readFileSync('v12-6-1.js','utf8');
@@ -35,6 +36,9 @@ test('current browser runtime uses one cache-busted production bundle',()=>{
   assert.doesNotMatch(entry,/v15-runtime\.js/);
   assert.match(runtimeIndex,/import '\.\/search\.js'/);
   assert.match(runtimeIndex,/import '\.\/experience\.js'/);
+  const expected=['experience-core','../../v15-1-runtime','../../v15-family-focus','../../platform-v13-runtime'];
+  const actual=[...experience.matchAll(/import ['"]([^'"]+)\.js['"]/g)].map(match=>match[1].replace(/^\.\//,''));
+  assert.deepEqual(actual,expected);
 });
 
 test('production build bundles JavaScript and rationalizes historical CSS into one asset',()=>{
