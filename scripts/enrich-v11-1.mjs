@@ -35,11 +35,16 @@ model.orphanResolution=contextRelationships.map(r=>({personId:r.from,peerId:r.to
 
 const resolved=new Set(contextRelationships.flatMap(r=>[r.from,r.to]));
 const priorOrphans=audit.exceptions?.orphanPeople||[];
+// These four Appendix-F entries are intentionally outside the pedigree graph even when
+// newer canonical normalization gives one of them an inactive research-lead edge. Keep
+// that structural disclosure stable instead of treating graph linkage as evidence promotion.
+const structuralNames=['Virginia Martha Kinsman','Mary Monica Manning','David Fleming','Elie Davin'];
+const structuralOrphans=[...new Set([...priorOrphans,...structuralNames.map(name=>person(name)?.id).filter(Boolean)])];
 audit.version='11.1';
 audit.checks=audit.checks.filter(c=>c.id!=='AUD-009');
-audit.checks.push({id:'AUD-009',label:'Previously unlinked inventory entries have explicit contextual disposition',pass:priorOrphans.every(id=>resolved.has(id)),detail:priorOrphans.every(id=>resolved.has(id))?'Virginia Martha Kinsman, Mary Monica Manning, David Fleming, and Elie Davin are represented only with source-supported contextual edges.':'One or more prior orphan entries still lacks contextual disposition.'});
-audit.exceptions.structuralOrphans=priorOrphans;
-audit.exceptions.orphanPeople=priorOrphans.filter(id=>!resolved.has(id));
+audit.checks.push({id:'AUD-009',label:'Previously unlinked inventory entries have explicit contextual disposition',pass:structuralOrphans.every(id=>resolved.has(id)),detail:structuralOrphans.every(id=>resolved.has(id))?'Virginia Martha Kinsman, Mary Monica Manning, David Fleming, and Elie Davin are represented only with source-supported contextual edges.':'One or more structural inventory entries still lacks contextual disposition.'});
+audit.exceptions.structuralOrphans=structuralOrphans;
+audit.exceptions.orphanPeople=structuralOrphans.filter(id=>!resolved.has(id));
 audit.pass=audit.checks.every(c=>c.pass);
 model.audit=audit;
 
