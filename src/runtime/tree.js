@@ -1,3 +1,4 @@
-// Tree traversal/presentation enhancement boundary.
-import '../../v12-9.js';
-import '../../v12-9-1.js';
+// Tree traversal/presentation enhancement boundary. Preserve side-effect order:
+// core tree navigation first, then presentation polish.
+import './tree-engine.js';
+import './tree-polish.js';
