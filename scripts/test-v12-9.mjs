@@ -1,5 +1,5 @@
 import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';
-const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8')),audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8')),graph=fs.readFileSync('graph.js','utf8'),ui=fs.readFileSync('v12-9.js','utf8'),css=fs.readFileSync('v12-9.css','utf8');
+const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8')),audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8')),graph=fs.readFileSync('graph.js','utf8'),ui=fs.readFileSync('src/runtime/tree-engine.js','utf8'),css=fs.readFileSync('v12-9.css','utf8');
 const v129plus=x=>{const [a=0,b=0]=String(x).split('.').map(Number);return a>12||(a===12&&b>=9);};
 test('v12.9 tree engine is active',()=>{assert(v129plus(model.meta.release));assert.equal(model.treeEngine.version,'12.9');assert.match(model.treeEngine.scopeRule,/DIRECT LINE/i);assert.match(model.treeEngine.scopeRule,/ALL CONNECTED/i);});
 test('all connected has no arbitrary hop cap',()=>{assert.match(graph,/scope==='connected'/);assert.match(graph,/traverse\(\[focus\],rels,'both',familyTypes\)/);assert.doesNotMatch(model.treeEngine.connectedRule,/6 hop/i);});
