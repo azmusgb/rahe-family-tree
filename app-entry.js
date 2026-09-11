@@ -8,7 +8,7 @@
 // platform-v13-runtime.js.
 import './src/runtime/index.js';
 
-const APP_VERSION='15.4.0';
+const APP_VERSION='15.6.0';
 const syncAppVersion=()=>{
   document.documentElement.dataset.uiRelease=APP_VERSION;
   const version=document.querySelector('.version');
