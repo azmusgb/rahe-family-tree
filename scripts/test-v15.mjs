@@ -48,14 +48,14 @@ test('base boundary preserves bootstrap order and owns recent-person controls',(
   assert.equal(fs.existsSync('v12-3-controls.js'),false);
 });
 
-test('experience boundary preserves initialization order through page architecture',()=>{
-  const expected=['./experience-core.js','../../v15-1-runtime.js','../../v15-family-focus.js','../../platform-v13-runtime.js','./page-architecture.js'];
+test('experience boundary preserves initialization order through family home flow',()=>{
+  const expected=['./experience-core.js','../../v15-1-runtime.js','../../v15-family-focus.js','../../platform-v13-runtime.js','./page-architecture.js','./home-flow.js'];
   const actual=[...experience.matchAll(/import ['"]([^'"]+\.js)['"]/g)].map(match=>match[1]);
   assert.deepEqual(actual,expected);
 });
 
 test('semantic stylesheet boundary preserves the deployed cascade order',()=>{
-  const expected=['v11.css','v11-nav.css','v11-2.css','v11-3.css','v11-4.css','v11-6.css','v12.css','v12-2.css','v12-3.css','v12-4.css','v12-5.css','v12-6.css','v12-6-1.css','v12-6-2.css','v12-7.css','v12-8.css','v12-9.css','v12-9-1.css','v13-0.css','dashboard-v13-2.css','media-page-v13-4.css','experience-v13-5.css','v14.css','v15.css','v15-1.css','v15-family-focus.css','platform-v13.css','v15-5.css','v15-6.css'];
+  const expected=['v11.css','v11-nav.css','v11-2.css','v11-3.css','v11-4.css','v11-6.css','v12.css','v12-2.css','v12-3.css','v12-4.css','v12-5.css','v12-6.css','v12-6-1.css','v12-6-2.css','v12-7.css','v12-8.css','v12-9.css','v12-9-1.css','v13-0.css','dashboard-v13-2.css','media-page-v13-4.css','experience-v13-5.css','v14.css','v15.css','v15-1.css','v15-family-focus.css','platform-v13.css','v15-5.css','v15-6.css','v15-7.css'];
   const actual=[...styleRoot.matchAll(/@import ['"]\.\.\/\.\.\/([^'"]+\.css)['"]/g)].map(match=>match[1]);
   assert.deepEqual(actual,expected);
   assert.match(build,/src\/styles\/index\.css/);
