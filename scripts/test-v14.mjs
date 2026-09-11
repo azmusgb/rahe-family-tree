@@ -5,14 +5,15 @@ import fs from'node:fs';
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
 const runtimeIndex=fs.readFileSync('src/runtime/index.js','utf8');
+const familyBoundary=fs.readFileSync('src/runtime/family.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const experienceRuntime=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const v14=fs.readFileSync('v14.css','utf8');
-const familyRuntime=fs.readFileSync('v12-6.js','utf8');
-const portraitRuntime=fs.readFileSync('v12-6-1.js','utf8');
-const qaRuntime=fs.readFileSync('v12-6-2.js','utf8');
-const contributionRuntime=fs.readFileSync('v12-7.js','utf8');
+const familyRuntime=fs.readFileSync('src/runtime/family-mode.js','utf8');
+const portraitRuntime=fs.readFileSync('src/runtime/family-profile.js','utf8');
+const qaRuntime=fs.readFileSync('src/runtime/family-qa.js','utf8');
+const contributionRuntime=fs.readFileSync('src/runtime/family-contributions.js','utf8');
 const mediaRuntime=fs.readFileSync('v12-8.js','utf8');
 const treeRuntime=fs.readFileSync('v12-9.js','utf8');
 const treePolish=fs.readFileSync('v12-9-1.js','utf8');
@@ -40,6 +41,13 @@ test('current browser runtime uses one cache-busted production bundle',()=>{
   const expected=['experience-core','../../v15-1-runtime','../../v15-family-focus','../../platform-v13-runtime'];
   const actual=[...experience.matchAll(/import ['"]([^'"]+)\.js['"]/g)].map(match=>match[1].replace(/^\.\//,''));
   assert.deepEqual(actual,expected);
+});
+
+test('family semantic boundary preserves historical initialization order',()=>{
+  const expected=['./family-mode.js','./family-profile.js','./family-qa.js','./family-contributions.js'];
+  const actual=[...familyBoundary.matchAll(/import ['"]([^'"]+\.js)['"]/g)].map(match=>match[1]);
+  assert.deepEqual(actual,expected);
+  for(const retired of['v12-6.js','v12-6-1.js','v12-6-2.js','v12-7.js'])assert.equal(fs.existsSync(retired),false);
 });
 
 test('production build bundles JavaScript and rationalizes historical CSS into one asset',()=>{

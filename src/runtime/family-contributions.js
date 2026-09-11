@@ -1,7 +1,7 @@
-import{currentUser}from'./auth.js';
-import{basePeople,basePedigreeRelationships,personById,esc}from'./core.js';
-import{createRelative}from'./family-editor-atomic.js';
-import{hiddenPeople,hiddenRelationships,restorePerson,restoreRelationship}from'./family-editor.js';
+import{currentUser}from'../../auth.js';
+import{basePeople,basePedigreeRelationships,personById,esc}from'../../core.js';
+import{createRelative}from'../../family-editor-atomic.js';
+import{hiddenPeople,hiddenRelationships,restorePerson,restoreRelationship}from'../../family-editor.js';
 
 const relationSets=id=>{const rels=basePedigreeRelationships();return{parents:rels.filter(r=>r.type==='parent-child'&&r.to===id).map(r=>r.from),spouses:rels.filter(r=>r.type==='spouse'&&(r.from===id||r.to===id)).map(r=>r.from===id?r.to:r.from)};};
 

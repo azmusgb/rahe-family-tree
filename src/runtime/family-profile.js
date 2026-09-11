@@ -1,4 +1,4 @@
-import{personById}from'./core.js';
+import{personById}from'../../core.js';
 
 const mediaApi='/api/media';
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';

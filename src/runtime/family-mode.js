@@ -1,4 +1,4 @@
-import{personById,esc}from'./core.js';
+import{personById,esc}from'../../core.js';
 
 const MODE_KEY='rahe.family.experience-mode.v1';
 const familyRoutes=new Set(['dashboard','tree','people','families','person']);
