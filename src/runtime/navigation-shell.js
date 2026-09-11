@@ -1,6 +1,7 @@
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const researchRoutes=new Set(['evidence','sources','research','archive','claim','source','task','intake','identity','intelligence','conflicts']);
-const familyLabels={dashboard:'Home',tree:'Tree',people:'People',media:'Photos',timeline:'Timeline',migration:'Places'};
+const familyLabels={dashboard:'Home',tree:'Tree',people:'People',person:'People',media:'Photos',timeline:'Timeline',migration:'Places'};
+const owningSection=route=>({person:'people',claim:'evidence',source:'sources',task:'research',intake:'research',identity:'research',conflicts:'research'}[route]||route);
 
 function isResearchContext(){return document.body.dataset.experience==='research'||researchRoutes.has(routeKey());}
 
@@ -10,6 +11,13 @@ function researchPrimary(){return `<a href="#intelligence" data-nav-key="intelli
 function researchMenus(){return `<a class="v158-family-return" href="#dashboard" data-v158-family-return>← Back to Family</a>`;}
 
 function preserveActions(menus){return menus?.querySelector('.v155-desktop-actions')||null;}
+function markCurrent(container,selector,key){
+  container?.querySelectorAll(selector).forEach(link=>{
+    const active=link.dataset.navKey===key||link.dataset.dockRoute===key;
+    link.classList.toggle('active',active);
+    if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
+  });
+}
 function rebuildDesktopNav(){
   const primary=document.querySelector('.v151-primary-nav');
   const menus=document.querySelector('.v151-nav-menus');
@@ -20,10 +28,7 @@ function rebuildDesktopNav(){
   menus.innerHTML=research?researchMenus():familyMenus();
   if(actions)menus.append(actions);
   document.body.dataset.v158Context=research?'research':'family';
-  document.querySelectorAll('[data-nav-key]').forEach(link=>{
-    const active=link.dataset.navKey===routeKey();
-    if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
-  });
+  markCurrent(primary,'[data-nav-key]',owningSection(routeKey()));
 }
 
 function syncBrand(){
@@ -49,15 +54,19 @@ function contextualSearch(){
 function rebuildMobileDock(){
   const dock=document.getElementById('family-mobile-dock');if(!dock)return;
   const research=isResearchContext();
+  dock.hidden=false;
   if(research){
     dock.innerHTML=`<a href="#intelligence" data-dock-route="intelligence"><span>Overview</span></a><a href="#evidence" data-dock-route="evidence"><span>Evidence</span></a><a href="#sources" data-dock-route="sources"><span>Sources</span></a><a href="#dashboard" data-v158-family-mobile><span>Family</span></a>`;
+    markCurrent(dock,'[data-dock-route]',owningSection(routeKey()));
     return;
   }
   dock.innerHTML=`<a href="#dashboard" data-dock-route="dashboard"><span>Home</span></a><a href="#tree" data-dock-route="tree"><span>Tree</span></a><a href="#people" data-dock-route="people"><span>People</span></a><a href="#media" data-dock-route="media"><span>Photos</span></a><details class="v158-mobile-more"><summary>More</summary><div><button type="button" data-dock-search>Search</button><a href="#timeline">Timeline</a><a href="#migration">Places</a><a href="#research">Research Center</a></div></details>`;
+  markCurrent(dock,'[data-dock-route]',owningSection(routeKey()));
 }
 
 function syncCrumb(){
-  if(document.getElementById('crumb'))document.getElementById('crumb').textContent=familyLabels[routeKey()]||document.getElementById('crumb').textContent;
+  const crumb=document.getElementById('crumb');
+  if(crumb)crumb.textContent=familyLabels[routeKey()]||crumb.textContent;
 }
 
 function returnToFamily(event){
