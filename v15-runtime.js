@@ -89,6 +89,5 @@ function installFreshnessGuard(){
 }
 
 installDockControls();installFreshnessGuard();
-window.addEventListener('hashchange',schedule);window.addEventListener('popstate',schedule);window.addEventListener('family-edits-changed',schedule);window.addEventListener('family-media-changed',()=>{mediaSummary=null;mediaPromise=null;schedule();});window.addEventListener('family-auth-changed',()=>{mediaSummary=null;mediaPromise=null;schedule();});window.addEventListener('family-auth-ui-refresh',schedule);
-const content=document.querySelector('#content');if(content)new MutationObserver(schedule).observe(content,{childList:true,subtree:false});
+window.addEventListener('hashchange',schedule);window.addEventListener('popstate',schedule);window.addEventListener('family-view-rendered',schedule);window.addEventListener('family-edits-changed',schedule);window.addEventListener('family-media-changed',()=>{mediaSummary=null;mediaPromise=null;schedule();});window.addEventListener('family-auth-changed',()=>{mediaSummary=null;mediaPromise=null;schedule();});window.addEventListener('family-auth-ui-refresh',schedule);
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
