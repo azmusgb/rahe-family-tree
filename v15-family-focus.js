@@ -1,4 +1,4 @@
-import{personById,model,esc}from'./core.js';
+import{personById,model,esc,allPedigreeRelationships}from'./core.js';
 import{relationSets}from'./family-experience.js';
 
 const UI_RELEASE='15.4';
@@ -14,7 +14,8 @@ const uniqueById=items=>[...new Map(items.filter(Boolean).map(item=>[item.id,ite
 function countPersonEvents(id){return(model.events||[]).filter(event=>(event.peopleIds||[]).includes(id)).length;}
 function countPersonSources(id){
   const claims=(model.claims||[]).filter(claim=>(claim.peopleIds||[]).includes(id));
-  const ids=new Set(claims.flatMap(claim=>claim.sourceIds||[]));
+  const rels=allPedigreeRelationships().filter(rel=>rel.from===id||rel.to===id);
+  const ids=new Set([...claims.flatMap(claim=>claim.sourceIds||[]),...rels.flatMap(rel=>rel.sourceIds||[])]);
   return ids.size;
 }
 function profileRelationCard(label,items){
@@ -22,14 +23,14 @@ function profileRelationCard(label,items){
 }
 function installProfileStory(content,person,relations){
   if(content.querySelector('.v153-life-story'))return;
-  const timeline=content.querySelector(`[id="person-${CSS.escape(person.id)}-timeline"]`)||content.querySelector('[id$="-timeline"]');
+  const timeline=content.querySelector('[id$="-timeline"]');
   const overview=content.querySelector('.family-overview-card');
   if(!overview)return;
   const eventCount=countPersonEvents(person.id),sourceCount=countPersonSources(person.id);
   const familyCount=uniqueById([...relations.parents,...relations.spouses,...relations.children,...relations.siblings]).length;
   const story=document.createElement('section');
   story.className='v153-life-story';
-  story.innerHTML=`<div class="v153-section-heading"><div><p class="eyebrow">LIFE & FAMILY</p><h2>Family record at a glance</h2></div><a href="#tree?focus=${encodeURIComponent(person.id)}">View in tree ↗</a></div><div class="v153-story-grid"><article class="v153-story-lead"><span class="v153-story-avatar" aria-hidden="true">${esc(initials(person.name))}</span><div><h3>${esc(person.name)}</h3><p>${esc(person.role||'Family member')}</p><small>${esc(person.dates||'Dates protected or not recorded in the public family view')}</small></div></article><article><b>${familyCount}</b><span>structured close-family connections</span></article><article><b>${eventCount}</b><span>timeline records linked to this person</span></article><article><b>${sourceCount}</b><span>registered sources linked through claims</span></article></div></section>`;
+  story.innerHTML=`<div class="v153-section-heading"><div><p class="eyebrow">LIFE & FAMILY</p><h2>Family record at a glance</h2></div><button type="button" class="text-link" data-focus-tree="${esc(person.id)}" data-scope="family">View in tree ↗</button></div><div class="v153-story-grid"><article class="v153-story-lead"><span class="v153-story-avatar" aria-hidden="true">${esc(initials(person.name))}</span><div><h3>${esc(person.name)}</h3><p>${esc(person.role||'Family member')}</p><small>${esc(person.dates||'Dates protected or not recorded in the public family view')}</small></div></article><article><b>${familyCount}</b><span>structured close-family connections</span></article><article><b>${eventCount}</b><span>timeline records linked to this person</span></article><article><b>${sourceCount}</b><span>registered sources linked through this person’s claims and relationships</span></article></div></section>`;
   if(timeline)timeline.insertAdjacentElement('beforebegin',story);else overview.insertAdjacentElement('afterend',story);
 }
 function installProfileFamilyNetwork(content,person,relations){
