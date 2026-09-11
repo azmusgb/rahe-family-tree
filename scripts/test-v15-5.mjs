@@ -14,8 +14,11 @@ test('v15.5 classifies minimal, browse, media, and research page layouts',()=>{
   assert.match(runtime,/pageArchitecture=RELEASE/);
 });
 
-test('minimal family routes suppress duplicate route-shell chrome',()=>{
-  assert.match(css,/data-page-layout="minimal"[^\n]*\.route-shell\{display:none!important\}/);
+test('minimal family routes reduce the command deck to global search',()=>{
+  assert.match(css,/data-page-layout="minimal"[^\n]*\.route-shell/);
+  assert.match(css,/\.filters>label:not\(\.search\)/);
+  assert.match(css,/\.filters>button\{display:none!important\}/);
+  assert.match(css,/\.filters \.search\{display:block\}/);
   assert.match(css,/data-route="dashboard"[^\n]*\.dashboard-hero\{margin-top:0\}/);
 });
 
@@ -35,7 +38,7 @@ test('desktop utility bar is replaced by a masthead actions menu while mobile ke
 
 test('tree gains reclaimed viewport and compact focal controls',()=>{
   assert.match(css,/data-route="tree"[^\n]*\.v154-tree-person/);
-  assert.match(css,/min-height:620px;max-height:calc\(100vh - 210px\)/);
+  assert.match(css,/min-height:620px;max-height:calc\(100vh - 258px\)/);
 });
 
 test('person page keeps one dominant identity header',()=>{
