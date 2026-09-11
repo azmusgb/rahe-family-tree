@@ -5,7 +5,8 @@ import fs from'node:fs';
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
 const runtimeIndex=fs.readFileSync('src/runtime/index.js','utf8');
-const runtime=fs.readFileSync('src/runtime/experience.js','utf8');
+const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const runtime=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const css=fs.readFileSync('v15.css','utf8');
 const mainRuntime=fs.readFileSync('v11.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
@@ -30,6 +31,12 @@ test('browser bootstrap delegates historical layers through stable runtime domai
   for(const domain of['base','media-core','deployment','family','media','tree','search','media-page','experience'])assert.match(runtimeIndex,new RegExp(`import './${domain}\\.js'`));
   const expected=['base','media-core','deployment','family','media','tree','search','media-page','experience'];
   const actual=[...runtimeIndex.matchAll(/import '\.\/([^']+)\.js'/g)].map(match=>match[1]);
+  assert.deepEqual(actual,expected);
+});
+
+test('experience boundary preserves historical layer initialization order',()=>{
+  const expected=['./experience-core.js','../../v15-1-runtime.js','../../v15-family-focus.js','../../platform-v13-runtime.js'];
+  const actual=[...experience.matchAll(/import ['"]([^'"]+\.js)['"]/g)].map(match=>match[1]);
   assert.deepEqual(actual,expected);
 });
 
