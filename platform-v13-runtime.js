@@ -3,10 +3,22 @@ import{renderTreeEngine2Header,renderRelationshipFinder,renderCanonicalGraphAudi
 
 let installed=false;
 function marker(name,html){return`<div data-platform-v13="${name}">${html}</div>`;}
-function addBefore(target,name,html){if(!target||document.querySelector(`[data-platform-v13="${name}"]`))return;target.insertAdjacentHTML('beforebegin',marker(name,html));}
 function addAfter(target,name,html){if(!target||document.querySelector(`[data-platform-v13="${name}"]`))return;target.insertAdjacentHTML('afterend',marker(name,html));}
 function prepend(target,name,html){if(!target||document.querySelector(`[data-platform-v13="${name}"]`))return;target.insertAdjacentHTML('afterbegin',marker(name,html));}
 function append(target,name,html){if(!target||document.querySelector(`[data-platform-v13="${name}"]`))return;target.insertAdjacentHTML('beforeend',marker(name,html));}
+
+function relationshipUrl(from='',to=''){
+  const u=new URL(location.href);
+  if(from)u.searchParams.set('from',from);else u.searchParams.delete('from');
+  if(to)u.searchParams.set('to',to);else u.searchParams.delete('to');
+  u.hash='tree';
+  return u;
+}
+function routeRelationshipFinder(from='',to=''){
+  const next=relationshipUrl(from,to);
+  history.pushState(null,'',next);
+  window.dispatchEvent(new Event('hashchange'));
+}
 
 export function enhancePlatformRoute(){
   if(!model)return;
@@ -22,4 +34,23 @@ export function enhancePlatformRoute(){
   if(route==='source'&&id)append(content,'source-evidence-matrix',renderSourceEvidenceMatrix(id));
 }
 
-if(!installed){installed=true;installPlatformHandlers();window.addEventListener('family-view-rendered',()=>requestAnimationFrame(enhancePlatformRoute));window.addEventListener('popstate',()=>requestAnimationFrame(enhancePlatformRoute));setTimeout(enhancePlatformRoute,0);}
+if(!installed){
+  installed=true;
+  installPlatformHandlers();
+  document.addEventListener('submit',event=>{
+    if(event.target?.id!=='relationship-finder')return;
+    event.preventDefault();event.stopImmediatePropagation();
+    const data=new FormData(event.target);
+    routeRelationshipFinder(String(data.get('relationship-from')||''),String(data.get('relationship-to')||''));
+  },true);
+  document.addEventListener('click',event=>{
+    const link=event.target.closest?.('a[href^="#relationships"]');
+    if(!link)return;
+    event.preventDefault();event.stopImmediatePropagation();
+    const match=link.getAttribute('href')?.match(/[?&]from=([^&]+)/);
+    routeRelationshipFinder(match?decodeURIComponent(match[1]):'','');
+  },true);
+  window.addEventListener('family-view-rendered',()=>requestAnimationFrame(enhancePlatformRoute));
+  window.addEventListener('popstate',()=>requestAnimationFrame(enhancePlatformRoute));
+  setTimeout(enhancePlatformRoute,0);
+}
