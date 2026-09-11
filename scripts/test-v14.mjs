@@ -41,6 +41,13 @@ test('only the modern mobile dock is created',()=>{
   assert.match(experience,/Home<\/a>.*Tree<\/a>.*Search<\/button>.*People<\/a>.*Media<\/a>/s);
 });
 
+test('v14 family enhancements do not leak into research mode',()=>{
+  assert.match(experience,/const isFamilyMode=/);
+  assert.match(experience,/if\(!isFamilyMode\(\)\)\{dock\?\.remove\(\);return;\}/);
+  assert.match(experience,/badge\.textContent=isFamilyMode\(\)\?'FAMILY VIEW · v14\.0':'RESEARCH MODE · v14\.0'/);
+  assert.match(experience,/if\(!isFamilyMode\(\)\|\|routeKey\(\)!=='dashboard'\)return/);
+});
+
 test('v14 establishes coherent tokens typography and safe-area navigation',()=>{
   for(const token of['--space-4','--radius-md','--shadow-md','--mobile-nav-height'])assert.match(v14,new RegExp(token));
   assert.match(v14,/\.mobile-family-nav\{display:none!important\}/);
