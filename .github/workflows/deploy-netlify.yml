@@ -40,7 +40,13 @@ jobs:
       - name: Build exact commit fingerprint
         env:
           GITHUB_SHA: ${{ github.sha }}
-        run: npm run build
+        run: |
+          set -euo pipefail
+          npm run build
+          EXPECTED_RELEASE=$(node -e "const x=require('./dist/build-info.json');process.stdout.write(String(x.release||''))")
+          test -n "$EXPECTED_RELEASE" || { echo "Built release is empty."; exit 1; }
+          echo "EXPECTED_RELEASE=$EXPECTED_RELEASE" >> "$GITHUB_ENV"
+          echo "Built expected production release $EXPECTED_RELEASE at $GITHUB_SHA"
 
       - name: Provision temporary production smoke credential
         env:
@@ -76,19 +82,20 @@ jobs:
           EXPECTED_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
+          test -n "$EXPECTED_RELEASE" || { echo "EXPECTED_RELEASE was not propagated from the build."; exit 1; }
           for attempt in 1 2 3 4 5 6; do
             if curl --fail --silent --show-error --max-time 20 \
               "$PRODUCTION_URL/build-info.json?sha=$EXPECTED_SHA" -o /tmp/build-info.json; then
               LIVE_SHA=$(node -e "const x=require('/tmp/build-info.json');process.stdout.write(String(x.gitSha||''))")
               LIVE_RELEASE=$(node -e "const x=require('/tmp/build-info.json');process.stdout.write(String(x.release||''))")
-              echo "Production reports release $LIVE_RELEASE at $LIVE_SHA"
-              if [ "$LIVE_SHA" = "$EXPECTED_SHA" ] && [ "$LIVE_RELEASE" = "12.8" ]; then
+              echo "Production reports release $LIVE_RELEASE at $LIVE_SHA; expected release $EXPECTED_RELEASE at $EXPECTED_SHA"
+              if [ "$LIVE_SHA" = "$EXPECTED_SHA" ] && [ "$LIVE_RELEASE" = "$EXPECTED_RELEASE" ]; then
                 exit 0
               fi
             fi
             sleep 10
           done
-          echo "Production fingerprint did not converge to release 12.8 at $EXPECTED_SHA"
+          echo "Production fingerprint did not converge to release $EXPECTED_RELEASE at $EXPECTED_SHA"
           exit 1
 
       - name: Smoke-test media privacy and genealogy immutability
@@ -120,7 +127,7 @@ jobs:
             -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" \
             -F "file=@/tmp/privacy-smoke.png;type=image/png" \
             -F "personId=$LIVING_ID" \
-            -F "title=v12.8 privacy smoke" \
+            -F "title=production privacy smoke" \
             -F "visibility=public" \
             "$PRODUCTION_URL/api/media")
           echo "Living-person public-request upload: HTTP $UPLOAD_STATUS"
@@ -147,7 +154,7 @@ jobs:
           UPDATE_STATUS=$(curl --silent --show-error -o /tmp/media-update.json -w '%{http_code}' \
             -H "x-family-editor-key: $FAMILY_EDITOR_WRITE_KEY" \
             -H 'content-type: application/json' \
-            --data "{\"action\":\"update\",\"id\":\"$MEDIA_ID\",\"personIds\":[\"$LIVING_ID\"],\"visibility\":\"public\",\"title\":\"v12.8 privacy smoke updated\"}" \
+            --data "{\"action\":\"update\",\"id\":\"$MEDIA_ID\",\"personIds\":[\"$LIVING_ID\"],\"visibility\":\"public\",\"title\":\"production privacy smoke updated\"}" \
             "$PRODUCTION_URL/api/media")
           echo "Living-person public-request update: HTTP $UPDATE_STATUS"
           test "$UPDATE_STATUS" = "200"
@@ -199,9 +206,10 @@ jobs:
           EXPECTED_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
+          test -n "$EXPECTED_RELEASE" || { echo "EXPECTED_RELEASE was not propagated from the build."; exit 1; }
           curl --fail --silent --show-error "$PRODUCTION_URL/build-info.json?sha=$EXPECTED_SHA" -o /tmp/build-info-final.json
-          node -e "const x=require('/tmp/build-info-final.json');const expected=process.argv[1];if(x.gitSha!==expected||x.release!=='12.8')process.exit(1)" "$EXPECTED_SHA"
+          node -e "const x=require('/tmp/build-info-final.json');const expectedSha=process.argv[1],expectedRelease=process.argv[2];if(x.gitSha!==expectedSha||String(x.release)!==String(expectedRelease))process.exit(1)" "$EXPECTED_SHA" "$EXPECTED_RELEASE"
           STATUS=$(curl --silent --show-error -o /tmp/media-final-anon.json -w '%{http_code}' "$PRODUCTION_URL/api/media")
           test "$STATUS" = "200"
           node -e "const x=require('/tmp/media-final-anon.json');if(!x.ok||x.authenticated||(x.media||[]).some(m=>m.visibility!=='public'))process.exit(1)"
-          echo "Final production is release 12.8 at $EXPECTED_SHA with anonymous private-media exclusion intact."
+          echo "Final production is release $EXPECTED_RELEASE at $EXPECTED_SHA with anonymous private-media exclusion intact."
