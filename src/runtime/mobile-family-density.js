@@ -26,7 +26,7 @@ function installTreeToolbar(content){
   const shell=content.querySelector('.graph-shell');if(!shell)return;
   const person=focusPerson();
   const toolbar=document.createElement('div');toolbar.className='v161-tree-toolbar';
-  toolbar.innerHTML=`<div class="v161-tree-focus"><span class="eyebrow">FAMILY TREE</span><b>${esc(person?.name||'Family view')}</b></div><div class="v161-tree-tool-actions"><button type="button" data-graph="fit">Fit</button><button type="button" data-v161-relationship>Relationship</button><button type="button" data-v161-tree-more>More</button></div>`;
+  toolbar.innerHTML=`<div class="v161-tree-focus"><span class="eyebrow">FAMILY TREE</span><b>${esc(person?.name||'Family view')}</b></div><div class="v161-tree-tool-actions"><button type="button" data-graph="fit">Fit</button><button type="button" data-v161-relationship>Relationship</button><button type="button" data-v161-tree-more aria-expanded="false">More</button></div>`;
   shell.insertAdjacentElement('beforebegin',toolbar);
   installTreeRelationshipDialog(content);
 }
@@ -35,8 +35,8 @@ function compactTree(){
   if(!isFamily()||routeKey()!=='tree')return;
   const content=document.getElementById('content');if(!content)return;
   content.classList.add('v161-tree');
-  stripFamilyDiagnostics();
-  installTreeToolbar(content);
+  const url=new URL(location.href);if((url.searchParams.get('scope')||'family')==='family'&&!url.searchParams.has('depth')){url.searchParams.set('depth','2');history.replaceState(null,'',url);}
+  stripFamilyDiagnostics();installTreeToolbar(content);
   const memory=content.querySelector('.v129-tree-memory');if(memory)memory.dataset.v161Secondary='';
   const help=content.querySelector('.v154-tree-help');if(help)help.dataset.v161Secondary='';
   const focusbar=content.querySelector('.tree-focusbar');if(focusbar)focusbar.dataset.v161TreeControls='';
@@ -58,17 +58,20 @@ function compactHome(){
   content.classList.add('v161-home');
   content.querySelector('.dashboard-hero-card')?.remove();
   const research=content.querySelector('.v157-research-center');
-  if(research){
-    research.classList.add('v161-research-band');
-    research.querySelector('.v157-research-meta')?.remove();
-    const copy=research.querySelector('p:not(.eyebrow)');if(copy)copy.textContent='Sources, evidence, unresolved identities, and open research questions live in a dedicated workspace.';
-    const title=research.querySelector('h2');if(title)title.textContent='Research the records behind the family';
-  }
+  if(research){research.classList.add('v161-research-band');research.querySelector('.v157-research-meta')?.remove();const copy=research.querySelector('p:not(.eyebrow)');if(copy)copy.textContent='Sources, evidence, unresolved identities, and open research questions live in a dedicated workspace.';const title=research.querySelector('h2');if(title)title.textContent='Research the records behind the family';}
 }
 
 function compactMedia(){
   if(!isFamily()||routeKey()!=='media')return;
-  document.getElementById('content')?.classList.add('v161-media');
+  const content=document.getElementById('content');if(!content)return;content.classList.add('v161-media');
+  content.querySelector('.media-page-hero')?.remove();
+  const controls=content.querySelector('.media-library-controls');
+  if(controls&&!controls.closest('.v161-media-filters')){
+    const details=document.createElement('details');details.className='v161-media-filters';details.innerHTML='<summary><span>Filters</span><small>Type · decade · visibility · sort</small></summary>';controls.insertAdjacentElement('beforebegin',details);details.appendChild(controls);
+  }
+  const note=content.querySelector('#media-library-note');if(note&&!note.dataset.v161){note.dataset.v161='';note.innerHTML='<strong>Privacy protected.</strong> Only media safe for this family view is shown.';}
+  const title=content.querySelector('.media-library-title h2');if(title)title.textContent='Photos & documents';
+  const eyebrow=content.querySelector('.media-library-title .eyebrow');if(eyebrow)eyebrow.textContent='FAMILY COLLECTION';
 }
 
 function apply(){stripFamilyDiagnostics();compactHome();compactTree();compactPeople();compactMedia();}
@@ -80,4 +83,4 @@ document.addEventListener('click',event=>{
   const more=event.target.closest?.('[data-v161-tree-more]');if(more){const content=document.getElementById('content');const expanded=content?.classList.toggle('v161-show-tree-secondary');more.setAttribute('aria-expanded',String(Boolean(expanded)));}
 });
 
-window.addEventListener('family-view-rendered',schedule);window.addEventListener('hashchange',schedule);window.addEventListener('family-experience-changed',schedule);document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
+window.addEventListener('family-view-rendered',schedule);window.addEventListener('hashchange',schedule);window.addEventListener('family-experience-changed',schedule);window.addEventListener('family-media-changed',schedule);document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
