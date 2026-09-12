@@ -19,12 +19,18 @@ test('home surfaces supported family moments and places as narrative content',as
 
 test('people branch selection gets human branch context',async({page})=>{
   await page.goto('/#people');
-  const branch=page.locator('#branch');
-  const values=await branch.locator('option').evaluateAll(options=>options.map(option=>option.value).filter(Boolean));
-  expect(values.length).toBeGreaterThan(0);
-  await branch.selectOption(values[0]);
-  await expect(page.locator('.v162-branch-context')).toBeVisible();
-  await expect(page.locator('.v162-branch-context').getByRole('link',{name:'Stories'})).toBeVisible();
+  const browser=page.locator('.v159-branch-browser');
+  await expect(browser).toBeVisible();
+  const branchButton=browser.locator('[data-v159-branch]').filter({hasNotText:'All'}).first();
+  await expect(branchButton).toBeVisible();
+  const branchName=await branchButton.getAttribute('data-v159-branch');
+  expect(branchName).toBeTruthy();
+  await branchButton.click();
+  await expect(page.locator('#branch')).toHaveValue(branchName);
+  const context=page.locator('.v162-branch-context');
+  await expect(context).toBeVisible();
+  await expect(context).toContainText(branchName);
+  await expect(context.getByRole('link',{name:'Stories'})).toBeVisible();
 });
 
 test('person page exposes immediate family path without opening research tooling',async({page})=>{
