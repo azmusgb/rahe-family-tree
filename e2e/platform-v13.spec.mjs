@@ -8,17 +8,24 @@ async function mockApis(page){
 
 test.beforeEach(async({page})=>{await mockApis(page);});
 
-test('Tree Engine 2.0 and relationship finder are live without leaving the tree route',async({page})=>{
+test('family tree keeps graph diagnostics out of the foreground and relationship finding on demand',async({page})=>{
   await page.goto('/#tree');
-  await expect(page.locator('[data-platform-v13="tree-engine-2"]')).toBeVisible();
-  await expect(page.getByRole('heading',{name:'Evidence-aware traversal across the canonical family graph'})).toBeVisible();
-  const form=page.locator('#relationship-finder');
+  await expect(page.locator('[data-platform-v13="tree-engine-2"]')).toHaveCount(0);
+  await expect(page.locator('.v161-tree-toolbar')).toBeVisible();
+  await expect(page.locator('.graph-shell')).toBeVisible();
+  await page.getByRole('button',{name:'Relationship',exact:true}).click();
+  let dialog=page.locator('#v161-relationship-dialog');
+  await expect(dialog).toBeVisible();
+  const form=dialog.locator('#relationship-finder');
   await expect(form).toBeVisible();
   const from=await form.locator('[name="relationship-from"]').inputValue();
   const to=await form.locator('[name="relationship-to"]').inputValue();
   await form.getByRole('button',{name:'Find relationship'}).click();
   await expect(page).toHaveURL(new RegExp(`from=${encodeURIComponent(from)}.*to=${encodeURIComponent(to)}.*#tree`));
-  await expect(page.locator('[data-platform-v13="tree-engine-2"] .relationship-path-result, [data-platform-v13="tree-engine-2"] .empty')).toBeVisible();
+  dialog=page.locator('#v161-relationship-dialog');
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator('.relationship-path-result, .empty')).toBeVisible();
+  await expect(page.locator('.graph-shell')).toBeVisible();
 });
 
 test('evidence workbench exposes canonical graph integrity provenance and diff',async({page})=>{

@@ -142,12 +142,17 @@ test('v15.4 tree gives the focal person persistent context and profile navigatio
   await expect(page).toHaveURL(/#person\//);
 });
 
-test('Photos keeps contextual search plus its dedicated media filters',async({page},testInfo)=>{
+test('Photos keeps contextual search and collapses dedicated media filters on demand',async({page},testInfo)=>{
   await page.goto('/#media');
   await expect(page.locator('[data-media-page]')).toBeVisible();
   await expect(page.locator('.route-shell .page-heading')).toBeVisible();
   await expect(page.locator('.route-shell #filters')).toBeVisible();
   await expect(page.locator('#search')).toBeVisible();
+  const disclosure=page.locator('.v161-media-filters');
+  await expect(disclosure).toBeVisible();
+  await expect(disclosure).not.toHaveAttribute('open','');
+  await expect(page.locator('.media-library-controls')).toBeHidden();
+  await disclosure.locator('summary').click();
   await expect(page.locator('.media-library-controls')).toBeVisible();
   if(testInfo.project.name==='desktop-chromium')await expect(page.locator('#nav').getByRole('link',{name:'Photos',exact:true})).toBeVisible();
   if(testInfo.project.name==='mobile-chromium')await expect(page.locator('#family-mobile-dock').getByRole('link',{name:'Photos',exact:true})).toBeVisible();

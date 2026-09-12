@@ -17,3 +17,4 @@ import './compact-disclosure.js';
 // splitting is disabled.
 void import('./record-ingestion.js');
 void import('./stories-runtime.js');
+void import('./mobile-family-density.js');

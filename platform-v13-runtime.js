@@ -23,8 +23,10 @@ function routeRelationshipFinder(from='',to=''){
 export function enhancePlatformRoute(){
   if(!model)return;
   const content=document.querySelector('#content');if(!content)return;
-  const raw=location.hash.slice(1),[route,id]=raw.split('/');
-  if(route==='tree')prepend(content,'tree-engine-2',renderTreeEngine2Header()+renderRelationshipFinder());
+  const raw=location.hash.slice(1),[route,id]=raw.split('/'),researchMode=document.body.dataset.experience==='research';
+  // Graph diagnostics are research tooling. Family mode gets the compact tree
+  // and opens relationship finding on demand through the v16.1 family layer.
+  if(route==='tree'&&researchMode)prepend(content,'tree-engine-2',renderTreeEngine2Header()+renderRelationshipFinder());
   if(route==='evidence')append(content,'canonical-graph-audit',renderCanonicalGraphAudit());
   if(route==='research')prepend(content,'research-command-center',renderResearchCommandCenterV2());
   if(route==='migration')prepend(content,'geography-households',renderGeographyHouseholds());
@@ -40,6 +42,8 @@ if(!installed){
   document.addEventListener('submit',event=>{
     if(event.target?.id!=='relationship-finder')return;
     event.preventDefault();event.stopImmediatePropagation();
+    const familyDialog=event.target.closest?.('#v161-relationship-dialog');
+    if(familyDialog&&document.body.dataset.experience!=='research')document.body.dataset.v161ReopenRelationship='true';
     const data=new FormData(event.target);
     routeRelationshipFinder(String(data.get('relationship-from')||''),String(data.get('relationship-to')||''));
   },true);
