@@ -1,8 +1,7 @@
 // Stable experience boundary. Keep side-effect initialization order explicit:
 // primary v15 behavior, v15.1 relayout, family-focus layer, platform runtime,
 // route-aware page architecture, v15.7 family-first home flow, v15.8 shell,
-// v15.9 people/person presentation enhancements, v15.10 disclosure, then
-// evidence-safe record ingestion.
+// v15.9 people/person presentation enhancements, then v15.10 disclosure.
 import './experience-core.js';
 import '../../v15-1-runtime.js';
 import '../../v15-family-focus.js';
@@ -12,4 +11,7 @@ import './home-flow.js';
 import './navigation-shell.js';
 import './people-person-experience.js';
 import './compact-disclosure.js';
-import './record-ingestion.js';
+
+// New workbench capabilities load after the stable historical side-effect chain.
+// esbuild still emits one production bundle because code splitting is disabled.
+void import('./record-ingestion.js');
