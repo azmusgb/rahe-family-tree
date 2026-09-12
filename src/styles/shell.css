@@ -1,0 +1,56 @@
+/* Family shell — page rhythm, route widths and foreground/background hierarchy. */
+body[data-v158-context="family"] .route-shell{
+  width:min(100%,var(--family-page-home));
+  max-width:none;
+  margin-inline:auto;
+  padding-inline:clamp(14px,2.4vw,32px);
+}
+body[data-v158-context="family"] #content{width:min(100%,var(--family-page-home));max-width:none;margin-inline:auto}
+body[data-route="people"][data-v158-context="family"] :is(.route-shell,#content){width:min(100%,var(--family-page-people))}
+body[data-route="person"][data-v158-context="family"] :is(.route-shell,#content){width:min(100%,var(--family-page-person))}
+body[data-route="stories"][data-v158-context="family"] :is(.route-shell,#content){width:min(100%,var(--family-page-stories))}
+body[data-route="timeline"][data-v158-context="family"] :is(.route-shell,#content),
+body[data-route="migration"][data-v158-context="family"] :is(.route-shell,#content){width:min(100%,var(--family-page-explore))}
+body[data-route="media"][data-v158-context="family"] :is(.route-shell,#content){width:min(100%,var(--family-page-media))}
+body[data-route="tree"][data-v158-context="family"] :is(.route-shell,#content){width:100%;max-width:none}
+body[data-v158-context="research"] :is(.route-shell,#content){max-width:var(--family-page-research);margin-inline:auto}
+
+body[data-v158-context="family"] .page-heading{padding:clamp(18px,2.4vw,30px) 0 12px}
+body[data-v158-context="family"] .page-heading>div{max-width:var(--family-copy)}
+body[data-v158-context="family"] .page-heading h1{
+  margin-bottom:6px;
+  font-family:var(--family-font-display);
+  font-size:var(--family-text-page);
+  line-height:1.02;
+  letter-spacing:-.035em;
+  text-wrap:balance;
+}
+body[data-v158-context="family"] .page-heading p{max-width:68ch;color:var(--muted-strong);font-size:var(--family-text-body);line-height:1.58}
+body[data-v158-context="family"] .page-heading .version{display:none}
+
+/* Broad family sections use whitespace rather than card chrome. */
+body[data-v158-context="family"] :where(.dashboard-section,.v159-people-header,.v157-research-center){
+  border-color:transparent!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  padding-inline:0!important;
+}
+body[data-v158-context="family"] .section-title{
+  margin-top:var(--family-space-7);
+  margin-bottom:var(--family-space-4);
+  padding-bottom:var(--family-space-2);
+  border-bottom:1px solid var(--family-border-hairline);
+}
+body[data-v158-context="family"] .section-title h2,
+body[data-v158-context="family"] section>h2{
+  font-family:var(--family-font-display);
+  font-size:var(--family-text-section);
+  line-height:1.08;
+  letter-spacing:-.025em;
+}
+
+@media(min-width:721px){
+  body[data-v158-context="family"] .shell{grid-template-columns:224px minmax(0,1fr)}
+  body[data-v158-context="family"] .sidebar{padding-inline:16px;border:1px solid rgba(255,255,255,.06)!important;box-shadow:0 8px 24px rgba(12,32,26,.13)!important}
+  body[data-v158-context="family"] .main{padding-inline:clamp(24px,3vw,44px)}
+}

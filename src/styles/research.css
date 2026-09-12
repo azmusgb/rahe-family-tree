@@ -1,0 +1,10 @@
+/* Research — intentionally denser than Family mode, but aligned to the same token system. */
+body[data-v158-context="research"] .route-shell{border-bottom:1px solid var(--family-border-hairline)}
+body[data-v158-context="research"] .page-heading h1{font-family:var(--family-font-display);font-size:clamp(2rem,4vw,3.25rem);letter-spacing:-.03em}
+body[data-v158-context="research"] .edition{font-size:11px}
+body[data-v158-context="research"] :where(.claim-card,.source-card,.task-card,.panel){
+  border-color:var(--family-border-hairline)!important;
+  border-radius:var(--family-radius-card)!important;
+  box-shadow:var(--family-shadow-card)!important;
+}
+body[data-v158-context="research"] :where(.claim-card,.source-card,.task-card) h3{font-family:var(--family-font-ui)!important}

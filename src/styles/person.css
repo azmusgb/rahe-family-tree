@@ -1,0 +1,58 @@
+/* Person — biography-first profile rather than a database entity panel. */
+body[data-route="person"][data-v158-context="family"] .family-overview-card.v159-person-overview{
+  margin-top:6px!important;
+  padding:clamp(20px,3vw,34px) 0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+body[data-route="person"][data-v158-context="family"] .v159-person-overview .profile-primary{align-items:center!important}
+body[data-route="person"][data-v158-context="family"] .v159-person-overview .profile-avatar.xl{
+  border-radius:var(--family-radius-panel)!important;
+  box-shadow:var(--family-shadow-card);
+}
+body[data-route="person"][data-v158-context="family"] .profile-headline h2{
+  font-family:var(--family-font-display)!important;
+  font-size:clamp(2.5rem,5vw,4.6rem)!important;
+  line-height:.98!important;
+  letter-spacing:-.045em!important;
+  text-wrap:balance;
+}
+body[data-route="person"][data-v158-context="family"] .v159-profile-context{max-width:640px!important;font-size:var(--family-text-support)!important;line-height:1.6!important}
+body[data-route="person"][data-v158-context="family"] .v159-life-summary{margin-top:26px;padding:26px 0;border-top:1px solid var(--family-border-hairline);border-bottom:1px solid var(--family-border-hairline)}
+body[data-route="person"][data-v158-context="family"] .v159-life-copy h3{font-family:var(--family-font-display);font-size:var(--family-text-section)}
+body[data-route="person"][data-v158-context="family"] .v159-life-facts{gap:8px}
+body[data-route="person"][data-v158-context="family"] .v159-life-facts>span{
+  border:1px solid var(--family-border-hairline);
+  border-radius:var(--family-radius-card);
+  background:var(--surface-soft);
+  box-shadow:none;
+}
+body[data-route="person"][data-v158-context="family"] .v159-life-facts small{font-size:11px!important}
+body[data-route="person"][data-v158-context="family"] .v159-person-overview .profile-family-grid{margin-top:28px}
+body[data-route="person"][data-v158-context="family"] .v159-family-block{border:0!important;background:transparent!important;padding:0!important}
+body[data-route="person"][data-v158-context="family"] #content>.panel{
+  border:0!important;
+  border-top:1px solid var(--family-border-hairline)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  padding-inline:0!important;
+}
+
+.v162-family-path{
+  border:1px solid var(--family-border-hairline);
+  border-radius:var(--family-radius-card);
+  background:linear-gradient(180deg,#fff 0%,#fbfcfa 100%);
+  box-shadow:var(--family-shadow-card);
+}
+.v162-family-path-head{border-bottom-color:var(--family-border-hairline)}
+.v162-family-path-head a{display:inline-flex;align-items:center;min-height:36px;padding-inline:10px;border-radius:var(--family-radius-control)}
+.v162-family-path-head a:hover{background:var(--brand-soft)}
+.v162-family-path-group a{border:1px solid transparent;border-radius:var(--family-radius-chip);background:var(--family-surface-accent)}
+.v162-family-path-group a:hover{border-color:var(--family-border-interactive);background:#fff}
+
+/* Tabs behave like secondary navigation, not another framed pane. */
+.v1510-profile-tabs{border:0!important;background:transparent!important;box-shadow:none!important;padding-inline:0!important}
+.v1510-profile-tabs :where(button,a){border-radius:var(--family-radius-control)!important;font-size:12px!important}

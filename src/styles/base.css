@@ -1,0 +1,46 @@
+/* Family base — typography, controls, focus and shared interaction. */
+::selection{background:color-mix(in srgb,var(--green) 18%,#fff);color:var(--ink)}
+
+body[data-v158-context="family"]{
+  background:radial-gradient(circle at 12% 0%,rgba(36,88,72,.035),transparent 25rem),var(--bg);
+  color:var(--ink);
+}
+body[data-v158-context="family"] :where(a,button,.action,[role="button"]){-webkit-tap-highlight-color:transparent}
+body[data-v158-context="family"] :where(a,button,.action,[role="button"]):focus-visible{
+  outline:3px solid color-mix(in srgb,var(--focus) 82%,#fff)!important;
+  outline-offset:3px!important;
+}
+body[data-v158-context="family"] :where(.action,button,.person-card,.v157-person-card,.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card){
+  transition:border-color var(--family-motion-fast) ease,background-color var(--family-motion-fast) ease,color var(--family-motion-fast) ease,box-shadow var(--family-motion-normal) ease,transform var(--family-motion-normal) ease;
+}
+body[data-v158-context="family"] :where(.action,.button,.filters button,.focus-actions button,.v154-tree-actions .action){
+  min-height:42px;
+  border-radius:var(--family-radius-control)!important;
+  border-color:var(--line-strong)!important;
+  box-shadow:none;
+  font-size:max(var(--family-text-meta),12px);
+}
+body[data-v158-context="family"] :where(.action,.button,.filters button,.focus-actions button,.v154-tree-actions .action):active{transform:translateY(1px)}
+body[data-v158-context="family"] :where(input,select,textarea){
+  min-height:44px;
+  border-radius:var(--family-radius-control)!important;
+  box-shadow:inset 0 1px 1px rgba(20,45,37,.02);
+  font-size:max(var(--family-text-support),13px);
+}
+body[data-v158-context="family"] :where(input,select,textarea):hover{border-color:var(--family-border-interactive)!important}
+body[data-v158-context="family"] .eyebrow{
+  font-family:var(--family-font-ui)!important;
+  font-size:max(var(--family-text-eyebrow),10px)!important;
+  letter-spacing:.13em!important;
+}
+body[data-v158-context="family"] :where(p,li,dd){text-wrap:pretty}
+body[data-v158-context="family"] :where(.v157-person-copy,.v159-card-context,.v159-card-dates,.v157-media-card small,.v157-tree-person small,.v159-card-relations small){font-size:max(var(--family-text-meta),12px)!important}
+body[data-v158-context="family"] :where(.dashboard-section p,.v159-life-copy p,.v157-research-center p){font-size:var(--family-text-body);line-height:1.62}
+
+@media(hover:hover) and (pointer:fine){
+  body[data-v158-context="family"] :where(.v159-person-card,.v157-person-card,.v162-moment,.media-library-card):hover{
+    transform:translateY(-2px);
+    border-color:var(--family-border-interactive)!important;
+    box-shadow:var(--family-shadow-card-hover)!important;
+  }
+}

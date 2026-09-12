@@ -1,0 +1,63 @@
+/* Responsive — deliberate recomposition, not desktop stacking. */
+@media(max-width:900px){
+  .v162-moments{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .v162-moment{min-height:160px}
+}
+
+@media(max-width:720px){
+  :root{
+    --family-text-display:clamp(2.45rem,11vw,3rem);
+    --family-text-page:clamp(2rem,9vw,2.4rem);
+    --family-text-section:clamp(1.55rem,7vw,1.9rem);
+  }
+  body[data-experience="family"] .topbar{display:none!important;pointer-events:none!important}
+  body[data-v158-context="family"]{background:var(--bg)}
+  body[data-v158-context="family"] .route-shell{padding-inline:12px}
+  body[data-v158-context="family"] .page-heading{padding-top:12px}
+
+  body[data-route="dashboard"][data-v158-context="family"] .dashboard-hero{padding:22px 18px!important}
+  body[data-route="dashboard"][data-v158-context="family"] .dashboard-family-metrics{overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity}
+  body[data-route="dashboard"][data-v158-context="family"] .dashboard-family-metrics::-webkit-scrollbar{display:none}
+  body[data-route="dashboard"][data-v158-context="family"] .dashboard-family-metrics>span{flex:0 0 auto;min-width:96px;scroll-snap-align:start}
+  .v162-moments{display:flex}
+  .v162-moment{min-height:168px}
+  .v162-branch-context{padding:14px}
+
+  body[data-route="people"] .v159-branch-browser{top:0;margin-inline:-12px;padding-inline:12px;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;border-bottom-color:var(--line)}
+  body[data-route="people"] .v159-card-relations small{font-size:11px!important}
+
+  body[data-route="person"][data-v158-context="family"] .family-overview-card.v159-person-overview{padding-inline:0!important;margin-inline:0!important}
+  body[data-route="person"] .v1510-profile-tabs{position:static!important;top:auto!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px!important;margin:12px 0 16px!important;padding:0!important;overflow:visible!important;white-space:normal!important}
+  body[data-route="person"] .v1510-profile-tabs>button,
+  body[data-route="person"] .v1510-profile-tabs>a{width:100%;min-height:44px!important;font-size:12px!important;padding-inline:10px!important}
+  body[data-route="person"] .v1510-profile-tabs>a{grid-column:1/-1}
+  .v162-family-path{padding:13px}.v162-family-path-head{align-items:flex-start}.v162-family-path-head a{white-space:nowrap}
+
+  body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:calc(100dvh - 150px);border-radius:var(--family-radius-card)!important}
+  body[data-route="tree"][data-v158-context="family"] .graph-stage{min-height:calc(100dvh - 220px)}
+  body[data-route="tree"][data-v158-context="family"] :where(.node-branch,.node-state){font-size:10px!important}
+  body[data-route="tree"][data-v158-context="family"] .node-id{font-size:9px!important}
+
+  .v162-media-quick{margin-inline:-1px}
+
+  .v16-stories-hero{padding-top:24px}.v16-stories-hero h2{font-size:var(--family-text-display)!important}
+  .v16-story-chapter{grid-template-columns:1fr;gap:10px}.v16-story-chapter-heading{position:static}
+  .v16-story-card{grid-template-columns:58px minmax(0,1fr);gap:12px;padding:16px 0}.v16-story-year{font-size:1.3rem}
+
+  body[data-route="timeline"][data-v158-context="family"] .timeline-list{margin-left:14px}
+  body[data-route="timeline"][data-v158-context="family"] .timeline-item{grid-template-columns:54px minmax(0,1fr);gap:12px;padding-left:14px}
+}
+
+@media(prefers-contrast:more){
+  :root{--family-border-hairline:var(--line-strong);--family-border-interactive:var(--green)}
+  body[data-v158-context="family"] :where(.v159-person-card .person-open,.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card){border-width:2px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  body[data-v158-context="family"] :where(.action,button,.person-card,.v157-person-card,.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card,.media-library-preview img){transition:none!important;transform:none!important}
+}
+
+@media print{
+  .v162-journey-head>a,.v162-branch-actions,.v162-media-quick{display:none!important}
+  body[data-v158-context="family"] :where(.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card){box-shadow:none!important}
+}

@@ -1,0 +1,27 @@
+/* Family navigation — restrained chrome so content remains primary. */
+body[data-v158-context="family"] .brand{font-family:var(--family-font-display);letter-spacing:.08em}
+body[data-v158-context="family"] .edition{font-size:12px;line-height:1.45}
+body[data-v158-context="family"] .topbar{min-height:46px;border-bottom-color:var(--family-border-hairline);box-shadow:none}
+body[data-v158-context="family"] .topbar-actions{display:none}
+body[data-v158-context="family"] .v151-primary-nav a,
+body[data-v158-context="family"] .v151-nav-menu summary{
+  border-radius:var(--family-radius-control);
+  transition:background-color var(--family-motion-fast) ease,color var(--family-motion-fast) ease,transform var(--family-motion-fast) ease;
+}
+body[data-v158-context="family"] .v151-primary-nav a.active,
+body[data-v158-context="family"] .v151-primary-nav a[aria-current="page"]{background:rgba(255,255,255,.11);color:#fff}
+body[data-v158-context="family"] .v151-nav-popover{border-radius:var(--family-radius-card);box-shadow:var(--family-shadow-float)!important}
+
+@media(hover:hover) and (pointer:fine) and (min-width:721px){
+  body[data-v158-context="family"] .v151-primary-nav a:hover,
+  body[data-v158-context="family"] .v151-nav-menu summary:hover{transform:translateY(-1px)}
+}
+
+@media(max-width:720px){
+  #family-mobile-dock:not([hidden]){
+    border-radius:var(--family-radius-panel)!important;
+    box-shadow:0 14px 32px rgba(20,45,37,.15)!important;
+  }
+  #family-mobile-dock:not([hidden]) :where(a,button,summary){font-size:12px!important}
+  .v158-mobile-more>div{border-radius:var(--family-radius-panel)!important}
+}

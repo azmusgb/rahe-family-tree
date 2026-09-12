@@ -1,0 +1,49 @@
+/* People — compact, human-first family directory. */
+body[data-route="people"][data-v158-context="family"] .v159-people-header{
+  margin-bottom:18px;
+  padding-bottom:16px!important;
+  border-bottom:1px solid var(--family-border-hairline)!important;
+}
+body[data-route="people"][data-v158-context="family"] .v159-people-heading h2{
+  font-family:var(--family-font-display)!important;
+  font-size:var(--family-text-page)!important;
+  letter-spacing:-.035em!important;
+}
+body[data-route="people"] .v159-branch-browser{
+  position:sticky;top:48px;z-index:8;
+  margin-inline:-8px;padding:10px 8px;
+  border-bottom:1px solid color-mix(in srgb,var(--line) 68%,transparent);
+  background:color-mix(in srgb,var(--bg) 94%,transparent);
+  backdrop-filter:blur(10px);
+  box-shadow:none;
+}
+body[data-route="people"] .v159-branch-browser button{
+  min-height:36px;border:1px solid transparent;border-radius:var(--family-radius-chip);background:transparent;color:var(--muted-strong);
+  transition:background-color var(--family-motion-fast) ease,border-color var(--family-motion-fast) ease,color var(--family-motion-fast) ease;
+}
+body[data-route="people"] .v159-branch-browser button:hover{border-color:var(--line);background:var(--surface);color:var(--green)}
+body[data-route="people"] .v159-branch-browser button.active,
+body[data-route="people"] .v159-branch-browser button[aria-pressed="true"]{border-color:color-mix(in srgb,var(--green) 15%,var(--line));background:var(--brand-soft);color:var(--green)}
+
+body[data-route="people"][data-v158-context="family"] .v159-person-card{border:0!important;background:transparent!important;box-shadow:none!important}
+body[data-route="people"][data-v158-context="family"] .v159-person-card .person-open{
+  border:1px solid var(--family-border-hairline)!important;
+  border-radius:var(--family-radius-card)!important;
+  background:var(--family-surface-paper)!important;
+  box-shadow:var(--family-shadow-card)!important;
+}
+body[data-route="people"][data-v158-context="family"] .v159-card-media{border:1px solid color-mix(in srgb,var(--green) 9%,var(--line));border-radius:var(--family-radius-card)!important}
+body[data-route="people"][data-v158-context="family"] .v159-card-copy strong{font-family:var(--family-font-display)!important;font-size:var(--family-text-card)!important;letter-spacing:-.015em}
+body[data-route="people"][data-v158-context="family"] .v159-card-dates,
+body[data-route="people"][data-v158-context="family"] .v159-card-context{font-size:var(--family-text-meta)!important}
+body[data-route="people"][data-v158-context="family"] .v159-card-relations{opacity:.76}
+body[data-route="people"][data-v158-context="family"] .v159-card-relations small{border:0!important;background:var(--family-surface-accent)!important;font-size:11px!important}
+
+.v162-branch-context{
+  position:relative;overflow:hidden;padding:17px 18px;
+  border:1px solid color-mix(in srgb,var(--green) 12%,var(--line));border-radius:var(--family-radius-card);
+  background:radial-gradient(circle at 100% 0%,rgba(42,107,91,.07),transparent 34%),linear-gradient(135deg,#fff,var(--family-surface-accent));
+  box-shadow:var(--family-shadow-card);
+}
+.v162-branch-context h3{font-family:var(--family-font-display);font-size:1.5rem;text-wrap:balance}
+.v162-branch-actions a{min-width:74px;text-align:center;border-color:var(--line-strong);border-radius:var(--family-radius-control)}
