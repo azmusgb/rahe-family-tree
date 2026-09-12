@@ -24,9 +24,11 @@ test('v17.2 release fingerprints are synchronized',()=>{
   assert.match(build,/const appVersion='17\.2\.0'/);
 });
 
-test('plain tree entry uses a deterministic branch-neutral connected-family anchor',()=>{
+test('plain tree entry uses the largest branch-neutral connected-family component',()=>{
   assert.match(graph,/function neutralDefaultFocus\(rels\)/);
   assert.match(graph,/requestedScope\|\|\(explicit\?'family':'connected'\)/);
+  assert.match(graph,/component\.size\*100000/);
+  assert.match(graph,/branchCoverage\*10000/);
   assert.match(graph,/branchSpread/);
   assert.doesNotMatch(graph,/const DEFAULT_FOCUS/);
   assert.doesNotMatch(graph,/P-WILLIAM-JOHN-RAHE-III/);
@@ -51,6 +53,15 @@ test('unified family experience exposes peer branches on Home and Tree',()=>{
   assert.match(unified,/v172-tree-branches/);
   assert.match(unified,/data-v172-tree-connected/);
   assert.match(unified,/data-v172-tree-branch/);
+});
+
+test('tree branch and scope navigation clears stale filters and owns neutral fallback behavior',()=>{
+  assert.match(unified,/function clearLiveTreeFilters\(\)/);
+  assert.match(unified,/\['search','branch','state'\]/);
+  assert.match(unified,/clearLiveTreeFilters\(\);history\.replaceState/);
+  assert.match(unified,/\[data-tree-scope\]/);
+  assert.match(unified,/stopImmediatePropagation\(\)/);
+  assert.match(unified,/chooseRepresentative\(displayPeople\(\),activeRelationships\(\)\)/);
 });
 
 test('tree portraits are public-only and defense-in-depth excludes living people',()=>{
