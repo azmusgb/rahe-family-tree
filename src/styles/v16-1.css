@@ -33,7 +33,7 @@ body[data-route="people"][data-v158-context="family"] .v159-card-copy{gap:2px!im
 body[data-route="people"][data-v158-context="family"] .v159-card-copy strong{font-size:17px!important;line-height:1.05}
 body[data-route="people"][data-v158-context="family"] .v159-card-branch{font-size:9px!important;letter-spacing:.08em}
 body[data-route="people"][data-v158-context="family"] .v159-card-dates{font-size:11px!important}
-body[data-route="people"][data-v158-context="family"] .v159-card-context{font-size:11px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body[data-route="people"][data-v158-context="family"] .v159-card-context{display:block!important;font-size:11px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 body[data-route="people"][data-v158-context="family"] .v159-card-relations{display:flex!important;gap:6px;margin-top:4px;overflow:hidden}
 body[data-route="people"][data-v158-context="family"] .v159-card-relations small{padding:3px 6px!important;border-radius:999px;background:var(--brand-soft);white-space:nowrap;font-size:9px!important}
 body[data-route="people"][data-v158-context="family"] .v159-card-arrow{font-size:16px}
@@ -114,7 +114,7 @@ body[data-route="dashboard"][data-v158-context="family"] #content.v161-home .v16
   body[data-route="people"] #content.v161-people .v159-person-card .person-open{min-height:92px!important;padding:10px!important;grid-template-columns:46px minmax(0,1fr) 14px!important;gap:10px!important}
   body[data-route="people"] .v159-card-media{width:46px!important;height:46px!important;min-width:46px!important}
   body[data-route="people"] .v159-card-copy strong{font-size:15px!important}
-  body[data-route="people"] .v159-card-context{display:none!important}
+  body[data-route="people"] .v159-card-context{display:block!important;font-size:10px!important;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   body[data-route="people"] .v159-card-relations{margin-top:2px!important}
 
   /* Photos: content appears after search with filters collapsed. */
