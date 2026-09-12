@@ -32,7 +32,7 @@ test('site shell represents the connected family archive rather than a single su
   assert.match(index,/FAMILY HISTORY ARCHIVE/);
   assert.match(index,/Our family, connected\./);
   assert.doesNotMatch(index,/THE RAHE FAMILY|The Rahe Family|Rahe family \/|>RAHE<small>/i);
-  assert.match(experienceRoot,/import '\.\/site-branding\.js';/);
+  assert.match(experienceRoot,/import\('\.\/site-branding\.js'\)/);
   assert.match(branding,/Family History Archive/);
   assert.match(branding,/every documented family branch/i);
   assert.match(navigation,/FAMILY<small>HISTORY ARCHIVE<\/small>/);
