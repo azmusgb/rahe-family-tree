@@ -7,12 +7,20 @@
 .family-mobile-dock-layer #family-mobile-dock{pointer-events:auto!important}
 
 @media(max-width:720px){
+  :root{--v1511-mobile-dock-lane:calc(var(--mobile-nav-height,72px) + env(safe-area-inset-bottom,0px) + 10px)}
+  html,body{height:100%;overflow:hidden!important}
   body{isolation:auto!important}
-  body>.shell{position:relative!important;z-index:auto!important;transform:none!important;isolation:auto!important;filter:none!important;perspective:none!important}
+  /* Content gets its own scroll viewport that ends before the persistent dock. Nothing from the page can paint or hit-test underneath navigation. */
+  body>.shell{
+    position:relative!important;z-index:auto!important;transform:none!important;isolation:auto!important;filter:none!important;perspective:none!important;
+    width:100%!important;height:calc(100dvh - var(--v1511-mobile-dock-lane))!important;max-height:calc(100dvh - var(--v1511-mobile-dock-lane))!important;
+    overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:touch!important
+  }
   #family-mobile-dock-layer #family-mobile-dock:not([hidden]){
     position:fixed!important;display:grid!important;top:auto!important;left:5px!important;right:5px!important;
     bottom:calc(5px + env(safe-area-inset-bottom,0px))!important;width:auto!important;height:auto!important;max-width:none!important;
     margin:0!important;z-index:1!important;pointer-events:auto!important;transform:none!important;isolation:auto!important;contain:none!important;will-change:auto!important
   }
   #family-mobile-dock-layer #family-mobile-dock:not([hidden])>*{pointer-events:auto!important;position:relative!important;z-index:1!important}
+  body[data-route="tree"] .graph-scroll{max-height:calc(100dvh - var(--v1511-mobile-dock-lane) - 96px)!important}
 }
