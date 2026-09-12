@@ -75,7 +75,9 @@ test('Photos opens content-first with quick type choices and advanced filters di
   const gallery=page.locator('#media-library');
   await expect(gallery).toHaveAttribute('aria-busy','false');
   await expect(gallery).toContainText('No media matches these filters');
-  await expect(page.locator('#media-library-note')).toContainText('Privacy protected');
+  const privacy=page.locator('#media-library-note');
+  await expect(privacy).toContainText('Public-safe view');
+  await expect(privacy).toContainText('excluded server-side');
   await expectNoHorizontalOverflow(page);
 });
 
@@ -83,7 +85,23 @@ test('mobile dock, footer, and safe-area composition stay Family-facing',async({
   await page.goto('/#dashboard');
   const dock=page.locator('#family-mobile-dock');
   await expect(dock).toBeVisible();
-  for(const control of await dock.locator('a,button').all())await expectMinTarget(control);
+
+  const primaryControls=dock.locator(':scope > a, :scope > button, :scope > details > summary');
+  expect(await primaryControls.count()).toBe(5);
+  for(const control of await primaryControls.all()){
+    await expect(control).toBeVisible();
+    await expectMinTarget(control);
+  }
+
+  const more=dock.locator('.v158-mobile-more');
+  await more.locator('summary').click();
+  await expect(more).toHaveAttribute('open','');
+  const secondaryControls=more.locator('div > a, div > button');
+  expect(await secondaryControls.count()).toBeGreaterThan(3);
+  for(const control of await secondaryControls.all()){
+    await expect(control).toBeVisible();
+    await expectMinTarget(control);
+  }
 
   const footer=page.locator('.footer');
   await expect(footer).toContainText('Family history backed by source-controlled research');
