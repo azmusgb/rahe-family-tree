@@ -62,8 +62,10 @@ function composeMobileTree(content){
     const summary=options.querySelector('.v1511-tree-options-summary');if(summary)summary.innerHTML=optionsSummaryMarkup(focusbar);
     if(focusbar.parentElement!==options)options.append(focusbar);
   }
-  /* The graph follows the one-line options drawer immediately; desktop-only contextual blocks stay out of the first viewport. */
+  /* The graph follows the one-line options drawer immediately. Advanced graph/research tools remain available after the canvas. */
   options.insertAdjacentElement('afterend',shell);
+  const platform=content.querySelector('[data-platform-v13="tree-engine-2"]');
+  if(platform&&platform.previousElementSibling!==shell)shell.insertAdjacentElement('afterend',platform);
   const trail=content.querySelector('.v1291-breadcrumb');if(trail&&trail.parentElement!==options)options.append(trail);
 }
 function markRedundantMobileBlocks(content){
@@ -95,7 +97,7 @@ function restoreDesktopTree(){
 }
 let queued=false;
 function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;applyMobileTree();restoreDesktopTree();}));}
-window.addEventListener('family-view-rendered',()=>{schedule();setTimeout(schedule,90);});
+window.addEventListener('family-view-rendered',()=>{schedule();setTimeout(schedule,90);setTimeout(schedule,260);});
 window.addEventListener('hashchange',schedule);
 window.addEventListener('family-experience-changed',schedule);
 mobileQuery.addEventListener?.('change',schedule);
