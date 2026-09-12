@@ -1,4 +1,4 @@
-import{model,personById}from'../../core.js';
+import{personById}from'../../core.js';
 import{renderTree}from'../../graph.js';
 import{renderNativeHome,renderNativePeople,renderNativePerson,hydrateNativeFamily}from'./native-family-v17.js';
 
@@ -56,11 +56,6 @@ function apply(){
   const route=routeKey();
   document.body.dataset.familyNative='v17';
   if(!nativeRoutes.has(route))return;
-  // The browser bootstrap can reach DOMContentLoaded before the asynchronous
-  // canonical model fetch completes. Native renderers, especially Tree, rely
-  // on the populated model. Wait for the authoritative family-view-rendered
-  // lifecycle instead of attempting a partial pre-data render that can throw.
-  if(!model)return;
   const content=document.getElementById('content');if(!content)return;
   const current=content.querySelector('[data-v17-native]');
   if(current?.dataset.v17Native===nativeMarker(route)){enforcePublicPrivacy(route,content);hydrateNativeFamily();return;}
