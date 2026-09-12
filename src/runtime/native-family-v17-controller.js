@@ -1,12 +1,14 @@
 import{personById}from'../../core.js';
+import{renderTree}from'../../graph.js';
 import{renderNativeHome,renderNativePeople,renderNativePerson,hydrateNativeFamily}from'./native-family-v17.js';
 
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const isFamily=()=>document.body.dataset.experience!=='research';
-const nativeRoutes=new Set(['dashboard','people','person']);
+const nativeRoutes=new Set(['dashboard','tree','people','person']);
 
 function nativeMarkup(route){
   if(route==='dashboard')return renderNativeHome();
+  if(route==='tree')return`<div class="v17-native v17-tree" data-v17-native="tree">${renderTree()}</div>`;
   if(route==='people')return renderNativePeople();
   if(route==='person')return renderNativePerson(location.hash.split('/')[1]||'');
   return'';
@@ -32,8 +34,8 @@ function enforcePublicPrivacy(route,content){
 function apply(){
   if(!isFamily()){delete document.body.dataset.familyNative;return;}
   const route=routeKey();
-  if(!nativeRoutes.has(route)){document.body.dataset.familyNative='v17';return;}
   document.body.dataset.familyNative='v17';
+  if(!nativeRoutes.has(route))return;
   const content=document.getElementById('content');if(!content)return;
   const current=content.querySelector('[data-v17-native]');
   if(current?.dataset.v17Native===route){enforcePublicPrivacy(route,content);hydrateNativeFamily();return;}
