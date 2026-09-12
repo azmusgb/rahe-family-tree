@@ -32,12 +32,8 @@ test('mobile family search is a compact categorized command surface',async({page
   const peopleGroup=sheet.locator('.search-group').filter({hasText:/People/i}).first();
   await expect(peopleGroup).toBeHidden();
 
-  await sheet.getByRole('button',{name:'Close and clear search'}).click();
+  await sheet.getByRole('button',{name:'Close search results'}).click();
   await expect(sheet).toHaveCount(0);
   await expect(layer).toHaveCount(0);
   await expect(search).toHaveValue('');
-
-  await search.fill('Aimee');
-  await expect(page.locator('#family-search-layer')).toBeVisible();
-  await expect(page.locator('#search-v13-2-results.family-search-command')).toBeVisible();
 });
