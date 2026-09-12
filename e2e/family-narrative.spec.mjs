@@ -29,11 +29,11 @@ test('people branch selection gets human branch context',async({page})=>{
   await expect(page.locator('#branch')).toHaveValue(branchName);
   const context=page.locator('.v162-branch-context');
   await expect(context).toBeVisible();
-  await expect(context).toContainText(branchName);
+  await expect(context.locator('.eyebrow')).toHaveText(`${branchName.toUpperCase()} FAMILY`);
   await expect(context.getByRole('link',{name:'Stories'})).toBeVisible();
 });
 
-test('person page exposes immediate family path without opening research tooling',async({page})=>{
+test('person page exposes immediate family path and clean focused-tree navigation',async({page})=>{
   await page.goto('/#dashboard');
   await page.locator('#search').fill('Hazel Berg');
   const result=page.locator('#search-v13-2-results [data-person]').filter({hasText:'Hazel'}).first();
@@ -42,14 +42,26 @@ test('person page exposes immediate family path without opening research tooling
   const path=page.locator('.v162-family-path');
   await expect(path).toBeVisible();
   await expect(path.getByText('IMMEDIATE FAMILY',{exact:true})).toBeVisible();
-  await expect(path.getByRole('link',{name:/View in tree/})).toBeVisible();
+  const treeLink=path.getByRole('link',{name:/View in tree/});
+  await expect(treeLink).toBeVisible();
+  const href=await treeLink.getAttribute('href');
+  expect(href).toContain('focus=');
+  expect(href).toContain('scope=family');
+  expect(href).not.toContain('q=');
+  expect(href).not.toContain('branch=');
+  expect(href).not.toContain('state=');
 });
 
-test('photos offers immediate family-facing quick filters',async({page})=>{
+test('photos quick filters stay synchronized with clear filters',async({page})=>{
   await page.goto('/#media');
   const quick=page.locator('.v162-media-quick');
   await expect(quick).toBeVisible();
   await quick.getByRole('button',{name:'Photos',exact:true}).click();
   await expect(page.locator('#media-type')).toHaveValue('photo');
   await expect(quick.getByRole('button',{name:'Photos',exact:true})).toHaveClass(/active/);
+  const details=page.locator('.v161-media-filters');
+  await details.locator('summary').click();
+  await details.getByRole('button',{name:'Clear media filters'}).click();
+  await expect(page.locator('#media-type')).toHaveValue('all');
+  await expect(quick.getByRole('button',{name:'All',exact:true})).toHaveClass(/active/);
 });
