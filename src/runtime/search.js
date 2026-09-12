@@ -66,6 +66,9 @@ function resultLink(href,title,meta){return`<a class="search-hit human" data-sea
 function group(label,count,rows){if(!rows.length)return'';return`<section class="search-group"><h3>${esc(label)} <span>${count}</span></h3>${rows.join('')}</section>`;}
 function fullCount(items,q,branch,state,supports={branch:true,state:true}){return(items??[]).filter(item=>matchesQuery(item,q)).filter(item=>!supports.branch||branchMatches(item,branch)).filter(item=>!supports.state||stateMatches(item,state)).length;}
 function removeOverlay(){document.querySelector('#search-v13-2-results')?.remove();document.querySelector('#search-v13-1-results')?.remove();}
+function searchInput(){return document.querySelector('#search');}
+function dismissKey(){return searchInput()?.dataset.familySearchDismissed||'';}
+function clearDismissal(){const input=searchInput();if(input)delete input.dataset.familySearchDismissed;dismissedQuery='';}
 
 function renderOverlay(){
   const content=document.querySelector('#content');if(!content)return;
@@ -73,7 +76,7 @@ function renderOverlay(){
   if(isMediaRoute())return;
   if(!model||!corpus)return;
   content.querySelector('.family-search')?.remove();
-  const{q,branch,state}=filters();if(!q||normalize(q)===dismissedQuery)return;
+  const{q,branch,state}=filters(),normalizedQuery=normalize(q);if(!q||normalizedQuery===dismissedQuery||normalizedQuery===dismissKey())return;
   const people=publicPeople(model),families=familyGroups(model),claims=model.claims??[],sources=model.sources??[],tasks=model.researchTasks??[],sections=corpus.sections??[];
   const peopleHits=ranked(people,q,branch,state,person=>person.name??person.id,SEARCH_LIMITS.people),familyHits=ranked(families,q,branch,state,family=>family.label??family.id,SEARCH_LIMITS.families),claimHits=ranked(claims,q,branch,state,claim=>claim.claim??claim.id,SEARCH_LIMITS.claims),sourceHits=ranked(sources,q,branch,state,source=>`${source.id??''} ${source.name??''}`,SEARCH_LIMITS.sources,{branch:true,state:false}),taskHits=ranked(tasks,q,branch,state,task=>task.record??task.id,SEARCH_LIMITS.tasks,{branch:true,state:false}),sectionHits=ranked(sections,q,branch,state,section=>section.title??section.id,SEARCH_LIMITS.sections,{branch:true,state:false});
   const counts={people:fullCount(people,q,branch,state),families:fullCount(families,q,branch,state),claims:fullCount(claims,q,branch,state),sources:fullCount(sources,q,branch,state,{branch:true,state:false}),tasks:fullCount(tasks,q,branch,state,{branch:true,state:false}),sections:fullCount(sections,q,branch,state,{branch:true,state:false})},total=Object.values(counts).reduce((sum,count)=>sum+count,0),activeFilters=[branch?`Branch: ${branch}`:'',state?`Evidence: ${state}`:''].filter(Boolean).join(' · ');
@@ -84,24 +87,25 @@ function renderOverlay(){
 let renderFrame=0;
 function scheduleRender(){cancelAnimationFrame(renderFrame);renderFrame=requestAnimationFrame(()=>requestAnimationFrame(renderOverlay));}
 function handleFilterEvent(event){
-  const q=normalize(document.querySelector('#search')?.value??'');
+  const q=normalize(searchInput()?.value??'');
   if(event.target?.id==='search'){
-    if(event.type==='input'||q!==dismissedQuery)dismissedQuery='';
-  }else dismissedQuery='';
+    if(event.type==='input'){clearDismissal();}
+    else if(q!==dismissedQuery&&q!==dismissKey())clearDismissal();
+  }else clearDismissal();
   scheduleRender();
 }
 async function init(){try{await loadSearchData();scheduleRender();}catch(error){console.error('Enhanced search failed to initialize:',error);}}
 const filtersForm=document.querySelector('#filters');
-filtersForm?.addEventListener('input',handleFilterEvent);filtersForm?.addEventListener('change',handleFilterEvent);filtersForm?.addEventListener('reset',()=>{dismissedQuery='';setTimeout(scheduleRender,0);});window.addEventListener('hashchange',()=>{dismissedQuery='';scheduleRender();});window.addEventListener('popstate',()=>{dismissedQuery='';scheduleRender();});
-window.addEventListener('family-search-dismissed',event=>{dismissedQuery=normalize(event.detail?.query??document.querySelector('#search')?.value??'');removeOverlay();});
-window.addEventListener('family-search-reopen',()=>{dismissedQuery='';scheduleRender();});
+filtersForm?.addEventListener('input',handleFilterEvent);filtersForm?.addEventListener('change',handleFilterEvent);filtersForm?.addEventListener('reset',()=>{clearDismissal();setTimeout(scheduleRender,0);});window.addEventListener('hashchange',()=>{clearDismissal();scheduleRender();});window.addEventListener('popstate',()=>{clearDismissal();scheduleRender();});
+window.addEventListener('family-search-dismissed',event=>{const key=normalize(event.detail?.query??searchInput()?.value??'');dismissedQuery=key;const input=searchInput();if(input)input.dataset.familySearchDismissed=key;removeOverlay();});
+window.addEventListener('family-search-reopen',()=>{clearDismissal();scheduleRender();});
 document.addEventListener('keydown',event=>{
   const target=event.target,typing=target instanceof HTMLInputElement||target instanceof HTMLTextAreaElement||target instanceof HTMLSelectElement||target?.isContentEditable;
-  if(event.key==='/'&&!event.metaKey&&!event.ctrlKey&&!event.altKey&&!typing){event.preventDefault();document.querySelector('#search')?.focus();return;}
+  if(event.key==='/'&&!event.metaKey&&!event.ctrlKey&&!event.altKey&&!typing){event.preventDefault();searchInput()?.focus();return;}
   const hits=[...document.querySelectorAll('#search-v13-2-results [data-search-hit]')],active=document.activeElement,index=hits.indexOf(active);
   if(active?.id==='search'&&event.key==='ArrowDown'&&hits.length){event.preventDefault();hits[0].focus();return;}
   if(index>=0&&(event.key==='ArrowDown'||event.key==='ArrowUp')){event.preventDefault();const delta=event.key==='ArrowDown'?1:-1;hits[(index+delta+hits.length)%hits.length].focus();return;}
-  if(index>=0&&event.key==='Escape'){event.preventDefault();document.querySelector('#search')?.focus();return;}
+  if(index>=0&&event.key==='Escape'){event.preventDefault();searchInput()?.focus();return;}
   if(event.key==='Escape'&&active?.id==='search'){if(active.value){active.value='';active.dispatchEvent(new Event('input',{bubbles:true}));}return;}
 });
 init();
