@@ -36,7 +36,7 @@ test('mobile family search is a compact categorized command surface',async({page
   await expect(sheet).toHaveCount(0);
   await expect(layer).toHaveCount(0);
   await expect(search).toHaveValue('Aimee');
-  await search.focus();
+  await search.click();
   await expect(page.locator('#family-search-layer')).toBeVisible();
   await expect(page.locator('#search-v13-2-results.family-search-command')).toBeVisible();
 });
