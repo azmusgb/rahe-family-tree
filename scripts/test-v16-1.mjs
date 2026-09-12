@@ -17,6 +17,17 @@ test('family tree diagnostics move out of the family presentation',()=>{
   assert.match(runtime,/searchParams\.set\('depth','2'\)/);
 });
 
+test('relationship results survive the routed family tree refresh',()=>{
+  assert.match(platform,/v161ReopenRelationship='true'/);
+  assert.match(runtime,/reopenRelationshipResult/);
+  assert.match(runtime,/delete document\.body\.dataset\.v161ReopenRelationship/);
+});
+
+test('mobile tree simplification is scoped to family context',()=>{
+  assert.match(styles,/body\[data-route="tree"\]\[data-v158-context="family"\] #filters label:not\(\.search\)/);
+  assert.doesNotMatch(styles,/body\[data-route="tree"\] #filters label:not\(\.search\)/);
+});
+
 test('people and media remove internal inventory language from family foreground',()=>{
   assert.match(runtime,/Inventory scope/);
   assert.match(runtime,/Person\\s\*\\\/\\s\*identity inventory/);
