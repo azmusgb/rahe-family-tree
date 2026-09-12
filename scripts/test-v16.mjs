@@ -23,16 +23,31 @@ test('stories is a first-class source-controlled family route without evidence m
   assert.match(storiesRuntime,/location\.hash\.slice\(1\).*stories/);
   assert.match(storiesRuntime,/renderStories\(\)/);
   assert.match(stories,/Source-controlled highlights grouped by era/);
+  assert.match(stories,/date\?\.years/);
+  assert.match(stories,/eventType/);
+  assert.match(stories,/recordText/);
+  assert.match(stories,/evidenceState/);
+  assert.match(stories,/evidenceStateOf\(e\)!=='REJECTED'/);
   assert.doesNotMatch(stories,/\.state\s*=/);
   assert.doesNotMatch(stories,/active\s*=/);
   assert.doesNotMatch(stories,/relationship/);
   assert.match(experience,/import\('\.\/stories-runtime\.js'\)/);
 });
 
+test('normalized stories schema contains dated and qualified source-controlled events',()=>{
+  const rows=Array.isArray(model.normalizedEvents)?model.normalizedEvents:[];
+  assert.ok(rows.length>0);
+  assert.ok(rows.some(event=>Array.isArray(event?.date?.years)&&event.date.years.length));
+  assert.ok(rows.some(event=>String(event?.eventType||'').trim()));
+  assert.ok(rows.some(event=>String(event?.recordText||event?.sourceSectionTitle||'').trim()));
+  assert.ok(rows.some(event=>/SUPPORTED|PROVISIONAL|UNRESOLVED|REJECTED/i.test(String(event?.evidenceState||event?.state||''))));
+});
+
 test('v16 semantic stylesheet is authoritative after historical compatibility layers',()=>{
   assert.match(styles,/@import '\.\/record-ingestion\.css';\s*@import '\.\/v16\.css';/);
   for(const token of['--v16-page-max','data-route="tree"','data-route="people"','data-route="person"','data-route="media"','v16-stories'])assert.match(v16,new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
   assert.match(v16,/topbar-actions\{display:none\}/);
+  assert.match(v16,/\.v1510-profile-tabs\{[\s\S]*position:static!important/);
 });
 
 test('v16 presentation cannot alter canonical genealogy semantics',()=>{
