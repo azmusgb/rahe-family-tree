@@ -3,9 +3,9 @@
 // Family route content is rendered by the native v17 archive controller.
 import{personById}from'../../core.js';
 
-const UI_RELEASE='17.0.0';
+const UI_RELEASE='17.1.0';
 const RECENT_KEY='rahe.family.recentPeople.v1';
-const STALE_RELOAD_KEY='rahe.family.uiReload.v17.0';
+const STALE_RELOAD_KEY='rahe.family.uiReload.v17.1';
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const routeId=()=>location.hash.slice(1).split('/')[1]||'';
 const isFamilyMode=()=>document.body.dataset.experience!=='research';
