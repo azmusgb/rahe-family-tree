@@ -96,7 +96,7 @@ function handleFilterEvent(event){
 async function init(){try{await loadSearchData();scheduleRender();}catch(error){console.error('Enhanced search failed to initialize:',error);}}
 const filtersForm=document.querySelector('#filters');
 filtersForm?.addEventListener('input',handleFilterEvent);filtersForm?.addEventListener('change',handleFilterEvent);filtersForm?.addEventListener('reset',()=>{clearDismissal();setTimeout(scheduleRender,0);});window.addEventListener('hashchange',()=>{clearDismissal();scheduleRender();});window.addEventListener('popstate',()=>{clearDismissal();scheduleRender();});
-window.addEventListener('family-search-dismissed',event=>{const key=normalize(event.detail?.query??searchInput()?.value??'');dismissedQuery=key;const input=searchInput();if(input)input.dataset.familySearchDismissed=key;removeOverlay();});
+window.addEventListener('family-search-dismissed',()=>{const input=searchInput();if(input){input.value='';delete input.dataset.familySearchDismissed;}dismissedQuery='';removeOverlay();});
 window.addEventListener('family-search-reopen',()=>{clearDismissal();scheduleRender();});
 document.addEventListener('keydown',event=>{
   const target=event.target,typing=target instanceof HTMLInputElement||target instanceof HTMLTextAreaElement||target instanceof HTMLSelectElement||target?.isContentEditable;
