@@ -9,8 +9,10 @@ import './page-architecture.js';
 import './navigation-shell.js';
 import './native-family-v17-controller.js';
 
-// Workbench, Stories, Tree/mobile density and media-specific narrative helpers
-// remain additive capabilities after the stable Family route controller.
+// Workbench, Stories, Tree/mobile density, site naming and media-specific
+// narrative helpers remain additive capabilities after the stable Family route
+// controller so the historical initialization contract stays unchanged.
+void import('./site-branding.js');
 void import('./record-ingestion.js');
 void import('./stories-runtime.js');
 void import('./mobile-family-density.js');

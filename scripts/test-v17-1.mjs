@@ -5,6 +5,10 @@ import fs from'node:fs';
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience-core.js','utf8');
+const experienceRoot=fs.readFileSync('src/runtime/experience.js','utf8');
+const branding=fs.readFileSync('src/runtime/site-branding.js','utf8');
+const brandingCss=fs.readFileSync('src/styles/branding.css','utf8');
+const navigation=fs.readFileSync('src/runtime/navigation-shell.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const mobile=fs.readFileSync('src/styles/mobile-family.css','utf8');
 const density=fs.readFileSync('src/runtime/mobile-family-density.js','utf8');
@@ -20,6 +24,25 @@ test('v17.1 release fingerprints are synchronized',()=>{
   assert.match(experience,/UI_RELEASE='17\.1\.0'/);
   assert.match(experience,/uiReload\.v17\.1/);
   assert.match(build,/const appVersion='17\.1\.0'/);
+});
+
+test('site shell represents the connected family archive rather than a single surname',()=>{
+  assert.match(index,/<title>Family History Archive<\/title>/);
+  assert.match(index,/FAMILY<small>HISTORY ARCHIVE<\/small>/);
+  assert.match(index,/Family archive \/ <b id="crumb">/);
+  assert.match(index,/FAMILY HISTORY ARCHIVE/);
+  assert.match(index,/Our family, connected\./);
+  assert.doesNotMatch(index,/THE RAHE FAMILY|The Rahe Family|Rahe family \/|>RAHE<small>/i);
+  assert.match(experienceRoot,/import\('\.\/site-branding\.js'\)/);
+  assert.match(branding,/Family History Archive/);
+  assert.match(branding,/every documented family branch/i);
+  assert.match(branding,/import\{researchRoutes\}from'\.\/navigation-model\.js'/);
+  assert.match(branding,/researchRoutes\.has\(routeKey\(\)\)/);
+  assert.match(navigation,/FAMILY<small>HISTORY ARCHIVE<\/small>/);
+  assert.doesNotMatch(navigation,/>RAHE<small>/i);
+  assert.match(styleRoot,/@import '\.\/home\.css';\s*@import '\.\/branding\.css';/);
+  assert.match(brandingCss,/\.v17-home-hero::after\{content:'F'\}/);
+  assert.doesNotMatch(brandingCss,/content:'R'/);
 });
 
 test('mobile Family stylesheet is semantic and layered before final responsive safeguards',()=>{
@@ -63,7 +86,7 @@ test('v17.1 mobile presentation cannot alter canonical genealogy semantics',()=>
   assert.match(String(bridge.state||''),/UNRESOLVED/i);
   assert.notEqual(bridge.type,'parent-child');
   assert.ok((model.relationships||[]).filter(r=>/REJECTED/i.test(String(r.state||''))).every(r=>r.active===false));
-  for(const source of[mobile,density,narrative]){
+  for(const source of[mobile,density,narrative,branding]){
     assert.doesNotMatch(source,/\.state\s*=\s*[^=]/);
     assert.doesNotMatch(source,/relationships?\.push/);
     assert.doesNotMatch(source,/claims?\.push/);

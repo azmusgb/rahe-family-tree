@@ -31,9 +31,10 @@ function rebuildDesktopNav(){
 function syncBrand(){
   const brand=document.querySelector('.brand span:last-child');
   if(!brand)return;
-  brand.innerHTML=isResearchContext()?'RAHE<small>RESEARCH CENTER</small>':'RAHE<small>FAMILY HISTORY</small>';
+  brand.innerHTML=isResearchContext()?'FAMILY<small>RESEARCH CENTER</small>':'FAMILY<small>HISTORY ARCHIVE</small>';
+  const monogram=document.querySelector('.brand .monogram');if(monogram)monogram.textContent='F';
   const edition=document.querySelector('.edition');
-  if(edition)edition.innerHTML=isResearchContext()?'<b>RESEARCH WORKSPACE</b>Evidence, sources, conflicts, and acquisition work':'<b>SOURCE-BACKED FAMILY HISTORY</b>Family archive · living-person privacy protected';
+  if(edition)edition.innerHTML=isResearchContext()?'<b>RESEARCH WORKSPACE</b>Evidence, sources, conflicts, and acquisition work':'<b>SOURCE-BACKED FAMILY HISTORY</b>Connected family archive · living-person privacy protected';
 }
 
 function contextualSearch(){
