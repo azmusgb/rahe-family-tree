@@ -1,5 +1,5 @@
 const SEARCH_LIMITS=Object.freeze({people:10,families:8,claims:8,sources:8,tasks:8,sections:8});
-const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[ch]));
 const normalize=value=>String(value??'').toLowerCase().normalize('NFKD').replace(/[^\x00-\x7F]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
 const queryTokens=query=>[...new Set(normalize(query).split(/\s+/).filter(Boolean))];
 const searchableText=value=>normalize(JSON.stringify(value??{}));
@@ -89,8 +89,7 @@ function scheduleRender(){cancelAnimationFrame(renderFrame);renderFrame=requestA
 function handleFilterEvent(event){
   const q=normalize(searchInput()?.value??'');
   if(event.target?.id==='search'){
-    if(event.type==='input'){clearDismissal();}
-    else if(q!==dismissedQuery&&q!==dismissKey())clearDismissal();
+    if(q!==dismissedQuery&&q!==dismissKey())clearDismissal();
   }else clearDismissal();
   scheduleRender();
 }
