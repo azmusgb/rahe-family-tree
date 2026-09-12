@@ -8,11 +8,17 @@ const activeRelationships=()=>allPedigreeRelationships().filter(rel=>rel.active!
 const memberIdsForBranch=branch=>new Set(displayPeople().filter(person=>personBranches(person).includes(branch)).map(person=>person.id));
 
 function incidentRelationships(person,rels=activeRelationships()){return rels.filter(rel=>rel.from===person.id||rel.to===person.id);}
+function connectedCoverage(person,rels=activeRelationships()){
+  const seen=new Set([person.id]),queue=[person.id];
+  for(let i=0;i<queue.length;i++)for(const rel of rels){let next='';if(rel.from===queue[i])next=rel.to;else if(rel.to===queue[i])next=rel.from;if(next&&!seen.has(next)){seen.add(next);queue.push(next);}}
+  const people=[...seen].map(personById).filter(Boolean),branches=new Set(people.flatMap(personBranches));
+  return{size:people.length,branches:branches.size};
+}
 function representativeScore(person,rels=activeRelationships()){
-  const incident=incidentRelationships(person,rels),neighbors=incident.map(rel=>personById(rel.from===person.id?rel.to:rel.from)).filter(Boolean),neighborBranches=new Set(neighbors.flatMap(personBranches));
+  const component=connectedCoverage(person,rels),incident=incidentRelationships(person,rels),neighbors=incident.map(rel=>personById(rel.from===person.id?rel.to:rel.from)).filter(Boolean),neighborBranches=new Set(neighbors.flatMap(personBranches));
   const supported=incident.filter(rel=>/SUPPORTED/i.test(String(rel.state||''))).length;
   const structural=incident.filter(rel=>rel.type==='parent-child'||rel.type==='direct-line-succession').length;
-  return incident.length*100+neighborBranches.size*12+supported*4+structural*2;
+  return component.size*100000+component.branches*10000+incident.length*100+neighborBranches.size*12+supported*4+structural*2;
 }
 function chooseRepresentative(people=displayPeople(),rels=activeRelationships()){
   const available=people.filter(Boolean),historical=available.filter(person=>!person.living),pool=historical.length?historical:available;
