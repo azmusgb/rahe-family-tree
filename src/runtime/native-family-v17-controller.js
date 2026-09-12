@@ -66,8 +66,28 @@ function apply(){
   hydrateNativeFamily();
 }
 
+// v11 owns the authoritative route render synchronously. Reconcile the native
+// Family surface in the following microtask so Tree never waits behind older
+// double-rAF presentation enhancers. This also makes hash-driven re-renders
+// deterministic: the base route renders first, then the native owner replaces
+// it before paint, and later semantic enhancers only decorate native markup.
 let queued=false;
-function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;apply();}));}
+function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;apply();});}
+
+// Defense in depth for compatibility layers that still replace #content.
+// Observe only direct route-content replacement; applying native markup is
+// idempotent and the marker check prevents a mutation loop.
+let contentObserver=null;
+function observeContent(){
+  const content=document.getElementById('content');if(!content||contentObserver)return;
+  contentObserver=new MutationObserver(()=>{
+    const route=routeKey();
+    if(!isFamily()||!nativeRoutes.has(route))return;
+    const native=content.querySelector('[data-v17-native]');
+    if(native?.dataset.v17Native!==nativeMarker(route))schedule();
+  });
+  contentObserver.observe(content,{childList:true,subtree:false});
+}
 
 document.addEventListener('click',event=>{
   const local=event.target.closest?.('.v17-person-nav a[href^="#v17-"]');
@@ -76,4 +96,5 @@ document.addEventListener('click',event=>{
 window.addEventListener('family-view-rendered',schedule);
 window.addEventListener('hashchange',schedule);
 window.addEventListener('family-experience-changed',schedule);
-document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
+const start=()=>{observeContent();schedule();};
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',start):start();
