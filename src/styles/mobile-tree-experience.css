@@ -1,0 +1,69 @@
+/* Mobile tree is canvas-first: controls are compact and the genealogy canvas reaches the first viewport. */
+@media(max-width:720px){
+  body[data-experience="family"][data-route="tree"] .main{padding:8px 8px calc(var(--mobile-nav-height,72px) + 26px)!important}
+  body[data-experience="family"][data-route="tree"] .topbar{height:44px!important;min-height:44px!important;padding:0 10px!important}
+  body[data-experience="family"][data-route="tree"] .topbar>span{font-size:10px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  body[data-experience="family"][data-route="tree"] .v155-mobile-actions>summary{width:38px!important;height:38px!important;min-height:38px!important}
+  body[data-experience="family"][data-route="tree"] .route-shell{margin:0 0 6px!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important}
+  body[data-experience="family"][data-route="tree"] .route-shell .page-heading,
+  body[data-experience="family"][data-route="tree"] .route-shell #status{display:none!important}
+  body[data-experience="family"][data-route="tree"] .route-shell #filters{display:none!important}
+
+  .v1511-mobile-tree{margin:0!important;padding:0!important}
+  .v1511-mobile-tree>.v1511-tree-intro-notice,
+  .v1511-mobile-tree .v154-tree-person,
+  .v1511-mobile-tree .v129-tree-memory,
+  .v1511-mobile-tree .v1291-mobile-hint,
+  .v1511-mobile-tree .v154-tree-help,
+  .v1511-mobile-tree .legend,
+  .v1511-mobile-tree .mobile-family-list,
+  .v1511-mobile-tree .relationship-index{display:none!important}
+
+  .v1511-mobile-tree .tree-focusbar.v1511-tree-controls{
+    display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:7px!important;
+    margin:0 0 6px!important;padding:9px!important;border:1px solid rgba(23,63,53,.10)!important;
+    border-radius:14px!important;background:#fff!important;box-shadow:none!important
+  }
+  .v1511-mobile-tree .tree-focusbar>label{display:grid!important;gap:4px!important;margin:0!important;color:#5b6c65!important;font-size:8px!important;font-weight:800!important;letter-spacing:.08em!important;text-transform:uppercase}
+  .v1511-mobile-tree .tree-focusbar select{width:100%!important;height:44px!important;min-height:44px!important;margin:0!important;padding:0 40px 0 12px!important;border:1px solid #cad5cf!important;border-radius:11px!important;background:#fff!important;color:#17221e!important;font-size:15px!important;font-weight:650!important}
+
+  .v1511-mobile-tree .tree-mode-buttons{display:flex!important;flex-wrap:nowrap!important;gap:5px!important;overflow-x:auto!important;margin:0!important;padding:0 0 1px!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch}
+  .v1511-mobile-tree .tree-mode-buttons::-webkit-scrollbar{display:none}
+  .v1511-mobile-tree .tree-mode-buttons button{flex:0 0 auto!important;width:auto!important;min-width:0!important;min-height:36px!important;margin:0!important;padding:0 11px!important;border-radius:999px!important;font-size:9px!important;font-weight:800!important;white-space:nowrap!important}
+  .v1511-mobile-tree .tree-mode-buttons button.active{background:var(--green,#173f35)!important;color:#fff!important}
+
+  .v1511-mobile-tree .tree-depth{display:flex!important;align-items:center!important;gap:5px!important;margin:0!important;padding:0!important;overflow-x:auto!important;scrollbar-width:none!important}
+  .v1511-mobile-tree .tree-depth::-webkit-scrollbar{display:none}
+  .v1511-mobile-tree .tree-depth>span{flex:0 0 auto!important;margin:0 2px 0 1px!important;font-size:8px!important;font-weight:800!important;letter-spacing:.06em!important;text-transform:uppercase!important;color:#66766f!important}
+  .v1511-mobile-tree .tree-depth button{flex:0 0 auto!important;min-width:0!important;min-height:34px!important;padding:0 11px!important;margin:0!important;border-radius:999px!important;font-size:9px!important;font-weight:800!important}
+
+  .v1511-mobile-tree .v1291-breadcrumb.v1511-tree-trail{display:flex!important;align-items:center!important;gap:5px!important;min-height:34px!important;margin:0 0 5px!important;padding:2px 3px!important;overflow-x:auto!important;border:0!important;background:transparent!important;box-shadow:none!important;scrollbar-width:none!important}
+  .v1511-mobile-tree .v1291-breadcrumb::-webkit-scrollbar{display:none}
+  .v1511-mobile-tree .v1291-breadcrumb>span{flex:0 0 auto!important;margin:0 3px 0 0!important;font-size:8px!important;font-weight:850!important;letter-spacing:.08em!important;text-transform:uppercase!important;color:#75817c!important}
+  .v1511-mobile-tree .v1291-breadcrumb button{flex:0 0 auto!important;max-width:128px!important;min-height:30px!important;padding:4px 8px!important;border:0!important;border-bottom:1px solid #bcc8c2!important;border-radius:0!important;background:transparent!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;font-size:9px!important;color:#31463e!important}
+
+  .v1511-mobile-tree .graph-shell.v154-graph-shell{margin:0!important;border:1px solid rgba(23,63,53,.10)!important;border-radius:14px!important;background:#f7f9f6!important;overflow:hidden!important;box-shadow:none!important}
+  .v1511-mobile-tree .graph-toolbar.v1511-tree-toolbar{
+    position:static!important;display:flex!important;align-items:center!important;flex-wrap:nowrap!important;gap:5px!important;
+    min-height:48px!important;margin:0!important;padding:6px!important;overflow-x:auto!important;overflow-y:hidden!important;
+    border:0!important;border-bottom:1px solid rgba(23,63,53,.09)!important;background:rgba(255,255,255,.98)!important;box-shadow:none!important;scrollbar-width:none!important
+  }
+  .v1511-mobile-tree .graph-toolbar::-webkit-scrollbar{display:none}
+  .v1511-mobile-tree .graph-toolbar button{flex:0 0 auto!important;width:auto!important;min-width:38px!important;min-height:36px!important;margin:0!important;padding:0 10px!important;border-radius:9px!important;font-size:9px!important;font-weight:800!important;white-space:nowrap!important}
+  .v1511-mobile-tree .graph-toolbar [data-graph="in"],.v1511-mobile-tree .graph-toolbar [data-graph="out"]{width:38px!important;padding:0!important;font-size:17px!important}
+  .v1511-mobile-tree .graph-toolbar .v1511-tree-focus-pill{display:none!important}
+  .v1511-mobile-tree .graph-toolbar .v1511-tree-count{flex:0 0 auto!important;margin-left:1px!important;color:#65746e!important;font-size:8px!important;white-space:nowrap!important}
+  .v1511-mobile-tree .graph-toolbar .v1511-tree-count b{color:var(--green,#173f35)!important;font-size:10px!important}
+
+  .v1511-mobile-tree .graph-scroll{height:calc(100dvh - 250px)!important;min-height:390px!important;max-height:620px!important;margin:0!important;overflow:auto!important;overscroll-behavior:contain!important;background-color:#f7f9f6!important;touch-action:pan-x pan-y!important}
+  .v1511-mobile-tree #family-graph{display:block!important;min-width:980px!important;min-height:100%!important}
+
+  /* The dock remains a sibling above the canvas, but no longer obscures toolbar controls. */
+  body[data-experience="family"][data-route="tree"] #family-mobile-dock:not([hidden]){z-index:2147483647!important}
+}
+
+@media(max-width:390px){
+  .v1511-mobile-tree .tree-focusbar.v1511-tree-controls{padding:8px!important}
+  .v1511-mobile-tree .tree-mode-buttons button{padding-inline:9px!important}
+  .v1511-mobile-tree .graph-scroll{height:calc(100dvh - 238px)!important;min-height:360px!important}
+}
