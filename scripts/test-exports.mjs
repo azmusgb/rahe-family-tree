@@ -33,7 +33,7 @@ test('export manifest is evidence-aware and populated', () => {
   assert.ok(index.counts.sources > 0);
   assert.match(index.identityBridgeRule, /remain separate nodes/i);
   assert.match(index.gedcomRule, /only SUPPORTED active pedigree/i);
-  assert.equal(index.files.length, 8);
+  assert.equal(index.files.length, 7);
   assert.ok(index.archive.bytes > 100);
   assert.match(index.archive.sha256, /^[a-f0-9]{64}$/);
 });
