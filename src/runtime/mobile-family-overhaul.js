@@ -59,31 +59,44 @@ function applySearchTab(overlay){
     button.classList.toggle('active',active);button.setAttribute('aria-selected',String(active));
   });
 }
-function removeSearchScrim(){document.querySelector('[data-family-search-scrim]')?.remove();}
 function popoverOpen(element){try{return element?.matches?.(':popover-open')||false}catch{return false}}
+function searchLayer(){return document.getElementById('family-search-layer');}
+function ensureSearchLayer(){
+  let layer=searchLayer();if(layer)return layer;
+  layer=document.createElement('div');layer.id='family-search-layer';layer.className='family-search-layer';
+  if(typeof layer.showPopover==='function')layer.setAttribute('popover','manual');
+  document.body.append(layer);
+  if(typeof layer.showPopover==='function'&&!popoverOpen(layer))try{layer.showPopover()}catch{}
+  return layer;
+}
 function ensureSearchPortal(overlay){
-  if(overlay.parentElement!==document.body)document.body.append(overlay);
-  let scrim=document.querySelector('[data-family-search-scrim]');
-  if(!scrim){scrim=document.createElement('button');scrim.type='button';scrim.className='family-search-scrim';scrim.dataset.familySearchScrim='';scrim.setAttribute('aria-label','Close family search');document.body.insertBefore(scrim,overlay);}
-  if(typeof overlay.showPopover==='function'){
-    overlay.setAttribute('popover','manual');
-    if(!popoverOpen(overlay))try{overlay.showPopover()}catch{}
-  }
+  const layer=ensureSearchLayer();
+  if(popoverOpen(overlay))try{overlay.hidePopover()}catch{}
+  overlay.removeAttribute('popover');
+  if(overlay.parentElement!==layer)layer.append(overlay);
+  let scrim=layer.querySelector('[data-family-search-scrim]');
+  if(!scrim){scrim=document.createElement('button');scrim.type='button';scrim.className='family-search-scrim';scrim.dataset.familySearchScrim='';scrim.setAttribute('aria-label','Close family search');layer.prepend(scrim);}
+  if(typeof layer.showPopover==='function'&&!popoverOpen(layer))try{layer.showPopover()}catch{}
+  layer.hidden=false;layer.dataset.familySearchLayer='open';
+  return layer;
+}
+function teardownSearchLayer(){
+  const layer=searchLayer();if(!layer)return;
+  if(popoverOpen(layer))try{layer.hidePopover()}catch{}
+  layer.remove();
 }
 function closeFamilySearch({clearQuery=false,restoreFocus=true}={}){
-  const overlay=document.querySelector('#search-v13-2-results');
-  if(popoverOpen(overlay))try{overlay.hidePopover()}catch{}
-  overlay?.remove();removeSearchScrim();
+  document.querySelector('#search-v13-2-results')?.remove();
+  teardownSearchLayer();
   const input=document.getElementById('search');
   if(input){if(clearQuery)input.value='';input.blur();}
   if(clearQuery){familySearchTab='all';lastFamilyQuery='';}
   if(restoreFocus)document.getElementById('main')?.focus({preventScroll:true});
 }
-function ensureCloseButton(overlay){
-  const nested=[...overlay.querySelectorAll('[data-family-search-close]')].filter(node=>node.parentElement!==overlay);nested.forEach(node=>node.remove());
-  let close=[...overlay.children].find(node=>node.matches?.('[data-family-search-close]'));
+function ensureCloseButton(layer){
+  let close=layer.querySelector(':scope > [data-family-search-close]');
   if(close)return close;
-  close=document.createElement('button');close.className='family-search-close';close.type='button';close.dataset.familySearchClose='';close.setAttribute('aria-label','Close search results');close.textContent='×';overlay.prepend(close);return close;
+  close=document.createElement('button');close.className='family-search-close';close.type='button';close.dataset.familySearchClose='';close.setAttribute('aria-label','Close search results');close.textContent='×';layer.append(close);return close;
 }
 function ensureSearchTabs(overlay,counts){
   let tabs=overlay.querySelector('.family-search-tabs');
@@ -104,9 +117,9 @@ function ensureSearchFooter(overlay){
 }
 function labelSearchOverlay(){
   const overlay=document.getElementById('search-v13-2-results');
-  if(!overlay){removeSearchScrim();return;}
-  overlay.classList.add('v1511-search-sheet','family-search-command');if(!isFamilyContext()){removeSearchScrim();return;}
-  ensureSearchPortal(overlay);overlay.setAttribute('aria-label','Family search results');overlay.setAttribute('role','dialog');
+  if(!overlay){if(!document.getElementById('search')?.value.trim())teardownSearchLayer();return;}
+  overlay.classList.add('v1511-search-sheet','family-search-command');if(!isFamilyContext()){teardownSearchLayer();return;}
+  const layer=ensureSearchPortal(overlay);overlay.setAttribute('aria-label','Family search results');overlay.setAttribute('role','dialog');
   const allGroups=[...overlay.querySelectorAll('.search-group')];
   allGroups.forEach((group,index)=>group.dataset.v1511SearchKind=groupKind(group,index));
   allGroups.filter(group=>!['people','families'].includes(group.dataset.v1511SearchKind)).forEach(group=>group.remove());
@@ -125,7 +138,7 @@ function labelSearchOverlay(){
     const side=summary.querySelector('.search-summary-count');if(side){side.replaceChildren();side.hidden=true;}
   }
   overlay.querySelector('.search-keyboard-hint')?.remove();
-  ensureCloseButton(overlay);ensureSearchTabs(overlay,counts);ensureSearchFooter(overlay);applySearchTab(overlay);overlay.dataset.familySearchDecorated='true';
+  ensureCloseButton(layer);ensureSearchTabs(overlay,counts);ensureSearchFooter(overlay);applySearchTab(overlay);overlay.dataset.familySearchDecorated='true';
 }
 function apply(){
   labelSearchOverlay();if(!isFamilyHome())return;
@@ -136,8 +149,8 @@ let queued=false;function schedule(){if(queued)return;queued=true;requestAnimati
 function scheduleSearchPolish(){schedule();}
 window.addEventListener('family-view-rendered',schedule);
 window.addEventListener('family-search-rendered',scheduleSearchPolish);
-window.addEventListener('hashchange',()=>{if(document.getElementById('search-v13-2-results'))closeFamilySearch({clearQuery:true,restoreFocus:false});schedule();});
-window.addEventListener('family-experience-changed',()=>{if(document.getElementById('search-v13-2-results'))closeFamilySearch({clearQuery:true,restoreFocus:false});schedule();});
+window.addEventListener('hashchange',()=>{if(document.getElementById('search-v13-2-results')||searchLayer())closeFamilySearch({clearQuery:true,restoreFocus:false});schedule();});
+window.addEventListener('family-experience-changed',()=>{if(document.getElementById('search-v13-2-results')||searchLayer())closeFamilySearch({clearQuery:true,restoreFocus:false});schedule();});
 document.addEventListener('input',event=>{if(event.target?.closest?.('#filters'))scheduleSearchPolish();});document.addEventListener('change',event=>{if(event.target?.closest?.('#filters'))scheduleSearchPolish();});document.getElementById('filters')?.addEventListener('reset',()=>setTimeout(scheduleSearchPolish,0));
 document.addEventListener('click',event=>{
   const tab=event.target.closest?.('[data-v1511-search-tab]');if(tab){familySearchTab=tab.dataset.v1511SearchTab||'all';const overlay=tab.closest('#search-v13-2-results');if(overlay)applySearchTab(overlay);return;}
@@ -145,5 +158,5 @@ document.addEventListener('click',event=>{
   const result=event.target.closest?.('#search-v13-2-results .search-hit,#search-v13-2-results .family-search-footer a');if(result){closeFamilySearch({clearQuery:true,restoreFocus:false});return;}
 });
 document.addEventListener('focusin',event=>{const input=event.target;if(input?.id==='search'&&isFamilyContext()&&input.value.trim()&&!document.getElementById('search-v13-2-results'))input.dispatchEvent(new Event('input',{bubbles:true}));});
-document.addEventListener('keydown',event=>{if(event.key==='Escape'&&isFamilyContext()&&document.getElementById('search-v13-2-results')){event.preventDefault();event.stopImmediatePropagation();closeFamilySearch();}},true);
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&isFamilyContext()&&(document.getElementById('search-v13-2-results')||searchLayer())){event.preventDefault();event.stopImmediatePropagation();closeFamilySearch();}},true);
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
