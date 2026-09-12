@@ -1,0 +1,3 @@
+/* Site identity is branch-neutral. Surnames belong to genealogical content,
+ * not the application chrome or decorative brand layer. */
+.v17-home-hero::after{content:'F'}
