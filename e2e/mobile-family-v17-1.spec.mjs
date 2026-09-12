@@ -44,8 +44,11 @@ test('People is a compact mobile family directory with readable rows and no over
   const minimumText=await cards.first().locator('.v17-person-card-copy > small,.v17-person-card-copy > b,.v17-person-card-copy > em,.v17-person-card-copy > p').evaluateAll(nodes=>Math.min(...nodes.map(node=>parseFloat(getComputedStyle(node).fontSize))));
   expect(minimumText,'ordinary Family directory text should not fall below 11px').toBeGreaterThanOrEqual(11);
 
-  const cardBounds=await cards.evaluateAll(nodes=>nodes.slice(0,8).map(node=>{const r=node.getBoundingClientRect();return{left:r.left,right:r.right};}));
-  expect(cardBounds.every(({left,right})=>left>=-1&&right<=window.innerWidth+1),'directory cards should stay inside the viewport').toBeTruthy();
+  const cardsInsideViewport=await cards.evaluateAll(nodes=>nodes.slice(0,8).every(node=>{
+    const rect=node.getBoundingClientRect();
+    return rect.left>=-1&&rect.right<=window.innerWidth+1;
+  }));
+  expect(cardsInsideViewport,'directory cards should stay inside the viewport').toBeTruthy();
   await expect(people).not.toContainText(/identity inventory|inventory scope|graph node|visible items/i);
   await expectNoHorizontalOverflow(page);
 });
