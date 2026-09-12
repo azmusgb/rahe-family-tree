@@ -11,3 +11,7 @@ import './home-flow.js';
 import './navigation-shell.js';
 import './people-person-experience.js';
 import './compact-disclosure.js';
+
+// New workbench capabilities load after the stable historical side-effect chain.
+// esbuild still emits one production bundle because code splitting is disabled.
+void import('./record-ingestion.js');
