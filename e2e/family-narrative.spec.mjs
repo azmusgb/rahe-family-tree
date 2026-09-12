@@ -12,7 +12,7 @@ test('home is a native archive with supported family story content',async({page}
   await page.goto('/#dashboard');
   const home=page.locator('[data-v17-native="home"]');
   await expect(home).toBeVisible();
-  await expect(home.getByRole('heading',{name:'The Rahe family, connected.'})).toBeVisible();
+  await expect(home.getByRole('heading',{name:'Our family, connected.'})).toBeVisible();
   await expect(home.locator('.v17-home-tree')).toBeVisible();
   const story=home.locator('.v17-home-story');
   await expect(story).toBeVisible();
