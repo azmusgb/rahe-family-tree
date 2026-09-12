@@ -93,10 +93,11 @@ function closeFamilySearch({clearQuery=false,restoreFocus=true}={}){
   if(clearQuery){familySearchTab='all';lastFamilyQuery='';}
   if(restoreFocus)document.getElementById('main')?.focus({preventScroll:true});
 }
-function ensureCloseButton(layer){
-  let close=layer.querySelector(':scope > [data-family-search-close]');
+function ensureCloseButton(overlay){
+  const summary=overlay.querySelector('.search-summary');if(!summary)return null;
+  let close=summary.querySelector('[data-family-search-close]');
   if(close)return close;
-  close=document.createElement('button');close.className='family-search-close';close.type='button';close.dataset.familySearchClose='';close.setAttribute('aria-label','Close search results');close.textContent='×';layer.append(close);return close;
+  close=document.createElement('button');close.className='family-search-close';close.type='button';close.dataset.familySearchClose='';close.setAttribute('aria-label','Close search results');close.textContent='×';summary.append(close);return close;
 }
 function ensureSearchTabs(overlay,counts){
   let tabs=overlay.querySelector('.family-search-tabs');
@@ -119,7 +120,7 @@ function labelSearchOverlay(){
   const overlay=document.getElementById('search-v13-2-results');
   if(!overlay){if(!document.getElementById('search')?.value.trim())teardownSearchLayer();return;}
   overlay.classList.add('v1511-search-sheet','family-search-command');if(!isFamilyContext()){teardownSearchLayer();return;}
-  const layer=ensureSearchPortal(overlay);overlay.setAttribute('aria-label','Family search results');overlay.setAttribute('role','dialog');
+  ensureSearchPortal(overlay);overlay.setAttribute('aria-label','Family search results');overlay.setAttribute('role','dialog');
   const allGroups=[...overlay.querySelectorAll('.search-group')];
   allGroups.forEach((group,index)=>group.dataset.v1511SearchKind=groupKind(group,index));
   allGroups.filter(group=>!['people','families'].includes(group.dataset.v1511SearchKind)).forEach(group=>group.remove());
@@ -138,7 +139,7 @@ function labelSearchOverlay(){
     const side=summary.querySelector('.search-summary-count');if(side){side.replaceChildren();side.hidden=true;}
   }
   overlay.querySelector('.search-keyboard-hint')?.remove();
-  ensureCloseButton(layer);ensureSearchTabs(overlay,counts);ensureSearchFooter(overlay);applySearchTab(overlay);overlay.dataset.familySearchDecorated='true';
+  ensureCloseButton(overlay);ensureSearchTabs(overlay,counts);ensureSearchFooter(overlay);applySearchTab(overlay);overlay.dataset.familySearchDecorated='true';
 }
 function apply(){
   labelSearchOverlay();if(!isFamilyHome())return;
