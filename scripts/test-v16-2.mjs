@@ -8,11 +8,20 @@ const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
-test('family narrative uses supported normalized events only for homepage moments',()=>{
+test('family narrative uses supported historical normalized events only for homepage moments',()=>{
   assert.match(runtime,/stateOf\(e\)==='SUPPORTED'/);
+  assert.match(runtime,/isHistoricalEvent\(e\)/);
+  assert.match(runtime,/peopleFor\(e\)\.every\(person=>!person\.living\)/);
   assert.match(runtime,/normalizedEvents/);
   assert.match(runtime,/Across generations and places/);
   assert.match(runtime,/Explore all stories/);
+});
+
+test('branch summaries exclude living-person event locations while retaining branch counts',()=>{
+  assert.match(runtime,/historical=people\.filter\(p=>!p\.living\)/);
+  assert.match(runtime,/ids=new Set\(historical\.map/);
+  assert.match(runtime,/if\(!isHistoricalEvent\(event\)/);
+  assert.match(runtime,/profile\.people\.length/);
 });
 
 test('family narrative adds branch context immediate family and media quick filters',()=>{
