@@ -1,10 +1,12 @@
+import{researchRoutes}from'./navigation-model.js';
+
 // Site-level naming is intentionally branch-neutral. Individual surnames remain
 // visible where they are genealogically meaningful (people, branches, claims,
 // sources, and relationships), but no single surname owns the application shell.
 const SITE_TITLE='Family History Archive';
 const SITE_DESCRIPTION='A source-backed family history archive spanning interconnected family branches, people, generations, photographs, stories, and research evidence.';
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
-const isResearchContext=()=>document.body.dataset.experience==='research'||new Set(['evidence','sources','research','archive','intelligence','conflicts','intake','identity']).has(routeKey());
+const isResearchContext=()=>document.body.dataset.experience==='research'||researchRoutes.has(routeKey());
 const setText=(element,value)=>{if(element&&element.textContent!==value)element.textContent=value;};
 
 function syncDocumentMetadata(){
