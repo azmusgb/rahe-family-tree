@@ -42,6 +42,8 @@ if(!installed){
   document.addEventListener('submit',event=>{
     if(event.target?.id!=='relationship-finder')return;
     event.preventDefault();event.stopImmediatePropagation();
+    const familyDialog=event.target.closest?.('#v161-relationship-dialog');
+    if(familyDialog&&document.body.dataset.experience!=='research')document.body.dataset.v161ReopenRelationship='true';
     const data=new FormData(event.target);
     routeRelationshipFinder(String(data.get('relationship-from')||''),String(data.get('relationship-to')||''));
   },true);
