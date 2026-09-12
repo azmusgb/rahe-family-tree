@@ -18,3 +18,4 @@ import './compact-disclosure.js';
 void import('./record-ingestion.js');
 void import('./stories-runtime.js');
 void import('./mobile-family-density.js');
+void import('./family-narrative.js');
