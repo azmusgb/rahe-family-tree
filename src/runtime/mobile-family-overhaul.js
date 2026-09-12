@@ -1,7 +1,7 @@
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const isFamilyHome=()=>document.body.dataset.experience!=='research'&&routeKey()==='dashboard';
 const isFamilyContext=()=>document.body.dataset.v158Context==='family';
-let familySearchTab='all';
+let familySearchTab='all',lastFamilyQuery='';
 
 function mergeHomeLead(content){
   const hero=content.querySelector('.v157-hero'),tree=content.querySelector('.v157-tree-preview');
@@ -65,17 +65,18 @@ function ensureSearchPortal(overlay){
   let scrim=document.querySelector('[data-family-search-scrim]');
   if(!scrim){scrim=document.createElement('button');scrim.type='button';scrim.className='family-search-scrim';scrim.dataset.familySearchScrim='';scrim.setAttribute('aria-label','Close family search');document.body.insertBefore(scrim,overlay);}
 }
-function dismissFamilySearch(){
+function closeFamilySearch({clearQuery=false,restoreFocus=true}={}){
   document.querySelector('#search-v13-2-results')?.remove();removeSearchScrim();
-  const input=document.getElementById('search');if(input)input.blur();
-  document.getElementById('main')?.focus({preventScroll:true});
+  const input=document.getElementById('search');
+  if(input){if(clearQuery)input.value='';input.blur();}
+  if(clearQuery){familySearchTab='all';lastFamilyQuery='';}
+  if(restoreFocus)document.getElementById('main')?.focus({preventScroll:true});
 }
-function ensureCloseButton(summary){
-  const side=summary?.querySelector('.search-summary-count');if(!side)return null;
-  let close=side.querySelector('[data-family-search-close]');
+function ensureCloseButton(overlay){
+  const nested=[...overlay.querySelectorAll('[data-family-search-close]')].filter(node=>node.parentElement!==overlay);nested.forEach(node=>node.remove());
+  let close=[...overlay.children].find(node=>node.matches?.('[data-family-search-close]'));
   if(close)return close;
-  side.replaceChildren();
-  close=document.createElement('button');close.className='family-search-close';close.type='button';close.dataset.familySearchClose='';close.setAttribute('aria-label','Close search results');close.textContent='×';side.append(close);return close;
+  close=document.createElement('button');close.className='family-search-close';close.type='button';close.dataset.familySearchClose='';close.setAttribute('aria-label','Close search results');close.textContent='×';overlay.append(close);return close;
 }
 function ensureSearchTabs(overlay,counts){
   let tabs=overlay.querySelector('.family-search-tabs');
@@ -107,16 +108,17 @@ function labelSearchOverlay(){
   const countFor=kind=>Number(groups.find(group=>group.dataset.v1511SearchKind===kind)?.querySelector('h3 span')?.textContent)||0;
   const counts={people:countFor('people'),families:countFor('families')};counts.total=counts.people+counts.families;
   const query=document.getElementById('search')?.value.trim()||'';
+  if(query!==lastFamilyQuery){familySearchTab='all';lastFamilyQuery=query;}
   const summary=overlay.querySelector('.search-summary');
   if(summary){
     summary.classList.add('family-search-summary');
     const eyebrow=summary.querySelector('.eyebrow');if(eyebrow)eyebrow.textContent='FAMILY SEARCH';
     const heading=summary.querySelector('h2');if(heading)heading.textContent=`${counts.total} ${counts.total===1?'match':'matches'} for “${query}”`;
     const detail=summary.querySelector('small');if(detail)detail.textContent='People and family groups, ranked by the closest family match.';
-    ensureCloseButton(summary);
+    const side=summary.querySelector('.search-summary-count');if(side){side.replaceChildren();side.hidden=true;}
   }
   overlay.querySelector('.search-keyboard-hint')?.remove();
-  ensureSearchTabs(overlay,counts);ensureSearchFooter(overlay);applySearchTab(overlay);overlay.dataset.familySearchDecorated='true';
+  ensureSearchTabs(overlay,counts);ensureSearchFooter(overlay);ensureCloseButton(overlay);applySearchTab(overlay);overlay.dataset.familySearchDecorated='true';
 }
 function apply(){
   labelSearchOverlay();if(!isFamilyHome())return;
@@ -125,12 +127,15 @@ function apply(){
 }
 let queued=false;function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;apply();}));}
 function scheduleSearchPolish(){schedule();setTimeout(schedule,60);setTimeout(schedule,400);}
-window.addEventListener('family-view-rendered',schedule);window.addEventListener('hashchange',schedule);window.addEventListener('family-experience-changed',schedule);
+window.addEventListener('family-view-rendered',schedule);
+window.addEventListener('hashchange',()=>{if(document.getElementById('search-v13-2-results'))closeFamilySearch({clearQuery:true,restoreFocus:false});schedule();});
+window.addEventListener('family-experience-changed',()=>{if(document.getElementById('search-v13-2-results'))closeFamilySearch({clearQuery:true,restoreFocus:false});schedule();});
 document.addEventListener('input',event=>{if(event.target?.closest?.('#filters'))scheduleSearchPolish();});document.addEventListener('change',event=>{if(event.target?.closest?.('#filters'))scheduleSearchPolish();});document.getElementById('filters')?.addEventListener('reset',()=>setTimeout(scheduleSearchPolish,0));
 document.addEventListener('click',event=>{
   const tab=event.target.closest?.('[data-v1511-search-tab]');if(tab){familySearchTab=tab.dataset.v1511SearchTab||'all';const overlay=tab.closest('#search-v13-2-results');if(overlay)applySearchTab(overlay);return;}
-  if(event.target.closest?.('[data-family-search-close],[data-family-search-scrim]')){event.preventDefault();dismissFamilySearch();return;}
+  if(event.target.closest?.('[data-family-search-close],[data-family-search-scrim]')){event.preventDefault();closeFamilySearch();return;}
+  const result=event.target.closest?.('#search-v13-2-results .search-hit,#search-v13-2-results .family-search-footer a');if(result){closeFamilySearch({clearQuery:true,restoreFocus:false});return;}
 });
 document.addEventListener('focusin',event=>{const input=event.target;if(input?.id==='search'&&isFamilyContext()&&input.value.trim()&&!document.getElementById('search-v13-2-results'))input.dispatchEvent(new Event('input',{bubbles:true}));});
-document.addEventListener('keydown',event=>{if(event.key==='Escape'&&isFamilyContext()&&document.getElementById('search-v13-2-results')){event.preventDefault();event.stopImmediatePropagation();dismissFamilySearch();}},true);
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&isFamilyContext()&&document.getElementById('search-v13-2-results')){event.preventDefault();event.stopImmediatePropagation();closeFamilySearch();}},true);
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
