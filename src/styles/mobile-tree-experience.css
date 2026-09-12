@@ -78,7 +78,7 @@
   .v1511-mobile-tree .graph-scroll{height:calc(100dvh - 178px)!important;min-height:430px!important;max-height:720px!important;margin:0!important;overflow:auto!important;overscroll-behavior:contain!important;background-color:#f7f9f6!important;touch-action:pan-x pan-y!important;-webkit-overflow-scrolling:touch}
   .v1511-mobile-tree #family-graph{display:block!important;min-width:980px!important;min-height:100%!important}
 
-  body[data-experience="family"][data-route="tree"] #family-mobile-dock:not([hidden]){z-index:1000!important}
+  body[data-experience="family"][data-route="tree"] #family-mobile-dock:not([hidden]){z-index:2147483000!important}
 }
 
 @media(max-width:390px){
