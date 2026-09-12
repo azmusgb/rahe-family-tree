@@ -5,6 +5,7 @@ const owningSection=route=>({person:'people',claim:'evidence',source:'sources',t
 const mobileDockQuery=matchMedia('(max-width:720px)');
 
 function isResearchContext(){return document.body.dataset.experience==='research'||researchRoutes.has(routeKey());}
+function popoverOpen(element){try{return element?.matches?.(':popover-open')||false}catch{return false}}
 
 function familyPrimary(){return `<a href="#dashboard" data-nav-key="dashboard">Home</a><a href="#tree" data-nav-key="tree">Tree</a><a href="#people" data-nav-key="people">People</a><a href="#media" data-nav-key="media">Photos</a>`;}
 function familyMenus(){return `<details class="v151-nav-menu v158-explore"><summary>Explore</summary><div class="v151-nav-popover"><a href="#timeline"><b>Timeline</b><small>Browse family events through time</small></a><a href="#migration"><b>Places & Migration</b><small>Follow the family across places and generations</small></a><a href="#dashboard" data-v158-stories><b>Stories</b><small>Return to family stories and highlights</small></a></div></details><a class="v158-research-entry" href="#research">Research Center</a>`;}
@@ -52,13 +53,31 @@ function contextualSearch(){
   document.querySelector('.route-shell')?.classList.toggle('v158-context-search',!isResearchContext());
 }
 
+function ensureDockLayer(){
+  let layer=document.getElementById('family-mobile-dock-layer');
+  if(layer)return layer;
+  layer=document.createElement('div');
+  layer.id='family-mobile-dock-layer';
+  layer.className='family-mobile-dock-layer';
+  layer.setAttribute('aria-hidden','false');
+  if(typeof layer.showPopover==='function')layer.setAttribute('popover','manual');
+  document.body.append(layer);
+  return layer;
+}
 function syncDockTopLayer(dock){
-  if(dock.parentElement!==document.body||dock!==document.body.lastElementChild)document.body.append(dock);
-  if(typeof dock.showPopover!=='function')return;
-  dock.setAttribute('popover','manual');
-  const open=()=>{try{return dock.matches(':popover-open')}catch{return false}};
-  if(mobileDockQuery.matches){if(!open())try{dock.showPopover()}catch{}}
-  else if(open())try{dock.hidePopover()}catch{}
+  const layer=ensureDockLayer();
+  if(popoverOpen(dock))try{dock.hidePopover()}catch{}
+  dock.removeAttribute('popover');
+  if(dock.parentElement!==layer)layer.append(dock);
+  const shouldShow=mobileDockQuery.matches;
+  if(typeof layer.showPopover==='function'){
+    if(shouldShow&&!popoverOpen(layer))try{layer.showPopover()}catch{}
+    if(!shouldShow&&popoverOpen(layer))try{layer.hidePopover()}catch{}
+    layer.hidden=false;
+  }else{
+    layer.hidden=!shouldShow;
+  }
+  layer.dataset.mobileDockLayer=shouldShow?'open':'closed';
 }
 function rebuildMobileDock(){
   const dock=document.getElementById('family-mobile-dock');if(!dock)return;
@@ -71,7 +90,7 @@ function rebuildMobileDock(){
     dock.innerHTML=`<a href="#dashboard" data-dock-route="dashboard"><span>Home</span></a><a href="#tree" data-dock-route="tree"><span>Tree</span></a><a href="#people" data-dock-route="people"><span>People</span></a><a href="#media" data-dock-route="media"><span>Photos</span></a><details class="v158-mobile-more"><summary>More</summary><div><button type="button" data-dock-search>Search</button><a href="#timeline">Timeline</a><a href="#migration">Places</a><a href="#research">Research Center</a></div></details>`;
     markCurrent(dock,'[data-dock-route]',owningSection(routeKey()));
   }
-  /* Promote the dock to a body-level non-modal popover so route canvases and transformed shells can never cover its touch targets. */
+  /* Keep the actual nav inside a stable browser top-layer host. Re-rendering links no longer changes the hit-test surface. */
   syncDockTopLayer(dock);
 }
 
@@ -97,7 +116,6 @@ function focusContextSearch(event){
   const trigger=event.target.closest?.('[data-dock-search]');
   if(!trigger)return false;
   document.querySelector('.v158-mobile-more')?.removeAttribute('open');
-  /* Tree deliberately hides the generic route search so the graph owns the viewport. Move to People before opening family-wide search. */
   if(routeKey()==='tree'&&mobileDockQuery.matches){
     location.hash='people';
     setTimeout(focusVisibleFamilySearch,140);
