@@ -60,13 +60,20 @@ function applySearchTab(overlay){
   });
 }
 function removeSearchScrim(){document.querySelector('[data-family-search-scrim]')?.remove();}
+function popoverOpen(element){try{return element?.matches?.(':popover-open')||false}catch{return false}}
 function ensureSearchPortal(overlay){
   if(overlay.parentElement!==document.body)document.body.append(overlay);
   let scrim=document.querySelector('[data-family-search-scrim]');
   if(!scrim){scrim=document.createElement('button');scrim.type='button';scrim.className='family-search-scrim';scrim.dataset.familySearchScrim='';scrim.setAttribute('aria-label','Close family search');document.body.insertBefore(scrim,overlay);}
+  if(typeof overlay.showPopover==='function'){
+    overlay.setAttribute('popover','manual');
+    if(!popoverOpen(overlay))try{overlay.showPopover()}catch{}
+  }
 }
 function closeFamilySearch({clearQuery=false,restoreFocus=true}={}){
-  document.querySelector('#search-v13-2-results')?.remove();removeSearchScrim();
+  const overlay=document.querySelector('#search-v13-2-results');
+  if(popoverOpen(overlay))try{overlay.hidePopover()}catch{}
+  overlay?.remove();removeSearchScrim();
   const input=document.getElementById('search');
   if(input){if(clearQuery)input.value='';input.blur();}
   if(clearQuery){familySearchTab='all';lastFamilyQuery='';}
@@ -99,7 +106,7 @@ function labelSearchOverlay(){
   const overlay=document.getElementById('search-v13-2-results');
   if(!overlay){removeSearchScrim();return;}
   overlay.classList.add('v1511-search-sheet','family-search-command');if(!isFamilyContext()){removeSearchScrim();return;}
-  ensureSearchPortal(overlay);overlay.setAttribute('aria-label','Family search results');
+  ensureSearchPortal(overlay);overlay.setAttribute('aria-label','Family search results');overlay.setAttribute('role','dialog');
   const allGroups=[...overlay.querySelectorAll('.search-group')];
   allGroups.forEach((group,index)=>group.dataset.v1511SearchKind=groupKind(group,index));
   allGroups.filter(group=>!['people','families'].includes(group.dataset.v1511SearchKind)).forEach(group=>group.remove());
