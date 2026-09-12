@@ -16,7 +16,10 @@ function nativeMarkup(route){
 
 function enforcePublicPrivacy(route,content){
   if(route==='people'){
-    const summary=content.querySelector('.v17-branch-summary p');
+    // Keep Family-mode branch chronology but suppress place detail. This is a
+    // defense-in-depth public surface: mixed historical/living events must not
+    // be able to expose a living person's location through branch aggregation.
+    const summary=content.querySelector('.v17-branch-summary>div:first-child>p:not(.eyebrow)');
     if(summary&&summary.textContent.includes(' · '))summary.textContent=summary.textContent.split(' · ')[0];
     return;
   }
