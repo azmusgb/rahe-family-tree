@@ -1,58 +1,32 @@
 /* Person — biography-first profile rather than a database entity panel. */
-body[data-route="person"][data-v158-context="family"] .family-overview-card.v159-person-overview{
-  margin-top:6px!important;
-  padding:clamp(20px,3vw,34px) 0!important;
-  border:0!important;
-  border-radius:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-}
+body[data-route="person"][data-v158-context="family"] .family-overview-card.v159-person-overview{margin-top:6px!important;padding:clamp(20px,3vw,34px) 0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
 body[data-route="person"][data-v158-context="family"] .v159-person-overview .profile-primary{align-items:center!important}
-body[data-route="person"][data-v158-context="family"] .v159-person-overview .profile-avatar.xl{
-  border-radius:var(--family-radius-panel)!important;
-  box-shadow:var(--family-shadow-card);
-}
-body[data-route="person"][data-v158-context="family"] .profile-headline h2{
-  font-family:var(--family-font-display)!important;
-  font-size:clamp(2.5rem,5vw,4.6rem)!important;
-  line-height:.98!important;
-  letter-spacing:-.045em!important;
-  text-wrap:balance;
-}
+body[data-route="person"][data-v158-context="family"] .v159-person-overview .profile-avatar.xl{border-radius:var(--family-radius-panel)!important;box-shadow:var(--family-shadow-card)}
+body[data-route="person"][data-v158-context="family"] .profile-headline h2{font-family:var(--family-font-display)!important;font-size:clamp(2.5rem,5vw,4.6rem)!important;line-height:.98!important;letter-spacing:-.045em!important;text-wrap:balance}
 body[data-route="person"][data-v158-context="family"] .v159-profile-context{max-width:640px!important;font-size:var(--family-text-support)!important;line-height:1.6!important}
 body[data-route="person"][data-v158-context="family"] .v159-life-summary{margin-top:26px;padding:26px 0;border-top:1px solid var(--family-border-hairline);border-bottom:1px solid var(--family-border-hairline)}
 body[data-route="person"][data-v158-context="family"] .v159-life-copy h3{font-family:var(--family-font-display);font-size:var(--family-text-section)}
 body[data-route="person"][data-v158-context="family"] .v159-life-facts{gap:8px}
-body[data-route="person"][data-v158-context="family"] .v159-life-facts>span{
-  border:1px solid var(--family-border-hairline);
-  border-radius:var(--family-radius-card);
-  background:var(--surface-soft);
-  box-shadow:none;
-}
+body[data-route="person"][data-v158-context="family"] .v159-life-facts>span{border:1px solid var(--family-border-hairline);border-radius:var(--family-radius-card);background:var(--surface-soft);box-shadow:none}
 body[data-route="person"][data-v158-context="family"] .v159-life-facts small{font-size:11px!important}
 body[data-route="person"][data-v158-context="family"] .v159-person-overview .profile-family-grid{margin-top:28px}
 body[data-route="person"][data-v158-context="family"] .v159-family-block{border:0!important;background:transparent!important;padding:0!important}
-body[data-route="person"][data-v158-context="family"] #content>.panel{
-  border:0!important;
-  border-top:1px solid var(--family-border-hairline)!important;
-  border-radius:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-  padding-inline:0!important;
-}
+body[data-route="person"][data-v158-context="family"] #content>.panel{border:0!important;border-top:1px solid var(--family-border-hairline)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding-inline:0!important}
+.v162-family-path{border:1px solid var(--family-border-hairline);border-radius:var(--family-radius-card);background:linear-gradient(180deg,#fff 0%,#fbfcfa 100%);box-shadow:var(--family-shadow-card)}
+.v162-family-path-head{border-bottom-color:var(--family-border-hairline)}.v162-family-path-head a{display:inline-flex;align-items:center;min-height:36px;padding-inline:10px;border-radius:var(--family-radius-control)}.v162-family-path-head a:hover{background:var(--brand-soft)}.v162-family-path-group a{border:1px solid transparent;border-radius:var(--family-radius-chip);background:var(--family-surface-accent)}.v162-family-path-group a:hover{border-color:var(--family-border-interactive);background:#fff}
+.v1510-profile-tabs{border:0!important;background:transparent!important;box-shadow:none!important;padding-inline:0!important}.v1510-profile-tabs :where(button,a){border-radius:var(--family-radius-control)!important;font-size:12px!important}
 
-.v162-family-path{
-  border:1px solid var(--family-border-hairline);
-  border-radius:var(--family-radius-card);
-  background:linear-gradient(180deg,#fff 0%,#fbfcfa 100%);
-  box-shadow:var(--family-shadow-card);
-}
-.v162-family-path-head{border-bottom-color:var(--family-border-hairline)}
-.v162-family-path-head a{display:inline-flex;align-items:center;min-height:36px;padding-inline:10px;border-radius:var(--family-radius-control)}
-.v162-family-path-head a:hover{background:var(--brand-soft)}
-.v162-family-path-group a{border:1px solid transparent;border-radius:var(--family-radius-chip);background:var(--family-surface-accent)}
-.v162-family-path-group a:hover{border-color:var(--family-border-interactive);background:#fff}
-
-/* Tabs behave like secondary navigation, not another framed pane. */
-.v1510-profile-tabs{border:0!important;background:transparent!important;box-shadow:none!important;padding-inline:0!important}
-.v1510-profile-tabs :where(button,a){border-radius:var(--family-radius-control)!important;font-size:12px!important}
+/* Native v17 Person biography. */
+.v17-person{max-width:var(--family-page-person);margin:0 auto;gap:0}
+.v17-back{display:inline-flex;align-items:center;width:max-content;margin:4px 0 18px;color:var(--muted-strong);font-size:13px;font-weight:720}
+.v17-person-header{display:grid;grid-template-columns:auto minmax(0,1fr);gap:28px;align-items:center;padding:20px 0 30px;border-bottom:1px solid var(--family-border-hairline)}
+.v17-person-header h2{max-width:800px;margin:4px 0 9px;font:600 clamp(2.8rem,5.8vw,5rem)/.96 var(--family-font-display);letter-spacing:-.055em;color:var(--green);text-wrap:balance}
+.v17-person-dates{margin:0;color:var(--ink);font-size:16px;font-weight:720}.v17-person-context{max-width:650px;margin:8px 0 0;color:var(--muted-strong);font-size:14px;line-height:1.55}.v17-qualified-state{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:12px;color:var(--muted);font-size:12px}.v17-person-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.v17-person-nav{position:sticky;top:48px;z-index:15;display:flex;gap:5px;overflow-x:auto;margin:0 -6px 8px;padding:9px 6px;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(10px);scrollbar-width:none}.v17-person-nav::-webkit-scrollbar{display:none}.v17-person-nav a{flex:0 0 auto;padding:8px 11px;border-radius:var(--family-radius-control);color:var(--muted-strong);font-size:12px;font-weight:740}.v17-person-nav a:hover{background:var(--brand-soft);color:var(--green)}
+.v17-person-section{display:grid;gap:18px;padding:clamp(28px,4.6vw,54px) 0;border-bottom:1px solid var(--family-border-hairline);scroll-margin-top:94px}
+.v17-family-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.v17-family-group{display:grid;gap:9px}.v17-family-group h3{margin:0;font:600 15px/1.2 var(--family-font-ui);color:var(--muted-strong)}.v17-family-group-grid{display:grid;gap:7px}
+.v17-person-places{display:flex;gap:7px;flex-wrap:wrap}.v17-person-places a{padding:7px 10px;border-radius:999px;background:var(--family-surface-accent);color:var(--green);font-size:12px;font-weight:720}
+.v17-life-timeline{position:relative;display:grid;gap:0;margin-top:2px}.v17-life-timeline::before{content:'';position:absolute;left:101px;top:8px;bottom:8px;width:1px;background:var(--line)}
+.v17-life-event{position:relative;display:grid;grid-template-columns:82px minmax(0,1fr);gap:34px;padding:17px 0}.v17-life-event::before{content:'';position:absolute;left:97px;top:25px;width:9px;height:9px;border:2px solid var(--green);border-radius:50%;background:var(--bg)}.v17-life-event time{font:600 14px/1.3 var(--family-font-display);color:var(--green);text-align:right}.v17-life-event>div>span{display:flex;align-items:center;gap:6px;flex-wrap:wrap;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}.v17-life-event h3{margin:4px 0 5px;font:600 18px/1.25 var(--family-font-display);color:var(--ink)}.v17-life-event p{margin:0;color:var(--muted-strong);font-size:12px}.v17-life-event.state-provisional::before,.v17-life-event.state-unresolved::before{border-style:dashed}
+.v17-person-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.v17-gallery-item{display:block;overflow:hidden;border:1px solid var(--family-border-hairline);border-radius:var(--family-radius-card);background:#fff;color:var(--ink)}.v17-gallery-item img,.v17-document-mark{display:grid;place-items:center;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--family-surface-accent);color:var(--green);font-weight:850;letter-spacing:.08em}.v17-gallery-item>span:last-child{display:block;padding:10px 11px 12px}.v17-gallery-item b{display:block;font-size:13px}.v17-gallery-item small{display:block;margin-top:3px;color:var(--muted);font-size:11px}
+.v17-person-research{margin-top:30px}
