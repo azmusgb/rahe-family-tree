@@ -1,0 +1,58 @@
+/* v16.2 — Family narrative layer.
+ * Adds story, branch, immediate-family, and album context without changing genealogy semantics.
+ */
+
+.v162-family-journey{display:grid;gap:20px;padding-block:clamp(24px,4vw,42px)!important;border-top:1px solid var(--line)}
+.v162-journey-head{display:flex;align-items:end;justify-content:space-between;gap:20px}
+.v162-journey-head h2{margin:2px 0 6px;font:600 clamp(30px,4vw,46px)/1 Georgia,"Times New Roman",serif;letter-spacing:-.025em}
+.v162-journey-head p{margin:0;color:var(--muted);max-width:620px}
+.v162-journey-head>a{white-space:nowrap;font-weight:750;color:var(--green)}
+.v162-moments{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.v162-moment{min-width:0;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.v162-moment time{display:block;margin-bottom:14px;font:600 28px/1 Georgia,"Times New Roman",serif;color:var(--green)}
+.v162-moment span{display:block;margin-bottom:4px;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+.v162-moment h3{margin:0 0 8px;font:600 17px/1.14 Georgia,"Times New Roman",serif;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+.v162-moment p,.v162-moment small{margin:0;color:var(--muted);font-size:11px;line-height:1.4}
+.v162-moment small{display:block;margin-top:5px}
+.v162-places{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:2px}
+.v162-places>span{margin-right:2px;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.v162-places a{padding:7px 10px;border-radius:999px;background:var(--brand-soft);color:var(--green);font-size:11px;font-weight:700}
+
+.v162-branch-context{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:6px 0 12px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,var(--surface),var(--brand-soft))}
+.v162-branch-context h3{margin:2px 0 4px;font:600 24px/1.05 Georgia,"Times New Roman",serif}
+.v162-branch-context p{margin:0;color:var(--muted);font-size:12px}
+.v162-branch-actions{display:flex;gap:6px}.v162-branch-actions a{padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:var(--surface);font-size:11px;font-weight:750;color:var(--green)}
+
+.v162-family-path{display:grid;gap:10px;margin:12px 0 18px;padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.v162-family-path-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.v162-family-path-head p{margin:0}.v162-family-path-head a{font-size:11px;font-weight:750;color:var(--green)}
+.v162-family-path-group{display:grid;grid-template-columns:100px minmax(0,1fr);gap:12px;align-items:start}
+.v162-family-path-group>span{padding-top:6px;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+.v162-family-path-group>div{display:flex;gap:6px;flex-wrap:wrap}
+.v162-family-path-group a{padding:6px 9px;border-radius:999px;background:var(--brand-soft);color:var(--green);font-size:11px;font-weight:700}
+
+.v162-media-quick{display:flex;gap:6px;overflow:auto;margin:2px 0 10px;padding-bottom:2px;scrollbar-width:none}
+.v162-media-quick::-webkit-scrollbar{display:none}.v162-media-quick button{min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--green);font:inherit;font-size:11px;font-weight:750;white-space:nowrap}
+.v162-media-quick button.active{background:var(--green);border-color:var(--green);color:white}
+
+/* Mobile More receives a genuine modal-sheet feel. */
+@media(max-width:720px){
+  body:has(.v158-mobile-more[open])::before{content:"";position:fixed;inset:0;background:rgba(20,36,31,.3);backdrop-filter:blur(1px);z-index:2147483090;pointer-events:none}
+  .v158-mobile-more[open]>div{animation:v162-sheet-in .18s ease-out both}
+  @keyframes v162-sheet-in{from{transform:translateY(16px);opacity:.5}to{transform:translateY(0);opacity:1}}
+
+  .v162-family-journey{gap:14px;padding:20px 0!important}
+  .v162-journey-head{display:block}.v162-journey-head h2{font-size:28px}.v162-journey-head p{font-size:12px;line-height:1.5}.v162-journey-head>a{display:inline-block;margin-top:8px;font-size:11px}
+  .v162-moments{display:flex;overflow-x:auto;gap:8px;margin-inline:-2px;padding:2px 2px 6px;scroll-snap-type:x proximity;scrollbar-width:none}
+  .v162-moments::-webkit-scrollbar{display:none}.v162-moment{flex:0 0 min(78vw,260px);scroll-snap-align:start;padding:14px}.v162-moment time{font-size:24px;margin-bottom:10px}.v162-moment h3{font-size:16px}
+  .v162-places{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.v162-places>span{flex:0 0 auto}.v162-places a{flex:0 0 auto}
+
+  .v162-branch-context{display:block;margin:4px 0 10px;padding:12px}.v162-branch-context h3{font-size:20px}.v162-branch-context p{font-size:10px}.v162-branch-actions{margin-top:10px}.v162-branch-actions a{flex:1;text-align:center}
+
+  .v162-family-path{margin:8px 0 14px;padding:12px;gap:8px}.v162-family-path-group{grid-template-columns:1fr;gap:5px}.v162-family-path-group>span{padding:0}.v162-family-path-group>div{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.v162-family-path-group a{flex:0 0 auto}
+  .v162-family-path-head a{font-size:10px}
+
+  .v162-media-quick{margin-top:4px;margin-bottom:8px}.v162-media-quick button{min-height:36px;padding-inline:12px}
+}
+
+@media(prefers-reduced-motion:reduce){.v158-mobile-more[open]>div{animation:none!important}}

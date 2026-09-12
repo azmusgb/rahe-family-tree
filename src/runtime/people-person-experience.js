@@ -44,15 +44,28 @@ function branchCounts(){
   }
   return[...counts].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
 }
+function ensureBranchOptions(branches){
+  const select=document.getElementById('branch');if(!select)return;
+  const current=select.value;
+  if(!select.querySelector('option[value=""]'))select.insertAdjacentHTML('afterbegin','<option value="">All branches</option>');
+  const existing=new Set([...select.options].map(option=>option.value));
+  for(const[branch]of branches){if(existing.has(branch))continue;const option=document.createElement('option');option.value=branch;option.textContent=branch;select.append(option);existing.add(branch);}
+  if(current&&existing.has(current))select.value=current;
+}
+function syncBranchBrowser(){
+  const selected=document.getElementById('branch')?.value||'';
+  document.querySelectorAll('[data-v159-branch]').forEach(button=>{const active=(button.dataset.v159Branch||'')===selected;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});
+}
 
 function peopleHeader(content){
-  if(content.querySelector('.v159-people-header'))return;
+  if(content.querySelector('.v159-people-header')){const branches=branchCounts();ensureBranchOptions(branches);syncBranchBrowser();return;}
   const grid=content.querySelector('.people-grid');if(!grid)return;
   const people=displayPeople(),historical=people.filter(p=>!p.living).length,living=people.length-historical,branches=branchCounts();
+  ensureBranchOptions(branches);
   const header=document.createElement('section');header.className='v159-people-header';
   header.innerHTML=`<div class="v159-people-heading"><div><p class="eyebrow">FAMILY DIRECTORY</p><h2>Meet the people in the family</h2><p>Browse relatives as people first — with family context, places, relationships, and photographs where available.</p></div><div class="v159-people-totals" aria-label="People directory summary"><span><b>${people.length}</b><small>people</small></span><span><b>${branches.length}</b><small>branches</small></span><span><b>${historical}</b><small>historical</small></span>${living?`<span><b>${living}</b><small>living protected</small></span>`:''}</div></div><div class="v159-branch-browser" aria-label="Browse people by branch"><span>Browse by branch</span><button type="button" data-v159-branch="">All</button>${branches.slice(0,8).map(([branch,count])=>`<button type="button" data-v159-branch="${esc(branch)}">${esc(branch)} <small>${count}</small></button>`).join('')}</div>`;
   const inventory=content.querySelector('.notice');
-  (inventory||grid).insertAdjacentElement(inventory?'afterend':'beforebegin',header);
+  (inventory||grid).insertAdjacentElement(inventory?'afterend':'beforebegin',header);syncBranchBrowser();
 }
 
 function enrichPersonCards(content){
@@ -125,10 +138,13 @@ function apply(){
 function selectBranch(event){
   const button=event.target.closest?.('[data-v159-branch]');if(!button)return false;
   const select=document.getElementById('branch');if(!select)return true;
-  select.value=button.dataset.v159Branch||'';select.dispatchEvent(new Event('change',{bubbles:true}));return true;
+  const value=button.dataset.v159Branch||'';
+  if(value&&![...select.options].some(option=>option.value===value)){const option=document.createElement('option');option.value=value;option.textContent=value;select.append(option);}
+  select.value=value;syncBranchBrowser();select.dispatchEvent(new Event('change',{bubbles:true}));return true;
 }
 
 document.addEventListener('click',event=>{if(selectBranch(event))event.preventDefault();});
+document.addEventListener('change',event=>{if(event.target?.id==='branch')syncBranchBrowser();});
 window.addEventListener('family-view-rendered',()=>requestAnimationFrame(()=>requestAnimationFrame(apply)));
 window.addEventListener('family-media-changed',()=>{mediaPromise=null;apply();});
 window.addEventListener('family-auth-changed',()=>{mediaPromise=null;apply();});
