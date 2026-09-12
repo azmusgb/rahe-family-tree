@@ -53,7 +53,7 @@ function contextualSearch(){
 }
 
 function syncDockTopLayer(dock){
-  if(dock.parentElement===document.body&&dock!==document.body.lastElementChild)document.body.append(dock);
+  if(dock.parentElement!==document.body||dock!==document.body.lastElementChild)document.body.append(dock);
   if(typeof dock.showPopover!=='function')return;
   dock.setAttribute('popover','manual');
   const open=()=>{try{return dock.matches(':popover-open')}catch{return false}};
@@ -71,7 +71,7 @@ function rebuildMobileDock(){
     dock.innerHTML=`<a href="#dashboard" data-dock-route="dashboard"><span>Home</span></a><a href="#tree" data-dock-route="tree"><span>Tree</span></a><a href="#people" data-dock-route="people"><span>People</span></a><a href="#media" data-dock-route="media"><span>Photos</span></a><details class="v158-mobile-more"><summary>More</summary><div><button type="button" data-dock-search>Search</button><a href="#timeline">Timeline</a><a href="#migration">Places</a><a href="#research">Research Center</a></div></details>`;
     markCurrent(dock,'[data-dock-route]',owningSection(routeKey()));
   }
-  /* Non-modal popover promotion puts the fixed dock in the browser top layer, above transformed/canvas content without making the page inert. */
+  /* Promote the dock to a body-level non-modal popover so route canvases and transformed shells can never cover its touch targets. */
   syncDockTopLayer(dock);
 }
 
