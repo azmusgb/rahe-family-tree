@@ -19,7 +19,7 @@ export function createRelative({anchorId,kind,person,parentIds=[]}){
   const rels=activeRelations(),people=new Set(allPeople().map(p=>p.id));
   const id=`LOCAL-P-${slug(name)}-${Date.now().toString(36).toUpperCase()}-${crypto.randomUUID().slice(0,5).toUpperCase()}`;
   const state=String(person.state||'SUPPORTED / family-established').trim();
-  const p={id,name,aliases:String(person.aliases||'').split(',').map(x=>x.trim()).filter(Boolean),branch:String(person.branch||anchor.branch||'Family').trim(),dates:person.living!==false?'Living / birth details withheld':String(person.dates||'Dates not established').trim(),role:String(person.role||`${kind} of ${anchor.name}`).trim(),state,state,stateTokens:stateTokens(state),living:person.living!==false,references:[],sourceLocation:null,provenance:'LOCAL FAMILY EDIT — NON-CANONICAL',createdAt:now()};
+  const p={id,name,aliases:String(person.aliases||'').split(',').map(x=>x.trim()).filter(Boolean),branch:String(person.branch||anchor.branch||'Family').trim(),dates:person.living!==false?'Living / birth details withheld':String(person.dates||'Dates not established').trim(),role:String(person.role||`${kind} of ${anchor.name}`).trim(),state,stateTokens:stateTokens(state),living:person.living!==false,references:[],sourceLocation:null,provenance:'LOCAL FAMILY EDIT — NON-CANONICAL',createdAt:now()};
 
   const specs=[];
   if(kind==='child'){

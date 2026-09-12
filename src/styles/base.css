@@ -37,10 +37,36 @@ body[data-v158-context="family"] :where(p,li,dd){text-wrap:pretty}
 body[data-v158-context="family"] :where(.v157-person-copy,.v159-card-context,.v159-card-dates,.v157-media-card small,.v157-tree-person small,.v159-card-relations small){font-size:max(var(--family-text-meta),12px)!important}
 body[data-v158-context="family"] :where(.dashboard-section p,.v159-life-copy p,.v157-research-center p){font-size:var(--family-text-body);line-height:1.62}
 
+/* v17 native Family archive primitives. These classes are purpose-built route
+ * markup and do not depend on the legacy dashboard/person enhancement DOM. */
+body[data-family-native="v17"] #content.v17-content{padding-bottom:var(--family-space-7)}
+.v17-native{display:grid;gap:clamp(30px,4.5vw,64px)}
+.v17-native :where(h2,h3,b,p,small,em){margin-block-start:0}
+.v17-native a{text-decoration:none}
+.v17-section-head{display:flex;align-items:end;justify-content:space-between;gap:22px}
+.v17-section-head>div{min-width:0}
+.v17-section-head h2{margin:3px 0 7px;font:600 var(--family-text-section)/1.06 var(--family-font-display);letter-spacing:-.03em;color:var(--green);text-wrap:balance}
+.v17-section-head p:not(.eyebrow){max-width:68ch;margin:0;color:var(--muted-strong);font-size:var(--family-text-support);line-height:1.6}
+.v17-section-head>a{flex:0 0 auto;color:var(--green);font-size:13px;font-weight:760}
+.v17-primary-actions{display:flex;flex-wrap:wrap;gap:9px}
+.v17-avatar{display:grid;place-items:center;overflow:hidden;width:78px;height:78px;flex:0 0 auto;border:1px solid color-mix(in srgb,var(--green) 10%,var(--line));border-radius:var(--family-radius-card);background:linear-gradient(145deg,#e8eee9,#dce6df);color:var(--green);font-weight:850;font-size:17px}
+.v17-avatar.small{width:48px;height:48px;border-radius:12px;font-size:12px}
+.v17-avatar.hero{width:142px;height:164px;border-radius:var(--family-radius-panel);font-size:28px;box-shadow:var(--family-shadow-card)}
+.v17-avatar img{display:block;width:100%;height:100%;object-fit:cover}
+.v17-relative{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:11px;width:100%;padding:10px;border:1px solid var(--family-border-hairline);border-radius:var(--family-radius-card);background:#fff;color:var(--ink);text-align:left;cursor:pointer;box-shadow:none}
+.v17-relative>span:last-child{display:grid;gap:2px;min-width:0}
+.v17-relative small{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.v17-relative b{font-family:var(--family-font-display);font-size:15px;line-height:1.15}
+.v17-relative em{font-style:normal;font-size:12px;color:var(--muted-strong)}
+.v17-research-door,.v17-person-research{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:22px;align-items:center;padding:24px 0;border-top:1px solid var(--family-border-hairline);border-bottom:1px solid var(--family-border-hairline)}
+.v17-research-door h2,.v17-person-research h2{margin:3px 0 7px;font:600 clamp(1.45rem,2.5vw,2rem)/1.08 var(--family-font-display);color:var(--green)}
+.v17-research-door p,.v17-person-research p{max-width:720px;margin:0;color:var(--muted-strong);line-height:1.58}
+
 @media(hover:hover) and (pointer:fine){
   body[data-v158-context="family"] :where(.v159-person-card,.v157-person-card,.v162-moment,.media-library-card):hover{
     transform:translateY(-2px);
     border-color:var(--family-border-interactive)!important;
     box-shadow:var(--family-shadow-card-hover)!important;
   }
+  .v17-relative:hover{border-color:var(--family-border-interactive);background:var(--family-surface-accent)}
 }

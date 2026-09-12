@@ -4,13 +4,14 @@ import fs from'node:fs';
 
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
+const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const runtime=fs.readFileSync('v15-family-focus.js','utf8');
 const css=fs.readFileSync('v15-family-focus.css','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
-test('v15.3 person profiles prioritize immediate family and family-record context',()=>{
+test('v15.3 person profile capabilities remain available as compatibility behavior',()=>{
   assert.match(runtime,/v153-family-network/);
   assert.match(runtime,/profileRelationCard\('Parents'/);
   assert.match(runtime,/profileRelationCard\('Spouse'/);
@@ -21,7 +22,7 @@ test('v15.3 person profiles prioritize immediate family and family-record contex
   assert.match(css,/v15\.3 — person profiles/);
 });
 
-test('v15.4 tree redesign adds focal-person context without changing tree semantics',()=>{
+test('v15.4 tree capability layer retains focal-person semantics beneath native v17 shell',()=>{
   assert.match(runtime,/v154-tree-person/);
   assert.match(runtime,/data-tree-scope="ancestors"/);
   assert.match(runtime,/data-tree-scope="descendants"/);
@@ -30,7 +31,7 @@ test('v15.4 tree redesign adds focal-person context without changing tree semant
   assert.match(css,/\.edge\.identity-bridge/);
 });
 
-test('v15.2 home polish keeps family discovery before research material',()=>{
+test('v15.2 home material remains historical compatibility input',()=>{
   assert.match(runtime,/Discover the people, places, and stories that connect the Rahe family/);
   assert.match(runtime,/dashboard-family-layout/);
   assert.match(runtime,/Stories, places & milestones/);
@@ -38,14 +39,15 @@ test('v15.2 home polish keeps family discovery before research material',()=>{
   assert.match(css,/v15\.2 — family home polish/);
 });
 
-test('family-focus layer remains bundled by the current v15.6 release',()=>{
-  assert.match(index,/data-ui-release="15\.6\.0"/);
-  assert.match(index,/styles-v15\.css\?v=15\.6\.0/);
-  assert.match(index,/app\.bundle\.js\?v=15\.6\.0/);
-  assert.match(entry,/v15-family-focus\.js/);
+test('family-focus layer remains bundled beneath the native v17 release',()=>{
+  assert.match(index,/data-ui-release="17\.0\.0"/);
+  assert.match(index,/styles\.css\?v=17\.0\.0/);
+  assert.match(index,/app\.bundle\.js\?v=17\.0\.0/);
+  assert.match(entry,/src\/runtime\/index\.js/);
+  assert.match(experience,/\.\.\/\.\.\/v15-family-focus\.js/);
   assert.match(build,/app-entry\.js/);
   assert.match(styleRoot,/v15-family-focus\.css/);
-  assert.match(build,/const appVersion='15\.6\.0'/);
+  assert.match(build,/const appVersion='17\.0\.0'/);
 });
 
 test('family-focus presentation cannot mutate canonical genealogy semantics',()=>{

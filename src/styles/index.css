@@ -4,6 +4,10 @@
  * Family design system owns the current presentation surface. Production still
  * emits one bundled stylesheet. New work belongs in semantic files below — do
  * not add another numbered visual-release stylesheet.
+ *
+ * v17 retirement note: the v15.7 Home, v15.9 People/Person and v15.10 compact
+ * disclosure presentation layers are no longer imported. Native Family markup
+ * now owns those routes directly.
  */
 @import '../../v11.css';
 @import '../../v11-nav.css';
@@ -34,10 +38,7 @@
 @import '../../platform-v13.css';
 @import '../../v15-5.css';
 @import '../../v15-6.css';
-@import '../../v15-7.css';
 @import '../../v15-8.css';
-@import '../../v15-9.css';
-@import '../../v15-10.css';
 @import './record-ingestion.css';
 @import './v16.css';
 @import './v16-1.css';

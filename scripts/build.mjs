@@ -24,7 +24,7 @@ await esbuild([
 ]);
 
 await esbuild([
-  'src/styles/index.css','--bundle','--minify','--legal-comments=none','--outfile=dist/styles-v15.css'
+  'src/styles/index.css','--bundle','--minify','--legal-comments=none','--outfile=dist/styles.css'
 ]);
 
 for(const f of ['corpus.json','coverage.json','redactions.json','research-model.json','semantic-audit.json','canonical-graph.json','provenance-index.json','canonical-diff.json'])await copyFile(`public/${f}`,`dist/${f}`);
@@ -35,7 +35,7 @@ completeness.failed=Array.isArray(completeness.failed)
 await writeFile('dist/canonical-completeness.json',JSON.stringify(completeness,null,2));
 
 const model=JSON.parse(await readFile('public/research-model.json','utf8'));
-const appVersion='15.6.0';
+const appVersion='17.0.0';
 const genealogySchemaVersion='13.0';
 const canonicalSourceVersion='10.0';
 const buildInfo={
@@ -49,7 +49,7 @@ const buildInfo={
   builtAt:new Date().toISOString(),
   experience:appVersion,
   bundler:`esbuild@${ESBUILD_VERSION}`,
-  browserAssets:['app.bundle.js','styles-v15.css']
+  browserAssets:['app.bundle.js','styles.css']
 };
 await writeFile('dist/build-info.json',JSON.stringify(buildInfo,null,2));
 console.log(`Built Rahe Family Experience v${appVersion} as one JS bundle + one CSS bundle on research model ${buildInfo.release} / platform ${buildInfo.platform||'n/a'} · ${buildInfo.gitSha}.`);

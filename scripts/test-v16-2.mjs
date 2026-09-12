@@ -4,12 +4,16 @@ import fs from'node:fs';
 
 const runtime=fs.readFileSync('src/runtime/family-narrative.js','utf8');
 const peopleRuntime=fs.readFileSync('src/runtime/people-person-experience.js','utf8');
+const nativeRuntime=fs.readFileSync('src/runtime/native-family-v17.js','utf8');
+const nativeController=fs.readFileSync('src/runtime/native-family-v17-controller.js','utf8');
 const styles=fs.readFileSync('src/styles/v16-2.css','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const tokens=fs.readFileSync('src/styles/tokens.css','utf8');
 const baseStyles=fs.readFileSync('src/styles/base.css','utf8');
 const shellStyles=fs.readFileSync('src/styles/shell.css','utf8');
+const homeStyles=fs.readFileSync('src/styles/home.css','utf8');
+const peopleStyles=fs.readFileSync('src/styles/people.css','utf8');
 const personStyles=fs.readFileSync('src/styles/person.css','utf8');
 const treeStyles=fs.readFileSync('src/styles/tree.css','utf8');
 const mediaStyles=fs.readFileSync('src/styles/media.css','utf8');
@@ -79,6 +83,45 @@ test('family surfaces are content-first and retain readable metadata floors',()=
   assert.match(baseStyles,/font-size:max\(var\(--family-text-meta\),12px\)!important/);
   assert.match(treeStyles,/rgba\(23,63,53,\.012\)/);
   assert.match(responsiveStyles,/node-id\{font-size:9px!important/);
+});
+
+test('v17 native controller owns Home Tree People and Person instead of legacy reshapers',()=>{
+  assert.match(experience,/import '\.\/native-family-v17-controller\.js'/);
+  assert.doesNotMatch(experience,/home-flow\.js/);
+  assert.doesNotMatch(experience,/people-person-experience\.js/);
+  assert.doesNotMatch(experience,/compact-disclosure\.js/);
+  assert.match(nativeController,/nativeRoutes=new Set\(\['dashboard','tree','people','person'\]\)/);
+  assert.match(nativeController,/data-v17-native="tree"/);
+  for(const marker of['data-v17-native="home"','data-v17-native="people"','data-v17-native="person"'])assert.match(nativeRuntime,new RegExp(marker));
+});
+
+test('v17 retires route-specific v15.7 v15.9 and v15.10 presentation imports',()=>{
+  assert.doesNotMatch(styleRoot,/v15-7\.css/);
+  assert.doesNotMatch(styleRoot,/v15-9\.css/);
+  assert.doesNotMatch(styleRoot,/v15-10\.css/);
+  for(const token of['v17-home-hero','v17-home-tree','v17-person-card','v17-person-header','v17-life-timeline'])assert.ok(homeStyles.includes(token)||peopleStyles.includes(token)||personStyles.includes(token)||baseStyles.includes(token),`${token} should be owned by semantic Family CSS`);
+});
+
+test('v17 public Family controller suppresses living-person chronology location and media surfaces',()=>{
+  assert.match(nativeController,/if\(!person\?\.living\)return/);
+  assert.match(nativeController,/v17-person-places/);
+  assert.match(nativeController,/Detailed chronology and location records are protected/);
+  assert.match(nativeController,/removeAttribute\('data-v17-person-photo'\)/);
+  assert.match(nativeController,/Living-person media remains private/);
+  assert.match(nativeController,/v17-branch-summary>div:first-child>p:not\(\.eyebrow\)/);
+  assert.match(nativeController,/split\(' · '\)\[0\]/);
+});
+
+test('native Family rendering does not promote evidence or mutate genealogy',()=>{
+  for(const source of[nativeRuntime,nativeController]){
+    assert.doesNotMatch(source,/\.state\s*=/);
+    assert.doesNotMatch(source,/relationships?\.push/);
+    assert.doesNotMatch(source,/claims?\.push/);
+  }
+  const bridge=(model.relationships||[]).find(r=>r.type==='identity-bridge');
+  assert.ok(bridge);
+  assert.match(String(bridge.state||''),/UNRESOLVED/i);
+  assert.ok((model.relationships||[]).filter(r=>/REJECTED/i.test(String(r.state||''))).every(r=>r.active===false));
 });
 
 test('family narrative and semantic presentation do not promote evidence or mutate genealogy',()=>{
