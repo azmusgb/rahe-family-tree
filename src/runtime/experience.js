@@ -1,20 +1,16 @@
-// Stable experience boundary. Keep side-effect initialization order explicit:
-// primary v15 behavior, v15.1 relayout, family-focus layer, platform runtime,
-// route-aware page architecture, v15.7 family-first home flow, v15.8 shell,
-// v15.9 people/person presentation enhancements, then v15.10 disclosure.
+// Stable experience boundary. Historical implementation modules remain behind
+// the runtime boundary, while Family Home / People / Person now use the native
+// v17 archive controller instead of post-render v15.7–v15.10 reshaping.
 import './experience-core.js';
 import '../../v15-1-runtime.js';
 import '../../v15-family-focus.js';
 import '../../platform-v13-runtime.js';
 import './page-architecture.js';
-import './home-flow.js';
 import './navigation-shell.js';
-import './people-person-experience.js';
-import './compact-disclosure.js';
+import './native-family-v17-controller.js';
 
-// New workbench and editorial capabilities load after the stable historical
-// side-effect chain. esbuild still emits one production bundle because code
-// splitting is disabled.
+// Workbench, Stories, Tree/mobile density and media-specific narrative helpers
+// remain additive capabilities after the stable Family route controller.
 void import('./record-ingestion.js');
 void import('./stories-runtime.js');
 void import('./mobile-family-density.js');
