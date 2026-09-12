@@ -61,6 +61,31 @@ test('tree person visual is a one-click route to a profile',async({page})=>{
   await expect(page).toHaveURL(/#person\//);
 });
 
+test('mobile tree is canvas-first instead of stacked desktop controls',async({page},testInfo)=>{
+  test.skip(testInfo.project.name!=='mobile-chromium','mobile tree contract');
+  await page.goto('/#tree');
+  const content=page.locator('#content');
+  await expect(content).toHaveClass(/v1511-mobile-tree/);
+  await expect(page.locator('.v154-tree-person')).toBeHidden();
+  await expect(page.locator('.v129-tree-memory')).toBeHidden();
+  await expect(page.locator('.v154-tree-help')).toBeHidden();
+  await expect(page.locator('.legend')).toBeHidden();
+  await expect(page.locator('.mobile-family-list')).toBeHidden();
+  await expect(page.locator('.relationship-index')).toBeHidden();
+  await expect(page.locator('[data-center-person]')).toHaveText('Center');
+  await expect(page.locator('[data-show-all-people]')).toHaveText('Full tree');
+  const graph=page.locator('.graph-scroll');
+  await expect(graph).toBeVisible();
+  const graphBox=await graph.boundingBox();
+  expect(graphBox?.y||9999).toBeLessThan(page.viewportSize().height*.58);
+  expect(graphBox?.height||0).toBeGreaterThan(350);
+  const dock=page.locator('#family-mobile-dock');
+  await dock.getByRole('link',{name:'Home'}).click();
+  await expect(page).toHaveURL(/#dashboard$/);
+  await dock.getByRole('link',{name:'Tree'}).click();
+  await expect(page).toHaveURL(/#tree$/);
+});
+
 test('desktop family navigation is Home Tree People Photos plus Explore and Research Center',async({page},testInfo)=>{
   test.skip(testInfo.project.name!=='desktop-chromium','desktop navigation contract');
   await page.goto('/#dashboard');
@@ -155,7 +180,8 @@ test('Person profile defaults to one compact Overview and exposes tabs for deepe
   await expect(page.locator('.profile-media')).toBeVisible();
 });
 
-test('v15.4 tree gives the focal person persistent context and profile navigation',async({page})=>{
+test('desktop tree keeps the persistent focal-person context and profile navigation',async({page},testInfo)=>{
+  test.skip(testInfo.project.name!=='desktop-chromium','desktop tree context contract');
   await page.goto('/#tree');
   const focal=page.locator('.v154-tree-person');
   await expect(focal).toBeVisible();
