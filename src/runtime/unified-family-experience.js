@@ -72,11 +72,14 @@ function installBalancedFeatured(root){
 }
 function installTreeBranchNavigator(root){
   if(root.querySelector('.v172-tree-branches'))return;
-  const focusbar=root.querySelector('.tree-focusbar');if(!focusbar)return;
+  // Native graph markup is authoritative and always has .graph-shell. The
+  // compact .tree-focusbar is a later compatibility enhancement, so do not
+  // make branch navigation depend on that layer winning a scheduling race.
+  const anchor=root.querySelector('.tree-focusbar')||root.querySelector('.graph-shell');if(!anchor)return;
   const rels=activeRelationships(),branches=branchNames();
   const buttons=branches.map(branch=>{const rep=branchRepresentative(branch,rels);return rep?`<button type="button" data-v172-tree-branch="${esc(branch)}" data-focus="${esc(rep.id)}">${esc(branch)}</button>`:'';}).join('');
   const neutral=chooseRepresentative(displayPeople(),rels);
-  const nav=document.createElement('section');nav.className='v172-tree-branches';nav.innerHTML=`<div><span class="eyebrow">EXPLORE THE FAMILY</span><b>Jump to a branch or return to the connected network</b></div><div class="v172-tree-branch-actions">${neutral?`<button type="button" class="v172-whole-family" data-v172-tree-connected data-focus="${esc(neutral.id)}">Connected family</button>`:''}${buttons}</div>`;focusbar.insertAdjacentElement('beforebegin',nav);
+  const nav=document.createElement('section');nav.className='v172-tree-branches';nav.innerHTML=`<div><span class="eyebrow">EXPLORE THE FAMILY</span><b>Jump to a branch or return to the connected network</b></div><div class="v172-tree-branch-actions">${neutral?`<button type="button" class="v172-whole-family" data-v172-tree-connected data-focus="${esc(neutral.id)}">Connected family</button>`:''}${buttons}</div>`;anchor.insertAdjacentElement('beforebegin',nav);
 }
 
 let mediaPromise=null;
@@ -103,7 +106,7 @@ function apply(){
   if(routeKey()==='dashboard'){installHomeBranchIndex(root);installBalancedHomeTree(root);installBalancedFeatured(root);hydrateNativeFamily();}
   if(routeKey()==='tree'){installTreeBranchNavigator(root);hydrateTreePortraits(root);}
 }
-let queued=false;function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;apply();}));}
+let queued=false;function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;apply();});}
 
 // Own Tree scope changes in capture phase so no historical compatibility fallback
 // can re-introduce a surname-specific focal person when a selector is unavailable.
@@ -120,4 +123,10 @@ document.addEventListener('click',event=>{
   const branch=event.target.closest?.('[data-v172-tree-branch]');if(branch){event.preventDefault();replaceUrlForTree(branch.dataset.focus,'family',3);return;}
   const connected=event.target.closest?.('[data-v172-tree-connected]');if(connected){event.preventDefault();replaceUrlForTree(connected.dataset.focus,'connected');}
 });
-window.addEventListener('family-view-rendered',schedule);window.addEventListener('hashchange',schedule);window.addEventListener('family-media-changed',()=>{mediaPromise=null;schedule();});window.addEventListener('family-auth-changed',()=>{mediaPromise=null;schedule();});window.addEventListener('family-experience-changed',schedule);document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
+window.addEventListener('family-native-rendered',schedule);
+window.addEventListener('family-view-rendered',schedule);
+window.addEventListener('hashchange',schedule);
+window.addEventListener('family-media-changed',()=>{mediaPromise=null;schedule();});
+window.addEventListener('family-auth-changed',()=>{mediaPromise=null;schedule();});
+window.addEventListener('family-experience-changed',schedule);
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
