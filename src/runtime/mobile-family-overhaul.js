@@ -1,6 +1,7 @@
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const isFamilyHome=()=>document.body.dataset.experience!=='research'&&routeKey()==='dashboard';
 const isFamilyContext=()=>document.body.dataset.v158Context==='family';
+let familySearchTab='all';
 
 function mergeHomeLead(content){
   const hero=content.querySelector('.v157-hero'),tree=content.querySelector('.v157-tree-preview');
@@ -29,17 +30,91 @@ function simplifyResearch(content){
   const paragraph=center.querySelector('p:not(.eyebrow)');if(paragraph)paragraph.textContent='Sources, unresolved questions, and evidence work stay in one dedicated workspace.';
   const action=center.querySelector('.action');if(action)action.textContent='Open Research Center';
 }
-function labelSearchOverlay(){
-  const overlay=document.getElementById('search-v13-2-results');if(!overlay)return;overlay.classList.add('v1511-search-sheet');if(!isFamilyContext())return;
-  const summary=overlay.querySelector('.search-summary small');if(summary)summary.textContent='Search people and family groups. Research records remain available in Research Center.';
-  const groups=[...overlay.querySelectorAll('.search-group')];groups.slice(2).forEach(group=>group.remove());
-  const familyCount=groups.slice(0,2).reduce((sum,group)=>sum+(Number(group.querySelector('h3 span')?.textContent)||0),0);
-  const count=overlay.querySelector('.search-summary-count b');if(count)count.textContent=String(familyCount);
-  const label=overlay.querySelector('.search-summary-count span');if(label)label.textContent=familyCount===1?'family match':'family matches';
+function groupKind(group,index){
+  const label=group.querySelector('h3')?.childNodes?.[0]?.textContent?.trim().toLowerCase()||'';
+  if(label.startsWith('people'))return'people';
+  if(label.startsWith('family'))return'families';
+  return index===0?'people':index===1?'families':'other';
 }
-function apply(){labelSearchOverlay();if(!isFamilyHome())return;const content=document.querySelector('#content');if(!content)return;content.classList.add('v1511-home');simplifyHero(content);simplifyTree(content);mergeHomeLead(content);simplifyFeatured(content);simplifyResearch(content);}
+function initials(name){
+  const parts=String(name||'').trim().split(/\s+/).filter(Boolean);
+  if(!parts.length)return'?';
+  return `${parts[0][0]||''}${parts.length>1?parts.at(-1)[0]||'':''}`.toUpperCase();
+}
+function polishSearchHit(hit,kind){
+  if(hit.dataset.v1511Polished==='true')return;
+  const title=hit.querySelector('b'),meta=hit.querySelector('small');if(!title)return;
+  const marker=document.createElement('span');marker.className=`family-search-marker ${kind}`;marker.setAttribute('aria-hidden','true');marker.textContent=kind==='people'?initials(title.textContent):'FG';
+  const copy=document.createElement('span');copy.className='family-search-hit-copy';copy.append(title);if(meta)copy.append(meta);
+  const arrow=document.createElement('span');arrow.className='family-search-arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='›';
+  hit.replaceChildren(marker,copy,arrow);hit.dataset.v1511Polished='true';
+}
+function applySearchTab(overlay){
+  const available=new Map([...overlay.querySelectorAll('.search-group')].map(group=>[group.dataset.v1511SearchKind,group]));
+  if(familySearchTab!=='all'&&!available.has(familySearchTab))familySearchTab='all';
+  overlay.dataset.v1511SearchTab=familySearchTab;
+  available.forEach((group,kind)=>{group.hidden=familySearchTab!=='all'&&familySearchTab!==kind;});
+  overlay.querySelectorAll('[data-v1511-search-tab]').forEach(button=>{
+    const active=button.dataset.v1511SearchTab===familySearchTab;
+    button.classList.toggle('active',active);button.setAttribute('aria-selected',String(active));
+  });
+}
+function dismissFamilySearch(){
+  document.querySelector('#search-v13-2-results')?.remove();
+  const input=document.getElementById('search');if(input)input.blur();
+  document.getElementById('main')?.focus({preventScroll:true});
+}
+function buildSearchTabs(overlay,counts){
+  const existing=overlay.querySelector('.family-search-tabs');if(existing)return existing;
+  const tabs=document.createElement('div');tabs.className='family-search-tabs';tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Filter family search results');
+  for(const [key,label,count] of[['all','All',counts.total],['people','People',counts.people],['families','Families',counts.families]]){
+    const button=document.createElement('button');button.type='button';button.dataset.v1511SearchTab=key;button.setAttribute('role','tab');button.innerHTML=`<span>${label}</span><b>${count}</b>`;if(key!=='all'&&count===0)button.disabled=true;tabs.append(button);
+  }
+  overlay.querySelector('.search-summary')?.insertAdjacentElement('afterend',tabs);return tabs;
+}
+function buildSearchFooter(overlay){
+  if(overlay.querySelector('.family-search-footer'))return;
+  const footer=document.createElement('div');footer.className='family-search-footer';
+  const copy=document.createElement('span');copy.textContent='Looking for documents, sources, or evidence?';
+  const link=document.createElement('a');link.href='#research';link.textContent='Search Research Center';
+  footer.append(copy,link);overlay.append(footer);
+}
+function labelSearchOverlay(){
+  const overlay=document.getElementById('search-v13-2-results');if(!overlay)return;
+  overlay.classList.add('v1511-search-sheet','family-search-command');if(!isFamilyContext())return;
+  overlay.setAttribute('aria-label','Family search results');
+  const allGroups=[...overlay.querySelectorAll('.search-group')];
+  allGroups.forEach((group,index)=>group.dataset.v1511SearchKind=groupKind(group,index));
+  allGroups.filter(group=>!['people','families'].includes(group.dataset.v1511SearchKind)).forEach(group=>group.remove());
+  const groups=[...overlay.querySelectorAll('.search-group')];
+  groups.forEach(group=>group.querySelectorAll('.search-hit').forEach(hit=>polishSearchHit(hit,group.dataset.v1511SearchKind)));
+  const countFor=kind=>Number(groups.find(group=>group.dataset.v1511SearchKind===kind)?.querySelector('h3 span')?.textContent)||0;
+  const counts={people:countFor('people'),families:countFor('families')};counts.total=counts.people+counts.families;
+  const query=document.getElementById('search')?.value.trim()||'';
+  const summary=overlay.querySelector('.search-summary');
+  if(summary){
+    summary.classList.add('family-search-summary');
+    const eyebrow=summary.querySelector('.eyebrow');if(eyebrow)eyebrow.textContent='FAMILY SEARCH';
+    const heading=summary.querySelector('h2');if(heading)heading.textContent=`${counts.total} ${counts.total===1?'match':'matches'} for “${query}”`;
+    const detail=summary.querySelector('small');if(detail)detail.textContent='People and family groups, ranked by the closest family match.';
+    const side=summary.querySelector('.search-summary-count');if(side){side.innerHTML='<button class="family-search-close" type="button" data-family-search-close aria-label="Close search results">×</button>';}
+  }
+  overlay.querySelector('.search-keyboard-hint')?.remove();
+  buildSearchTabs(overlay,counts);buildSearchFooter(overlay);applySearchTab(overlay);
+}
+function apply(){
+  labelSearchOverlay();if(!isFamilyHome())return;
+  const content=document.querySelector('#content');if(!content)return;content.classList.add('v1511-home');
+  simplifyHero(content);simplifyTree(content);mergeHomeLead(content);simplifyFeatured(content);simplifyResearch(content);
+}
 let queued=false;function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;apply();}));}
 function scheduleSearchPolish(){schedule();setTimeout(schedule,60);setTimeout(schedule,400);}
 window.addEventListener('family-view-rendered',schedule);window.addEventListener('hashchange',schedule);window.addEventListener('family-experience-changed',schedule);
 document.addEventListener('input',event=>{if(event.target?.closest?.('#filters'))scheduleSearchPolish();});document.addEventListener('change',event=>{if(event.target?.closest?.('#filters'))scheduleSearchPolish();});document.getElementById('filters')?.addEventListener('reset',()=>setTimeout(scheduleSearchPolish,0));
+document.addEventListener('click',event=>{
+  const tab=event.target.closest?.('[data-v1511-search-tab]');if(tab){familySearchTab=tab.dataset.v1511SearchTab||'all';const overlay=tab.closest('#search-v13-2-results');if(overlay)applySearchTab(overlay);return;}
+  if(event.target.closest?.('[data-family-search-close]')){dismissFamilySearch();return;}
+});
+document.addEventListener('focusin',event=>{const input=event.target;if(input?.id==='search'&&isFamilyContext()&&input.value.trim()&&!document.getElementById('search-v13-2-results'))input.dispatchEvent(new Event('input',{bubbles:true}));});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&isFamilyContext()&&document.getElementById('search-v13-2-results')){event.preventDefault();event.stopImmediatePropagation();dismissFamilySearch();}},true);
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
