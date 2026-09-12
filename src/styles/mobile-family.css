@@ -15,7 +15,7 @@
   body[data-route="people"][data-v158-context="family"] .v17-page-intro>span b{font-size:20px}
   body[data-route="people"][data-v158-context="family"] .v17-page-intro>span small{font-size:11px;letter-spacing:.04em;text-transform:none}
   body[data-route="people"][data-v158-context="family"] .v17-branch-browser{gap:4px;padding-top:6px;padding-bottom:7px}
-  body[data-route="people"][data-v158-context="family"] .v17-branch-chip{min-height:46px;box-sizing:border-box;padding:9px 12px;font-size:12px}
+  body[data-route="people"][data-v158-context="family"] .v17-branch-chip{min-width:46px;min-height:46px;box-sizing:border-box;padding:9px 12px;font-size:12px}
   body[data-route="people"][data-v158-context="family"] .v17-branch-summary{gap:8px;padding:10px 12px}
   body[data-route="people"][data-v158-context="family"] .v17-branch-summary h3{margin:2px 0 3px;font-size:1.18rem}
   body[data-route="people"][data-v158-context="family"] .v17-branch-summary p{font-size:12px}
@@ -65,9 +65,9 @@
   body[data-v158-context="family"] .main{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
   body[data-v158-context="family"] .footer{margin-bottom:calc(70px + env(safe-area-inset-bottom));padding-inline:12px;font-size:12px;line-height:1.4}
   body[data-v158-context="family"] .family-mobile-dock{padding-bottom:max(6px,env(safe-area-inset-bottom))}
-  body[data-v158-context="family"] #family-mobile-dock:not([hidden]) :where(a,button,summary){min-width:44px;min-height:44px!important;box-sizing:border-box}
+  body[data-v158-context="family"] #family-mobile-dock:not([hidden]) :where(a,button,summary){min-width:46px;min-height:46px!important;box-sizing:border-box}
   body[data-v158-context="family"] #family-mobile-dock:not([hidden])>.v158-mobile-more>summary{min-height:46px!important}
-  body[data-v158-context="family"] #family-mobile-dock:not([hidden]) .v158-mobile-more :where(a,button){min-height:44px!important}
+  body[data-v158-context="family"] #family-mobile-dock:not([hidden]) .v158-mobile-more :where(a,button){min-height:46px!important}
 
   /* Long family labels must truncate instead of widening the viewport. */
   body[data-v158-context="family"] :where(.v17-person-card-copy,.v17-relative>span,.media-library-body,.media-linked-people){min-width:0;max-width:100%}
