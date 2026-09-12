@@ -71,33 +71,37 @@ body[data-route="dashboard"][data-v158-context="family"] #content.v161-home .v16
   .v158-mobile-more>div :where(a,button){min-height:48px!important;display:flex!important;align-items:center!important;padding:0 14px!important;border-radius:11px!important;font-size:13px!important}
 
   /* Tree canvas is reached immediately after focal controls. */
-  body[data-route="tree"] .route-shell{padding-bottom:4px!important}
-  body[data-route="tree"] .route-shell .page-heading{display:none!important}
-  body[data-route="tree"] .route-shell #status{display:none!important}
-  body[data-route="tree"] #filters{margin-bottom:8px!important}
-  body[data-route="tree"] #filters label:not(.search),body[data-route="tree"] #filters button[type="reset"]{display:none!important}
-  body[data-route="tree"] #filters .search{width:100%!important}
-  body[data-route="tree"] .v154-tree-person{display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;padding:11px 12px!important;margin:4px 0 8px!important;border-radius:14px!important}
-  body[data-route="tree"] .v154-tree-person-main{grid-template-columns:42px minmax(0,1fr)!important;gap:9px!important}
-  body[data-route="tree"] .v154-tree-avatar{width:42px!important;height:42px!important;border-radius:12px!important}
-  body[data-route="tree"] .v154-tree-person-main h2{font-size:18px!important}
-  body[data-route="tree"] .v154-tree-person-main p:last-child{display:none}
-  body[data-route="tree"] .v154-tree-relations{display:flex!important;gap:4px!important;margin:0!important}
-  body[data-route="tree"] .v154-tree-relations span{min-width:42px!important;padding:5px!important;border:0!important;background:var(--brand-soft)!important}
-  body[data-route="tree"] .v154-tree-relations b{font-size:15px!important}.v154-tree-relations small{font-size:7px!important}
-  body[data-route="tree"] .v154-tree-actions{grid-column:1/-1;display:flex!important;margin-top:0!important}
-  body[data-route="tree"] .v154-tree-actions button[data-tree-scope]{display:none!important}
-  body[data-route="tree"] .v154-tree-actions .action{min-height:34px!important;width:auto!important;padding:0 10px!important;font-size:9px!important}
-  body[data-route="tree"] [data-v161-tree-controls]{margin:0 0 6px!important;padding:8px!important;border-radius:12px!important}
-  body[data-route="tree"] [data-v161-tree-controls] label{font-size:9px!important}
-  body[data-route="tree"] [data-v161-tree-controls] select{min-height:36px!important}
-  body[data-route="tree"] [data-v161-tree-controls] button{min-height:34px!important;padding-inline:9px!important}
-  .v161-tree-toolbar{margin:4px 0 6px;padding:8px 10px}.v161-tree-focus{display:none}.v161-tree-tool-actions{width:100%;display:grid;grid-template-columns:64px minmax(0,1fr) 64px}.v161-tree-tool-actions button{width:100%}
-  body[data-route="tree"] .graph-shell{min-height:62dvh!important;border-radius:14px!important}
-  body[data-route="tree"] .graph-stage,body[data-route="tree"] .graph-scroll{min-height:58dvh!important}
-  body[data-route="tree"] .graph-toolbar{padding:6px!important;gap:4px!important}
-  body[data-route="tree"] .graph-toolbar button{min-height:34px!important;min-width:34px!important}
-  body[data-route="tree"] .v154-tree-help{font-size:11px!important}
+  body[data-route="tree"][data-v158-context="family"] .route-shell{padding-bottom:4px!important}
+  body[data-route="tree"][data-v158-context="family"] .route-shell .page-heading{display:none!important}
+  body[data-route="tree"][data-v158-context="family"] .route-shell #status{display:none!important}
+  body[data-route="tree"][data-v158-context="family"] #filters{margin-bottom:8px!important}
+  body[data-route="tree"][data-v158-context="family"] #filters label:not(.search),body[data-route="tree"][data-v158-context="family"] #filters button[type="reset"]{display:none!important}
+  body[data-route="tree"][data-v158-context="family"] #filters .search{width:100%!important}
+  body[data-route="tree"][data-v158-context="family"] .v154-tree-person{display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;padding:11px 12px!important;margin:4px 0 8px!important;border-radius:14px!important}
+  body[data-route="tree"][data-v158-context="family"] .v154-tree-person-main{grid-template-columns:42px minmax(0,1fr)!important;gap:9px!important}
+  body[data-route="tree"][data-v158-context="family"] .v154-tree-avatar{width:42px!important;height:42px!important;border-radius:12px!important}
+  body[data-route="tree"][data-v158-context="family"] .v154-tree-person-main h2{font-size:18px!important}
+  body[data-route="tree"][data-v158-context="family"] .v154-tree-person-main p:last-child{display:none}
+  body[data-route="tree"][data-v158-context="family"] .v154-tree-relations{display:flex!important;gap:4px!important;margin:0!important}
+  body[data-route="tree"][data-v158-context="family"] .v154-tree-relations span{min-width:42px!important;padding:5px!important;border:0!important;background:var(--brand-soft)!important}
+  body[data-route="tree"][data-v158-context="family"] .v154-tree-relations b{font-size:15px!important}
+  body[data-route="tree"][data-v158-context="family"] .v154-tree-relations small{font-size:7px!important}
+  body[data-route="tree"][data-v158-context="family"] .v154-tree-actions{grid-column:1/-1;display:flex!important;margin-top:0!important}
+  body[data-route="tree"][data-v158-context="family"] .v154-tree-actions button[data-tree-scope]{display:none!important}
+  body[data-route="tree"][data-v158-context="family"] .v154-tree-actions .action{min-height:34px!important;width:auto!important;padding:0 10px!important;font-size:9px!important}
+  body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls]{margin:0 0 6px!important;padding:8px!important;border-radius:12px!important}
+  body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls] label{font-size:9px!important}
+  body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls] select{min-height:36px!important}
+  body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls] button{min-height:34px!important;padding-inline:9px!important}
+  body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar{margin:4px 0 6px;padding:8px 10px}
+  body[data-route="tree"][data-v158-context="family"] .v161-tree-focus{display:none}
+  body[data-route="tree"][data-v158-context="family"] .v161-tree-tool-actions{width:100%;display:grid;grid-template-columns:64px minmax(0,1fr) 64px}
+  body[data-route="tree"][data-v158-context="family"] .v161-tree-tool-actions button{width:100%}
+  body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:62dvh!important;border-radius:14px!important}
+  body[data-route="tree"][data-v158-context="family"] .graph-stage,body[data-route="tree"][data-v158-context="family"] .graph-scroll{min-height:58dvh!important}
+  body[data-route="tree"][data-v158-context="family"] .graph-toolbar{padding:6px!important;gap:4px!important}
+  body[data-route="tree"][data-v158-context="family"] .graph-toolbar button{min-height:34px!important;min-width:34px!important}
+  body[data-route="tree"][data-v158-context="family"] .v154-tree-help{font-size:11px!important}
 
   /* People: 4–6 compact entries are visible per viewport rather than one dossier card. */
   body[data-route="people"] .route-shell .page-heading{padding:8px 0 2px!important}
