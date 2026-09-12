@@ -64,20 +64,29 @@ function dismissFamilySearch(){
   const input=document.getElementById('search');if(input)input.blur();
   document.getElementById('main')?.focus({preventScroll:true});
 }
-function buildSearchTabs(overlay,counts){
-  const existing=overlay.querySelector('.family-search-tabs');if(existing)return existing;
-  const tabs=document.createElement('div');tabs.className='family-search-tabs';tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Filter family search results');
-  for(const [key,label,count] of[['all','All',counts.total],['people','People',counts.people],['families','Families',counts.families]]){
-    const button=document.createElement('button');button.type='button';button.dataset.v1511SearchTab=key;button.setAttribute('role','tab');button.innerHTML=`<span>${label}</span><b>${count}</b>`;if(key!=='all'&&count===0)button.disabled=true;tabs.append(button);
-  }
-  overlay.querySelector('.search-summary')?.insertAdjacentElement('afterend',tabs);return tabs;
+function ensureCloseButton(summary){
+  const side=summary?.querySelector('.search-summary-count');if(!side)return null;
+  let close=side.querySelector('[data-family-search-close]');
+  if(close)return close;
+  side.replaceChildren();
+  close=document.createElement('button');close.className='family-search-close';close.type='button';close.dataset.familySearchClose='';close.setAttribute('aria-label','Close search results');close.textContent='×';side.append(close);return close;
 }
-function buildSearchFooter(overlay){
+function ensureSearchTabs(overlay,counts){
+  let tabs=overlay.querySelector('.family-search-tabs');
+  if(!tabs){tabs=document.createElement('div');tabs.className='family-search-tabs';tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Filter family search results');overlay.querySelector('.search-summary')?.insertAdjacentElement('afterend',tabs);}
+  const definitions=[['all','All',counts.total],['people','People',counts.people],['families','Families',counts.families]];
+  for(const [key,label,count] of definitions){
+    let button=tabs.querySelector(`[data-v1511-search-tab="${key}"]`);
+    if(!button){button=document.createElement('button');button.type='button';button.dataset.v1511SearchTab=key;button.setAttribute('role','tab');button.innerHTML=`<span>${label}</span><b></b>`;tabs.append(button);}
+    const badge=button.querySelector('b');if(badge)badge.textContent=String(count);button.disabled=key!=='all'&&count===0;
+  }
+  return tabs;
+}
+function ensureSearchFooter(overlay){
   if(overlay.querySelector('.family-search-footer'))return;
   const footer=document.createElement('div');footer.className='family-search-footer';
   const copy=document.createElement('span');copy.textContent='Looking for documents, sources, or evidence?';
-  const link=document.createElement('a');link.href='#research';link.textContent='Search Research Center';
-  footer.append(copy,link);overlay.append(footer);
+  const link=document.createElement('a');link.href='#research';link.textContent='Search Research Center';footer.append(copy,link);overlay.append(footer);
 }
 function labelSearchOverlay(){
   const overlay=document.getElementById('search-v13-2-results');if(!overlay)return;
@@ -97,10 +106,10 @@ function labelSearchOverlay(){
     const eyebrow=summary.querySelector('.eyebrow');if(eyebrow)eyebrow.textContent='FAMILY SEARCH';
     const heading=summary.querySelector('h2');if(heading)heading.textContent=`${counts.total} ${counts.total===1?'match':'matches'} for “${query}”`;
     const detail=summary.querySelector('small');if(detail)detail.textContent='People and family groups, ranked by the closest family match.';
-    const side=summary.querySelector('.search-summary-count');if(side){side.innerHTML='<button class="family-search-close" type="button" data-family-search-close aria-label="Close search results">×</button>';}
+    ensureCloseButton(summary);
   }
   overlay.querySelector('.search-keyboard-hint')?.remove();
-  buildSearchTabs(overlay,counts);buildSearchFooter(overlay);applySearchTab(overlay);
+  ensureSearchTabs(overlay,counts);ensureSearchFooter(overlay);applySearchTab(overlay);overlay.dataset.familySearchDecorated='true';
 }
 function apply(){
   labelSearchOverlay();if(!isFamilyHome())return;
@@ -113,7 +122,7 @@ window.addEventListener('family-view-rendered',schedule);window.addEventListener
 document.addEventListener('input',event=>{if(event.target?.closest?.('#filters'))scheduleSearchPolish();});document.addEventListener('change',event=>{if(event.target?.closest?.('#filters'))scheduleSearchPolish();});document.getElementById('filters')?.addEventListener('reset',()=>setTimeout(scheduleSearchPolish,0));
 document.addEventListener('click',event=>{
   const tab=event.target.closest?.('[data-v1511-search-tab]');if(tab){familySearchTab=tab.dataset.v1511SearchTab||'all';const overlay=tab.closest('#search-v13-2-results');if(overlay)applySearchTab(overlay);return;}
-  if(event.target.closest?.('[data-family-search-close]')){dismissFamilySearch();return;}
+  if(event.target.closest?.('[data-family-search-close]')){event.preventDefault();dismissFamilySearch();return;}
 });
 document.addEventListener('focusin',event=>{const input=event.target;if(input?.id==='search'&&isFamilyContext()&&input.value.trim()&&!document.getElementById('search-v13-2-results'))input.dispatchEvent(new Event('input',{bubbles:true}));});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&isFamilyContext()&&document.getElementById('search-v13-2-results')){event.preventDefault();event.stopImmediatePropagation();dismissFamilySearch();}},true);
