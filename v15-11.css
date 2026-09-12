@@ -58,7 +58,7 @@
   /* The dock is promoted to the non-modal browser top layer when supported; this CSS also keeps the fallback deterministic. */
   body{position:relative!important;isolation:isolate!important}
   body>.shell{position:relative!important;z-index:auto!important;transform:none!important;isolation:auto!important}
-  body>#family-mobile-dock:not([hidden]),body>#family-mobile-dock:popover-open{position:fixed!important;top:auto!important;left:5px!important;right:5px!important;bottom:calc(5px + env(safe-area-inset-bottom,0px))!important;width:auto!important;height:auto!important;max-width:none!important;margin:0!important;z-index:1000!important;pointer-events:auto!important;transform:none!important;isolation:isolate!important;will-change:auto!important}
+  body>#family-mobile-dock:not([hidden]),body>#family-mobile-dock:popover-open{position:fixed!important;top:auto!important;left:5px!important;right:5px!important;bottom:calc(5px + env(safe-area-inset-bottom,0px))!important;width:auto!important;height:auto!important;max-width:none!important;margin:0!important;z-index:2147483000!important;pointer-events:auto!important;transform:none!important;isolation:isolate!important;will-change:auto!important}
   body>#family-mobile-dock:not([hidden])>*,body>#family-mobile-dock:popover-open>*{pointer-events:auto!important;position:relative!important;z-index:1!important}
 
   .v1511-home{padding-bottom:4px!important}
