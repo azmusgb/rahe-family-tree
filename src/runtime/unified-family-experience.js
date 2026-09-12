@@ -89,7 +89,8 @@ async function hydrateTreePortraits(root){
     const initialsNode=node.querySelector('.node-initials');(initialsNode||node.firstChild)?.before?.(image);if(initialsNode)initialsNode.classList.add('v172-has-photo');
   });
 }
-function replaceUrlForTree(focus,scope,depth){const url=new URL(location.href);for(const key of['q','branch','state','from','to'])url.searchParams.delete(key);if(focus&&scope!=='all')url.searchParams.set('focus',focus);else url.searchParams.delete('focus');url.searchParams.set('scope',scope);if(scope==='family')url.searchParams.set('depth',String(depth||3));else url.searchParams.delete('depth');url.hash='tree';history.replaceState(null,'',url);window.dispatchEvent(new HashChangeEvent('hashchange'));}
+function clearLiveTreeFilters(){for(const id of['search','branch','state']){const control=document.getElementById(id);if(control)control.value='';}}
+function replaceUrlForTree(focus,scope,depth){const url=new URL(location.href);for(const key of['q','branch','state','from','to'])url.searchParams.delete(key);if(focus&&scope!=='all')url.searchParams.set('focus',focus);else url.searchParams.delete('focus');url.searchParams.set('scope',scope);if(scope==='family')url.searchParams.set('depth',String(depth||3));else url.searchParams.delete('depth');url.hash='tree';clearLiveTreeFilters();history.replaceState(null,'',url);window.dispatchEvent(new HashChangeEvent('hashchange'));}
 
 function apply(){
   const root=document.querySelector('#content [data-v17-native]');if(!root)return;
