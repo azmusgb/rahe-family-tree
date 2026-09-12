@@ -1,0 +1,23 @@
+/* Explore — Timeline and Places get distinct editorial grammar. */
+body[data-route="timeline"][data-v158-context="family"] #content>.panel,
+body[data-route="migration"][data-v158-context="family"] #content>.panel{
+  border:0!important;border-top:1px solid var(--family-border-hairline)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding-inline:0!important;
+}
+body[data-route="timeline"][data-v158-context="family"] .timeline-list{
+  border-left:1px solid color-mix(in srgb,var(--green) 34%,var(--line));
+  margin-left:34px;
+}
+body[data-route="timeline"][data-v158-context="family"] .timeline-item{grid-template-columns:84px minmax(0,1fr);gap:22px;margin-bottom:24px}
+body[data-route="timeline"][data-v158-context="family"] .timeline-item::before{width:9px;height:9px;left:-5px;background:var(--green)}
+body[data-route="timeline"][data-v158-context="family"] .timeline-item>time{font-family:var(--family-font-display);font-size:1rem;color:var(--green)}
+body[data-route="timeline"][data-v158-context="family"] .timeline-item>div{
+  border:0!important;border-bottom:1px solid var(--family-border-hairline)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding:4px 0 20px!important;
+}
+body[data-route="timeline"][data-v158-context="family"] .timeline-item h3{font-family:var(--family-font-display);font-size:1.3rem;line-height:1.2}
+body[data-route="timeline"][data-v158-context="family"] .timeline-top>span{font-size:11px!important}
+
+/* Places favors the geographic visual pane when one is present, while supporting legacy class names. */
+body[data-route="migration"][data-v158-context="family"] :where(.migration-map,.map-panel,.map-card,.geo-map){
+  min-height:min(62vh,660px);border:1px solid var(--family-border-hairline)!important;border-radius:var(--family-radius-panel)!important;overflow:hidden;box-shadow:var(--family-shadow-card)!important;background:var(--family-surface-canvas)!important;
+}
+body[data-route="migration"][data-v158-context="family"] :where(.place-card,.migration-card){border:1px solid var(--family-border-hairline)!important;border-radius:var(--family-radius-card)!important;box-shadow:var(--family-shadow-card)!important}
