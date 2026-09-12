@@ -2,6 +2,7 @@ const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const researchRoutes=new Set(['evidence','sources','research','archive','claim','source','task','intake','identity','intelligence','conflicts']);
 const familyLabels={dashboard:'Home',tree:'Tree',people:'People',person:'People',media:'Photos',timeline:'Timeline',migration:'Places'};
 const owningSection=route=>({person:'people',claim:'evidence',source:'sources',task:'research',intake:'research',identity:'research',conflicts:'research'}[route]||route);
+const mobileDockQuery=matchMedia('(max-width:720px)');
 
 function isResearchContext(){return document.body.dataset.experience==='research'||researchRoutes.has(routeKey());}
 
@@ -51,6 +52,14 @@ function contextualSearch(){
   document.querySelector('.route-shell')?.classList.toggle('v158-context-search',!isResearchContext());
 }
 
+function syncDockTopLayer(dock){
+  if(dock.parentElement===document.body&&dock!==document.body.lastElementChild)document.body.append(dock);
+  if(typeof dock.showPopover!=='function')return;
+  dock.setAttribute('popover','manual');
+  const open=()=>{try{return dock.matches(':popover-open')}catch{return false}};
+  if(mobileDockQuery.matches){if(!open())try{dock.showPopover()}catch{}}
+  else if(open())try{dock.hidePopover()}catch{}
+}
 function rebuildMobileDock(){
   const dock=document.getElementById('family-mobile-dock');if(!dock)return;
   const research=isResearchContext();
@@ -62,8 +71,8 @@ function rebuildMobileDock(){
     dock.innerHTML=`<a href="#dashboard" data-dock-route="dashboard"><span>Home</span></a><a href="#tree" data-dock-route="tree"><span>Tree</span></a><a href="#people" data-dock-route="people"><span>People</span></a><a href="#media" data-dock-route="media"><span>Photos</span></a><details class="v158-mobile-more"><summary>More</summary><div><button type="button" data-dock-search>Search</button><a href="#timeline">Timeline</a><a href="#migration">Places</a><a href="#research">Research Center</a></div></details>`;
     markCurrent(dock,'[data-dock-route]',owningSection(routeKey()));
   }
-  /* Keep the fixed dock as the final body child so mobile browser hit testing cannot put canvas content above it. */
-  if(dock.parentElement===document.body&&dock!==document.body.lastElementChild)document.body.append(dock);
+  /* Non-modal popover promotion puts the fixed dock in the browser top layer, above transformed/canvas content without making the page inert. */
+  syncDockTopLayer(dock);
 }
 
 function syncCrumb(){
@@ -89,7 +98,7 @@ function focusContextSearch(event){
   if(!trigger)return false;
   document.querySelector('.v158-mobile-more')?.removeAttribute('open');
   /* Tree deliberately hides the generic route search so the graph owns the viewport. Move to People before opening family-wide search. */
-  if(routeKey()==='tree'&&matchMedia('(max-width:720px)').matches){
+  if(routeKey()==='tree'&&mobileDockQuery.matches){
     location.hash='people';
     setTimeout(focusVisibleFamilySearch,140);
     return true;
@@ -114,4 +123,5 @@ window.addEventListener('family-view-rendered',schedule);
 window.addEventListener('hashchange',schedule);
 window.addEventListener('family-auth-ui-refresh',schedule);
 window.addEventListener('family-experience-changed',schedule);
+mobileDockQuery.addEventListener?.('change',schedule);
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
