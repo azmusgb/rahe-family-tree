@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-ui-release="15.6.0">
+<html lang="en" data-ui-release="17.0.0">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#173f35">
   <title>The Rahe Family</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2210%22 fill=%22%23173f35%22/%3E%3Ctext x=%2218%22 y=%2247%22 fill=%22white%22 font-size=%2244%22%3ER%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles-v15.css?v=15.6.0">
-  <script type="module" src="app.bundle.js?v=15.6.0"></script>
+  <link rel="stylesheet" href="styles.css?v=17.0.0">
+  <script type="module" src="app.bundle.js?v=17.0.0"></script>
 </head>
 <body data-experience="family">
 <a class="skip" href="#main">Skip to family</a>
@@ -33,7 +33,7 @@
     <header class="topbar"><span>Rahe family / <b id="crumb">Home</b></span><div class="topbar-actions"><button id="share" type="button">Share view</button><button id="export" type="button">Export view</button><button id="print" type="button">Print</button></div></header>
     <main id="main" class="main" tabindex="-1">
       <section class="route-shell" aria-label="Page overview and family search">
-        <div class="page-heading"><div><p class="eyebrow">THE RAHE FAMILY</p><h1 id="title">Home</h1><p id="description">Explore the family tree, people, photographs, stories, and source-controlled research.</p></div><span class="version">FAMILY VIEW · v15.6.0</span></div>
+        <div class="page-heading"><div><p class="eyebrow">THE RAHE FAMILY</p><h1 id="title">Home</h1><p id="description">Explore the family tree, people, photographs, stories, and source-controlled research.</p></div><span class="version">FAMILY VIEW · v17.0.0</span></div>
         <form id="filters" class="filters" role="search">
           <label class="search">Search the family<input id="search" type="search" autocomplete="off" enterkeyhint="search" placeholder="Search a person, branch, source, or record…"></label>
           <label>Branch<select id="branch"><option value="">All branches</option></select></label>
@@ -43,12 +43,12 @@
         <div id="status" role="status" aria-live="polite">Loading family data…</div>
       </section>
       <div id="content">
-        <section class="dashboard-hero" data-static-fallback aria-labelledby="fallback-home-title">
-          <div class="dashboard-hero-copy">
-            <p class="eyebrow">FAMILY HISTORY</p>
-            <h2 id="fallback-home-title">Discover the people, places, and stories that connect the Rahe family.</h2>
+        <section class="v17-home-hero" data-static-fallback aria-labelledby="fallback-home-title">
+          <div>
+            <p class="eyebrow">THE RAHE FAMILY</p>
+            <h2 id="fallback-home-title">The Rahe family, connected.</h2>
             <p>Start with the family tree, browse people and photographs, or enter the Research Center when you want the evidence behind the family history.</p>
-            <div class="dashboard-hero-actions"><a class="action primary" href="#tree">Explore the tree</a><a class="action" href="#people">Browse people</a><a class="action" href="#stories">Read family stories</a></div>
+            <div class="v17-primary-actions"><a class="action primary" href="#tree">Explore the tree</a><a class="action" href="#people">Browse people</a><a class="action" href="#stories">Read family stories</a></div>
           </div>
         </section>
         <section class="evidence-legend" data-static-fallback aria-labelledby="evidence-legend-title">
