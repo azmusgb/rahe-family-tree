@@ -7,6 +7,13 @@ const peopleRuntime=fs.readFileSync('src/runtime/people-person-experience.js','u
 const styles=fs.readFileSync('src/styles/v16-2.css','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const tokens=fs.readFileSync('src/styles/tokens.css','utf8');
+const baseStyles=fs.readFileSync('src/styles/base.css','utf8');
+const shellStyles=fs.readFileSync('src/styles/shell.css','utf8');
+const personStyles=fs.readFileSync('src/styles/person.css','utf8');
+const treeStyles=fs.readFileSync('src/styles/tree.css','utf8');
+const mediaStyles=fs.readFileSync('src/styles/media.css','utf8');
+const responsiveStyles=fs.readFileSync('src/styles/responsive.css','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
 test('family narrative uses supported historical normalized events only for homepage moments',()=>{
@@ -45,13 +52,36 @@ test('family narrative adds branch context immediate family and synchronized med
   assert.match(runtime,/requestAnimationFrame\(\(\)=>requestAnimationFrame\(syncMediaQuick\)\)/);
 });
 
-test('v16.2 loads after v16.1 and after stable family density runtime',()=>{
+test('v16.2 compatibility layer remains before the semantic Family design system',()=>{
   assert.match(styleRoot,/@import '\.\/v16-1\.css';\s*@import '\.\/v16-2\.css';/);
   assert.match(experience,/import\('\.\/mobile-family-density\.js'\);\s*void import\('\.\/family-narrative\.js'\);/);
   for(const token of['v162-family-journey','v162-moments','v162-family-path','v162-media-quick'])assert.match(styles,new RegExp(token));
+  const semantic=['tokens.css','base.css','shell.css','navigation.css','home.css','people.css','person.css','stories.css','tree.css','media.css','explore.css','research.css','responsive.css'];
+  let previous=styleRoot.indexOf("@import './v16-2.css';");
+  for(const file of semantic){const index=styleRoot.indexOf(`@import './${file}';`);assert.ok(index>previous,`${file} should follow the previous semantic layer`);previous=index;}
+  assert.doesNotMatch(styleRoot,/v16-3\.css/);
+  assert.equal(fs.existsSync('src/styles/v16-3.css'),false);
 });
 
-test('family narrative does not promote evidence or mutate genealogy',()=>{
+test('semantic Family tokens collapse radius shadow typography and page-width decisions',()=>{
+  for(const token of['--family-radius-panel','--family-radius-card','--family-radius-control','--family-radius-chip','--family-shadow-card','--family-text-display','--family-text-meta','--family-page-person','--family-page-media'])assert.match(tokens,new RegExp(token));
+  assert.match(shellStyles,/grid-template-columns:224px/);
+  assert.match(shellStyles,/--family-page-home/);
+  assert.match(shellStyles,/--family-page-person/);
+  assert.match(shellStyles,/--family-page-media/);
+});
+
+test('family surfaces are content-first and retain readable metadata floors',()=>{
+  assert.match(shellStyles,/Broad family sections use whitespace rather than card chrome/);
+  assert.match(personStyles,/family-overview-card\.v159-person-overview[\s\S]*border:0!important/);
+  assert.match(personStyles,/#content>\.panel[\s\S]*border-radius:0!important/);
+  assert.match(mediaStyles,/media-library-note[\s\S]*background:transparent!important/);
+  assert.match(baseStyles,/font-size:max\(var\(--family-text-meta\),12px\)!important/);
+  assert.match(treeStyles,/rgba\(23,63,53,\.012\)/);
+  assert.match(responsiveStyles,/node-id\{font-size:9px!important/);
+});
+
+test('family narrative and semantic presentation do not promote evidence or mutate genealogy',()=>{
   assert.doesNotMatch(runtime,/\.state\s*=/);
   assert.doesNotMatch(runtime,/relationships?\.push/);
   assert.doesNotMatch(runtime,/claims?\.push/);
