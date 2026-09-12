@@ -58,10 +58,12 @@ function rebuildMobileDock(){
   if(research){
     dock.innerHTML=`<a href="#intelligence" data-dock-route="intelligence"><span>Overview</span></a><a href="#evidence" data-dock-route="evidence"><span>Evidence</span></a><a href="#sources" data-dock-route="sources"><span>Sources</span></a><a href="#dashboard" data-v158-family-mobile><span>Family</span></a>`;
     markCurrent(dock,'[data-dock-route]',owningSection(routeKey()));
-    return;
+  }else{
+    dock.innerHTML=`<a href="#dashboard" data-dock-route="dashboard"><span>Home</span></a><a href="#tree" data-dock-route="tree"><span>Tree</span></a><a href="#people" data-dock-route="people"><span>People</span></a><a href="#media" data-dock-route="media"><span>Photos</span></a><details class="v158-mobile-more"><summary>More</summary><div><button type="button" data-dock-search>Search</button><a href="#timeline">Timeline</a><a href="#migration">Places</a><a href="#research">Research Center</a></div></details>`;
+    markCurrent(dock,'[data-dock-route]',owningSection(routeKey()));
   }
-  dock.innerHTML=`<a href="#dashboard" data-dock-route="dashboard"><span>Home</span></a><a href="#tree" data-dock-route="tree"><span>Tree</span></a><a href="#people" data-dock-route="people"><span>People</span></a><a href="#media" data-dock-route="media"><span>Photos</span></a><details class="v158-mobile-more"><summary>More</summary><div><button type="button" data-dock-search>Search</button><a href="#timeline">Timeline</a><a href="#migration">Places</a><a href="#research">Research Center</a></div></details>`;
-  markCurrent(dock,'[data-dock-route]',owningSection(routeKey()));
+  /* Keep the fixed dock as the final body child so mobile browser hit testing cannot put canvas content above it. */
+  if(dock.parentElement===document.body&&dock!==document.body.lastElementChild)document.body.append(dock);
 }
 
 function syncCrumb(){
@@ -77,14 +79,22 @@ function returnToFamily(event){
   return true;
 }
 
+function focusVisibleFamilySearch(){
+  const input=document.getElementById('search');if(!input)return;
+  input.scrollIntoView({behavior:'smooth',block:'center'});
+  requestAnimationFrame(()=>input.focus({preventScroll:true}));
+}
 function focusContextSearch(event){
   const trigger=event.target.closest?.('[data-dock-search]');
   if(!trigger)return false;
   document.querySelector('.v158-mobile-more')?.removeAttribute('open');
-  const input=document.getElementById('search');
-  if(!input)return true;
-  input.scrollIntoView({behavior:'smooth',block:'center'});
-  requestAnimationFrame(()=>input.focus({preventScroll:true}));
+  /* Tree deliberately hides the generic route search so the graph owns the viewport. Move to People before opening family-wide search. */
+  if(routeKey()==='tree'&&matchMedia('(max-width:720px)').matches){
+    location.hash='people';
+    setTimeout(focusVisibleFamilySearch,140);
+    return true;
+  }
+  focusVisibleFamilySearch();
   return true;
 }
 
