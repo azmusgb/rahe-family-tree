@@ -35,7 +35,7 @@ completeness.failed=Array.isArray(completeness.failed)
 await writeFile('dist/canonical-completeness.json',JSON.stringify(completeness,null,2));
 
 const model=JSON.parse(await readFile('public/research-model.json','utf8'));
-const appVersion='17.1.0';
+const appVersion='17.2.0';
 const genealogySchemaVersion='13.0';
 const canonicalSourceVersion='10.0';
 const buildInfo={
@@ -52,4 +52,4 @@ const buildInfo={
   browserAssets:['app.bundle.js','styles.css']
 };
 await writeFile('dist/build-info.json',JSON.stringify(buildInfo,null,2));
-console.log(`Built Rahe Family Experience v${appVersion} as one JS bundle + one CSS bundle on research model ${buildInfo.release} / platform ${buildInfo.platform||'n/a'} · ${buildInfo.gitSha}.`);
+console.log(`Built Family History Archive v${appVersion} as one JS bundle + one CSS bundle on research model ${buildInfo.release} / platform ${buildInfo.platform||'n/a'} · ${buildInfo.gitSha}.`);
