@@ -43,6 +43,29 @@ function simplifyControls(content){
     if(button.textContent.trim()==='Full tree')setCompactText(button,'All');
   });
 }
+function optionsSummaryMarkup(focusbar){
+  const select=focusbar?.querySelector('[data-tree-person]');
+  const person=select?.selectedOptions?.[0]?.textContent?.trim()||'Family member';
+  const scope=focusbar?.querySelector('.tree-mode-buttons button.active')?.textContent?.trim()||'Family';
+  const depth=focusbar?.querySelector('.tree-depth button.active')?.textContent?.trim()||'';
+  return `<span><small>Tree focus</small><b>${person}</b></span><span class="v1511-tree-options-state">${scope}${depth?` · ${depth}`:''}</span><span aria-hidden="true" class="v1511-tree-options-chevron">⌄</span>`;
+}
+function composeMobileTree(content){
+  const focusbar=content.querySelector('.tree-focusbar'),shell=content.querySelector('.graph-shell');
+  if(!focusbar||!shell)return;
+  let options=content.querySelector('.v1511-tree-options');
+  if(!options){
+    options=document.createElement('details');options.className='v1511-tree-options';
+    const summary=document.createElement('summary');summary.className='v1511-tree-options-summary';summary.innerHTML=optionsSummaryMarkup(focusbar);options.append(summary);
+    focusbar.insertAdjacentElement('beforebegin',options);options.append(focusbar);
+  }else{
+    const summary=options.querySelector('.v1511-tree-options-summary');if(summary)summary.innerHTML=optionsSummaryMarkup(focusbar);
+    if(focusbar.parentElement!==options)options.append(focusbar);
+  }
+  /* The graph follows the one-line options drawer immediately; desktop-only contextual blocks stay out of the first viewport. */
+  options.insertAdjacentElement('afterend',shell);
+  const trail=content.querySelector('.v1291-breadcrumb');if(trail&&trail.parentElement!==options)options.append(trail);
+}
 function markRedundantMobileBlocks(content){
   content.querySelectorAll(':scope > .notice').forEach(node=>node.classList.add('v1511-tree-intro-notice'));
   for(const selector of['.v154-tree-person','.v129-tree-memory','.v1291-mobile-hint','.v154-tree-help','.legend','.mobile-family-list','.relationship-index'])content.querySelector(selector)?.classList.add('v1511-tree-secondary');
@@ -52,13 +75,19 @@ function applyMobileTree(){
   if(!content)return;
   if(!isMobileTree()){content.classList.remove('v1511-mobile-tree');return;}
   content.classList.add('v1511-mobile-tree');
-  markRedundantMobileBlocks(content);simplifyControls(content);simplifyTrail(content);simplifyToolbar(content);
+  markRedundantMobileBlocks(content);simplifyControls(content);simplifyTrail(content);simplifyToolbar(content);composeMobileTree(content);
   content.querySelector('.graph-scroll')?.setAttribute('aria-label','Interactive family tree. Pan across the canvas and tap a person to open their profile.');
 }
 function restoreDesktopTree(){
   if(mobileQuery.matches)return;
   const content=document.getElementById('content');if(!content)return;
   content.classList.remove('v1511-mobile-tree');
+  const options=content.querySelector('.v1511-tree-options');
+  if(options){
+    const focusbar=options.querySelector('.tree-focusbar'),trail=options.querySelector('.v1291-breadcrumb'),shell=content.querySelector('.graph-shell');
+    if(focusbar){options.insertAdjacentElement('beforebegin',focusbar);if(trail)focusbar.insertAdjacentElement('afterend',trail);if(shell)(trail||focusbar).insertAdjacentElement('afterend',shell);}
+    options.remove();
+  }
   content.querySelectorAll('[data-v1511-original-text]').forEach(restoreText);
   const label=content.querySelector('.tree-focusbar label');
   if(label?.dataset.v1511OriginalLabel){const text=[...label.childNodes].find(node=>node.nodeType===Node.TEXT_NODE);if(text)text.textContent=label.dataset.v1511OriginalLabel;delete label.dataset.v1511OriginalLabel;}
@@ -70,4 +99,6 @@ window.addEventListener('family-view-rendered',()=>{schedule();setTimeout(schedu
 window.addEventListener('hashchange',schedule);
 window.addEventListener('family-experience-changed',schedule);
 mobileQuery.addEventListener?.('change',schedule);
+document.addEventListener('change',event=>{if(event.target?.closest?.('.tree-focusbar'))setTimeout(schedule,0);});
+document.addEventListener('click',event=>{if(event.target?.closest?.('.tree-mode-buttons,.tree-depth'))setTimeout(schedule,0);});
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
