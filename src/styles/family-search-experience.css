@@ -39,20 +39,20 @@ body[data-v158-context="family"] .family-search-summary{
   padding:16px 62px 10px 16px!important;
   border:0!important;
   min-height:74px;
-  pointer-events:none!important;
+  pointer-events:auto!important;
 }
-body[data-v158-context="family"] .family-search-summary>div:first-child{min-width:0}
+body[data-v158-context="family"] .family-search-summary>div:first-child{min-width:0;pointer-events:none!important}
 body[data-v158-context="family"] .family-search-summary .eyebrow{margin:0 0 4px!important;font-size:8px!important;letter-spacing:1.4px!important}
 body[data-v158-context="family"] .family-search-summary h2{margin:0!important;font:700 20px/1.08 Georgia,serif!important;letter-spacing:-.25px!important}
 body[data-v158-context="family"] .family-search-summary small{display:block!important;margin-top:5px!important;max-width:52ch!important;font-size:9px!important;line-height:1.35!important;color:var(--muted)!important}
 body[data-v158-context="family"] .family-search-summary .search-summary-count{display:none!important}
-body[data-v158-context="family"] #family-search-layer>.family-search-close{
-  position:fixed!important;top:100px!important;right:max(36px,calc((100vw - 720px)/2 + 12px))!important;z-index:2!important;
+body[data-v158-context="family"] .family-search-summary>.family-search-close{
+  position:absolute!important;top:12px!important;right:12px!important;z-index:3!important;
   width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--line)!important;border-radius:999px!important;
   background:#f7faf8!important;color:var(--green,#173f35)!important;font:500 23px/1 system-ui!important;padding:0!important;text-decoration:none!important;
   pointer-events:auto!important;touch-action:manipulation;transform:none!important
 }
-body[data-v158-context="family"] #family-search-layer>.family-search-close:hover{background:#edf4ef!important}
+body[data-v158-context="family"] .family-search-summary>.family-search-close:hover{background:#edf4ef!important}
 body[data-v158-context="family"] .family-search-tabs{
   position:relative;z-index:2;display:flex;gap:6px;overflow-x:auto;padding:0 16px 10px;border-bottom:1px solid var(--line);scrollbar-width:none;pointer-events:auto
 }
@@ -109,7 +109,7 @@ body[data-v158-context="family"] #filters .search input:focus{border-color:#7e9f
   body[data-v158-context="family"] .family-search-summary{padding:13px 56px 8px 13px!important;min-height:68px}
   body[data-v158-context="family"] .family-search-summary h2{font-size:18px!important}
   body[data-v158-context="family"] .family-search-summary small{font-size:8px!important}
-  body[data-v158-context="family"] #family-search-layer>.family-search-close{top:86px!important;right:17px!important;width:36px;height:36px;font-size:21px!important}
+  body[data-v158-context="family"] .family-search-summary>.family-search-close{top:10px!important;right:10px!important;width:36px;height:36px;font-size:21px!important}
   body[data-v158-context="family"] .family-search-tabs{padding:0 12px 8px!important}
   body[data-v158-context="family"] .family-search-tabs button{min-height:32px;padding:5px 9px;font-size:9px}
   body[data-v158-context="family"] #search-v13-2-results.family-search-command .search-groups{padding:2px 8px 8px!important}
