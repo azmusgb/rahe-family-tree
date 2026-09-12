@@ -4,12 +4,16 @@ body[data-v158-context="family"] #search-v13-2-results.family-search-command{
   position:fixed!important;
   top:88px!important;
   left:50%!important;
+  right:auto!important;
+  bottom:auto!important;
   width:min(720px,calc(100vw - 48px))!important;
+  max-width:none!important;
   max-height:min(680px,calc(100dvh - 112px))!important;
   transform:translateX(-50%)!important;
   isolation:isolate!important;
   display:grid!important;
   grid-template-rows:auto auto minmax(0,1fr) auto;
+  box-sizing:border-box!important;
   padding:0!important;
   margin:0!important;
   overflow:hidden!important;
@@ -38,7 +42,7 @@ body[data-v158-context="family"] .family-search-summary h2{margin:0!important;fo
 body[data-v158-context="family"] .family-search-summary small{display:block!important;margin-top:5px!important;max-width:52ch!important;font-size:9px!important;line-height:1.35!important;color:var(--muted)!important}
 body[data-v158-context="family"] .family-search-summary .search-summary-count{display:none!important}
 body[data-v158-context="family"] #search-v13-2-results.family-search-command>.family-search-close{
-  position:absolute!important;top:12px!important;right:12px!important;z-index:10!important;width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--line)!important;border-radius:999px!important;background:#f7faf8!important;color:var(--green,#173f35)!important;font:500 23px/1 system-ui!important;padding:0!important;text-decoration:none!important;pointer-events:auto!important;touch-action:manipulation;transform:translate3d(0,0,2px)!important
+  position:absolute!important;top:12px!important;right:12px!important;z-index:10!important;width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--line)!important;border-radius:999px!important;background:#f7faf8!important;color:var(--green,#173f35)!important;font:500 23px/1 system-ui!important;padding:0!important;text-decoration:none!important;pointer-events:auto!important;touch-action:manipulation;transform:none!important
 }
 body[data-v158-context="family"] #search-v13-2-results.family-search-command>.family-search-close:hover{background:#edf4ef!important}
 body[data-v158-context="family"] .family-search-tabs{
