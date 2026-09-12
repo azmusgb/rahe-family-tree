@@ -38,17 +38,17 @@ test('keyboard focus indicators use the solid accessible focus token',()=>{
   assert.doesNotMatch(css,/outline:3px solid rgba\(42,107,91,/);
 });
 
-test('browser release assets and freshness guard are synchronized at 17.0.0',()=>{
-  assert.match(index,/data-ui-release="17\.0\.0"/);
-  assert.match(index,/styles\.css\?v=17\.0\.0/);
-  assert.match(index,/app\.bundle\.js\?v=17\.0\.0/);
-  assert.match(index,/FAMILY VIEW · v17\.0\.0/);
-  assert.match(entry,/APP_VERSION='17\.0\.0'/);
-  assert.match(build,/const appVersion='17\.0\.0'/);
+test('browser release assets and freshness guard are synchronized at 17.1.0',()=>{
+  assert.match(index,/data-ui-release="17\.1\.0"/);
+  assert.match(index,/styles\.css\?v=17\.1\.0/);
+  assert.match(index,/app\.bundle\.js\?v=17\.1\.0/);
+  assert.match(index,/FAMILY VIEW · v17\.1\.0/);
+  assert.match(entry,/APP_VERSION='17\.1\.0'/);
+  assert.match(build,/const appVersion='17\.1\.0'/);
   assert.match(build,/outfile=dist\/styles\.css/);
   assert.match(build,/browserAssets:\['app\.bundle\.js','styles\.css'\]/);
-  assert.match(experience,/const UI_RELEASE='17\.0\.0'/);
-  assert.match(experience,/rahe\.family\.uiReload\.v17\.0/);
+  assert.match(experience,/const UI_RELEASE='17\.1\.0'/);
+  assert.match(experience,/rahe\.family\.uiReload\.v17\.1/);
 });
 
 test('v17 release shell cannot alter canonical genealogy semantics',()=>{
