@@ -55,9 +55,10 @@
 }
 
 @media(max-width:720px){
-  /* Root-level sibling stacking: no descendant inside the app shell can cover the dock. */
-  body>.shell{position:relative!important;z-index:0!important}
-  body>#family-mobile-dock:not([hidden]){position:fixed!important;left:5px!important;right:5px!important;bottom:calc(5px + env(safe-area-inset-bottom,0px))!important;z-index:2147483647!important;pointer-events:auto!important;transform:none!important;isolation:auto!important}
+  /* Use one explicit mobile stacking context; avoid extreme z-index values that can hit browser clamping. */
+  body{position:relative!important;isolation:isolate!important}
+  body>.shell{position:relative!important;z-index:0!important;transform:none!important;isolation:isolate!important}
+  body>#family-mobile-dock:not([hidden]){position:fixed!important;left:5px!important;right:5px!important;bottom:calc(5px + env(safe-area-inset-bottom,0px))!important;z-index:1000!important;pointer-events:auto!important;transform:translate3d(0,0,0)!important;isolation:isolate!important;will-change:transform}
   body>#family-mobile-dock:not([hidden])>*{pointer-events:auto!important;position:relative!important;z-index:1!important}
 
   .v1511-home{padding-bottom:4px!important}
