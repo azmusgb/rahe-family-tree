@@ -1,8 +1,8 @@
 /* Stable stylesheet composition root.
  *
- * Import order is intentional and preserves the deployed historical cascade.
- * Legacy source files remain individually versioned for now, but production
- * consumes this semantic boundary and emits a single styles-v15.css asset.
+ * Historical release styles remain compatibility input while v16 owns the
+ * approved family-first presentation surface. Production still emits one
+ * bundled stylesheet; new work belongs in semantic files under src/styles/.
  */
 @import '../../v11.css';
 @import '../../v11-nav.css';
@@ -38,3 +38,4 @@
 @import '../../v15-9.css';
 @import '../../v15-10.css';
 @import './record-ingestion.css';
+@import './v16.css';
