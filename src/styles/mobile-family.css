@@ -9,12 +9,42 @@
   body[data-v158-context="family"] #content{min-width:0;max-width:100%}
 
   /* People becomes a family directory rather than a stack of dossier cards. */
-  body[data-route="people"][data-v158-context="family"] .v17-page-intro{gap:8px;padding:6px 0 8px}
+  body[data-route="people"][data-v158-context="family"] .route-shell{
+    display:block!important;
+    margin:0 0 4px!important;
+    padding:0 0 6px!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
+  body[data-route="people"][data-v158-context="family"] .route-shell .page-heading,
+  body[data-route="people"][data-v158-context="family"] .route-shell #status,
+  body[data-route="people"][data-v158-context="family"] .route-shell .filters>label:not(.search),
+  body[data-route="people"][data-v158-context="family"] .route-shell .filters>button{display:none!important}
+  body[data-route="people"][data-v158-context="family"] .route-shell .filters{
+    display:block!important;
+    margin:0!important;
+    padding:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
+  body[data-route="people"][data-v158-context="family"] .route-shell .filters .search{display:block!important;font-size:0}
+  body[data-route="people"][data-v158-context="family"] .route-shell .filters .search input{min-height:44px;font-size:16px}
+  body[data-route="people"][data-v158-context="family"] .v17-people{gap:8px!important}
+  body[data-route="people"][data-v158-context="family"] .v17-page-intro{
+    grid-template-columns:minmax(0,1fr) auto!important;
+    align-items:end;
+    gap:8px!important;
+    padding:2px 0 5px!important;
+  }
+  body[data-route="people"][data-v158-context="family"] .v17-page-intro .eyebrow,
   body[data-route="people"][data-v158-context="family"] .v17-page-intro>div>p:not(.eyebrow){display:none}
-  body[data-route="people"][data-v158-context="family"] .v17-page-intro>span{opacity:.78}
+  body[data-route="people"][data-v158-context="family"] .v17-page-intro h2{margin:0!important;font-size:24px!important;line-height:1.05!important}
+  body[data-route="people"][data-v158-context="family"] .v17-page-intro>span{opacity:.78;white-space:nowrap}
   body[data-route="people"][data-v158-context="family"] .v17-page-intro>span b{font-size:20px}
   body[data-route="people"][data-v158-context="family"] .v17-page-intro>span small{font-size:11px;letter-spacing:.04em;text-transform:none}
-  body[data-route="people"][data-v158-context="family"] .v17-branch-browser{gap:4px;padding-top:6px;padding-bottom:7px}
+  body[data-route="people"][data-v158-context="family"] .v17-branch-browser{gap:4px;margin-block:0;padding-top:2px;padding-bottom:3px}
   body[data-route="people"][data-v158-context="family"] .v17-branch-chip{min-width:46px;min-height:46px;box-sizing:border-box;padding:9px 12px;font-size:12px}
   body[data-route="people"][data-v158-context="family"] .v17-branch-summary{gap:8px;padding:10px 12px}
   body[data-route="people"][data-v158-context="family"] .v17-branch-summary h3{margin:2px 0 3px;font-size:1.18rem}
