@@ -1,0 +1,18 @@
+/* Stable top-layer hosts for persistent mobile navigation and family-search interaction. */
+.family-mobile-dock-layer{
+  position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;
+  margin:0!important;padding:0!important;border:0!important;background:transparent!important;overflow:visible!important;pointer-events:none!important
+}
+.family-mobile-dock-layer::backdrop{background:transparent!important;pointer-events:none!important}
+.family-mobile-dock-layer #family-mobile-dock{pointer-events:auto!important}
+
+@media(max-width:720px){
+  body{isolation:auto!important}
+  body>.shell{position:relative!important;z-index:auto!important;transform:none!important;isolation:auto!important;filter:none!important;perspective:none!important}
+  #family-mobile-dock-layer #family-mobile-dock:not([hidden]){
+    position:fixed!important;display:grid!important;top:auto!important;left:5px!important;right:5px!important;
+    bottom:calc(5px + env(safe-area-inset-bottom,0px))!important;width:auto!important;height:auto!important;max-width:none!important;
+    margin:0!important;z-index:1!important;pointer-events:auto!important;transform:none!important;isolation:auto!important;contain:none!important;will-change:auto!important
+  }
+  #family-mobile-dock-layer #family-mobile-dock:not([hidden])>*{pointer-events:auto!important;position:relative!important;z-index:1!important}
+}
