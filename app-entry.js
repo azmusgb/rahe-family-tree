@@ -2,13 +2,9 @@
 // Runtime implementation details live behind stable domain boundaries so
 // historical version-layer files can be retired incrementally without changing
 // the public browser entry or production bundle contract.
-// Transitional implementation inventory (owned by src/runtime/*):
-// v11.js, media.js, deployment.js,
-// media-page-v13-5.js, v15-1-runtime.js, v15-family-focus.js,
-// platform-v13-runtime.js.
 import './src/runtime/index.js';
 
-const APP_VERSION='15.6.0';
+const APP_VERSION='17.0.0';
 const syncAppVersion=()=>{
   document.documentElement.dataset.uiRelease=APP_VERSION;
   const version=document.querySelector('.version');
