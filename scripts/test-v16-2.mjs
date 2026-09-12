@@ -108,7 +108,8 @@ test('v17 public Family controller suppresses living-person chronology location 
   assert.match(nativeController,/Detailed chronology and location records are protected/);
   assert.match(nativeController,/removeAttribute\('data-v17-person-photo'\)/);
   assert.match(nativeController,/Living-person media remains private/);
-  assert.match(nativeController,/v17-branch-summary p/);
+  assert.match(nativeController,/v17-branch-summary>div:first-child>p:not\(\.eyebrow\)/);
+  assert.match(nativeController,/split\(' · '\)\[0\]/);
 });
 
 test('native Family rendering does not promote evidence or mutate genealogy',()=>{
