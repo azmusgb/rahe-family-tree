@@ -1,0 +1,34 @@
+/* Tree — genealogy canvas, not a diagram editor. */
+body[data-route="tree"][data-v158-context="family"] .route-shell .page-heading{padding-bottom:4px}
+body[data-route="tree"][data-v158-context="family"] .route-shell #status{display:none}
+body[data-route="tree"][data-v158-context="family"] .graph-shell{
+  min-height:calc(100dvh - 190px);
+  overflow:hidden;
+  border:1px solid var(--family-border-hairline)!important;
+  border-radius:var(--family-radius-panel)!important;
+  box-shadow:var(--family-shadow-card)!important;
+  background:var(--family-surface-paper);
+}
+body[data-route="tree"][data-v158-context="family"] .graph-stage{min-height:calc(100dvh - 270px)}
+body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar,
+body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{
+  border-color:var(--family-border-hairline)!important;
+  border-radius:var(--family-radius-card)!important;
+  box-shadow:none!important;
+}
+body[data-route="tree"][data-v158-context="family"] .graph-scroll{
+  background:
+    linear-gradient(rgba(23,63,53,.012) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(23,63,53,.012) 1px,transparent 1px),
+    #fbfcfa!important;
+  background-size:32px 32px!important;
+}
+body[data-route="tree"][data-v158-context="family"] .graph-toolbar{border-bottom-color:var(--family-border-hairline)}
+body[data-route="tree"][data-v158-context="family"] .legend{border-bottom-color:var(--family-border-hairline);font-size:11px!important}
+body[data-route="tree"][data-v158-context="family"] .v161-tree-tool-actions button{border-radius:var(--family-radius-control);font-size:12px!important}
+body[data-route="tree"][data-v158-context="family"] .v161-tree-tool-actions button:hover{border-color:var(--family-border-interactive);background:var(--brand-soft)}
+
+/* Family-facing node typography has a readable floor while evidence remains encoded by line/border style. */
+body[data-route="tree"][data-v158-context="family"] :where(.node-branch,.node-state){font-size:10px!important}
+body[data-route="tree"][data-v158-context="family"] .node-name{font-family:var(--family-font-display)!important;font-size:13px!important}
+body[data-route="tree"][data-v158-context="family"] .node-id{font-size:8px!important;opacity:.7}
