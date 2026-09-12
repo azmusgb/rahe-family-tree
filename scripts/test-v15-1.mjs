@@ -4,6 +4,7 @@ import fs from'node:fs';
 
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
+const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const runtime=fs.readFileSync('v15-1-runtime.js','utf8');
 const css=fs.readFileSync('v15-1.css','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
@@ -28,14 +29,14 @@ test('v15.1 promotes family navigation into a horizontal primary bar with disclo
   assert.match(css,/\.sidebar\{[\s\S]*flex-direction:row/);
 });
 
-test('v15.1 groups featured people and branches into a family discovery canvas',()=>{
+test('v15.1 groups featured people and branches into its historical family discovery canvas',()=>{
   assert.match(runtime,/dashboard-family-layout/);
   assert.match(runtime,/dashboard-featured-title/);
   assert.match(runtime,/dashboard-branches-title/);
   assert.match(css,/\.dashboard-family-layout\{/);
 });
 
-test('v15.1 leads person pages with the family overview before the source summary',()=>{
+test('v15.1 historical person relayout remains available beneath native v17 Family ownership',()=>{
   assert.match(runtime,/relayoutPerson/);
   assert.match(runtime,/back\.insertAdjacentElement\('afterend',overview\)/);
   assert.match(runtime,/person-source-summary/);
@@ -48,13 +49,14 @@ test('v15.1 remains responsive and retains the mobile dock breakpoint',()=>{
   assert.match(index,/id="family-mobile-dock"/);
 });
 
-test('v15.1 relayout remains carried by the bundled current release',()=>{
-  assert.match(index,/styles-v15\.css\?v=15\.6\.0/);
-  assert.match(index,/app\.bundle\.js\?v=15\.6\.0/);
-  assert.match(entry,/v15-1-runtime\.js/);
+test('v15.1 compatibility remains carried by the bundled v17 release',()=>{
+  assert.match(index,/styles\.css\?v=17\.0\.0/);
+  assert.match(index,/app\.bundle\.js\?v=17\.0\.0/);
+  assert.match(entry,/src\/runtime\/index\.js/);
+  assert.match(experience,/\.\.\/\.\.\/v15-1-runtime\.js/);
   assert.match(build,/app-entry\.js/);
   assert.match(styleRoot,/v15-1\.css/);
-  assert.match(build,/const appVersion='15\.6\.0'/);
+  assert.match(build,/const appVersion='17\.0\.0'/);
 });
 
 test('v15.1 relayout cannot alter canonical genealogy semantics',()=>{
