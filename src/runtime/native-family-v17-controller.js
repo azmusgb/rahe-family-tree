@@ -1,10 +1,11 @@
-import{personById}from'../../core.js';
+import{model,personById}from'../../core.js';
 import{renderTree}from'../../graph.js';
 import{renderNativeHome,renderNativePeople,renderNativePerson,hydrateNativeFamily}from'./native-family-v17.js';
 
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const isFamily=()=>document.body.dataset.experience!=='research';
 const nativeRoutes=new Set(['dashboard','tree','people','person']);
+const nativeMarker=route=>route==='dashboard'?'home':route;
 const livingChronologyPrivacy='Detailed chronology and location records are protected for living family members.';
 const livingMediaPrivacy='Living-person media remains private in the public family archive.';
 
@@ -55,9 +56,14 @@ function apply(){
   const route=routeKey();
   document.body.dataset.familyNative='v17';
   if(!nativeRoutes.has(route))return;
+  // The browser bootstrap can reach DOMContentLoaded before the asynchronous
+  // canonical model fetch completes. Native renderers, especially Tree, rely
+  // on the populated model. Wait for the authoritative family-view-rendered
+  // lifecycle instead of attempting a partial pre-data render that can throw.
+  if(!model)return;
   const content=document.getElementById('content');if(!content)return;
   const current=content.querySelector('[data-v17-native]');
-  if(current?.dataset.v17Native===route){enforcePublicPrivacy(route,content);hydrateNativeFamily();return;}
+  if(current?.dataset.v17Native===nativeMarker(route)){enforcePublicPrivacy(route,content);hydrateNativeFamily();return;}
   content.classList.remove('v157-home','v159-people','v159-profile','v161-home','v161-people');
   content.classList.add('v17-content');
   content.innerHTML=nativeMarkup(route);
