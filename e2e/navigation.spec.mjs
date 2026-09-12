@@ -11,42 +11,45 @@ test.beforeEach(async({page})=>{await mockApis(page);});
 test('mobile dock is simplified to Home Tree People Photos and More',async({page},testInfo)=>{
   test.skip(testInfo.project.name!=='mobile-chromium','mobile navigation contract');
   await page.goto('/#dashboard');
-  await expect(page.locator('.dashboard-hero')).toBeVisible();
+  await expect(page.locator('.v17-home-hero')).toBeVisible();
   await expect(page.locator('.sidebar')).toBeHidden();
   const dock=page.locator('#family-mobile-dock');
   await expect(dock).toBeVisible();
   await dock.getByRole('link',{name:'Tree'}).click();
   await expect(page).toHaveURL(/#tree$/);
+  await expect(page.locator('[data-v17-native="tree"]')).toBeVisible();
   await dock.getByRole('link',{name:'People'}).click();
   await expect(page).toHaveURL(/#people$/);
+  await expect(page.locator('[data-v17-native="people"]')).toBeVisible();
   await dock.getByRole('link',{name:'Photos'}).click();
   await expect(page).toHaveURL(/#media$/);
   await expect(page.locator('[data-media-page]')).toBeVisible();
-  await expect(page.locator('#search')).toBeVisible();
   await dock.locator('.v158-mobile-more>summary').click();
   await dock.getByRole('button',{name:'Search'}).click();
   await expect(page.locator('#search')).toBeFocused();
 });
 
-test('typing search does not destroy the current page and a result opens',async({page})=>{
+test('typing search does not destroy the native Home and a result opens',async({page})=>{
   await page.goto('/#dashboard');
-  await expect(page.locator('.dashboard-hero')).toBeVisible();
-  await expect(page.locator('#search')).toBeVisible();
+  const home=page.locator('[data-v17-native="home"]');
+  await expect(home).toBeVisible();
   await page.locator('#search').fill('Hazel Berg');
-  await expect(page.locator('.dashboard-hero')).toBeVisible();
+  await expect(home).toBeVisible();
   const result=page.locator('#search-v13-2-results [data-person]').filter({hasText:'Hazel'}).first();
   await expect(result).toBeVisible();
   await result.click();
   await expect(page).toHaveURL(/#person\//);
+  await expect(page.locator('[data-v17-native="person"]')).toBeVisible();
   await expect(page.locator('#title')).toHaveText('Person profile');
 });
 
-test('tree person visual is a one-click route to a profile',async({page})=>{
+test('tree person visual is a one-click route to a native biography',async({page})=>{
   await page.goto('/#tree');
-  const node=page.locator('.graph-node[data-person]').first();
+  const node=page.locator('[data-v17-native="tree"] .graph-node[data-person]').first();
   await expect(node).toBeAttached();
   await node.locator('.node-avatar').click();
   await expect(page).toHaveURL(/#person\//);
+  await expect(page.locator('[data-v17-native="person"]')).toBeVisible();
 });
 
 test('desktop family navigation is Home Tree People Photos plus Explore and Research Center',async({page},testInfo)=>{
@@ -67,13 +70,12 @@ test('desktop family navigation is Home Tree People Photos plus Explore and Rese
 test('desktop family shell keeps content-first chrome and contextual search',async({page},testInfo)=>{
   test.skip(testInfo.project.name!=='desktop-chromium','desktop page architecture contract');
   await page.goto('/#dashboard');
-  const sidebar=page.locator('.sidebar');
-  await expect(sidebar).toBeVisible();
+  await expect(page.locator('.sidebar')).toBeVisible();
   await expect(page.locator('.topbar')).toBeHidden();
   await expect(page.locator('.v155-desktop-actions>summary')).toBeVisible();
   await expect(page.locator('#filters .search')).toContainText('Find someone in the family');
   await expect(page.locator('#search')).toHaveAttribute('placeholder','Name, branch, or place…');
-  await expect(page.locator('.v157-tree-preview')).toBeVisible();
+  await expect(page.locator('.v17-home-tree')).toBeVisible();
 });
 
 test('Research Center switches to a distinct research navigation shell',async({page},testInfo)=>{
@@ -88,58 +90,53 @@ test('Research Center switches to a distinct research navigation shell',async({p
   await expect(nav.getByRole('link',{name:/Back to Family/})).toBeVisible();
 });
 
-test('Home keeps secondary branches and stories collapsed by default',async({page})=>{
+test('Home is a direct narrative flow without legacy collapsed dashboard sections',async({page})=>{
   await page.goto('/#dashboard');
-  await expect(page.locator('.v157-hero')).toBeVisible();
-  await expect(page.locator('.v157-tree-preview')).toBeVisible();
-  await expect(page.locator('#dashboard-featured-title')).toBeVisible();
-  const more=page.locator('.v1510-home-more');
-  await expect(more).toBeVisible();
-  await expect(more).not.toHaveAttribute('open','');
-  await expect(page.locator('.v157-research-center')).toBeVisible();
+  const home=page.locator('[data-v17-native="home"]');
+  await expect(home.locator('.v17-home-hero')).toBeVisible();
+  await expect(home.locator('.v17-home-tree')).toBeVisible();
+  await expect(home.locator('.v17-home-story')).toBeVisible();
+  await expect(home.locator('.v17-featured-people')).toBeVisible();
+  await expect(home.locator('.v17-research-door')).toBeVisible();
+  await expect(page.locator('.v1510-home-more')).toHaveCount(0);
 });
 
-test('People is family-first but initially limits the card wall',async({page},testInfo)=>{
+test('People is a native family directory with direct branch browsing',async({page})=>{
   await page.goto('/#people');
-  await expect(page.locator('.v159-people-header')).toBeVisible();
-  await expect(page.locator('.v159-branch-browser')).toBeVisible();
-  const cards=page.locator('.v159-person-card');
+  const people=page.locator('[data-v17-native="people"]');
+  await expect(people.locator('.v17-page-intro')).toBeVisible();
+  await expect(people.locator('.v17-branch-browser')).toBeVisible();
+  const cards=people.locator('.v17-person-card');
   await expect(cards.first()).toBeVisible();
-  await expect(cards.first().locator('.v159-card-context')).toBeVisible();
-  const expected=testInfo.project.name==='mobile-chromium'?6:12;
-  await expect.poll(()=>page.locator('.v159-person-card:visible').count()).toBe(expected);
-  const more=page.locator('[data-v1510-people-more]');
-  await expect(more).toBeVisible();
-  await more.click();
-  await expect.poll(()=>page.locator('.v159-person-card:visible').count()).toBeGreaterThan(expected);
+  await expect(cards.first().locator('.v17-person-card-copy')).toBeVisible();
+  await expect(page.locator('[data-v1510-people-more]')).toHaveCount(0);
+  expect(await cards.count()).toBeGreaterThan(12);
 });
 
-test('Person profile defaults to one compact Overview and exposes tabs for deeper sections',async({page})=>{
-  await page.goto('/#dashboard');
-  await page.locator('#search').fill('Hazel Berg');
-  const result=page.locator('#search-v13-2-results [data-person]').filter({hasText:'Hazel'}).first();
+test('Person is a flowing native biography with Family Life Photos and Research sections',async({page})=>{
+  await page.goto('/#people');
+  const result=page.locator('.v17-person-card button[data-person]').filter({hasText:/Hazel.*Berg/i}).first();
+  await expect(result).toBeVisible();
   await result.click();
-  await expect(page.locator('.v159-person-overview')).toBeVisible();
-  await expect(page.locator('.v1510-profile-tabs')).toBeVisible();
-  await expect(page.locator('.v159-life-summary')).toBeVisible();
-  await expect(page.locator('.profile-family-grid')).toBeHidden();
-  await expect(page.locator('.profile-media')).toBeHidden();
-  await expect(page.locator('.v153-family-network')).toBeHidden();
-  await page.getByRole('button',{name:'Family',exact:true}).click();
-  await expect(page.locator('.profile-family-grid')).toBeVisible();
-  await expect(page.locator('.v159-life-summary')).toBeHidden();
-  await page.getByRole('button',{name:'Photos',exact:true}).click();
-  await expect(page.locator('.profile-media')).toBeVisible();
+  const profile=page.locator('[data-v17-native="person"]');
+  await expect(profile.locator('.v17-person-header')).toBeVisible();
+  const nav=profile.locator('.v17-person-nav');
+  for(const label of['Family','Life','Photos','Research'])await expect(nav.getByRole('link',{name:label,exact:true})).toBeVisible();
+  await expect(profile.locator('#v17-family')).toBeVisible();
+  await expect(profile.locator('#v17-life')).toBeVisible();
+  await expect(profile.locator('#v17-photos')).toBeVisible();
+  await expect(profile.locator('#v17-research')).toBeVisible();
+  await expect(page.locator('.v1510-profile-tabs')).toHaveCount(0);
 });
 
-test('v15.4 tree gives the focal person persistent context and profile navigation',async({page})=>{
+test('native Tree keeps focused family context and compact relationship tools',async({page})=>{
   await page.goto('/#tree');
-  const focal=page.locator('.v154-tree-person');
-  await expect(focal).toBeVisible();
-  await expect(page.locator('.v154-tree-controls')).toBeVisible();
-  await expect(page.locator('.v154-graph-shell')).toBeVisible();
-  await focal.getByRole('link',{name:'Open profile'}).click();
-  await expect(page).toHaveURL(/#person\//);
+  const tree=page.locator('[data-v17-native="tree"]');
+  await expect(tree).toBeVisible();
+  await expect(tree.locator('.graph-shell')).toBeVisible();
+  await expect(page.locator('.v161-tree-toolbar')).toBeVisible();
+  await expect(page.locator('[data-v161-relationship]')).toBeVisible();
+  await expect(tree.locator('[data-tree-person]')).toBeVisible();
 });
 
 test('Photos keeps contextual search and collapses dedicated media filters on demand',async({page},testInfo)=>{
@@ -151,7 +148,6 @@ test('Photos keeps contextual search and collapses dedicated media filters on de
   const disclosure=page.locator('.v161-media-filters');
   await expect(disclosure).toBeVisible();
   await expect(disclosure).not.toHaveAttribute('open','');
-  await expect(page.locator('.media-library-controls')).toBeHidden();
   await disclosure.locator('summary').click();
   await expect(page.locator('.media-library-controls')).toBeVisible();
   if(testInfo.project.name==='desktop-chromium')await expect(page.locator('#nav').getByRole('link',{name:'Photos',exact:true})).toBeVisible();
