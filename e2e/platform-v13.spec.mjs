@@ -14,7 +14,7 @@ test('family tree keeps graph diagnostics out of the foreground and relationship
   await expect(page.locator('.v161-tree-toolbar')).toBeVisible();
   await expect(page.locator('.graph-shell')).toBeVisible();
   await page.getByRole('button',{name:'Relationship',exact:true}).click();
-  const dialog=page.locator('#v161-relationship-dialog');
+  let dialog=page.locator('#v161-relationship-dialog');
   await expect(dialog).toBeVisible();
   const form=dialog.locator('#relationship-finder');
   await expect(form).toBeVisible();
@@ -22,6 +22,9 @@ test('family tree keeps graph diagnostics out of the foreground and relationship
   const to=await form.locator('[name="relationship-to"]').inputValue();
   await form.getByRole('button',{name:'Find relationship'}).click();
   await expect(page).toHaveURL(new RegExp(`from=${encodeURIComponent(from)}.*to=${encodeURIComponent(to)}.*#tree`));
+  dialog=page.locator('#v161-relationship-dialog');
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator('.relationship-path-result, .empty')).toBeVisible();
   await expect(page.locator('.graph-shell')).toBeVisible();
 });
 
