@@ -86,9 +86,10 @@ function teardownSearchLayer(){
   layer.remove();
 }
 function closeFamilySearch({clearQuery=false,restoreFocus=true}={}){
+  const input=document.getElementById('search'),query=input?.value.trim()||'';
+  if(query&&!clearQuery)window.dispatchEvent(new CustomEvent('family-search-dismissed',{detail:{query}}));
   document.querySelector('#search-v13-2-results')?.remove();
   teardownSearchLayer();
-  const input=document.getElementById('search');
   if(input){if(clearQuery)input.value='';input.blur();}
   if(clearQuery){familySearchTab='all';lastFamilyQuery='';}
   if(restoreFocus)document.getElementById('main')?.focus({preventScroll:true});
@@ -158,6 +159,6 @@ document.addEventListener('click',event=>{
   if(event.target.closest?.('[data-family-search-close],[data-family-search-scrim]')){event.preventDefault();closeFamilySearch();return;}
   const result=event.target.closest?.('#search-v13-2-results .search-hit,#search-v13-2-results .family-search-footer a');if(result){closeFamilySearch({clearQuery:true,restoreFocus:false});return;}
 });
-document.addEventListener('focusin',event=>{const input=event.target;if(input?.id==='search'&&isFamilyContext()&&input.value.trim()&&!document.getElementById('search-v13-2-results'))input.dispatchEvent(new Event('input',{bubbles:true}));});
+document.addEventListener('focusin',event=>{const input=event.target;if(input?.id==='search'&&isFamilyContext()&&input.value.trim()&&!document.getElementById('search-v13-2-results'))window.dispatchEvent(new CustomEvent('family-search-reopen',{detail:{query:input.value.trim()}}));});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&isFamilyContext()&&(document.getElementById('search-v13-2-results')||searchLayer())){event.preventDefault();event.stopImmediatePropagation();closeFamilySearch();}},true);
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
