@@ -1,12 +1,5 @@
 /* v15.11 — Family home + mobile interaction overhaul */
 
-/* Search behaves as an overlay, never as another giant block in the page flow. */
-body[data-v158-context="family"] #search-v13-2-results{position:fixed!important;z-index:2147483600!important;margin:0!important;background:#fff!important;border:1px solid var(--line)!important;box-shadow:0 24px 70px rgba(19,40,33,.18)!important;box-sizing:border-box!important;overflow:auto!important;overscroll-behavior:contain}
-body[data-v158-context="family"] #search-v13-2-results .search-group:nth-of-type(n+3){display:none!important}
-@media(min-width:721px){
-  body[data-v158-context="family"] #search-v13-2-results{top:88px!important;left:50%!important;width:min(860px,calc(100vw - 48px))!important;max-height:calc(100dvh - 112px)!important;transform:translateX(-50%)!important;border-radius:18px!important;padding:18px!important}
-}
-
 /* One composed lead instead of hero + snapshot + tree stacked as separate cards. */
 .v1511-home-lead{display:grid;grid-template-columns:minmax(0,.9fr) minmax(420px,1.1fr);gap:18px;margin:4px 0 24px;padding:18px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#f7faf7,#eef5f0)}
 .v1511-home-lead>.v157-hero,.v1511-home-lead>.v1511-tree-preview{margin:0!important;border:0!important;border-radius:16px!important;background:transparent!important;box-shadow:none!important}
@@ -66,15 +59,6 @@ body[data-v158-context="family"] #search-v13-2-results .search-group:nth-of-type
   body>.shell{position:relative!important;z-index:0!important}
   body>#family-mobile-dock:not([hidden]){position:fixed!important;left:5px!important;right:5px!important;bottom:calc(5px + env(safe-area-inset-bottom,0px))!important;z-index:2147483647!important;pointer-events:auto!important;transform:none!important;isolation:auto!important}
   body>#family-mobile-dock:not([hidden])>*{pointer-events:auto!important;position:relative!important;z-index:1!important}
-
-  body[data-v158-context="family"] #search-v13-2-results{top:76px!important;left:8px!important;right:8px!important;bottom:auto!important;width:auto!important;height:calc(100dvh - 76px - var(--mobile-nav-height,72px) - 22px)!important;max-height:calc(100dvh - 76px - var(--mobile-nav-height,72px) - 22px)!important;transform:none!important;border-radius:15px!important;padding:12px!important}
-  body[data-v158-context="family"] #search-v13-2-results .search-summary{display:grid!important;grid-template-columns:1fr auto!important;gap:8px!important;margin-bottom:8px!important}
-  body[data-v158-context="family"] #search-v13-2-results .search-summary h2{font-size:20px!important;margin:1px 0 3px!important}
-  body[data-v158-context="family"] #search-v13-2-results .search-summary small{font-size:9px!important;line-height:1.35!important}
-  body[data-v158-context="family"] #search-v13-2-results .search-keyboard-hint{display:none!important}
-  body[data-v158-context="family"] #search-v13-2-results .search-groups{display:grid!important;grid-template-columns:1fr!important;gap:8px!important}
-  body[data-v158-context="family"] #search-v13-2-results .search-group{padding:8px!important;border-radius:10px!important}
-  body[data-v158-context="family"] #search-v13-2-results .search-hit{min-height:44px!important;padding:8px!important}
 
   .v1511-home{padding-bottom:4px!important}
   .v1511-home-lead{display:block;margin:0 -6px 14px;padding:10px;border-radius:16px}
