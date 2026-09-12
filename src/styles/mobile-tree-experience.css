@@ -7,7 +7,11 @@
   body[data-experience="family"][data-route="tree"] .route-shell{height:0!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;overflow:hidden!important;background:transparent!important;box-shadow:none!important}
   body[data-experience="family"][data-route="tree"] .route-shell>*{display:none!important}
 
-  .v1511-mobile-tree{margin:0!important;padding:0!important}
+  /* Ordering is CSS-enforced as well as runtime-enforced so later enhancement timing cannot push the canvas down. */
+  .v1511-mobile-tree{display:flex!important;flex-direction:column!important;margin:0!important;padding:0!important}
+  .v1511-mobile-tree>.v1511-tree-options{order:-30!important}
+  .v1511-mobile-tree>.graph-shell{order:-29!important}
+  .v1511-mobile-tree>[data-platform-v13="tree-engine-2"]{order:20!important;margin-top:12px!important}
   .v1511-mobile-tree>.v1511-tree-intro-notice,
   .v1511-mobile-tree .v154-tree-person,
   .v1511-mobile-tree .v129-tree-memory,
