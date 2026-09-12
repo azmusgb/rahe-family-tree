@@ -32,7 +32,7 @@ test('mobile family search is a compact categorized command surface',async({page
   const peopleGroup=sheet.locator('.search-group').filter({hasText:/People/i}).first();
   await expect(peopleGroup).toBeHidden();
 
-  await page.locator('#family-search-layer>[data-family-search-close]').click();
+  await sheet.getByRole('button',{name:'Close search results'}).click();
   await expect(sheet).toHaveCount(0);
   await expect(layer).toHaveCount(0);
   await expect(search).toHaveValue('Aimee');
