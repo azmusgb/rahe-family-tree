@@ -1,4 +1,4 @@
-import{personById}from'../../core.js';
+import{model,personById}from'../../core.js';
 import{renderTree}from'../../graph.js';
 import{renderNativeHome,renderNativePeople,renderNativePerson,hydrateNativeFamily}from'./native-family-v17.js';
 
@@ -51,31 +51,33 @@ function enforcePublicPrivacy(route,content){
   if(photos&&!photos.querySelector('.v17-living-media'))photos.insertAdjacentHTML('beforeend',`<p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p>`);
 }
 
+function announceNative(route){window.dispatchEvent(new CustomEvent('family-native-rendered',{detail:{route}}));}
 function apply(){
-  if(!isFamily()){delete document.body.dataset.familyNative;return;}
+  if(!isFamily()){delete document.body.dataset.familyNative;return false;}
   const route=routeKey();
   document.body.dataset.familyNative='v17';
-  if(!nativeRoutes.has(route))return;
-  const content=document.getElementById('content');if(!content)return;
+  if(!nativeRoutes.has(route)||!model)return false;
+  const content=document.getElementById('content');if(!content)return false;
   const current=content.querySelector('[data-v17-native]');
-  if(current?.dataset.v17Native===nativeMarker(route)){enforcePublicPrivacy(route,content);hydrateNativeFamily();return;}
+  if(current?.dataset.v17Native===nativeMarker(route)){enforcePublicPrivacy(route,content);hydrateNativeFamily();return true;}
   content.classList.remove('v157-home','v159-people','v159-profile','v161-home','v161-people');
   content.classList.add('v17-content');
   content.innerHTML=nativeMarkup(route);
   enforcePublicPrivacy(route,content);
   hydrateNativeFamily();
+  announceNative(route);
+  return true;
 }
 
 // v11 owns the authoritative route render synchronously. Reconcile the native
 // Family surface in the following microtask so Tree never waits behind older
-// double-rAF presentation enhancers. This also makes hash-driven re-renders
-// deterministic: the base route renders first, then the native owner replaces
-// it before paint, and later semantic enhancers only decorate native markup.
+// presentation enhancers. If the model has not loaded yet, v11's authoritative
+// family-view-rendered event or the content observer below will retry safely.
 let queued=false;
-function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;apply();});}
+function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;try{apply();}catch(error){console.error('[native-family] render failed',error);}});}
 
 // Defense in depth for compatibility layers that still replace #content.
-// Observe only direct route-content replacement; applying native markup is
+// Observe direct route-content replacement; applying native markup is
 // idempotent and the marker check prevents a mutation loop.
 let contentObserver=null;
 function observeContent(){
