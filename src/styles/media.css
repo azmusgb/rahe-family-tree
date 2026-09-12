@@ -1,0 +1,27 @@
+/* Photos & documents — image-first family collection. */
+body[data-route="media"][data-v158-context="family"] .route-shell{padding-bottom:4px}
+.v162-media-quick{gap:8px;padding:3px 1px 5px}
+.v162-media-quick button{
+  min-height:40px;padding-inline:14px;border:1px solid var(--line-strong);border-radius:var(--family-radius-chip);
+  background:var(--surface);box-shadow:none;font-size:12px!important;font-weight:750;
+}
+.v162-media-quick button:hover{border-color:var(--family-border-interactive);background:var(--brand-soft)}
+.v162-media-quick button.active{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 6px 16px rgba(23,63,53,.12)}
+body[data-route="media"][data-v158-context="family"] .v161-media-filters{
+  border:1px solid var(--family-border-hairline);
+  border-radius:var(--family-radius-card);
+  box-shadow:none;
+  background:var(--surface);
+}
+body[data-route="media"][data-v158-context="family"] .media-library-note{
+  margin:8px 0 14px;padding:8px 0;border:0!important;background:transparent!important;color:var(--muted-strong);font-size:12px;line-height:1.45;
+}
+body[data-route="media"][data-v158-context="family"] .media-library-card{
+  overflow:hidden;border:1px solid var(--family-border-hairline)!important;border-radius:var(--family-radius-card)!important;
+  box-shadow:var(--family-shadow-card)!important;background:var(--family-surface-paper)!important;
+}
+body[data-route="media"][data-v158-context="family"] .media-library-preview{background:#eef2ee}
+body[data-route="media"][data-v158-context="family"] .media-library-preview img{transition:transform 340ms ease}
+body[data-route="media"][data-v158-context="family"] .media-library-title{margin-top:10px;margin-bottom:14px}
+body[data-route="media"][data-v158-context="family"] .media-library-title h2{font-family:var(--family-font-display);font-size:var(--family-text-section)}
+@media(hover:hover) and (pointer:fine){body[data-route="media"][data-v158-context="family"] .media-library-card:hover .media-library-preview img{transform:scale(1.02)}}
