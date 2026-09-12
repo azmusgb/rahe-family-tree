@@ -8,6 +8,7 @@ import '../../platform-v13-runtime.js';
 import './page-architecture.js';
 import './navigation-shell.js';
 import './native-family-v17-controller.js';
+import './site-branding.js';
 
 // Workbench, Stories, Tree/mobile density and media-specific narrative helpers
 // remain additive capabilities after the stable Family route controller.
