@@ -1,3 +1,4 @@
+import{personById}from'../../core.js';
 import{renderNativeHome,renderNativePeople,renderNativePerson,hydrateNativeFamily}from'./native-family-v17.js';
 
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
@@ -11,6 +12,23 @@ function nativeMarkup(route){
   return'';
 }
 
+function enforcePublicPrivacy(route,content){
+  if(route==='people'){
+    const summary=content.querySelector('.v17-branch-summary p');
+    if(summary&&summary.textContent.includes(' · '))summary.textContent=summary.textContent.split(' · ')[0];
+    return;
+  }
+  if(route!=='person')return;
+  const root=content.querySelector('.v17-person[data-person-id]'),person=personById(root?.dataset.personId||'');
+  if(!person?.living)return;
+  content.querySelector('.v17-person-places')?.remove();
+  const timeline=content.querySelector('.v17-life-timeline');
+  if(timeline)timeline.outerHTML='<p class="muted v17-living-privacy">Detailed chronology and location records are protected for living family members.</p>';
+  content.querySelectorAll('[data-v17-person-photo]').forEach(host=>host.removeAttribute('data-v17-person-photo'));
+  const gallery=content.querySelector('[data-v17-person-gallery]');
+  if(gallery){gallery.removeAttribute('data-v17-person-gallery');gallery.innerHTML='<p class="muted v17-living-privacy">Living-person media remains private in the public family archive.</p>';}
+}
+
 function apply(){
   if(!isFamily()){delete document.body.dataset.familyNative;return;}
   const route=routeKey();
@@ -18,10 +36,11 @@ function apply(){
   document.body.dataset.familyNative='v17';
   const content=document.getElementById('content');if(!content)return;
   const current=content.querySelector('[data-v17-native]');
-  if(current?.dataset.v17Native===route){hydrateNativeFamily();return;}
+  if(current?.dataset.v17Native===route){enforcePublicPrivacy(route,content);hydrateNativeFamily();return;}
   content.classList.remove('v157-home','v159-people','v159-profile','v161-home','v161-people');
   content.classList.add('v17-content');
   content.innerHTML=nativeMarkup(route);
+  enforcePublicPrivacy(route,content);
   hydrateNativeFamily();
 }
 
