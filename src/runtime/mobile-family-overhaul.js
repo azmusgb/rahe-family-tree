@@ -59,8 +59,14 @@ function applySearchTab(overlay){
     button.classList.toggle('active',active);button.setAttribute('aria-selected',String(active));
   });
 }
+function removeSearchScrim(){document.querySelector('[data-family-search-scrim]')?.remove();}
+function ensureSearchPortal(overlay){
+  if(overlay.parentElement!==document.body)document.body.append(overlay);
+  let scrim=document.querySelector('[data-family-search-scrim]');
+  if(!scrim){scrim=document.createElement('button');scrim.type='button';scrim.className='family-search-scrim';scrim.dataset.familySearchScrim='';scrim.setAttribute('aria-label','Close family search');document.body.insertBefore(scrim,overlay);}
+}
 function dismissFamilySearch(){
-  document.querySelector('#search-v13-2-results')?.remove();
+  document.querySelector('#search-v13-2-results')?.remove();removeSearchScrim();
   const input=document.getElementById('search');if(input)input.blur();
   document.getElementById('main')?.focus({preventScroll:true});
 }
@@ -89,9 +95,10 @@ function ensureSearchFooter(overlay){
   const link=document.createElement('a');link.href='#research';link.textContent='Search Research Center';footer.append(copy,link);overlay.append(footer);
 }
 function labelSearchOverlay(){
-  const overlay=document.getElementById('search-v13-2-results');if(!overlay)return;
-  overlay.classList.add('v1511-search-sheet','family-search-command');if(!isFamilyContext())return;
-  overlay.setAttribute('aria-label','Family search results');
+  const overlay=document.getElementById('search-v13-2-results');
+  if(!overlay){removeSearchScrim();return;}
+  overlay.classList.add('v1511-search-sheet','family-search-command');if(!isFamilyContext()){removeSearchScrim();return;}
+  ensureSearchPortal(overlay);overlay.setAttribute('aria-label','Family search results');
   const allGroups=[...overlay.querySelectorAll('.search-group')];
   allGroups.forEach((group,index)=>group.dataset.v1511SearchKind=groupKind(group,index));
   allGroups.filter(group=>!['people','families'].includes(group.dataset.v1511SearchKind)).forEach(group=>group.remove());
@@ -122,7 +129,7 @@ window.addEventListener('family-view-rendered',schedule);window.addEventListener
 document.addEventListener('input',event=>{if(event.target?.closest?.('#filters'))scheduleSearchPolish();});document.addEventListener('change',event=>{if(event.target?.closest?.('#filters'))scheduleSearchPolish();});document.getElementById('filters')?.addEventListener('reset',()=>setTimeout(scheduleSearchPolish,0));
 document.addEventListener('click',event=>{
   const tab=event.target.closest?.('[data-v1511-search-tab]');if(tab){familySearchTab=tab.dataset.v1511SearchTab||'all';const overlay=tab.closest('#search-v13-2-results');if(overlay)applySearchTab(overlay);return;}
-  if(event.target.closest?.('[data-family-search-close]')){event.preventDefault();dismissFamilySearch();return;}
+  if(event.target.closest?.('[data-family-search-close],[data-family-search-scrim]')){event.preventDefault();dismissFamilySearch();return;}
 });
 document.addEventListener('focusin',event=>{const input=event.target;if(input?.id==='search'&&isFamilyContext()&&input.value.trim()&&!document.getElementById('search-v13-2-results'))input.dispatchEvent(new Event('input',{bubbles:true}));});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&isFamilyContext()&&document.getElementById('search-v13-2-results')){event.preventDefault();event.stopImmediatePropagation();dismissFamilySearch();}},true);
