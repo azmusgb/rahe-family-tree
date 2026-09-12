@@ -11,6 +11,7 @@ test.beforeEach(async({page})=>{await mockApis(page);});
 test('family tree keeps graph diagnostics out of the foreground and relationship finding on demand',async({page})=>{
   await page.goto('/#tree');
   await expect(page.locator('[data-platform-v13="tree-engine-2"]')).toHaveCount(0);
+  await expect(page.locator('[data-v17-native="tree"]')).toBeVisible();
   await expect(page.locator('.v161-tree-toolbar')).toBeVisible();
   await expect(page.locator('.graph-shell')).toBeVisible();
   await page.getByRole('button',{name:'Relationship',exact:true}).click();
@@ -38,16 +39,16 @@ test('evidence workbench exposes canonical graph integrity provenance and diff',
   await expect(platform.getByRole('link',{name:'Canonical graph JSON'})).toBeVisible();
 });
 
-test('person profile includes canonical graph provenance and family context',async({page})=>{
-  await page.goto('/#dashboard');
-  await page.locator('#search').fill('Hazel Berg');
-  const result=page.locator('#search-v13-2-results [data-person]').filter({hasText:'Hazel'}).first();
+test('family person profile keeps platform provenance out of the foreground but exposes Research Center',async({page})=>{
+  await page.goto('/#people');
+  const result=page.locator('.v17-person-card button[data-person]').filter({hasText:/Hazel.*Berg/i}).first();
   await expect(result).toBeVisible();
   await result.click();
-  const panel=page.locator('[data-platform-v13="person-graph-context"]');
-  await expect(panel).toBeVisible();
-  await expect(panel.getByRole('heading',{name:'Family, provenance, and traversal'})).toBeVisible();
-  await expect(panel.getByText('Controlling state',{exact:true})).toBeVisible();
+  const profile=page.locator('[data-v17-native="person"]');
+  await expect(profile).toBeVisible();
+  await expect(profile.locator('[data-platform-v13="person-graph-context"]')).toHaveCount(0);
+  await expect(profile.locator('.v17-person-research')).toBeVisible();
+  await expect(profile.getByRole('link',{name:/Open Research Center/})).toBeVisible();
 });
 
 test('source dossier includes source to assertion matrix',async({page})=>{
