@@ -26,9 +26,9 @@ function card(event){
 }
 
 export function renderStories(){
-  const rows=events().filter(e=>yearOf(e)||recordTextOf(e)||peopleOf(e).length||placesOf(e).length).sort((a,b)=>yearOf(a)-yearOf(b));
+  const rows=events().filter(e=>evidenceStateOf(e)!=='REJECTED').filter(e=>yearOf(e)||recordTextOf(e)||peopleOf(e).length||placesOf(e).length).sort((a,b)=>yearOf(a)-yearOf(b));
   const groups=new Map();
   for(const event of rows){const decade=decadeOf(yearOf(event));if(!groups.has(decade))groups.set(decade,[]);groups.get(decade).push(event);}
   const chapters=[...groups.entries()].filter(([,items])=>items.length).slice(-8).reverse();
-  return`<section class="v16-stories" aria-labelledby="stories-title"><header class="v16-stories-hero"><p class="eyebrow">FAMILY STORIES</p><h2 id="stories-title">Stories from the family record</h2><p>Source-controlled highlights grouped by era. Each event keeps its evidence qualification visible so provisional, unresolved, and rejected material is never presented as established family history.</p></header>${chapters.length?chapters.map(([decade,items])=>`<section class="v16-story-chapter"><div class="v16-story-chapter-heading"><span>${esc(decade)}</span><h3>${items.length} recorded ${items.length===1?'event':'events'}</h3></div><div class="v16-story-list">${items.slice(0,8).map(card).join('')}</div></section>`).join(''):'<div class="empty">No source-controlled story events are available yet.</div>'}</section>`;
+  return`<section class="v16-stories" aria-labelledby="stories-title"><header class="v16-stories-hero"><p class="eyebrow">FAMILY STORIES</p><h2 id="stories-title">Stories from the family record</h2><p>Source-controlled highlights grouped by era. Provisional and unresolved events keep their evidence qualification visible, while rejected research stays in the Research Center rather than the family story.</p></header>${chapters.length?chapters.map(([decade,items])=>`<section class="v16-story-chapter"><div class="v16-story-chapter-heading"><span>${esc(decade)}</span><h3>${items.length} recorded ${items.length===1?'event':'events'}</h3></div><div class="v16-story-list">${items.slice(0,8).map(card).join('')}</div></section>`).join(''):'<div class="empty">No source-controlled story events are available yet.</div>'}</section>`;
 }
