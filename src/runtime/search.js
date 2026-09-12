@@ -58,7 +58,7 @@ function ranked(items,query,branch,state,primary,limit,supports={branch:true,sta
 function familyGroups(model){return[...(model?.familyGroups??[]),...(model?.familySupplement?.familyGroups??[])];}
 function publicPeople(model){const people=[...(model?.people??[]),...(model?.familySupplement?.people??[])],superseded=model?.familySupplement?.aggregateReplacement?.canonicalPersonId;return superseded?people.filter(person=>person.id!==superseded):people;}
 
-let model=null,corpus=null,loadPromise=null;
+let model=null,corpus=null,loadPromise=null,dismissedQuery='';
 async function loadSearchData(){if(model&&corpus)return;if(!loadPromise){loadPromise=Promise.all([fetch('research-model.json',{cache:'no-store'}),fetch('corpus.json',{cache:'no-store'})]).then(async([modelResponse,corpusResponse])=>{if(!modelResponse.ok||!corpusResponse.ok)throw new Error(`Search data unavailable (${modelResponse.status}/${corpusResponse.status})`);[model,corpus]=await Promise.all([modelResponse.json(),corpusResponse.json()]);});}return loadPromise;}
 function filters(){return{q:document.querySelector('#search')?.value.trim()??'',branch:document.querySelector('#branch')?.value??'',state:document.querySelector('#state')?.value??''};}
 function resultButton(kind,id,title,meta){return`<button class="search-hit human" type="button" data-search-hit data-${kind}="${esc(id)}"><b>${esc(title)}</b><small>${esc(meta)}</small></button>`;}
@@ -73,7 +73,7 @@ function renderOverlay(){
   if(isMediaRoute())return;
   if(!model||!corpus)return;
   content.querySelector('.family-search')?.remove();
-  const{q,branch,state}=filters();if(!q)return;
+  const{q,branch,state}=filters();if(!q||normalize(q)===dismissedQuery)return;
   const people=publicPeople(model),families=familyGroups(model),claims=model.claims??[],sources=model.sources??[],tasks=model.researchTasks??[],sections=corpus.sections??[];
   const peopleHits=ranked(people,q,branch,state,person=>person.name??person.id,SEARCH_LIMITS.people),familyHits=ranked(families,q,branch,state,family=>family.label??family.id,SEARCH_LIMITS.families),claimHits=ranked(claims,q,branch,state,claim=>claim.claim??claim.id,SEARCH_LIMITS.claims),sourceHits=ranked(sources,q,branch,state,source=>`${source.id??''} ${source.name??''}`,SEARCH_LIMITS.sources,{branch:true,state:false}),taskHits=ranked(tasks,q,branch,state,task=>task.record??task.id,SEARCH_LIMITS.tasks,{branch:true,state:false}),sectionHits=ranked(sections,q,branch,state,section=>section.title??section.id,SEARCH_LIMITS.sections,{branch:true,state:false});
   const counts={people:fullCount(people,q,branch,state),families:fullCount(families,q,branch,state),claims:fullCount(claims,q,branch,state),sources:fullCount(sources,q,branch,state,{branch:true,state:false}),tasks:fullCount(tasks,q,branch,state,{branch:true,state:false}),sections:fullCount(sections,q,branch,state,{branch:true,state:false})},total=Object.values(counts).reduce((sum,count)=>sum+count,0),activeFilters=[branch?`Branch: ${branch}`:'',state?`Evidence: ${state}`:''].filter(Boolean).join(' · ');
@@ -83,9 +83,18 @@ function renderOverlay(){
 }
 let renderFrame=0;
 function scheduleRender(){cancelAnimationFrame(renderFrame);renderFrame=requestAnimationFrame(()=>requestAnimationFrame(renderOverlay));}
+function handleFilterEvent(event){
+  const q=normalize(document.querySelector('#search')?.value??'');
+  if(event.target?.id==='search'){
+    if(event.type==='input'||q!==dismissedQuery)dismissedQuery='';
+  }else dismissedQuery='';
+  scheduleRender();
+}
 async function init(){try{await loadSearchData();scheduleRender();}catch(error){console.error('Enhanced search failed to initialize:',error);}}
 const filtersForm=document.querySelector('#filters');
-filtersForm?.addEventListener('input',scheduleRender);filtersForm?.addEventListener('change',scheduleRender);filtersForm?.addEventListener('reset',()=>setTimeout(scheduleRender,0));window.addEventListener('hashchange',scheduleRender);window.addEventListener('popstate',scheduleRender);
+filtersForm?.addEventListener('input',handleFilterEvent);filtersForm?.addEventListener('change',handleFilterEvent);filtersForm?.addEventListener('reset',()=>{dismissedQuery='';setTimeout(scheduleRender,0);});window.addEventListener('hashchange',()=>{dismissedQuery='';scheduleRender();});window.addEventListener('popstate',()=>{dismissedQuery='';scheduleRender();});
+window.addEventListener('family-search-dismissed',event=>{dismissedQuery=normalize(event.detail?.query??document.querySelector('#search')?.value??'');removeOverlay();});
+window.addEventListener('family-search-reopen',()=>{dismissedQuery='';scheduleRender();});
 document.addEventListener('keydown',event=>{
   const target=event.target,typing=target instanceof HTMLInputElement||target instanceof HTMLTextAreaElement||target instanceof HTMLSelectElement||target?.isContentEditable;
   if(event.key==='/'&&!event.metaKey&&!event.ctrlKey&&!event.altKey&&!typing){event.preventDefault();document.querySelector('#search')?.focus();return;}
