@@ -31,12 +31,19 @@ function installTreeToolbar(content){
   installTreeRelationshipDialog(content);
 }
 
+function reopenRelationshipResult(){
+  if(document.body.dataset.v161ReopenRelationship!=='true')return;
+  delete document.body.dataset.v161ReopenRelationship;
+  const dialog=document.getElementById('v161-relationship-dialog');
+  if(dialog?.showModal)dialog.showModal();else dialog?.setAttribute('open','');
+}
+
 function compactTree(){
   if(!isFamily()||routeKey()!=='tree')return;
   const content=document.getElementById('content');if(!content)return;
   content.classList.add('v161-tree');
   const url=new URL(location.href);if((url.searchParams.get('scope')||'family')==='family'&&!url.searchParams.has('depth')){url.searchParams.set('depth','2');history.replaceState(null,'',url);}
-  stripFamilyDiagnostics();installTreeToolbar(content);
+  stripFamilyDiagnostics();installTreeToolbar(content);reopenRelationshipResult();
   const memory=content.querySelector('.v129-tree-memory');if(memory)memory.dataset.v161Secondary='';
   const help=content.querySelector('.v154-tree-help');if(help)help.dataset.v161Secondary='';
   const focusbar=content.querySelector('.tree-focusbar');if(focusbar)focusbar.dataset.v161TreeControls='';
