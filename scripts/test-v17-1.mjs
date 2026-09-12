@@ -7,6 +7,7 @@ const entry=fs.readFileSync('app-entry.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const experienceRoot=fs.readFileSync('src/runtime/experience.js','utf8');
 const branding=fs.readFileSync('src/runtime/site-branding.js','utf8');
+const brandingCss=fs.readFileSync('src/styles/branding.css','utf8');
 const navigation=fs.readFileSync('src/runtime/navigation-shell.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const mobile=fs.readFileSync('src/styles/mobile-family.css','utf8');
@@ -35,8 +36,13 @@ test('site shell represents the connected family archive rather than a single su
   assert.match(experienceRoot,/import\('\.\/site-branding\.js'\)/);
   assert.match(branding,/Family History Archive/);
   assert.match(branding,/every documented family branch/i);
+  assert.match(branding,/import\{researchRoutes\}from'\.\/navigation-model\.js'/);
+  assert.match(branding,/researchRoutes\.has\(routeKey\(\)\)/);
   assert.match(navigation,/FAMILY<small>HISTORY ARCHIVE<\/small>/);
   assert.doesNotMatch(navigation,/>RAHE<small>/i);
+  assert.match(styleRoot,/@import '\.\/home\.css';\s*@import '\.\/branding\.css';/);
+  assert.match(brandingCss,/\.v17-home-hero::after\{content:'F'\}/);
+  assert.doesNotMatch(brandingCss,/content:'R'/);
 });
 
 test('mobile Family stylesheet is semantic and layered before final responsive safeguards',()=>{
