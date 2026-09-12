@@ -89,7 +89,7 @@ async function hydrateTreePortraits(root){
     const initialsNode=node.querySelector('.node-initials');(initialsNode||node.firstChild)?.before?.(image);if(initialsNode)initialsNode.classList.add('v172-has-photo');
   });
 }
-function replaceUrlForTree(focus,scope,depth){const url=new URL(location.href);for(const key of['q','branch','state','from','to'])url.searchParams.delete(key);if(focus)url.searchParams.set('focus',focus);else url.searchParams.delete('focus');url.searchParams.set('scope',scope);if(scope==='family')url.searchParams.set('depth',String(depth||3));else url.searchParams.delete('depth');url.hash='tree';history.replaceState(null,'',url);window.dispatchEvent(new HashChangeEvent('hashchange'));}
+function replaceUrlForTree(focus,scope,depth){const url=new URL(location.href);for(const key of['q','branch','state','from','to'])url.searchParams.delete(key);if(focus&&scope!=='all')url.searchParams.set('focus',focus);else url.searchParams.delete('focus');url.searchParams.set('scope',scope);if(scope==='family')url.searchParams.set('depth',String(depth||3));else url.searchParams.delete('depth');url.hash='tree';history.replaceState(null,'',url);window.dispatchEvent(new HashChangeEvent('hashchange'));}
 
 function apply(){
   const root=document.querySelector('#content [data-v17-native]');if(!root)return;
@@ -97,6 +97,17 @@ function apply(){
   if(routeKey()==='tree'){installTreeBranchNavigator(root);hydrateTreePortraits(root);}
 }
 let queued=false;function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;apply();}));}
+
+// Own Tree scope changes in capture phase so no historical compatibility fallback
+// can re-introduce a surname-specific focal person when a selector is unavailable.
+document.addEventListener('click',event=>{
+  if(routeKey()!=='tree')return;
+  const mode=event.target.closest?.('[data-tree-scope]');if(!mode)return;
+  event.preventDefault();event.stopImmediatePropagation();
+  const scope=mode.dataset.treeScope,selected=document.querySelector('[data-tree-person]')?.value||'',neutral=chooseRepresentative(displayPeople(),activeRelationships())?.id||'';
+  const depth=Math.max(1,Math.min(3,Number(new URL(location.href).searchParams.get('depth')||2)));
+  replaceUrlForTree(scope==='all'?'':selected||neutral,scope,depth);
+},true);
 
 document.addEventListener('click',event=>{
   const branch=event.target.closest?.('[data-v172-tree-branch]');if(branch){event.preventDefault();replaceUrlForTree(branch.dataset.focus,'family',3);return;}
