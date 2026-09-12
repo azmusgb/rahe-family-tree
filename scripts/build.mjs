@@ -1,6 +1,6 @@
 import {mkdir,copyFile,rm,writeFile,readFile} from 'node:fs/promises';
 import {execFile} from 'node:child_process';
-import {promisify} from 'node:util';
+import {promisify} from'node:util';
 
 const run=promisify(execFile);
 const ESBUILD_VERSION='0.25.10';
@@ -35,7 +35,7 @@ completeness.failed=Array.isArray(completeness.failed)
 await writeFile('dist/canonical-completeness.json',JSON.stringify(completeness,null,2));
 
 const model=JSON.parse(await readFile('public/research-model.json','utf8'));
-const appVersion='17.0.0';
+const appVersion='17.1.0';
 const genealogySchemaVersion='13.0';
 const canonicalSourceVersion='10.0';
 const buildInfo={
