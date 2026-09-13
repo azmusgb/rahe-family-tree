@@ -13,18 +13,17 @@ const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 function releaseOf(text,pattern){const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];}
 function atLeast(version,major,minor){const [a,b]=version.split('.').map(Number);return a>major||(a===major&&b>=minor);}
 
-test('v15.6 family archive material remains compatibility input beneath the semantic system',()=>{
-  assert.match(styles,/@import '\.\/legacy-compat\.generated\.css';/);
-  const v156=build.indexOf("'v15-6.css'"),v158=build.indexOf("'v15-8.css'");assert.ok(v156>=0&&v158>v156,'v15.6 must precede v15.8 in the compatibility manifest');
-  assert.doesNotMatch(build,/'v15-7\.css'/);
-  assert.match(css,/Family Archive Design System/);
+test('v15.6 family archive design material is owned by the semantic system',()=>{
+  assert.doesNotMatch(styles,/legacy-compat\.generated\.css/);
+  assert.equal(fs.existsSync('v15-6.css'),false);
+  assert.equal(fs.existsSync('v15-8.css'),false);
+  assert.match(build,/const legacyStyleSources=\[\]/);
   for(const token of['--bg:#f3f5f1','--surface:#fff','--ink:#18201d','--green:#173f35','--brand-soft:#e8f0eb','--line:#dce3dd','--focus:#2a6b5b'])assert.match(css,new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
 });
 
-test('v15.6 keeps the shared masthead material used under later releases',()=>{
-  assert.match(css,/Preserve the horizontal v15\.5 shell/);
+test('v15.6 shared masthead behavior remains under semantic navigation ownership',()=>{
   assert.doesNotMatch(css,/--sidebar-w/);
-  assert.match(css,/@media \(min-width:721px\)[\s\S]*\.sidebar/);
+  assert.match(css,/body\[data-v158-context="family"\] \.site-header\.sidebar/);
   assert.match(css,/\.v151-primary-nav/);
   assert.match(css,/\.v155-actions-popover/);
 });
