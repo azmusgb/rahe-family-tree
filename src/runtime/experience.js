@@ -10,11 +10,12 @@ import './navigation-shell.js';
 import './native-family-v17-controller.js';
 
 // Workbench, Stories, Tree/mobile density, site naming, unified family
-// navigation and media-specific narrative helpers remain additive capabilities
-// after the stable Family route controller.
+// navigation, biography-first person presentation, and media-specific narrative
+// helpers remain additive capabilities after the stable Family route controller.
 void import('./site-branding.js');
 void import('./record-ingestion.js');
 void import('./stories-runtime.js');
 void import('./mobile-family-density.js');
 void import('./family-narrative.js');
 void import('./unified-family-experience.js');
+void import('./person-experience-v17-3.js');
