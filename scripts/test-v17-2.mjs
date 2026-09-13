@@ -17,9 +17,9 @@ const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
 test('current browser release fingerprints advance without breaking the v17.2 tree contract',()=>{
   assert.match(index,/data-ui-release="17\.2\.0"/);
-  assert.match(entry,/APP_VERSION='17\.3\.0'/);
-  assert.match(experience,/UI_RELEASE='17\.3\.0'/);
-  assert.match(build,/const appVersion='17\.3\.0'/);
+  assert.match(entry,/APP_VERSION='17\.4\.0'/);
+  assert.match(experience,/UI_RELEASE='17\.4\.0'/);
+  assert.match(build,/const appVersion='17\.4\.0'/);
   assert.match(build,/shell\.replaceAll\('17\.2\.0',appVersion\)/);
 });
 
