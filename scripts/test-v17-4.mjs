@@ -12,15 +12,21 @@ const shell=fs.readFileSync('index.html','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
-const releaseForward=/17\.[4-9]\.0/;
-test('v17.4+ release fingerprints remain synchronized',()=>{
-  assert.match(entry,new RegExp(`APP_VERSION='${releaseForward.source}'`));
-  assert.match(core,new RegExp(`UI_RELEASE='${releaseForward.source}'`));
-  assert.match(core,/family\.archive\.uiReload\.v17\.[4-9]/);
-  assert.match(build,new RegExp(`const appVersion='${releaseForward.source}'`));
-  assert.match(shell,new RegExp(`data-ui-release="${releaseForward.source}"`));
-  assert.match(shell,new RegExp(`styles\\.css\\?v=${releaseForward.source}`));
-  assert.match(shell,new RegExp(`app\\.bundle\\.js\\?v=${releaseForward.source}`));
+const releaseOf=(text,pattern)=>{const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];};
+const atLeast=(version,major,minor)=>{const [a,b]=version.split('.').map(Number);return a>major||(a===major&&b>=minor);};
+test('v17.4+ capabilities remain synchronized in later releases',()=>{
+  const entryVersion=releaseOf(entry,/APP_VERSION='(\d+\.\d+\.\d+)'/);
+  const coreVersion=releaseOf(core,/UI_RELEASE='(\d+\.\d+\.\d+)'/);
+  const buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);
+  const shellVersion=releaseOf(shell,/data-ui-release="(\d+\.\d+\.\d+)"/);
+  assert.equal(entryVersion,coreVersion);
+  assert.equal(entryVersion,buildVersion);
+  assert.equal(entryVersion,shellVersion);
+  assert.ok(atLeast(entryVersion,17,4));
+  const [major,minor]=entryVersion.split('.').map(Number),escaped=entryVersion.replaceAll('.','\\.');
+  assert.match(core,new RegExp(`family\\.archive\\.uiReload\\.v${major}\\.${minor}`));
+  assert.match(shell,new RegExp(`styles\\.css\\?v=${escaped}`));
+  assert.match(shell,new RegExp(`app\\.bundle\\.js\\?v=${escaped}`));
 });
 
 test('v17.4 premium layer remains loaded and bundled semantically',()=>{
