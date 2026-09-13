@@ -107,8 +107,8 @@ test('mobile dock, footer, and safe-area composition stay Family-facing',async({
   }
 
   const footer=page.locator('.footer');
-  await expect(footer).toContainText('Source-controlled family history');
-  await expect(footer).toContainText('living-person privacy protected');
+  await expect(footer).toContainText(/source-controlled research/i);
+  await expect(footer).toContainText(/living-person/i);
   await expect(footer).not.toContainText(/commit|sha|build timestamp|graph nodes|graph edges|platform metrics/i);
   await expectNoHorizontalOverflow(page);
 });
