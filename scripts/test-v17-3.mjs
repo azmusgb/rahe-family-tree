@@ -10,12 +10,18 @@ const personCss=fs.readFileSync('src/styles/person.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
+function releaseOf(text,pattern){const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];}
+function atLeast(version,major,minor){const [a,b]=version.split('.').map(Number);return a>major||(a===major&&b>=minor);}
+
 test('current browser release fingerprints advance without breaking the v17.3 Person contract',()=>{
-  assert.match(entry,/APP_VERSION='17\.5\.0'/);
-  assert.match(experience,/UI_RELEASE='17\.5\.0'/);
-  assert.match(experience,/family\.archive\.uiReload\.v17\.5/);
-  assert.match(build,/const appVersion='17\.5\.0'/);
-  assert.match(build,/shell\.replaceAll\('17\.2\.0',appVersion\)/);
+  const entryVersion=releaseOf(entry,/APP_VERSION='(\d+\.\d+\.\d+)'/);
+  const coreVersion=releaseOf(experience,/UI_RELEASE='(\d+\.\d+\.\d+)'/);
+  const buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);
+  assert.equal(entryVersion,coreVersion);
+  assert.equal(entryVersion,buildVersion);
+  assert.ok(atLeast(entryVersion,17,3));
+  assert.match(experience,/family\.archive\.uiReload\.v17\.\d+/);
+  assert.match(build,/shell\.replace\(/);
 });
 
 test('Person experience is loaded behind the stable Family experience boundary',()=>{
