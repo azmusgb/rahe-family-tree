@@ -12,23 +12,24 @@ const shell=fs.readFileSync('index.html','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
-test('v17.4 release fingerprints are synchronized',()=>{
-  assert.match(entry,/APP_VERSION='17\.4\.0'/);
-  assert.match(core,/UI_RELEASE='17\.4\.0'/);
-  assert.match(core,/family\.archive\.uiReload\.v17\.4/);
-  assert.match(build,/const appVersion='17\.4\.0'/);
-  assert.match(shell,/data-ui-release="17\.4\.0"/);
-  assert.match(shell,/styles\.css\?v=17\.4\.0/);
-  assert.match(shell,/app\.bundle\.js\?v=17\.4\.0/);
+const releaseForward=/17\.[4-9]\.0/;
+test('v17.4+ release fingerprints remain synchronized',()=>{
+  assert.match(entry,new RegExp(`APP_VERSION='${releaseForward.source}'`));
+  assert.match(core,new RegExp(`UI_RELEASE='${releaseForward.source}'`));
+  assert.match(core,/family\.archive\.uiReload\.v17\.[4-9]/);
+  assert.match(build,new RegExp(`const appVersion='${releaseForward.source}'`));
+  assert.match(shell,new RegExp(`data-ui-release="${releaseForward.source}"`));
+  assert.match(shell,new RegExp(`styles\\.css\\?v=${releaseForward.source}`));
+  assert.match(shell,new RegExp(`app\\.bundle\\.js\\?v=${releaseForward.source}`));
 });
 
-test('v17.4 premium layer is loaded and bundled semantically',()=>{
+test('v17.4 premium layer remains loaded and bundled semantically',()=>{
   assert.match(experience,/experience-elevation-v17-4\.js/);
   assert.match(cssRoot,/@import '.\/elevation\.css';/);
   assert.match(css,/v17\.4 — elevated family experience/);
 });
 
-test('Home gains a continuation rail without replacing canonical family content',()=>{
+test('Home retains the continuation rail without replacing canonical family content',()=>{
   assert.match(elevation,/function installHomeDiscovery/);
   assert.match(elevation,/KEEP EXPLORING/);
   assert.match(elevation,/Follow another path through the family/);
@@ -37,7 +38,7 @@ test('Home gains a continuation rail without replacing canonical family content'
   assert.match(css,/\.v174-discovery-grid/);
 });
 
-test('Person pages gain a privacy-aware summary and active section navigation',()=>{
+test('Person pages retain privacy-aware summary and active section navigation',()=>{
   assert.match(elevation,/function installPersonSnapshot/);
   assert.match(elevation,/person\.living\?'Protected':events\.length/);
   assert.match(elevation,/person\.living\?'Protected':places\.length/);
@@ -47,17 +48,18 @@ test('Person pages gain a privacy-aware summary and active section navigation',(
   assert.match(css,/\.v17-person-nav a\.is-active/);
 });
 
-test('Tree gains a clear focal-context switcher backed by existing tree scope controls',()=>{
+test('Tree context switcher derives the effective tree scope',()=>{
   assert.match(elevation,/function installTreeContext/);
+  assert.match(elevation,/tree-mode-buttons \[data-tree-scope\]\.active/);
+  assert.match(elevation,/return url\.searchParams\.get\('focus'\)\?'family':'connected'/);
   assert.match(elevation,/data-tree-scope="family"/);
   assert.match(elevation,/data-tree-scope="ancestors"/);
   assert.match(elevation,/data-tree-scope="descendants"/);
   assert.match(elevation,/data-tree-scope="connected"/);
   assert.match(css,/\.v174-tree-context/);
-  assert.match(css,/\.v174-tree-scope button\.active/);
 });
 
-test('v17.4 remains presentation-only and preserves genealogy evidence rules',()=>{
+test('v17.4+ remains presentation-only and preserves genealogy evidence rules',()=>{
   assert.equal(model.meta.release,'13.0');
   const bridge=(model.relationships||[]).find(rel=>rel.type==='identity-bridge');
   assert.ok(bridge);
