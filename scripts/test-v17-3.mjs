@@ -25,10 +25,12 @@ test('Person experience is loaded behind the stable Family experience boundary',
   assert.match(personRuntime,/isFamily/);
 });
 
-test('historical profiles lead with a source-backed life story',()=>{
+test('historical profiles lead with a source-backed privacy-safe life story',()=>{
   assert.match(personRuntime,/function supportedMoments\(person,limit=4\)/);
   assert.match(personRuntime,/person\.living\)return\[\]/);
   assert.match(personRuntime,/eventState\(event\)==='SUPPORTED'/);
+  assert.match(personRuntime,/linksLivingPerson\(event\)/);
+  assert.match(personRuntime,/personById\(id\)\?\.living/);
   assert.match(personRuntime,/A life in the family record/);
   assert.match(personRuntime,/v173-story-moment/);
   assert.match(personRuntime,/Selected supported moments from the source-controlled archive/);
@@ -37,7 +39,7 @@ test('historical profiles lead with a source-backed life story',()=>{
 test('living profiles use privacy-safe story framing without chronology cards',()=>{
   assert.match(personRuntime,/Part of the living family/);
   assert.match(personRuntime,/private chronology and location details protected/);
-  assert.match(personRuntime,/if\(person\.living\)return/);
+  assert.match(personRuntime,/if\(!person\|\|person\.living\)return\[\]/);
 });
 
 test('research evidence is progressively disclosed rather than dominating Family profiles',()=>{
