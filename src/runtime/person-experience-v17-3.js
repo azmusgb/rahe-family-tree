@@ -34,13 +34,15 @@ function storyMarkup(person){
 function makeResearchProgressive(root){
   const research=root.querySelector('#v17-research');
   if(!research||research.querySelector('.v173-research-details'))return;
-  const original=[...research.children];
+  const cta=[...research.children].find(node=>node.matches?.('a.action[href="#research"]'))||null;
+  const original=[...research.children].filter(node=>node!==cta);
   const details=document.createElement('details');
   details.className='v173-research-details';
   const summary=document.createElement('summary');
   summary.innerHTML='<span><small>RESEARCH & EVIDENCE</small><b>See the records behind this person</b></span><em>Open details</em>';
   const body=document.createElement('div');body.className='v173-research-body';
-  original.forEach(node=>body.append(node));details.append(summary,body);research.append(details);
+  original.forEach(node=>body.append(node));details.append(summary,body);
+  if(cta)research.insertBefore(details,cta);else research.append(details);
 }
 function tuneLifeSection(root,person){
   const life=root.querySelector('#v17-life');if(!life)return;
