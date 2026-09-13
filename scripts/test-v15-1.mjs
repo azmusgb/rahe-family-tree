@@ -10,6 +10,7 @@ const css=fs.readFileSync('v15-1.css','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
+const releaseOf=(text,pattern)=>{const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];};
 
 test('v15.1 rearranges the route overview and filters into one layout deck',()=>{
   assert.match(index,/class="route-shell"/);
@@ -50,13 +51,13 @@ test('v15.1 remains responsive and retains the mobile dock breakpoint',()=>{
 });
 
 test('v15.1 compatibility remains carried by the current bundled release',()=>{
-  assert.match(index,/styles\.css\?v=17\.5\.0/);
-  assert.match(index,/app\.bundle\.js\?v=17\.5\.0/);
+  const shellVersion=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/),buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);assert.equal(shellVersion,buildVersion);const escaped=shellVersion.replaceAll('.','\\.');
+  assert.match(index,new RegExp(`styles\\.css\\?v=${escaped}`));
+  assert.match(index,new RegExp(`app\\.bundle\\.js\\?v=${escaped}`));
   assert.match(entry,/src\/runtime\/index\.js/);
   assert.match(experience,/\.\.\/\.\.\/v15-1-runtime\.js/);
   assert.match(build,/app-entry\.js/);
   assert.match(styleRoot,/v15-1\.css/);
-  assert.match(build,/const appVersion='17\.5\.0'/);
   assert.match(build,/shell\.replace\(/);
 });
 

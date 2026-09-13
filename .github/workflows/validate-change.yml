@@ -15,7 +15,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,12 +28,13 @@ jobs:
         run: git diff --exit-code -- package.json package-lock.json
       - name: Run canonical and experience regression suite
         run: npm test
-      - name: Run v17.5 family shell and branch gates
+      - name: Run v17.5-v17.6 family shell and stabilization gates
         run: |
-          node --test scripts/test-v17-5.mjs
+          node --test scripts/test-v17-5.mjs scripts/test-v17-6.mjs
           node --check src/runtime/family-branches-v17-5.js
           node --check src/runtime/navigation-shell.js
           node --check src/runtime/native-family-v17-controller.js
+          node --check src/runtime/v17-6-stability.js
       - name: Verify production build
         env:
           GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -44,6 +45,24 @@ jobs:
           test -f dist/provenance-index.json
           test -f dist/canonical-diff.json
           node -e "const g=require('./dist/canonical-graph.json'),d=require('./dist/canonical-diff.json');if(g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1)"
+      - name: Install Playwright Chromium
+        timeout-minutes: 5
+        run: npx playwright install --with-deps chromium
+      - name: Run bounded browser interaction suite
+        timeout-minutes: 12
+        env:
+          CI: '1'
+        run: npm run test:e2e
+      - name: Upload browser diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-diagnostics-${{ github.event.pull_request.number || github.run_id }}
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Upload built site artifact
         uses: actions/upload-artifact@v4
         with:
@@ -51,5 +70,3 @@ jobs:
           path: dist/
           if-no-files-found: error
           retention-days: 7
-      # Browser/Playwright verification is temporarily non-blocking for v17.5.
-      # Restore it after the hung browser lifecycle is repaired with bounded timeouts.

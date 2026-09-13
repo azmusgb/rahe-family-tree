@@ -4,7 +4,7 @@
 // the public browser entry or production bundle contract.
 import './src/runtime/index.js';
 
-const APP_VERSION='17.5.0';
+const APP_VERSION='17.6.0';
 const syncAppVersion=()=>{
   document.documentElement.dataset.uiRelease=APP_VERSION;
   const version=document.querySelector('.version');
@@ -12,10 +12,12 @@ const syncAppVersion=()=>{
     const mode=document.body.dataset.experience==='research'?'RESEARCH MODE':'FAMILY VIEW';
     version.textContent=`${mode} · v${APP_VERSION}`;
   }
+  document.querySelectorAll('.site-footer-bottom span:last-child').forEach(el=>{el.textContent=`Family experience v${APP_VERSION}`;});
 };
 const scheduleVersionSync=()=>requestAnimationFrame(()=>requestAnimationFrame(syncAppVersion));
 
 window.addEventListener('family-view-rendered',scheduleVersionSync);
 window.addEventListener('hashchange',scheduleVersionSync);
+window.addEventListener('popstate',scheduleVersionSync);
 window.addEventListener('family-auth-ui-refresh',scheduleVersionSync);
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',scheduleVersionSync):scheduleVersionSync();
