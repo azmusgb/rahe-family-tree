@@ -45,6 +45,7 @@ function contextualSearch(){
   if(!label||!input||!filters)return;
   const hideFamilyFilters=family&&['dashboard','families','branch'].includes(route);
   filters.hidden=hideFamilyFilters;
+  if(hideFamilyFilters&&input.value){input.value='';input.dispatchEvent(new Event('input',{bubbles:true}));}
   const routeShell=document.querySelector('.route-shell');
   routeShell?.classList.toggle('v175-no-inline-search',hideFamilyFilters);
   const text={tree:'Jump to a person',people:'Search people and branches',person:'Find another relative',media:'Search photos, people or places',stories:'Search family stories',timeline:'Search the family timeline',migration:'Search places and branches'}[route]||(isResearchContext()?'Search the research archive':'Search the family');
