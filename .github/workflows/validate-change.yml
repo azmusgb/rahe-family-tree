@@ -54,7 +54,7 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
       - name: Run browser interaction smoke tests
-        id: browser-smoke
+        id: browser_smoke
         continue-on-error: true
         env:
           PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/results.json
@@ -68,5 +68,5 @@ jobs:
           if-no-files-found: warn
           retention-days: 7
       - name: Enforce browser smoke result
-        if: steps.browser-smoke.outcome == 'failure'
+        if: steps.browser_smoke.outcome == 'failure'
         run: exit 1
