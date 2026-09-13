@@ -10,12 +10,14 @@ const eventYear=event=>Number(event?.date?.years?.[0])||Number(String(event?.dat
 const eventDate=event=>String(event?.date?.display||eventYear(event)||'Date not recorded');
 const eventType=event=>String(event?.eventType||event?.category||event?.type||'Family event').replace(/[_-]+/g,' ').trim();
 const eventText=event=>String(event?.recordText||event?.sourceSectionTitle||event?.title||event?.event||eventType(event)).replace(/\s+/g,' ').trim();
-const eventPlace=event=>Array.isArray(event?.place)?String(event.place.find(Boolean)||'').trim():'';
+const eventPlace=event=>Array.isArray(event?.place)?String(event.place.find(Boolean)||'').trim():String(event?.place||'').trim();
+const linksLivingPerson=event=>(event?.personIds||[]).some(id=>personById(id)?.living);
+const cssEscape=value=>globalThis.CSS?.escape?CSS.escape(value):String(value).replace(/[^a-zA-Z0-9_-]/g,char=>`\\${char}`);
 
 function supportedMoments(person,limit=4){
   if(!person||person.living)return[];
   return(Array.isArray(model?.normalizedEvents)?model.normalizedEvents:[])
-    .filter(event=>(event.personIds||[]).includes(person.id)&&eventState(event)==='SUPPORTED'&&eventText(event))
+    .filter(event=>(event.personIds||[]).includes(person.id)&&!linksLivingPerson(event)&&eventState(event)==='SUPPORTED'&&eventText(event))
     .sort((a,b)=>(eventYear(a)||9999)-(eventYear(b)||9999))
     .slice(0,limit);
 }
@@ -54,7 +56,7 @@ function addStoryNav(root){
 function enhance(){
   if(!isFamily())return;
   const id=routePersonId();if(!id)return;
-  const root=document.querySelector(`.v17-person[data-person-id="${CSS.escape(id)}"]`),person=personById(id);
+  const root=document.querySelector(`.v17-person[data-person-id="${cssEscape(id)}"]`),person=personById(id);
   if(!root||!person||root.dataset.v173Person==='ready')return;
   root.dataset.v173Person='ready';
   const nav=addStoryNav(root),story=document.createElement('div');story.innerHTML=storyMarkup(person);const section=story.firstElementChild;
