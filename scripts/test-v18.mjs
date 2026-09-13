@@ -11,6 +11,8 @@ const experience=read('src/runtime/experience-core.js');
 const platformUi=read('platform-v13-ui.js');
 const platformRuntime=read('platform-v13-runtime.js');
 const graphEngine=read('canonical-graph-engine.js');
+const styleRoot=read('src/styles/index.css');
+const gitignore=read('.gitignore');
 const model=json('public/research-model.json');
 const graph=json('public/canonical-graph.json');
 const diff=json('public/canonical-diff.json');
@@ -30,6 +32,18 @@ test('v18 release fingerprints are synchronized',()=>{
   assert.match(shell,/app\.bundle\.js\?v=18\.0\.0/);
   assert.match(experience,/family\.archive\.uiReload\.v18\.0/);
   assert.match(build,/releaseTrain:'v18-canonical-platform'/);
+});
+
+test('semantic design system owns stylesheet composition',()=>{
+  assert.match(styleRoot,/@import '\.\/legacy-compat\.generated\.css';/);
+  assert.doesNotMatch(styleRoot,/@import ['"]\.\.\/\.\.\/(?:v\d|dashboard-v\d|media-page-v\d|experience-v\d|platform-v\d)/);
+  for(const semantic of['tokens.css','base.css','shell.css','navigation.css','home.css','people.css','person.css','tree.css','media.css','research.css','responsive.css']){
+    assert.match(styleRoot,new RegExp(`@import '\\.\\/${semantic.replace('.','\\.')}';`));
+  }
+  assert.match(build,/const legacyStyleSources=\[/);
+  assert.match(build,/legacy-compat\.generated\.css/);
+  assert.match(build,/legacySourceCount:legacyStyleSources\.length/);
+  assert.match(gitignore,/src\/styles\/legacy-compat\.generated\.css/);
 });
 
 test('canonical platform surfaces remain wired into the runtime',()=>{
