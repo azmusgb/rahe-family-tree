@@ -46,7 +46,7 @@ test('research evidence is progressively disclosed while the Research Center CTA
   assert.match(personRuntime,/v173-research-details/);
   assert.match(personRuntime,/See the records behind this person/);
   assert.match(personRuntime,/document\.createElement\('details'\)/);
-  assert.match(personRuntime,/a\.action\[href=\\"#research\\"\]/);
+  assert.match(personRuntime,/a\.action\[href="#research"\]/);
   assert.match(personRuntime,/research\.insertBefore\(details,cta\)/);
   assert.match(personCss,/\.v173-research-details/);
   assert.match(personCss,/\.v173-research-body/);
