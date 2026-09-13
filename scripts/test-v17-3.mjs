@@ -13,14 +13,15 @@ const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 function releaseOf(text,pattern){const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];}
 function atLeast(version,major,minor){const [a,b]=version.split('.').map(Number);return a>major||(a===major&&b>=minor);}
 
-test('v17.3 release fingerprints remain synchronized in later v17 releases',()=>{
+test('v17.3 capabilities remain synchronized in later releases',()=>{
   const entryVersion=releaseOf(entry,/APP_VERSION='(\d+\.\d+\.\d+)'/);
   const coreVersion=releaseOf(experience,/UI_RELEASE='(\d+\.\d+\.\d+)'/);
   const buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);
   assert.equal(entryVersion,coreVersion);
   assert.equal(entryVersion,buildVersion);
   assert.ok(atLeast(entryVersion,17,3));
-  assert.match(experience,/family\.archive\.uiReload\.v17\.\d+/);
+  const [major,minor]=coreVersion.split('.').map(Number);
+  assert.match(experience,new RegExp(`family\\.archive\\.uiReload\\.v${major}\\.${minor}`));
   assert.match(build,/shell\.replace\(/);
 });
 
