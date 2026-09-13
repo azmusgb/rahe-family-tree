@@ -38,18 +38,18 @@ test('keyboard focus indicators use the solid accessible focus token',()=>{
   assert.doesNotMatch(css,/outline:3px solid rgba\(42,107,91,/);
 });
 
-test('browser release assets and freshness guard advance to 17.3.0 at production build time',()=>{
+test('browser release assets and freshness guard advance to 17.4.0 at production build time',()=>{
   assert.match(index,/data-ui-release="17\.2\.0"/);
   assert.match(index,/styles\.css\?v=17\.2\.0/);
   assert.match(index,/app\.bundle\.js\?v=17\.2\.0/);
   assert.match(index,/FAMILY VIEW · v17\.2\.0/);
-  assert.match(entry,/APP_VERSION='17\.3\.0'/);
-  assert.match(build,/const appVersion='17\.3\.0'/);
+  assert.match(entry,/APP_VERSION='17\.4\.0'/);
+  assert.match(build,/const appVersion='17\.4\.0'/);
   assert.match(build,/shell\.replaceAll\('17\.2\.0',appVersion\)/);
   assert.match(build,/outfile=dist\/styles\.css/);
   assert.match(build,/browserAssets:\['app\.bundle\.js','styles\.css'\]/);
-  assert.match(experience,/const UI_RELEASE='17\.3\.0'/);
-  assert.match(experience,/family\.archive\.uiReload\.v17\.3/);
+  assert.match(experience,/const UI_RELEASE='17\.4\.0'/);
+  assert.match(experience,/family\.archive\.uiReload\.v17\.4/);
 });
 
 test('v17 release shell cannot alter canonical genealogy semantics',()=>{
