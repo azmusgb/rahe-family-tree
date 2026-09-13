@@ -6,7 +6,7 @@ const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const runtime=fs.readFileSync('v15-1-runtime.js','utf8');
-const css=fs.readFileSync('v15-1.css','utf8');
+const css=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));

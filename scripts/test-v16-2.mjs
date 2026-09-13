@@ -6,7 +6,7 @@ const runtime=fs.readFileSync('src/runtime/family-narrative.js','utf8');
 const peopleRuntime=fs.readFileSync('src/runtime/people-person-experience.js','utf8');
 const nativeRuntime=fs.readFileSync('src/runtime/native-family-v17.js','utf8');
 const nativeController=fs.readFileSync('src/runtime/native-family-v17-controller.js','utf8');
-const styles=fs.readFileSync('src/styles/v16-2.css','utf8');
+const styles=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');

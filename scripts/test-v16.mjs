@@ -8,7 +8,7 @@ const stories=fs.readFileSync('src/runtime/stories-view.js','utf8');
 const storiesRuntime=fs.readFileSync('src/runtime/stories-runtime.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const styles=fs.readFileSync('src/styles/index.css','utf8');
-const v16=fs.readFileSync('src/styles/v16.css','utf8');
+const v16=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 

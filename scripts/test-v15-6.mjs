@@ -2,7 +2,7 @@ import test from'node:test';
 import assert from'node:assert/strict';
 import fs from'node:fs';
 
-const css=fs.readFileSync('v15-6.css','utf8');
+const css=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const styles=fs.readFileSync('src/styles/index.css','utf8');
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');

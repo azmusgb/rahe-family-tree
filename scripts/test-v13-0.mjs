@@ -1,6 +1,6 @@
 import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8')),audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
-const ui=fs.readFileSync('research-intelligence.js','utf8'),core=fs.readFileSync('core.js','utf8'),app=fs.readFileSync('v11.js','utf8'),family=fs.readFileSync('family-experience.js','utf8'),css=fs.readFileSync('v13-0.css','utf8');
+const ui=fs.readFileSync('research-intelligence.js','utf8'),core=fs.readFileSync('core.js','utf8'),app=fs.readFileSync('v11.js','utf8'),family=fs.readFileSync('family-experience.js','utf8'),css=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 test('v13 research intelligence is active',()=>{assert.equal(model.meta.release,'13.0');assert.equal(model.researchIntelligence.version,'13.0');assert.match(model.researchIntelligence.authority,/ADVISORY/i);});
 test('intelligence route is available',()=>{assert.match(core,/intelligence:\['Research Intelligence'/);assert.match(app,/renderResearchIntelligence/);assert.match(app,/intelligence:renderResearchIntelligence/);});
 test('duplicate and chronology detectors are review-only',()=>{assert.match(ui,/duplicatePeople/);assert.match(ui,/duplicateRelationships/);assert.match(ui,/chronology/);assert.match(model.researchIntelligence.rules.duplicates,/HUMAN REVIEW ONLY/i);assert.match(model.researchIntelligence.rules.chronology,/HEURISTIC REVIEW SIGNALS/i);});

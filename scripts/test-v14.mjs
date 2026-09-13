@@ -11,7 +11,7 @@ const mediaBoundary=fs.readFileSync('src/runtime/media.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const experienceRuntime=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
-const v14=fs.readFileSync('v14.css','utf8');
+const v14=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const familyRuntime=fs.readFileSync('src/runtime/family-mode.js','utf8');
 const portraitRuntime=fs.readFileSync('src/runtime/family-profile.js','utf8');
 const qaRuntime=fs.readFileSync('src/runtime/family-qa.js','utf8');
