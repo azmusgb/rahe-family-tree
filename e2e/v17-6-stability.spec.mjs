@@ -20,13 +20,40 @@ test('v17.6 runtime mounts and tree tools survive repeated navigation',async({pa
   await expect(page.locator('.graph-node[data-person]').first()).toBeVisible();
 });
 
-test('tree state survives leaving and returning through history',async({page})=>{
+test('tree state survives leaving, history, and a later bare tree entry',async({page})=>{
   await page.goto(`/?focus=${HAZEL}&scope=descendants&depth=3#tree`);
+  await expect(page.locator('.v174-tree-context')).toHaveAttribute('data-scope','descendants');
   await page.goto('/#people');
   await page.goBack();
   await expect(page).toHaveURL(/focus=P-HAZEL-EMMA-BERG-DENNEWITZ/);
   await expect(page).toHaveURL(/scope=descendants/);
   await expect(page.locator('[data-v17-native="tree"]')).toBeVisible();
+  await page.goto('/#tree');
+  await expect(page).toHaveURL(/focus=P-HAZEL-EMMA-BERG-DENNEWITZ/);
+  await expect(page).toHaveURL(/scope=descendants/);
+  await expect(page.locator('.v174-tree-context')).toHaveAttribute('data-scope','descendants');
+});
+
+test('auth loss removes private cards and clears private viewer content from the DOM',async({page})=>{
+  await page.goto('/#media');
+  await expect(page.locator('[data-media-page]')).toBeVisible();
+  await page.evaluate(()=>{
+    const host=document.querySelector('[data-media-page]');
+    const card=document.createElement('article');card.className='media-library-card is-private';card.textContent='private marker';host?.append(card);
+    document.querySelector('#media-viewer-stage').innerHTML='<img src="/api/media?file=private-secret">';
+    document.querySelector('#media-viewer-title').textContent='Private title';
+    document.querySelector('#media-viewer-caption').textContent='Private caption';
+    document.querySelector('#media-viewer-badges').textContent='Private family';
+    document.querySelector('#media-viewer-facts').textContent='Private place';
+    document.querySelector('#media-viewer-people').textContent='Private person';
+    document.querySelector('#media-viewer-original').setAttribute('href','/api/media?file=private-secret');
+    document.querySelector('#media-viewer')?.setAttribute('open','');
+    window.dispatchEvent(new CustomEvent('family-auth-changed',{detail:{user:null}}));
+  });
+  await expect(page.locator('.media-library-card.is-private')).toHaveCount(0);
+  await expect(page.locator('#media-viewer-stage')).toBeEmpty();
+  await expect(page.locator('#media-viewer-title')).toBeEmpty();
+  await expect(page.locator('#media-viewer-original')).not.toHaveAttribute('href',/.+/);
 });
 
 test('leaving Photos closes an open media viewer shell if present',async({page})=>{
