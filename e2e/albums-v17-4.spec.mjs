@@ -4,7 +4,8 @@ const media=[
   {id:'hazel-1944',mime:'image/jpeg',title:'Hazel family photograph',caption:'Hazel in the family archive',eventDate:'1944',location:'Chicago, Illinois',personIds:['P-HAZEL-EMMA-BERG-DENNEWITZ'],visibility:'public',featured:true,createdAt:'2026-09-10T00:00:00Z',evidenceAuthority:'MEDIA ATTACHMENT — DOES NOT PROMOTE GENEALOGY EVIDENCE'},
   {id:'george-1950',mime:'image/jpeg',title:'George family photograph',caption:'George in the family archive',eventDate:'1950',location:'Chicago, Illinois',personIds:['P-GEORGE-OTTO-DENNEWITZ-JR'],visibility:'public',featured:false,createdAt:'2026-09-09T00:00:00Z',evidenceAuthority:'MEDIA ATTACHMENT — DOES NOT PROMOTE GENEALOGY EVIDENCE'},
   {id:'hazel-document',mime:'application/pdf',title:'Hazel archive document',caption:'Historical document',eventDate:'1948',location:'Chicago, Illinois',personIds:['P-HAZEL-EMMA-BERG-DENNEWITZ'],visibility:'public',featured:false,createdAt:'2026-09-08T00:00:00Z',evidenceAuthority:'MEDIA ATTACHMENT — DOES NOT PROMOTE GENEALOGY EVIDENCE'},
-  {id:'living-secret',mime:'image/jpeg',title:'Living private photograph that must not become an album cover',caption:'should be excluded by v17.4 defense in depth',eventDate:'1999',location:'Private location',personIds:['P-LINDA-KAY-DENNEWITZ'],visibility:'public',featured:true,createdAt:'2026-09-11T00:00:00Z'}
+  {id:'living-secret',mime:'image/jpeg',title:'Living private photograph that must not become an album cover',caption:'should be excluded by v17.4 defense in depth',eventDate:'1999',location:'Private location',personIds:['P-LINDA-KAY-DENNEWITZ'],visibility:'public',featured:true,createdAt:'2026-09-11T00:00:00Z'},
+  {id:'unknown-secret',mime:'image/jpeg',title:'Unknown linked person photograph that must not become an album cover',caption:'unknown person IDs are unsafe for anonymous album composition',eventDate:'1988',location:'Unknown private context',personIds:['P-NOT-IN-CANONICAL-MODEL'],visibility:'public',featured:true,createdAt:'2026-09-12T00:00:00Z'}
 ];
 
 async function mockApis(page){
@@ -36,12 +37,15 @@ test('branch decade and format albums drive the existing media filters',async({p
   const documents=albums.locator('[data-v174-album-type="document"]');await expect(documents).toBeVisible();await documents.click();await expect(page.locator('#media-type')).toHaveValue('document');await expect(page.locator('#media-decade')).toHaveValue('all');
 });
 
-test('anonymous album composition excludes an erroneously public living-person item',async({page})=>{
+test('anonymous album composition excludes erroneously public living and unknown-person items',async({page})=>{
   await page.goto('/#media');
   const albums=page.locator('.v174-albums');await expect(albums).toBeVisible();
   await expect(albums.locator('img[src*="living-secret"]')).toHaveCount(0);
+  await expect(albums.locator('img[src*="unknown-secret"]')).toHaveCount(0);
   await expect(albums).not.toContainText('Living private photograph that must not become an album cover');
+  await expect(albums).not.toContainText('Unknown linked person photograph that must not become an album cover');
   await expect(albums.locator('[data-v174-album-decade="1990"]')).toHaveCount(0);
+  await expect(albums.locator('[data-v174-album-decade="1980"]')).toHaveCount(0);
 });
 
 test('Albums navigation is family-facing and album controls remain mobile-safe',async({page},testInfo)=>{
