@@ -60,8 +60,9 @@ test('living Person keeps biography framing while suppressing private chronology
   await expect(profile.locator('[data-v17-person-gallery]')).toHaveCount(0);
 });
 
-test('v17.3 production shell reports the new Family experience fingerprint',async({page})=>{
+test('v17.3 Person contract remains active under the current Family release',async({page})=>{
   await page.goto('/#dashboard');
-  await expect(page.locator('html')).toHaveAttribute('data-ui-release','17.3.0');
-  await expect(page.locator('.version')).toContainText('v17.3.0');
+  const release=await page.locator('html').getAttribute('data-ui-release');
+  expect(release).toBe('17.5.0');
+  await expect(page.locator('.version')).toContainText('v17.5.0');
 });
