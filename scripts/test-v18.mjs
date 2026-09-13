@@ -40,7 +40,9 @@ test('semantic design system owns stylesheet composition',()=>{
   for(const semantic of['tokens.css','base.css','shell.css','navigation.css','home.css','people.css','person.css','tree.css','media.css','research.css','responsive.css']){
     assert.match(styleRoot,new RegExp(`@import '\\.\\/${semantic.replace('.','\\.')}';`));
   }
+  assert.doesNotMatch(styleRoot,/@import '\.\/record-ingestion\.css';/,'record ingestion stays compatibility-owned until its original cascade dependency is migrated');
   assert.match(build,/const legacyStyleSources=\[/);
+  assert.match(build,/'v15-8\.css',\s*\n\s*'src\/styles\/record-ingestion\.css',\s*\n\s*'src\/styles\/v16\.css'/,'record ingestion must remain between v15.8 and v16 to preserve the production cascade');
   assert.match(build,/legacy-compat\.generated\.css/);
   assert.match(build,/legacySourceCount:legacyStyleSources\.length/);
   assert.match(gitignore,/src\/styles\/legacy-compat\.generated\.css/);
