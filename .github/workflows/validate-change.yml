@@ -28,6 +28,12 @@ jobs:
         run: git diff --exit-code -- package.json package-lock.json
       - name: Run canonical and experience regression suite
         run: npm test
+      - name: Run v17.5 family shell and branch gates
+        run: |
+          node --test scripts/test-v17-5.mjs
+          node --check src/runtime/family-branches-v17-5.js
+          node --check src/runtime/navigation-shell.js
+          node --check src/runtime/native-family-v17-controller.js
       - name: Verify production build
         env:
           GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
