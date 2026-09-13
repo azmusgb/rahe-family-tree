@@ -28,3 +28,4 @@
 
 /* Final visual composition layer. */
 @import './redesign.css';
+@import './redesign-fixes.css';
