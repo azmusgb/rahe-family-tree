@@ -8,12 +8,12 @@ import '../../platform-v13-runtime.js';
 import './page-architecture.js';
 import './navigation-shell.js';
 import './native-family-v17-controller.js';
-import './v17-6-stability.js';
 
-// Workbench, Stories, Tree/mobile density, site naming, unified family
-// navigation, biography-first person presentation, media-specific narrative,
+// Workbench, Stories, Tree/mobile density, site naming, unified family,
+// stabilization, biography-first person presentation, media-specific narrative,
 // branch destinations, and the current premium family-facing elevation layer
 // remain additive capabilities after the stable Family route controller.
+void import('./v17-6-stability.js');
 void import('./site-branding.js');
 void import('./record-ingestion.js');
 void import('./stories-runtime.js');
