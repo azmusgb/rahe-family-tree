@@ -16,14 +16,15 @@ const narrative=fs.readFileSync('src/runtime/family-narrative.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
-test('v17.1 mobile capabilities remain intact under the current v17.2 release',()=>{
+test('v17.1 mobile capabilities remain intact under the current v17.3 release',()=>{
   assert.match(index,/data-ui-release="17\.2\.0"/);
   assert.match(index,/styles\.css\?v=17\.2\.0/);
   assert.match(index,/app\.bundle\.js\?v=17\.2\.0/);
-  assert.match(entry,/APP_VERSION='17\.2\.0'/);
-  assert.match(experience,/UI_RELEASE='17\.2\.0'/);
-  assert.match(experience,/uiReload\.v17\.2/);
-  assert.match(build,/const appVersion='17\.2\.0'/);
+  assert.match(entry,/APP_VERSION='17\.3\.0'/);
+  assert.match(experience,/UI_RELEASE='17\.3\.0'/);
+  assert.match(experience,/uiReload\.v17\.3/);
+  assert.match(build,/const appVersion='17\.3\.0'/);
+  assert.match(build,/shell\.replaceAll\('17\.2\.0',appVersion\)/);
 });
 
 test('site shell represents the connected family archive rather than a single surname',()=>{
