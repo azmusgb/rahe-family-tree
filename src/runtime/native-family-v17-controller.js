@@ -1,11 +1,12 @@
 import{model,personById}from'../../core.js';
 import{renderTree}from'../../graph.js';
 import{renderNativeHome,renderNativePeople,renderNativePerson,hydrateNativeFamily}from'./native-family-v17.js';
+import{renderFamiliesIndex,renderFamilyBranch,routeBranchName,branchMarker}from'./family-branches-v17-5.js';
 
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const isFamily=()=>document.body.dataset.experience!=='research';
-const nativeRoutes=new Set(['dashboard','tree','people','person']);
-const nativeMarker=route=>route==='dashboard'?'home':route;
+const nativeRoutes=new Set(['dashboard','tree','people','person','families','branch']);
+const nativeMarker=route=>route==='dashboard'?'home':route==='branch'?branchMarker(routeBranchName()):route;
 const livingChronologyPrivacy='Detailed chronology and location records are protected for living family members.';
 const livingMediaPrivacy='Living-person media remains private in the public family archive.';
 
@@ -22,6 +23,8 @@ function nativeMarkup(route){
   if(route==='dashboard')return renderNativeHome();
   if(route==='tree')return`<div class="v17-native v17-tree" data-v17-native="tree">${renderTree()}</div>`;
   if(route==='people')return renderNativePeople();
+  if(route==='families')return renderFamiliesIndex();
+  if(route==='branch')return renderFamilyBranch(routeBranchName());
   if(route==='person'){
     const id=location.hash.split('/')[1]||'',person=personById(id),markup=renderNativePerson(id);
     return person?.living?publicSafeLivingPersonMarkup(markup):markup;

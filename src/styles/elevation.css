@@ -1,0 +1,38 @@
+/* v17.4 — elevated family experience.
+ * Presentation only: canonical genealogy, evidence states, source IDs,
+ * relationship semantics, rejected edges, and privacy rules are untouched. */
+
+/* Home discovery rail */
+.v174-discovery{display:grid;gap:18px;padding:clamp(24px,4vw,42px) 0;border-bottom:1px solid var(--family-border-hairline)}
+.v174-discovery-head{display:flex;align-items:end;justify-content:space-between;gap:24px}
+.v174-discovery-head h2{max-width:16ch;margin:4px 0 7px;font:600 var(--family-text-section)/1.04 var(--family-font-display);letter-spacing:-.035em;color:var(--green);text-wrap:balance}
+.v174-discovery-head p{max-width:62ch;margin:0;color:var(--muted-strong);font-size:13px;line-height:1.55}
+.v174-discovery-head>a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:38px;padding:0 12px;border-radius:var(--family-radius-control);color:var(--green);font-size:12px;font-weight:760}
+.v174-discovery-head>a:hover{background:var(--brand-soft)}
+.v174-discovery-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.v174-discovery-grid>button{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;min-height:112px;padding:14px;border:1px solid var(--family-border-hairline);border-radius:var(--family-radius-card);background:linear-gradient(180deg,#fff 0%,#fbfcfa 100%);box-shadow:var(--family-shadow-card);color:var(--ink);text-align:left;cursor:pointer;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
+.v174-discovery-grid>button:hover,.v174-discovery-grid>button:focus-visible{transform:translateY(-2px);border-color:var(--family-border-interactive);box-shadow:0 16px 32px rgba(23,63,53,.09);outline:none}
+.v174-discovery-avatar{width:48px;height:48px;display:grid;place-items:center;overflow:hidden;border-radius:15px;background:var(--green);color:#fff;font-size:13px;font-weight:850}
+.v174-discovery-avatar img{width:100%;height:100%;object-fit:cover}
+.v174-discovery-grid>button>span:nth-child(2){display:grid;gap:2px;min-width:0}.v174-discovery-grid small{font-size:9px;font-weight:820;letter-spacing:.08em;text-transform:uppercase;color:var(--green)}.v174-discovery-grid b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:600 16px/1.15 var(--family-font-display)}.v174-discovery-grid em{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;font-style:normal;color:var(--muted)}.v174-discovery-grid i{font-style:normal;color:#85998f}
+
+/* Person snapshot and active section navigation */
+.v174-profile-snapshot{display:grid;grid-template-columns:minmax(180px,1.2fr) repeat(3,minmax(120px,.65fr));gap:0;margin:18px 0 2px;border:1px solid var(--family-border-hairline);border-radius:var(--family-radius-card);background:linear-gradient(180deg,#fff,#fafcf9);box-shadow:var(--family-shadow-card);overflow:hidden}
+.v174-profile-snapshot>div{min-height:96px;padding:16px 18px;display:grid;align-content:center;gap:4px}
+.v174-profile-snapshot>div+div{border-left:1px solid var(--family-border-hairline)}
+.v174-snapshot-intro b{font:600 18px/1.15 var(--family-font-display);color:var(--green)}
+.v174-snapshot-stat b{font:600 clamp(1.45rem,2.6vw,2rem)/1 var(--family-font-display);color:var(--green)}
+.v174-snapshot-stat span{color:var(--muted-strong);font-size:10px;line-height:1.35}
+.v17-person-nav a.is-active{background:var(--green);color:#fff;box-shadow:0 6px 16px rgba(23,63,53,.12)}
+.v17-person-nav a.is-active:hover{background:var(--green);color:#fff}
+
+/* Tree context switcher */
+.v174-tree-context{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;margin:0 0 12px;padding:16px 18px;border:1px solid var(--family-border-hairline);border-radius:var(--family-radius-card);background:linear-gradient(135deg,#fff,#f4f7f3);box-shadow:var(--family-shadow-card)}
+.v174-tree-context-copy{min-width:0}.v174-tree-context-copy>b{display:block;margin-top:2px;font:600 19px/1.2 var(--family-font-display);color:var(--green);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.v174-tree-context-copy p{max-width:72ch;margin:4px 0 0;color:var(--muted-strong);font-size:11px;line-height:1.45}
+.v174-tree-scope{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.v174-tree-scope button{appearance:none;min-height:36px;padding:0 11px;border:1px solid var(--family-border-hairline);border-radius:999px;background:#fff;color:var(--muted-strong);font:inherit;font-size:11px;font-weight:760;cursor:pointer}.v174-tree-scope button:hover,.v174-tree-scope button:focus-visible{border-color:var(--family-border-interactive);background:var(--brand-soft);outline:none}.v174-tree-scope button.active{border-color:var(--green);background:var(--green);color:#fff}
+
+/* Small motion cues without forcing animation on reduced-motion users. */
+@media(prefers-reduced-motion:no-preference){.v17-person-section,.v173-person-story,.v174-discovery,.v174-tree-context{animation:v174-rise .28s ease both}@keyframes v174-rise{from{opacity:.01;transform:translateY(6px)}to{opacity:1;transform:none}}}
+
+@media(max-width:980px){.v174-discovery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.v174-profile-snapshot{grid-template-columns:repeat(2,minmax(0,1fr))}.v174-profile-snapshot>div+div{border-left:0}.v174-profile-snapshot>div:nth-child(even){border-left:1px solid var(--family-border-hairline)}.v174-profile-snapshot>div:nth-child(n+3){border-top:1px solid var(--family-border-hairline)}.v174-tree-context{grid-template-columns:1fr}.v174-tree-scope{justify-content:flex-start}}
+@media(max-width:640px){.v174-discovery-head{display:grid}.v174-discovery-head>a{width:max-content}.v174-discovery-grid{grid-template-columns:1fr}.v174-profile-snapshot{grid-template-columns:1fr}.v174-profile-snapshot>div,.v174-profile-snapshot>div:nth-child(even){border-left:0}.v174-profile-snapshot>div+div{border-top:1px solid var(--family-border-hairline)}.v174-profile-snapshot>div{min-height:78px}.v174-tree-context{padding:14px}.v174-tree-context-copy>b{white-space:normal}.v174-tree-scope{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.v174-tree-scope button{width:100%}}

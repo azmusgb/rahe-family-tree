@@ -1,10 +1,12 @@
 import{familyPrimary,familyExplore,researchPrimary,familyLabels,researchRoutes,owningSection,linksHtml}from'./navigation-model.js';
 
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
+const routeDetail=()=>location.hash.slice(1).split('/').slice(1).join('/');
 function isResearchContext(){return document.body.dataset.experience==='research'||researchRoutes.has(routeKey());}
+function branchCrumb(){if(routeKey()!=='branch')return'';try{return decodeURIComponent(routeDetail())||'Family';}catch{return routeDetail()||'Family';}}
 
 function familyPrimaryHtml(){return linksHtml(familyPrimary);}
-function familyMenus(){return `<details class="v151-nav-menu v158-explore"><summary>Explore</summary><div class="v151-nav-popover">${linksHtml(familyExplore)}</div></details><a class="v158-research-entry" href="#research">Research Center</a>`;}
+function familyMenus(){return `<details class="v151-nav-menu v158-explore"><summary>Explore</summary><div class="v151-nav-popover">${linksHtml(familyExplore)}</div></details><a class="v158-research-entry" href="#research">Research</a>`;}
 function researchPrimaryHtml(){return linksHtml(researchPrimary);}
 function researchMenus(){return `<a class="v158-family-return" href="#dashboard" data-v158-family-return>← Back to Family</a>`;}
 
@@ -26,24 +28,30 @@ function rebuildDesktopNav(){
   if(actions)menus.append(actions);
   document.body.dataset.v158Context=research?'research':'family';
   markCurrent(primary,'[data-nav-key]',owningSection(routeKey()));
+  markCurrent(menus,'[data-nav-key]',owningSection(routeKey()));
 }
 
 function syncBrand(){
   const brand=document.querySelector('.brand span:last-child');
   if(!brand)return;
-  brand.innerHTML=isResearchContext()?'FAMILY<small>RESEARCH CENTER</small>':'FAMILY<small>HISTORY ARCHIVE</small>';
-  const monogram=document.querySelector('.brand .monogram');if(monogram)monogram.textContent='F';
+  brand.innerHTML=isResearchContext()?'RAHE FAMILY<small>RESEARCH CENTER</small>':'RAHE FAMILY<small>HISTORY ARCHIVE</small>';
+  const monogram=document.querySelector('.brand .monogram');if(monogram)monogram.textContent='R';
   const edition=document.querySelector('.edition');
-  if(edition)edition.innerHTML=isResearchContext()?'<b>RESEARCH WORKSPACE</b>Evidence, sources, conflicts, and acquisition work':'<b>SOURCE-BACKED FAMILY HISTORY</b>Connected family archive · living-person privacy protected';
+  if(edition)edition.innerHTML=isResearchContext()?'<b>RESEARCH WORKSPACE</b>Evidence · sources · conflicts · acquisition':'<b>SOURCE-BACKED ARCHIVE</b>Family history · privacy protected';
 }
 
 function contextualSearch(){
-  const route=routeKey(),label=document.querySelector('#filters .search'),input=document.getElementById('search');
-  if(!label||!input)return;
-  const text={dashboard:'Find someone in the family',tree:'Jump to a person',people:'Search people and branches',person:'Find another relative',media:'Search photos, people or places',stories:'Search family stories',timeline:'Search the family timeline',migration:'Search places and branches'}[route]||(isResearchContext()?'Search the research archive':'Search the family');
-  const placeholder={dashboard:'Name, branch, or place…',tree:'Enter a family member…',people:'Name, branch, or place…',person:'Search for another relative…',media:'Person, place, date, or caption…',stories:'Person, place, event, or year…',timeline:'Person, event, place, or year…',migration:'Place, branch, or person…'}[route]||(isResearchContext()?'Claim, source, person, or record…':'Name, branch, or place…');
+  const route=routeKey(),label=document.querySelector('#filters .search'),input=document.getElementById('search'),filters=document.getElementById('filters'),family=!isResearchContext();
+  if(!label||!input||!filters)return;
+  const hideFamilyFilters=family&&['dashboard','families','branch'].includes(route);
+  filters.hidden=hideFamilyFilters;
+  if(hideFamilyFilters&&input.value){input.value='';input.dispatchEvent(new Event('input',{bubbles:true}));}
+  const routeShell=document.querySelector('.route-shell');
+  routeShell?.classList.toggle('v175-no-inline-search',hideFamilyFilters);
+  const text={tree:'Jump to a person',people:'Search people and branches',person:'Find another relative',media:'Search photos, people or places',stories:'Search family stories',timeline:'Search the family timeline',migration:'Search places and branches'}[route]||(isResearchContext()?'Search the research archive':'Search the family');
+  const placeholder={tree:'Enter a family member…',people:'Name, branch, or place…',person:'Search for another relative…',media:'Person, place, date, or caption…',stories:'Person, place, event, or year…',timeline:'Person, event, place, or year…',migration:'Place, branch, or person…'}[route]||(isResearchContext()?'Claim, source, person, or record…':'Name, branch, or place…');
   label.childNodes[0].nodeValue=text;input.placeholder=placeholder;
-  document.querySelector('.route-shell')?.classList.toggle('v158-context-search',!isResearchContext());
+  routeShell?.classList.toggle('v158-context-search',family&&!hideFamilyFilters);
 }
 
 function rebuildMobileDock(){
@@ -53,15 +61,33 @@ function rebuildMobileDock(){
     dock.innerHTML=`<a href="#intelligence" data-dock-route="intelligence"><span>Overview</span></a><a href="#evidence" data-dock-route="evidence"><span>Evidence</span></a><a href="#sources" data-dock-route="sources"><span>Sources</span></a><a href="#dashboard" data-v158-family-mobile><span>Family</span></a>`;
     markCurrent(dock,'[data-dock-route]',owningSection(routeKey()));return;
   }
-  dock.innerHTML=`<a href="#dashboard" data-dock-route="dashboard"><span>Home</span></a><a href="#tree" data-dock-route="tree"><span>Tree</span></a><a href="#people" data-dock-route="people"><span>People</span></a><a href="#media" data-dock-route="media"><span>Photos</span></a><details class="v158-mobile-more"><summary>More</summary><div><button type="button" data-dock-search>Search</button>${familyExplore.map(item=>`<a href="${item.href}">${item.label.replace(' & Migration','')}</a>`).join('')}<a href="#research">Research Center</a></div></details>`;
+  dock.innerHTML=`<a href="#dashboard" data-dock-route="dashboard"><span>Home</span></a><a href="#tree" data-dock-route="tree"><span>Tree</span></a><a href="#families" data-dock-route="families"><span>Families</span></a><a href="#people" data-dock-route="people"><span>People</span></a><details class="v158-mobile-more"><summary>More</summary><div><button type="button" data-dock-search>Search</button><a href="#media">Photos</a>${familyExplore.map(item=>`<a href="${item.href}">${item.label.replace(' & Migration','')}</a>`).join('')}<a href="#research">Research</a></div></details>`;
   markCurrent(dock,'[data-dock-route]',owningSection(routeKey()));
 }
 
-function syncCrumb(){const crumb=document.getElementById('crumb');if(crumb)crumb.textContent=familyLabels[routeKey()]||crumb.textContent;}
+function syncCrumb(){const crumb=document.getElementById('crumb');if(crumb)crumb.textContent=branchCrumb()||familyLabels[routeKey()]||crumb.textContent;}
 function returnToFamily(event){const trigger=event.target.closest?.('[data-v158-family-return],[data-v158-family-mobile]');if(!trigger)return false;if(document.body.dataset.experience==='research')document.querySelector('.experience-toggle')?.click();location.hash='dashboard';return true;}
-function focusContextSearch(event){const trigger=event.target.closest?.('[data-dock-search]');if(!trigger)return false;document.querySelector('.v158-mobile-more')?.removeAttribute('open');const input=document.getElementById('search');if(!input)return true;input.scrollIntoView({behavior:'smooth',block:'center'});requestAnimationFrame(()=>input.focus({preventScroll:true}));return true;}
-function apply(){rebuildDesktopNav();syncBrand();contextualSearch();rebuildMobileDock();syncCrumb();}
+function focusSearchInput(){
+  const input=document.getElementById('search'),filters=document.getElementById('filters');if(!input||!filters)return false;
+  if(filters.hidden)return false;
+  filters.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
+  requestAnimationFrame(()=>input.focus({preventScroll:true}));return true;
+}
+function openGlobalSearch(){
+  document.querySelector('.v158-mobile-more')?.removeAttribute('open');
+  if(focusSearchInput())return;
+  if(isResearchContext()){location.hash='research';setTimeout(focusSearchInput,180);return;}
+  location.hash='people';let tries=0;const focus=()=>{if(focusSearchInput()||tries++>8)return;requestAnimationFrame(focus);};requestAnimationFrame(focus);
+}
+function syncHeaderContext(){
+  const header=document.querySelector('.site-header');if(header)header.dataset.context=isResearchContext()?'research':'family';
+  document.querySelectorAll('.v151-nav-menu[open],.v158-mobile-more[open]').forEach(details=>{if(details.dataset.keepOpen!=='true')details.removeAttribute('open');});
+}
+function apply(){rebuildDesktopNav();syncBrand();contextualSearch();rebuildMobileDock();syncCrumb();syncHeaderContext();}
 let queued=false;function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;apply();}));}
 
-document.addEventListener('click',event=>{if(returnToFamily(event)){event.preventDefault();schedule();return;}if(focusContextSearch(event)){event.preventDefault();return;}});
-window.addEventListener('family-view-rendered',schedule);window.addEventListener('hashchange',schedule);window.addEventListener('family-auth-ui-refresh',schedule);window.addEventListener('family-experience-changed',schedule);document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
+document.addEventListener('click',event=>{
+  if(returnToFamily(event)){event.preventDefault();schedule();return;}
+  if(event.target.closest?.('[data-dock-search],[data-global-search]')){event.preventDefault();openGlobalSearch();}
+});
+window.addEventListener('family-view-rendered',schedule);window.addEventListener('family-native-rendered',schedule);window.addEventListener('hashchange',schedule);window.addEventListener('family-auth-ui-refresh',schedule);window.addEventListener('family-experience-changed',schedule);document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();

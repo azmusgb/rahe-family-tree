@@ -85,13 +85,15 @@ test('family surfaces are content-first and retain readable metadata floors',()=
   assert.match(responsiveStyles,/node-id\{font-size:9px!important/);
 });
 
-test('v17 native controller owns Home Tree People and Person instead of legacy reshapers',()=>{
+test('v17 native controller owns Home Tree People Person Families and Branch instead of legacy reshapers',()=>{
   assert.match(experience,/import '\.\/native-family-v17-controller\.js'/);
   assert.doesNotMatch(experience,/home-flow\.js/);
   assert.doesNotMatch(experience,/people-person-experience\.js/);
   assert.doesNotMatch(experience,/compact-disclosure\.js/);
-  assert.match(nativeController,/nativeRoutes=new Set\(\['dashboard','tree','people','person'\]\)/);
+  assert.match(nativeController,/nativeRoutes=new Set\(\['dashboard','tree','people','person','families','branch'\]\)/);
   assert.match(nativeController,/data-v17-native="tree"/);
+  assert.match(nativeController,/renderFamiliesIndex\(\)/);
+  assert.match(nativeController,/renderFamilyBranch\(routeBranchName\(\)\)/);
   for(const marker of['data-v17-native="home"','data-v17-native="people"','data-v17-native="person"'])assert.match(nativeRuntime,new RegExp(marker));
 });
 

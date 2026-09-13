@@ -16,34 +16,42 @@ const narrative=fs.readFileSync('src/runtime/family-narrative.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
-test('v17.1 mobile capabilities remain intact under the current v17.3 release',()=>{
-  assert.match(index,/data-ui-release="17\.2\.0"/);
-  assert.match(index,/styles\.css\?v=17\.2\.0/);
-  assert.match(index,/app\.bundle\.js\?v=17\.2\.0/);
-  assert.match(entry,/APP_VERSION='17\.3\.0'/);
-  assert.match(experience,/UI_RELEASE='17\.3\.0'/);
-  assert.match(experience,/uiReload\.v17\.3/);
-  assert.match(build,/const appVersion='17\.3\.0'/);
-  assert.match(build,/shell\.replaceAll\('17\.2\.0',appVersion\)/);
+function releaseOf(text,pattern){const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];}
+function atLeast(version,major,minor){const [a,b]=version.split('.').map(Number);return a>major||(a===major&&b>=minor);}
+
+test('v17.1 mobile capabilities remain intact under the current release',()=>{
+  const shellVersion=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/);
+  const entryVersion=releaseOf(entry,/APP_VERSION='(\d+\.\d+\.\d+)'/);
+  const coreVersion=releaseOf(experience,/UI_RELEASE='(\d+\.\d+\.\d+)'/);
+  const buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);
+  assert.equal(shellVersion,entryVersion);
+  assert.equal(entryVersion,coreVersion);
+  assert.equal(entryVersion,buildVersion);
+  assert.ok(atLeast(entryVersion,17,1));
+  assert.match(index,new RegExp(`styles\\.css\\?v=${shellVersion.replaceAll('.','\\.')}`));
+  assert.match(index,new RegExp(`app\\.bundle\\.js\\?v=${shellVersion.replaceAll('.','\\.')}`));
+  assert.match(experience,/uiReload\.v17\.\d+/);
+  assert.match(build,/shell\.replace\(/);
 });
 
-test('site shell represents the connected family archive rather than a single surname',()=>{
-  assert.match(index,/<title>Family History Archive<\/title>/);
-  assert.match(index,/FAMILY<small>HISTORY ARCHIVE<\/small>/);
-  assert.match(index,/Family archive \/ <b id="crumb">/);
-  assert.match(index,/FAMILY HISTORY ARCHIVE/);
+test('site shell consistently represents the Rahe Family History Archive and its connected branches',()=>{
+  assert.match(index,/<title>Rahe Family History Archive<\/title>/);
+  assert.match(index,/RAHE FAMILY<small>HISTORY ARCHIVE<\/small>/);
+  assert.match(index,/<a href="#dashboard">Rahe Family<\/a>/);
+  assert.match(index,/RAHE FAMILY HISTORY ARCHIVE/);
   assert.match(index,/Our family, connected\./);
-  assert.doesNotMatch(index,/THE RAHE FAMILY|The Rahe Family|Rahe family \/|>RAHE<small>/i);
+  assert.match(index,/THE RAHE FAMILY/);
   assert.match(experienceRoot,/import\('\.\/site-branding\.js'\)/);
-  assert.match(branding,/Family History Archive/);
+  assert.match(branding,/Rahe Family History Archive/);
+  assert.match(branding,/RAHE FAMILY<small>HISTORY ARCHIVE<\/small>/);
+  assert.match(branding,/setText\(monogram,'R'\)/);
   assert.match(branding,/every documented family branch/i);
   assert.match(branding,/import\{researchRoutes\}from'\.\/navigation-model\.js'/);
   assert.match(branding,/researchRoutes\.has\(routeKey\(\)\)/);
-  assert.match(navigation,/FAMILY<small>HISTORY ARCHIVE<\/small>/);
-  assert.doesNotMatch(navigation,/>RAHE<small>/i);
+  assert.match(navigation,/RAHE FAMILY<small>HISTORY ARCHIVE<\/small>/);
   assert.match(styleRoot,/@import '\.\/home\.css';\s*@import '\.\/branding\.css';/);
-  assert.match(brandingCss,/\.v17-home-hero::after\{content:'F'\}/);
-  assert.doesNotMatch(brandingCss,/content:'R'/);
+  assert.match(brandingCss,/\.v17-home-hero::after\{content:'R'\}/);
+  assert.doesNotMatch(brandingCss,/content:'F'/);
 });
 
 test('mobile Family stylesheet is semantic and layered before final responsive safeguards',()=>{

@@ -38,7 +38,7 @@ test('plain Tree opens the connected family network and offers branch shortcuts'
   await page.goto('/#tree');
   const branchNav=page.locator('.v172-tree-branches');
   await expect(branchNav).toBeVisible();
-  await expect(page.locator('[data-tree-scope="connected"]')).toHaveClass(/active/);
+  await expect(page.locator('.tree-mode-buttons [data-tree-scope="connected"]')).toHaveClass(/active/);
   const branchButtons=branchNav.locator('[data-v172-tree-branch]');
   expect(await branchButtons.count()).toBeGreaterThanOrEqual(4);
   await expect(page.locator('.graph-node[data-person]').first()).toBeVisible();

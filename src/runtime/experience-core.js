@@ -3,10 +3,10 @@
 // Family route content is rendered by the native v17 archive controller.
 import{personById}from'../../core.js';
 
-const UI_RELEASE='17.3.0';
+const UI_RELEASE='17.5.0';
 const RECENT_KEY='family.archive.recentPeople.v2';
 const LEGACY_RECENT_KEYS=['rahe.family.recentPeople.v1','rahe.family.recent-people.v1'];
-const STALE_RELOAD_KEY='family.archive.uiReload.v17.3';
+const STALE_RELOAD_KEY='family.archive.uiReload.v17.5';
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const routeId=()=>location.hash.slice(1).split('/')[1]||'';
 const isFamilyMode=()=>document.body.dataset.experience!=='research';
@@ -21,8 +21,8 @@ function syncDock(){
   if(!dock)return;
   const family=isFamilyMode();dock.hidden=!family;
   if(!family)return;
-  const key=routeKey();
-  dock.querySelectorAll('[data-dock-route]').forEach(link=>{const active=link.dataset.dockRoute===key;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
+  const key=routeKey(),owned=key==='branch'?'families':key;
+  dock.querySelectorAll('[data-dock-route]').forEach(link=>{const active=link.dataset.dockRoute===owned;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
 }
 function navigate(href){
   if(!href?.startsWith('#'))return;
@@ -32,7 +32,7 @@ function navigate(href){
 }
 function focusSearch(){
   const filters=document.querySelector('#filters'),input=document.querySelector('#search');
-  if(!input)return;
+  if(!input||filters?.hidden)return;
   filters?.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
   setTimeout(()=>input.focus({preventScroll:true}),120);
 }
