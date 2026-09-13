@@ -11,15 +11,24 @@ test('v17.6 release fingerprint and stability layer are wired',()=>{
   assert.match(runtime,/family\.archive\.treeState\.v17\.6/);
   assert.match(runtime,/family-auth-changed/);
   assert.match(runtime,/media-library-card\.is-private/);
+  assert.match(runtime,/clearMediaViewer/);
+  assert.match(runtime,/media-viewer-original/);
+  assert.match(runtime,/replaceChildren\(\)/);
   assert.match(runtime,/data-v176-export-svg/);
+  assert.match(runtime,/inlineSvgPresentation/);
+  assert.match(runtime,/getComputedStyle/);
   assert.match(runtime,/data-v176-print-tree/);
+  assert.match(runtime,/HashChangeEvent\('hashchange'\)/);
   assert.match(runtime,/popstate/);
 });
 
-test('failed auth refresh clears local authorization state',()=>{
+test('failed session refresh and explicit logout clear authorization without logging out valid admin action errors',()=>{
   const auth=read('auth.js');
-  assert.match(auth,/catch\(error\)\{current=null;bootstrapAvailable=false;publish\(\);throw error;\}/);
-  assert.match(auth,/data-auth-logout[\s\S]*current=null;publish\(\);rerender\(\);await api/);
+  assert.match(auth,/const clearLocalAuth=\(\)=>\{current=null;bootstrapAvailable=false;publish\(\);\}/);
+  assert.match(auth,/refreshAuth\(\)[\s\S]*catch\(error\)\{clearLocalAuth\(\);throw error;\}/);
+  assert.match(auth,/data-auth-logout[\s\S]*clearLocalAuth\(\);rerender\(\);await api/);
+  assert.match(auth,/auth-create-user[\s\S]*catch\(err\)\{status\(err\.message\);rerender\(\);\}/);
+  assert.doesNotMatch(auth,/auth-create-user[\s\S]*catch\(err\)\{current=null/);
 });
 
 test('Playwright is bounded, diagnosable, and restored as a validation gate',()=>{
