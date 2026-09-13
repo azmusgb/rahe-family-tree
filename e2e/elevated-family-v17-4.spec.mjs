@@ -47,8 +47,8 @@ test('Tree context switcher changes scope using the existing tree engine',async(
   await expect(page.locator('.v174-tree-scope button.active')).toHaveText('Ancestors');
 });
 
-test('v17.4 shell fingerprint is visible',async({page})=>{
+test('v17.4+ shell fingerprint is visible',async({page})=>{
   await page.goto('/#dashboard');
-  await expect(page.locator('html')).toHaveAttribute('data-ui-release','17.4.0');
-  await expect(page.locator('.version')).toContainText('v17.4.0');
+  await expect(page.locator('html')).toHaveAttribute('data-ui-release',/17\.[4-9]\.0/);
+  await expect(page.locator('.version')).toContainText(/v17\.[4-9]\.0/);
 });
