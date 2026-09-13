@@ -19,15 +19,15 @@ function releaseOf(text,pattern){const match=text.match(pattern);assert.ok(match
 function atLeast(version,major,minor){const [a,b]=version.split('.').map(Number);return a>major||(a===major&&b>=minor);}
 
 test('current browser release fingerprints advance without breaking the v17.2 tree contract',()=>{
-  const shellVersion=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/);
+  const shellTemplate=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/);
   const entryVersion=releaseOf(entry,/APP_VERSION='(\d+\.\d+\.\d+)'/);
   const coreVersion=releaseOf(experience,/UI_RELEASE='(\d+\.\d+\.\d+)'/);
   const buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);
-  assert.equal(shellVersion,entryVersion);
+  assert.equal(shellTemplate,'17.2.0','index.html remains the build-stamped shell template');
   assert.equal(entryVersion,coreVersion);
   assert.equal(entryVersion,buildVersion);
   assert.ok(atLeast(entryVersion,17,2));
-  assert.match(build,/shell\.replace\(/);
+  assert.match(build,/shell\.replaceAll\('17\.2\.0',appVersion\)/);
 });
 
 test('plain tree entry uses the largest branch-neutral connected-family component',()=>{
