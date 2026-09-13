@@ -1,4 +1,4 @@
-// v17.4 Elevated Family Experience — premium, family-first presentation helpers.
+// v17.4+ Elevated Family Experience — premium, family-first presentation helpers.
 // This module reads the canonical model but never mutates genealogy, evidence,
 // source IDs, relationship states, or privacy semantics.
 import{model,displayPeople,allPedigreeRelationships,personById,branchMembership,esc}from'../../core.js';
@@ -85,19 +85,27 @@ function elevatePerson(){
   installPersonSnapshot(root,person);installActivePersonNav(root);
 }
 
-function treeScope(){return new URL(location.href).searchParams.get('scope')||'family';}
+function treeScope(){
+  const url=new URL(location.href),requested=url.searchParams.get('scope');
+  if(requested)return requested;
+  const active=document.querySelector('.tree-mode-buttons [data-tree-scope].active')?.dataset.treeScope||document.querySelector('.v174-tree-scope [data-tree-scope].active')?.dataset.treeScope;
+  if(active)return active;
+  return url.searchParams.get('focus')?'family':'connected';
+}
 function treeFocusPerson(){
-  const url=new URL(location.href),id=url.searchParams.get('focus')||document.querySelector('[data-tree-person]')?.value||'';
+  const url=new URL(location.href),selected=document.querySelector('[data-tree-person]')?.value||'',id=url.searchParams.get('focus')||selected;
   return personById(id)||null;
 }
 function scopeCopy(scope){
-  return({family:['Close family','Parents, spouses, children, and nearby generations around the focal person.'],ancestors:['Ancestors','Follow the focal person backward through documented parent lines.'],descendants:['Descendants','Follow the focal person forward through documented child lines.'],connected:['Connected family','Explore the broader connected family network across branches.'],all:['Full graph','Show every active public-safe relationship in the current graph.']})[scope]||['Family view','Explore documented family relationships.'];
+  return({family:['Close family','Parents, spouses, children, and nearby generations around the focal person.'],ancestors:['Ancestors','Follow the focal person backward through documented parent lines.'],descendants:['Descendants','Follow the focal person forward through documented child lines.'],direct:['Direct line','Follow the focal person backward and forward through direct pedigree relationships.'],connected:['Connected family','Explore the broader connected family network across branches.'],all:['Full graph','Show every active public-safe relationship in the current graph.']})[scope]||['Family view','Explore documented family relationships.'];
 }
 function installTreeContext(root){
   if(routeKey()!=='tree')return;
   const graph=root.querySelector('.graph-shell');if(!graph)return;
   let panel=root.querySelector('.v174-tree-context');if(!panel){panel=document.createElement('section');panel.className='v174-tree-context';graph.insertAdjacentElement('beforebegin',panel);}
   const scope=treeScope(),person=treeFocusPerson(),copy=scopeCopy(scope);
+  panel.dataset.scope=scope;
+  panel.dataset.focus=person?.id||'';
   panel.innerHTML=`<div class="v174-tree-context-copy"><span class="eyebrow">TREE VIEW</span><b>${esc(copy[0])}${person?` · ${esc(cleanName(person.name))}`:''}</b><p>${esc(copy[1])}</p></div><div class="v174-tree-scope" role="group" aria-label="Tree view"><button type="button" data-tree-scope="family" class="${scope==='family'?'active':''}" aria-pressed="${scope==='family'}">Family</button><button type="button" data-tree-scope="ancestors" class="${scope==='ancestors'?'active':''}" aria-pressed="${scope==='ancestors'}">Ancestors</button><button type="button" data-tree-scope="descendants" class="${scope==='descendants'?'active':''}" aria-pressed="${scope==='descendants'}">Descendants</button><button type="button" data-tree-scope="connected" class="${scope==='connected'?'active':''}" aria-pressed="${scope==='connected'}">Connected</button></div>`;
 }
 
@@ -116,4 +124,5 @@ window.addEventListener('hashchange',schedule);
 window.addEventListener('family-media-changed',schedule);
 window.addEventListener('family-experience-changed',schedule);
 document.addEventListener('change',event=>{if(event.target.matches?.('[data-tree-person]'))schedule();});
+document.addEventListener('click',event=>{if(event.target.closest?.('[data-tree-scope],[data-v172-tree-branch],[data-v172-tree-connected]'))setTimeout(schedule,0);});
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
