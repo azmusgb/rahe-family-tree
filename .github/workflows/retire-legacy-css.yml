@@ -22,6 +22,8 @@ jobs:
           node-version: 24
       - name: Retire historical selectors
         run: node scripts/retire-legacy-css.mjs
+      - name: Modernize release CSS tests
+        run: node scripts/modernize-style-tests.mjs
       - name: Commit migrated semantic CSS
         run: |
           git config user.name "github-actions[bot]"
@@ -31,5 +33,5 @@ jobs:
             echo "No migration changes to commit."
             exit 0
           fi
-          git commit -m "Retire historical CSS selectors [css-retired]"
+          git commit -m "Complete semantic CSS test migration [css-retired]"
           git push origin HEAD:v18-2-retire-legacy-css
