@@ -92,7 +92,7 @@ function observeContent(){
 }
 
 document.addEventListener('click',event=>{
-  const local=event.target.closest?.('.v17-person-nav a[href^="#v17-"]');
+  const local=event.target.closest?.('.v17-person-nav a[href^="#"]');
   if(local){event.preventDefault();document.querySelector(local.getAttribute('href'))?.scrollIntoView({behavior:'smooth',block:'start'});}
 });
 window.addEventListener('family-view-rendered',schedule);

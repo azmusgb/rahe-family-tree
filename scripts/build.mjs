@@ -5,10 +5,13 @@ import {promisify} from'node:util';
 const run=promisify(execFile);
 const ESBUILD_VERSION='0.25.10';
 const NPX=process.platform==='win32'?'npx.cmd':'npx';
+const appVersion='17.3.0';
 
 await rm('dist',{recursive:true,force:true});
 await mkdir('dist');
 await copyFile('index.html','dist/index.html');
+const shell=await readFile('dist/index.html','utf8');
+await writeFile('dist/index.html',shell.replaceAll('17.2.0',appVersion));
 
 async function esbuild(args){
   const {stdout,stderr}=await run(NPX,['--yes',`esbuild@${ESBUILD_VERSION}`,...args],{
@@ -35,7 +38,6 @@ completeness.failed=Array.isArray(completeness.failed)
 await writeFile('dist/canonical-completeness.json',JSON.stringify(completeness,null,2));
 
 const model=JSON.parse(await readFile('public/research-model.json','utf8'));
-const appVersion='17.2.0';
 const genealogySchemaVersion='13.0';
 const canonicalSourceVersion='10.0';
 const buildInfo={

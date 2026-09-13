@@ -5,6 +5,7 @@ export default defineConfig({
   timeout:30_000,
   expect:{timeout:8_000},
   retries:1,
+  workers:2,
   reporter:'line',
   use:{
     baseURL:'http://127.0.0.1:4173',

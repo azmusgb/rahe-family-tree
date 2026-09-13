@@ -47,8 +47,17 @@ test('family person profile keeps platform provenance out of the foreground but 
   const profile=page.locator('[data-v17-native="person"]');
   await expect(profile).toBeVisible();
   await expect(profile.locator('[data-platform-v13="person-graph-context"]')).toHaveCount(0);
-  await expect(profile.locator('.v17-person-research')).toBeVisible();
-  await expect(profile.getByRole('link',{name:/Open Research Center/})).toBeVisible();
+  const research=profile.locator('.v17-person-research');
+  await expect(research).toBeVisible();
+  const details=research.locator('.v173-research-details');
+  const cta=research.getByRole('link',{name:/Open Research Center/});
+  await expect(details).toBeVisible();
+  await expect(details).not.toHaveAttribute('open','');
+  await expect(cta).toBeVisible();
+  await expect(details.getByRole('link',{name:/Open Research Center/})).toHaveCount(0);
+  await details.locator('summary').click();
+  await expect(details).toHaveAttribute('open','');
+  await expect(details.getByText(/linked claim/)).toBeVisible();
 });
 
 test('source dossier includes source to assertion matrix',async({page})=>{
