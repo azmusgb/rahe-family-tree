@@ -57,15 +57,17 @@ test('family narrative adds branch context immediate family and synchronized med
   assert.match(runtime,/requestAnimationFrame\(\(\)=>requestAnimationFrame\(syncMediaQuick\)\)/);
 });
 
-test('v16.2 compatibility layer remains before the semantic Family design system',()=>{
-  assert.match(styleRoot,/@import '\.\/legacy-compat\.generated\.css';/);
-  const v161=build.indexOf("'src/styles/v16-1.css'"),v162=build.indexOf("'src/styles/v16-2.css'");assert.ok(v161>=0&&v162>v161,'v16.2 must follow v16.1 in the compatibility manifest');
+test('v16.2 presentation remains under semantic Family design-system ownership',()=>{
+  assert.doesNotMatch(styleRoot,/legacy-compat\.generated\.css/);
+  assert.match(build,/const legacyStyleSources=\[\]/);
+  assert.match(build,/compatibilityBoundary:null/);
+  assert.match(build,/legacySourceCount:0/);
+  assert.equal(fs.existsSync('src/styles/v16-2.css'),false);
   assert.match(experience,/import\('\.\/mobile-family-density\.js'\);\s*void import\('\.\/family-narrative\.js'\);/);
   for(const token of['v162-family-journey','v162-moments','v162-family-path','v162-media-quick'])assert.match(styles,new RegExp(token));
-  const semantic=['tokens.css','base.css','shell.css','navigation.css','home.css','people.css','person.css','stories.css','tree.css','media.css','explore.css','research.css','responsive.css'];
-  let previous=styleRoot.indexOf("@import './legacy-compat.generated.css';");
+  const semantic=['tokens.css','base.css','shell.css','navigation.css','home.css','people.css','person.css','stories.css','tree.css','media.css','explore.css','research.css','record-ingestion.css','mobile-family.css','responsive.css'];
+  let previous=-1;
   for(const file of semantic){const index=styleRoot.indexOf(`@import './${file}';`);assert.ok(index>previous,`${file} should follow the previous semantic layer`);previous=index;}
-  assert.doesNotMatch(build,/'src\/styles\/v16-3\.css'/);
   assert.equal(fs.existsSync('src/styles/v16-3.css'),false);
 });
 
