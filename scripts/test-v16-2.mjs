@@ -8,6 +8,7 @@ const nativeRuntime=fs.readFileSync('src/runtime/native-family-v17.js','utf8');
 const nativeController=fs.readFileSync('src/runtime/native-family-v17-controller.js','utf8');
 const styles=fs.readFileSync('src/styles/v16-2.css','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
+const build=fs.readFileSync('scripts/build.mjs','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const tokens=fs.readFileSync('src/styles/tokens.css','utf8');
 const baseStyles=fs.readFileSync('src/styles/base.css','utf8');
@@ -57,13 +58,14 @@ test('family narrative adds branch context immediate family and synchronized med
 });
 
 test('v16.2 compatibility layer remains before the semantic Family design system',()=>{
-  assert.match(styleRoot,/@import '\.\/v16-1\.css';\s*@import '\.\/v16-2\.css';/);
+  assert.match(styleRoot,/@import '\.\/legacy-compat\.generated\.css';/);
+  const v161=build.indexOf("'src/styles/v16-1.css'"),v162=build.indexOf("'src/styles/v16-2.css'");assert.ok(v161>=0&&v162>v161,'v16.2 must follow v16.1 in the compatibility manifest');
   assert.match(experience,/import\('\.\/mobile-family-density\.js'\);\s*void import\('\.\/family-narrative\.js'\);/);
   for(const token of['v162-family-journey','v162-moments','v162-family-path','v162-media-quick'])assert.match(styles,new RegExp(token));
   const semantic=['tokens.css','base.css','shell.css','navigation.css','home.css','people.css','person.css','stories.css','tree.css','media.css','explore.css','research.css','responsive.css'];
-  let previous=styleRoot.indexOf("@import './v16-2.css';");
+  let previous=styleRoot.indexOf("@import './legacy-compat.generated.css';");
   for(const file of semantic){const index=styleRoot.indexOf(`@import './${file}';`);assert.ok(index>previous,`${file} should follow the previous semantic layer`);previous=index;}
-  assert.doesNotMatch(styleRoot,/v16-3\.css/);
+  assert.doesNotMatch(build,/'src\/styles\/v16-3\.css'/);
   assert.equal(fs.existsSync('src/styles/v16-3.css'),false);
 });
 
@@ -98,9 +100,9 @@ test('v17 native controller owns Home Tree People Person Families and Branch ins
 });
 
 test('v17 retires route-specific v15.7 v15.9 and v15.10 presentation imports',()=>{
-  assert.doesNotMatch(styleRoot,/v15-7\.css/);
-  assert.doesNotMatch(styleRoot,/v15-9\.css/);
-  assert.doesNotMatch(styleRoot,/v15-10\.css/);
+  assert.doesNotMatch(build,/'v15-7\.css'/);
+  assert.doesNotMatch(build,/'v15-9\.css'/);
+  assert.doesNotMatch(build,/'v15-10\.css'/);
   for(const token of['v17-home-hero','v17-home-tree','v17-person-card','v17-person-header','v17-life-timeline'])assert.ok(homeStyles.includes(token)||peopleStyles.includes(token)||personStyles.includes(token)||baseStyles.includes(token),`${token} should be owned by semantic Family CSS`);
 });
 

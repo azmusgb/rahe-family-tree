@@ -1,48 +1,11 @@
-/* Stable stylesheet composition root.
+/* Family design-system composition root.
  *
- * Historical release styles remain compatibility input while the semantic
- * Family design system owns the current presentation surface. Production still
- * emits one bundled stylesheet. New work belongs in semantic files below — do
- * not add another numbered visual-release stylesheet.
- *
- * v17 retirement note: the v15.7 Home, v15.9 People/Person and v15.10 compact
- * disclosure presentation layers are no longer imported. Native Family markup
- * now owns those routes directly.
+ * The production cascade has one explicit historical compatibility boundary.
+ * scripts/build.mjs deterministically collapses frozen compatibility-owned release
+ * styles into legacy-compat.generated.css before bundling. Current presentation
+ * belongs in the semantic modules below; do not add new version-numbered CSS.
  */
-@import '../../v11.css';
-@import '../../v11-nav.css';
-@import '../../v11-2.css';
-@import '../../v11-3.css';
-@import '../../v11-4.css';
-@import '../../v11-6.css';
-@import '../../v12.css';
-@import '../../v12-2.css';
-@import '../../v12-3.css';
-@import '../../v12-4.css';
-@import '../../v12-5.css';
-@import '../../v12-6.css';
-@import '../../v12-6-1.css';
-@import '../../v12-6-2.css';
-@import '../../v12-7.css';
-@import '../../v12-8.css';
-@import '../../v12-9.css';
-@import '../../v12-9-1.css';
-@import '../../v13-0.css';
-@import '../../dashboard-v13-2.css';
-@import '../../media-page-v13-4.css';
-@import '../../experience-v13-5.css';
-@import '../../v14.css';
-@import '../../v15.css';
-@import '../../v15-1.css';
-@import '../../v15-family-focus.css';
-@import '../../platform-v13.css';
-@import '../../v15-5.css';
-@import '../../v15-6.css';
-@import '../../v15-8.css';
-@import './record-ingestion.css';
-@import './v16.css';
-@import './v16-1.css';
-@import './v16-2.css';
+@import './legacy-compat.generated.css';
 
 /* Current semantic design system. Order is deliberate: tokens and shared
  * foundations first, route composition second, mobile/responsive safeguards last. */

@@ -7,6 +7,21 @@ const ESBUILD_VERSION='0.25.10';
 const NPX=process.platform==='win32'?'npx.cmd':'npx';
 const appVersion='18.0.0';
 
+const legacyStyleSources=[
+  'v11.css','v11-nav.css','v11-2.css','v11-3.css','v11-4.css','v11-6.css',
+  'v12.css','v12-2.css','v12-3.css','v12-4.css','v12-5.css','v12-6.css','v12-6-1.css','v12-6-2.css','v12-7.css','v12-8.css','v12-9.css','v12-9-1.css',
+  'v13-0.css','dashboard-v13-2.css','media-page-v13-4.css','experience-v13-5.css','v14.css',
+  'v15.css','v15-1.css','v15-family-focus.css','platform-v13.css','v15-5.css','v15-6.css','v15-8.css',
+  'src/styles/record-ingestion.css',
+  'src/styles/v16.css','src/styles/v16-1.css','src/styles/v16-2.css'
+];
+const generatedLegacyStyle='src/styles/legacy-compat.generated.css';
+const legacyStyleBlocks=await Promise.all(legacyStyleSources.map(async source=>{
+  const css=await readFile(source,'utf8');
+  return `/* compatibility source: ${source} */\n${css.trim()}`;
+}));
+await writeFile(generatedLegacyStyle,`/* GENERATED FILE — DO NOT EDIT.\n * Frozen historical presentation is collapsed here so the semantic Family\n * design-system composition root has one explicit compatibility boundary.\n * New presentation work belongs in the semantic modules imported after this file.\n */\n${legacyStyleBlocks.join('\n\n')}\n`);
+
 await rm('dist',{recursive:true,force:true});
 await mkdir('dist');
 await copyFile('index.html','dist/index.html');
@@ -52,7 +67,12 @@ const buildInfo={
   experience:appVersion,
   releaseTrain:'v18-canonical-platform',
   bundler:`esbuild@${ESBUILD_VERSION}`,
-  browserAssets:['app.bundle.js','styles.css']
+  browserAssets:['app.bundle.js','styles.css'],
+  styleSystem:{
+    root:'src/styles/index.css',
+    compatibilityBoundary:generatedLegacyStyle,
+    legacySourceCount:legacyStyleSources.length
+  }
 };
 await writeFile('dist/build-info.json',JSON.stringify(buildInfo,null,2));
 console.log(`Built Family History Archive v${appVersion} as one JS bundle + one CSS bundle on research model ${buildInfo.release} / platform ${buildInfo.platform||'n/a'} · ${buildInfo.gitSha}.`);
