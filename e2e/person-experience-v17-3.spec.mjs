@@ -20,10 +20,14 @@ test('historical Person opens as a biography-first family profile',async({page})
   const profile=page.locator(`[data-v17-native="person"][data-person-id="${HAZEL}"]`);
   await expect(profile).toBeVisible();
   await expect(profile.locator('.v17-person-header')).toBeVisible();
-  await expect(profile.locator('.v17-person-nav a[href="#v173-story"]')).toHaveText('Story');
-  const story=profile.locator('#v173-story');
+  const storyLink=profile.locator('.v17-person-nav a[href="#v17-story"]');
+  await expect(storyLink).toHaveText('Story');
+  const story=profile.locator('#v17-story');
   await expect(story).toBeVisible();
   await expect(story.getByRole('heading',{name:/A life in the family record|A place in the family story/})).toBeVisible();
+  await storyLink.click();
+  await expect(page).toHaveURL(new RegExp(`#person/${HAZEL}$`));
+  await expect(story).toBeVisible();
   await expect(profile.getByRole('heading',{name:'Immediate family'})).toBeVisible();
   await expect(profile.getByRole('heading',{name:'Life through the years'})).toBeVisible();
 });
@@ -43,7 +47,7 @@ test('living Person keeps biography framing while suppressing private chronology
   await page.goto(`/#person/${LIVING}`);
   const profile=page.locator(`[data-v17-native="person"][data-person-id="${LIVING}"]`);
   await expect(profile).toBeVisible();
-  const story=profile.locator('#v173-story');
+  const story=profile.locator('#v17-story');
   await expect(story.getByRole('heading',{name:'Part of the living family'})).toBeVisible();
   await expect(story.locator('.v173-story-moment')).toHaveCount(0);
   await expect(profile.getByText('Detailed chronology and location records are protected for living family members.')).toBeVisible();
