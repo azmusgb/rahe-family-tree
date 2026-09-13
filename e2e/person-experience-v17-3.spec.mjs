@@ -32,15 +32,19 @@ test('historical Person opens as a biography-first family profile',async({page})
   await expect(profile.getByRole('heading',{name:'Life through the years'})).toBeVisible();
 });
 
-test('research detail is progressive disclosure on Family profiles',async({page})=>{
+test('research detail is progressive disclosure while Research Center access remains visible',async({page})=>{
   await page.goto(`/#person/${HAZEL}`);
-  const details=page.locator('.v173-research-details');
+  const profile=page.locator(`[data-v17-native="person"][data-person-id="${HAZEL}"]`);
+  const details=profile.locator('.v173-research-details');
+  const researchLink=profile.getByRole('link',{name:/Open Research Center/});
   await expect(details).toBeVisible();
   await expect(details).not.toHaveAttribute('open','');
   await expect(details.getByText('See the records behind this person')).toBeVisible();
+  await expect(researchLink).toBeVisible();
+  await expect(details.getByRole('link',{name:/Open Research Center/})).toHaveCount(0);
   await details.locator('summary').click();
   await expect(details).toHaveAttribute('open','');
-  await expect(details.getByRole('link',{name:/Open Research Center/})).toBeVisible();
+  await expect(researchLink).toBeVisible();
 });
 
 test('living Person keeps biography framing while suppressing private chronology, places, and media',async({page})=>{
