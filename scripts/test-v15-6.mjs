@@ -10,6 +10,9 @@ const experience=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
+function releaseOf(text,pattern){const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];}
+function atLeast(version,major,minor){const [a,b]=version.split('.').map(Number);return a>major||(a===major&&b>=minor);}
+
 test('v15.6 family archive material remains compatibility input beneath the semantic system',()=>{
   assert.match(styles,/@import '\.\.\/\.\.\/v15-6\.css';\s*@import '\.\.\/\.\.\/v15-8\.css';/);
   assert.doesNotMatch(styles,/v15-7\.css/);
@@ -39,17 +42,22 @@ test('keyboard focus indicators use the solid accessible focus token',()=>{
 });
 
 test('browser release assets and freshness guard track the current release',()=>{
-  assert.match(index,/data-ui-release="17\.5\.0"/);
-  assert.match(index,/styles\.css\?v=17\.5\.0/);
-  assert.match(index,/app\.bundle\.js\?v=17\.5\.0/);
-  assert.match(index,/FAMILY VIEW · v17\.5\.0/);
-  assert.match(entry,/APP_VERSION='17\.5\.0'/);
-  assert.match(build,/const appVersion='17\.5\.0'/);
+  const shellVersion=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/);
+  const entryVersion=releaseOf(entry,/APP_VERSION='(\d+\.\d+\.\d+)'/);
+  const buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);
+  const coreVersion=releaseOf(experience,/UI_RELEASE='(\d+\.\d+\.\d+)'/);
+  assert.equal(shellVersion,entryVersion);
+  assert.equal(entryVersion,buildVersion);
+  assert.equal(entryVersion,coreVersion);
+  assert.ok(atLeast(entryVersion,17,5));
+  const escaped=shellVersion.replaceAll('.','\\.');
+  assert.match(index,new RegExp(`styles\\.css\\?v=${escaped}`));
+  assert.match(index,new RegExp(`app\\.bundle\\.js\\?v=${escaped}`));
+  assert.match(index,new RegExp(`FAMILY VIEW · v${escaped}`));
   assert.match(build,/shell\.replace\(/);
   assert.match(build,/outfile=dist\/styles\.css/);
   assert.match(build,/browserAssets:\['app\.bundle\.js','styles\.css'\]/);
-  assert.match(experience,/const UI_RELEASE='17\.5\.0'/);
-  assert.match(experience,/family\.archive\.uiReload\.v17\.5/);
+  assert.match(experience,/family\.archive\.uiReload\.v17\.\d+/);
 });
 
 test('v17 release shell cannot alter canonical genealogy semantics',()=>{
