@@ -1,0 +1,30 @@
+{
+  "retiredFiles": 33,
+  "originalSelectorArms": 2717,
+  "migratedSelectorArms": 2698,
+  "prunedSelectorArms": 19,
+  "preservedAtRules": 3,
+  "semanticModules": {
+    "tokens": 8,
+    "base": 474,
+    "shell": 233,
+    "navigation": 110,
+    "home": 197,
+    "branding": 13,
+    "people": 76,
+    "person": 43,
+    "stories": 74,
+    "tree": 286,
+    "unified-family": 0,
+    "media": 277,
+    "explore": 2,
+    "research": 150,
+    "record-ingestion": 6,
+    "mobile-family": 58,
+    "responsive": 190,
+    "elevation": 2,
+    "branches": 74,
+    "archive-shell": 4
+  },
+  "generatedAt": "2026-09-13T22:35:19.043Z"
+}

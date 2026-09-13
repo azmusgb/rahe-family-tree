@@ -1,3 +1,14 @@
+/* Migrated live selectors from retired release CSS.
+ * These rules remain below the semantic ownership boundary and are now
+ * maintained by this module; obsolete selector arms were removed during migration. */
+.archive-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+
+.archive-actions a{font-size:10px;padding:8px 10px;background:#fff;border:1px solid var(--line);border-radius:6px;text-decoration:none}
+
+body[data-experience="family"] .nav-group[data-nav-group="research"],body[data-experience="family"] .nav-group[data-nav-group="archive"]{opacity:.72}
+
+body[data-experience="family"] .nav-group[data-nav-group="research"],body[data-experience="family"] .nav-group[data-nav-group="archive"],body[data-experience="family"] .nav-group[data-nav-group="contribute"]{display:none}
+
 /* Family archive shell — v17.5 semantic header, navigation, footer and Home entry. */
 body[data-v158-context="family"] .shell{display:block!important;grid-template-columns:none!important;min-height:100vh}
 body[data-v158-context="family"] .workspace{min-width:0;width:100%;margin:0!important}

@@ -1,3 +1,10 @@
+/* Migrated live selectors from retired release CSS.
+ * These rules remain below the semantic ownership boundary and are now
+ * maintained by this module; obsolete selector arms were removed during migration. */
+.elevated-search .search-hit:focus-visible{outline:3px solid #d59e3b;outline-offset:2px}
+
+.elevated-search .search-hit{scroll-margin-block:90px}
+
 /* v17.4 — elevated family experience.
  * Presentation only: canonical genealogy, evidence states, source IDs,
  * relationship semantics, rejected edges, and privacy rules are untouched. */

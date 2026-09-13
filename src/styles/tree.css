@@ -1,3 +1,579 @@
+/* Migrated live selectors from retired release CSS.
+ * These rules remain below the semantic ownership boundary and are now
+ * maintained by this module; obsolete selector arms were removed during migration. */
+.topbar button,.filters button,.graph-toolbar button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:8px 11px}
+
+.topbar button:hover,.filters button:hover,.graph-toolbar button:hover{background:#edf2ee}
+
+.graph-shell{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+
+.graph-toolbar{display:flex;align-items:center;gap:7px;padding:10px;border-bottom:1px solid var(--line)}
+
+.graph-toolbar span{margin-left:auto;font-size:10px;color:var(--muted)}
+
+.graph-scroll{overflow:auto;max-height:72vh;background:radial-gradient(circle at 1px 1px,#dfe5df 1px,transparent 0);background-size:24px 24px}
+
+#family-graph{display:block;width:100%;min-width:900px;height:auto;min-height:580px}
+
+.edge{fill:none;stroke:#6d8878;stroke-width:2}
+
+.edge.spouse{stroke-width:3}
+
+.edge.identity-bridge{stroke:#71548d;stroke-width:3;stroke-dasharray:10 8}
+
+.edge.state-provisional,.edge.state-unresolved{stroke-dasharray:8 7}
+
+.edge.state-rejected{display:none}
+
+.graph-node{cursor:pointer}
+
+.graph-node rect{fill:white;stroke:#789585;stroke-width:2}
+
+.graph-node.state-provisional rect{stroke:#bd8b2d;stroke-dasharray:6 4}
+
+.graph-node.state-unresolved rect{stroke:#72558c;stroke-dasharray:6 4}
+
+.node-name{font:600 13px Georgia,serif;fill:#21352f}
+
+.relationship-row{grid-template-columns:120px minmax(160px,1fr) 20px minmax(160px,1fr) minmax(220px,1.3fr) auto;align-items:center;border-top:1px solid var(--line)}
+
+.relationship-row>span{font-size:9px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+
+.relationship-row>button{border:0;background:none;text-align:left;color:var(--green2);font-weight:650}
+
+.relationship-row small{font-size:9px;color:var(--muted)}
+
+@media(max-width:1180px){.relationship-row{grid-template-columns:90px 1fr 16px 1fr}}
+
+@media(max-width:1180px){.relationship-row small,.relationship-row .deep-link{grid-column:2/-1}}
+
+@media(max-width:720px){.relationship-row{grid-template-columns:1fr;gap:6px}}
+
+@media(max-width:720px){.relationship-row>b{display:none}}
+
+@media(max-width:720px){.relationship-row small,.relationship-row .deep-link{grid-column:auto}}
+
+@media(max-width:720px){.graph-scroll{max-height:65vh}}
+
+@media print{.sidebar,.topbar,.filters,.local-nav,.graph-toolbar,.skip,.footer{display:none!important}}
+
+@media print{.graph-scroll{overflow:visible;max-height:none}}
+
+@media print{#family-graph{min-width:0}}
+
+.focus-actions button,.graph-toolbar [data-clear-focus]{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 9px;font-size:10px}
+
+.edge.sibling-context,.edge.baptism-sponsor,.edge.spouse-lead{stroke:#627384;stroke-width:2;stroke-dasharray:2 7}
+
+.edge.spouse-lead{stroke:#a17c35}
+
+.edge.baptism-sponsor{stroke:#546d7f}
+
+.graph-node.focused rect{stroke-width:4;filter:drop-shadow(0 4px 6px rgba(23,63,53,.18))}
+
+@media(max-width:720px){.graph-toolbar .focus-pill{width:100%;order:10;margin:4px 0 0!important}}
+
+.graph-node.supplemental-node rect{stroke:#567ca8;stroke-width:2.5}
+
+.edge.supplemental-edge{stroke:#567ca8;stroke-width:2.5}
+
+.graph-node.supplemental-node rect{filter:drop-shadow(0 2px 3px rgba(0,0,0,.08))}
+
+.tree-focusbar{display:grid;grid-template-columns:minmax(220px,1fr) auto;gap:10px;align-items:end;margin:0 0 12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}
+
+.tree-focusbar label{display:grid;gap:5px;font-size:9px;color:var(--muted)}
+
+.tree-focusbar select{width:100%;padding:9px;border:1px solid var(--line);border-radius:7px;background:#fbfcfa}
+
+.tree-mode-buttons{display:flex;gap:6px;flex-wrap:wrap}
+
+.tree-mode-buttons button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 10px;font-size:9px;cursor:pointer}
+
+.tree-mode-buttons button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.graph-node.focused rect{stroke-width:4}
+
+.graph-toolbar .focus-pill{max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+@media(max-width:860px){.tree-focusbar{grid-template-columns:1fr}}
+
+@media(max-width:600px){.tree-mode-buttons{display:grid;grid-template-columns:repeat(2,1fr)}}
+
+@media(max-width:600px){.tree-mode-buttons button{width:100%}}
+
+.tree-focusbar{display:grid;grid-template-columns:minmax(260px,1fr) auto;gap:12px;align-items:end;margin:0 0 14px;padding:14px;background:linear-gradient(180deg,#f8fbfa,#fff);border:1px solid var(--line);border-radius:14px}
+
+.tree-focusbar label{display:grid;gap:6px;font-size:9px;color:var(--muted)}
+
+.tree-focusbar select{width:100%;border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px;color:var(--ink)}
+
+.tree-mode-buttons,.tree-depth{display:flex;gap:6px;flex-wrap:wrap}
+
+.tree-mode-buttons button,.tree-depth button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:8px 11px;font-size:9px;font-weight:700;cursor:pointer}
+
+.tree-mode-buttons button.active,.tree-depth button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.tree-depth{grid-column:1/-1;align-items:center}
+
+.tree-depth>span{font-size:9px;color:var(--muted);font-weight:700;margin-right:2px}
+
+.graph-node rect{filter:drop-shadow(0 3px 8px rgba(20,45,38,.08))}
+
+.graph-node .node-avatar{fill:#eef4f1;stroke:#cadbd4;stroke-width:1.5}
+
+.graph-node.focused .node-avatar{fill:#dfeee8}
+
+.graph-node .node-initials{font-size:11px;font-weight:800;fill:var(--ink)}
+
+.graph-node .node-dates{font-size:8px;fill:var(--muted)}
+
+.graph-node .node-state{font-size:7.5px;font-weight:700;letter-spacing:.25px}
+
+.edge.identity-bridge{stroke-dasharray:3 7;stroke-width:3}
+
+.edge.spouse-lead,.edge.sibling-context,.edge.baptism-sponsor{stroke-dasharray:6 5}
+
+.relationship-index{margin-top:14px;border:1px solid var(--line);border-radius:10px;background:#fff}
+
+.relationship-index>summary{cursor:pointer;padding:11px 13px;font-size:10px;font-weight:700}
+
+.relationship-index .relationship-table{padding:0 12px 12px}
+
+@media(max-width:860px){.tree-mode-buttons{justify-content:flex-start}}
+
+@media(max-width:720px){.graph-shell{display:none}}
+
+.tree-focusbar label,.tree-depth>span{font-size:11px!important}
+
+.tree-mode-buttons button,.tree-depth button{font-size:12px!important;padding:9px 13px!important}
+
+.graph-node .node-dates{font-size:10px!important}
+
+.graph-node .node-state{font-size:9px!important}
+
+.graph-node .node-name{font-size:14px!important}
+
+@media(max-width:720px){.graph-shell{display:block!important}}
+
+@media(max-width:720px){.graph-scroll{max-height:68vh}}
+
+@media(max-width:720px){.graph-toolbar{overflow:auto;flex-wrap:nowrap}}
+
+@media(max-width:720px){.graph-toolbar span{white-space:nowrap}}
+
+@media(max-width:720px){#family-graph{min-width:760px}}
+
+.tree-focusbar{border:0!important;box-shadow:0 8px 26px rgba(31,52,45,.05);padding:16px!important}
+
+.graph-shell{border:0!important;box-shadow:0 10px 32px rgba(31,52,45,.06)}
+
+.graph-scroll{background:linear-gradient(#fbfcfa,#fbfcfa),radial-gradient(circle at 1px 1px,#dfe5df 1px,transparent 0);background-size:auto,28px 28px}
+
+.graph-node rect{rx:16;filter:drop-shadow(0 6px 12px rgba(20,45,38,.09))}
+
+.graph-node.focused rect{filter:drop-shadow(0 8px 18px rgba(23,63,53,.2))}
+
+.graph-node .node-avatar{stroke-width:1}
+
+.graph-node .node-name{font-weight:700}
+
+.graph-toolbar button{min-height:38px}
+
+@media(max-width:720px){.tree-focusbar{position:sticky;top:62px;z-index:15}}
+
+@media(max-width:720px){.graph-scroll{max-height:62vh!important}}
+
+@media(max-width:720px){#family-graph{min-width:820px!important}}
+
+@media(max-width:720px){.graph-toolbar{padding:8px}}
+
+.tree-focusbar select{min-height:42px;font-size:13px}
+
+.tree-mode-buttons button,.tree-depth button,.graph-toolbar button{min-height:42px}
+
+.graph-scroll{scrollbar-gutter:stable both-edges;overscroll-behavior:contain}
+
+.graph-node:focus{outline:none}
+
+.graph-node:focus rect{stroke-width:4;filter:drop-shadow(0 0 0 rgba(0,0,0,0)) drop-shadow(0 8px 18px rgba(23,63,53,.22))}
+
+.graph-node .node-name{paint-order:stroke;stroke:#fff;stroke-width:.35px}
+
+@media(max-width:900px){.tree-focusbar{gap:10px}}
+
+@media(max-width:900px){.tree-mode-buttons,.tree-depth{overflow-x:auto;scrollbar-width:thin}}
+
+@media(max-width:900px){.tree-mode-buttons button,.tree-depth button{flex:0 0 auto}}
+
+@media(max-width:720px){.tree-focusbar{top:116px!important}}
+
+@media(max-width:720px){.tree-focusbar label{width:100%}}
+
+@media(max-width:720px){.tree-focusbar select{width:100%;max-width:none}}
+
+@media(max-width:720px){.graph-scroll{min-height:420px;max-height:64vh!important;-webkit-overflow-scrolling:touch}}
+
+@media(max-width:720px){.graph-toolbar{position:sticky;left:0;z-index:5}}
+
+@media(max-width:480px){.graph-scroll{min-height:380px}}
+
+body[data-tree-release="12.9"] .tree-focusbar{gap:14px;align-items:end}
+
+body[data-tree-release="12.9"] .tree-mode-buttons{display:flex;flex-wrap:wrap;gap:6px}
+
+body[data-tree-release="12.9"] .tree-mode-buttons button{min-height:38px;padding:7px 11px}
+
+body[data-tree-release="12.9"] .tree-depth{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+
+.v129-tree-memory{display:grid;grid-template-columns:auto 1fr;gap:12px 22px;align-items:center;padding:14px 16px;margin:0 0 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface,white)}
+
+.v129-tree-memory>div:first-child{display:grid;gap:3px}
+
+.graph-node .node-collapse circle{fill:var(--surface,white);stroke:currentColor;stroke-opacity:.25;stroke-width:1}
+
+.graph-node .node-collapse text{font-size:15px;font-weight:800;pointer-events:none}
+
+.graph-node .node-collapse{cursor:pointer}
+
+.graph-node.focused rect{stroke-width:3}
+
+.graph-scroll{scroll-behavior:smooth}
+
+.graph-shell{position:relative}
+
+.graph-toolbar{gap:7px;flex-wrap:wrap}
+
+@media(max-width:760px){.v129-tree-memory{grid-template-columns:1fr;padding:12px}}
+
+@media(max-width:760px){.tree-mode-buttons{overflow-x:auto!important;flex-wrap:nowrap!important;padding-bottom:5px}}
+
+@media(max-width:760px){.tree-mode-buttons button{flex:0 0 auto}}
+
+@media(max-width:760px){.graph-toolbar .focus-pill{order:10;width:100%;max-width:none}}
+
+@media(max-width:760px){.graph-node .node-collapse circle{r:13}}
+
+@media print{.graph-shell{border:0!important;box-shadow:none!important}}
+
+@media print{.graph-scroll{overflow:visible!important}}
+
+@media print{.graph-node .node-collapse{display:none}}
+
+@media print{#family-graph{width:100%!important;height:auto!important;max-height:none!important}}
+
+body[data-tree-polish-release="12.9.1"] .v1291-spouse{stroke-width:2.2;stroke-linecap:round}
+
+body[data-tree-polish-release="12.9.1"] .v1291-couple-child{stroke-width:2.1}
+
+body[data-tree-polish-release="12.9.1"] .graph-node.focused rect{filter:drop-shadow(0 5px 14px rgb(0 0 0/.12))}
+
+body[data-tree-polish-release="12.9.1"] .node-collapse circle{stroke-width:1.5}
+
+body[data-tree-polish-release="12.9.1"] .node-collapse:focus circle{stroke-width:2.5}
+
+body[data-tree-polish-release="12.9.1"] .graph-node .node-avatar{stroke-width:1.4}
+
+@media(max-width:760px){.graph-scroll{scroll-snap-type:x proximity}}
+
+@media(max-width:760px){.graph-node{scroll-snap-align:center}}
+
+@media(max-width:760px){.v129-tree-memory{margin-bottom:8px}}
+
+@media(max-width:760px){.graph-toolbar{position:sticky;left:0;z-index:3;background:var(--surface,white);padding-block:7px}}
+
+@media(max-width:760px){.tree-focusbar{top:0;z-index:5}}
+
+@media print{.graph-node rect{fill:white!important;stroke:#222!important}}
+
+@media print{.edge{stroke:#333!important}}
+
+@media print{.edge.identity-bridge{stroke-dasharray:6 4!important}}
+
+@media print{.graph-node{filter:none!important}}
+
+@media print{.graph-node rect{filter:none!important}}
+
+.hero-tree-mark{width:72px;height:72px;border-radius:22px;display:grid;place-items:center;font-family:Georgia,serif;font-size:2.2rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18)}
+
+.dashboard-hero-card div:not(.hero-tree-mark){display:grid;gap:2px}
+
+.hero-tree-mark{width:70px;height:70px;border-radius:var(--radius-lg);display:grid;place-items:center;background:#e3ece7;border:1px solid #c9d8d0;color:var(--family-green);font:2.1rem Georgia,serif}
+
+.dashboard-hero-card div:not(.hero-tree-mark){display:grid;gap:3px}
+
+body[data-experience="family"] .tree-focusbar{border:0;box-shadow:var(--shadow-sm);padding:14px;border-radius:var(--radius-md);background:var(--family-surface)}
+
+body[data-experience="family"] .graph-shell{border:0;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+
+body[data-experience="family"] .graph-scroll{background:linear-gradient(#fbfcfa,#fbfcfa),radial-gradient(circle at 1px 1px,#dfe5df 1px,transparent 0);background-size:auto,28px 28px;overscroll-behavior:contain;scrollbar-gutter:stable both-edges}
+
+body[data-experience="family"] .graph-toolbar button,body[data-experience="family"] .tree-mode-buttons button,body[data-experience="family"] .tree-depth button{min-height:42px;border-radius:var(--radius-sm)}
+
+body[data-experience="family"] .graph-node .node-name{font-size:14px;font-weight:700}
+
+.graph-node .node-dates{font-size:11px}
+
+.graph-node .node-state{font-size:10px}
+
+@media(max-width:768px){body[data-experience="family"] .tree-focusbar{position:sticky;top:60px;z-index:15}}
+
+@media(max-width:768px){body[data-experience="family"] .graph-scroll{max-height:64vh;min-height:390px;-webkit-overflow-scrolling:touch}}
+
+@media(max-width:768px){#family-graph{min-width:780px}}
+
+body[data-route="tree"] .graph-shell{border-radius:18px;box-shadow:0 12px 34px rgba(20,40,34,.045)}
+
+body[data-route="tree"] .graph-scroll{max-height:calc(100vh - 310px);min-height:560px}
+
+@media (max-width:720px){body[data-route="tree"] .graph-scroll{min-height:440px;max-height:68vh}}
+
+.v154-tree-person{display:grid;grid-template-columns:minmax(300px,1.4fr) auto auto;align-items:center;gap:24px;margin:0 0 14px;padding:20px 22px;border:1px solid rgba(23,63,53,.10);border-radius:20px;background:linear-gradient(135deg,#fff,#f4f7f3);box-shadow:0 10px 26px rgba(20,40,34,.045)}
+
+.v154-tree-person-main{display:grid;grid-template-columns:62px minmax(0,1fr);gap:14px;align-items:center;min-width:0}
+
+.v154-tree-avatar{width:62px;height:62px;display:grid;place-items:center;border-radius:18px;background:var(--green,#173f35);color:#fff;font-size:18px;font-weight:850}
+
+.v154-tree-person-main h2{margin:2px 0 3px;font-size:clamp(1.45rem,2.5vw,2.1rem);color:var(--green,#173f35);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.v154-tree-person-main p:last-child{margin:0;color:var(--muted,#6e7a74);font-size:11px}
+
+.v154-tree-relations{display:flex;gap:7px}
+
+.v154-tree-relations span{min-width:64px;padding:9px 10px;border-radius:12px;background:#fff;border:1px solid rgba(23,63,53,.08);text-align:center;display:grid;gap:2px}
+
+.v154-tree-relations b{font-family:Georgia,'Times New Roman',serif;font-size:21px;color:var(--green,#173f35)}
+
+.v154-tree-relations small{font-size:8px;color:var(--muted,#6e7a74);text-transform:uppercase;letter-spacing:.08em}
+
+.v154-tree-actions{display:flex;gap:7px;align-items:center;justify-content:flex-end}
+
+.v154-tree-actions .action{white-space:nowrap}
+
+.v154-tree-controls{margin:0 0 12px;padding:12px 14px;border:1px solid rgba(23,63,53,.09);border-radius:16px;background:#fff;box-shadow:none}
+
+.v154-tree-controls label{font-size:10px}
+
+.v154-tree-controls select{min-height:40px}
+
+.v154-tree-controls button{min-height:38px}
+
+.v154-tree-help{margin:0;padding:9px 14px;background:#edf2ee;color:#53675f;border-bottom:1px solid rgba(23,63,53,.07);font-size:9px;line-height:1.45}
+
+.v154-graph-shell{overflow:hidden;border:1px solid rgba(23,63,53,.10);background:#f9faf7}
+
+.v154-graph-shell .graph-toolbar{position:sticky;top:0;z-index:12;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(23,63,53,.09)}
+
+.v154-graph-shell .legend{background:#f5f7f3;border-bottom:1px solid rgba(23,63,53,.08)}
+
+.v154-graph-shell .graph-scroll{background-image:linear-gradient(rgba(23,63,53,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(23,63,53,.035) 1px,transparent 1px);background-size:32px 32px;background-position:center}
+
+.v154-graph-shell .generation-lane line{stroke:#ccd8d2;stroke-width:1;stroke-dasharray:4 8}
+
+.v154-graph-shell .generation-lane text{fill:#789087;font-weight:750;font-size:11px;letter-spacing:.06em}
+
+.v154-graph-shell .graph-node rect{fill:#fff;stroke:#9fb5ac;stroke-width:1.3;filter:drop-shadow(0 6px 9px rgba(23,63,53,.08))}
+
+.v154-graph-shell .graph-node:hover rect,.v154-graph-shell .graph-node:focus rect{stroke:#315e4f;stroke-width:2;filter:drop-shadow(0 9px 14px rgba(23,63,53,.14))}
+
+.v154-graph-shell .graph-node.focused rect{stroke:#173f35;stroke-width:2.8;fill:#f2f7f4}
+
+.v154-graph-shell .node-avatar{fill:#173f35}
+
+.v154-graph-shell .node-initials{fill:#fff;font-weight:800}
+
+.v154-graph-shell .node-name{fill:#1f3d34;font-size:13px;font-weight:780}
+
+.v154-graph-shell .node-dates{fill:#5f716a;font-size:10px}
+
+.v154-graph-shell .node-state{fill:#7b8d86;font-size:8px}
+
+.v154-graph-shell .edge{stroke:#5f7f73;stroke-width:2.2;fill:none}
+
+.v154-graph-shell .edge.spouse{stroke:#9b7c65;stroke-dasharray:5 5}
+
+.v154-graph-shell .edge.identity-bridge{stroke:#a56b44;stroke-width:2.5;stroke-dasharray:3 7}
+
+.v154-graph-shell .edge.state-unresolved,.v154-graph-shell .edge.state-provisional{stroke-dasharray:7 6}
+
+@media (max-width:1080px){.v154-tree-person{grid-template-columns:1fr auto;gap:14px}}
+
+@media (max-width:1080px){.v154-tree-actions{grid-column:1/-1;justify-content:flex-start}}
+
+@media (max-width:720px){.v154-tree-person{display:block;padding:16px;border-radius:18px}}
+
+@media (max-width:720px){.v154-tree-relations{margin:14px 0;display:grid;grid-template-columns:repeat(3,1fr)}}
+
+@media (max-width:720px){.v154-tree-relations span{min-width:0}}
+
+@media (max-width:720px){.v154-tree-actions{display:grid;grid-template-columns:1fr 1fr 1fr}}
+
+@media (max-width:720px){.v154-tree-actions .action{padding-left:8px;padding-right:8px;text-align:center;justify-content:center;font-size:9px}}
+
+@media (max-width:720px){.v154-tree-controls{overflow-x:auto}}
+
+@media (max-width:720px){.v154-tree-help{font-size:9px}}
+
+@media (max-width:430px){.v154-tree-person-main{grid-template-columns:50px 1fr}}
+
+@media (max-width:430px){.v154-tree-avatar{width:50px;height:50px;border-radius:14px}}
+
+@media (max-width:430px){.v154-tree-actions{grid-template-columns:1fr}}
+
+@media print{.v153-profile-nav,.v154-tree-help,.v154-tree-actions{display:none!important}}
+
+@media print{.v153-family-network,.v153-life-story,.v154-tree-person{box-shadow:none;break-inside:avoid}}
+
+.relationship-finder{display:grid;grid-template-columns:minmax(220px,1fr) auto minmax(220px,1fr) auto;gap:14px;align-items:end;padding:18px;margin:0 0 22px;border:1px solid var(--line,#d8ddd9);border-radius:18px;background:var(--panel,#fff)}
+
+.relationship-finder label{display:grid;gap:6px;font-weight:700}
+
+.relationship-finder select{width:100%}
+
+.relationship-path-result{padding:20px;border:1px solid var(--line,#d8ddd9);border-radius:20px;background:var(--panel,#fff)}
+
+.relationship-path-summary{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0 18px}
+
+.relationship-path{display:grid;gap:10px}
+
+@media(max-width:900px){.relationship-finder{grid-template-columns:1fr}}
+
+@media(max-width:900px){.relationship-finder>span{display:none}}
+
+body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-person{grid-template-columns:minmax(260px,1.4fr) auto auto;gap:14px;
+  margin-bottom:9px;padding:13px 16px;border-radius:16px}
+
+body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-avatar{width:50px;height:50px;border-radius:14px}
+
+body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-person-main{grid-template-columns:50px minmax(0,1fr);gap:11px}
+
+body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-person-main h2{font-size:clamp(1.25rem,2vw,1.75rem)}
+
+body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-relations span{min-width:56px;padding:6px 8px}
+
+body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-relations b{font-size:18px}
+
+body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-controls{margin-bottom:8px;padding:9px 11px}
+
+body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-help{padding:6px 11px;font-size:8px}
+
+body[data-page-architecture="15.5"][data-route="tree"] .graph-scroll{min-height:620px;max-height:calc(100vh - 258px)}
+
+body[data-page-architecture="15.5"][data-route="tree"] .v129-tree-memory,body[data-page-architecture="15.5"][data-route="tree"] .v1291-breadcrumb{margin-top:7px;margin-bottom:7px}
+
+@media (max-width:720px){body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-person{grid-template-columns:1fr;padding:12px;gap:10px}}
+
+@media (max-width:720px){body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-relations{order:3;overflow-x:auto}}
+
+@media (max-width:720px){body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-actions{justify-content:flex-start;overflow-x:auto}}
+
+@media (max-width:720px){body[data-page-architecture="15.5"][data-route="tree"] .graph-scroll{min-height:520px;max-height:68vh}}
+
+@media (max-width:430px){body[data-page-architecture="15.5"][data-route="tree"] .v154-tree-actions .action{font-size:10px;padding:8px 9px}}
+
+:where(h1,h2,h3,.dashboard-hero h2,.family-overview-card h1,.v154-tree-person h2){color:var(--text)}
+
+.action,.button,.filters button,.focus-actions button,.v154-tree-actions .action{border-radius:9px!important;font-weight:700!important}
+
+body[data-route="tree"] .v154-tree-person,body[data-route="tree"] .v154-tree-controls,body[data-route="tree"] .graph-shell{background:var(--surface)!important;border-color:var(--line)!important;border-radius:var(--radius-md)!important}
+
+body[data-route="tree"] .graph-scroll{background:#fbfcfa!important}
+
+body[data-route="tree"] .graph-node{filter:none!important}
+
+body[data-route="tree"] .v154-tree-avatar{background:var(--brand-soft)!important;color:var(--green)!important}
+
+body[data-route="tree"] .v154-tree-relations span{background:var(--surface-soft)!important;border-color:var(--line)!important}
+
+@media (max-width:720px){body[data-route="people"] .person-card,body[data-route="tree"] .graph-shell,body[data-route="person"] .family-overview-card{border-radius:14px!important}}
+
+body[data-v158-context="family"] .v157-tree-preview{box-shadow:none!important}
+
+body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:calc(100dvh - 190px);border-radius:var(--v16-radius);box-shadow:none}
+
+body[data-route="tree"][data-v158-context="family"] .graph-stage{min-height:calc(100dvh - 270px)}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:calc(100dvh - 150px);border-radius:12px}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .graph-stage{min-height:calc(100dvh - 220px)}}
+
+body[data-route="tree"][data-v158-context="family"] [data-platform-v13="tree-engine-2"]{display:none!important}
+
+body[data-route="tree"][data-v158-context="family"] #content.v161-tree.v161-show-tree-secondary>[data-v161-secondary]{display:block!important}
+
+body[data-route="tree"][data-v158-context="family"] #content.v161-tree .graph-shell [data-v161-secondary]{display:none!important}
+
+body[data-route="tree"][data-v158-context="family"] #content.v161-tree.v161-show-tree-secondary .graph-shell [data-v161-secondary]{display:block!important}
+
+.v161-tree-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+
+.v161-tree-focus{display:grid;gap:2px;min-width:0}
+
+.v161-tree-focus .eyebrow{margin:0}
+
+.v161-tree-focus b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--green)}
+
+.v161-tree-tool-actions{display:flex;gap:6px;flex:0 0 auto}
+
+.v161-tree-tool-actions button{min-height:38px;padding:0 11px;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--green);font:inherit;font-size:11px;font-weight:750}
+
+.v161-tree-tool-actions button[data-v161-relationship]{background:var(--green);color:#fff;border-color:var(--green)}
+
+.v161-relationship-dialog{width:min(720px,calc(100vw - 24px));max-height:min(84dvh,760px);padding:0;border:1px solid var(--line);border-radius:20px;background:var(--bg);box-shadow:0 30px 80px rgba(20,45,37,.24)}
+
+.v161-relationship-dialog::backdrop{background:rgba(20,36,31,.42);backdrop-filter:blur(2px)}
+
+.v161-dialog-body .relationship-finder{margin-top:0}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v154-tree-person{display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;padding:11px 12px!important;margin:4px 0 8px!important;border-radius:14px!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v154-tree-person-main{grid-template-columns:42px minmax(0,1fr)!important;gap:9px!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v154-tree-avatar{width:42px!important;height:42px!important;border-radius:12px!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v154-tree-person-main h2{font-size:18px!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v154-tree-person-main p:last-child{display:none}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v154-tree-relations{display:flex!important;gap:4px!important;margin:0!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v154-tree-relations span{min-width:42px!important;padding:5px!important;border:0!important;background:var(--brand-soft)!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v154-tree-relations b{font-size:15px!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v154-tree-relations small{font-size:7px!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v154-tree-actions{grid-column:1/-1;display:flex!important;margin-top:0!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v154-tree-actions button[data-tree-scope]{display:none!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v154-tree-actions .action{min-height:34px!important;width:auto!important;padding:0 10px!important;font-size:9px!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls]{margin:0 0 6px!important;padding:8px!important;border-radius:12px!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls] label{font-size:9px!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls] select{min-height:36px!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls] button{min-height:34px!important;padding-inline:9px!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar{margin:4px 0 6px;padding:8px 10px}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v161-tree-focus{display:none}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v161-tree-tool-actions{width:100%;display:grid;grid-template-columns:64px minmax(0,1fr) 64px}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v161-tree-tool-actions button{width:100%}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:62dvh!important;border-radius:14px!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .graph-stage,body[data-route="tree"][data-v158-context="family"] .graph-scroll{min-height:58dvh!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .graph-toolbar{padding:6px!important;gap:4px!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .graph-toolbar button{min-height:34px!important;min-width:34px!important}}
+
+@media(max-width:720px){body[data-route="tree"][data-v158-context="family"] .v154-tree-help{font-size:11px!important}}
+
 /* Tree — genealogy canvas, not a diagram editor. */
 body[data-route="tree"][data-v158-context="family"] .route-shell .page-heading{padding-bottom:4px}
 body[data-route="tree"][data-v158-context="family"] .route-shell #status{display:none}
