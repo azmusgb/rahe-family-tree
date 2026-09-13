@@ -5,13 +5,13 @@ import {promisify} from'node:util';
 const run=promisify(execFile);
 const ESBUILD_VERSION='0.25.10';
 const NPX=process.platform==='win32'?'npx.cmd':'npx';
-const appVersion='17.6.0';
+const appVersion='18.0.0';
 
 await rm('dist',{recursive:true,force:true});
 await mkdir('dist');
 await copyFile('index.html','dist/index.html');
 const shell=await readFile('dist/index.html','utf8');
-await writeFile('dist/index.html',shell.replace(/17\.\d+\.\d+/g,appVersion));
+await writeFile('dist/index.html',shell.replace(/\d+\.\d+\.\d+/g,match=>match==='18.0.0'?match:match.startsWith('17.')?appVersion:match));
 
 async function esbuild(args){
   const {stdout,stderr}=await run(NPX,['--yes',`esbuild@${ESBUILD_VERSION}`,...args],{
@@ -50,6 +50,7 @@ const buildInfo={
   sourceSha256:model.meta.sourceSha256,
   builtAt:new Date().toISOString(),
   experience:appVersion,
+  releaseTrain:'v18-canonical-platform',
   bundler:`esbuild@${ESBUILD_VERSION}`,
   browserAssets:['app.bundle.js','styles.css']
 };
