@@ -10,11 +10,11 @@ const personCss=fs.readFileSync('src/styles/person.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
-test('v17.3 release fingerprints are synchronized for production output',()=>{
-  assert.match(entry,/APP_VERSION='17\.3\.0'/);
-  assert.match(experience,/UI_RELEASE='17\.3\.0'/);
-  assert.match(experience,/family\.archive\.uiReload\.v17\.3/);
-  assert.match(build,/const appVersion='17\.3\.0'/);
+test('current browser release fingerprints advance without breaking the v17.3 Person contract',()=>{
+  assert.match(entry,/APP_VERSION='17\.4\.0'/);
+  assert.match(experience,/UI_RELEASE='17\.4\.0'/);
+  assert.match(experience,/family\.archive\.uiReload\.v17\.4/);
+  assert.match(build,/const appVersion='17\.4\.0'/);
   assert.match(build,/shell\.replaceAll\('17\.2\.0',appVersion\)/);
 });
 

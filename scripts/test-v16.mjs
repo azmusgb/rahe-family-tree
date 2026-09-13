@@ -12,7 +12,7 @@ const v16=fs.readFileSync('src/styles/v16.css','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
 test('v16 centralizes family and research navigation semantics',()=>{
-  for(const token of["label:'Home'","label:'Tree'","label:'People'","label:'Photos'","label:'Stories'","label:'Timeline'","label:'Places & Migration'","label:'Research Center'"]) {
+  for(const token of["label:'Home'","label:'Tree'","label:'People'","label:'Albums'","label:'Stories'","label:'Timeline'","label:'Places & Migration'","label:'Research Center'"]) {
     if(token.includes('Research Center'))assert.match(shell,/Research Center/);else assert.match(nav,new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
   }
   assert.match(shell,/familyPrimaryHtml\(\)/);

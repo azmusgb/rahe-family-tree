@@ -47,7 +47,7 @@ test('family-focus layer remains bundled beneath the native current release',()=
   assert.match(experience,/\.\.\/\.\.\/v15-family-focus\.js/);
   assert.match(build,/app-entry\.js/);
   assert.match(styleRoot,/v15-family-focus\.css/);
-  assert.match(build,/const appVersion='17\.3\.0'/);
+  assert.match(build,/const appVersion='17\.4\.0'/);
   assert.match(build,/shell\.replaceAll\('17\.2\.0',appVersion\)/);
 });
 

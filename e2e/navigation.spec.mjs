@@ -8,7 +8,7 @@ async function mockApis(page){
 
 test.beforeEach(async({page})=>{await mockApis(page);});
 
-test('mobile dock is simplified to Home Tree People Photos and More',async({page},testInfo)=>{
+test('mobile dock is simplified to Home Tree People Albums and More',async({page},testInfo)=>{
   test.skip(testInfo.project.name!=='mobile-chromium','mobile navigation contract');
   await page.goto('/#dashboard');
   await expect(page.locator('.v17-home-hero')).toBeVisible();
@@ -21,7 +21,7 @@ test('mobile dock is simplified to Home Tree People Photos and More',async({page
   await dock.getByRole('link',{name:'People'}).click();
   await expect(page).toHaveURL(/#people$/);
   await expect(page.locator('[data-v17-native="people"]')).toBeVisible();
-  await dock.getByRole('link',{name:'Photos'}).click();
+  await dock.getByRole('link',{name:'Albums'}).click();
   await expect(page).toHaveURL(/#media$/);
   await expect(page.locator('[data-media-page]')).toBeVisible();
   await dock.locator('.v158-mobile-more>summary').click();
@@ -52,18 +52,18 @@ test('tree person visual is a one-click route to a native biography',async({page
   await expect(page.locator('[data-v17-native="person"]')).toBeVisible();
 });
 
-test('desktop family navigation is Home Tree People Photos plus Explore and Research Center',async({page},testInfo)=>{
+test('desktop family navigation is Home Tree People Albums plus Explore and Research Center',async({page},testInfo)=>{
   test.skip(testInfo.project.name!=='desktop-chromium','desktop navigation contract');
   await page.goto('/#dashboard');
   const nav=page.locator('#nav');
-  for(const label of['Home','Tree','People','Photos'])await expect(nav.getByRole('link',{name:label,exact:true})).toBeVisible();
+  for(const label of['Home','Tree','People','Albums'])await expect(nav.getByRole('link',{name:label,exact:true})).toBeVisible();
   await expect(nav.getByRole('link',{name:'Research Center',exact:true})).toBeVisible();
   const explore=nav.locator('.v158-explore');
   await explore.locator('summary').click();
   await expect(explore.getByRole('link',{name:/Timeline/})).toBeVisible();
   await expect(explore.getByRole('link',{name:/Places & Migration/})).toBeVisible();
   await expect(explore.getByRole('link',{name:/Stories/})).toBeVisible();
-  await nav.getByRole('link',{name:'Photos',exact:true}).click();
+  await nav.getByRole('link',{name:'Albums',exact:true}).click();
   await expect(page).toHaveURL(/#media$/);
 });
 
@@ -139,7 +139,7 @@ test('native Tree keeps focused family context and compact relationship tools',a
   await expect(tree.locator('[data-tree-person]')).toBeVisible();
 });
 
-test('Photos keeps contextual search and collapses dedicated media filters on demand',async({page},testInfo)=>{
+test('Albums keeps contextual search and collapses dedicated media filters on demand',async({page},testInfo)=>{
   await page.goto('/#media');
   await expect(page.locator('[data-media-page]')).toBeVisible();
   await expect(page.locator('.route-shell .page-heading')).toBeVisible();
@@ -150,6 +150,6 @@ test('Photos keeps contextual search and collapses dedicated media filters on de
   await expect(disclosure).not.toHaveAttribute('open','');
   await disclosure.locator('summary').click();
   await expect(page.locator('.media-library-controls')).toBeVisible();
-  if(testInfo.project.name==='desktop-chromium')await expect(page.locator('#nav').getByRole('link',{name:'Photos',exact:true})).toBeVisible();
-  if(testInfo.project.name==='mobile-chromium')await expect(page.locator('#family-mobile-dock').getByRole('link',{name:'Photos',exact:true})).toBeVisible();
+  if(testInfo.project.name==='desktop-chromium')await expect(page.locator('#nav').getByRole('link',{name:'Albums',exact:true})).toBeVisible();
+  if(testInfo.project.name==='mobile-chromium')await expect(page.locator('#family-mobile-dock').getByRole('link',{name:'Albums',exact:true})).toBeVisible();
 });

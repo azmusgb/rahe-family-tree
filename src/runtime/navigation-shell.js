@@ -40,7 +40,7 @@ function syncBrand(){
 function contextualSearch(){
   const route=routeKey(),label=document.querySelector('#filters .search'),input=document.getElementById('search');
   if(!label||!input)return;
-  const text={dashboard:'Find someone in the family',tree:'Jump to a person',people:'Search people and branches',person:'Find another relative',media:'Search photos, people or places',stories:'Search family stories',timeline:'Search the family timeline',migration:'Search places and branches'}[route]||(isResearchContext()?'Search the research archive':'Search the family');
+  const text={dashboard:'Find someone in the family',tree:'Jump to a person',people:'Search people and branches',person:'Find another relative',media:'Search albums, people or places',stories:'Search family stories',timeline:'Search the family timeline',migration:'Search places and branches'}[route]||(isResearchContext()?'Search the research archive':'Search the family');
   const placeholder={dashboard:'Name, branch, or place…',tree:'Enter a family member…',people:'Name, branch, or place…',person:'Search for another relative…',media:'Person, place, date, or caption…',stories:'Person, place, event, or year…',timeline:'Person, event, place, or year…',migration:'Place, branch, or person…'}[route]||(isResearchContext()?'Claim, source, person, or record…':'Name, branch, or place…');
   label.childNodes[0].nodeValue=text;input.placeholder=placeholder;
   document.querySelector('.route-shell')?.classList.toggle('v158-context-search',!isResearchContext());
@@ -53,7 +53,7 @@ function rebuildMobileDock(){
     dock.innerHTML=`<a href="#intelligence" data-dock-route="intelligence"><span>Overview</span></a><a href="#evidence" data-dock-route="evidence"><span>Evidence</span></a><a href="#sources" data-dock-route="sources"><span>Sources</span></a><a href="#dashboard" data-v158-family-mobile><span>Family</span></a>`;
     markCurrent(dock,'[data-dock-route]',owningSection(routeKey()));return;
   }
-  dock.innerHTML=`<a href="#dashboard" data-dock-route="dashboard"><span>Home</span></a><a href="#tree" data-dock-route="tree"><span>Tree</span></a><a href="#people" data-dock-route="people"><span>People</span></a><a href="#media" data-dock-route="media"><span>Photos</span></a><details class="v158-mobile-more"><summary>More</summary><div><button type="button" data-dock-search>Search</button>${familyExplore.map(item=>`<a href="${item.href}">${item.label.replace(' & Migration','')}</a>`).join('')}<a href="#research">Research Center</a></div></details>`;
+  dock.innerHTML=`<a href="#dashboard" data-dock-route="dashboard"><span>Home</span></a><a href="#tree" data-dock-route="tree"><span>Tree</span></a><a href="#people" data-dock-route="people"><span>People</span></a><a href="#media" data-dock-route="media"><span>Albums</span></a><details class="v158-mobile-more"><summary>More</summary><div><button type="button" data-dock-search>Search</button>${familyExplore.map(item=>`<a href="${item.href}">${item.label.replace(' & Migration','')}</a>`).join('')}<a href="#research">Research Center</a></div></details>`;
   markCurrent(dock,'[data-dock-route]',owningSection(routeKey()));
 }
 
