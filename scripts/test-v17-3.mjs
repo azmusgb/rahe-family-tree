@@ -11,10 +11,10 @@ const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
 test('current browser release fingerprints advance without breaking the v17.3 Person contract',()=>{
-  assert.match(entry,/APP_VERSION='17\.4\.0'/);
-  assert.match(experience,/UI_RELEASE='17\.4\.0'/);
-  assert.match(experience,/family\.archive\.uiReload\.v17\.4/);
-  assert.match(build,/const appVersion='17\.4\.0'/);
+  assert.match(entry,/APP_VERSION='17\.5\.0'/);
+  assert.match(experience,/UI_RELEASE='17\.5\.0'/);
+  assert.match(experience,/family\.archive\.uiReload\.v17\.5/);
+  assert.match(build,/const appVersion='17\.5\.0'/);
   assert.match(build,/shell\.replaceAll\('17\.2\.0',appVersion\)/);
 });
 
