@@ -56,7 +56,7 @@ test('v15.1 compatibility remains carried by the current bundled release',()=>{
   assert.match(experience,/\.\.\/\.\.\/v15-1-runtime\.js/);
   assert.match(build,/app-entry\.js/);
   assert.match(styleRoot,/v15-1\.css/);
-  assert.match(build,/const appVersion='17\.3\.0'/);
+  assert.match(build,/const appVersion='17\.4\.0'/);
   assert.match(build,/shell\.replaceAll\('17\.2\.0',appVersion\)/);
 });
 
