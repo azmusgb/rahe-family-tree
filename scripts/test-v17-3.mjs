@@ -21,7 +21,7 @@ test('current browser release fingerprints advance without breaking the v17.3 Pe
   assert.equal(entryVersion,buildVersion);
   assert.ok(atLeast(entryVersion,17,3));
   assert.match(experience,/family\.archive\.uiReload\.v17\.\d+/);
-  assert.match(build,/shell\.replace\(/);
+  assert.match(build,/shell\.replaceAll\('17\.2\.0',appVersion\)/);
 });
 
 test('Person experience is loaded behind the stable Family experience boundary',()=>{
