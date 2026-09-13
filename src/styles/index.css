@@ -25,3 +25,6 @@
 @import './branches.css';
 @import './archive-shell.css';
 @import './interaction-contracts.css';
+
+/* Final visual composition layer. */
+@import './redesign.css';
