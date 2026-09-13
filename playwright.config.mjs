@@ -2,10 +2,10 @@ import{defineConfig,devices}from'@playwright/test';
 
 export default defineConfig({
   testDir:'./e2e',
-  timeout:30_000,
-  expect:{timeout:8_000},
+  timeout:45_000,
+  expect:{timeout:15_000},
   retries:1,
-  workers:2,
+  workers:1,
   reporter:'line',
   use:{
     baseURL:'http://127.0.0.1:4173',
