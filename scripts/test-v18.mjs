@@ -65,7 +65,10 @@ test('controlling evidence semantics preserve rejected and unresolved material',
   assert.ok(bridge,'identity bridge must remain represented');
   assert.match(String(bridge.state||bridge.evidenceState||''),/UNRESOLVED/i);
   assert.notEqual(bridge.activePedigree,true);
-  assert.ok((model.claims||[]).some(c=>/REJECTED/i.test(String(c.state||''))),'rejected claims must remain retained for audit');
+  const rejected=relationships.filter(r=>/REJECTED/i.test(String(r.state||r.evidenceState||'')));
+  assert.ok(rejected.length>0,'rejected relationships must remain retained for audit');
+  assert.ok(rejected.every(r=>r.active===false&&r.activePedigree!==true),'rejected relationships must remain inactive');
+  assert.ok((model.conflicts||[]).length>0,'conflict/rejection history must remain represented');
   assert.ok((model.researchTasks||[]).length>0,'research queue must remain populated');
   assert.ok((model.sources||[]).length>0,'source registry must remain populated');
 });
