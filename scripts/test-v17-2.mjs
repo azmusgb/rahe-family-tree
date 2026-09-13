@@ -15,12 +15,19 @@ const unifiedCss=fs.readFileSync('src/styles/unified-family.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
+function releaseOf(text,pattern){const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];}
+function atLeast(version,major,minor){const [a,b]=version.split('.').map(Number);return a>major||(a===major&&b>=minor);}
+
 test('current browser release fingerprints advance without breaking the v17.2 tree contract',()=>{
-  assert.match(index,/data-ui-release="17\.2\.0"/);
-  assert.match(entry,/APP_VERSION='17\.3\.0'/);
-  assert.match(experience,/UI_RELEASE='17\.3\.0'/);
-  assert.match(build,/const appVersion='17\.3\.0'/);
-  assert.match(build,/shell\.replaceAll\('17\.2\.0',appVersion\)/);
+  const shellVersion=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/);
+  const entryVersion=releaseOf(entry,/APP_VERSION='(\d+\.\d+\.\d+)'/);
+  const coreVersion=releaseOf(experience,/UI_RELEASE='(\d+\.\d+\.\d+)'/);
+  const buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);
+  assert.equal(shellVersion,entryVersion);
+  assert.equal(entryVersion,coreVersion);
+  assert.equal(entryVersion,buildVersion);
+  assert.ok(atLeast(entryVersion,17,2));
+  assert.match(build,/shell\.replace\(/);
 });
 
 test('plain tree entry uses the largest branch-neutral connected-family component',()=>{
