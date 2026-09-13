@@ -2,6 +2,7 @@ export const familyPrimary=[
   {key:'dashboard',label:'Home',href:'#dashboard'},
   {key:'tree',label:'Tree',href:'#tree'},
   {key:'people',label:'People',href:'#people'},
+  {key:'families',label:'Families',href:'#families'},
   {key:'media',label:'Photos',href:'#media'}
 ];
 
@@ -20,12 +21,12 @@ export const researchPrimary=[
 ];
 
 export const familyLabels={
-  dashboard:'Home',tree:'Tree',people:'People',person:'People',media:'Photos',stories:'Stories',timeline:'Timeline',migration:'Places'
+  dashboard:'Home',tree:'Tree',people:'People',person:'People',families:'Families',branch:'Families',media:'Photos',stories:'Stories',timeline:'Timeline',migration:'Places'
 };
 
 export const researchRoutes=new Set(['evidence','sources','research','archive','claim','source','task','intake','identity','intelligence','conflicts']);
 
-export const owningSection=route=>({person:'people',claim:'evidence',source:'sources',task:'research',intake:'research',identity:'research',conflicts:'research'}[route]||route);
+export const owningSection=route=>({person:'people',branch:'families',claim:'evidence',source:'sources',task:'research',intake:'research',identity:'research',conflicts:'research'}[route]||route);
 
 export const linksHtml=links=>links.map(({key,label,href,description})=>description
   ?`<a href="${href}" data-nav-key="${key}"><b>${label}</b><small>${description}</small></a>`
