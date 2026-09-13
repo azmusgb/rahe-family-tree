@@ -40,15 +40,15 @@ test('v15.2 home material remains historical compatibility input',()=>{
 });
 
 test('family-focus layer remains bundled beneath the native current release',()=>{
-  assert.match(index,/data-ui-release="17\.2\.0"/);
-  assert.match(index,/styles\.css\?v=17\.2\.0/);
-  assert.match(index,/app\.bundle\.js\?v=17\.2\.0/);
+  assert.match(index,/data-ui-release="17\.5\.0"/);
+  assert.match(index,/styles\.css\?v=17\.5\.0/);
+  assert.match(index,/app\.bundle\.js\?v=17\.5\.0/);
   assert.match(entry,/src\/runtime\/index\.js/);
   assert.match(experience,/\.\.\/\.\.\/v15-family-focus\.js/);
   assert.match(build,/app-entry\.js/);
   assert.match(styleRoot,/v15-family-focus\.css/);
-  assert.match(build,/const appVersion='17\.3\.0'/);
-  assert.match(build,/shell\.replaceAll\('17\.2\.0',appVersion\)/);
+  assert.match(build,/const appVersion='17\.5\.0'/);
+  assert.match(build,/shell\.replace\(/);
 });
 
 test('family-focus presentation cannot mutate canonical genealogy semantics',()=>{

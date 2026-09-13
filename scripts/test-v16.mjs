@@ -12,11 +12,11 @@ const v16=fs.readFileSync('src/styles/v16.css','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
 test('v16 centralizes family and research navigation semantics',()=>{
-  for(const token of["label:'Home'","label:'Tree'","label:'People'","label:'Photos'","label:'Stories'","label:'Timeline'","label:'Places & Migration'","label:'Research Center'"]) {
-    if(token.includes('Research Center'))assert.match(shell,/Research Center/);else assert.match(nav,new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
-  }
+  for(const token of["label:'Home'","label:'Tree'","label:'People'","label:'Families'","label:'Photos'","label:'Stories'","label:'Timeline'","label:'Places & Migration'"]){assert.match(nav,new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));}
   assert.match(shell,/familyPrimaryHtml\(\)/);
   assert.match(shell,/linksHtml\(familyExplore\)/);
+  assert.match(shell,/RESEARCH CENTER/);
+  assert.match(shell,/href="#research">Research<\/a>/);
 });
 
 test('stories is a first-class source-controlled family route without evidence mutation',()=>{

@@ -34,23 +34,24 @@ test('v17.1 mobile capabilities remain intact under the current release',()=>{
   assert.match(build,/shell\.replace\(/);
 });
 
-test('site shell represents the connected family archive rather than a single surname',()=>{
-  assert.match(index,/<title>Family History Archive<\/title>/);
-  assert.match(index,/FAMILY<small>HISTORY ARCHIVE<\/small>/);
-  assert.match(index,/Family archive \/ <b id="crumb">/);
-  assert.match(index,/FAMILY HISTORY ARCHIVE/);
+test('site shell consistently represents the Rahe Family History Archive and its connected branches',()=>{
+  assert.match(index,/<title>Rahe Family History Archive<\/title>/);
+  assert.match(index,/RAHE FAMILY<small>HISTORY ARCHIVE<\/small>/);
+  assert.match(index,/<a href="#dashboard">Rahe Family<\/a>/);
+  assert.match(index,/RAHE FAMILY HISTORY ARCHIVE/);
   assert.match(index,/Our family, connected\./);
-  assert.doesNotMatch(index,/THE RAHE FAMILY|The Rahe Family|Rahe family \/|>RAHE<small>/i);
+  assert.match(index,/THE RAHE FAMILY/);
   assert.match(experienceRoot,/import\('\.\/site-branding\.js'\)/);
-  assert.match(branding,/Family History Archive/);
+  assert.match(branding,/Rahe Family History Archive/);
+  assert.match(branding,/RAHE FAMILY<small>HISTORY ARCHIVE<\/small>/);
+  assert.match(branding,/setText\(monogram,'R'\)/);
   assert.match(branding,/every documented family branch/i);
   assert.match(branding,/import\{researchRoutes\}from'\.\/navigation-model\.js'/);
   assert.match(branding,/researchRoutes\.has\(routeKey\(\)\)/);
-  assert.match(navigation,/FAMILY<small>HISTORY ARCHIVE<\/small>/);
-  assert.doesNotMatch(navigation,/>RAHE<small>/i);
+  assert.match(navigation,/RAHE FAMILY<small>HISTORY ARCHIVE<\/small>/);
   assert.match(styleRoot,/@import '\.\/home\.css';\s*@import '\.\/branding\.css';/);
-  assert.match(brandingCss,/\.v17-home-hero::after\{content:'F'\}/);
-  assert.doesNotMatch(brandingCss,/content:'R'/);
+  assert.match(brandingCss,/\.v17-home-hero::after\{content:'R'\}/);
+  assert.doesNotMatch(brandingCss,/content:'F'/);
 });
 
 test('mobile Family stylesheet is semantic and layered before final responsive safeguards',()=>{
