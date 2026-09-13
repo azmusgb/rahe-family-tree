@@ -53,7 +53,7 @@ test('People is a compact mobile family directory with readable rows and no over
   await expectNoHorizontalOverflow(page);
 });
 
-test('Photos opens content-first with quick type choices and advanced filters disclosed on demand',async({page})=>{
+test('Albums opens content-first with photo/document quick choices and advanced filters disclosed on demand',async({page})=>{
   await page.goto('/#media');
   const media=page.locator('[data-media-page]');
   await expect(media).toBeVisible();
