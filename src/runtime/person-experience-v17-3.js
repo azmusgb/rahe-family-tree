@@ -27,9 +27,9 @@ function momentCard(event){
 }
 function storyMarkup(person){
   const moments=supportedMoments(person);
-  if(person.living)return`<section id="v173-story" class="v173-person-story living" aria-labelledby="v173-story-title"><div class="v173-story-copy"><p class="eyebrow">LIFE STORY</p><h2 id="v173-story-title">Part of the living family</h2><p>This public profile keeps private chronology and location details protected while preserving documented family connections.</p></div></section>`;
-  if(!moments.length)return`<section id="v173-story" class="v173-person-story quiet" aria-labelledby="v173-story-title"><div class="v173-story-copy"><p class="eyebrow">LIFE STORY</p><h2 id="v173-story-title">A place in the family story</h2><p>No supported public-safe life moments are currently linked closely enough to feature here. Family connections and qualified chronology remain available below.</p></div></section>`;
-  return`<section id="v173-story" class="v173-person-story" aria-labelledby="v173-story-title"><div class="v173-story-copy"><p class="eyebrow">LIFE STORY</p><h2 id="v173-story-title">A life in the family record</h2><p>Selected supported moments from the source-controlled archive introduce this person before the full chronology and research detail.</p></div><div class="v173-story-moments">${moments.map(momentCard).join('')}</div></section>`;
+  if(person.living)return`<section id="v17-story" class="v173-person-story living" aria-labelledby="v173-story-title"><div class="v173-story-copy"><p class="eyebrow">LIFE STORY</p><h2 id="v173-story-title">Part of the living family</h2><p>This public profile keeps private chronology and location details protected while preserving documented family connections.</p></div></section>`;
+  if(!moments.length)return`<section id="v17-story" class="v173-person-story quiet" aria-labelledby="v173-story-title"><div class="v173-story-copy"><p class="eyebrow">LIFE STORY</p><h2 id="v173-story-title">A place in the family story</h2><p>No supported public-safe life moments are currently linked closely enough to feature here. Family connections and qualified chronology remain available below.</p></div></section>`;
+  return`<section id="v17-story" class="v173-person-story" aria-labelledby="v173-story-title"><div class="v173-story-copy"><p class="eyebrow">LIFE STORY</p><h2 id="v173-story-title">A life in the family record</h2><p>Selected supported moments from the source-controlled archive introduce this person before the full chronology and research detail.</p></div><div class="v173-story-moments">${moments.map(momentCard).join('')}</div></section>`;
 }
 function makeResearchProgressive(root){
   const research=root.querySelector('#v17-research');
@@ -50,8 +50,8 @@ function tuneLifeSection(root,person){
   if(intro&&!person.living)intro.textContent='A chronological view of documented moments and places. Qualified events remain visibly qualified.';
 }
 function addStoryNav(root){
-  const nav=root.querySelector('.v17-person-nav');if(!nav||nav.querySelector('[href="#v173-story"]'))return nav;
-  const link=document.createElement('a');link.href='#v173-story';link.textContent='Story';nav.prepend(link);return nav;
+  const nav=root.querySelector('.v17-person-nav');if(!nav||nav.querySelector('[href="#v17-story"]'))return nav;
+  const link=document.createElement('a');link.href='#v17-story';link.textContent='Story';nav.prepend(link);return nav;
 }
 function enhance(){
   if(!isFamily())return;
