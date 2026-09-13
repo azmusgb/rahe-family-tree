@@ -39,6 +39,8 @@ test('album browsing is assembled from existing visible media metadata and exist
   assert.match(albums,/document\.querySelector\('#branch'\)/);
   assert.match(albums,/document\.querySelector\('#media-decade'\)/);
   assert.match(albums,/document\.querySelector\('#media-type'\)/);
+  assert.match(albums,/document\.querySelector\('#media-visibility'\)/);
+  assert.match(albums,/applyFilters\(\{visibility:'all'\}\)/);
   assert.match(albums,/dispatchEvent\(new Event\('change'/);
 });
 
