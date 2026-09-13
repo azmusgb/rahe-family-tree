@@ -37,6 +37,17 @@ test('branch decade and format albums drive the existing media filters',async({p
   const documents=albums.locator('[data-v174-album-type="document"]');await expect(documents).toBeVisible();await documents.click();await expect(page.locator('#media-type')).toHaveValue('document');await expect(page.locator('#media-decade')).toHaveValue('all');
 });
 
+test('Show all resets the visibility filter along with the album filters',async({page})=>{
+  await page.goto('/#media');
+  const albums=page.locator('.v174-albums');await expect(albums).toBeVisible();
+  const visibility=page.locator('#media-visibility');
+  await visibility.evaluate(el=>{el.value='private';el.dispatchEvent(new Event('change',{bubbles:true}));});
+  await expect(visibility).toHaveValue('private');
+  await albums.locator('[data-v174-album-clear]').click();
+  await expect(visibility).toHaveValue('all');
+  await expect(page.locator('[data-v174-current]')).toHaveText('All family media');
+});
+
 test('anonymous album composition excludes erroneously public living and unknown-person items',async({page})=>{
   await page.goto('/#media');
   const albums=page.locator('.v174-albums');await expect(albums).toBeVisible();
