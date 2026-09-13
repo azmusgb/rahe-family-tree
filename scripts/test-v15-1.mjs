@@ -26,8 +26,10 @@ test('v15.1 promotes family navigation into a horizontal primary bar with disclo
   assert.match(runtime,/\['dashboard','Home'\]/);
   assert.match(runtime,/\['media','Media'\]/);
   assert.match(runtime,/\['timeline','Timeline'\]/);
-  assert.match(css,/Desktop\/tablet application shell/);
-  assert.match(css,/\.sidebar\{[\s\S]*flex-direction:row/);
+  assert.match(css,/\.v151-primary-nav/);
+  assert.match(css,/\.v151-nav-menu/);
+  assert.match(css,/\.v151-nav-popover/);
+  assert.match(css,/body\[data-v158-context="family"\] \.site-header\.sidebar/);
 });
 
 test('v15.1 groups featured people and branches into its historical family discovery canvas',()=>{
@@ -41,7 +43,8 @@ test('v15.1 historical person relayout remains available beneath native v17 Fami
   assert.match(runtime,/relayoutPerson/);
   assert.match(runtime,/back\.insertAdjacentElement\('afterend',overview\)/);
   assert.match(runtime,/person-source-summary/);
-  assert.match(css,/Person pages lead with the family overview/);
+  assert.match(css,/person-source-summary/);
+  assert.match(css,/family-overview-card/);
 });
 
 test('v15.1 remains responsive and retains the mobile dock breakpoint',()=>{
@@ -50,15 +53,16 @@ test('v15.1 remains responsive and retains the mobile dock breakpoint',()=>{
   assert.match(index,/id="family-mobile-dock"/);
 });
 
-test('v15.1 compatibility remains carried by the current bundled release',()=>{
+test('v15.1 behavior remains carried by the current semantic bundled release',()=>{
   const shellVersion=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/),buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);assert.equal(shellVersion,buildVersion);const escaped=shellVersion.replaceAll('.','\\.');
   assert.match(index,new RegExp(`styles\\.css\\?v=${escaped}`));
   assert.match(index,new RegExp(`app\\.bundle\\.js\\?v=${escaped}`));
   assert.match(entry,/src\/runtime\/index\.js/);
   assert.match(experience,/\.\.\/\.\.\/v15-1-runtime\.js/);
   assert.match(build,/app-entry\.js/);
-  assert.match(styleRoot,/legacy-compat\.generated\.css/);
-  assert.match(build,/'v15-1\.css'/);
+  assert.doesNotMatch(styleRoot,/legacy-compat\.generated\.css/);
+  assert.match(build,/const legacyStyleSources=\[\]/);
+  assert.equal(fs.existsSync('v15-1.css'),false);
   assert.match(build,/shell\.replace\(/);
 });
 
