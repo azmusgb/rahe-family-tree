@@ -15,10 +15,11 @@ const nativeController=fs.readFileSync('src/runtime/native-family-v17-controller
 const nativeRuntime=fs.readFileSync('src/runtime/native-family-v17.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const css=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
-const navCss=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
+const navCss=css;
 const mainRuntime=fs.readFileSync('v11.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
+const retirement=JSON.parse(fs.readFileSync('public/css-retirement-report.json','utf8'));
 
 function releaseOf(text,pattern){const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];}
 function atLeast(version,major,minor){const [a,b]=version.split('.').map(Number);return a>major||(a===major&&b>=minor);}
@@ -35,7 +36,7 @@ test('v15.8 navigation semantics remain the shared family and research shell',()
 
 test('legacy Family-only v15.7 v15.9 and v15.10 CSS are retired from the production cascade',()=>{for(const retired of['v15-7.css','v15-9.css','v15-10.css'])assert.doesNotMatch(build,new RegExp(`'${retired.replace('.','\\.')}'`));for(const file of['home.css','people.css','person.css'])assert.match(styleRoot,new RegExp(`@import './${file.replace('.','\\.')}'`));});
 
-test('semantic stylesheet boundary preserves remaining compatibility cascade order',()=>{const expected=['v11.css','v11-nav.css','v11-2.css','v11-3.css','v11-4.css','v11-6.css','v12.css','v12-2.css','v12-3.css','v12-4.css','v12-5.css','v12-6.css','v12-6-1.css','v12-6-2.css','v12-7.css','v12-8.css','v12-9.css','v12-9-1.css','v13-0.css','dashboard-v13-2.css','media-page-v13-4.css','experience-v13-5.css','v14.css','v15.css','v15-1.css','v15-family-focus.css','platform-v13.css','v15-5.css','v15-6.css','v15-8.css'];let previous=-1;for(const file of expected){const index=build.indexOf(`'${file}'`);assert.ok(index>previous,`${file} should follow the previous compatibility source`);previous=index;}assert.match(styleRoot,/@import '\.\/legacy-compat\.generated\.css';/);assert.match(styleRoot,/@import '\.\/mobile-family\.css';\s*@import '\.\/responsive\.css';/);assert.match(build,/src\/styles\/index\.css/);assert.match(build,/const legacyStyleSources=\[/);});
+test('historical stylesheet sources are fully retired into semantic ownership',()=>{const retiredFiles=['v11.css','v11-nav.css','v11-2.css','v11-3.css','v11-4.css','v11-6.css','v12.css','v12-2.css','v12-3.css','v12-4.css','v12-5.css','v12-6.css','v12-6-1.css','v12-6-2.css','v12-7.css','v12-8.css','v12-9.css','v12-9-1.css','v13-0.css','dashboard-v13-2.css','media-page-v13-4.css','experience-v13-5.css','v14.css','v15.css','v15-1.css','v15-family-focus.css','platform-v13.css','v15-5.css','v15-6.css','v15-8.css','src/styles/v16.css','src/styles/v16-1.css','src/styles/v16-2.css'];for(const file of retiredFiles)assert.equal(fs.existsSync(file),false,`${file} should be retired`);assert.doesNotMatch(styleRoot,/legacy-compat\.generated\.css/);assert.match(styleRoot,/@import '\.\/record-ingestion\.css';/);assert.match(styleRoot,/@import '\.\/mobile-family\.css';\s*@import '\.\/responsive\.css';/);assert.match(build,/const legacyStyleSources=\[\]/);assert.match(build,/compatibilityBoundary:null/);assert.match(build,/legacySourceCount:0/);assert.equal(retirement.retiredFiles,33);assert.equal(retirement.migratedSelectorArms,2698);assert.equal(retirement.prunedSelectorArms,19);});
 
 test('mobile dock remains a real touch surface above application content',()=>{assert.match(css,/#family-mobile-dock:not\(\[hidden\]\)/);assert.match(css,/z-index:2147483000!important/);assert.match(css,/pointer-events:auto!important/);assert.match(css,/touch-action:manipulation/);assert.match(css,/--tap-target:48px/);});
 
