@@ -10,6 +10,7 @@ const css=fs.readFileSync('v15-family-focus.css','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
+const releaseOf=(text,pattern)=>{const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];};
 
 test('v15.3 person profile capabilities remain available as compatibility behavior',()=>{
   assert.match(runtime,/v153-family-network/);
@@ -40,14 +41,14 @@ test('v15.2 home material remains historical compatibility input',()=>{
 });
 
 test('family-focus layer remains bundled beneath the native current release',()=>{
-  assert.match(index,/data-ui-release="17\.5\.0"/);
-  assert.match(index,/styles\.css\?v=17\.5\.0/);
-  assert.match(index,/app\.bundle\.js\?v=17\.5\.0/);
+  const shellVersion=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/),buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);assert.equal(shellVersion,buildVersion);const escaped=shellVersion.replaceAll('.','\\.');
+  assert.match(index,new RegExp(`data-ui-release="${escaped}"`));
+  assert.match(index,new RegExp(`styles\\.css\\?v=${escaped}`));
+  assert.match(index,new RegExp(`app\\.bundle\\.js\\?v=${escaped}`));
   assert.match(entry,/src\/runtime\/index\.js/);
   assert.match(experience,/\.\.\/\.\.\/v15-family-focus\.js/);
   assert.match(build,/app-entry\.js/);
   assert.match(styleRoot,/v15-family-focus\.css/);
-  assert.match(build,/const appVersion='17\.5\.0'/);
   assert.match(build,/shell\.replace\(/);
 });
 
