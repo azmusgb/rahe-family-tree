@@ -31,7 +31,7 @@ test('mobile dock is simplified to Home Tree Families People and More',async({pa
   await expect(page.locator('[data-media-page]')).toBeVisible();
   await dock.locator('.v158-mobile-more>summary').click();
   await dock.getByRole('button',{name:'Search'}).click();
-  await expect(page).toHaveURL(/#people$/);
+  await expect(page).toHaveURL(/#media$/);
   await expect(page.locator('#search')).toBeFocused();
 });
 
