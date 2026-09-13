@@ -28,9 +28,9 @@ jobs:
         run: git diff --exit-code -- package.json package-lock.json
       - name: Run canonical and experience regression suite
         run: npm test
-      - name: Run v17.5-v18 family shell, stabilization, and canonical platform gates
+      - name: Run v17.5-v18.5 family, canonical, and research automation gates
         run: |
-          node --test scripts/test-v17-5.mjs scripts/test-v17-6.mjs scripts/test-v18.mjs
+          node --test scripts/test-v17-5.mjs scripts/test-v17-6.mjs scripts/test-v18.mjs scripts/test-v18-5.mjs
           node --check src/runtime/family-branches-v17-5.js
           node --check src/runtime/navigation-shell.js
           node --check src/runtime/native-family-v17-controller.js
@@ -38,6 +38,8 @@ jobs:
           node --check canonical-graph-engine.js
           node --check platform-v13-ui.js
           node --check platform-v13-runtime.js
+          node --check research-automation-v18-5.js
+          node --check research-intelligence.js
       - name: Verify production build
         env:
           GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -47,7 +49,7 @@ jobs:
           test -f dist/canonical-graph.json
           test -f dist/provenance-index.json
           test -f dist/canonical-diff.json
-          node -e "const b=require('./dist/build-info.json'),g=require('./dist/canonical-graph.json'),d=require('./dist/canonical-diff.json');if(b.appVersion!=='18.0.0'||b.releaseTrain!=='v18-canonical-platform'||g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1)"
+          node -e "const b=require('./dist/build-info.json'),g=require('./dist/canonical-graph.json'),d=require('./dist/canonical-diff.json');if(b.appVersion!=='18.5.0'||b.releaseTrain!=='v18-5-research-automation'||g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1)"
       - name: Install Playwright Chromium
         timeout-minutes: 5
         run: npx playwright install --with-deps chromium
