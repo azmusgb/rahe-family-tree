@@ -42,10 +42,12 @@ test('album browsing is assembled from existing visible media metadata and exist
   assert.match(albums,/dispatchEvent\(new Event\('change'/);
 });
 
-test('anonymous album composition has defense-in-depth living and unresolved privacy guards',()=>{
-  assert.match(albums,/item\?\.visibility==='public'/);
+test('anonymous album composition has defense-in-depth living unresolved and unknown-person privacy guards',()=>{
+  assert.match(albums,/item\?\.visibility!=='public'/);
   assert.match(albums,/Boolean\(person\?\.living\)/);
   assert.match(albums,/UNRESOLVED\|REJECTED/);
+  assert.match(albums,/people=ids\.map\(personById\)/);
+  assert.match(albums,/people\.every\(Boolean\)/);
   assert.match(albums,/authenticated\?\(cache\|\|\[\]\):\(cache\|\|\[\]\)\.filter\(publicSafe\)/);
   assert.doesNotMatch(albums,/localStorage/);
 });
