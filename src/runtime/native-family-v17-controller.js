@@ -1,10 +1,11 @@
-import{personById}from'../../core.js';
+import{model,personById}from'../../core.js';
 import{renderTree}from'../../graph.js';
 import{renderNativeHome,renderNativePeople,renderNativePerson,hydrateNativeFamily}from'./native-family-v17.js';
 
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const isFamily=()=>document.body.dataset.experience!=='research';
 const nativeRoutes=new Set(['dashboard','tree','people','person']);
+const nativeMarker=route=>route==='dashboard'?'home':route;
 const livingChronologyPrivacy='Detailed chronology and location records are protected for living family members.';
 const livingMediaPrivacy='Living-person media remains private in the public family archive.';
 
@@ -50,23 +51,45 @@ function enforcePublicPrivacy(route,content){
   if(photos&&!photos.querySelector('.v17-living-media'))photos.insertAdjacentHTML('beforeend',`<p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p>`);
 }
 
+function announceNative(route){window.dispatchEvent(new CustomEvent('family-native-rendered',{detail:{route}}));}
 function apply(){
-  if(!isFamily()){delete document.body.dataset.familyNative;return;}
+  if(!isFamily()){delete document.body.dataset.familyNative;return false;}
   const route=routeKey();
   document.body.dataset.familyNative='v17';
-  if(!nativeRoutes.has(route))return;
-  const content=document.getElementById('content');if(!content)return;
+  if(!nativeRoutes.has(route)||!model)return false;
+  const content=document.getElementById('content');if(!content)return false;
   const current=content.querySelector('[data-v17-native]');
-  if(current?.dataset.v17Native===route){enforcePublicPrivacy(route,content);hydrateNativeFamily();return;}
+  if(current?.dataset.v17Native===nativeMarker(route)){enforcePublicPrivacy(route,content);hydrateNativeFamily();return true;}
   content.classList.remove('v157-home','v159-people','v159-profile','v161-home','v161-people');
   content.classList.add('v17-content');
   content.innerHTML=nativeMarkup(route);
   enforcePublicPrivacy(route,content);
   hydrateNativeFamily();
+  announceNative(route);
+  return true;
 }
 
+// v11 owns the authoritative route render synchronously. Reconcile the native
+// Family surface in the following microtask so Tree never waits behind older
+// presentation enhancers. If the model has not loaded yet, v11's authoritative
+// family-view-rendered event or the content observer below will retry safely.
 let queued=false;
-function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;apply();}));}
+function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;try{apply();}catch(error){console.error('[native-family] render failed',error);}});}
+
+// Defense in depth for compatibility layers that still replace #content.
+// Observe direct route-content replacement; applying native markup is
+// idempotent and the marker check prevents a mutation loop.
+let contentObserver=null;
+function observeContent(){
+  const content=document.getElementById('content');if(!content||contentObserver)return;
+  contentObserver=new MutationObserver(()=>{
+    const route=routeKey();
+    if(!isFamily()||!nativeRoutes.has(route))return;
+    const native=content.querySelector('[data-v17-native]');
+    if(native?.dataset.v17Native!==nativeMarker(route))schedule();
+  });
+  contentObserver.observe(content,{childList:true,subtree:false});
+}
 
 document.addEventListener('click',event=>{
   const local=event.target.closest?.('.v17-person-nav a[href^="#v17-"]');
@@ -75,4 +98,5 @@ document.addEventListener('click',event=>{
 window.addEventListener('family-view-rendered',schedule);
 window.addEventListener('hashchange',schedule);
 window.addEventListener('family-experience-changed',schedule);
-document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
+const start=()=>{observeContent();schedule();};
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',start):start();

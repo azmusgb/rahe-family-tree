@@ -1,10 +1,10 @@
-// Single browser entry point for the Rahe Family application.
+// Single browser entry point for the Family History Archive application.
 // Runtime implementation details live behind stable domain boundaries so
 // historical version-layer files can be retired incrementally without changing
 // the public browser entry or production bundle contract.
 import './src/runtime/index.js';
 
-const APP_VERSION='17.1.0';
+const APP_VERSION='17.2.0';
 const syncAppVersion=()=>{
   document.documentElement.dataset.uiRelease=APP_VERSION;
   const version=document.querySelector('.version');

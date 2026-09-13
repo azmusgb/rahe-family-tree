@@ -3,15 +3,16 @@
 // Family route content is rendered by the native v17 archive controller.
 import{personById}from'../../core.js';
 
-const UI_RELEASE='17.1.0';
-const RECENT_KEY='rahe.family.recentPeople.v1';
-const STALE_RELOAD_KEY='rahe.family.uiReload.v17.1';
+const UI_RELEASE='17.2.0';
+const RECENT_KEY='family.archive.recentPeople.v2';
+const LEGACY_RECENT_KEYS=['rahe.family.recentPeople.v1','rahe.family.recent-people.v1'];
+const STALE_RELOAD_KEY='family.archive.uiReload.v17.2';
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const routeId=()=>location.hash.slice(1).split('/')[1]||'';
 const isFamilyMode=()=>document.body.dataset.experience!=='research';
 const setText=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
 
-function readRecent(){try{const value=JSON.parse(localStorage.getItem(RECENT_KEY)||'[]');return Array.isArray(value)?value.filter(id=>typeof id==='string').slice(0,6):[];}catch{return[];}}
+function readRecent(){try{let raw=localStorage.getItem(RECENT_KEY);if(raw==null){const merged=[];for(const key of LEGACY_RECENT_KEYS){const value=localStorage.getItem(key);if(!value)continue;for(const id of JSON.parse(value)||[])if(typeof id==='string'&&!merged.includes(id))merged.push(id);}raw=JSON.stringify(merged);if(merged.length)localStorage.setItem(RECENT_KEY,raw);}const value=JSON.parse(raw||'[]');return Array.isArray(value)?value.filter(id=>typeof id==='string').slice(0,6):[];}catch{return[];}}
 function writeRecent(ids){try{localStorage.setItem(RECENT_KEY,JSON.stringify(ids.slice(0,6)));}catch{}}
 function recordCurrentPerson(){if(!isFamilyMode()||routeKey()!=='person')return;const id=routeId(),person=personById(id);if(!person)return;const before=readRecent(),after=[id,...before.filter(value=>value!==id)].slice(0,6);if(JSON.stringify(before)!==JSON.stringify(after))writeRecent(after);}
 

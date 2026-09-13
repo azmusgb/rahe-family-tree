@@ -6,7 +6,11 @@ async function mockApis(page){
   await page.route('**/api/family-sync**',async route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,authenticated:false})}));
 }
 
-test.beforeEach(async({page})=>{await mockApis(page);});
+test.beforeEach(async({page})=>{
+  page.on('pageerror',error=>console.error(`[browser pageerror] ${error.stack||error.message}`));
+  page.on('console',message=>{if(message.type()==='error')console.error(`[browser console] ${message.text()}`);});
+  await mockApis(page);
+});
 
 test('home is a native archive with supported family story content',async({page})=>{
   await page.goto('/#dashboard');
