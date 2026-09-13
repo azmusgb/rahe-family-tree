@@ -2,7 +2,7 @@ export const familyPrimary=[
   {key:'dashboard',label:'Home',href:'#dashboard'},
   {key:'tree',label:'Tree',href:'#tree'},
   {key:'people',label:'People',href:'#people'},
-  {key:'media',label:'Photos',href:'#media'}
+  {key:'media',label:'Albums',href:'#media'}
 ];
 
 export const familyExplore=[
@@ -20,7 +20,7 @@ export const researchPrimary=[
 ];
 
 export const familyLabels={
-  dashboard:'Home',tree:'Tree',people:'People',person:'People',media:'Photos',stories:'Stories',timeline:'Timeline',migration:'Places'
+  dashboard:'Home',tree:'Tree',people:'People',person:'People',media:'Albums',stories:'Stories',timeline:'Timeline',migration:'Places'
 };
 
 export const researchRoutes=new Set(['evidence','sources','research','archive','claim','source','task','intake','identity','intelligence','conflicts']);
