@@ -37,7 +37,8 @@ test('living Person keeps chronology and place summary private',async({page})=>{
   await expect(snapshot.getByText('private places')).toBeVisible();
 });
 
-test('Tree context switcher changes scope using the existing tree engine',async({page})=>{
+test('Tree context switcher changes scope using the existing tree engine',async({page},testInfo)=>{
+  test.skip(testInfo.project.name!=='desktop-chromium','elevated context is a desktop presentation layer; mobile uses the native tree controls');
   await page.goto(`/?focus=${HAZEL}&scope=family#tree`);
   const context=page.locator('.v174-tree-context');
   await expect(context).toBeVisible();
