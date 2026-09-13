@@ -5,7 +5,7 @@ import {promisify} from'node:util';
 const run=promisify(execFile);
 const ESBUILD_VERSION='0.25.10';
 const NPX=process.platform==='win32'?'npx.cmd':'npx';
-const appVersion='17.3.0';
+const appVersion='17.4.0';
 
 await rm('dist',{recursive:true,force:true});
 await mkdir('dist');
