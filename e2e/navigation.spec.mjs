@@ -12,7 +12,8 @@ test('mobile dock is simplified to Home Tree Families People and More',async({pa
   test.skip(testInfo.project.name!=='mobile-chromium','mobile navigation contract');
   await page.goto('/#dashboard');
   await expect(page.locator('.v17-home-hero')).toBeVisible();
-  await expect(page.locator('.sidebar')).toBeHidden();
+  await expect(page.locator('.site-header')).toBeVisible();
+  await expect(page.locator('.site-header #nav')).toBeHidden();
   const dock=page.locator('#family-mobile-dock');
   await expect(dock).toBeVisible();
   await dock.getByRole('link',{name:'Tree'}).click();
