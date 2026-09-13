@@ -4,7 +4,7 @@
 // the public browser entry or production bundle contract.
 import './src/runtime/index.js';
 
-const APP_VERSION='17.6.0';
+const APP_VERSION='18.0.0';
 const syncAppVersion=()=>{
   document.documentElement.dataset.uiRelease=APP_VERSION;
   const version=document.querySelector('.version');
