@@ -12,11 +12,11 @@ const platformUi=read('platform-v13-ui.js');
 const platformRuntime=read('platform-v13-runtime.js');
 const graphEngine=read('canonical-graph-engine.js');
 const styleRoot=read('src/styles/index.css');
-const gitignore=read('.gitignore');
 const model=json('public/research-model.json');
 const graph=json('public/canonical-graph.json');
 const diff=json('public/canonical-diff.json');
 const completeness=json('public/canonical-completeness.json');
+const retirement=json('public/css-retirement-report.json');
 
 const releaseOf=(text,pattern)=>{const m=text.match(pattern);assert.ok(m,'release fingerprint missing');return m[1];};
 
@@ -34,18 +34,22 @@ test('v18 release fingerprints are synchronized',()=>{
   assert.match(build,/releaseTrain:'v18-canonical-platform'/);
 });
 
-test('semantic design system owns stylesheet composition',()=>{
-  assert.match(styleRoot,/@import '\.\/legacy-compat\.generated\.css';/);
-  assert.doesNotMatch(styleRoot,/@import ['"]\.\.\/\.\.\/(?:v\d|dashboard-v\d|media-page-v\d|experience-v\d|platform-v\d)/);
-  for(const semantic of['tokens.css','base.css','shell.css','navigation.css','home.css','people.css','person.css','tree.css','media.css','research.css','responsive.css']){
+test('semantic design system owns stylesheet composition with zero compatibility sources',()=>{
+  assert.doesNotMatch(styleRoot,/legacy-compat\.generated\.css/);
+  assert.doesNotMatch(styleRoot,/@import ['"](?:\.\.\/)*?(?:v\d|dashboard-v\d|media-page-v\d|experience-v\d|platform-v\d)/);
+  for(const semantic of['tokens.css','base.css','shell.css','navigation.css','home.css','people.css','person.css','tree.css','media.css','research.css','record-ingestion.css','mobile-family.css','responsive.css']){
     assert.match(styleRoot,new RegExp(`@import '\\.\\/${semantic.replace('.','\\.')}';`));
   }
-  assert.doesNotMatch(styleRoot,/@import '\.\/record-ingestion\.css';/,'record ingestion stays compatibility-owned until its original cascade dependency is migrated');
-  assert.match(build,/const legacyStyleSources=\[/);
-  assert.match(build,/'v15-8\.css',\s*\n\s*'src\/styles\/record-ingestion\.css',\s*\n\s*'src\/styles\/v16\.css'/,'record ingestion must remain between v15.8 and v16 to preserve the production cascade');
-  assert.match(build,/legacy-compat\.generated\.css/);
-  assert.match(build,/legacySourceCount:legacyStyleSources\.length/);
-  assert.match(gitignore,/src\/styles\/legacy-compat\.generated\.css/);
+  assert.match(build,/const legacyStyleSources=\[\]/);
+  assert.match(build,/const generatedLegacyStyle=null/);
+  assert.match(build,/compatibilityBoundary:null/);
+  assert.match(build,/legacySourceCount:0/);
+  assert.equal(retirement.retiredFiles,33);
+  assert.equal(retirement.originalSelectorArms,2717);
+  assert.equal(retirement.migratedSelectorArms,2698);
+  assert.equal(retirement.prunedSelectorArms,19);
+  const retired=['v11.css','v11-nav.css','v11-2.css','v11-3.css','v11-4.css','v11-6.css','v12.css','v12-2.css','v12-3.css','v12-4.css','v12-5.css','v12-6.css','v12-6-1.css','v12-6-2.css','v12-7.css','v12-8.css','v12-9.css','v12-9-1.css','v13-0.css','dashboard-v13-2.css','media-page-v13-4.css','experience-v13-5.css','v14.css','v15.css','v15-1.css','v15-family-focus.css','platform-v13.css','v15-5.css','v15-6.css','v15-8.css','src/styles/v16.css','src/styles/v16-1.css','src/styles/v16-2.css'];
+  for(const file of retired)assert.equal(fs.existsSync(file),false,`${file} must stay retired`);
 });
 
 test('canonical platform surfaces remain wired into the runtime',()=>{

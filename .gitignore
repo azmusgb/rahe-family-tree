@@ -1,6 +1,6 @@
 dist/
 .netlify/
 node_modules/
-src/styles/legacy-compat.generated.css
+
 *.docx
 .DS_Store

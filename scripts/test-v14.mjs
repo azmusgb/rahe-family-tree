@@ -11,7 +11,7 @@ const mediaBoundary=fs.readFileSync('src/runtime/media.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const experienceRuntime=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
-const v14=fs.readFileSync('v14.css','utf8');
+const v14=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const familyRuntime=fs.readFileSync('src/runtime/family-mode.js','utf8');
 const portraitRuntime=fs.readFileSync('src/runtime/family-profile.js','utf8');
 const qaRuntime=fs.readFileSync('src/runtime/family-qa.js','utf8');
@@ -24,11 +24,12 @@ const mediaPage=fs.readFileSync('media-page-v13-5.js','utf8');
 const mainRuntime=fs.readFileSync('v11.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
+const retirement=JSON.parse(fs.readFileSync('public/css-retirement-report.json','utf8'));
 
 function releaseOf(text,pattern){const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];}
 function atLeast(version,major,minor){const [a,b]=version.split('.').map(Number);return a>major||(a===major&&b>=minor);}
 
-test('v14 design-system gains remain compatibility input under the current semantic release',()=>{const version=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/);assert.ok(atLeast(version,17,5));assert.equal((index.match(/<link rel="stylesheet"/g)||[]).length,1);const escaped=version.replaceAll('.','\\.');assert.match(index,new RegExp(`styles\\.css\\?v=${escaped}`));assert.match(index,new RegExp(`FAMILY VIEW · v${escaped}`));for(const token of['--space-4','--radius-md','--shadow-md','--mobile-nav-height'])assert.match(v14,new RegExp(token));assert.match(styleRoot,/legacy-compat\.generated\.css/);assert.match(build,/'v14\.css'/);});
+test('v14 design-system gains remain owned by the current semantic release',()=>{const version=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/);assert.ok(atLeast(version,17,5));assert.equal((index.match(/<link rel="stylesheet"/g)||[]).length,1);const escaped=version.replaceAll('.','\\.');assert.match(index,new RegExp(`styles\\.css\\?v=${escaped}`));assert.match(index,new RegExp(`FAMILY VIEW · v${escaped}`));for(const token of['--space-4','--radius-md','--shadow-md','--mobile-nav-height'])assert.match(v14,new RegExp(token));assert.doesNotMatch(styleRoot,/legacy-compat\.generated\.css/);assert.match(build,/const legacyStyleSources=\[\]/);assert.equal(retirement.retiredFiles,33);});
 
 test('current browser runtime uses one cache-busted production bundle',()=>{const version=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/),scripts=[...index.matchAll(/<script type="module" src="([^"]+)"/g)].map(m=>m[1]);assert.deepEqual(scripts,[`app.bundle.js?v=${version}`]);assert.match(entry,/src\/runtime\/index\.js/);for(const domain of['base','media-core','deployment','family','media','tree','search','media-page','experience'])assert.match(runtimeIndex,new RegExp(`import './${domain}\\.js'`));assert.doesNotMatch(entry,/search-v13-2\.js/);assert.doesNotMatch(entry,/v15-runtime\.js/);const expected=['experience-core','../../v15-1-runtime','../../v15-family-focus','../../platform-v13-runtime','page-architecture','navigation-shell','native-family-v17-controller'];const actual=[...experience.matchAll(/import ['"]([^'"]+)\.js['"]/g)].map(match=>match[1].replace(/^\.\//,''));assert.deepEqual(actual,expected);assert.match(experience,/unified-family-experience\.js/);assert.match(experience,/v17-6-stability\.js/);});
 
@@ -38,7 +39,7 @@ test('tree semantic boundary preserves historical initialization order',()=>{con
 
 test('media semantic boundary owns the v12.8 enhancement layer',()=>{assert.match(mediaBoundary,/import '\.\/media-enhancements\.js'/);assert.equal(fs.existsSync('v12-8.js'),false);});
 
-test('production build bundles JavaScript and rationalizes remaining compatibility CSS into one semantic asset',()=>{assert.match(build,/ESBUILD_VERSION='0\.25\.10'/);assert.match(build,/app-entry\.js/);assert.match(build,/--bundle/);assert.match(build,/outfile=dist\/app\.bundle\.js/);assert.match(build,/src\/styles\/index\.css/);assert.match(styleRoot,/@import '\.\/legacy-compat\.generated\.css';/);for(const sheet of['v14.css','v15.css','v15-1.css','v15-5.css','v15-6.css','v15-8.css'])assert.match(build,new RegExp(`'${sheet.replace('.','\\.')}'`));for(const retired of['v15-7.css','v15-9.css','v15-10.css'])assert.doesNotMatch(build,new RegExp(`'${retired.replace('.','\\.')}'`));for(const semantic of['tokens.css','base.css','home.css','people.css','person.css','tree.css','unified-family.css','mobile-family.css','responsive.css'])assert.match(styleRoot,new RegExp(`@import './${semantic.replace('.','\\.')}'`));assert.match(build,/outfile=dist\/styles\.css/);assert.match(build,/browserAssets:\['app\.bundle\.js','styles\.css'\]/);});
+test('production build bundles JavaScript and semantic CSS with no compatibility layer',()=>{assert.match(build,/ESBUILD_VERSION='0\.25\.10'/);assert.match(build,/app-entry\.js/);assert.match(build,/--bundle/);assert.match(build,/outfile=dist\/app\.bundle\.js/);assert.match(build,/src\/styles\/index\.css/);assert.doesNotMatch(styleRoot,/legacy-compat\.generated\.css/);assert.match(build,/const legacyStyleSources=\[\]/);assert.match(build,/compatibilityBoundary:null/);assert.match(build,/legacySourceCount:0/);for(const sheet of['v14.css','v15.css','v15-1.css','v15-5.css','v15-6.css','v15-8.css'])assert.equal(fs.existsSync(sheet),false);for(const semantic of['tokens.css','base.css','home.css','people.css','person.css','tree.css','unified-family.css','record-ingestion.css','mobile-family.css','responsive.css'])assert.match(styleRoot,new RegExp(`@import './${semantic.replace('.','\\.')}'`));assert.match(build,/outfile=dist\/styles\.css/);assert.match(build,/browserAssets:\['app\.bundle\.js','styles\.css'\]/);});
 
 test('legacy family dashboard replacement remains retired',()=>{assert.doesNotMatch(familyRuntime,/familyHome\(/);assert.doesNotMatch(familyRuntime,/family-home-hero/);assert.doesNotMatch(familyRuntime,/content\.innerHTML\s*=\s*familyHome/);});
 

@@ -6,13 +6,13 @@ const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const runtime=fs.readFileSync('v15-family-focus.js','utf8');
-const css=fs.readFileSync('v15-family-focus.css','utf8');
+const css=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const releaseOf=(text,pattern)=>{const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];};
 
-test('v15.3 person profile capabilities remain available as compatibility behavior',()=>{
+test('v15.3 person profile capabilities remain available under semantic person ownership',()=>{
   assert.match(runtime,/v153-family-network/);
   assert.match(runtime,/profileRelationCard\('Parents'/);
   assert.match(runtime,/profileRelationCard\('Spouse'/);
@@ -20,27 +20,29 @@ test('v15.3 person profile capabilities remain available as compatibility behavi
   assert.match(runtime,/v153-life-story/);
   assert.match(runtime,/Family record at a glance/);
   assert.match(runtime,/v153-profile-nav/);
-  assert.match(css,/v15\.3 — person profiles/);
+  assert.match(css,/v153-family-network/);
+  assert.match(css,/v153-profile-nav/);
 });
 
-test('v15.4 tree capability layer retains focal-person semantics beneath native v17 shell',()=>{
+test('v15.4 tree capability retains focal-person semantics under semantic tree ownership',()=>{
   assert.match(runtime,/v154-tree-person/);
   assert.match(runtime,/data-tree-scope="ancestors"/);
   assert.match(runtime,/data-tree-scope="descendants"/);
   assert.match(runtime,/Interactive family tree/);
-  assert.match(css,/v15\.4 — tree redesign/);
+  assert.match(css,/v154-tree-person/);
   assert.match(css,/\.edge\.identity-bridge/);
 });
 
-test('v15.2 home material remains historical compatibility input',()=>{
+test('v15.2 home material remains under semantic home ownership',()=>{
   assert.match(runtime,/Discover the people, places, and stories that connect the Rahe family/);
   assert.match(runtime,/dashboard-family-layout/);
   assert.match(runtime,/Stories, places & milestones/);
   assert.match(runtime,/v152-research-secondary/);
-  assert.match(css,/v15\.2 — family home polish/);
+  assert.match(css,/dashboard-family-layout/);
+  assert.match(css,/v152-research-secondary/);
 });
 
-test('family-focus layer remains bundled beneath the native current release',()=>{
+test('family-focus behavior remains bundled with historical CSS fully retired',()=>{
   const shellVersion=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/),buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);assert.equal(shellVersion,buildVersion);const escaped=shellVersion.replaceAll('.','\\.');
   assert.match(index,new RegExp(`data-ui-release="${escaped}"`));
   assert.match(index,new RegExp(`styles\\.css\\?v=${escaped}`));
@@ -48,8 +50,9 @@ test('family-focus layer remains bundled beneath the native current release',()=
   assert.match(entry,/src\/runtime\/index\.js/);
   assert.match(experience,/\.\.\/\.\.\/v15-family-focus\.js/);
   assert.match(build,/app-entry\.js/);
-  assert.match(styleRoot,/legacy-compat\.generated\.css/);
-  assert.match(build,/'v15-family-focus\.css'/);
+  assert.doesNotMatch(styleRoot,/legacy-compat\.generated\.css/);
+  assert.match(build,/const legacyStyleSources=\[\]/);
+  assert.equal(fs.existsSync('v15-family-focus.css'),false);
   assert.match(build,/shell\.replace\(/);
 });
 

@@ -4,7 +4,7 @@ import fs from'node:fs';
 
 const runtime=fs.readFileSync('src/runtime/mobile-family-density.js','utf8');
 const platform=fs.readFileSync('platform-v13-runtime.js','utf8');
-const styles=fs.readFileSync('src/styles/v16-1.css','utf8');
+const styles=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
@@ -43,9 +43,10 @@ test('family footer strips build diagnostics while research remains reachable',(
   assert.doesNotMatch(runtime,/build-info/);
 });
 
-test('v16.1 presentation remains ordered after v16 inside the generated compatibility boundary',()=>{
-  assert.match(styleRoot,/@import '\.\/legacy-compat\.generated\.css';/);
-  const v16=build.indexOf("'src/styles/v16.css'"),v161=build.indexOf("'src/styles/v16-1.css'");assert.ok(v16>=0&&v161>v16,'v16.1 must follow v16 in the compatibility manifest');
+test('v16.1 presentation is retained under semantic module ownership',()=>{
+  assert.doesNotMatch(styleRoot,/legacy-compat\.generated\.css/);
+  assert.match(build,/const legacyStyleSources=\[\]/);
+  assert.equal(fs.existsSync('src/styles/v16-1.css'),false);
   assert.match(experience,/import\('\.\/mobile-family-density\.js'\)/);
   for(const token of['v161-tree-toolbar','v161-people','v161-media-filters','v161-research-band','v158-mobile-more'])assert.match(styles,new RegExp(token));
 });

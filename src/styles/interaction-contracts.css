@@ -1,0 +1,53 @@
+/* Cross-module interaction contracts.
+ *
+ * This semantic layer is intentionally last. It owns presentation contracts
+ * shared by multiple route modules where source-order is part of behavior.
+ */
+
+/* Relationship rows belong to the tree/evidence interaction model. Research
+ * list-card styling must not collapse their six-column desktop structure. */
+.relationship-row{
+  display:grid;
+  grid-template-columns:120px minmax(160px,1fr) 20px minmax(160px,1fr) minmax(220px,1.3fr) auto;
+  gap:12px;
+  align-items:center;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:14px;
+}
+
+@media(max-width:1180px){
+  .relationship-row{grid-template-columns:90px 1fr 16px 1fr}
+  .relationship-row small,.relationship-row .deep-link{grid-column:2/-1}
+}
+
+@media(max-width:720px){
+  .relationship-row{grid-template-columns:1fr;gap:6px}
+  .relationship-row>b{display:none}
+  .relationship-row small,.relationship-row .deep-link{grid-column:auto}
+}
+
+/* Media browsing intentionally keeps the contextual archive search visible.
+ * The generic media-browse shell hides route filters; Family mode is the
+ * explicit exception and must win after all route modules are composed. */
+body[data-v158-context="family"][data-route="media"] .route-shell .filters{
+  display:block!important;
+  margin-top:10px!important;
+}
+body[data-v158-context="family"][data-route="media"] .route-shell .filters>label:not(.search),
+body[data-v158-context="family"][data-route="media"] .route-shell .filters>button{
+  display:none!important;
+}
+body[data-v158-context="family"][data-route="media"] .route-shell .filters .search{
+  display:block!important;
+}
+body[data-v158-context="family"][data-route="media"] .route-shell .filters .search input{
+  min-height:44px!important;
+}
+
+/* The routed tree is repeatedly reconstructed as scope/focus changes. Avoid
+ * restarting entrance motion on the context controller itself: a moving
+ * controller is not a stable pointer target and can also create resize churn
+ * while the tree persistence controller is restoring state. */
+.v174-tree-context{animation:none!important}

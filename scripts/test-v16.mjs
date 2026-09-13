@@ -8,7 +8,7 @@ const stories=fs.readFileSync('src/runtime/stories-view.js','utf8');
 const storiesRuntime=fs.readFileSync('src/runtime/stories-runtime.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const styles=fs.readFileSync('src/styles/index.css','utf8');
-const v16=fs.readFileSync('src/styles/v16.css','utf8');
+const v16=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
@@ -44,10 +44,10 @@ test('normalized stories schema contains dated and qualified source-controlled e
   assert.ok(rows.some(event=>/SUPPORTED|PROVISIONAL|UNRESOLVED|REJECTED/i.test(String(event?.evidenceState||event?.state||''))));
 });
 
-test('v16 semantic stylesheet remains compatibility input before the current semantic design system',()=>{
-  assert.match(styles,/@import '\.\/legacy-compat\.generated\.css';/);
-  assert.match(build,/'src\/styles\/v16\.css'/);
-  const compat=styles.indexOf("@import './legacy-compat.generated.css';"),tokens=styles.indexOf("@import './tokens.css';");assert.ok(compat>=0&&tokens>compat);
+test('v16 presentation is owned by the current semantic design system',()=>{
+  assert.doesNotMatch(styles,/legacy-compat\.generated\.css/);
+  assert.match(build,/const legacyStyleSources=\[\]/);
+  assert.equal(fs.existsSync('src/styles/v16.css'),false);
   for(const token of['--v16-page-max','data-route="tree"','data-route="people"','data-route="person"','data-route="media"','v16-stories'])assert.match(v16,new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
   assert.match(v16,/topbar-actions\{display:none\}/);
   assert.match(v16,/\.v1510-profile-tabs\{[\s\S]*position:static!important/);

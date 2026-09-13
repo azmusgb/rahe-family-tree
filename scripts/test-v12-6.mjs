@@ -4,7 +4,7 @@ import fs from 'node:fs';
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const audit=JSON.parse(fs.readFileSync('public/semantic-audit.json','utf8'));
 const ui=fs.readFileSync('src/runtime/family-mode.js','utf8');
-const css=fs.readFileSync('v12-6.css','utf8');
+const css=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const atLeast=x=>{const[a=0,b=0,c=0]=String(x).split('.').map(Number);return a>12||a===12&&(b>6||b===6&&c>=0);};
 test('v12.6 defaults to family-first mode',()=>{assert(atLeast(model.meta.release));assert.equal(model.familyExperienceRedesign.defaultMode,'family');assert.match(model.familyExperienceRedesign.homeRule,/default home experience/i);});
 test('research workbench remains available',()=>{assert.match(model.familyExperienceRedesign.modes.research,/Full evidence workbench/i);assert.match(ui,/Research mode/);assert.match(ui,/Family view/);});

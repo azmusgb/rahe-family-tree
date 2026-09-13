@@ -1,3 +1,10 @@
+/* Migrated live selectors from retired release CSS.
+ * These rules remain below the semantic ownership boundary and are now
+ * maintained by this module; obsolete selector arms were removed during migration. */
+.family-context-grid,.place-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+
+.family-context-grid article,.place-grid article{padding:14px;border:1px solid var(--line,#d8ddd9);border-radius:14px;background:rgba(255,255,255,.7)}
+
 /* Explore — Timeline and Places get distinct editorial grammar. */
 body[data-route="timeline"][data-v158-context="family"] #content>.panel,
 body[data-route="migration"][data-v158-context="family"] #content>.panel{
