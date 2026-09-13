@@ -16,15 +16,22 @@ const cssRoot=fs.readFileSync('src/styles/index.css','utf8');
 const shellCss=fs.readFileSync('src/styles/archive-shell.css','utf8');
 const branchCss=fs.readFileSync('src/styles/branches.css','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
+const releaseOf=(text,pattern)=>{const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];};
 
-test('v17.5 release fingerprints are synchronized',()=>{
-  assert.match(entry,/APP_VERSION='17\.5\.0'/);
-  assert.match(core,/UI_RELEASE='17\.5\.0'/);
-  assert.match(core,/family\.archive\.uiReload\.v17\.5/);
-  assert.match(build,/const appVersion='17\.5\.0'/);
-  assert.match(shell,/data-ui-release="17\.5\.0"/);
-  assert.match(shell,/styles\.css\?v=17\.5\.0/);
-  assert.match(shell,/app\.bundle\.js\?v=17\.5\.0/);
+test('v17.5+ release fingerprints remain synchronized',()=>{
+  const entryVersion=releaseOf(entry,/APP_VERSION='(\d+\.\d+\.\d+)'/);
+  const coreVersion=releaseOf(core,/UI_RELEASE='(\d+\.\d+\.\d+)'/);
+  const buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);
+  const shellVersion=releaseOf(shell,/data-ui-release="(\d+\.\d+\.\d+)"/);
+  assert.equal(entryVersion,coreVersion);
+  assert.equal(entryVersion,buildVersion);
+  assert.equal(entryVersion,shellVersion);
+  const [major,minor]=entryVersion.split('.').map(Number);
+  assert.ok(major>17||(major===17&&minor>=5));
+  const escaped=entryVersion.replaceAll('.','\\.');
+  assert.match(core,new RegExp(`family\\.archive\\.uiReload\\.v${major}\\.${minor}`));
+  assert.match(shell,new RegExp(`styles\\.css\\?v=${escaped}`));
+  assert.match(shell,new RegExp(`app\\.bundle\\.js\\?v=${escaped}`));
 });
 
 test('Home no longer puts the search/filter bar above the hero',()=>{
