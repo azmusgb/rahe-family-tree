@@ -35,7 +35,7 @@ completeness.failed=Array.isArray(completeness.failed)
 await writeFile('dist/canonical-completeness.json',JSON.stringify(completeness,null,2));
 
 const model=JSON.parse(await readFile('public/research-model.json','utf8'));
-const appVersion='17.2.0';
+const appVersion='17.3.0';
 const genealogySchemaVersion='13.0';
 const canonicalSourceVersion='10.0';
 const buildInfo={
