@@ -15,13 +15,12 @@ const unifiedCss=fs.readFileSync('src/styles/unified-family.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
-test('v17.2 release fingerprints are synchronized',()=>{
+test('current browser release fingerprints advance without breaking the v17.2 tree contract',()=>{
   assert.match(index,/data-ui-release="17\.2\.0"/);
-  assert.match(index,/styles\.css\?v=17\.2\.0/);
-  assert.match(index,/app\.bundle\.js\?v=17\.2\.0/);
-  assert.match(entry,/APP_VERSION='17\.2\.0'/);
-  assert.match(experience,/UI_RELEASE='17\.2\.0'/);
-  assert.match(build,/const appVersion='17\.2\.0'/);
+  assert.match(entry,/APP_VERSION='17\.3\.0'/);
+  assert.match(experience,/UI_RELEASE='17\.3\.0'/);
+  assert.match(build,/const appVersion='17\.3\.0'/);
+  assert.match(build,/shell\.replaceAll\('17\.2\.0',appVersion\)/);
 });
 
 test('plain tree entry uses the largest branch-neutral connected-family component',()=>{
