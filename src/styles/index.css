@@ -1,7 +1,7 @@
 /* Family design-system composition root.
  *
  * The production cascade has one explicit historical compatibility boundary.
- * scripts/build.mjs deterministically collapses the frozen numbered release
+ * scripts/build.mjs deterministically collapses frozen compatibility-owned release
  * styles into legacy-compat.generated.css before bundling. Current presentation
  * belongs in the semantic modules below; do not add new version-numbered CSS.
  */
@@ -23,7 +23,6 @@
 @import './media.css';
 @import './explore.css';
 @import './research.css';
-@import './record-ingestion.css';
 @import './mobile-family.css';
 @import './responsive.css';
 @import './elevation.css';
