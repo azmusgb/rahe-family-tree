@@ -17,19 +17,22 @@ const diff=json('public/canonical-diff.json');
 const completeness=json('public/canonical-completeness.json');
 
 const releaseOf=(text,pattern)=>{const m=text.match(pattern);assert.ok(m,'release fingerprint missing');return m[1];};
+const atLeast=(version,major,minor)=>{const[a,b]=version.split('.').map(Number);return a>major||(a===major&&b>=minor);};
 
-test('v18 release fingerprints are synchronized',()=>{
+test('v18 canonical-platform release fingerprints remain synchronized',()=>{
   const versions=[
     releaseOf(entry,/APP_VERSION='(\d+\.\d+\.\d+)'/),
     releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/),
     releaseOf(shell,/data-ui-release="(\d+\.\d+\.\d+)"/),
     releaseOf(experience,/UI_RELEASE='(\d+\.\d+\.\d+)'/)
   ];
-  assert.deepEqual(new Set(versions),new Set(['18.0.0']));
-  assert.match(shell,/styles\.css\?v=18\.0\.0/);
-  assert.match(shell,/app\.bundle\.js\?v=18\.0\.0/);
-  assert.match(experience,/family\.archive\.uiReload\.v18\.0/);
-  assert.match(build,/releaseTrain:'v18-canonical-platform'/);
+  assert.equal(new Set(versions).size,1);
+  const version=versions[0];assert.ok(atLeast(version,18,0));
+  const escaped=version.replaceAll('.','\\.');
+  assert.match(shell,new RegExp(`styles\\.css\\?v=${escaped}`));
+  assert.match(shell,new RegExp(`app\\.bundle\\.js\\?v=${escaped}`));
+  const[major,minor]=version.split('.').map(Number);assert.match(experience,new RegExp(`family\\.archive\\.uiReload\\.v${major}\\.${minor}`));
+  assert.match(build,/releaseTrain:'v18(?:-canonical-platform|-5-research-automation)'/);
 });
 
 test('canonical platform surfaces remain wired into the runtime',()=>{
