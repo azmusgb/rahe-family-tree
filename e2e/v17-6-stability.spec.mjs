@@ -1,6 +1,7 @@
 import{test,expect}from'@playwright/test';
 
 const HAZEL='P-HAZEL-EMMA-BERG-DENNEWITZ';
+const versionAtLeast=(version,major,minor)=>{const[a,b]=String(version||'').split('.').map(Number);return Number.isFinite(a)&&Number.isFinite(b)&&(a>major||(a===major&&b>=minor));};
 async function mockApis(page){
   await page.route('**/api/media**',async route=>{const url=new URL(route.request().url());if(url.searchParams.has('file'))return route.fulfill({status:404,contentType:'text/plain',body:'not found'});return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,media:[],authenticated:false,canUpload:false,canEdit:false,user:null})});});
   await page.route('**/api/auth**',async route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,authenticated:false,user:null})}));
@@ -10,7 +11,8 @@ test.beforeEach(async({page})=>{await mockApis(page);});
 
 test('v17.6 runtime mounts and tree tools survive repeated navigation',async({page})=>{
   await page.goto(`/?focus=${HAZEL}&scope=family&depth=2#tree`);
-  await expect(page.locator('html')).toHaveAttribute('data-ui-release','17.6.0');
+  const release=await page.locator('html').getAttribute('data-ui-release');
+  expect(versionAtLeast(release,17,6)).toBe(true);
   await expect(page.locator('html')).toHaveAttribute('data-v176','ready');
   await expect(page.locator('[data-v176-tools]')).toBeVisible();
   await page.goto('/#people');

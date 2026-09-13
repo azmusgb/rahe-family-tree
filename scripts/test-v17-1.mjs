@@ -30,7 +30,8 @@ test('v17.1 mobile capabilities remain intact under the current release',()=>{
   assert.ok(atLeast(entryVersion,17,1));
   assert.match(index,new RegExp(`styles\\.css\\?v=${shellVersion.replaceAll('.','\\.')}`));
   assert.match(index,new RegExp(`app\\.bundle\\.js\\?v=${shellVersion.replaceAll('.','\\.')}`));
-  assert.match(experience,/uiReload\.v17\.\d+/);
+  const [major,minor]=coreVersion.split('.').map(Number);
+  assert.match(experience,new RegExp(`uiReload\\.v${major}\\.${minor}`));
   assert.match(build,/shell\.replace\(/);
 });
 

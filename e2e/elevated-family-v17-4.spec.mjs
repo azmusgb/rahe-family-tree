@@ -9,6 +9,8 @@ async function mockApis(page){
   await page.route('**/api/family-sync**',async route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,authenticated:false})}));
 }
 
+const versionAtLeast=(version,major,minor)=>{const[a,b]=String(version||'').split('.').map(Number);return Number.isFinite(a)&&Number.isFinite(b)&&(a>major||(a===major&&b>=minor));};
+
 test.beforeEach(async({page})=>{await mockApis(page);});
 
 test('Home adds a family continuation rail',async({page})=>{
@@ -48,8 +50,9 @@ test('Tree context switcher changes scope using the existing tree engine',async(
   await expect(page.locator('.v174-tree-scope button.active')).toHaveText('Ancestors');
 });
 
-test('v17.4+ shell fingerprint is visible',async({page})=>{
+test('v17.4+ shell contract remains visible in the current release',async({page})=>{
   await page.goto('/#dashboard');
-  await expect(page.locator('html')).toHaveAttribute('data-ui-release',/17\.[4-9]\.0/);
-  await expect(page.locator('.version')).toContainText(/v17\.[4-9]\.0/);
+  const release=await page.locator('html').getAttribute('data-ui-release');
+  expect(versionAtLeast(release,17,4)).toBe(true);
+  await expect(page.locator('.version')).toContainText(`v${release}`);
 });

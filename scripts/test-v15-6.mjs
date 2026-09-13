@@ -20,7 +20,7 @@ test('v15.6 family archive material remains compatibility input beneath the sema
   for(const token of['--bg:#f3f5f1','--surface:#fff','--ink:#18201d','--green:#173f35','--brand-soft:#e8f0eb','--line:#dce3dd','--focus:#2a6b5b'])assert.match(css,new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
 });
 
-test('v15.6 keeps the shared masthead material used under v17',()=>{
+test('v15.6 keeps the shared masthead material used under later releases',()=>{
   assert.match(css,/Preserve the horizontal v15\.5 shell/);
   assert.doesNotMatch(css,/--sidebar-w/);
   assert.match(css,/@media \(min-width:721px\)[\s\S]*\.sidebar/);
@@ -57,10 +57,11 @@ test('browser release assets and freshness guard track the current release',()=>
   assert.match(build,/shell\.replace\(/);
   assert.match(build,/outfile=dist\/styles\.css/);
   assert.match(build,/browserAssets:\['app\.bundle\.js','styles\.css'\]/);
-  assert.match(experience,/family\.archive\.uiReload\.v17\.\d+/);
+  const [major,minor]=coreVersion.split('.').map(Number);
+  assert.match(experience,new RegExp(`family\\.archive\\.uiReload\\.v${major}\\.${minor}`));
 });
 
-test('v17 release shell cannot alter canonical genealogy semantics',()=>{
+test('current release shell cannot alter canonical genealogy semantics',()=>{
   assert.equal(model.meta.release,'13.0');
   const bridge=(model.relationships||[]).find(r=>r.type==='identity-bridge');
   assert.ok(bridge);

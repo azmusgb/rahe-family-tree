@@ -3,9 +3,12 @@ import assert from'node:assert/strict';
 import fs from'node:fs';
 
 const read=path=>fs.readFileSync(new URL(`../${path}`,import.meta.url),'utf8');
+const releaseOf=(text,pattern)=>{const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];};
+const atLeast=(version,major,minor)=>{const[a,b]=version.split('.').map(Number);return a>major||(a===major&&b>=minor);};
 
-test('v17.6 release fingerprint and stability layer are wired',()=>{
-  assert.match(read('app-entry.js'),/APP_VERSION='17\.6\.0'/);
+test('v17.6 stability layer remains wired in later releases',()=>{
+  const version=releaseOf(read('app-entry.js'),/APP_VERSION='(\d+\.\d+\.\d+)'/);
+  assert.ok(atLeast(version,17,6));
   assert.match(read('src/runtime/experience.js'),/v17-6-stability\.js/);
   const runtime=read('src/runtime/v17-6-stability.js');
   assert.match(runtime,/family\.archive\.treeState\.v17\.6/);
