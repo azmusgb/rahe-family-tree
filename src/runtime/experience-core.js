@@ -3,10 +3,10 @@
 // Family route content is rendered by the native v17 archive controller.
 import{personById}from'../../core.js';
 
-const UI_RELEASE='17.5.0';
+const UI_RELEASE='17.6.0';
 const RECENT_KEY='family.archive.recentPeople.v2';
 const LEGACY_RECENT_KEYS=['rahe.family.recentPeople.v1','rahe.family.recent-people.v1'];
-const STALE_RELOAD_KEY='family.archive.uiReload.v17.5';
+const STALE_RELOAD_KEY='family.archive.uiReload.v17.6';
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const routeId=()=>location.hash.slice(1).split('/')[1]||'';
 const isFamilyMode=()=>document.body.dataset.experience!=='research';
@@ -78,5 +78,4 @@ window.addEventListener('family-view-rendered',schedule);
 window.addEventListener('family-edits-changed',schedule);
 window.addEventListener('family-media-changed',schedule);
 window.addEventListener('family-auth-changed',schedule);
-window.addEventListener('family-auth-ui-refresh',schedule);
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
