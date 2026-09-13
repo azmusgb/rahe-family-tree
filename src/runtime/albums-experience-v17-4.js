@@ -13,7 +13,7 @@ const decadeOf=item=>{const year=eventYear(item?.eventDate);return year?Math.flo
 const linkedPeople=item=>(item?.personIds||[]).map(personById).filter(Boolean);
 const branchNames=item=>[...new Set(linkedPeople(item).map(person=>String(person.branch||'').trim()).filter(Boolean))];
 const unsafePublicPerson=person=>Boolean(person?.living)||/UNRESOLVED|REJECTED/i.test(String(person?.state||''));
-const publicSafe=item=>item?.visibility==='public'&&!linkedPeople(item).some(unsafePublicPerson);
+const publicSafe=item=>{if(item?.visibility!=='public')return false;const ids=Array.isArray(item?.personIds)?item.personIds:[],people=ids.map(personById);return people.every(Boolean)&&!people.some(unsafePublicPerson);};
 const visibleAlbumItems=()=>authenticated?(cache||[]):(cache||[]).filter(publicSafe);
 
 async function fetchAlbums(force=false){
