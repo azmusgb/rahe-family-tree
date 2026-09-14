@@ -5,6 +5,7 @@ on:
     branches: [refactor/css-architecture-consolidation]
     paths:
       - scripts/css-architecture-migrate.mjs
+      - .github/workflows/css-architecture-migrate.yml
 
 permissions:
   contents: write
