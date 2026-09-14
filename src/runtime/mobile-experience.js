@@ -1,7 +1,6 @@
 const MOBILE_QUERY='(max-width: 720px)';
-const PAGE_SIZE=18;
-let visiblePeople=PAGE_SIZE;
 let lastTrigger=null;
+let observerQueued=false;
 
 const isMobile=()=>window.matchMedia(MOBILE_QUERY).matches;
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
@@ -45,7 +44,6 @@ function openMore(details){
 function enhanceMoreMenu(){
   const details=moreMenu();
   if(!details||details.dataset.mobileSheet==='true')return;
-  details.dataset.mobileSheet='true';
   const summary=details.querySelector('summary');
   const panel=morePanel(details);
   if(!summary||!panel)return;
@@ -54,8 +52,9 @@ function enhanceMoreMenu(){
   panel.setAttribute('role','dialog');
   panel.setAttribute('aria-modal','true');
   panel.setAttribute('aria-label','More family navigation');
-  panel.insertAdjacentHTML('afterbegin','<div class="mobile-more-head"><strong>More</strong><button type="button" data-mobile-more-close aria-label="Close menu">Close</button></div>');
+  if(!panel.querySelector('.mobile-more-head'))panel.insertAdjacentHTML('afterbegin','<div class="mobile-more-head"><strong>More</strong><button type="button" data-mobile-more-close aria-label="Close menu">Close</button></div>');
   details.addEventListener('toggle',()=>details.open?openMore(details):closeMore({restoreFocus:false}));
+  details.dataset.mobileSheet='true';
 }
 
 function focusableIn(element){
@@ -74,33 +73,6 @@ function trapSheetFocus(event){
   else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
 }
 
-function visiblePersonCards(){
-  const content=document.getElementById('content');
-  if(!content)return[];
-  const cards=[...content.querySelectorAll('.v17-person-card,.v159-person-card,.person-card')];
-  return cards.filter(card=>!card.hidden&&getComputedStyle(card).display!=='none');
-}
-
-function progressivePeople({reset=false}={}){
-  if(!isMobile()||routeKey()!=='people')return;
-  if(reset)visiblePeople=PAGE_SIZE;
-  const content=document.getElementById('content');if(!content)return;
-  content.classList.add('mobile-people-progressive');
-  const cards=visiblePersonCards();
-  cards.forEach((card,index)=>card.classList.toggle('mobile-progressive-hidden',index>=visiblePeople));
-  let control=content.querySelector('.mobile-people-more');
-  if(cards.length<=visiblePeople){control?.remove();return;}
-  if(!control){
-    control=document.createElement('button');
-    control.type='button';
-    control.className='mobile-people-more';
-    control.addEventListener('click',()=>{visiblePeople+=PAGE_SIZE;progressivePeople();});
-    (content.querySelector('.v17-people-grid,.people-grid')||content).insertAdjacentElement('afterend',control);
-  }
-  control.textContent=`Show ${Math.min(PAGE_SIZE,cards.length-visiblePeople)} more people`;
-  control.setAttribute('aria-label',`${cards.length-visiblePeople} more people available`);
-}
-
 function compactTreeSurface(){
   const content=document.getElementById('content');
   if(!content||routeKey()!=='tree'||!isMobile())return;
@@ -111,17 +83,21 @@ function compactTreeSurface(){
 
 function apply(){
   enhanceMoreMenu();
-  progressivePeople();
   compactTreeSurface();
   if(!isMobile())closeMore({restoreFocus:false});
 }
 
-function schedule({peopleReset=false}={}){
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    enhanceMoreMenu();
-    progressivePeople({reset:peopleReset});
-    compactTreeSurface();
-  }));
+function schedule(){
+  requestAnimationFrame(()=>requestAnimationFrame(apply));
+}
+
+function observeNavigationShell(){
+  const observer=new MutationObserver(()=>{
+    if(observerQueued)return;
+    observerQueued=true;
+    requestAnimationFrame(()=>{observerQueued=false;enhanceMoreMenu();});
+  });
+  observer.observe(document.documentElement,{childList:true,subtree:true});
 }
 
 document.addEventListener('click',event=>{
@@ -129,10 +105,9 @@ document.addEventListener('click',event=>{
   if(event.target.closest('#family-mobile-dock .mobile-more a'))closeMore({restoreFocus:false});
 });
 document.addEventListener('keydown',trapSheetFocus);
-document.addEventListener('input',event=>{if(routeKey()==='people'&&event.target.closest('#filters,.route-shell'))setTimeout(()=>schedule({peopleReset:true}),0);});
-document.addEventListener('change',event=>{if(routeKey()==='people'&&event.target.closest('#filters,.route-shell'))setTimeout(()=>schedule({peopleReset:true}),0);});
-window.addEventListener('hashchange',()=>{closeMore({restoreFocus:false});visiblePeople=PAGE_SIZE;schedule({peopleReset:true});});
+window.addEventListener('hashchange',()=>{closeMore({restoreFocus:false});schedule();});
 window.addEventListener('resize',apply,{passive:true});
-window.addEventListener('family-view-rendered',()=>schedule({peopleReset:true}));
-window.addEventListener('family-native-rendered',()=>schedule({peopleReset:true}));
+window.addEventListener('family-view-rendered',schedule);
+window.addEventListener('family-native-rendered',schedule);
+observeNavigationShell();
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',apply):apply();
