@@ -35,7 +35,7 @@ test('desktop utility bar is replaced while family research mode remains reachab
   assert.match(runtime,/data-v155-mode/);
   assert.match(runtime,/data-ui-command/);
   assert.match(runtime,/toggle-experience/);
-  assert.match(css,/\.topbar\{display:none!important\}/);
+  assert.match(css,/\.topbar\{display:none\}/);
   assert.match(css,/\.v155-original-actions\{display:none!important\}/);
 });
 
