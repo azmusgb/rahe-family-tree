@@ -19,6 +19,7 @@ void import('./record-ingestion.js');
 void import('./stories-runtime.js');
 void import('./mobile-family-density.js');
 void import('./family-narrative.js');
+void import('./mobile-experience.js');
 void import('./unified-family-experience.js');
 void import('./family-branches-v17-5.js');
 void import('./person-experience-v17-3.js');
