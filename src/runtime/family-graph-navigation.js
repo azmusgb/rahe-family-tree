@@ -41,18 +41,18 @@ function visibleTargets(focus){
     .sort((a,b)=>cleanName(personById(a)?.name).localeCompare(cleanName(personById(b)?.name)));
 }
 
-function restoreMovedControls(){
-  const existing=document.querySelector('.family-graph-commandbar'),advanced=document.querySelector('.tree-advanced-nav');
-  if(!existing||!advanced)return;
-  const primary=existing.querySelector('.tree-advanced-primary');if(primary)advanced.prepend(primary);
-  const recent=existing.querySelector('.tree-recent-trail');if(recent)advanced.append(recent);
-}
-
 function installCommandbar(){
-  if(route()!=='tree')return;
-  const graph=document.querySelector('.graph-shell');if(!graph)return;
-  restoreMovedControls();
-  document.querySelector('.family-graph-commandbar')?.remove();
+  if(route()!=='tree')return false;
+  const graph=document.querySelector('.graph-shell');if(!graph)return false;
+  const existing=document.querySelector('.family-graph-commandbar');
+  const advanced=document.querySelector('.tree-advanced-nav');
+  // The advanced-tree runtime is the authority for component/collapse/compact/export
+  // controls. Rebuild this composition only after that runtime has emitted a fresh
+  // source set. This prevents a navigation-only refresh from destroying controls
+  // that were deliberately moved into the disclosure on the prior render.
+  const freshPrimary=advanced?.querySelector(':scope > .tree-advanced-primary');
+  if(existing&&!freshPrimary)return false;
+  existing?.remove();
   const{focus,scope,depth,pathTo}=urlState(),focusPerson=personById(focus),targets=visibleTargets(focus);
   const bar=document.createElement('section');bar.className='family-graph-commandbar';bar.setAttribute('aria-label','Family tree navigation');bar.dataset.familyGraphNavigation='true';
   bar.innerHTML=`
@@ -75,6 +75,7 @@ function installCommandbar(){
       <details class="family-graph-tools"><summary>Tree tools</summary><div data-family-graph-tools-slot></div></details>
     </div>`;
   const summary=document.querySelector('.family-graph-summary');(summary||graph).insertAdjacentElement('beforebegin',bar);
+  return true;
 }
 
 function consolidateLegacyControls(){
@@ -83,9 +84,10 @@ function consolidateLegacyControls(){
   const advanced=document.querySelector('.tree-advanced-nav');
   if(advanced){
     advanced.classList.add('family-graph-advanced-source');
-    const primary=advanced.querySelector('.tree-advanced-primary');if(primary&&!slot.contains(primary))slot.append(primary);
-    const recent=advanced.querySelector('.tree-recent-trail');if(recent&&!slot.contains(recent))slot.append(recent);
+    const primary=advanced.querySelector(':scope > .tree-advanced-primary');if(primary)slot.append(primary);
+    const recent=advanced.querySelector(':scope > .tree-recent-trail');if(recent)slot.append(recent);
   }
+  const exportTools=document.querySelector('.graph-toolbar [data-tree-advanced-export]');if(exportTools)slot.append(exportTools);
   const focusbar=document.querySelector('.tree-focusbar');if(focusbar)focusbar.classList.add('family-graph-focusbar-source');
   const pathTools=document.querySelector('[data-tree-path-tools]');if(pathTools)pathTools.classList.add('family-graph-path-source');
 }
@@ -99,8 +101,8 @@ function annotateSummary(){
 }
 
 function reconcile(){
-  if(route()!=='tree'){restoreMovedControls();document.querySelector('.family-graph-commandbar')?.remove();return;}
-  installCommandbar();consolidateLegacyControls();annotateSummary();
+  if(route()!=='tree'){document.querySelector('.family-graph-commandbar')?.remove();return;}
+  const rebuilt=installCommandbar();if(rebuilt)consolidateLegacyControls();annotateSummary();
 }
 let queued=false;function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;reconcile();}));}
 
@@ -113,5 +115,5 @@ document.addEventListener('click',event=>{
   const depth=event.target.closest?.('[data-family-graph-depth]');if(depth){event.preventDefault();replaceState({scope:'family',depth:Number(depth.dataset.familyGraphDepth),pathTo:''});return;}
   if(event.target.closest?.('[data-family-graph-clear-path]')){event.preventDefault();replaceState({pathTo:''});}
 });
-window.addEventListener('hashchange',schedule);window.addEventListener('popstate',schedule);window.addEventListener('family-view-rendered',schedule);window.addEventListener('family-native-rendered',schedule);window.addEventListener('resize',schedule,{passive:true});
+window.addEventListener('hashchange',schedule);window.addEventListener('popstate',schedule);window.addEventListener('family-view-rendered',schedule);window.addEventListener('family-native-rendered',schedule);
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
