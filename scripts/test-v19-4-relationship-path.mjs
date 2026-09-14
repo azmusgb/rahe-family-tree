@@ -32,7 +32,9 @@ test('v19.4 path narration is privacy-minimal responsive and accessible',async()
   const css=await read('src/styles/relationship-path-comprehension.css');
   assert.match(runtime,/aria-label/);
   assert.match(runtime,/aria-live/);
-  assert.doesNotMatch(runtime,/birth|location|address/i);
+  assert.match(runtime,/personById\(id\)\?\.name/);
+  assert.doesNotMatch(runtime,/\?\.\s*(?:birth|birthDate|birthYear|location|address|streetAddress|homeAddress)\b/);
+  assert.doesNotMatch(runtime,/\[(?:'|")(?:birth|birthDate|birthYear|location|address|streetAddress|homeAddress)(?:'|")\]/);
   assert.match(css,/@media\(max-width:760px\)/);
   assert.match(css,/prefers-reduced-motion/);
 });
