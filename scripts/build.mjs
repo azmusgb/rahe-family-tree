@@ -5,7 +5,7 @@ import {promisify} from'node:util';
 const run=promisify(execFile);
 const ESBUILD_VERSION='0.25.10';
 const NPX=process.platform==='win32'?'npx.cmd':'npx';
-const appVersion='18.0.0';
+const appVersion='18.5.0';
 
 const legacyStyleSources=[];
 const generatedLegacyStyle=null;
@@ -14,7 +14,7 @@ await rm('dist',{recursive:true,force:true});
 await mkdir('dist');
 await copyFile('index.html','dist/index.html');
 const shell=await readFile('dist/index.html','utf8');
-await writeFile('dist/index.html',shell.replace(/\d+\.\d+\.\d+/g,match=>match==='18.0.0'?match:match.startsWith('17.')?appVersion:match));
+await writeFile('dist/index.html',shell.replace(/\b(?:17|18)\.\d+\.\d+\b/g,match=>match===appVersion?match:appVersion));
 
 async function esbuild(args){
   const {stdout,stderr}=await run(NPX,['--yes',`esbuild@${ESBUILD_VERSION}`,...args],{
@@ -53,7 +53,7 @@ const buildInfo={
   sourceSha256:model.meta.sourceSha256,
   builtAt:new Date().toISOString(),
   experience:appVersion,
-  releaseTrain:'v18-canonical-platform',
+  releaseTrain:'v18-5-research-intelligence',
   bundler:`esbuild@${ESBUILD_VERSION}`,
   browserAssets:['app.bundle.js','styles.css'],
   styleSystem:{
