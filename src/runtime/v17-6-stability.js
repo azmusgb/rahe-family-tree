@@ -1,15 +1,16 @@
 // v17.6 final v17 stabilization layer.
-// Presentation/runtime only: never mutates canonical people, relationships,
-// claims, evidence states, source records, or genealogy authority.
+// State/auth stabilization only: Tree DOM presentation is owned by the
+// consolidated advanced tree controller. This module never mutates canonical
+// people, relationships, claims, evidence states, source records, or genealogy
+// authority.
 import{refreshAuth}from'../../auth.js';
 
 const TREE_KEY='family.archive.treeState.v17.6';
 const validScopes=new Set(['family','ancestors','descendants','direct','connected','all']);
 const route=()=>location.hash.slice(1).split('/')[0]||'dashboard';
-const reducedMotion=()=>matchMedia?.('(prefers-reduced-motion: reduce)')?.matches===true;
 const safeJson=(raw,fallback={})=>{try{return JSON.parse(raw)||fallback;}catch{return fallback;}};
 const readTreeState=()=>safeJson(localStorage.getItem(TREE_KEY)||'{}');
-const writeTreeState=value=>{try{localStorage.setItem(TREE_KEY,JSON.stringify(value));}catch{}}
+const writeTreeState=value=>{try{localStorage.setItem(TREE_KEY,JSON.stringify(value));}catch{}};
 
 function treeStateFromUrl(){const u=new URL(location.href),focus=u.searchParams.get('focus')||'',scope=u.searchParams.get('scope')||'',depth=Number(u.searchParams.get('depth')||0);return{focus,scope:validScopes.has(scope)?scope:'',depth:[1,2,3].includes(depth)?depth:0};}
 function persistTreeState(){if(route()!=='tree')return;const next=treeStateFromUrl(),prior=readTreeState();writeTreeState({focus:next.focus||prior.focus||'',scope:next.scope||prior.scope||'connected',depth:next.depth||prior.depth||2,updatedAt:Date.now()});}
@@ -18,17 +19,11 @@ function closeStaleMedia(){if(route()==='media')return;const dialog=document.que
 function clearMediaViewer(){const dialog=document.querySelector('#media-viewer');if(!dialog)return;if(dialog.open&&typeof dialog.close==='function')dialog.close();else dialog.removeAttribute('open');for(const id of['media-viewer-stage','media-viewer-title','media-viewer-caption','media-viewer-badges','media-viewer-facts','media-viewer-people']){const node=document.getElementById(id);if(node)node.replaceChildren();}const original=document.getElementById('media-viewer-original');if(original){original.removeAttribute('href');original.removeAttribute('download');}dialog.removeAttribute('data-media-id');}
 function scrubPrivateMediaOnAuthLoss(event){if(event?.detail?.user)return;document.querySelectorAll('.media-library-card.is-private').forEach(node=>node.remove());clearMediaViewer();document.body.dataset.authState='anonymous';}
 function markAuthState(event){document.body.dataset.authState=event?.detail?.user?'authenticated':'anonymous';}
-function download(name,type,text){const blob=new Blob([text],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
-const SVG_STYLE_PROPS=['fill','fill-opacity','stroke','stroke-width','stroke-opacity','stroke-dasharray','stroke-linecap','stroke-linejoin','opacity','font-family','font-size','font-weight','font-style','text-anchor','dominant-baseline','visibility'];
-function inlineSvgPresentation(source,clone){const sourceNodes=[source,...source.querySelectorAll('*')],cloneNodes=[clone,...clone.querySelectorAll('*')];sourceNodes.forEach((node,index)=>{const target=cloneNodes[index];if(!target)return;const computed=getComputedStyle(node),rules=SVG_STYLE_PROPS.map(prop=>`${prop}:${computed.getPropertyValue(prop)}`).filter(rule=>!rule.endsWith(':')).join(';');if(rules)target.setAttribute('style',rules);});}
-function treeExport(){const svg=document.querySelector('#family-graph');if(!svg)return;const clone=svg.cloneNode(true);clone.setAttribute('xmlns','http://www.w3.org/2000/svg');clone.setAttribute('version','1.1');inlineSvgPresentation(svg,clone);download('rahe-family-tree.svg','image/svg+xml;charset=utf-8',new XMLSerializer().serializeToString(clone));}
-async function copyTreeLink(button){try{await navigator.clipboard.writeText(location.href);const prior=button.textContent;button.textContent='Link copied';setTimeout(()=>{button.textContent=prior;},1200);}catch{const input=document.createElement('textarea');input.value=location.href;input.style.position='fixed';input.style.opacity='0';document.body.append(input);input.select();document.execCommand('copy');input.remove();}}
-function enhanceTreeToolbar(){if(route()!=='tree')return;const toolbar=document.querySelector('.graph-toolbar');if(!toolbar||toolbar.querySelector('[data-v176-tools]'))return;const tools=document.createElement('span');tools.dataset.v176Tools='true';tools.className='v176-tree-tools';tools.innerHTML='<button type="button" data-v176-copy-link>Copy tree link</button><button type="button" data-v176-export-svg>Export SVG</button><button type="button" data-v176-print-tree>Print tree</button>';toolbar.append(tools);}
-function focusSelectedPerson(){if(route()!=='tree')return;const id=new URL(location.href).searchParams.get('focus');if(!id)return;const node=document.querySelector(`.graph-node[data-person="${CSS.escape(id)}"]`),scroll=document.querySelector('.graph-scroll');if(!node||!scroll)return;node.setAttribute('aria-current','true');if(document.body.dataset.v176Centered===id)return;document.body.dataset.v176Centered=id;requestAnimationFrame(()=>{const nr=node.getBoundingClientRect(),sr=scroll.getBoundingClientRect();scroll.scrollBy({left:nr.left-sr.left+nr.width/2-sr.width/2,top:nr.top-sr.top+nr.height/2-sr.height/2,behavior:reducedMotion()?'auto':'smooth'});});}
-function cleanupRouteState(){const r=route();document.body.dataset.v176Route=r;if(r!=='tree')delete document.body.dataset.v176Centered;closeStaleMedia();}
-let scheduled=false;function reconcile(){if(scheduled)return;scheduled=true;queueMicrotask(()=>requestAnimationFrame(()=>{scheduled=false;cleanupRouteState();if(restoreTreeState())return;persistTreeState();enhanceTreeToolbar();focusSelectedPerson();}));}
+function cleanupRouteState(){const r=route();document.body.dataset.v176Route=r;closeStaleMedia();}
 
-document.addEventListener('click',event=>{const exportButton=event.target.closest?.('[data-v176-export-svg]');if(exportButton){event.preventDefault();treeExport();return;}const printButton=event.target.closest?.('[data-v176-print-tree]');if(printButton){event.preventDefault();window.print();return;}const copyButton=event.target.closest?.('[data-v176-copy-link]');if(copyButton){event.preventDefault();copyTreeLink(copyButton);return;}const treeControl=event.target.closest?.('[data-tree-scope],[data-tree-depth],[data-tree-person],[data-v172-tree-branch]');if(treeControl)setTimeout(()=>{persistTreeState();reconcile();},0);},true);
+let scheduled=false;function reconcile(){if(scheduled)return;scheduled=true;queueMicrotask(()=>requestAnimationFrame(()=>{scheduled=false;cleanupRouteState();if(restoreTreeState())return;persistTreeState();}));}
+
+document.addEventListener('click',event=>{const treeControl=event.target.closest?.('[data-tree-scope],[data-tree-depth],[data-tree-person],[data-v172-tree-branch],[data-tree-component],[data-tree-recent-focus]');if(treeControl)setTimeout(()=>{persistTreeState();reconcile();},0);},true);
 window.addEventListener('family-auth-changed',event=>{markAuthState(event);scrubPrivateMediaOnAuthLoss(event);reconcile();});
 window.addEventListener('family-view-rendered',reconcile);
 window.addEventListener('family-native-rendered',reconcile);
