@@ -43,6 +43,7 @@
 @import './family-graph-v19.css';
 @import './family-graph-navigation.css';
 @import './family-graph-layout.css';
+@import './relationship-path-comprehension.css';
 
 /* Interaction contracts intentionally follow visual composition. */
 @import './interaction-contracts.css';
