@@ -18,7 +18,7 @@ test('v15.6 family archive design material is owned by the semantic system',()=>
   assert.equal(fs.existsSync('v15-6.css'),false);
   assert.equal(fs.existsSync('v15-8.css'),false);
   assert.match(build,/const legacyStyleSources=\[\]/);
-  for(const token of['--bg:#f3f5f1','--surface:#fff','--ink:#18201d','--green:#173f35','--brand-soft:#e8f0eb','--line:#dce3dd','--focus:#2a6b5b'])assert.match(css,new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
+  for(const token of['--bg:#f4f1e9','--surface:#fffdf8','--ink:#192820','--green:#123f34','--brand-soft:#e7efe9','--line:#ddd9ce','--focus:#b7832f'])assert.match(css,new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
 });
 
 test('v15.6 shared masthead behavior remains under semantic navigation ownership',()=>{
