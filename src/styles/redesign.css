@@ -454,3 +454,135 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
   }
   .v17-home-hero h1,.v17-home-hero p:not(.eyebrow),.family-home-copy h2,.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy h2,.dashboard-hero-copy>p:not(.eyebrow){color:#000}
 }
+
+/* --------------------------------------------------------------------------
+   CSS stabilization pass — calm archive composition
+   -------------------------------------------------------------------------- */
+
+/* Keep ordinary pages editorial rather than billboard-sized. */
+.page-heading{max-width:1120px;align-items:flex-start;gap:24px;margin-bottom:28px}
+.page-heading h1{font-size:clamp(2.35rem,4.2vw,4.25rem);line-height:.98;letter-spacing:-.038em}
+.page-heading>div>p:last-child,.page-heading>p:last-child{max-width:62ch;font-size:.96rem;line-height:1.62}
+
+/* Flatten generic surfaces. Cards should identify objects, not every section. */
+:where(.panel,.family-overview-card,.v17-family-summary,.v174-profile-snapshot,.graph-panel,.dossier-section){
+  box-shadow:none;
+}
+:where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.v17-person-card>button,.v17-relative){
+  box-shadow:var(--family-shadow-card);
+}
+:where(.person-card,.source-card,.v17-person-card>button,.v17-relative,.media-library-card,.dashboard-person):where(:hover,:focus-within){
+  transform:none;
+  box-shadow:var(--family-shadow-card-hover);
+}
+
+/* Controls: one quiet control language across routes. */
+:where(.action,button,input,select,textarea,.local-nav a,.local-nav button){
+  border-radius:var(--family-radius-control);
+}
+:where(.action,.filters button,.focus-actions button,.v154-tree-actions .action){
+  min-height:42px;
+}
+.filters,#filters{padding:10px;border-radius:16px;box-shadow:none;background:color-mix(in srgb,var(--paper) 92%,transparent)}
+.filters input,.filters select,#filters input,#filters select{min-height:44px;border:1px solid transparent;background:var(--surface-soft)}
+
+/* Home: preserve identity, reduce visual weight after the hero. */
+.v17-home-hero,.family-home-hero,.dashboard-hero{border-radius:24px;box-shadow:0 18px 48px rgba(18,45,36,.12)}
+.v17-home-hero,.dashboard-hero{min-height:clamp(350px,46vh,520px)}
+.v17-home-hero h1,.family-home-copy h2,.dashboard-hero-copy h2{font-size:clamp(3rem,6vw,5.6rem)}
+.v174-discovery{padding-block:clamp(32px,4vw,54px)}
+.v174-discovery-grid>button{min-height:112px;border-radius:16px;box-shadow:none}
+
+/* Person: biography first, less application chrome. */
+.v17-person-header{gap:24px;padding-block:18px 28px}
+.v17-person-header h2{font-size:clamp(2.7rem,5.2vw,4.8rem);line-height:.98}
+.v17-person-nav{top:48px;margin-inline:0;padding:7px 0;border:0;border-bottom:1px solid var(--family-border-hairline);border-radius:0;box-shadow:none}
+.v17-person-nav a{padding:8px 10px}
+.v17-person-section{padding:clamp(24px,4vw,46px) 0}
+.v17-life-event>div{background:transparent;border:0;border-radius:0;padding:0}
+.v17-family-groups{gap:14px}
+
+/* People: compact directory cards with less chrome. */
+.v17-people-grid{gap:10px}
+.v17-person-card>button{border-radius:14px;box-shadow:none}
+.v17-person-card>button:hover,.v17-person-card>button:focus-visible{box-shadow:var(--family-shadow-card)}
+.v17-branch-chip{box-shadow:none}
+
+/* Tree: controls first, canvas second; remove decorative noise. */
+.v174-tree-context{padding:16px 18px;border-radius:16px;background:var(--surface-soft);box-shadow:none}
+.v154-graph-shell,.graph-shell,.graph-panel{border-radius:18px}
+.graph-toolbar{padding:10px 12px}
+.graph-scroll{background-color:#faf9f5;background-image:none}
+.graph-node rect{filter:drop-shadow(0 3px 6px rgba(18,63,52,.055))}
+.graph-node:hover rect,.graph-node:focus rect{filter:drop-shadow(0 6px 12px rgba(18,63,52,.09))}
+body[data-route="tree"][data-v158-context="family"] .graph-shell{box-shadow:none!important}
+body[data-route="tree"][data-v158-context="family"] .graph-scroll{background:#faf9f5!important;background-image:none!important}
+body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar,
+body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{background:transparent!important}
+
+/* Footer should recede rather than become another large panel. */
+.site-footer{margin-top:clamp(40px,6vw,80px);background:transparent}
+
+/* Tablet: collapse density before the phone breakpoint. */
+@media(max-width:980px){
+  .main{padding-inline:24px}
+  .page-heading{gap:16px}
+  .page-heading h1{font-size:clamp(2.2rem,5vw,3.6rem)}
+  .v17-person-header h2{font-size:clamp(2.5rem,6vw,4rem)}
+}
+
+/* Mobile: vertical reading flow; horizontal rails only where they add real value. */
+@media(max-width:720px){
+  .main{padding:14px 14px calc(var(--mobile-nav-height) + 34px)}
+  .page-heading{display:block;margin-bottom:18px}
+  .page-heading h1{font-size:clamp(2.15rem,10.5vw,3rem);line-height:1}
+  .page-heading>div>p:last-child,.page-heading>p:last-child{font-size:.9rem;line-height:1.52}
+
+  .filters,#filters{padding:7px;border-radius:14px}
+  .filters input,.filters select,#filters input,#filters select{min-height:46px;font-size:16px}
+
+  .v17-home-hero,.family-home-hero,.dashboard-hero{min-height:380px;padding:24px 20px;border-radius:20px}
+  .v17-home-hero h1,.family-home-copy h2,.dashboard-hero-copy h2{font-size:clamp(2.7rem,13vw,4rem);line-height:.94}
+  .v174-discovery{padding-block:28px}
+
+  .v17-person-header{grid-template-columns:72px minmax(0,1fr);gap:14px;padding-block:8px 22px}
+  .v17-person-header h2{font-size:clamp(2.2rem,10vw,3.1rem);letter-spacing:-.04em}
+  .v17-person-nav{position:sticky;top:0;margin:0 -14px 10px;padding:7px 14px;background:rgba(244,241,233,.96)}
+  .v17-person-section{padding:26px 0}
+  .v17-family-groups{grid-template-columns:1fr}
+  .v17-life-timeline::before{left:66px}
+  .v17-life-event{grid-template-columns:52px minmax(0,1fr);gap:24px;padding:14px 0}
+  .v17-life-event::before{left:62px}
+
+  /* Replace the 2-column profile tab matrix with a predictable swipe row. */
+  body[data-route="person"] .v1510-profile-tabs{
+    display:flex!important;
+    gap:6px!important;
+    margin:10px -14px 14px!important;
+    padding:4px 14px 7px!important;
+    overflow-x:auto!important;
+    white-space:nowrap!important;
+    scrollbar-width:none;
+  }
+  body[data-route="person"] .v1510-profile-tabs::-webkit-scrollbar{display:none}
+  body[data-route="person"] .v1510-profile-tabs>button,
+  body[data-route="person"] .v1510-profile-tabs>a{width:auto!important;min-height:42px!important;flex:0 0 auto!important}
+  body[data-route="person"] .v1510-profile-tabs>a{grid-column:auto!important}
+
+  /* Keep utility/history content stacked instead of creating more swipe rails. */
+  .tree-context-nav,.tree-recent-history{overflow:visible;flex-wrap:wrap}
+  .v162-family-path-group>div{flex-wrap:wrap;overflow:visible}
+  .v162-places{flex-wrap:wrap;overflow:visible}
+
+  body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:60dvh!important;border-radius:14px!important}
+  body[data-route="tree"][data-v158-context="family"] .graph-stage,
+  body[data-route="tree"][data-v158-context="family"] .graph-scroll{min-height:56dvh!important}
+
+  :where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.v17-person-card>button,.v17-relative){box-shadow:none}
+}
+
+@media(max-width:430px){
+  .v17-home-hero,.family-home-hero,.dashboard-hero{min-height:350px;padding:22px 18px}
+  .v17-primary-actions{grid-template-columns:1fr}
+  .v17-primary-actions .action:first-child{grid-column:auto}
+}
