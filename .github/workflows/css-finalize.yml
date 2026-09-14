@@ -1,0 +1,34 @@
+name: Finalize CSS architecture consolidation
+
+on:
+  push:
+    branches: [refactor/css-architecture-consolidation]
+    paths:
+      - scripts/css-finalize.mjs
+      - .github/workflows/css-finalize.yml
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refactor/css-architecture-consolidation
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node scripts/css-finalize.mjs
+      - name: Commit finalized CSS architecture
+        run: |
+          rm -f scripts/css-finalize.mjs .github/workflows/css-finalize.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "Finalize CSS architecture consolidation [css-finalized]"
+          git push origin HEAD:refactor/css-architecture-consolidation
