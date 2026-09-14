@@ -29,15 +29,16 @@ jobs:
         run: git diff --exit-code -- package.json package-lock.json
       - name: Run canonical and experience regression suite
         run: npm test
-      - name: Run v17.5-v18.5 family shell, canonical platform, consolidated tree, and research intelligence gates
+      - name: Run v17.5-v19 family shell, canonical platform, consolidated tree, research intelligence, and Family Graph gates
         run: |
-          node --test scripts/test-v17-5.mjs scripts/test-v17-6.mjs scripts/test-v18.mjs scripts/test-v18-5.mjs scripts/test-tree-advanced.mjs scripts/test-research-automation.mjs
+          node --test scripts/test-v17-5.mjs scripts/test-v17-6.mjs scripts/test-v18.mjs scripts/test-v18-5.mjs scripts/test-tree-advanced.mjs scripts/test-research-automation.mjs scripts/test-v19-family-graph.mjs
           node --check src/runtime/family-branches-v17-5.js
           node --check src/runtime/navigation-shell.js
           node --check src/runtime/native-family-v17-controller.js
           node --check src/runtime/tree-controller.js
           node --check src/runtime/v17-6-stability.js
           node --check src/runtime/tree-advanced.js
+          node --check src/runtime/family-graph-v19.js
           node --check canonical-graph-engine.js
           node --check platform-v13-ui.js
           node --check platform-v13-runtime.js
