@@ -1,5 +1,6 @@
 {
-  "generatedBy": "css-architecture-migrate",
+  "generatedBy": "css-architecture-audit",
+  "note": "Explicit cross-module ownership exceptions after the consolidation. New conflicts are release-blocking.",
   "duplicates": [
     {
       "key": "@media (min-width:721px)|.edition|color",
@@ -497,77 +498,70 @@
       "key": "@media(max-width:768px)|body[data-experience=\"family\"] .topbar|display",
       "files": [
         "archive-shell.css",
-        "base.css",
-        "navigation.css"
+        "navigation.css",
+        "shell.css"
       ]
     },
     {
       "key": "@media(max-width:768px)|body[data-experience=\"family\"] .topbar|pointer-events",
       "files": [
-        "base.css",
-        "navigation.css"
+        "navigation.css",
+        "shell.css"
       ]
     },
     {
       "key": "@media(max-width:768px)|body[data-route=\"people\"] .v159-branch-browser|flex-wrap",
       "files": [
-        "base.css",
-        "branches.css"
+        "branches.css",
+        "people.css"
       ]
     },
     {
       "key": "@media(max-width:768px)|body[data-route=\"people\"] .v159-branch-browser|overflow-x",
       "files": [
-        "base.css",
-        "branches.css"
+        "branches.css",
+        "people.css"
       ]
     },
     {
       "key": "@media(max-width:768px)|body[data-route=\"people\"] .v159-branch-browser|scrollbar-width",
       "files": [
-        "base.css",
-        "branches.css"
+        "branches.css",
+        "people.css"
       ]
     },
     {
       "key": "@media(max-width:768px)|body[data-route=\"people\"] .v159-branch-browser|top",
       "files": [
-        "base.css",
-        "branches.css"
+        "branches.css",
+        "people.css"
       ]
     },
     {
       "key": "@media(max-width:768px)|body[data-route=\"tree\"][data-v158-context=\"family\"] .graph-shell|border-radius",
       "files": [
-        "base.css",
+        "tree-advanced.css",
         "tree.css"
       ]
     },
     {
       "key": "@media(max-width:768px)|body[data-route=\"tree\"][data-v158-context=\"family\"] .graph-shell|min-height",
       "files": [
-        "base.css",
+        "tree-advanced.css",
         "tree.css"
       ]
     },
     {
       "key": "@media(max-width:768px)|body[data-route=\"tree\"][data-v158-context=\"family\"] .graph-stage|min-height",
       "files": [
-        "base.css",
+        "tree-advanced.css",
         "tree.css"
       ]
     },
     {
       "key": "@media(max-width:768px)|body[data-v158-context=\"family\"] .footer|font-size",
       "files": [
-        "base.css",
-        "mobile-family.css"
-      ]
-    },
-    {
-      "key": "@media(max-width:768px)|body[data-v158-context=\"family\"] .page-heading|padding-top",
-      "files": [
-        "base.css",
+        "mobile-family.css",
         "shell.css"
       ]
     },
@@ -595,44 +589,30 @@
     {
       "key": "@media(prefers-reduced-motion:reduce)|.media-library-card|transform",
       "files": [
-        "base.css",
-        "home.css"
+        "home.css",
+        "interaction-contracts.css"
       ]
     },
     {
       "key": "@media(prefers-reduced-motion:reduce)|.media-library-card|transition",
       "files": [
-        "base.css",
-        "branches.css"
+        "branches.css",
+        "interaction-contracts.css"
       ]
     },
     {
       "key": "@media(prefers-reduced-motion:reduce)|.media-library-preview img|transition",
       "files": [
-        "base.css",
+        "interaction-contracts.css",
         "media.css"
       ]
     },
     {
       "key": "|.action|border-radius",
       "files": [
-        "base.css",
+        "interaction-contracts.css",
         "shell.css",
         "tree.css"
-      ]
-    },
-    {
-      "key": "|.action|outline",
-      "files": [
-        "base.css",
-        "shell.css"
-      ]
-    },
-    {
-      "key": "|.action|outline-offset",
-      "files": [
-        "base.css",
-        "shell.css"
       ]
     },
     {
@@ -708,7 +688,7 @@
     {
       "key": "|.button|border-radius",
       "files": [
-        "base.css",
+        "person.css",
         "tree.css"
       ]
     },
@@ -859,21 +839,21 @@
     {
       "key": "|.filters button|border-radius",
       "files": [
-        "base.css",
+        "person.css",
         "tree.css"
       ]
     },
     {
       "key": "|.focus-actions button|border-radius",
       "files": [
-        "base.css",
+        "person.css",
         "tree.css"
       ]
     },
     {
       "key": "|.focus-actions button|font-size",
       "files": [
-        "base.css",
+        "person.css",
         "tree.css"
       ]
     },
@@ -1121,13 +1101,6 @@
       "files": [
         "people.css",
         "research.css"
-      ]
-    },
-    {
-      "key": "|.person-card|transition",
-      "files": [
-        "base.css",
-        "people.css"
       ]
     },
     {
@@ -1410,64 +1383,64 @@
     {
       "key": "|.v157-media-card small|font-size",
       "files": [
-        "base.css",
-        "media.css"
+        "media.css",
+        "people.css"
       ]
     },
     {
       "key": "|.v157-research-center p)|font-size",
       "files": [
-        "base.css",
-        "research.css"
+        "research.css",
+        "shell.css"
       ]
     },
     {
       "key": "|.v157-research-center p)|line-height",
       "files": [
-        "base.css",
-        "research.css"
+        "research.css",
+        "shell.css"
       ]
     },
     {
       "key": "|.v157-tree-person small|font-size",
       "files": [
-        "base.css",
-        "media.css"
+        "media.css",
+        "people.css"
       ]
     },
     {
       "key": "|.v159-card-context|font-size",
       "files": [
-        "base.css",
-        "media.css"
+        "media.css",
+        "people.css"
       ]
     },
     {
       "key": "|.v159-card-dates|font-size",
       "files": [
-        "base.css",
-        "media.css"
+        "media.css",
+        "people.css"
       ]
     },
     {
       "key": "|.v159-card-relations small)|font-size",
       "files": [
-        "base.css",
-        "media.css"
+        "media.css",
+        "people.css"
       ]
     },
     {
       "key": "|.v159-life-copy p|font-size",
       "files": [
-        "base.css",
-        "research.css"
+        "research.css",
+        "shell.css"
       ]
     },
     {
       "key": "|.v159-life-copy p|line-height",
       "files": [
-        "base.css",
-        "research.css"
+        "research.css",
+        "shell.css"
       ]
     },
     {
@@ -1899,20 +1872,6 @@
       ]
     },
     {
-      "key": "|[role=\"button\"]):focus-visible|outline",
-      "files": [
-        "base.css",
-        "shell.css"
-      ]
-    },
-    {
-      "key": "|[role=\"button\"]):focus-visible|outline-offset",
-      "files": [
-        "base.css",
-        "shell.css"
-      ]
-    },
-    {
       "key": "|#status|font-size",
       "files": [
         "research.css",
@@ -1969,48 +1928,6 @@
       ]
     },
     {
-      "key": "|body[data-route=\"people\"][data-v158-context=\"family\"] .v159-card-context|font-size",
-      "files": [
-        "base.css",
-        "people.css"
-      ]
-    },
-    {
-      "key": "|body[data-route=\"people\"][data-v158-context=\"family\"] .v159-card-copy strong|font-size",
-      "files": [
-        "base.css",
-        "people.css"
-      ]
-    },
-    {
-      "key": "|body[data-route=\"people\"][data-v158-context=\"family\"] .v159-card-dates|font-size",
-      "files": [
-        "base.css",
-        "people.css"
-      ]
-    },
-    {
-      "key": "|body[data-route=\"people\"][data-v158-context=\"family\"] .v159-card-media|border-radius",
-      "files": [
-        "base.css",
-        "people.css"
-      ]
-    },
-    {
-      "key": "|body[data-route=\"people\"][data-v158-context=\"family\"] .v159-card-relations small|background",
-      "files": [
-        "base.css",
-        "people.css"
-      ]
-    },
-    {
-      "key": "|body[data-route=\"people\"][data-v158-context=\"family\"] .v159-card-relations small|font-size",
-      "files": [
-        "base.css",
-        "people.css"
-      ]
-    },
-    {
       "key": "|body[data-route=\"tree\"][data-v158-context=\"family\"] .route-shell .page-heading|padding-bottom",
       "files": [
         "shell.css",
@@ -2027,15 +1944,15 @@
     {
       "key": "|body[data-v158-context=\"family\"] :where(.dashboard-section p|font-size",
       "files": [
-        "base.css",
-        "research.css"
+        "research.css",
+        "shell.css"
       ]
     },
     {
       "key": "|body[data-v158-context=\"family\"] :where(.dashboard-section p|line-height",
       "files": [
-        "base.css",
-        "research.css"
+        "research.css",
+        "shell.css"
       ]
     },
     {
@@ -2069,22 +1986,22 @@
     {
       "key": "|body[data-v158-context=\"family\"] :where(.v157-person-copy|font-size",
       "files": [
-        "base.css",
-        "media.css"
+        "media.css",
+        "people.css"
       ]
     },
     {
       "key": "|body[data-v158-context=\"family\"] .edition|font-size",
       "files": [
-        "base.css",
-        "navigation.css"
+        "navigation.css",
+        "shell.css"
       ]
     },
     {
       "key": "|body[data-v158-context=\"family\"] .edition|line-height",
       "files": [
-        "base.css",
-        "navigation.css"
+        "navigation.css",
+        "shell.css"
       ]
     },
     {
@@ -2106,20 +2023,6 @@
       "files": [
         "archive-shell.css",
         "navigation.css"
-      ]
-    },
-    {
-      "key": "|body[data-v158-context=\"family\"] #content|margin-inline",
-      "files": [
-        "base.css",
-        "shell.css"
-      ]
-    },
-    {
-      "key": "|body[data-v158-context=\"family\"] #content|max-width",
-      "files": [
-        "base.css",
-        "shell.css"
       ]
     },
     {
@@ -2167,49 +2070,42 @@
     {
       "key": "|button|font-family",
       "files": [
-        "base.css",
+        "interaction-contracts.css",
         "shell.css"
       ]
     },
     {
       "key": "|button|outline",
       "files": [
-        "base.css",
-        "components.css"
+        "components.css",
+        "shell.css"
       ]
     },
     {
       "key": "|button|outline-offset",
       "files": [
-        "base.css",
-        "components.css"
+        "components.css",
+        "shell.css"
       ]
     },
     {
       "key": "|input|font-family",
       "files": [
-        "base.css",
-        "shell.css"
-      ]
-    },
-    {
-      "key": "|select|border-color",
-      "files": [
-        "base.css",
+        "interaction-contracts.css",
         "shell.css"
       ]
     },
     {
       "key": "|select|border-radius",
       "files": [
-        "base.css",
+        "interaction-contracts.css",
         "shell.css"
       ]
     },
     {
       "key": "|select|font-family",
       "files": [
-        "base.css",
+        "interaction-contracts.css",
         "shell.css"
       ]
     },
@@ -2228,16 +2124,9 @@
       ]
     },
     {
-      "key": "|textarea)|border-radius",
-      "files": [
-        "base.css",
-        "shell.css"
-      ]
-    },
-    {
       "key": "|textarea|font-family",
       "files": [
-        "base.css",
+        "interaction-contracts.css",
         "shell.css"
       ]
     }
