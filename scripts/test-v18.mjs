@@ -30,11 +30,11 @@ test('v18 release fingerprints are synchronized',()=>{
     releaseOf(shell,/data-ui-release="(\d+\.\d+\.\d+)"/),
     releaseOf(experience,/UI_RELEASE='(\d+\.\d+\.\d+)'/)
   ];
-  assert.deepEqual(new Set(versions),new Set(['18.0.0']));
-  assert.match(shell,/styles\.css\?v=18\.0\.0/);
-  assert.match(shell,/app\.bundle\.js\?v=18\.0\.0/);
-  assert.match(experience,/family\.archive\.uiReload\.v18\.0/);
-  assert.match(build,/releaseTrain:'v18-canonical-platform'/);
+  assert.deepEqual(new Set(versions),new Set(['18.5.0']));
+  assert.match(shell,/styles\.css\?v=18\.5\.0/);
+  assert.match(shell,/app\.bundle\.js\?v=18\.5\.0/);
+  assert.match(experience,/family\.archive\.uiReload\.v18\.5/);
+  assert.match(build,/releaseTrain:'v18-5-research-intelligence'/);
 });
 
 test('semantic design system owns stylesheet composition with zero compatibility sources',()=>{
