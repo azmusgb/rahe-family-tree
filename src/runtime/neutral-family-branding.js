@@ -44,17 +44,9 @@ function sync(){syncMetadata();syncHeader();syncHome();syncFooter();}
 let queued=false;
 function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;sync();}));}
 
+// Follow the application's authoritative render lifecycle rather than observing
+// broad DOM mutations. This keeps shell naming presentation-only and avoids
+// interfering with high-frequency Tree rerenders and click interactions.
 for(const eventName of['family-view-rendered','family-native-rendered','hashchange','popstate','family-experience-changed','family-auth-ui-refresh'])window.addEventListener(eventName,schedule);
 
-let observer;
-function observe(){
-  if(observer)return;
-  observer=new MutationObserver(schedule);
-  for(const selector of['.site-header','.topbar','.route-shell','#content','.site-footer']){
-    const node=document.querySelector(selector);
-    if(node)observer.observe(node,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['hidden','aria-label']});
-  }
-}
-
-const start=()=>{observe();schedule();};
-document.readyState==='loading'?document.addEventListener('DOMContentLoaded',start):start();
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
