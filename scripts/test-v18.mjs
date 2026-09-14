@@ -12,6 +12,7 @@ const platformUi=read('platform-v13-ui.js');
 const platformRuntime=read('platform-v13-runtime.js');
 const graphEngine=read('canonical-graph-engine.js');
 const styleRoot=read('src/styles/index.css');
+const homeEditorial=read('src/styles/home-editorial.css');
 const model=json('public/research-model.json');
 const graph=json('public/canonical-graph.json');
 const diff=json('public/canonical-diff.json');
@@ -36,10 +37,14 @@ test('v18 release fingerprints are synchronized',()=>{
 
 test('semantic design system owns stylesheet composition with zero compatibility sources',()=>{
   assert.doesNotMatch(styleRoot,/legacy-compat\.generated\.css/);
+  assert.doesNotMatch(styleRoot,/redesign-fixes\.css/);
   assert.doesNotMatch(styleRoot,/@import ['"](?:\.\.\/)*?(?:v\d|dashboard-v\d|media-page-v\d|experience-v\d|platform-v\d)/);
-  for(const semantic of['tokens.css','base.css','shell.css','navigation.css','home.css','people.css','person.css','tree.css','media.css','research.css','record-ingestion.css','mobile-family.css','responsive.css']){
+  for(const semantic of['tokens.css','base.css','shell.css','navigation.css','home.css','home-editorial.css','people.css','person.css','tree.css','media.css','research.css','record-ingestion.css','mobile-family.css','responsive.css']){
     assert.match(styleRoot,new RegExp(`@import '\\.\\/${semantic.replace('.','\\.')}';`));
   }
+  assert.equal(fs.existsSync('src/styles/redesign-fixes.css'),false,'post-cascade redesign fix layer must stay retired');
+  assert.match(homeEditorial,/\.v17-home-hero h2/);
+  assert.match(homeEditorial,/\.v17-home-hero \.v17-home-metrics/);
   assert.match(build,/const legacyStyleSources=\[\]/);
   assert.match(build,/const generatedLegacyStyle=null/);
   assert.match(build,/compatibilityBoundary:null/);
