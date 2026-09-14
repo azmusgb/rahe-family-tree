@@ -1,7 +1,7 @@
 // Focused Family Graph navigation shell.
 // Presentation/navigation only: updates URL-backed tree state and rearranges existing
 // controls without mutating genealogy, evidence, source, claim, or privacy data.
-import{displayPeople,allPedigreeRelationships,model,personById,esc}from'../../core.js';
+import{displayPeople,allPedigreeRelationships,personById,esc}from'../../core.js';
 import{connectedComponent,usableRelationships}from'../../canonical-graph-engine.js';
 
 const SCOPES=[
@@ -40,7 +40,7 @@ function renderedIds(){return new Set([...document.querySelectorAll('#family-gra
 function relationshipTargets(focus){
   if(!focus||!personById(focus))return[];
   const people=displayPeople(),visiblePeople=new Set(people.map(person=>person.id));
-  const relationships=usableRelationships([...allPedigreeRelationships(),...(model.contextRelationships||[])],{includeContext:false})
+  const relationships=usableRelationships(allPedigreeRelationships(),{includeContext:false})
     .filter(rel=>FAMILY_TYPES.has(rel.type)&&visiblePeople.has(rel.from)&&visiblePeople.has(rel.to));
   return[...connectedComponent(focus,relationships,{includeContext:false})]
     .filter(id=>id!==focus&&visiblePeople.has(id)&&personById(id))
