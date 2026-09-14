@@ -87,3 +87,15 @@ test('18.9 archive shell uses semantic selectors without specificity escalation'
   assert.match(runtime,/classList\.add\('nav-menus'\)/);
   assert.match(runtime,/nav-menu explore-menu v151-nav-menu/);
 });
+
+
+test('18.10 navigation CSS uses semantic ownership without specificity escalation',async()=>{
+  const css=await read('src/styles/navigation.css');
+  assert.doesNotMatch(css,/\.v151-(?:primary-nav|nav-menu|nav-menus|nav-popover)/);
+  assert.doesNotMatch(css,/data-v158-context/);
+  assert.doesNotMatch(css,/!important/);
+  assert.match(css,/\.primary-nav/);
+  assert.match(css,/\.nav-menu/);
+  assert.match(css,/\.nav-popover/);
+  assert.match(css,/body\[data-nav-context="family"\]/);
+});

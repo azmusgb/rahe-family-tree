@@ -26,9 +26,9 @@ test('v15.1 promotes family navigation into a horizontal primary bar with disclo
   assert.match(runtime,/\['dashboard','Home'\]/);
   assert.match(runtime,/\['media','Media'\]/);
   assert.match(runtime,/\['timeline','Timeline'\]/);
-  assert.match(css,/\.v151-primary-nav/);
-  assert.match(css,/\.v151-nav-menu/);
-  assert.match(css,/\.v151-nav-popover/);
+  assert.match(css,/\.primary-nav/);
+  assert.match(css,/\.nav-menu/);
+  assert.match(css,/\.nav-popover/);
   assert.match(css,/body\[data-nav-context="family"\] \.site-header\.sidebar/);
 });
 
@@ -49,7 +49,7 @@ test('v15.1 historical person relayout remains available beneath native v17 Fami
 
 test('v15.1 remains responsive and retains the mobile dock breakpoint',()=>{
   assert.match(css,/@media \(max-width:720px\)/);
-  assert.match(css,/\.sidebar\{display:none!important\}/);
+  assert.match(css,/\.sidebar\{display:none\}/);
   assert.match(index,/id="family-mobile-dock"/);
 });
 
