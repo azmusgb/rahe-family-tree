@@ -209,14 +209,6 @@
 
 @media(max-width:480px){.graph-scroll{min-height:380px}}
 
-body[data-tree-release="12.9"] .tree-focusbar{gap:14px;align-items:end}
-
-body[data-tree-release="12.9"] .tree-mode-buttons{display:flex;flex-wrap:wrap;gap:6px}
-
-body[data-tree-release="12.9"] .tree-mode-buttons button{min-height:38px;padding:7px 11px}
-
-body[data-tree-release="12.9"] .tree-depth{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-
 .tree-memory{display:grid;grid-template-columns:auto 1fr;gap:12px 22px;align-items:center;padding:14px 16px;margin:0 0 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface,white)}
 
 .tree-memory>div:first-child{display:grid;gap:3px}
@@ -244,18 +236,6 @@ body[data-tree-release="12.9"] .tree-depth{display:flex;align-items:center;gap:6
 }
 
 
-
-body[data-tree-polish-release="12.9.1"] .tree-edge-spouse{stroke-width:2.2;stroke-linecap:round}
-
-body[data-tree-polish-release="12.9.1"] .tree-edge-couple-child{stroke-width:2.1}
-
-body[data-tree-polish-release="12.9.1"] .graph-node.focused rect{filter:drop-shadow(0 5px 14px rgb(0 0 0/.12))}
-
-body[data-tree-polish-release="12.9.1"] .node-collapse circle{stroke-width:1.5}
-
-body[data-tree-polish-release="12.9.1"] .node-collapse:focus circle{stroke-width:2.5}
-
-body[data-tree-polish-release="12.9.1"] .graph-node .node-avatar{stroke-width:1.4}
 
 @media(max-width:760px){
 .graph-scroll{scroll-snap-type:x proximity}

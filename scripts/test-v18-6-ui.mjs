@@ -138,3 +138,16 @@ test('18.12 tree styling uses semantic classes while runtime retains compatibili
   assert.match(polish,/tree-edge-couple-child/);
   assert.match(polish,/tree-edge-spouse/);
 });
+
+
+test('18.13 tree CSS does not depend on release-number state markers',async()=>{
+  const css=await read('src/styles/tree.css');
+  const engine=await read('src/runtime/tree-engine.js');
+  const polish=await read('src/runtime/tree-polish.js');
+  assert.doesNotMatch(css,/data-tree-(?:release|polish-release)/);
+  assert.match(engine,/dataset\.treeEngine='active'/);
+  assert.match(polish,/dataset\.treePolish='active'/);
+  // Historical markers remain runtime metadata only during compatibility transition.
+  assert.match(engine,/dataset\.treeRelease='17\.2'/);
+  assert.match(polish,/dataset\.treePolishRelease='18\.6'/);
+});
