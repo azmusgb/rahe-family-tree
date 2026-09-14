@@ -24,8 +24,11 @@ test('relative generation metadata and direct-line rail are present for a focuse
 });
 
 test('lineage rail refocuses the tree without changing canonical graph state',async({page})=>{
-  await page.goto(`/?focus=${HAZEL}&scope=family&depth=2#tree`);
+  // Family depth 2 can legitimately expose only the focal person in the direct-line
+  // rail. Connected scope guarantees the test exercises a real second lineage target.
+  await page.goto(`/?focus=${HAZEL}&scope=connected#tree`);
   const candidates=page.locator('[data-family-lineage-person]');
+  await expect(candidates.first()).toBeVisible();
   const count=await candidates.count();
   let other=null;
   for(let i=0;i<count;i++){
