@@ -53,19 +53,39 @@ function generationLabel(offset){
   return`${'Great-'.repeat(n-2)}${ancestor?'grandparents':'grandchildren'}`;
 }
 
-function annotateGenerationLanes(generation,focus){
-  const focusNode=document.querySelector(`#family-graph .graph-node[data-person="${CSS.escape(focus)}"]`);if(!focusNode)return;
-  const focusTransform=focusNode.getAttribute('transform')||'',focusMatch=focusTransform.match(/translate\(([-\d.]+)[ ,]([-\d.]+)\)/);if(!focusMatch)return;
-  const focusY=Number(focusMatch[2]);
-  const lanes=[...document.querySelectorAll('#family-graph .generation-lane')].map(lane=>{const text=lane.querySelector('text');return{lane,text,y:Number(text?.getAttribute('y')||0)};}).filter(item=>item.text&&Number.isFinite(item.y)).sort((a,b)=>a.y-b.y);
+function nodeY(node){
+  const transform=node.getAttribute('transform')||'',match=transform.match(/translate\(([-\d.]+)[ ,]([-\d.]+)\)/);
+  return match?Number(match[2]):NaN;
+}
+
+function annotateGenerationLanes(generation){
+  const lanes=[...document.querySelectorAll('#family-graph .generation-lane')].map(lane=>{
+    const text=lane.querySelector('text'),y=Number(text?.getAttribute('y')||NaN);return{lane,text,y,generations:new Set()};
+  }).filter(item=>item.text&&Number.isFinite(item.y)).sort((a,b)=>a.y-b.y);
   if(!lanes.length)return;
-  let focusIndex=0,best=Infinity;lanes.forEach((item,index)=>{const distance=Math.abs(item.y-focusY);if(distance<best){best=distance;focusIndex=index;}});
-  lanes.forEach((item,index)=>{const offset=index-focusIndex;item.lane.dataset.familyGeneration=String(offset);item.text.textContent=generationLabel(offset);});
+
   for(const node of document.querySelectorAll('#family-graph .graph-node[data-person]')){
-    const id=node.dataset.person,offset=generation.get(id);if(offset===undefined){delete node.dataset.familyGeneration;continue;}node.dataset.familyGeneration=String(offset);
+    const id=node.dataset.person,offset=generation.get(id);
+    if(offset===undefined){delete node.dataset.familyGeneration;node.classList.remove('family-generation-focus','family-generation-ancestor','family-generation-descendant');continue;}
+    node.dataset.familyGeneration=String(offset);
     node.classList.toggle('family-generation-focus',offset===0);
     node.classList.toggle('family-generation-ancestor',offset<0);
     node.classList.toggle('family-generation-descendant',offset>0);
+    const y=nodeY(node);if(!Number.isFinite(y))continue;
+    let nearest=null,best=Infinity;
+    for(const lane of lanes){const distance=Math.abs(lane.y-y);if(distance<best){best=distance;nearest=lane;}}
+    nearest?.generations.add(offset);
+  }
+
+  for(const item of lanes){
+    const offsets=[...item.generations].sort((a,b)=>a-b);
+    item.lane.dataset.familyGenerations=offsets.join(' ');
+    item.lane.dataset.familyGenerationLabel=offsets.map(generationLabel).join(' / ');
+    if(offsets.length===1)item.lane.dataset.familyGeneration=String(offsets[0]);else delete item.lane.dataset.familyGeneration;
+    item.lane.classList.toggle('family-generation-focus-lane',offsets.includes(0));
+    // tree-advanced.js owns the visible SVG lane text (FOCUS / N GEN ↑↓).
+    // v19.2 adds evidence-derived metadata only so spouse-aligned rows cannot be
+    // mislabeled as a different genealogy generation.
   }
 }
 
@@ -106,7 +126,7 @@ function focusPerson(id){const url=new URL(location.href);url.searchParams.set('
 function apply(){
   if(route()!=='tree'){document.querySelector('.family-lineage-rail')?.remove();return;}
   const svg=document.querySelector('#family-graph');if(!svg)return;
-  const focus=renderedFocus(),generation=relativeGenerations(focus);annotateGenerationLanes(generation,focus);annotateAssertedCouples();installLineageRail(generation,focus);
+  const focus=renderedFocus(),generation=relativeGenerations(focus);annotateGenerationLanes(generation);annotateAssertedCouples();installLineageRail(generation,focus);
 }
 let queued=false;function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;apply();}));}
 
