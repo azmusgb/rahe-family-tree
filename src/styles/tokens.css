@@ -1,8 +1,8 @@
 /* Family design system — single-source tokens.
  *
  * Current editorial values are declared once here. Historical token names that
- * remain part of the migrated CSS contract are retained as compatibility aliases
- * or stable literals, but no later root block redefines the active design system.
+ * remain part of the migrated CSS contract are retained with their effective
+ * values, but no later root block redefines the active design system.
  */
 :root{
   color-scheme:light;
@@ -82,7 +82,7 @@
   --mobile-nav-height:72px;
   --tap-target:48px;
 
-  /* Spacing. */
+  /* Family spacing scale. */
   --family-space-1:4px;
   --family-space-2:8px;
   --family-space-3:12px;
@@ -92,15 +92,15 @@
   --family-space-7:48px;
   --family-space-8:64px;
 
-  /* Migrated spacing aliases retained for compatibility. */
-  --space-1:var(--family-space-1);
-  --space-2:var(--family-space-2);
-  --space-3:var(--family-space-3);
-  --space-4:var(--family-space-4);
-  --space-5:var(--family-space-5);
-  --space-6:var(--family-space-6);
-  --space-7:var(--family-space-7);
-  --space-8:var(--family-space-8);
+  /* Migrated spacing tokens preserve their historical independent values. */
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:24px;
+  --space-6:32px;
+  --space-7:48px;
+  --space-8:64px;
 
   /* Radius. */
   --radius-sm:8px;
