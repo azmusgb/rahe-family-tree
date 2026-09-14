@@ -5,7 +5,7 @@
 
 .person-hero,.detail-hero{display:flex;justify-content:space-between;gap:24px;background:#fff;border:1px solid var(--line);border-top:5px solid #7a9686;border-radius:12px;padding:24px;margin:12px 0 18px}
 
-.person-summary{max-width:350px;display:grid;gap:9px;align-content:start}
+.person-summary{max-width:420px;display:grid;gap:9px;align-content:start}
 
 .person-summary span,.person-summary small{font-size:12px;color:var(--muted)}
 
@@ -92,7 +92,7 @@ body[data-route="person"][data-v158-context="family"] .family-overview-card.v159
 body[data-route="person"][data-v158-context="family"] .v159-person-overview .profile-primary{align-items:center}
 body[data-route="person"][data-v158-context="family"] .v159-person-overview .profile-avatar.xl{border-radius:var(--family-radius-panel);box-shadow:var(--family-shadow-card)}
 body[data-route="person"][data-v158-context="family"] .profile-headline h2{font-family:var(--family-font-display);font-size:clamp(2.5rem,5vw,4.6rem);line-height:.98;letter-spacing:-.045em;text-wrap:balance}
-body[data-route="person"][data-v158-context="family"] .v159-profile-context{max-width:640px;font-size:var(--family-text-support);line-height:1.6}
+body[data-route="person"][data-v158-context="family"] .v159-profile-context{max-width:600px;font-size:var(--family-text-support);line-height:1.6}
 body[data-route="person"][data-v158-context="family"] .v159-life-summary{margin-top:26px;padding:26px 0;border-top:1px solid var(--family-border-hairline);border-bottom:1px solid var(--family-border-hairline)}
 body[data-route="person"][data-v158-context="family"] .v159-life-copy h3{font-family:var(--family-font-display);font-size:var(--family-text-section)}
 body[data-route="person"][data-v158-context="family"] .v159-life-facts{gap:8px}
@@ -110,7 +110,7 @@ body[data-route="person"][data-v158-context="family"] #content>.panel{border:0;b
 .v17-back{display:inline-flex;align-items:center;width:max-content;margin:4px 0 18px;color:var(--muted-strong);font-size:13px;font-weight:720}
 .v17-person-header{display:grid;grid-template-columns:auto minmax(0,1fr);gap:28px;align-items:center;padding:20px 0 30px;border-bottom:1px solid var(--family-border-hairline)}
 .v17-person-header h2{max-width:768px;margin:4px 0 9px;font:600 clamp(2.8rem,5.8vw,5rem)/.96 var(--family-font-display);letter-spacing:-.055em;color:var(--green);text-wrap:balance}
-.v17-person-dates{margin:0;color:var(--ink);font-size:16px;font-weight:720}.v17-person-context{max-width:650px;margin:8px 0 0;color:var(--muted-strong);font-size:14px;line-height:1.55}.v17-qualified-state{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:12px;color:var(--muted);font-size:12px}.v17-person-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.v17-person-dates{margin:0;color:var(--ink);font-size:16px;font-weight:720}.v17-person-context{max-width:600px;margin:8px 0 0;color:var(--muted-strong);font-size:14px;line-height:1.55}.v17-qualified-state{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:12px;color:var(--muted);font-size:12px}.v17-person-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
 .v17-person-nav{position:sticky;top:48px;z-index:15;display:flex;gap:5px;overflow-x:auto;margin:0 -6px 8px;padding:9px 6px;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(10px);scrollbar-width:none}.v17-person-nav::-webkit-scrollbar{display:none}.v17-person-nav a{flex:0 0 auto;padding:8px 11px;border-radius:var(--family-radius-control);color:var(--muted-strong);font-size:12px;font-weight:740}.v17-person-nav a:hover{background:var(--brand-soft);color:var(--green)}
 .v17-person-section{display:grid;gap:18px;padding:clamp(28px,4.6vw,54px) 0;border-bottom:1px solid var(--family-border-hairline);scroll-margin-top:94px}
 .v17-family-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.v17-family-group{display:grid;gap:9px}.v17-family-group h3{margin:0;font:600 15px/1.2 var(--family-font-ui);color:var(--muted-strong)}.v17-family-group-grid{display:grid;gap:7px}
@@ -452,7 +452,7 @@ body[data-experience="family"][data-route="person"] .family-profile-kicker{font-
 
 body[data-experience="family"][data-route="person"] .focus-actions{margin:0 0 16px}
 
-body[data-experience="family"][data-route="person"] #content.v153-profile{max-width:1320px;margin:0 auto}
+body[data-experience="family"][data-route="person"] #content.v153-profile{max-width:1200px;margin:0 auto}
 
 body[data-page-architecture="15.5"][data-route="person"] #content.v153-profile{padding-top:2px}
 

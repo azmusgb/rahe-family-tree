@@ -129,7 +129,7 @@
 
 .media-viewer-copy dd{margin:0;overflow-wrap:anywhere}
 
-.document-viewer{grid-column:1/-1;max-width:640px;margin:auto}
+.document-viewer{grid-column:1/-1;max-width:600px;margin:auto}
 
 .media-card.is-private{outline:2px solid rgba(114,76,28,.16);outline-offset:-2px}
 
@@ -603,4 +603,4 @@ body[data-route="media"][data-v158-context="family"] .media-library-title h2{fon
 }
 
 /* Base ownership cleanup: route/component rules moved out of base.css. */
-body[data-route="media"][data-v158-context="family"] #content{max-width:1600px}
+body[data-route="media"][data-v158-context="family"] #content{max-width:1200px}

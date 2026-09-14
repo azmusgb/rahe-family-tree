@@ -206,7 +206,7 @@ body[data-route="people"][data-v158-context="family"] .v159-card-relations small
 .search-group .search-hit{min-height:52px}
 }
 
-@media(max-width:1050px){
+@media(max-width:1024px){
 .v17-people-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 

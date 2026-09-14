@@ -211,7 +211,7 @@ body[data-experience="family"] .badge{letter-spacing:0;text-transform:none}
 
 .v128-library>.section-title{align-items:end}
 
-.v128-library>.section-title p{max-width:680px}
+.v128-library>.section-title p{max-width:600px}
 
 .featured-choice input{width:auto}
 
@@ -547,7 +547,7 @@ body[data-v158-context="family"] section>h2{
 
 .edition b{display:block;color:#fff}
 
-.main{max-width:1480px;margin:auto;padding:34px 38px 72px;min-height:80vh}
+.main{max-width:1200px;margin:auto;padding:34px 38px 72px;min-height:80vh}
 
 .version{border:1px solid var(--line);border-radius:7px;padding:8px 10px;font-size:12px;color:var(--muted);white-space:nowrap}
 
@@ -565,7 +565,7 @@ body[data-v158-context="family"] section>h2{
 
 .edition{opacity:.88}
 
-.main{max-width:1360px}
+.main{max-width:1200px}
 
 .main{padding-top:26px}
 
@@ -642,7 +642,7 @@ body[data-v158-context="family"] section>h2{
     margin:0;
     border:0;
     padding:0;
-    max-width:155px;
+    max-width:420px;
     color:#aac0b7;
     font-size:12px;
     line-height:1.35;}
@@ -661,7 +661,7 @@ body[data-v158-context="family"] section>h2{
 }
 
 @media (min-width:721px){
-.edition{max-width:170px;font-size:12px;line-height:1.35}
+.edition{max-width:420px;font-size:12px;line-height:1.35}
 }
 
 @media (max-width:1024px) and (min-width:721px){
@@ -794,7 +794,7 @@ body[data-experience="family"] #status{min-height:20px;margin:8px 0 20px;color:v
 
 body[data-experience="family"] .eyebrow{font-size:12px;letter-spacing:1.35px;color:#5d6964;font-weight:760}
 
-body[data-experience="family"] .main{max-width:1280px;padding:32px 36px 72px}
+body[data-experience="family"] .main{max-width:1200px;padding:32px 36px 72px}
 
 body[data-page-architecture="15.5"]{--app-utility-height:0px}
 

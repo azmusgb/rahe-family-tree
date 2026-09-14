@@ -93,7 +93,7 @@
 
 .graph-node.focused rect{stroke-width:4}
 
-.graph-toolbar .focus-pill{max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.graph-toolbar .focus-pill{max-width:420px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 @media(max-width:768px){.tree-focusbar{grid-template-columns:1fr}}
 
@@ -395,9 +395,9 @@ body[data-route="tree"] .graph-scroll{max-height:calc(100vh - 310px);min-height:
 
 .v154-graph-shell .edge.state-unresolved,.v154-graph-shell .edge.state-provisional{stroke-dasharray:7 6}
 
-@media (max-width:1080px){.v154-tree-person{grid-template-columns:1fr auto;gap:14px}}
+@media (max-width:1024px){.v154-tree-person{grid-template-columns:1fr auto;gap:14px}}
 
-@media (max-width:1080px){.v154-tree-actions{grid-column:1/-1;justify-content:flex-start}}
+@media (max-width:1024px){.v154-tree-actions{grid-column:1/-1;justify-content:flex-start}}
 
 @media (max-width:768px){.v154-tree-person{display:block;padding:16px;border-radius:18px}}
 

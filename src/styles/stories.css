@@ -91,9 +91,9 @@ body[data-route="dashboard"] .history-highlight-grid article{min-height:160px}
 
 .v153-story-avatar{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:rgba(255,255,255,.12);font-weight:800}
 
-@media (max-width:1080px){.v153-story-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:1024px){.v153-story-grid{grid-template-columns:1fr 1fr}}
 
-@media (max-width:1080px){.v153-story-lead{grid-column:1/-1}}
+@media (max-width:1024px){.v153-story-lead{grid-column:1/-1}}
 
 @media (max-width:768px){.v153-family-network,.v153-life-story{padding:17px;border-radius:19px}}
 
@@ -160,7 +160,7 @@ body[data-route="dashboard"] .history-highlight-grid article{min-height:160px}
   letter-spacing:-.045em;
   text-wrap:balance;
 }
-.v16-stories-hero p:last-child{max-width:700px;font-size:var(--family-text-body);line-height:1.66}
+.v16-stories-hero p:last-child{max-width:768px;font-size:var(--family-text-body);line-height:1.66}
 .v16-story-chapter{grid-template-columns:minmax(110px,160px) minmax(0,1fr);gap:32px;padding-top:26px;border-top:1px solid var(--family-border-hairline)}
 .v16-story-chapter-heading{top:72px}
 .v16-story-chapter-heading>span{font-family:var(--family-font-display);font-size:clamp(2rem,3vw,2.65rem)}
@@ -174,11 +174,11 @@ body[data-route="dashboard"] .history-highlight-grid article{min-height:160px}
 @media(hover:hover) and (pointer:fine){.v16-story-card:hover::after{opacity:1}}
 
 /* CSS architecture consolidation: declarations owned by this semantic module. */
-@media(max-width:1050px){
+@media(max-width:1024px){
 .v17-story-moments{grid-template-columns:1fr 1fr}
 }
 
-@media(max-width:1050px){
+@media(max-width:1024px){
 .v17-story-moment.featured{grid-column:1/-1}
 }
 
