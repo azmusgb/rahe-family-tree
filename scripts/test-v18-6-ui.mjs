@@ -2,6 +2,7 @@ import test from'node:test';
 import assert from'node:assert/strict';
 import{readFile}from'node:fs/promises';
 
+// Release-candidate architecture regression suite.
 const read=path=>readFile(new URL(`../${path}`,import.meta.url),'utf8');
 
 test('18.6 page actions use the shared UI command layer',async()=>{
