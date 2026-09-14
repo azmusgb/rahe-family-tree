@@ -1,11 +1,11 @@
-/* Targeted follow-up corrections for the editorial archive refresh.
- * Kept separate so review-driven compatibility fixes remain explicit and easy to remove
- * once the underlying semantic home module owns these selectors directly.
+/* Editorial Home refinements.
+ *
+ * Home-only presentation belongs beside the semantic Home module instead of in a
+ * repository-wide post-cascade fix layer. These rules are presentation-only and
+ * do not alter genealogy, evidence state, privacy, routing, or runtime behavior.
  */
 
-/* The live native-family v17 renderer emits an h2 plus metrics, not the legacy h1.
- * Keep all foreground content legible against the dark editorial hero surface.
- */
+/* The native Family renderer emits an h2 plus metrics inside the v17 hero. */
 .v17-home-hero h2{
   margin:8px 0 20px;
   max-width:10ch;

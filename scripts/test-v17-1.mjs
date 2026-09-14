@@ -50,7 +50,7 @@ test('site shell consistently represents the Rahe Family History Archive and its
   assert.match(branding,/import\{researchRoutes\}from'\.\/navigation-model\.js'/);
   assert.match(branding,/researchRoutes\.has\(routeKey\(\)\)/);
   assert.match(navigation,/RAHE FAMILY<small>HISTORY ARCHIVE<\/small>/);
-  assert.match(styleRoot,/@import '\.\/home\.css';\s*@import '\.\/branding\.css';/);
+  assert.match(styleRoot,/@import '\.\/home\.css';[\s\S]*@import '\.\/responsive\.css';\s*(?:\/\*[\s\S]*?\*\/\s*)?@import '\.\/home-editorial\.css';/);
   assert.match(brandingCss,/\.v17-home-hero::after\{content:'R'\}/);
   assert.doesNotMatch(brandingCss,/content:'F'/);
 });

@@ -21,6 +21,11 @@
 @import './record-ingestion.css';
 @import './mobile-family.css';
 @import './responsive.css';
+
+/* Home's editorial responsive refinements intentionally follow the general
+ * responsive layer so the route-specific mobile composition remains authoritative. */
+@import './home-editorial.css';
+
 @import './elevation.css';
 @import './branches.css';
 @import './archive-shell.css';
@@ -28,4 +33,3 @@
 
 /* Final visual composition layer. */
 @import './redesign.css';
-@import './redesign-fixes.css';
