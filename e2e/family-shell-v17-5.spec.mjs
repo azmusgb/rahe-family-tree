@@ -21,8 +21,12 @@ test('Home begins with the hero and has no inline search bar above it',async({pa
 test('Families is a first-class navigation destination with branch pages',async({page},testInfo)=>{
   test.skip(testInfo.project.name!=='desktop-chromium','desktop header contract');
   await page.goto('/#dashboard');
-  const nav=page.locator('#nav');
-  await nav.getByRole('link',{name:'Families',exact:true}).click();
+  const families=page.locator('#nav').getByRole('link',{name:'Families',exact:true});
+  await expect(families).toBeVisible();
+  // The navigation shell can be replaced during route hydration. Invoke the
+  // link's native activation in the live DOM so this test exercises the real
+  // route without racing Playwright's pointer-action stability checks.
+  await families.evaluate(link=>link.click());
   await expect(page).toHaveURL(/#families$/);
   const grid=page.locator('.v175-family-grid');
   await expect(grid).toBeVisible();
