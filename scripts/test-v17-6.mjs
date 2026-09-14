@@ -6,23 +6,22 @@ const read=path=>fs.readFileSync(new URL(`../${path}`,import.meta.url),'utf8');
 const releaseOf=(text,pattern)=>{const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];};
 const atLeast=(version,major,minor)=>{const[a,b]=version.split('.').map(Number);return a>major||(a===major&&b>=minor);};
 
-test('v17.6 stability layer remains wired in later releases',()=>{
+test('v17.6 stabilization remains wired through the consolidated tree controller in later releases',()=>{
   const version=releaseOf(read('app-entry.js'),/APP_VERSION='(\d+\.\d+\.\d+)'/);
   assert.ok(atLeast(version,17,6));
-  assert.match(read('src/runtime/experience.js'),/v17-6-stability\.js/);
-  const runtime=read('src/runtime/v17-6-stability.js');
+  const experience=read('src/runtime/experience.js'),controller=read('src/runtime/tree-controller.js'),runtime=read('src/runtime/v17-6-stability.js');
+  assert.match(experience,/tree-controller\.js/);
+  assert.match(controller,/v17-6-stability\.js/);
   assert.match(runtime,/family\.archive\.treeState\.v17\.6/);
   assert.match(runtime,/family-auth-changed/);
   assert.match(runtime,/media-library-card\.is-private/);
   assert.match(runtime,/clearMediaViewer/);
   assert.match(runtime,/media-viewer-original/);
   assert.match(runtime,/replaceChildren\(\)/);
-  assert.match(runtime,/data-v176-export-svg/);
-  assert.match(runtime,/inlineSvgPresentation/);
-  assert.match(runtime,/getComputedStyle/);
-  assert.match(runtime,/data-v176-print-tree/);
   assert.match(runtime,/HashChangeEvent\('hashchange'\)/);
   assert.match(runtime,/popstate/);
+  assert.doesNotMatch(runtime,/data-v176-export-svg|data-v176-print-tree|data-v176-copy-link/);
+  assert.doesNotMatch(runtime,/inlineSvgPresentation|graph-toolbar|rahe-family-tree\.svg/);
 });
 
 test('failed session refresh and explicit logout clear authorization without logging out valid admin action errors',()=>{

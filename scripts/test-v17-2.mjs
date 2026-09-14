@@ -7,7 +7,9 @@ const entry=fs.readFileSync('app-entry.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const experienceRoot=fs.readFileSync('src/runtime/experience.js','utf8');
 const graph=fs.readFileSync('graph.js','utf8');
+const baseControls=fs.readFileSync('src/runtime/base-controls.js','utf8');
 const treeEngine=fs.readFileSync('src/runtime/tree-engine.js','utf8');
+const treeAdvanced=fs.readFileSync('src/runtime/tree-advanced.js','utf8');
 const treePolish=fs.readFileSync('src/runtime/tree-polish.js','utf8');
 const unified=fs.readFileSync('src/runtime/unified-family-experience.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
@@ -41,13 +43,15 @@ test('plain tree entry uses the largest branch-neutral connected-family componen
   assert.match(graph,/Connected family view/);
 });
 
-test('tree memory uses neutral keys while migrating historical client preferences',()=>{
-  for(const source of[experience,treeEngine,treePolish])assert.match(source,/family\.archive\./);
+test('tree memory uses neutral keys while historical client preferences are migrated by the shared controls boundary',()=>{
+  for(const source of[experience,treeEngine,treeAdvanced,treePolish])assert.match(source,/family\.archive\./);
   assert.match(treeEngine,/LEGACY_HOME_KEY='rahe\.family\.home-person\.v1'/);
   assert.match(treeEngine,/LEGACY_COLLAPSE_KEY='rahe\.family\.tree\.collapsed\.v1'/);
-  assert.match(treeEngine,/rahe\.family\.recentPeople\.v1/);
-  assert.match(treeEngine,/rahe\.family\.recent-people\.v1/);
-  assert.match(experience,/family\.archive\.recentPeople\.v2/);
+  assert.match(baseControls,/rahe\.family\.recentPeople\.v1/);
+  assert.match(baseControls,/rahe\.family\.recent-people\.v1/);
+  assert.match(baseControls,/family\.archive\.recentPeople\.v2/);
+  assert.match(treeAdvanced,/family\.archive\.recentPeople\.v2/);
+  assert.doesNotMatch(treeEngine,/data-v129-recent/);
 });
 
 test('unified family experience exposes peer branches on Home and Tree',()=>{
@@ -92,7 +96,7 @@ test('v17.2 presentation cannot alter canonical genealogy semantics',()=>{
   assert.match(String(bridge.state||''),/UNRESOLVED/i);
   assert.notEqual(bridge.type,'parent-child');
   assert.ok((model.relationships||[]).filter(rel=>/REJECTED/i.test(String(rel.state||''))).every(rel=>rel.active===false));
-  for(const source of[unified,unifiedCss,treeEngine,treePolish]){
+  for(const source of[unified,unifiedCss,treeEngine,treeAdvanced,treePolish]){
     assert.doesNotMatch(source,/relationships?\.push/);
     assert.doesNotMatch(source,/claims?\.push/);
     assert.doesNotMatch(source,/\.state\s*=\s*[^=]/);

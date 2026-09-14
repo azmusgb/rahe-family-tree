@@ -9,16 +9,24 @@ async function mockApis(page){
 }
 test.beforeEach(async({page})=>{await mockApis(page);});
 
-test('v17.6 runtime mounts and tree tools survive repeated navigation',async({page})=>{
+test('v17.6 state runtime mounts and consolidated tree tools survive repeated navigation',async({page})=>{
   await page.goto(`/?focus=${HAZEL}&scope=family&depth=2#tree`);
   const release=await page.locator('html').getAttribute('data-ui-release');
   expect(versionAtLeast(release,17,6)).toBe(true);
   await expect(page.locator('html')).toHaveAttribute('data-v176','ready');
-  await expect(page.locator('[data-v176-tools]')).toBeVisible();
+  await expect(page.locator('[data-tree-advanced-export]')).toBeVisible();
+  await expect(page.locator('[data-tree-copy-link]')).toHaveCount(1);
+  await expect(page.locator('[data-tree-export-svg]')).toHaveCount(1);
+  await expect(page.locator('[data-tree-export-pdf]')).toHaveCount(1);
+  await expect(page.locator('[data-v176-tools]')).toHaveCount(0);
   await page.goto('/#people');
   await expect(page.locator('[data-v17-native="people"]')).toBeVisible();
   await page.goto(`/?focus=${HAZEL}&scope=ancestors#tree`);
-  await expect(page.locator('[data-v176-tools]')).toHaveCount(1);
+  await expect(page.locator('[data-tree-advanced-export]')).toHaveCount(1);
+  await expect(page.locator('[data-tree-copy-link]')).toHaveCount(1);
+  await expect(page.locator('[data-tree-export-svg]')).toHaveCount(1);
+  await expect(page.locator('[data-tree-export-pdf]')).toHaveCount(1);
+  await expect(page.locator('[data-v176-tools]')).toHaveCount(0);
   await expect(page.locator('.graph-node[data-person]').first()).toBeVisible();
 });
 
