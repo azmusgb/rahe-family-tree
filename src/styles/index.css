@@ -9,6 +9,7 @@
 @import './shell.css';
 @import './navigation.css';
 @import './home.css';
+@import './home-editorial.css';
 @import './branding.css';
 @import './people.css';
 @import './person.css';
@@ -28,4 +29,3 @@
 
 /* Final visual composition layer. */
 @import './redesign.css';
-@import './redesign-fixes.css';
