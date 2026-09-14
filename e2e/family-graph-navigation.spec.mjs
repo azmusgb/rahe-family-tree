@@ -16,7 +16,21 @@ test('Family Graph commandbar owns focal person and scope navigation',async({pag
   for(const label of['Family','Ancestors','Descendants','Direct line','Connected'])await expect(bar.getByRole('button',{name:label,exact:true})).toBeVisible();
   await bar.getByRole('button',{name:'Ancestors',exact:true}).click();
   await expect(page).toHaveURL(/scope=ancestors/);
-  await expect(bar.getByRole('button',{name:'Ancestors',exact:true})).toHaveAttribute('aria-pressed','true');
+  await expect(page.locator('.family-graph-commandbar').getByRole('button',{name:'Ancestors',exact:true})).toHaveAttribute('aria-pressed','true');
+});
+
+test('choosing a focal person from Full tree returns to focus-compatible Connected scope',async({page})=>{
+  await page.goto('/?scope=all#tree');
+  await expect(page.locator('.family-graph-scope-label')).toHaveText('Full tree');
+  const picker=page.locator('[data-family-graph-person]');
+  await expect(picker).toBeVisible();
+  const current=await picker.inputValue();
+  const target=await picker.locator('option').evaluateAll((options,selected)=>options.map(option=>option.value).find(value=>value&&value!==selected)||'',current);
+  expect(target).not.toBe('');
+  await picker.selectOption(target);
+  await expect(page).toHaveURL(new RegExp(`focus=${encodeURIComponent(target)}`));
+  await expect(page).toHaveURL(/scope=connected/);
+  await expect(page.locator('.family-graph-commandbar').getByRole('button',{name:'Connected',exact:true})).toHaveAttribute('aria-pressed','true');
 });
 
 test('relationship finder highlights a visible path and can clear it',async({page})=>{
