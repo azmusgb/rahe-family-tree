@@ -35,7 +35,7 @@ test('choosing a focal person from Full tree returns to focus-compatible Connect
   await expect(page.locator('.family-graph-commandbar').getByRole('button',{name:'Connected',exact:true})).toHaveAttribute('aria-pressed','true');
 });
 
-test('relationship finder highlights a visible path and can clear it',async({page})=>{
+test('relationship finder highlights and narrates a visible evidence-qualified path and can clear it',async({page})=>{
   await page.goto('/#tree');
   const details=page.locator('.family-graph-relationship');
   await details.locator('summary').click();
@@ -47,8 +47,15 @@ test('relationship finder highlights a visible path and can clear it',async({pag
   await select.selectOption(target);
   await expect(page).toHaveURL(/pathTo=/);
   await expect(page.locator('.tree-path-summary')).toBeVisible();
+  const card=page.locator('.relationship-path-card');
+  await expect(card).toBeVisible();
+  await expect(card.locator('.relationship-path-step')).toHaveCount(await page.locator('#family-graph .tree-path-segment').count());
+  await expect(card.locator('.relationship-path-badges')).toContainText(/SUPPORTED|PROVISIONAL|UNRESOLVED/);
+  await expect(page.locator('#family-graph .tree-path-start')).toHaveCount(1);
+  await expect(page.locator('#family-graph .tree-path-end')).toHaveCount(1);
   await page.locator('[data-family-graph-clear-path]').click();
   await expect(page).not.toHaveURL(/pathTo=/);
+  await expect(page.locator('.relationship-path-card')).toHaveCount(0);
 });
 
 test('relationship finder reveals connected relatives hidden by scope filters or collapsed branches',async({page})=>{
@@ -68,6 +75,7 @@ test('relationship finder reveals connected relatives hidden by scope filters or
   await expect(page).not.toHaveURL(/[?&]q=/);
   expect(await page.evaluate(key=>localStorage.getItem(key),COLLAPSE_KEY)).toBe('[]');
   await expect(page.locator('.tree-path-summary')).toBeVisible();
+  await expect(page.locator('.relationship-path-card')).toBeVisible();
 });
 
 test('advanced component and recent controls are progressively disclosed under Tree tools',async({page})=>{

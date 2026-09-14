@@ -6,3 +6,4 @@ import './tree-advanced.js';
 import './family-graph-v19.js';
 import './family-graph-navigation.js';
 import './family-graph-layout.js';
+import './relationship-path-comprehension.js';
