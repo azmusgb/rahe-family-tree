@@ -22,9 +22,10 @@ function ensureBackdrop(){
 
 function closeMore({restoreFocus=true}={}){
   const details=moreMenu();
-  if(!details)return;
-  details.removeAttribute('open');
-  details.querySelector('summary')?.setAttribute('aria-expanded','false');
+  if(details){
+    details.removeAttribute('open');
+    details.querySelector('summary')?.setAttribute('aria-expanded','false');
+  }
   const backdrop=document.querySelector('.mobile-more-backdrop');
   if(backdrop)backdrop.hidden=true;
   document.body.classList.remove('mobile-sheet-open');
@@ -43,18 +44,22 @@ function openMore(details){
 
 function enhanceMoreMenu(){
   const details=moreMenu();
-  if(!details||details.dataset.mobileSheet==='true')return;
+  if(!details)return;
   const summary=details.querySelector('summary');
   const panel=morePanel(details);
   if(!summary||!panel)return;
+
+  details.dataset.keepOpen='true';
   summary.setAttribute('aria-haspopup','dialog');
   summary.setAttribute('aria-expanded',String(details.open));
   panel.setAttribute('role','dialog');
   panel.setAttribute('aria-modal','true');
   panel.setAttribute('aria-label','More family navigation');
   if(!panel.querySelector('.mobile-more-head'))panel.insertAdjacentHTML('afterbegin','<div class="mobile-more-head"><strong>More</strong><button type="button" data-mobile-more-close aria-label="Close menu">Close</button></div>');
-  details.addEventListener('toggle',()=>details.open?openMore(details):closeMore({restoreFocus:false}));
+
+  if(details.dataset.mobileSheet==='true')return;
   details.dataset.mobileSheet='true';
+  details.addEventListener('toggle',()=>details.open?openMore(details):closeMore({restoreFocus:false}));
 }
 
 function focusableIn(element){
@@ -87,9 +92,7 @@ function apply(){
   if(!isMobile())closeMore({restoreFocus:false});
 }
 
-function schedule(){
-  requestAnimationFrame(()=>requestAnimationFrame(apply));
-}
+function schedule(){requestAnimationFrame(()=>requestAnimationFrame(apply));}
 
 function observeNavigationShell(){
   const observer=new MutationObserver(()=>{
