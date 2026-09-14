@@ -1,0 +1,49 @@
+/* Editorial Home refinements.
+ *
+ * Home-only presentation belongs beside the semantic Home module instead of in a
+ * repository-wide post-cascade fix layer. These rules are presentation-only and
+ * do not alter genealogy, evidence state, privacy, routing, or runtime behavior.
+ */
+
+/* The native Family renderer emits an h2 plus metrics inside the v17 hero. */
+.v17-home-hero h2{
+  margin:8px 0 20px;
+  max-width:10ch;
+  color:#fffdf8;
+  font-family:var(--family-font-display);
+  font-size:clamp(3.35rem,7vw,6.6rem);
+  font-weight:600;
+  line-height:.92;
+  letter-spacing:-.045em;
+  text-wrap:balance;
+}
+
+.v17-home-hero .v17-home-metrics,
+.v17-home-hero .v17-home-metrics b,
+.v17-home-hero .v17-home-metrics strong{
+  color:#fffdf8;
+}
+
+.v17-home-hero .v17-home-metrics span,
+.v17-home-hero .v17-home-metrics small{
+  color:rgba(255,255,255,.76);
+}
+
+@media(max-width:720px){
+  .v17-home-hero h2{
+    max-width:9ch;
+    font-size:clamp(3rem,15vw,4.9rem);
+    line-height:.92;
+  }
+}
+
+@media print{
+  .v17-home-hero h2,
+  .v17-home-hero .v17-home-metrics,
+  .v17-home-hero .v17-home-metrics b,
+  .v17-home-hero .v17-home-metrics strong,
+  .v17-home-hero .v17-home-metrics span,
+  .v17-home-hero .v17-home-metrics small{
+    color:#000;
+  }
+}
