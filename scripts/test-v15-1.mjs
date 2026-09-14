@@ -29,7 +29,7 @@ test('v15.1 promotes family navigation into a horizontal primary bar with disclo
   assert.match(css,/\.v151-primary-nav/);
   assert.match(css,/\.v151-nav-menu/);
   assert.match(css,/\.v151-nav-popover/);
-  assert.match(css,/body\[data-v158-context="family"\] \.site-header\.sidebar/);
+  assert.match(css,/body\[data-nav-context="family"\] \.site-header\.sidebar/);
 });
 
 test('v15.1 groups featured people and branches into its historical family discovery canvas',()=>{

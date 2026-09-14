@@ -23,7 +23,7 @@ test('v15.6 family archive design material is owned by the semantic system',()=>
 
 test('v15.6 shared masthead behavior remains under semantic navigation ownership',()=>{
   assert.doesNotMatch(css,/--sidebar-w/);
-  assert.match(css,/body\[data-v158-context="family"\] \.site-header\.sidebar/);
+  assert.match(css,/body\[data-nav-context="family"\] \.site-header\.sidebar/);
   assert.match(css,/\.v151-primary-nav/);
   assert.match(css,/\.v155-actions-popover/);
 });
