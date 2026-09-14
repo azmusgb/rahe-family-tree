@@ -68,10 +68,11 @@ test('collapse and expand controls stay local to tree presentation',async({page}
 
 test('recent focus trail follows tree navigation history',async({page})=>{
   await page.goto(`/?focus=${HAZEL}&scope=connected#tree`);
-  const select=page.locator('[data-tree-person]');
-  const next=await select.locator('option').evaluateAll((options,current)=>options.map(option=>option.value).find(value=>value&&value!==current)||'',HAZEL);
+  const nodes=page.locator('.graph-node[data-person]');
+  await expect(nodes.first()).toBeVisible();
+  const next=await nodes.evaluateAll((items,current)=>items.map(node=>node.getAttribute('data-person')).find(id=>id&&id!==current)||'',HAZEL);
   expect(next).not.toBe('');
-  await select.selectOption(next);
-  await page.waitForTimeout(100);
+  await page.goto(`/?focus=${encodeURIComponent(next)}&scope=connected#tree`);
+  await expect(page.locator('.tree-advanced-nav')).toBeVisible();
   await expect(page.locator('.tree-recent-trail')).toContainText('Hazel');
 });
