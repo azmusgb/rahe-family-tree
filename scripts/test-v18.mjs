@@ -12,6 +12,8 @@ const platformUi=read('platform-v13-ui.js');
 const platformRuntime=read('platform-v13-runtime.js');
 const graphEngine=read('canonical-graph-engine.js');
 const styleRoot=read('src/styles/index.css');
+const tokens=read('src/styles/tokens.css');
+const redesign=read('src/styles/redesign.css');
 const homeEditorial=read('src/styles/home-editorial.css');
 const model=json('public/research-model.json');
 const graph=json('public/canonical-graph.json');
@@ -55,6 +57,18 @@ test('semantic design system owns stylesheet composition with zero compatibility
   assert.equal(retirement.prunedSelectorArms,19);
   const retired=['v11.css','v11-nav.css','v11-2.css','v11-3.css','v11-4.css','v11-6.css','v12.css','v12-2.css','v12-3.css','v12-4.css','v12-5.css','v12-6.css','v12-6-1.css','v12-6-2.css','v12-7.css','v12-8.css','v12-9.css','v12-9-1.css','v13-0.css','dashboard-v13-2.css','media-page-v13-4.css','experience-v13-5.css','v14.css','v15.css','v15-1.css','v15-family-focus.css','platform-v13.css','v15-5.css','v15-6.css','v15-8.css','src/styles/v16.css','src/styles/v16-1.css','src/styles/v16-2.css'];
   for(const file of retired)assert.equal(fs.existsSync(file),false,`${file} must stay retired`);
+});
+
+test('tokens.css exclusively owns the editorial archive design tokens',()=>{
+  assert.match(tokens,/Editorial archive theme — final current values/);
+  assert.match(tokens,/--family-font-display:"Iowan Old Style"/);
+  assert.match(tokens,/--family-radius-panel:24px/);
+  assert.match(tokens,/--family-shadow-card:0 1px 1px/);
+  assert.match(tokens,/--evidence-provisional:#a8762b/);
+  assert.match(tokens,/--evidence-unresolved:#963f39/);
+  assert.match(tokens,/--evidence-rejected:#77766f/);
+  assert.doesNotMatch(redesign,/--[a-z0-9-]+\s*:/i,'composition layer must consume tokens instead of declaring custom properties');
+  assert.doesNotMatch(redesign,/:root\s*\{/,'composition layer must not own root design tokens');
 });
 
 test('canonical platform surfaces remain wired into the runtime',()=>{
