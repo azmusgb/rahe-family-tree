@@ -52,6 +52,12 @@ function installTreeNodeControls(){
     const node=event.target.closest?.('.graph-node[data-person]');
     if(!node)return;
     event.preventDefault();
+    const mobileFamilyGraph=document.body.dataset.familyGraph==='v19'&&matchMedia('(max-width:760px)').matches;
+    if(mobileFamilyGraph){
+      event.stopImmediatePropagation();
+      window.dispatchEvent(new CustomEvent('family-graph-person-preview',{detail:{personId:node.dataset.person}}));
+      return;
+    }
     navigate(`#person/${node.dataset.person}`);
   },true);
 }
