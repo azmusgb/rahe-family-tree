@@ -8,12 +8,14 @@ import '../../platform-v13-runtime.js';
 import './page-architecture.js';
 import './navigation-shell.js';
 import './native-family-v17-controller.js';
+import './v17-6-stability.js';
 
 // Workbench, Stories, Tree/mobile density, site naming, unified family,
-// stabilization, biography-first person presentation, media-specific narrative,
-// branch destinations, and the current premium family-facing elevation layer
-// remain additive capabilities after the stable Family route controller.
-void import('./v17-6-stability.js');
+// biography-first person presentation, media-specific narrative, branch
+// destinations, and the current premium family-facing elevation layer remain
+// additive capabilities after the stable Family route controller. v17.6 is
+// intentionally synchronous above so tree-state restoration happens before
+// slower presentation-only dynamic layers can delay the first interactive view.
 void import('./site-branding.js');
 void import('./record-ingestion.js');
 void import('./stories-runtime.js');
