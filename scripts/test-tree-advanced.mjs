@@ -4,12 +4,15 @@ import{readFileSync}from'node:fs';
 
 const runtime=readFileSync(new URL('../src/runtime/tree-advanced.js',import.meta.url),'utf8');
 const composition=readFileSync(new URL('../src/runtime/tree.js',import.meta.url),'utf8');
+const experience=readFileSync(new URL('../src/runtime/experience.js',import.meta.url),'utf8');
 const styles=readFileSync(new URL('../src/styles/tree-advanced.css',import.meta.url),'utf8');
 const styleRoot=readFileSync(new URL('../src/styles/index.css',import.meta.url),'utf8');
 
-test('advanced tree module is composed after core navigation and polish',()=>{
-  assert.match(composition,/tree-engine\.js[\s\S]*tree-polish\.js[\s\S]*tree-advanced\.js/);
-  assert.match(styleRoot,/tree\.css[\s\S]*tree-advanced\.css/);
+test('advanced tree remains additive without changing the stable tree boundary',()=>{
+  const imports=[...composition.matchAll(/import ['"]([^'"]+\.js)['"]/g)].map(match=>match[1]);
+  assert.deepEqual(imports,['./tree-engine.js','./tree-polish.js']);
+  assert.match(experience,/void import\('\.\/tree-advanced\.js'\)/);
+  assert.match(styleRoot,/@import '\.\/tree\.css';\s*@import '\.\/unified-family\.css';[\s\S]*@import '\.\/tree-advanced\.css';/);
 });
 
 test('advanced tree keeps genealogy read-only and uses canonical graph helpers',()=>{
@@ -25,7 +28,7 @@ test('component-first anchor ranking rewards useful reachable family coverage',(
   assert.match(runtime,/bestAnchorInComponent/);
   assert.match(runtime,/branches\.size\*60000/);
   assert.match(runtime,/centrality\*100/);
-  assert.match(runtime,/scope','connected'/);
+  assert.match(runtime,/searchParams\.set\('scope','connected'\)/);
 });
 
 test('tree navigation includes components, breadcrumbs, recents, collapse, compact mode, and path highlighting',()=>{
