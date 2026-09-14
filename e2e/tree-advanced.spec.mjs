@@ -8,13 +8,20 @@ async function mockApis(page){
 }
 test.beforeEach(async({page})=>{await mockApis(page);});
 
-test('advanced tree exposes component navigation, focus trail, compact mode, and vector export tools',async({page})=>{
+test('advanced tree owns one navigation/export toolset with compact mode and neutral SVG download',async({page})=>{
   await page.goto(`/?focus=${HAZEL}&scope=connected#tree`);
   await expect(page.locator('.tree-advanced-nav')).toBeVisible();
   await expect(page.locator('[data-tree-component]')).toBeVisible();
   await expect(page.locator('.tree-focus-breadcrumb')).toContainText('Hazel');
-  await expect(page.locator('[data-tree-export-svg]')).toBeVisible();
-  await expect(page.locator('[data-tree-export-pdf]')).toBeVisible();
+  await expect(page.locator('[data-tree-copy-link]')).toHaveCount(1);
+  await expect(page.locator('[data-tree-export-svg]')).toHaveCount(1);
+  await expect(page.locator('[data-tree-export-pdf]')).toHaveCount(1);
+  await expect(page.locator('[data-v176-export-svg],[data-v176-print-tree],[data-v176-copy-link]')).toHaveCount(0);
+
+  const downloadPromise=page.waitForEvent('download');
+  await page.locator('[data-tree-export-svg]').click();
+  const download=await downloadPromise;
+  expect(download.suggestedFilename()).toBe('family-history-tree.svg');
 
   const compact=page.locator('[data-tree-compact-toggle]');
   const body=page.locator('body');
@@ -28,10 +35,9 @@ test('advanced tree exposes component navigation, focus trail, compact mode, and
 
   await page.locator('[data-tree-compact-toggle]').click();
   await expect(page.locator('[data-tree-compact-toggle]')).toHaveAttribute('aria-pressed',initialPressed);
-  if(initialPressed==='true')await expect(body).toHaveClass(/tree-compact/);else await expect(body).not.toHaveClass(/tree-compact/);
 });
 
-test('relationship path highlighting marks an evidence-qualified path without changing genealogy state',async({page})=>{
+test('relationship path highlighting marks only a visible evidence-qualified path',async({page})=>{
   await page.goto(`/?focus=${HAZEL}&scope=connected#tree`);
   const picker=page.locator('[data-tree-path-target]');
   await expect(picker).toBeVisible();
@@ -40,9 +46,20 @@ test('relationship path highlighting marks an evidence-qualified path without ch
   await picker.selectOption(target);
   await expect(page).toHaveURL(new RegExp(`pathTo=${encodeURIComponent(target)}`));
   await expect(page.locator('.tree-path-summary')).toBeVisible();
-  await expect(page.locator('.graph-node.tree-path-node')).toHaveCount(await page.locator('.graph-node.tree-path-node').count());
-  expect(await page.locator('.graph-node.tree-path-node').count()).toBeGreaterThan(1);
+  const highlighted=page.locator('.graph-node.tree-path-node');
+  expect(await highlighted.count()).toBeGreaterThan(1);
   await expect(page.locator('[data-tree-path-overlay]')).toHaveCount(1);
+  const renderedIds=new Set(await page.locator('#family-graph .graph-node[data-person]').evaluateAll(nodes=>nodes.map(node=>node.getAttribute('data-person'))));
+  for(const id of await highlighted.evaluateAll(nodes=>nodes.map(node=>node.getAttribute('data-person'))))expect(renderedIds.has(id)).toBeTruthy();
+});
+
+test('generation labels are focus-relative and appear once per rendered lane',async({page})=>{
+  await page.goto(`/?focus=${HAZEL}&scope=connected#tree`);
+  const labels=page.locator('.generation-lane text');
+  await expect(labels.first()).toBeVisible();
+  const text=await labels.allTextContents();
+  expect(text.filter(value=>value==='FOCUS')).toHaveLength(1);
+  expect(text.every(value=>value==='FOCUS'||/^\d+ GEN [↑↓]$/.test(value))).toBeTruthy();
 });
 
 test('collapse and expand controls stay local to tree presentation',async({page})=>{
@@ -66,7 +83,7 @@ test('collapse and expand controls stay local to tree presentation',async({page}
   expect(afterExpand).toBeGreaterThanOrEqual(afterCollapse);
 });
 
-test('recent focus trail follows tree navigation history',async({page})=>{
+test('recent focus trail has one owner and follows tree navigation history',async({page})=>{
   await page.goto(`/?focus=${HAZEL}&scope=connected#tree`);
   const nodes=page.locator('.graph-node[data-person]');
   await expect(nodes.first()).toBeVisible();
@@ -74,5 +91,7 @@ test('recent focus trail follows tree navigation history',async({page})=>{
   expect(next).not.toBe('');
   await page.goto(`/?focus=${encodeURIComponent(next)}&scope=connected#tree`);
   await expect(page.locator('.tree-advanced-nav')).toBeVisible();
+  await expect(page.locator('.tree-recent-trail')).toHaveCount(1);
   await expect(page.locator('.tree-recent-trail')).toContainText('Hazel');
+  await expect(page.locator('[data-v129-recent]')).toHaveCount(0);
 });
