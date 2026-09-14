@@ -10,6 +10,8 @@ const treeEngine=read('src/runtime/tree-engine.js');
 const composition=read('src/runtime/tree.js');
 const experience=read('src/runtime/experience.js');
 const styles=read('src/styles/tree-advanced.css');
+const printStyles=read('src/styles/print.css');
+const interactionStyles=read('src/styles/interaction-contracts.css');
 const styleRoot=read('src/styles/index.css');
 
 test('advanced tree remains additive behind one deterministic controller without changing the stable tree boundary',()=>{
@@ -69,5 +71,7 @@ test('tree export provides one neutral style-preserving SVG/PDF/copy-link toolse
 });
 
 test('advanced tree styles cover couple groups, path emphasis, mobile density, print, focus, and reduced motion',()=>{
-  for(const selector of['.tree-couple-group','.tree-path-segment','body.tree-compact','@media(max-width:760px)','@media print','@media(prefers-reduced-motion:reduce)'])assert.ok(styles.includes(selector),`missing ${selector}`);
+  for(const selector of['.tree-couple-group','.tree-path-segment','body.tree-compact','@media(max-width:760px)'])assert.ok(styles.includes(selector),`missing ${selector}`);
+  assert.match(printStyles,/@media print/);
+  assert.match(interactionStyles,/@media[^\{]*prefers-reduced-motion\s*:\s*reduce/);
 });
