@@ -67,15 +67,15 @@
   --family-text-eyebrow:.68rem;
 
   /* Layout widths. */
-  --content-max:1440px;
+  --content-max:1320px;
   --layout-gap:24px;
-  --family-page-home:1280px;
-  --family-page-people:1360px;
-  --family-page-person:1200px;
+  --family-page-home:1240px;
+  --family-page-people:1280px;
+  --family-page-person:1120px;
   --family-page-stories:1120px;
-  --family-page-explore:1280px;
-  --family-page-media:1600px;
-  --family-page-research:1480px;
+  --family-page-explore:1240px;
+  --family-page-media:1440px;
+  --family-page-research:1360px;
   --family-copy:720px;
   --app-masthead-height:76px;
   --app-utility-height:52px;
@@ -107,18 +107,18 @@
   --radius-md:14px;
   --radius-lg:24px;
   --radius-pill:999px;
-  --family-radius-panel:24px;
-  --family-radius-card:18px;
+  --family-radius-panel:20px;
+  --family-radius-card:16px;
   --family-radius-control:12px;
   --family-radius-chip:999px;
 
   /* Elevation. */
-  --shadow:0 18px 60px rgba(31,52,45,.09);
+  --shadow:0 16px 48px rgba(31,52,45,.07);
   --shadow-sm:0 1px 1px rgba(25,40,32,.03),0 7px 20px rgba(25,40,32,.04);
-  --shadow-md:0 16px 44px rgba(25,40,32,.09);
-  --shadow-lg:0 24px 70px rgba(13,29,24,.18);
-  --family-shadow-card:0 1px 1px rgba(25,40,32,.03),0 8px 24px rgba(25,40,32,.045);
-  --family-shadow-card-hover:0 2px 4px rgba(25,40,32,.04),0 18px 44px rgba(25,40,32,.085);
+  --shadow-md:0 12px 32px rgba(25,40,32,.07);
+  --shadow-lg:0 20px 56px rgba(13,29,24,.14);
+  --family-shadow-card:0 1px 1px rgba(25,40,32,.025),0 5px 16px rgba(25,40,32,.035);
+  --family-shadow-card-hover:0 2px 3px rgba(25,40,32,.035),0 10px 26px rgba(25,40,32,.065);
   --family-shadow-float:0 28px 80px rgba(18,42,33,.16);
 
   /* Motion. */

@@ -25,11 +25,11 @@ test('v15.3 person profile capabilities remain available under semantic person o
 });
 
 test('v15.4 tree capability retains focal-person semantics under semantic tree ownership',()=>{
-  assert.match(runtime,/v154-tree-person/);
+  assert.match(runtime,/tree-person-summary/);
   assert.match(runtime,/data-tree-scope="ancestors"/);
   assert.match(runtime,/data-tree-scope="descendants"/);
   assert.match(runtime,/Interactive family tree/);
-  assert.match(css,/v154-tree-person/);
+  assert.match(css,/tree-person-summary/);
   assert.match(css,/\.edge\.identity-bridge/);
 });
 

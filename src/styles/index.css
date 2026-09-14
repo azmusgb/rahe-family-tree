@@ -30,8 +30,18 @@
 @import './elevation.css';
 @import './branches.css';
 @import './archive-shell.css';
-@import './interaction-contracts.css';
-@import './print.css';
 
-/* Final visual composition layer. */
-@import './redesign.css';
+/* Final semantic composition. Each file owns one UI domain. */
+@import './base-composition.css';
+@import './shell-composition.css';
+@import './home-composition.css';
+@import './person-composition.css';
+@import './people-composition.css';
+@import './tree-composition.css';
+@import './responsive-composition.css';
+
+/* Interaction contracts intentionally follow visual composition. */
+@import './interaction-contracts.css';
+
+/* Print is authoritative and intentionally last in the cascade. */
+@import './print.css';

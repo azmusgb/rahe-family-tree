@@ -13,9 +13,10 @@ permissions:
   contents: read
 
 jobs:
-  validate:
+  prepare:
+    name: prepare release candidate
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -53,24 +54,6 @@ jobs:
           test -f dist/provenance-index.json
           test -f dist/canonical-diff.json
           node -e "const b=require('./dist/build-info.json'),g=require('./dist/canonical-graph.json'),d=require('./dist/canonical-diff.json');if(b.appVersion!=='18.5.0'||b.releaseTrain!=='v18-5-research-intelligence'||g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1)"
-      - name: Install Playwright Chromium
-        timeout-minutes: 5
-        run: npx playwright install --with-deps chromium
-      - name: Run bounded browser interaction suite
-        timeout-minutes: 12
-        env:
-          CI: '1'
-        run: npm run test:e2e
-      - name: Upload browser diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-diagnostics-${{ github.event.pull_request.number || github.run_id }}
-          path: |
-            playwright-report/
-            test-results/
-          if-no-files-found: ignore
-          retention-days: 7
       - name: Upload built site artifact
         uses: actions/upload-artifact@v4
         with:
@@ -78,3 +61,81 @@ jobs:
           path: dist/
           if-no-files-found: error
           retention-days: 7
+
+  browser:
+    name: browser shard ${{ matrix.id }}/4
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - id: 1
+            shard: '1/4'
+          - id: 2
+            shard: '2/4'
+          - id: 3
+            shard: '3/4'
+          - id: 4
+            shard: '4/4'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Download verified production build
+        uses: actions/download-artifact@v4
+        with:
+          name: site-dist-${{ github.event.pull_request.number || github.run_id }}
+          path: dist
+      - name: Restore Playwright browser cache
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install Chromium system dependencies
+        timeout-minutes: 5
+        run: npx playwright install-deps chromium
+      - name: Install Playwright Chromium on cache miss
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        timeout-minutes: 5
+        run: npx playwright install chromium
+      - name: Run browser interaction shard
+        timeout-minutes: 9
+        env:
+          CI: '1'
+        run: npx playwright test --shard=${{ matrix.shard }}
+      - name: Upload browser diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-diagnostics-${{ github.event.pull_request.number || github.run_id }}-shard-${{ matrix.id }}
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  validate:
+    name: validate
+    if: always()
+    needs:
+      - prepare
+      - browser
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Verify all release gates passed
+        env:
+          PREPARE_RESULT: ${{ needs.prepare.result }}
+          BROWSER_RESULT: ${{ needs.browser.result }}
+        run: |
+          echo "prepare=${PREPARE_RESULT}"
+          echo "browser=${BROWSER_RESULT}"
+          test "${PREPARE_RESULT}" = "success"
+          test "${BROWSER_RESULT}" = "success"

@@ -1,0 +1,75 @@
+/* Final shell composition for masthead, workspace, and footer. Presentation-only. */
+
+/* App shell */
+.site-header.sidebar{
+  background:
+    radial-gradient(circle at 16% 0,rgba(255,255,255,.08),transparent 15rem),
+    linear-gradient(180deg,#143d33 0%,#0f332a 100%);
+  border-right:1px solid rgba(255,255,255,.08);
+  box-shadow:10px 0 36px rgba(18,42,33,.04);
+}
+
+.brand{
+  letter-spacing:.075em;
+  font-family:var(--family-font-display);
+}
+.brand .monogram,.site-footer-brand .monogram{
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.06);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+#nav a,.v151-nav-menu>summary,.v158-research-entry{
+  border-radius:12px;
+  transition:
+    background var(--family-motion-fast,140ms) ease,
+    color var(--family-motion-fast,140ms) ease,
+    transform var(--family-motion-fast,140ms) ease;
+}
+#nav a:hover,.v151-nav-menu>summary:hover{background:rgba(255,255,255,.08);color:#fff}
+#nav a[aria-current="page"],#nav a.active{
+  background:#f4eee0;
+  color:#153f34;
+  box-shadow:0 6px 18px rgba(0,0,0,.14);
+}
+
+.workspace{background:transparent}
+.topbar{
+  border-bottom:1px solid #ddd9ce;
+  border-bottom-color:color-mix(in srgb,var(--line) 88%,transparent);
+  background:rgba(248,245,237,.82);
+  -webkit-backdrop-filter:blur(18px) saturate(120%);
+  backdrop-filter:blur(18px) saturate(120%);
+}
+.site-breadcrumb{color:var(--muted)}
+.site-breadcrumb a{font-weight:720;text-decoration:none}
+
+.topbar-actions button,.site-tools>summary,.site-header-actions button{
+  border-color:#c9c7bc;
+  border-color:color-mix(in srgb,var(--line-strong) 78%,transparent);
+  background:rgba(255,253,248,.72);
+  box-shadow:0 1px 0 rgba(255,255,255,.9);
+}
+.topbar-actions button:hover,.site-tools>summary:hover,.site-header-actions button:hover{
+  border-color:#aeb8ae;
+  border-color:color-mix(in srgb,var(--green) 26%,var(--line));
+  background:#fffdf8;
+}
+
+.main{
+  width:min(100%,var(--content-max));
+  padding-top:clamp(28px,4vw,54px);
+}
+
+/* Footer */
+.site-footer{
+  margin-top:clamp(48px,8vw,110px);
+  border-top:1px solid var(--line);
+  background:#efece3;
+}
+.site-footer-grid{gap:clamp(28px,5vw,72px)}
+.site-footer a{text-underline-offset:4px}
+
+/* Footer should recede rather than become another large panel. */
+.site-footer{margin-top:clamp(40px,6vw,80px);background:transparent}

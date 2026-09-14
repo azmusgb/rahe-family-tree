@@ -35,12 +35,12 @@ test('desktop utility bar is replaced while family research mode remains reachab
   assert.match(runtime,/data-v155-mode/);
   assert.match(runtime,/data-ui-command/);
   assert.match(runtime,/toggle-experience/);
-  assert.match(css,/\.topbar\{display:none!important\}/);
+  assert.match(css,/\.topbar\{display:none\}/);
   assert.match(css,/\.v155-original-actions\{display:none!important\}/);
 });
 
 test('tree gains reclaimed viewport and compact focal controls',()=>{
-  assert.match(css,/data-route="tree"[^\n]*\.v154-tree-person/);
+  assert.match(css,/data-route="tree"[^\n]*\.tree-person-summary/);
   assert.match(css,/min-height:620px;max-height:calc\(100vh - 258px\)/);
 });
 

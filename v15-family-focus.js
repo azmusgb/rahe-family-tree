@@ -79,12 +79,12 @@ function installTreeOverview(){
   const content=document.querySelector('#content'),focusbar=content?.querySelector('.tree-focusbar'),person=focalPerson();if(!content||!focusbar||!person)return;
   content.classList.add('v154-tree');
   let panel=content.querySelector('.v154-tree-person');
-  if(!panel){panel=document.createElement('section');panel.className='v154-tree-person';focusbar.insertAdjacentElement('beforebegin',panel);}
+  if(!panel){panel=document.createElement('section');panel.className='tree-person-summary v154-tree-person';focusbar.insertAdjacentElement('beforebegin',panel);}
   const rel=relationSets(person.id);
-  panel.innerHTML=`<div class="v154-tree-person-main"><span class="v154-tree-avatar" aria-hidden="true">${esc(initials(person.name))}</span><div><p class="eyebrow">FOCAL PERSON</p><h2>${esc(person.name)}</h2><p>${esc(person.dates||cleanBranch(person.branch))}</p></div></div><div class="v154-tree-relations">${treeRelationSummary(rel)}</div><div class="v154-tree-actions"><a class="action primary" href="#person/${esc(person.id)}">Open profile</a><button type="button" class="action" data-tree-scope="ancestors">Ancestors</button><button type="button" class="action" data-tree-scope="descendants">Descendants</button></div>`;
-  focusbar.classList.add('v154-tree-controls');
-  const shell=content.querySelector('.graph-shell');if(shell)shell.classList.add('v154-graph-shell');
-  const scroll=content.querySelector('.graph-scroll');if(scroll){scroll.setAttribute('aria-label','Interactive family tree. Select a person to open their profile.');if(!content.querySelector('.v154-tree-help')){const help=document.createElement('p');help.className='v154-tree-help';help.textContent='Drag or scroll across generations. Tap a person to open their profile. Use the controls above to switch between family, ancestor, descendant, direct-line, and full-tree views.';scroll.insertAdjacentElement('beforebegin',help);}}
+  panel.innerHTML=`<div class="tree-person-summary-main v154-tree-person-main"><span class="tree-person-avatar v154-tree-avatar" aria-hidden="true">${esc(initials(person.name))}</span><div><p class="eyebrow">FOCAL PERSON</p><h2>${esc(person.name)}</h2><p>${esc(person.dates||cleanBranch(person.branch))}</p></div></div><div class="tree-person-relations v154-tree-relations">${treeRelationSummary(rel)}</div><div class="tree-person-actions v154-tree-actions"><a class="action primary" href="#person/${esc(person.id)}">Open profile</a><button type="button" class="action" data-tree-scope="ancestors">Ancestors</button><button type="button" class="action" data-tree-scope="descendants">Descendants</button></div>`;
+  focusbar.classList.add('tree-controls','v154-tree-controls');
+  const shell=content.querySelector('.graph-shell');if(shell)shell.classList.add('tree-graph-shell','v154-graph-shell');
+  const scroll=content.querySelector('.graph-scroll');if(scroll){scroll.setAttribute('aria-label','Interactive family tree. Select a person to open their profile.');if(!content.querySelector('.v154-tree-help')){const help=document.createElement('p');help.className='tree-help v154-tree-help';help.textContent='Drag or scroll across generations. Tap a person to open their profile. Use the controls above to switch between family, ancestor, descendant, direct-line, and full-tree views.';scroll.insertAdjacentElement('beforebegin',help);}}
 }
 
 function polishHome(){

@@ -197,9 +197,9 @@ body[data-tree-polish-release="12.9.1"] .graph-node .v128-svg-photo{width:44px;h
 
 @media(max-width:760px){body[data-tree-polish-release="12.9.1"] .graph-node .v128-svg-photo{width:48px;height:48px}}
 
-@media print{.graph-node .v128-svg-photo{display:none!important}}
 
-@media print{.graph-node .node-initials.photo-hidden{display:block!important}}
+
+
 
 .media-page{display:grid;gap:28px}
 
@@ -323,9 +323,9 @@ body[data-tree-polish-release="12.9.1"] .graph-node .v128-svg-photo{width:44px;h
 
 @media(max-width:620px){.media-library-preview{aspect-ratio:16/11}}
 
-@media(prefers-reduced-motion:reduce){.media-library-preview img{transition:none}}
 
-@media(prefers-reduced-motion:reduce){.media-library-preview:hover img{transform:none}}
+
+
 
 :where(.dashboard-hero-copy h2,.media-page-hero h2,.page-heading h1,.section-title h2){text-wrap:balance}
 

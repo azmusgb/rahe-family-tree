@@ -13,7 +13,7 @@ const platformRuntime=read('platform-v13-runtime.js');
 const graphEngine=read('canonical-graph-engine.js');
 const styleRoot=read('src/styles/index.css');
 const tokens=read('src/styles/tokens.css');
-const redesign=read('src/styles/redesign.css');
+const compositions=['base-composition.css','shell-composition.css','home-composition.css','person-composition.css','people-composition.css','tree-composition.css','responsive-composition.css'].map(name=>read(`src/styles/${name}`)).join('\n');
 const homeEditorial=read('src/styles/home-editorial.css');
 const model=json('public/research-model.json');
 const graph=json('public/canonical-graph.json');
@@ -62,7 +62,7 @@ test('semantic design system owns stylesheet composition with zero compatibility
 test('tokens.css is the single-source owner of active Family design tokens',()=>{
   assert.match(tokens,/Family design system — single-source tokens/);
   assert.match(tokens,/--family-font-display:"Iowan Old Style"/);
-  assert.match(tokens,/--family-radius-panel:24px/);
+  assert.match(tokens,/--family-radius-panel:20px/);
   assert.match(tokens,/--family-shadow-card:0 1px 1px/);
   assert.match(tokens,/--evidence-provisional:#a8762b/);
   assert.match(tokens,/--evidence-unresolved:#963f39/);
@@ -92,8 +92,8 @@ test('tokens.css is the single-source owner of active Family design tokens',()=>
     assert.equal((tokens.match(new RegExp(`${escaped}\\s*:`, 'g'))||[]).length,1,`${name} must have exactly one base declaration`);
   }
 
-  assert.doesNotMatch(redesign,/--[a-z0-9-]+\s*:/i,'composition layer must consume tokens instead of declaring custom properties');
-  assert.doesNotMatch(redesign,/:root\s*\{/,'composition layer must not own root design tokens');
+  assert.doesNotMatch(compositions,/--[a-z0-9-]+\s*:/i,'composition files must consume tokens instead of declaring custom properties');
+  assert.doesNotMatch(compositions,/:root\s*\{/,'composition files must not own root design tokens');
 });
 
 test('canonical platform surfaces remain wired into the runtime',()=>{
