@@ -1,0 +1,56 @@
+/* Final Tree composition. Evidence-state semantics remain authoritative. */
+
+/* Tree: editorial workspace without flattening canonical state distinctions. */
+.v174-tree-context{
+  padding:20px 22px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#fffdf8,#f2f4ee);
+}
+.v154-graph-shell,.graph-shell,.graph-panel{
+  overflow:hidden;
+  border-radius:24px;
+}
+.graph-toolbar{
+  padding:16px 18px;
+  background:rgba(255,253,248,.9);
+}
+.graph-scroll{
+  background-color:#f8f6f0;
+  background-image:radial-gradient(rgba(18,63,52,.10) .8px,transparent .8px);
+  background-size:24px 24px;
+}
+
+/* Base treatment only. State-specific selectors below always win. */
+.graph-node rect{
+  fill:#fffdf8;
+  stroke:#b7c3ba;
+  filter:drop-shadow(0 7px 11px rgba(18,63,52,.075));
+}
+.graph-node:hover rect,.graph-node:focus rect{
+  stroke:#275a4a;
+  filter:drop-shadow(0 12px 20px rgba(18,63,52,.13));
+}
+.graph-node.state-provisional rect{
+  stroke:var(--evidence-provisional);
+  stroke-dasharray:6 4;
+}
+.graph-node.state-unresolved rect{
+  stroke:var(--evidence-unresolved);
+  stroke-dasharray:7 5;
+}
+.graph-node.state-rejected rect{stroke:var(--evidence-rejected)}
+.edge.state-provisional{stroke:var(--evidence-provisional);stroke-dasharray:8 7}
+.edge.state-unresolved,.edge.identity-bridge{stroke:var(--evidence-unresolved);stroke-dasharray:8 7}
+.edge.state-rejected{display:none}
+
+/* Tree: controls first, canvas second; remove decorative noise. */
+.v174-tree-context{padding:16px 18px;border-radius:16px;background:var(--surface-soft);box-shadow:none}
+.v154-graph-shell,.graph-shell,.graph-panel{border-radius:18px}
+.graph-toolbar{padding:10px 12px}
+.graph-scroll{background-color:#faf9f5;background-image:none}
+.graph-node rect{filter:drop-shadow(0 3px 6px rgba(18,63,52,.055))}
+.graph-node:hover rect,.graph-node:focus rect{filter:drop-shadow(0 6px 12px rgba(18,63,52,.09))}
+body[data-route="tree"][data-v158-context="family"] .graph-shell{box-shadow:none!important}
+body[data-route="tree"][data-v158-context="family"] .graph-scroll{background:#faf9f5!important;background-image:none!important}
+body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar,
+body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{background:transparent!important}

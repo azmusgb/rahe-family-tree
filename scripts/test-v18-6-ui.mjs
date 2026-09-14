@@ -34,9 +34,10 @@ test('18.7 CSS architecture centralizes print and reduced-motion contracts',asyn
   const index=await read('src/styles/index.css');
   const print=await read('src/styles/print.css');
   const interactions=await read('src/styles/interaction-contracts.css');
-  const modules=['shell.css','navigation.css','home.css','tree.css','media.css','mobile-family.css','responsive.css','redesign.css'];
+  const modules=['shell.css','navigation.css','home.css','tree.css','media.css','mobile-family.css','responsive.css','base-composition.css','shell-composition.css','home-composition.css','person-composition.css','people-composition.css','tree-composition.css','responsive-composition.css'];
   const moduleCss=await Promise.all(modules.map(name=>read(`src/styles/${name}`)));
-  assert.ok(index.indexOf("@import './redesign.css';")<index.indexOf("@import './interaction-contracts.css';"));
+  for(const name of ['base-composition.css','shell-composition.css','home-composition.css','person-composition.css','people-composition.css','tree-composition.css','responsive-composition.css'])assert.ok(index.indexOf(`@import './${name}';`)>-1);
+  assert.ok(index.indexOf("@import './responsive-composition.css';")<index.indexOf("@import './interaction-contracts.css';"));
   assert.ok(index.indexOf("@import './interaction-contracts.css';")<index.indexOf("@import './print.css';"));
   assert.match(print,/Consolidated print rules migrated from semantic modules/);
   assert.match(interactions,/Reduced-motion is a cross-route accessibility contract/);
@@ -58,5 +59,17 @@ test('18.7 responsive media-query debt stays within the normalized budget',async
     const css=await read(`src/styles/${name}`);
     const count=(css.match(/@media/g)||[]).length;
     assert.ok(count<=max,`${name} has ${count} media blocks; budget is ${max}`);
+  }
+});
+
+
+test('18.8 retires the catch-all redesign layer into semantic composition owners',async()=>{
+  const index=await read('src/styles/index.css');
+  assert.doesNotMatch(index,/redesign\.css/);
+  for(const name of ['base','shell','home','person','people','tree','responsive']){
+    const file=`${name}-composition.css`;
+    assert.match(index,new RegExp(`@import './${file.replace('.', '\\.')}';`));
+    const css=await read(`src/styles/${file}`);
+    assert.match(css,/Presentation-only|Evidence-state semantics/);
   }
 });
