@@ -13,7 +13,6 @@ const platformRuntime=read('platform-v13-runtime.js');
 const graphEngine=read('canonical-graph-engine.js');
 const styleRoot=read('src/styles/index.css');
 const tokens=read('src/styles/tokens.css');
-const redesign=read('src/styles/redesign.css');
 const homeEditorial=read('src/styles/home-editorial.css');
 const model=json('public/research-model.json');
 const graph=json('public/canonical-graph.json');
@@ -41,10 +40,14 @@ test('semantic design system owns stylesheet composition with zero compatibility
   assert.doesNotMatch(styleRoot,/legacy-compat\.generated\.css/);
   assert.doesNotMatch(styleRoot,/redesign-fixes\.css/);
   assert.doesNotMatch(styleRoot,/@import ['"](?:\.\.\/)*?(?:v\d|dashboard-v\d|media-page-v\d|experience-v\d|platform-v\d)/);
-  for(const semantic of['tokens.css','base.css','shell.css','navigation.css','home.css','home-editorial.css','people.css','person.css','tree.css','media.css','research.css','record-ingestion.css','mobile-family.css','responsive.css']){
+  for(const semantic of['tokens.css','base.css','components.css','shell.css','navigation.css','home.css','home-editorial.css','people.css','person.css','tree.css','tree-advanced.css','media.css','research.css','record-ingestion.css','mobile-family.css']){
     assert.match(styleRoot,new RegExp(`@import '\\.\\/${semantic.replace('.','\\.')}';`));
   }
   assert.equal(fs.existsSync('src/styles/redesign-fixes.css'),false,'post-cascade redesign fix layer must stay retired');
+  assert.equal(fs.existsSync('src/styles/redesign.css'),false,'final redesign override layer must stay retired');
+  assert.equal(fs.existsSync('src/styles/responsive.css'),false,'global responsive override layer must stay retired');
+  assert.ok(fs.existsSync('src/styles/ownership-exceptions.json'),'CSS ownership exception baseline must be versioned');
+  assert.ok(fs.existsSync('scripts/css-architecture-audit.mjs'),'CSS architecture audit must remain release-blocking');
   assert.match(homeEditorial,/\.v17-home-hero h2/);
   assert.match(homeEditorial,/\.v17-home-hero \.v17-home-metrics/);
   assert.match(build,/const legacyStyleSources=\[\]/);
@@ -68,6 +71,7 @@ test('tokens.css is the single-source owner of active Family design tokens',()=>
   assert.match(tokens,/--evidence-unresolved:#963f39/);
   assert.match(tokens,/--evidence-rejected:#77766f/);
   assert.match(tokens,/--green2:#275a4a/);
+  assert.match(tokens,/--family-text-min-readable:/);
 
   const migratedSpacing={
     '--space-1':'4px','--space-2':'8px','--space-3':'12px','--space-4':'16px',
@@ -92,8 +96,8 @@ test('tokens.css is the single-source owner of active Family design tokens',()=>
     assert.equal((tokens.match(new RegExp(`${escaped}\\s*:`, 'g'))||[]).length,1,`${name} must have exactly one base declaration`);
   }
 
-  assert.doesNotMatch(redesign,/--[a-z0-9-]+\s*:/i,'composition layer must consume tokens instead of declaring custom properties');
-  assert.doesNotMatch(redesign,/:root\s*\{/,'composition layer must not own root design tokens');
+  const base=read('src/styles/base.css');
+  assert.doesNotMatch(base,/data-route=|data-experience=|\.profile|\.graph|\.media|\.ri-|\.dashboard|\.family-/,'base.css must remain foundations-only');
 });
 
 test('canonical platform surfaces remain wired into the runtime',()=>{
