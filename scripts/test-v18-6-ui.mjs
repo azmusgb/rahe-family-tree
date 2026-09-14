@@ -145,3 +145,9 @@ test('18.13 tree CSS does not depend on release-number state markers',async()=>{
   assert.match(engine,/dataset\.treeRelease='17\.2'/);
   assert.match(polish,/dataset\.treePolishRelease='18\.6'/);
 });
+
+test('18.14 hidden route filters remain hidden despite layout display rules',async()=>{
+  const interactions=await read('src/styles/interaction-contracts.css');
+  assert.match(interactions,/\.filters\[hidden\]\{display:none!important\}/);
+  assert.match(interactions,/data-route="media"[^\{]*\.route-shell \.filters\{[\s\S]*display:block!important/);
+});
