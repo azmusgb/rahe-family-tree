@@ -7,6 +7,7 @@ const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const people=[...(model.people||[]),...(model.familySupplement?.people||[])];
 const relationships=[...(model.relationships||[]),...(model.familySupplement?.relationships||[])];
 const snapshot=JSON.stringify({people,relationships,claims:model.claims,evidenceGaps:model.evidenceGaps});
+const pairKey=(a,b)=>[a,b].sort().join('|');
 
 const result=buildResearchAutomation({model,people,relationships});
 
@@ -30,12 +31,14 @@ test('generated tasks retain explicit no-promotion authority and rank only opera
   }
 });
 
-test('identity candidates exclude living people and never authorize an automatic merge',()=>{
+test('identity candidates exclude living people, known active relatives, and automatic merge authority',()=>{
   const living=new Set(people.filter(person=>person.living).map(person=>person.id));
+  const knownRelatives=new Set(relationships.filter(rel=>rel.active!==false&&rel.type!=='identity-bridge'&&!/REJECTED/i.test(String(rel.state||rel.evidenceState||''))).map(rel=>pairKey(rel.from,rel.to)));
   for(const candidate of result.identityCandidates){
     assert.equal(candidate.authority,'CANDIDATE REVIEW ONLY — NEVER AUTO-MERGE');
     assert.equal(living.has(candidate.personA),false);
     assert.equal(living.has(candidate.personB),false);
+    assert.equal(knownRelatives.has(pairKey(candidate.personA,candidate.personB)),false,'active relatives must not be suggested as duplicate identities');
     assert.ok(['PROBABLE MATCH','POSSIBLE MATCH','CONFLICTING EVIDENCE','INSUFFICIENT EVIDENCE'].includes(candidate.classification));
   }
 });
@@ -53,4 +56,13 @@ test('the DeVine/DeVeine to William John Rahe Sr identity bridge remains unresol
 test('rejected relationships do not generate weak-parentage tasks',()=>{
   const rejected=new Set(relationships.filter(rel=>rel.active===false||/REJECTED/i.test(String(rel.state||rel.evidenceState||''))).map(rel=>rel.id));
   assert.ok(result.tasks.filter(task=>task.relationshipId).every(task=>!rejected.has(task.relationshipId)));
+});
+
+test('name-transition and census signals stay grounded in canonical research targets or explicit identity review',()=>{
+  const canonicalTaskIds=new Set((model.researchTasks||[]).map(task=>task.id));
+  for(const task of result.tasks.filter(task=>task.ruleId==='IDENT-001'||task.ruleId==='CENSUS-001')){
+    const linked=(task.canonicalTaskIds||[]).some(id=>canonicalTaskIds.has(id));
+    const explicitBridge=relationships.some(rel=>rel.type==='identity-bridge'&&rel.active!==false&&[rel.from,rel.to].includes(task.personId));
+    assert.ok(linked||explicitBridge,'heuristic task must be grounded by canonical queue or explicit identity bridge');
+  }
 });
