@@ -12,16 +12,20 @@ test('v19.3 relationship targets come from the explicit connected family graph',
   assert.match(runtime,/relationshipTargets\(focus\)/);
 });
 
-test('v19.3 expands to Connected only when a selected target is outside the rendered scope',async()=>{
+test('v19.3 reveals selected connected targets outside the current rendered scope',async()=>{
   const runtime=await read('src/runtime/family-graph-navigation.js');
-  assert.match(runtime,/renderedIds\(\)\.has\(target\)\?urlState\(\)\.scope:'connected'/);
-  assert.match(runtime,/outside this view will open Connected/);
+  assert.match(runtime,/function revealRelationshipTarget\(target\)/);
+  assert.match(runtime,/if\(renderedIds\(\)\.has\(target\)\)\{replaceState\(\{pathTo:target\}\)/);
+  assert.match(runtime,/searchParams\.set\('scope','connected'\)/);
+  assert.match(runtime,/for\(const key of\['q','branch','state'\]\)url\.searchParams\.delete\(key\)/);
+  assert.match(runtime,/localStorage\.setItem\(COLLAPSE_KEY,'\[\]'\)/);
+  assert.match(runtime,/outside this view will open Connected and reveal the path/);
   assert.match(runtime,/aria-describedby="family-graph-relationship-help"/);
 });
 
 test('v19.3 navigation remains presentation-only and privacy-neutral',async()=>{
   const runtime=await read('src/runtime/family-graph-navigation.js');
-  assert.doesNotMatch(runtime,/model\.(?:people|relationships|claims|sources)\s*=/);
+  assert.doesNotMatch(runtime,/model\./);
   assert.doesNotMatch(runtime,/\.state\s*=/);
   assert.doesNotMatch(runtime,/living\s*=/);
   assert.match(runtime,/history\.replaceState/);
