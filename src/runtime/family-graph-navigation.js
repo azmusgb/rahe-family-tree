@@ -96,7 +96,7 @@ function reconcile(){
 let queued=false;function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;reconcile();}));}
 
 document.addEventListener('change',event=>{
-  const person=event.target.closest?.('[data-family-graph-person]');if(person){replaceState({focus:person.value,pathTo:''});return;}
+  const person=event.target.closest?.('[data-family-graph-person]');if(person){const state=urlState();replaceState({focus:person.value,scope:state.scope==='all'?'connected':state.scope,pathTo:''});return;}
   const path=event.target.closest?.('[data-family-graph-path-target]');if(path){replaceState({pathTo:path.value||''});}
 });
 document.addEventListener('click',event=>{
