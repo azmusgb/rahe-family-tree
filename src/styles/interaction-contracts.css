@@ -4,6 +4,10 @@
  * shared by multiple route modules where source-order is part of behavior.
  */
 
+/* Native hidden state must win over layout modules that assign display:grid to
+ * the route filter form. Route-specific exceptions can opt back in below. */
+.filters[hidden]{display:none!important}
+
 /* Relationship rows belong to the tree/evidence interaction model. Research
  * list-card styling must not collapse their six-column desktop structure. */
 .relationship-row{
