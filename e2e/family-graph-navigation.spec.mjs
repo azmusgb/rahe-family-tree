@@ -1,5 +1,6 @@
 import{test,expect}from'@playwright/test';
 
+const HAZEL='P-HAZEL-EMMA-BERG-DENNEWITZ';
 async function mockApis(page){
   await page.route('**/api/media**',async route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,media:[],authenticated:false,canUpload:false,canEdit:false,user:null})}));
   await page.route('**/api/auth**',async route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,authenticated:false,user:null})}));
@@ -47,6 +48,22 @@ test('relationship finder highlights a visible path and can clear it',async({pag
   await expect(page.locator('.tree-path-summary')).toBeVisible();
   await page.locator('[data-family-graph-clear-path]').click();
   await expect(page).not.toHaveURL(/pathTo=/);
+});
+
+test('relationship finder can choose connected relatives outside the current family scope',async({page})=>{
+  await page.goto(`/?focus=${HAZEL}&scope=family&depth=1#tree`);
+  const details=page.locator('.family-graph-relationship');
+  await details.locator('summary').click();
+  const select=details.locator('[data-family-graph-path-target]');
+  await expect(select).toBeVisible();
+  await expect(page.locator('#family-graph-relationship-help')).toContainText('Connected');
+  const rendered=await page.locator('#family-graph .graph-node[data-person]').evaluateAll(nodes=>nodes.map(node=>node.dataset.person));
+  const target=await select.locator('option').evaluateAll((options,visible)=>options.map(option=>option.value).find(value=>value&&!visible.includes(value))||'',rendered);
+  expect(target).not.toBe('');
+  await select.selectOption(target);
+  await expect(page).toHaveURL(/scope=connected/);
+  await expect(page).toHaveURL(new RegExp(`pathTo=${encodeURIComponent(target)}`));
+  await expect(page.locator('.tree-path-summary')).toBeVisible();
 });
 
 test('advanced component and recent controls are progressively disclosed under Tree tools',async({page})=>{
