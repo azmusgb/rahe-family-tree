@@ -5,6 +5,7 @@ on:
     branches: [refactor/css-architecture-consolidation]
     paths:
       - scripts/css-architecture-audit.mjs
+      - .github/workflows/css-audit-baseline.yml
 
 permissions:
   contents: write
