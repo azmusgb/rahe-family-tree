@@ -99,3 +99,13 @@ test('18.10 navigation CSS uses semantic ownership without specificity escalatio
   assert.match(css,/\.nav-popover/);
   assert.match(css,/body\[data-nav-context="family"\]/);
 });
+
+
+test('18.11 tree CSS uses semantic context without specificity escalation',async()=>{
+  const css=await read('src/styles/tree.css');
+  assert.doesNotMatch(css,/data-v158-context/);
+  assert.doesNotMatch(css,/!important/);
+  assert.match(css,/body\[data-route="tree"\]\[data-nav-context="family"\]/);
+  assert.match(css,/\.graph-shell/);
+  assert.match(css,/\.tree-focusbar/);
+});

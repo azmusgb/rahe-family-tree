@@ -67,7 +67,7 @@
 
 .graph-node.focused rect{stroke-width:4;filter:drop-shadow(0 4px 6px rgba(23,63,53,.18))}
 
-@media(max-width:720px){.graph-toolbar .focus-pill{width:100%;order:10;margin:4px 0 0!important}}
+@media(max-width:720px){.graph-toolbar .focus-pill{width:100%;order:10;margin:4px 0 0}}
 
 .graph-node.supplemental-node rect{stroke:#567ca8;stroke-width:2.5}
 
@@ -140,27 +140,27 @@
 
 @media(max-width:720px){.graph-shell{display:none}}
 
-.tree-focusbar label,.tree-depth>span{font-size:11px!important}
+.tree-focusbar label,.tree-depth>span{font-size:11px}
 
-.tree-mode-buttons button,.tree-depth button{font-size:12px!important;padding:9px 13px!important}
+.tree-mode-buttons button,.tree-depth button{font-size:12px;padding:9px 13px}
 
-.graph-node .node-dates{font-size:10px!important}
+.graph-node .node-dates{font-size:10px}
 
-.graph-node .node-state{font-size:9px!important}
+.graph-node .node-state{font-size:9px}
 
-.graph-node .node-name{font-size:14px!important}
+.graph-node .node-name{font-size:14px}
 
 @media(max-width:720px){
-.graph-shell{display:block!important}
+.graph-shell{display:block}
 .graph-scroll{max-height:68vh}
 .graph-toolbar{overflow:auto;flex-wrap:nowrap}
 .graph-toolbar span{white-space:nowrap}
 #family-graph{min-width:760px}
 }
 
-.tree-focusbar{border:0!important;box-shadow:0 8px 26px rgba(31,52,45,.05);padding:16px!important}
+.tree-focusbar{border:0;box-shadow:0 8px 26px rgba(31,52,45,.05);padding:16px}
 
-.graph-shell{border:0!important;box-shadow:0 10px 32px rgba(31,52,45,.06)}
+.graph-shell{border:0;box-shadow:0 10px 32px rgba(31,52,45,.06)}
 
 .graph-scroll{background:linear-gradient(#fbfcfa,#fbfcfa),radial-gradient(circle at 1px 1px,#dfe5df 1px,transparent 0);background-size:auto,28px 28px}
 
@@ -176,8 +176,8 @@
 
 @media(max-width:720px){
 .tree-focusbar{position:sticky;top:62px;z-index:15}
-.graph-scroll{max-height:62vh!important}
-#family-graph{min-width:820px!important}
+.graph-scroll{max-height:62vh}
+#family-graph{min-width:820px}
 .graph-toolbar{padding:8px}
 }
 
@@ -200,10 +200,10 @@
 }
 
 @media(max-width:720px){
-.tree-focusbar{top:116px!important}
+.tree-focusbar{top:116px}
 .tree-focusbar label{width:100%}
 .tree-focusbar select{width:100%;max-width:none}
-.graph-scroll{min-height:420px;max-height:64vh!important;-webkit-overflow-scrolling:touch}
+.graph-scroll{min-height:420px;max-height:64vh;-webkit-overflow-scrolling:touch}
 .graph-toolbar{position:sticky;left:0;z-index:5}
 }
 
@@ -237,7 +237,7 @@ body[data-tree-release="12.9"] .tree-depth{display:flex;align-items:center;gap:6
 
 @media(max-width:760px){
 .v129-tree-memory{grid-template-columns:1fr;padding:12px}
-.tree-mode-buttons{overflow-x:auto!important;flex-wrap:nowrap!important;padding-bottom:5px}
+.tree-mode-buttons{overflow-x:auto;flex-wrap:nowrap;padding-bottom:5px}
 .tree-mode-buttons button{flex:0 0 auto}
 .graph-toolbar .focus-pill{order:10;width:100%;max-width:none}
 .graph-node .node-collapse circle{r:13}
@@ -441,21 +441,21 @@ body[data-page-architecture="15.5"][data-route="tree"] .graph-scroll{min-height:
 
 :where(h1,h2,h3,.dashboard-hero h2,.family-overview-card h1,.v154-tree-person h2){color:var(--text)}
 
-.action,.button,.filters button,.focus-actions button,.v154-tree-actions .action{border-radius:9px!important;font-weight:700!important}
+.action,.button,.filters button,.focus-actions button,.v154-tree-actions .action{border-radius:9px;font-weight:700}
 
-body[data-route="tree"] .v154-tree-person,body[data-route="tree"] .v154-tree-controls,body[data-route="tree"] .graph-shell{background:var(--surface)!important;border-color:var(--line)!important;border-radius:var(--radius-md)!important}
+body[data-route="tree"] .v154-tree-person,body[data-route="tree"] .v154-tree-controls,body[data-route="tree"] .graph-shell{background:var(--surface);border-color:var(--line);border-radius:var(--radius-md)}
 
-body[data-route="tree"] .graph-scroll{background:#fbfcfa!important}
+body[data-route="tree"] .graph-scroll{background:#fbfcfa}
 
-body[data-route="tree"] .graph-node{filter:none!important}
+body[data-route="tree"] .graph-node{filter:none}
 
-body[data-route="tree"] .v154-tree-avatar{background:var(--brand-soft)!important;color:var(--green)!important}
+body[data-route="tree"] .v154-tree-avatar{background:var(--brand-soft);color:var(--green)}
 
-body[data-route="tree"] .v154-tree-relations span{background:var(--surface-soft)!important;border-color:var(--line)!important}
+body[data-route="tree"] .v154-tree-relations span{background:var(--surface-soft);border-color:var(--line)}
 
-@media (max-width:720px){body[data-route="people"] .person-card,body[data-route="tree"] .graph-shell,body[data-route="person"] .family-overview-card{border-radius:14px!important}}
+@media (max-width:720px){body[data-route="people"] .person-card,body[data-route="tree"] .graph-shell,body[data-route="person"] .family-overview-card{border-radius:14px}}
 
-body[data-v158-context="family"] .v157-tree-preview{box-shadow:none!important}
+body[data-nav-context="family"] .v157-tree-preview{box-shadow:none}
 
 body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:calc(100dvh - 190px);border-radius:var(--v16-radius);box-shadow:none}
 
@@ -466,13 +466,13 @@ body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:calc
 body[data-route="tree"][data-v158-context="family"] .graph-stage{min-height:calc(100dvh - 220px)}
 }
 
-body[data-route="tree"][data-v158-context="family"] [data-platform-v13="tree-engine-2"]{display:none!important}
+body[data-route="tree"][data-v158-context="family"] [data-platform-v13="tree-engine-2"]{display:none}
 
-body[data-route="tree"][data-v158-context="family"] #content.v161-tree.v161-show-tree-secondary>[data-v161-secondary]{display:block!important}
+body[data-route="tree"][data-v158-context="family"] #content.v161-tree.v161-show-tree-secondary>[data-v161-secondary]{display:block}
 
-body[data-route="tree"][data-v158-context="family"] #content.v161-tree .graph-shell [data-v161-secondary]{display:none!important}
+body[data-route="tree"][data-v158-context="family"] #content.v161-tree .graph-shell [data-v161-secondary]{display:none}
 
-body[data-route="tree"][data-v158-context="family"] #content.v161-tree.v161-show-tree-secondary .graph-shell [data-v161-secondary]{display:block!important}
+body[data-route="tree"][data-v158-context="family"] #content.v161-tree.v161-show-tree-secondary .graph-shell [data-v161-secondary]{display:block}
 
 .v161-tree-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
 
@@ -495,31 +495,31 @@ body[data-route="tree"][data-v158-context="family"] #content.v161-tree.v161-show
 .v161-dialog-body .relationship-finder{margin-top:0}
 
 @media(max-width:720px){
-body[data-route="tree"][data-v158-context="family"] .v154-tree-person{display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;padding:11px 12px!important;margin:4px 0 8px!important;border-radius:14px!important}
-body[data-route="tree"][data-v158-context="family"] .v154-tree-person-main{grid-template-columns:42px minmax(0,1fr)!important;gap:9px!important}
-body[data-route="tree"][data-v158-context="family"] .v154-tree-avatar{width:42px!important;height:42px!important;border-radius:12px!important}
-body[data-route="tree"][data-v158-context="family"] .v154-tree-person-main h2{font-size:18px!important}
+body[data-route="tree"][data-v158-context="family"] .v154-tree-person{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;padding:11px 12px;margin:4px 0 8px;border-radius:14px}
+body[data-route="tree"][data-v158-context="family"] .v154-tree-person-main{grid-template-columns:42px minmax(0,1fr);gap:9px}
+body[data-route="tree"][data-v158-context="family"] .v154-tree-avatar{width:42px;height:42px;border-radius:12px}
+body[data-route="tree"][data-v158-context="family"] .v154-tree-person-main h2{font-size:18px}
 body[data-route="tree"][data-v158-context="family"] .v154-tree-person-main p:last-child{display:none}
-body[data-route="tree"][data-v158-context="family"] .v154-tree-relations{display:flex!important;gap:4px!important;margin:0!important}
-body[data-route="tree"][data-v158-context="family"] .v154-tree-relations span{min-width:42px!important;padding:5px!important;border:0!important;background:var(--brand-soft)!important}
-body[data-route="tree"][data-v158-context="family"] .v154-tree-relations b{font-size:15px!important}
-body[data-route="tree"][data-v158-context="family"] .v154-tree-relations small{font-size:7px!important}
-body[data-route="tree"][data-v158-context="family"] .v154-tree-actions{grid-column:1/-1;display:flex!important;margin-top:0!important}
-body[data-route="tree"][data-v158-context="family"] .v154-tree-actions button[data-tree-scope]{display:none!important}
-body[data-route="tree"][data-v158-context="family"] .v154-tree-actions .action{min-height:34px!important;width:auto!important;padding:0 10px!important;font-size:9px!important}
-body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls]{margin:0 0 6px!important;padding:8px!important;border-radius:12px!important}
-body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls] label{font-size:9px!important}
-body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls] select{min-height:36px!important}
-body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls] button{min-height:34px!important;padding-inline:9px!important}
+body[data-route="tree"][data-v158-context="family"] .v154-tree-relations{display:flex;gap:4px;margin:0}
+body[data-route="tree"][data-v158-context="family"] .v154-tree-relations span{min-width:42px;padding:5px;border:0;background:var(--brand-soft)}
+body[data-route="tree"][data-v158-context="family"] .v154-tree-relations b{font-size:15px}
+body[data-route="tree"][data-v158-context="family"] .v154-tree-relations small{font-size:7px}
+body[data-route="tree"][data-v158-context="family"] .v154-tree-actions{grid-column:1/-1;display:flex;margin-top:0}
+body[data-route="tree"][data-v158-context="family"] .v154-tree-actions button[data-tree-scope]{display:none}
+body[data-route="tree"][data-v158-context="family"] .v154-tree-actions .action{min-height:34px;width:auto;padding:0 10px;font-size:9px}
+body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls]{margin:0 0 6px;padding:8px;border-radius:12px}
+body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls] label{font-size:9px}
+body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls] select{min-height:36px}
+body[data-route="tree"][data-v158-context="family"] [data-v161-tree-controls] button{min-height:34px;padding-inline:9px}
 body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar{margin:4px 0 6px;padding:8px 10px}
 body[data-route="tree"][data-v158-context="family"] .v161-tree-focus{display:none}
 body[data-route="tree"][data-v158-context="family"] .v161-tree-tool-actions{width:100%;display:grid;grid-template-columns:64px minmax(0,1fr) 64px}
 body[data-route="tree"][data-v158-context="family"] .v161-tree-tool-actions button{width:100%}
-body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:62dvh!important;border-radius:14px!important}
-body[data-route="tree"][data-v158-context="family"] .graph-stage,body[data-route="tree"][data-v158-context="family"] .graph-scroll{min-height:58dvh!important}
-body[data-route="tree"][data-v158-context="family"] .graph-toolbar{padding:6px!important;gap:4px!important}
-body[data-route="tree"][data-v158-context="family"] .graph-toolbar button{min-height:34px!important;min-width:34px!important}
-body[data-route="tree"][data-v158-context="family"] .v154-tree-help{font-size:11px!important}
+body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:62dvh;border-radius:14px}
+body[data-route="tree"][data-v158-context="family"] .graph-stage,body[data-route="tree"][data-v158-context="family"] .graph-scroll{min-height:58dvh}
+body[data-route="tree"][data-v158-context="family"] .graph-toolbar{padding:6px;gap:4px}
+body[data-route="tree"][data-v158-context="family"] .graph-toolbar button{min-height:34px;min-width:34px}
+body[data-route="tree"][data-v158-context="family"] .v154-tree-help{font-size:11px}
 }
 
 /* Tree — genealogy canvas, not a diagram editor. */
@@ -528,31 +528,31 @@ body[data-route="tree"][data-v158-context="family"] .route-shell #status{display
 body[data-route="tree"][data-v158-context="family"] .graph-shell{
   min-height:calc(100dvh - 190px);
   overflow:hidden;
-  border:1px solid var(--family-border-hairline)!important;
-  border-radius:var(--family-radius-panel)!important;
-  box-shadow:var(--family-shadow-card)!important;
+  border:1px solid var(--family-border-hairline);
+  border-radius:var(--family-radius-panel);
+  box-shadow:var(--family-shadow-card);
   background:var(--family-surface-paper);
 }
 body[data-route="tree"][data-v158-context="family"] .graph-stage{min-height:calc(100dvh - 270px)}
 body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar,
 body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{
-  border-color:var(--family-border-hairline)!important;
-  border-radius:var(--family-radius-card)!important;
-  box-shadow:none!important;
+  border-color:var(--family-border-hairline);
+  border-radius:var(--family-radius-card);
+  box-shadow:none;
 }
 body[data-route="tree"][data-v158-context="family"] .graph-scroll{
   background:
     linear-gradient(rgba(23,63,53,.012) 1px,transparent 1px),
     linear-gradient(90deg,rgba(23,63,53,.012) 1px,transparent 1px),
-    #fbfcfa!important;
-  background-size:32px 32px!important;
+    #fbfcfa;
+  background-size:32px 32px;
 }
 body[data-route="tree"][data-v158-context="family"] .graph-toolbar{border-bottom-color:var(--family-border-hairline)}
-body[data-route="tree"][data-v158-context="family"] .legend{border-bottom-color:var(--family-border-hairline);font-size:11px!important}
-body[data-route="tree"][data-v158-context="family"] .v161-tree-tool-actions button{border-radius:var(--family-radius-control);font-size:12px!important}
+body[data-route="tree"][data-v158-context="family"] .legend{border-bottom-color:var(--family-border-hairline);font-size:11px}
+body[data-route="tree"][data-v158-context="family"] .v161-tree-tool-actions button{border-radius:var(--family-radius-control);font-size:12px}
 body[data-route="tree"][data-v158-context="family"] .v161-tree-tool-actions button:hover{border-color:var(--family-border-interactive);background:var(--brand-soft)}
 
 /* Family-facing node typography has a readable floor while evidence remains encoded by line/border style. */
-body[data-route="tree"][data-v158-context="family"] :where(.node-branch,.node-state){font-size:10px!important}
-body[data-route="tree"][data-v158-context="family"] .node-name{font-family:var(--family-font-display)!important;font-size:13px!important}
-body[data-route="tree"][data-v158-context="family"] .node-id{font-size:8px!important;opacity:.7}
+body[data-route="tree"][data-v158-context="family"] :where(.node-branch,.node-state){font-size:10px}
+body[data-route="tree"][data-v158-context="family"] .node-name{font-family:var(--family-font-display);font-size:13px}
+body[data-route="tree"][data-v158-context="family"] .node-id{font-size:8px;opacity:.7}
