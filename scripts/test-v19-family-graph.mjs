@@ -27,14 +27,18 @@ test('v19 preserves evidence-state semantics instead of inventing relationship a
   assert.match(runtime,/family-edge-identity/);
 });
 
-test('v19 mobile person preview protects living detail and offers explicit navigation',async()=>{
+test('v19 mobile person preview protects living detail and uses the authoritative tree router',async()=>{
   const runtime=await read('src/runtime/family-graph-v19.js');
+  const experience=await read('src/runtime/experience-core.js');
   const css=await read('src/styles/family-graph-v19.css');
   assert.match(runtime,/Living · private details protected/);
   assert.match(runtime,/data-family-preview-focus/);
   assert.match(runtime,/data-family-preview-profile/);
   assert.match(runtime,/aria-modal/);
-  assert.match(runtime,/event\.stopImmediatePropagation\(\)/);
+  assert.match(runtime,/family-graph-person-preview/);
+  assert.match(experience,/dataset\.familyGraph==='v19'/);
+  assert.match(experience,/family-graph-person-preview/);
+  assert.match(experience,/stopImmediatePropagation/);
   assert.match(css,/\.family-person-preview/);
   assert.match(css,/@media\(max-width:760px\)/);
   assert.match(css,/prefers-reduced-motion/);
