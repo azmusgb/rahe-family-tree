@@ -12,7 +12,7 @@ function installFallbackContext(){
   const shell=document.querySelector('.graph-shell');if(!shell)return;
   const focus=focusId(),home=homeId(),recent=recentIds().filter(id=>id!==focus);
   let nav=document.querySelector('.tree-context-fallback');
-  if(!nav){nav=document.createElement('nav');nav.className='tree-context-nav tree-context-fallback v1291-breadcrumb';nav.setAttribute('aria-label','Tree context');shell.insertAdjacentElement('beforebegin',nav);}
+  if(!nav){nav=document.createElement('nav');nav.className='tree-context-nav tree-context-fallback tree-context-breadcrumb v1291-breadcrumb';nav.setAttribute('aria-label','Tree context');shell.insertAdjacentElement('beforebegin',nav);}
   const parts=['<span>Family tree</span>'];
   if(home&&personById(home))parts.push(`<button type="button" data-v1291-go="${esc(home)}">Home · ${esc(personById(home).name)}</button>`);
   if(focus&&personById(focus))parts.push('<i aria-hidden="true">›</i>',`<b aria-current="page">${esc(personById(focus).name)}</b>`);
@@ -24,7 +24,7 @@ function installFallbackContext(){
   const historyMarkup=`<span>Recently viewed</span>${recent.map(id=>`<button type="button" data-v1291-go="${esc(id)}">${esc(personById(id).name)}</button>`).join('')}`;
   if(history.dataset.signature!==historyMarkup){history.innerHTML=historyMarkup;history.dataset.signature=historyMarkup;}
 }
-function annotateCouples(){document.querySelectorAll('.edge.couple-child').forEach(edge=>edge.classList.add('v1291-couple-child'));document.querySelectorAll('.edge.spouse,.edge.spouse-lead').forEach(edge=>edge.classList.add('v1291-spouse'));}
+function annotateCouples(){document.querySelectorAll('.edge.couple-child').forEach(edge=>edge.classList.add('tree-edge-couple-child','v1291-couple-child'));document.querySelectorAll('.edge.spouse,.edge.spouse-lead').forEach(edge=>edge.classList.add('tree-edge-spouse','v1291-spouse'));}
 function improveCollapse(){document.querySelectorAll('.node-collapse[data-collapse-person]').forEach(control=>{const id=control.dataset.collapsePerson,p=personById(id);control.setAttribute('aria-describedby',`collapse-help-${id}`);if(!control.querySelector('title')){const t=document.createElementNS('http://www.w3.org/2000/svg','title');t.textContent=`Show or hide descendants of ${p?.name||id}`;control.prepend(t);}});}
 function installMobileHint(){if(route()!=='tree')return;const scroll=document.querySelector('.graph-scroll');if(!scroll||document.querySelector('.v1291-mobile-hint'))return;const hint=document.createElement('div');hint.className='tree-mobile-hint v1291-mobile-hint';hint.textContent='Tap a person to open their profile. Use the tree controls to choose a family view, change generations, or move to another connected family.';scroll.insertAdjacentElement('beforebegin',hint);}
 function syncRelease(){document.body.dataset.treePolishRelease='18.6';}

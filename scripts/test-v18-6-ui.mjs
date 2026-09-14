@@ -109,3 +109,28 @@ test('18.11 tree CSS uses semantic context without specificity escalation',async
   assert.match(css,/\.graph-shell/);
   assert.match(css,/\.tree-focusbar/);
 });
+
+
+test('18.12 tree styling uses semantic classes while runtime retains compatibility aliases',async()=>{
+  const css=await read('src/styles/tree.css');
+  const engine=await read('src/runtime/tree-engine.js');
+  const polish=await read('src/runtime/tree-polish.js');
+  for(const legacy of [
+    'v129-tree-memory','v129-memory-actions','v1291-breadcrumb',
+    'v1291-couple-child','v1291-spouse','v1291-mobile-hint',
+    'v154-tree-person','v154-tree-person-main','v154-tree-avatar',
+    'v154-tree-relations','v154-tree-actions','v154-tree-controls',
+    'v154-tree-help','v154-graph-shell'
+  ])assert.doesNotMatch(css,new RegExp(`\\.${legacy}(?![\\w-])`));
+  for(const semantic of [
+    'tree-memory','tree-memory-actions','tree-context-breadcrumb',
+    'tree-edge-couple-child','tree-edge-spouse','tree-mobile-hint',
+    'tree-person-summary','tree-person-main','tree-person-avatar',
+    'tree-person-relations','tree-person-actions','tree-controls',
+    'tree-help','tree-graph-shell'
+  ])assert.match(css,new RegExp(`\\.${semantic}(?![\\w-])`));
+  assert.match(engine,/tree-memory v129-tree-memory/);
+  assert.match(polish,/tree-context-breadcrumb v1291-breadcrumb/);
+  assert.match(polish,/tree-edge-couple-child/);
+  assert.match(polish,/tree-edge-spouse/);
+});

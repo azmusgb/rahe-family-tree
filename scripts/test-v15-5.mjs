@@ -40,7 +40,7 @@ test('desktop utility bar is replaced while family research mode remains reachab
 });
 
 test('tree gains reclaimed viewport and compact focal controls',()=>{
-  assert.match(css,/data-route="tree"[^\n]*\.v154-tree-person/);
+  assert.match(css,/data-route="tree"[^\n]*\.tree-person-summary/);
   assert.match(css,/min-height:620px;max-height:calc\(100vh - 258px\)/);
 });
 
