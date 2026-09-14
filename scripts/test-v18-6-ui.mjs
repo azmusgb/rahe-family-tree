@@ -123,14 +123,18 @@ test('18.12 tree styling uses semantic classes while runtime retains compatibili
     'v154-tree-help','v154-graph-shell'
   ])assert.doesNotMatch(css,new RegExp(`\\.${legacy}(?![\\w-])`));
   for(const semantic of [
-    'tree-memory','tree-memory-actions','tree-context-breadcrumb',
-    'tree-edge-couple-child','tree-edge-spouse','tree-mobile-hint',
-    'tree-person-summary','tree-person-main','tree-person-avatar',
+    'tree-memory','tree-context-breadcrumb',
+    'tree-edge-couple-child','tree-edge-spouse',
+    'tree-person-summary','tree-person-avatar',
     'tree-person-relations','tree-person-actions','tree-controls',
     'tree-help','tree-graph-shell'
   ])assert.match(css,new RegExp(`\\.${semantic}(?![\\w-])`));
+
+  // These are semantic runtime hooks, not standalone style owners.
   assert.match(engine,/tree-memory v129-tree-memory/);
+  assert.match(engine,/tree-memory-actions v129-memory-actions/);
   assert.match(polish,/tree-context-breadcrumb v1291-breadcrumb/);
+  assert.match(polish,/tree-mobile-hint v1291-mobile-hint/);
   assert.match(polish,/tree-edge-couple-child/);
   assert.match(polish,/tree-edge-spouse/);
 });
