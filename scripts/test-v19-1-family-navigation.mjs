@@ -21,6 +21,11 @@ test('Family Graph navigation exposes the requested family scopes and relationsh
   assert.match(runtime,/data-family-graph-path-target/);
 });
 
+test('choosing a focal person exits legacy full-tree scope',async()=>{
+  const runtime=await read('src/runtime/family-graph-navigation.js');
+  assert.match(runtime,/state\.scope==='all'\?'connected':state\.scope/);
+});
+
 test('Legacy tree controls are consolidated rather than duplicated',async()=>{
   const runtime=await read('src/runtime/family-graph-navigation.js');
   const css=await read('src/styles/family-graph-navigation.css');
