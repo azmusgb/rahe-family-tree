@@ -1,6 +1,7 @@
 import{test,expect}from'@playwright/test';
 
 const HAZEL='P-HAZEL-EMMA-BERG-DENNEWITZ';
+const COLLAPSE_KEY='family.archive.treeCollapsed.v2';
 async function mockApis(page){
   await page.route('**/api/media**',async route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,media:[],authenticated:false,canUpload:false,canEdit:false,user:null})}));
   await page.route('**/api/auth**',async route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,authenticated:false,user:null})}));
@@ -50,8 +51,9 @@ test('relationship finder highlights a visible path and can clear it',async({pag
   await expect(page).not.toHaveURL(/pathTo=/);
 });
 
-test('relationship finder can choose connected relatives outside the current family scope',async({page})=>{
-  await page.goto(`/?focus=${HAZEL}&scope=family&depth=1#tree`);
+test('relationship finder reveals connected relatives hidden by scope filters or collapsed branches',async({page})=>{
+  await page.addInitScript(([key,id])=>localStorage.setItem(key,JSON.stringify([id])),[COLLAPSE_KEY,HAZEL]);
+  await page.goto(`/?focus=${HAZEL}&scope=family&depth=1&q=Hazel#tree`);
   const details=page.locator('.family-graph-relationship');
   await details.locator('summary').click();
   const select=details.locator('[data-family-graph-path-target]');
@@ -63,6 +65,8 @@ test('relationship finder can choose connected relatives outside the current fam
   await select.selectOption(target);
   await expect(page).toHaveURL(/scope=connected/);
   await expect(page).toHaveURL(new RegExp(`pathTo=${encodeURIComponent(target)}`));
+  await expect(page).not.toHaveURL(/[?&]q=/);
+  expect(await page.evaluate(key=>localStorage.getItem(key),COLLAPSE_KEY)).toBe('[]');
   await expect(page.locator('.tree-path-summary')).toBeVisible();
 });
 
