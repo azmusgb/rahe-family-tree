@@ -87,3 +87,26 @@ body.tree-compact .graph-shell .legend{display:none}body.tree-compact #family-gr
   stroke-dasharray:7 5;}
 
 .graph-node.state-rejected rect{stroke:var(--evidence-rejected)}
+
+/* Base ownership cleanup: route/component rules moved out of base.css. */
+body[data-experience="family"][data-route="tree"] #content.v154-tree{max-width:none}
+
+body[data-route="tree"][data-v158-context="family"] #content{max-width:none;margin:0}
+
+body[data-route="tree"][data-v158-context="family"] #content.v161-tree>[data-v161-secondary]{display:none}
+
+@media(max-width:768px){
+body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:calc(100dvh - 150px);border-radius:var(--family-radius-card)}
+}
+
+@media(max-width:768px){
+body[data-route="tree"][data-v158-context="family"] .graph-stage{min-height:calc(100dvh - 220px)}
+}
+
+@media(max-width:768px){
+body[data-route="tree"][data-v158-context="family"] :where(.node-branch,.node-state){font-size:12px}
+}
+
+@media(max-width:768px){
+body[data-route="tree"][data-v158-context="family"] .node-id{font-size:12px}
+}

@@ -692,3 +692,40 @@
 @media(max-width:420px){
 .v17-primary-actions .action:first-child{grid-column:auto}
 }
+
+/* Base ownership cleanup: route/component rules moved out of base.css. */
+html[data-ui-release="15.0"]{scroll-padding-bottom:calc(var(--mobile-nav-height) + 24px)}
+
+html[data-ui-release="15.1"]{scroll-padding-top:calc(var(--app-masthead-height) + var(--app-utility-height) + 18px)}
+
+html[data-ui-release="15.4"]{scroll-padding-top:calc(var(--app-masthead-height) + var(--app-utility-height) + 24px)}
+
+body[data-family-native="v17"] #content.v17-content{padding-bottom:var(--family-space-7)}
+
+@media(max-width:768px){
+html{scroll-behavior:auto}
+}
+
+@media(max-width:768px){
+body{background:
+      radial-gradient(circle at 90% -2%,rgba(168,118,43,.10),transparent 14rem),
+      linear-gradient(180deg,#f8f5ed,var(--bg) 28rem);}
+}
+
+@media (max-width:768px){
+body{background:var(--bg)}
+}
+
+@media(max-width:768px){
+body:has(.v158-mobile-more[open])::before{content:"";position:fixed;inset:0;background:rgba(20,36,31,.3);backdrop-filter:blur(1px);z-index:2147483090;pointer-events:none}
+}
+
+@media(max-width:768px){
+:root{--family-text-display:clamp(2.45rem,11vw,3rem);
+    --family-text-page:clamp(2rem,9vw,2.4rem);
+    --family-text-section:clamp(1.55rem,7vw,1.9rem);}
+}
+
+@media(prefers-contrast:more){
+:root{--family-border-hairline:var(--line-strong);--family-border-interactive:var(--green)}
+}

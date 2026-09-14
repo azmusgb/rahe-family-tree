@@ -601,3 +601,6 @@ body[data-route="media"][data-v158-context="family"] .media-library-title h2{fon
 @media(max-width:768px){
 .v17-gallery-item b{font-size:12px}
 }
+
+/* Base ownership cleanup: route/component rules moved out of base.css. */
+body[data-route="media"][data-v158-context="family"] #content{max-width:1600px}
