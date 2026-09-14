@@ -7,6 +7,12 @@ async function mockApis(page){
   await page.route('**/api/auth**',async route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,authenticated:false,user:null})}));
   await page.route('**/api/family-sync**',async route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,authenticated:false})}));
 }
+async function openTreeTools(page){
+  const tools=page.locator('.family-graph-tools');
+  await expect(tools).toBeVisible();
+  if(!(await tools.getAttribute('open')))await tools.locator('summary').click();
+  return tools;
+}
 test.beforeEach(async({page})=>{await mockApis(page);});
 
 test('v17.6 state runtime mounts and consolidated tree tools survive repeated navigation',async({page})=>{
@@ -14,7 +20,8 @@ test('v17.6 state runtime mounts and consolidated tree tools survive repeated na
   const release=await page.locator('html').getAttribute('data-ui-release');
   expect(versionAtLeast(release,17,6)).toBe(true);
   await expect(page.locator('html')).toHaveAttribute('data-v176','ready');
-  await expect(page.locator('[data-tree-advanced-export]')).toBeVisible();
+  const tools=await openTreeTools(page);
+  await expect(tools.locator('[data-tree-advanced-export]')).toBeVisible();
   await expect(page.locator('[data-tree-copy-link]')).toHaveCount(1);
   await expect(page.locator('[data-tree-export-svg]')).toHaveCount(1);
   await expect(page.locator('[data-tree-export-pdf]')).toHaveCount(1);
