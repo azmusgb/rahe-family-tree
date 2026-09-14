@@ -92,9 +92,19 @@ jobs:
         with:
           name: site-dist-${{ github.event.pull_request.number || github.run_id }}
           path: dist
-      - name: Install Playwright Chromium
+      - name: Restore Playwright browser cache
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install Chromium system dependencies
         timeout-minutes: 5
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install-deps chromium
+      - name: Install Playwright Chromium on cache miss
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        timeout-minutes: 5
+        run: npx playwright install chromium
       - name: Run browser interaction shard
         timeout-minutes: 9
         env:
