@@ -28,7 +28,7 @@ jobs:
         run: git diff --exit-code -- package.json package-lock.json
       - name: Run canonical and experience regression suite
         run: npm test
-      - name: Run v17.5-v18.5 family shell, canonical platform, consolidated tree, and research intelligence gates
+      - name: Run v17.5-v18.5 family shell, canonical platform, consolidated tree, research intelligence, and CSS architecture gates
         run: |
           node --test scripts/test-v17-5.mjs scripts/test-v17-6.mjs scripts/test-v18.mjs scripts/test-v18-5.mjs scripts/test-tree-advanced.mjs scripts/test-research-automation.mjs
           node --check src/runtime/family-branches-v17-5.js
@@ -43,6 +43,7 @@ jobs:
           node --check research-automation.js
           node --check research-intelligence.js
           node --check v11.js
+          node scripts/css-architecture-audit.mjs
       - name: Verify production build
         env:
           GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
