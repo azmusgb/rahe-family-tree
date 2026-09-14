@@ -59,14 +59,29 @@ test('semantic design system owns stylesheet composition with zero compatibility
   for(const file of retired)assert.equal(fs.existsSync(file),false,`${file} must stay retired`);
 });
 
-test('tokens.css exclusively owns the editorial archive design tokens',()=>{
-  assert.match(tokens,/Editorial archive theme — final current values/);
+test('tokens.css is the single-source owner of active Family design tokens',()=>{
+  assert.match(tokens,/Family design system — single-source tokens/);
   assert.match(tokens,/--family-font-display:"Iowan Old Style"/);
   assert.match(tokens,/--family-radius-panel:24px/);
   assert.match(tokens,/--family-shadow-card:0 1px 1px/);
   assert.match(tokens,/--evidence-provisional:#a8762b/);
   assert.match(tokens,/--evidence-unresolved:#963f39/);
   assert.match(tokens,/--evidence-rejected:#77766f/);
+  assert.match(tokens,/--space-1:var\(--family-space-1\)/);
+  assert.match(tokens,/--green2:#275a4a/);
+
+  const unique=[
+    '--bg','--paper','--surface','--ink','--text','--muted','--green','--green-2','--line','--focus','--danger',
+    '--family-bg','--family-surface','--family-ink','--family-green','--family-green-2','--family-accent',
+    '--family-font-display','--family-font-ui','--family-radius-panel','--family-radius-card','--family-radius-control',
+    '--family-shadow-card','--family-shadow-card-hover','--family-shadow-float','--family-motion-fast','--family-motion-normal',
+    '--evidence-supported','--evidence-provisional','--evidence-unresolved','--evidence-rejected','--v16-text-meta'
+  ];
+  for(const name of unique){
+    const escaped=name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    assert.equal((tokens.match(new RegExp(`${escaped}\\s*:`, 'g'))||[]).length,1,`${name} must have exactly one base declaration`);
+  }
+
   assert.doesNotMatch(redesign,/--[a-z0-9-]+\s*:/i,'composition layer must consume tokens instead of declaring custom properties');
   assert.doesNotMatch(redesign,/:root\s*\{/,'composition layer must not own root design tokens');
 });
