@@ -9,7 +9,7 @@
 .v17-home-hero h2{
   margin:8px 0 20px;
   max-width:10ch;
-  color:#fffdf8;
+  color:var(--paper);
   font-family:var(--family-font-display);
   font-size:clamp(3.35rem,7vw,6.6rem);
   font-weight:600;
@@ -21,7 +21,7 @@
 .v17-home-hero .v17-home-metrics,
 .v17-home-hero .v17-home-metrics b,
 .v17-home-hero .v17-home-metrics strong{
-  color:#fffdf8;
+  color:var(--paper);
 }
 
 .v17-home-hero .v17-home-metrics span,
@@ -29,7 +29,7 @@
   color:rgba(255,255,255,.76);
 }
 
-@media(max-width:720px){
+@media(max-width:768px){
   .v17-home-hero h2{
     max-width:9ch;
     font-size:clamp(3rem,15vw,4.9rem);

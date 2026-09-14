@@ -1,16 +1,47 @@
 /* Migrated live selectors from retired release CSS.
  * These rules remain below the semantic ownership boundary and are now
  * maintained by this module; obsolete selector arms were removed during migration. */
-.v128-drop-zone{border:2px dashed rgba(23,63,53,.2)!important;border-radius:16px!important;padding:18px!important;background:#f7faf8;cursor:pointer;transition:.2s}
+.v128-drop-zone{border:2px dashed rgba(23,63,53,.2);border-radius:16px;padding:18px;background:#f7faf8;cursor:pointer;transition:.2s}
 
-.v128-drop-zone.dragging{border-color:var(--green)!important;background:#edf5f0}
+.v128-drop-zone.dragging{border-color:var(--green);background:#edf5f0}
 
 .v128-drop-zone .drop-title{display:block;font-size:14px;font-weight:800;color:var(--green);margin-bottom:3px}
 
-.v128-drop-zone>small{font-size:11px;color:var(--muted)}
+.v128-drop-zone>small{font-size:12px;color:var(--muted)}
 
 .v128-drop-zone input{margin-top:10px}
 
 .v153-profile .v153-source-record{opacity:.84}
 
-.record-ingestion{display:grid;gap:1rem;margin-bottom:1.25rem}.ingest-form{display:grid;gap:.9rem}.ingest-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}.ingest-form label,.ingest-note{display:grid;gap:.35rem;font-weight:650}.ingest-form input,.ingest-form select,.ingest-form textarea,.ingest-note textarea{width:100%;min-width:0}.ingest-form textarea,.ingest-note textarea{resize:vertical}.ingest-form-actions,.ingest-actions,.ingest-result-head,.ingest-candidate>div{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}.ingest-result-head{justify-content:space-between}.ingest-results{display:grid;gap:1rem;border-top:1px solid var(--line,#d9d4ca);padding-top:1rem}.ingest-metrics{display:flex;gap:.55rem;flex-wrap:wrap}.ingest-metrics span{display:inline-flex;gap:.3rem;align-items:center;padding:.45rem .65rem;border:1px solid var(--line,#d9d4ca);border-radius:999px}.ingest-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}.ingest-columns>article,.ingest-review-block,.ingest-history>div{border:1px solid var(--line,#d9d4ca);border-radius:14px;padding:1rem;background:var(--surface,#fff)}.ingest-candidate,.ingest-flag,.ingest-history article{display:grid;gap:.35rem;padding:.8rem 0;border-top:1px solid var(--line,#d9d4ca)}.ingest-candidate:first-child,.ingest-flag:first-child,.ingest-history article:first-child{border-top:0}.ingest-candidate>div{justify-content:space-between}.ingest-candidate span{font-size:.78rem;font-weight:700}.ingest-flag small,.ingest-candidate small{color:var(--muted,#69645d)}.ingest-history summary{cursor:pointer;font-weight:700}.ingest-history article{grid-template-columns:auto 1fr auto;align-items:center}.ingest-history article p{grid-column:1/-1;margin:0}.record-ingestion button:focus-visible,.record-ingestion input:focus-visible,.record-ingestion textarea:focus-visible,.record-ingestion select:focus-visible{outline:3px solid currentColor;outline-offset:2px}@media(max-width:760px){.ingest-grid,.ingest-columns{grid-template-columns:1fr}.ingest-history article{grid-template-columns:1fr}.ingest-history article p{grid-column:auto}}@media(prefers-reduced-motion:reduce){.record-ingestion *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+.record-ingestion{display:grid;gap:1rem;margin-bottom:1.25rem}.ingest-form{display:grid;gap:.9rem}.ingest-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}.ingest-form label,.ingest-note{display:grid;gap:.35rem;font-weight:650}.ingest-form input,.ingest-form select,.ingest-form textarea,.ingest-note textarea{width:100%;min-width:0}.ingest-form textarea,.ingest-note textarea{resize:vertical}.ingest-form-actions,.ingest-actions,.ingest-result-head,.ingest-candidate>div{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}.ingest-result-head{justify-content:space-between}.ingest-results{display:grid;gap:1rem;border-top:1px solid var(--line,#d9d4ca);padding-top:1rem}.ingest-metrics{display:flex;gap:.55rem;flex-wrap:wrap}.ingest-metrics span{display:inline-flex;gap:.3rem;align-items:center;padding:.45rem .65rem;border:1px solid var(--line,#d9d4ca);border-radius:999px}.ingest-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}.ingest-columns>article,.ingest-review-block,.ingest-history>div{border:1px solid var(--line,#d9d4ca);border-radius:14px;padding:1rem;background:var(--surface,#fff)}.ingest-candidate,.ingest-flag,.ingest-history article{display:grid;gap:.35rem;padding:.8rem 0;border-top:1px solid var(--line,#d9d4ca)}.ingest-candidate:first-child,.ingest-flag:first-child,.ingest-history article:first-child{border-top:0}.ingest-candidate>div{justify-content:space-between}.ingest-candidate span{font-size:.78rem;font-weight:700}.ingest-flag small,.ingest-candidate small{color:var(--muted,#69645d)}.ingest-history summary{cursor:pointer;font-weight:700}.ingest-history article{grid-template-columns:auto 1fr auto;align-items:center}.ingest-history article p{grid-column:1/-1;margin:0}.record-ingestion button:focus-visible,.record-ingestion input:focus-visible,.record-ingestion textarea:focus-visible,.record-ingestion select:focus-visible{outline:3px solid currentColor;outline-offset:2px}@media(max-width:768px){.ingest-grid,.ingest-columns{grid-template-columns:1fr}.ingest-history article{grid-template-columns:1fr}.ingest-history article p{grid-column:auto}}@media(prefers-reduced-motion:reduce){.record-ingestion *{scroll-behavior:auto;transition:none;animation:none}}
+
+/* CSS architecture consolidation: declarations owned by this semantic module. */
+.contribution-guide{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:18px;padding:22px 24px;margin:0 0 20px;border-radius:18px;background:linear-gradient(135deg,#173f35,#285949);color:#fff;box-shadow:0 12px 30px rgba(23,63,53,.1)}
+
+.contribution-guide>div:first-child{display:grid;gap:6px}
+
+.contribution-guide span{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:#cfe0d7}
+
+.contribution-guide b{font-size:16px}
+
+.contribution-guide p{margin:0;color:#dce8e2;font-size:13px;line-height:1.55}
+
+.contribution-steps{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:center}
+
+.contribution-steps span{padding:10px 12px;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:rgba(255,255,255,.06);font-size:12px;letter-spacing:0;text-transform:none;color:#fff}
+
+@media(max-width:768px){
+.contribution-guide{grid-template-columns:1fr}
+}
+
+@media(max-width:768px){
+.contribution-steps{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:600px){
+.contribution-guide{padding:18px}
+}
+
+@media(max-width:600px){
+.contribution-steps{grid-template-columns:1fr}
+}

@@ -1,0 +1,2245 @@
+{
+  "generatedBy": "css-architecture-migrate",
+  "duplicates": [
+    {
+      "key": "@media (min-width:721px)|.edition|color",
+      "files": [
+        "branding.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-nav-menu summary|align-items",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-nav-menu summary|border-radius",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-nav-menu summary|display",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-nav-menu summary|font-size",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-nav-menu summary|font-weight",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-nav-menu summary|justify-content",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-nav-menu summary|min-height",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-nav-menu summary|padding",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-nav-menu summary|text-decoration",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-nav-menu summary|white-space",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-primary-nav a|align-items",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-primary-nav a|border-radius",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-primary-nav a|display",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-primary-nav a|font-size",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-primary-nav a|font-weight",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-primary-nav a|justify-content",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-primary-nav a|min-height",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-primary-nav a|padding",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-primary-nav a|text-decoration",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v151-primary-nav a|white-space",
+      "files": [
+        "navigation.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v155-actions-popover button:focus-visible|background",
+      "files": [
+        "navigation.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v155-actions-popover button:focus-visible|color",
+      "files": [
+        "navigation.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v155-actions-popover button:hover|background",
+      "files": [
+        "navigation.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v155-actions-popover button:hover|color",
+      "files": [
+        "navigation.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "@media (min-width:721px)|.v155-actions-popover button|color",
+      "files": [
+        "navigation.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "@media print|.family-mobile-dock|display",
+      "files": [
+        "archive-shell.css",
+        "mobile-family.css"
+      ]
+    },
+    {
+      "key": "@media print|.graph-scroll|overflow",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media print|.graph-shell|border",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media print|.graph-shell|box-shadow",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media print|.graph-toolbar|display",
+      "files": [
+        "mobile-family.css",
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media print|.legend|display",
+      "files": [
+        "mobile-family.css",
+        "tree-advanced.css"
+      ]
+    },
+    {
+      "key": "@media print|.sidebar|display",
+      "files": [
+        "navigation.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media print|.topbar|display",
+      "files": [
+        "archive-shell.css",
+        "navigation.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media print|.v129-tree-memory|display",
+      "files": [
+        "mobile-family.css",
+        "tree-advanced.css"
+      ]
+    },
+    {
+      "key": "@media print|.v1291-breadcrumb|display",
+      "files": [
+        "navigation.css",
+        "tree-advanced.css"
+      ]
+    },
+    {
+      "key": "@media print|.v1291-mobile-hint|display",
+      "files": [
+        "navigation.css",
+        "tree-advanced.css"
+      ]
+    },
+    {
+      "key": "@media print|.v155-desktop-actions|display",
+      "files": [
+        "mobile-family.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media print|.v155-mobile-actions|display",
+      "files": [
+        "mobile-family.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media print|#family-graph|height",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media print|#family-graph|width",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:1024px)|.dashboard-recent-strip|grid-template-columns",
+      "files": [
+        "home.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:1200px)|.relationship-row .deep-link|grid-column",
+      "files": [
+        "interaction-contracts.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:1200px)|.relationship-row small|grid-column",
+      "files": [
+        "interaction-contracts.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:1200px)|.relationship-row|grid-template-columns",
+      "files": [
+        "interaction-contracts.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|.graph-node|scroll-snap-align",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|.graph-scroll|scroll-snap-type",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|.page-heading h1|font-size",
+      "files": [
+        "person.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|.relationship-row .deep-link|grid-column",
+      "files": [
+        "interaction-contracts.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|.relationship-row small|grid-column",
+      "files": [
+        "interaction-contracts.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|.relationship-row>b|display",
+      "files": [
+        "interaction-contracts.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|.relationship-row|gap",
+      "files": [
+        "interaction-contracts.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|.relationship-row|grid-template-columns",
+      "files": [
+        "interaction-contracts.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|.v158-mobile-more>div|border-radius",
+      "files": [
+        "components.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|.v16-stories-hero h2|font-size",
+      "files": [
+        "components.css",
+        "stories.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|.v16-stories-hero|padding-top",
+      "files": [
+        "components.css",
+        "stories.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|.v17-family-groups|grid-template-columns",
+      "files": [
+        "person.css",
+        "unified-family.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|.v17-home-hero h2|font-size",
+      "files": [
+        "home-editorial.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|.v17-person-gallery|grid-template-columns",
+      "files": [
+        "media.css",
+        "person.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|#family-mobile-dock:not([hidden])|-webkit-backdrop-filter",
+      "files": [
+        "mobile-family.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|#family-mobile-dock:not([hidden])|backdrop-filter",
+      "files": [
+        "mobile-family.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|#family-mobile-dock:not([hidden])|background",
+      "files": [
+        "mobile-family.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|#family-mobile-dock:not([hidden])|border",
+      "files": [
+        "mobile-family.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|#family-mobile-dock:not([hidden])|border-radius",
+      "files": [
+        "mobile-family.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|#family-mobile-dock:not([hidden])|bottom",
+      "files": [
+        "mobile-family.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|#family-mobile-dock:not([hidden])|box-shadow",
+      "files": [
+        "mobile-family.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|#family-mobile-dock:not([hidden])|gap",
+      "files": [
+        "mobile-family.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|#family-mobile-dock:not([hidden])|left",
+      "files": [
+        "mobile-family.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|#family-mobile-dock:not([hidden])|padding",
+      "files": [
+        "mobile-family.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|#family-mobile-dock:not([hidden])|right",
+      "files": [
+        "mobile-family.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|body[data-experience=\"family\"] .topbar|display",
+      "files": [
+        "archive-shell.css",
+        "base.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|body[data-experience=\"family\"] .topbar|pointer-events",
+      "files": [
+        "base.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|body[data-route=\"people\"] .v159-branch-browser|flex-wrap",
+      "files": [
+        "base.css",
+        "branches.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|body[data-route=\"people\"] .v159-branch-browser|overflow-x",
+      "files": [
+        "base.css",
+        "branches.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|body[data-route=\"people\"] .v159-branch-browser|scrollbar-width",
+      "files": [
+        "base.css",
+        "branches.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|body[data-route=\"people\"] .v159-branch-browser|top",
+      "files": [
+        "base.css",
+        "branches.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|body[data-route=\"tree\"][data-v158-context=\"family\"] .graph-shell|border-radius",
+      "files": [
+        "base.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|body[data-route=\"tree\"][data-v158-context=\"family\"] .graph-shell|min-height",
+      "files": [
+        "base.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|body[data-route=\"tree\"][data-v158-context=\"family\"] .graph-stage|min-height",
+      "files": [
+        "base.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|body[data-v158-context=\"family\"] .footer|font-size",
+      "files": [
+        "base.css",
+        "mobile-family.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|body[data-v158-context=\"family\"] .page-heading|padding-top",
+      "files": [
+        "base.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "@media(max-width:768px)|button)|min-height",
+      "files": [
+        "mobile-family.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "@media(pointer:coarse)|.dashboard-paths a|min-height",
+      "files": [
+        "branches.css",
+        "media.css"
+      ]
+    },
+    {
+      "key": "@media(pointer:coarse)|.media-person-chip|min-height",
+      "files": [
+        "branches.css",
+        "media.css"
+      ]
+    },
+    {
+      "key": "@media(prefers-reduced-motion:reduce)|.media-library-card|transform",
+      "files": [
+        "base.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "@media(prefers-reduced-motion:reduce)|.media-library-card|transition",
+      "files": [
+        "base.css",
+        "branches.css"
+      ]
+    },
+    {
+      "key": "@media(prefers-reduced-motion:reduce)|.media-library-preview img|transition",
+      "files": [
+        "base.css",
+        "media.css"
+      ]
+    },
+    {
+      "key": "|.action|border-radius",
+      "files": [
+        "base.css",
+        "shell.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.action|outline",
+      "files": [
+        "base.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.action|outline-offset",
+      "files": [
+        "base.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.back|font-size",
+      "files": [
+        "components.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.badge.provisional|background",
+      "files": [
+        "components.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.badge.provisional|color",
+      "files": [
+        "components.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.badge.rejected|background",
+      "files": [
+        "components.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.badge.rejected|color",
+      "files": [
+        "components.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.badge.unresolved|background",
+      "files": [
+        "components.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.badge.unresolved|color",
+      "files": [
+        "components.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.brand|font-family",
+      "files": [
+        "branding.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.brand|letter-spacing",
+      "files": [
+        "branding.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.bridge-state|font-size",
+      "files": [
+        "components.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.button|border-radius",
+      "files": [
+        "base.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.claim-card|background",
+      "files": [
+        "branches.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.claim-card|border-color",
+      "files": [
+        "home.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.claim-card|box-shadow",
+      "files": [
+        "home.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.claim-top code|font-size",
+      "files": [
+        "branches.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.dashboard-person-open small|color",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|.dashboard-recent-strip|grid-template-columns",
+      "files": [
+        "home.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|.deep-link|font-size",
+      "files": [
+        "components.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.dossier-section|background",
+      "files": [
+        "archive-shell.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.edge.identity-bridge|stroke",
+      "files": [
+        "research.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.edge.identity-bridge|stroke-dasharray",
+      "files": [
+        "research.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.edge.state-provisional|stroke-dasharray",
+      "files": [
+        "components.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.edge.state-rejected|display",
+      "files": [
+        "components.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.edge.state-unresolved|stroke-dasharray",
+      "files": [
+        "research.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.edition|font-size",
+      "files": [
+        "media.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.family-chip|background",
+      "files": [
+        "branches.css",
+        "unified-family.css"
+      ]
+    },
+    {
+      "key": "|.family-chip|border-radius",
+      "files": [
+        "branches.css",
+        "unified-family.css"
+      ]
+    },
+    {
+      "key": "|.family-overview-card|background",
+      "files": [
+        "branches.css",
+        "home.css",
+        "unified-family.css"
+      ]
+    },
+    {
+      "key": "|.family-overview-card|border-color",
+      "files": [
+        "branches.css",
+        "home.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.family-overview-card|border-radius",
+      "files": [
+        "branches.css",
+        "unified-family.css"
+      ]
+    },
+    {
+      "key": "|.family-overview-card|box-shadow",
+      "files": [
+        "branches.css",
+        "home.css",
+        "research.css",
+        "unified-family.css"
+      ]
+    },
+    {
+      "key": "|.filters button|border-radius",
+      "files": [
+        "base.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.focus-actions button|border-radius",
+      "files": [
+        "base.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.focus-actions button|font-size",
+      "files": [
+        "base.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.gate small|font-size",
+      "files": [
+        "components.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.graph-node rect|fill",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.graph-node rect|filter",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.graph-node rect|stroke",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.graph-node:focus rect|filter",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.graph-node.state-provisional rect|stroke",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.graph-node.state-provisional rect|stroke-dasharray",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.graph-node.state-unresolved rect|stroke",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.graph-node.state-unresolved rect|stroke-dasharray",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.graph-scroll|background-size",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.graph-shell|border-radius",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.graph-shell|box-shadow",
+      "files": [
+        "research.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.graph-shell|overflow",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.graph-toolbar|padding",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.history-highlight-grid p|color",
+      "files": [
+        "branches.css",
+        "stories.css"
+      ]
+    },
+    {
+      "key": "|.link-row|font-size",
+      "files": [
+        "components.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.media-card small|font-size",
+      "files": [
+        "media.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.media-card|box-shadow",
+      "files": [
+        "media.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.media-library-body>p|color",
+      "files": [
+        "branches.css",
+        "media.css"
+      ]
+    },
+    {
+      "key": "|.media-library-card|background",
+      "files": [
+        "home.css",
+        "media.css"
+      ]
+    },
+    {
+      "key": "|.media-library-card|border-color",
+      "files": [
+        "home.css",
+        "media.css"
+      ]
+    },
+    {
+      "key": "|.media-library-card|box-shadow",
+      "files": [
+        "home.css",
+        "media.css"
+      ]
+    },
+    {
+      "key": "|.media-library-card|transition",
+      "files": [
+        "branches.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.metric small|font-size",
+      "files": [
+        "home.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.mystery-panel>p:not(.eyebrow)|line-height",
+      "files": [
+        "research.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.nav-group-label|font-size",
+      "files": [
+        "media.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "|.page-heading h1|font-family",
+      "files": [
+        "research.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.page-heading h1|letter-spacing",
+      "files": [
+        "person.css",
+        "research.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.page-heading h1|margin",
+      "files": [
+        "person.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.page-heading h1|text-wrap",
+      "files": [
+        "media.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.panel|border-radius",
+      "files": [
+        "research.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.panel|box-shadow",
+      "files": [
+        "research.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.person-card|background",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|.person-card|border-radius",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|.person-card|box-shadow",
+      "files": [
+        "people.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.person-card|transition",
+      "files": [
+        "base.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|.person-hero h1|letter-spacing",
+      "files": [
+        "person.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.person-open h3|margin",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|.person-open p|font-size",
+      "files": [
+        "people.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.profile-status-grid small|font-size",
+      "files": [
+        "media.css",
+        "person.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.relationship-row small|font-size",
+      "files": [
+        "branches.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.relationship-row>span|font-size",
+      "files": [
+        "branches.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.relationship-row|align-items",
+      "files": [
+        "interaction-contracts.css",
+        "research.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.relationship-row|background",
+      "files": [
+        "interaction-contracts.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.relationship-row|border",
+      "files": [
+        "interaction-contracts.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.relationship-row|border-radius",
+      "files": [
+        "interaction-contracts.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.relationship-row|display",
+      "files": [
+        "interaction-contracts.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.relationship-row|gap",
+      "files": [
+        "interaction-contracts.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.relationship-row|grid-template-columns",
+      "files": [
+        "interaction-contracts.css",
+        "research.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.relationship-row|padding",
+      "files": [
+        "interaction-contracts.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.route-shell|box-shadow",
+      "files": [
+        "research.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.section-title>a|font-size",
+      "files": [
+        "research.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.section-title>span|font-size",
+      "files": [
+        "research.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.site-footer-brand .monogram|background",
+      "files": [
+        "archive-shell.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.site-footer-brand .monogram|border",
+      "files": [
+        "archive-shell.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.site-footer-brand .monogram|border-radius",
+      "files": [
+        "archive-shell.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.source-card|background",
+      "files": [
+        "branches.css",
+        "home.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.source-card|border-color",
+      "files": [
+        "home.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.source-card|border-radius",
+      "files": [
+        "branches.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.source-card|box-shadow",
+      "files": [
+        "home.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.source-top code|font-size",
+      "files": [
+        "branches.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.source-top span|font-size",
+      "files": [
+        "branches.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.task-card|background",
+      "files": [
+        "branches.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.task-card|border-radius",
+      "files": [
+        "branches.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.task-top code|font-size",
+      "files": [
+        "branches.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.task-top span|font-size",
+      "files": [
+        "branches.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.timeline-top>span|font-size",
+      "files": [
+        "branches.css",
+        "person.css"
+      ]
+    },
+    {
+      "key": "|.topbar|backdrop-filter",
+      "files": [
+        "navigation.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.topbar|background",
+      "files": [
+        "navigation.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.topbar|border-bottom",
+      "files": [
+        "navigation.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|.tree-depth>span|font-size",
+      "files": [
+        "media.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.tree-focusbar label|font-size",
+      "files": [
+        "media.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.v154-graph-shell|overflow",
+      "files": [
+        "tree-advanced.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.v154-tree-controls|box-shadow",
+      "files": [
+        "research.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.v154-tree-person|box-shadow",
+      "files": [
+        "research.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|.v157-media-card small|font-size",
+      "files": [
+        "base.css",
+        "media.css"
+      ]
+    },
+    {
+      "key": "|.v157-research-center p)|font-size",
+      "files": [
+        "base.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.v157-research-center p)|line-height",
+      "files": [
+        "base.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.v157-tree-person small|font-size",
+      "files": [
+        "base.css",
+        "media.css"
+      ]
+    },
+    {
+      "key": "|.v159-card-context|font-size",
+      "files": [
+        "base.css",
+        "media.css"
+      ]
+    },
+    {
+      "key": "|.v159-card-dates|font-size",
+      "files": [
+        "base.css",
+        "media.css"
+      ]
+    },
+    {
+      "key": "|.v159-card-relations small)|font-size",
+      "files": [
+        "base.css",
+        "media.css"
+      ]
+    },
+    {
+      "key": "|.v159-life-copy p|font-size",
+      "files": [
+        "base.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.v159-life-copy p|line-height",
+      "files": [
+        "base.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|.v162-branch-actions a|border-radius",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|.v162-branch-context|background",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|.v162-branch-context|border",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|.v162-branch-context|border-radius",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|.v162-branch-context|padding",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|.v162-family-journey|border-top",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-family-journey|display",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-family-journey|gap",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-family-journey|padding-block",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-family-path-group a|background",
+      "files": [
+        "components.css",
+        "person.css"
+      ]
+    },
+    {
+      "key": "|.v162-family-path-group a|border-radius",
+      "files": [
+        "components.css",
+        "person.css"
+      ]
+    },
+    {
+      "key": "|.v162-family-path|background",
+      "files": [
+        "components.css",
+        "person.css"
+      ]
+    },
+    {
+      "key": "|.v162-family-path|border",
+      "files": [
+        "components.css",
+        "person.css"
+      ]
+    },
+    {
+      "key": "|.v162-family-path|border-radius",
+      "files": [
+        "components.css",
+        "person.css"
+      ]
+    },
+    {
+      "key": "|.v162-moment p|color",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-moment p|font-size",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-moment small|color",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-moment small|font-size",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-moment time|margin-bottom",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-moment|background",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-moment|border",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-moment|border-radius",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-moment|padding",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-moments|gap",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-places a|background",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-places a|border-radius",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v162-places|gap",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v17-home-hero h2|color",
+      "files": [
+        "home-editorial.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v17-home-hero h2|letter-spacing",
+      "files": [
+        "home-editorial.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v17-home-hero h2|margin",
+      "files": [
+        "home-editorial.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v17-home-hero h2|max-width",
+      "files": [
+        "home-editorial.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v17-home-hero h2|text-wrap",
+      "files": [
+        "home-editorial.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v17-home-hero::after|content",
+      "files": [
+        "branding.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v17-page-intro h2|color",
+      "files": [
+        "people.css",
+        "person.css"
+      ]
+    },
+    {
+      "key": "|.v17-page-intro h2|letter-spacing",
+      "files": [
+        "people.css",
+        "person.css"
+      ]
+    },
+    {
+      "key": "|.v17-person-card>button|background",
+      "files": [
+        "home.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|.v17-person-card>button|box-shadow",
+      "files": [
+        "home.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|.v17-person-nav a.is-active|background",
+      "files": [
+        "elevation.css",
+        "person.css"
+      ]
+    },
+    {
+      "key": "|.v17-person-nav a.is-active|box-shadow",
+      "files": [
+        "elevation.css",
+        "person.css"
+      ]
+    },
+    {
+      "key": "|.v17-primary-actions|display",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v17-primary-actions|flex-wrap",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v17-primary-actions|gap",
+      "files": [
+        "components.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v17-relative|background",
+      "files": [
+        "home.css",
+        "person.css"
+      ]
+    },
+    {
+      "key": "|.v17-relative|box-shadow",
+      "files": [
+        "home.css",
+        "person.css"
+      ]
+    },
+    {
+      "key": "|.v174-discovery-avatar|background",
+      "files": [
+        "elevation.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v174-discovery-avatar|border-radius",
+      "files": [
+        "elevation.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v174-discovery-avatar|height",
+      "files": [
+        "elevation.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v174-discovery-avatar|width",
+      "files": [
+        "elevation.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v174-discovery-grid>button|background",
+      "files": [
+        "elevation.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v174-discovery-grid>button|border-radius",
+      "files": [
+        "elevation.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v174-discovery-grid>button|box-shadow",
+      "files": [
+        "elevation.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v174-discovery-grid>button|min-height",
+      "files": [
+        "elevation.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v174-discovery-grid>button|padding",
+      "files": [
+        "elevation.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v174-discovery-grid|gap",
+      "files": [
+        "elevation.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v174-profile-snapshot|background",
+      "files": [
+        "elevation.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v174-profile-snapshot|box-shadow",
+      "files": [
+        "elevation.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v174-tree-context|background",
+      "files": [
+        "elevation.css",
+        "home.css",
+        "tree-advanced.css"
+      ]
+    },
+    {
+      "key": "|.v174-tree-context|border-radius",
+      "files": [
+        "elevation.css",
+        "tree-advanced.css"
+      ]
+    },
+    {
+      "key": "|.v174-tree-context|box-shadow",
+      "files": [
+        "elevation.css",
+        "home.css"
+      ]
+    },
+    {
+      "key": "|.v174-tree-context|padding",
+      "files": [
+        "elevation.css",
+        "tree-advanced.css"
+      ]
+    },
+    {
+      "key": "|.version|font-size",
+      "files": [
+        "research.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|[role=\"button\"]):focus-visible|outline",
+      "files": [
+        "base.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|[role=\"button\"]):focus-visible|outline-offset",
+      "files": [
+        "base.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|#status|font-size",
+      "files": [
+        "research.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"media\"][data-v158-context=\"family\"] .route-shell|padding-bottom",
+      "files": [
+        "media.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"people\"] .v159-branch-browser|backdrop-filter",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"people\"] .v159-branch-browser|background",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"people\"] .v159-branch-browser|padding",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"people\"] .v159-branch-browser|position",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"people\"] .v159-branch-browser|top",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"people\"] .v159-branch-browser|z-index",
+      "files": [
+        "branches.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"people\"][data-v158-context=\"family\"] .v159-card-context|font-size",
+      "files": [
+        "base.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"people\"][data-v158-context=\"family\"] .v159-card-copy strong|font-size",
+      "files": [
+        "base.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"people\"][data-v158-context=\"family\"] .v159-card-dates|font-size",
+      "files": [
+        "base.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"people\"][data-v158-context=\"family\"] .v159-card-media|border-radius",
+      "files": [
+        "base.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"people\"][data-v158-context=\"family\"] .v159-card-relations small|background",
+      "files": [
+        "base.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"people\"][data-v158-context=\"family\"] .v159-card-relations small|font-size",
+      "files": [
+        "base.css",
+        "people.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"tree\"][data-v158-context=\"family\"] .route-shell .page-heading|padding-bottom",
+      "files": [
+        "shell.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|body[data-route=\"tree\"][data-v158-context=\"family\"] .route-shell #status|display",
+      "files": [
+        "shell.css",
+        "tree.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"] :where(.dashboard-section p|font-size",
+      "files": [
+        "base.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"] :where(.dashboard-section p|line-height",
+      "files": [
+        "base.css",
+        "research.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"] :where(.dashboard-section|background",
+      "files": [
+        "people.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"] :where(.dashboard-section|border-color",
+      "files": [
+        "people.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"] :where(.dashboard-section|box-shadow",
+      "files": [
+        "research.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"] :where(.dashboard-section|padding-inline",
+      "files": [
+        "people.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"] :where(.v157-person-copy|font-size",
+      "files": [
+        "base.css",
+        "media.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"] .edition|font-size",
+      "files": [
+        "base.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"] .edition|line-height",
+      "files": [
+        "base.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"] .topbar-actions|display",
+      "files": [
+        "archive-shell.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"] .topbar|box-shadow",
+      "files": [
+        "archive-shell.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"] .topbar|min-height",
+      "files": [
+        "archive-shell.css",
+        "navigation.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"] #content|margin-inline",
+      "files": [
+        "base.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"] #content|max-width",
+      "files": [
+        "base.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"][data-route=\"media\"] .route-shell .filters .search input|min-height",
+      "files": [
+        "interaction-contracts.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"][data-route=\"media\"] .route-shell .filters .search|display",
+      "files": [
+        "interaction-contracts.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"][data-route=\"media\"] .route-shell .filters>button|display",
+      "files": [
+        "interaction-contracts.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"][data-route=\"media\"] .route-shell .filters>label:not(.search)|display",
+      "files": [
+        "interaction-contracts.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"][data-route=\"media\"] .route-shell .filters|display",
+      "files": [
+        "interaction-contracts.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|body[data-v158-context=\"family\"][data-route=\"media\"] .route-shell .filters|margin-top",
+      "files": [
+        "interaction-contracts.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|button|font-family",
+      "files": [
+        "base.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|button|outline",
+      "files": [
+        "base.css",
+        "components.css"
+      ]
+    },
+    {
+      "key": "|button|outline-offset",
+      "files": [
+        "base.css",
+        "components.css"
+      ]
+    },
+    {
+      "key": "|input|font-family",
+      "files": [
+        "base.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|select|border-color",
+      "files": [
+        "base.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|select|border-radius",
+      "files": [
+        "base.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|select|font-family",
+      "files": [
+        "base.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|select|outline",
+      "files": [
+        "components.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|select|outline-offset",
+      "files": [
+        "components.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|textarea)|border-radius",
+      "files": [
+        "base.css",
+        "shell.css"
+      ]
+    },
+    {
+      "key": "|textarea|font-family",
+      "files": [
+        "base.css",
+        "shell.css"
+      ]
+    }
+  ]
+}

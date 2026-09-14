@@ -1,11 +1,89 @@
 /* Advanced tree navigation, path highlighting, compact/mobile density, and export UI. */
-.tree-advanced-nav{display:grid;gap:10px;margin:0 0 14px;padding:14px 16px;border:1px solid var(--border-soft,#d8d2c6);border-radius:16px;background:var(--surface,#fffdf8);box-shadow:var(--shadow-sm,0 6px 18px rgba(25,40,32,.06))}
-.tree-advanced-primary{display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap}.tree-advanced-primary label{display:grid;gap:5px;min-width:min(360px,100%);font-size:.78rem;color:var(--muted,#66716a);font-weight:700;letter-spacing:.02em}.tree-advanced-primary select,.tree-path-tools select{min-height:38px;border:1px solid var(--border,#cfc8bb);border-radius:10px;background:var(--surface,#fffdf8);color:var(--text,#192820);padding:7px 34px 7px 10px;font:inherit}.tree-advanced-actions{display:flex;gap:7px;flex-wrap:wrap}.tree-advanced-actions button,.tree-path-tools button,.tree-advanced-export button,.tree-recent-trail button{min-height:36px;border:1px solid var(--border,#cfc8bb);border-radius:10px;background:var(--surface-soft,#f8f5ee);color:var(--text,#192820);padding:7px 10px;font:inherit;cursor:pointer}.tree-advanced-actions button:hover,.tree-path-tools button:hover,.tree-advanced-export button:hover,.tree-recent-trail button:hover{border-color:var(--family-green,#123f34);background:var(--surface-tint,#edf2ec)}
-.tree-focus-breadcrumb{display:flex;align-items:center;gap:7px;min-width:0;font-size:.82rem;color:var(--muted,#66716a);overflow:auto;white-space:nowrap}.tree-focus-breadcrumb b{color:var(--text,#192820)}.tree-focus-breadcrumb i{font-style:normal;opacity:.55}.tree-recent-trail{display:flex;align-items:center;gap:6px;overflow:auto;padding-top:1px}.tree-recent-trail>span{flex:0 0 auto;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted,#66716a)}.tree-recent-trail button{flex:0 0 auto;min-height:30px;padding:5px 9px;font-size:.78rem}
-.tree-path-tools,.tree-advanced-export{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}.tree-path-tools label{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--muted,#66716a)}.tree-path-tools select{min-height:34px;max-width:240px}.tree-path-summary{display:block;margin:0 0 8px;padding:7px 10px;border-left:3px solid var(--family-green,#123f34);background:var(--surface-tint,#edf2ec);color:var(--muted-strong,#4d5a53);font-size:.8rem;border-radius:0 8px 8px 0}
-#family-graph .tree-couple-group{fill:color-mix(in srgb,var(--surface-tint,#edf2ec) 68%,transparent);stroke:color-mix(in srgb,var(--family-green,#123f34) 26%,transparent);stroke-width:1.5;stroke-dasharray:5 5;pointer-events:none}#family-graph .tree-path-segment{fill:none;stroke:var(--family-green,#123f34);stroke-width:6;stroke-linecap:round;stroke-linejoin:round;opacity:.88;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(18,63,52,.18))}#family-graph .graph-node.tree-path-node>rect{stroke:var(--family-green,#123f34)!important;stroke-width:4!important;filter:drop-shadow(0 2px 5px rgba(18,63,52,.2))}.tree-relationship-path-overlay{pointer-events:none}
+.tree-advanced-nav{display:grid;gap:10px;margin:0 0 14px;padding:14px 16px;border:1px solid var(--border-soft,#d8d2c6);border-radius:16px;background:var(--surface,var(--paper));box-shadow:var(--shadow-sm,0 6px 18px rgba(25,40,32,.06))}
+.tree-advanced-primary{display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap}.tree-advanced-primary label{display:grid;gap:5px;min-width:min(360px,100%);font-size:.78rem;color:var(--muted,#66716a);font-weight:700;letter-spacing:.02em}.tree-advanced-primary select,.tree-path-tools select{min-height:38px;border:1px solid var(--border,#cfc8bb);border-radius:10px;background:var(--surface,var(--paper));color:var(--text,var(--ink));padding:7px 34px 7px 10px;font:inherit}.tree-advanced-actions{display:flex;gap:7px;flex-wrap:wrap}.tree-advanced-actions button,.tree-path-tools button,.tree-advanced-export button,.tree-recent-trail button{min-height:36px;border:1px solid var(--border,#cfc8bb);border-radius:10px;background:var(--surface-soft,var(--surface-soft));color:var(--text,var(--ink));padding:7px 10px;font:inherit;cursor:pointer}.tree-advanced-actions button:hover,.tree-path-tools button:hover,.tree-advanced-export button:hover,.tree-recent-trail button:hover{border-color:var(--family-green,var(--green));background:var(--surface-tint,var(--surface-tint))}
+.tree-focus-breadcrumb{display:flex;align-items:center;gap:7px;min-width:0;font-size:.82rem;color:var(--muted,#66716a);overflow:auto;white-space:nowrap}.tree-focus-breadcrumb b{color:var(--text,var(--ink))}.tree-focus-breadcrumb i{font-style:normal;opacity:.55}.tree-recent-trail{display:flex;align-items:center;gap:6px;overflow:auto;padding-top:1px}.tree-recent-trail>span{flex:0 0 auto;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted,#66716a)}.tree-recent-trail button{flex:0 0 auto;min-height:30px;padding:5px 9px;font-size:.78rem}
+.tree-path-tools,.tree-advanced-export{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}.tree-path-tools label{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--muted,#66716a)}.tree-path-tools select{min-height:34px;max-width:240px}.tree-path-summary{display:block;margin:0 0 8px;padding:7px 10px;border-left:3px solid var(--family-green,var(--green));background:var(--surface-tint,var(--surface-tint));color:var(--muted-strong,#4d5a53);font-size:.8rem;border-radius:0 8px 8px 0}
+#family-graph .tree-couple-group{fill:color-mix(in srgb,var(--surface-tint,var(--surface-tint)) 68%,transparent);stroke:color-mix(in srgb,var(--family-green,var(--green)) 26%,transparent);stroke-width:1.5;stroke-dasharray:5 5;pointer-events:none}#family-graph .tree-path-segment{fill:none;stroke:var(--family-green,var(--green));stroke-width:6;stroke-linecap:round;stroke-linejoin:round;opacity:.88;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(18,63,52,.18))}#family-graph .graph-node.tree-path-node>rect{stroke:var(--family-green,var(--green));stroke-width:4;filter:drop-shadow(0 2px 5px rgba(18,63,52,.2))}.tree-relationship-path-overlay{pointer-events:none}
 .tree-pdf-frame{position:fixed;right:0;bottom:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none}
 body.tree-compact .graph-shell .legend{display:none}body.tree-compact #family-graph .node-state,body.tree-compact #family-graph .node-branch{display:none}body.tree-compact .graph-toolbar{gap:5px}body.tree-compact .graph-toolbar button{min-height:32px;padding:5px 8px}body.tree-compact .tree-advanced-nav{padding:10px 12px;gap:8px}body.tree-compact .tree-recent-trail{display:none}
-@media(max-width:760px){.tree-advanced-nav{border-radius:12px;margin-bottom:10px}.tree-advanced-primary{display:grid;align-items:stretch}.tree-advanced-primary label{min-width:0}.tree-advanced-actions{display:grid;grid-template-columns:1fr 1fr}.tree-advanced-actions button:last-child{grid-column:1/-1}.tree-focus-breadcrumb{font-size:.76rem}.tree-path-tools{width:100%}.tree-path-tools label{width:100%;display:grid;grid-template-columns:auto 1fr}.tree-path-tools select{max-width:none;width:100%}.tree-advanced-export{width:100%}.tree-advanced-export button{flex:1}.tree-path-summary{font-size:.76rem}.graph-scroll{overscroll-behavior:contain;scroll-snap-type:x proximity}.graph-node{scroll-snap-align:center}}
-@media print{.tree-advanced-nav,.tree-focus-breadcrumb,.tree-recent-trail,.tree-path-tools,.tree-advanced-export,.graph-toolbar,.legend,.v129-tree-memory,.v1291-breadcrumb,.v1291-mobile-hint{display:none!important}.graph-shell,.graph-scroll{overflow:visible!important;border:0!important;box-shadow:none!important;background:#fff!important}#family-graph{width:100%!important;height:auto!important;max-width:none!important}.tree-path-segment{stroke-width:4!important}}
-@media(prefers-reduced-motion:reduce){.tree-advanced-nav *,#family-graph *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+@media(max-width:768px){.tree-advanced-nav{border-radius:12px;margin-bottom:10px}.tree-advanced-primary{display:grid;align-items:stretch}.tree-advanced-primary label{min-width:0}.tree-advanced-actions{display:grid;grid-template-columns:1fr 1fr}.tree-advanced-actions button:last-child{grid-column:1/-1}.tree-focus-breadcrumb{font-size:.76rem}.tree-path-tools{width:100%}.tree-path-tools label{width:100%;display:grid;grid-template-columns:auto 1fr}.tree-path-tools select{max-width:none;width:100%}.tree-advanced-export{width:100%}.tree-advanced-export button{flex:1}.tree-path-summary{font-size:.76rem}.graph-scroll{overscroll-behavior:contain;scroll-snap-type:x proximity}.graph-node{scroll-snap-align:center}}
+@media print{.tree-advanced-nav,.tree-focus-breadcrumb,.tree-recent-trail,.tree-path-tools,.tree-advanced-export,.graph-toolbar,.legend,.v129-tree-memory,.v1291-breadcrumb,.v1291-mobile-hint{display:none}.graph-shell,.graph-scroll{overflow:visible;border:0;box-shadow:none;background:#fff}#family-graph{width:100%;height:auto;max-width:none}.tree-path-segment{stroke-width:4}}
+@media(prefers-reduced-motion:reduce){.tree-advanced-nav *,#family-graph *{scroll-behavior:auto;transition:none;animation:none}}
+
+/* CSS architecture consolidation: declarations owned by this semantic module. */
+.v129-memory-actions,.v129-recent{display:flex;gap:7px;flex-wrap:wrap}
+
+.v129-recent{grid-column:1/-1;align-items:center}
+
+.v129-recent>span{font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+
+.generation-lane line{stroke:currentColor;stroke-opacity:.08;stroke-width:1}
+
+.generation-lane text{font-size:12px;font-weight:700;letter-spacing:.12em;fill:currentColor;opacity:.42}
+
+.v1291-mobile-hint{display:none;font-size:.82rem;line-height:1.35;padding:8px 10px;margin:0 0 8px;border-radius:10px;background:color-mix(in srgb,var(--accent,#173f35) 7%,transparent)}
+
+.platform-tree2{margin-top:0}
+
+.path-hop{display:grid;grid-template-columns:minmax(160px,1fr) minmax(180px,.9fr) minmax(160px,1fr) auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line,#d8ddd9);border-left:5px solid currentColor;border-radius:14px}
+
+.path-hop>div{display:grid;gap:4px}
+
+.path-hop>div>span:first-child{font-weight:800}
+
+@media(max-width:768px){
+.v129-recent{grid-column:auto;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+}
+
+@media(max-width:768px){
+.generation-lane text{font-size:13px}
+}
+
+@media print{
+.generation-lane line{stroke-opacity:.16}
+}
+
+@media print{
+.generation-lane text{opacity:.65}
+}
+
+@media(max-width:768px){
+.v1291-mobile-hint{display:block}
+}
+
+@media print{
+.generation-lane text{font-size:12px;letter-spacing:.08em}
+}
+
+@media(max-width:1024px){
+.path-hop{grid-template-columns:1fr}
+}
+
+.v174-tree-context{padding:20px 22px;
+  border-radius:20px;
+  background:linear-gradient(135deg,var(--paper),#f2f4ee);}
+
+.v154-graph-shell,.graph-shell,.graph-panel{overflow:hidden;
+  border-radius:24px;}
+
+.graph-toolbar{padding:16px 18px;
+  background:rgba(255,253,248,.9);}
+
+.graph-scroll{background-color:#f8f6f0;
+  background-image:radial-gradient(rgba(18,63,52,.10) .8px,transparent .8px);
+  background-size:24px 24px;}
+
+.graph-node rect{fill:var(--paper);
+  stroke:#b7c3ba;
+  filter:drop-shadow(0 7px 11px rgba(18,63,52,.075));}
+
+.graph-node:hover rect,.graph-node:focus rect{stroke:#275a4a;
+  filter:drop-shadow(0 12px 20px rgba(18,63,52,.13));}
+
+.graph-node.state-provisional rect{stroke:var(--evidence-provisional);
+  stroke-dasharray:6 4;}
+
+.graph-node.state-unresolved rect{stroke:var(--evidence-unresolved);
+  stroke-dasharray:7 5;}
+
+.graph-node.state-rejected rect{stroke:var(--evidence-rejected)}

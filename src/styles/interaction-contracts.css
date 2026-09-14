@@ -17,12 +17,12 @@
   padding:14px;
 }
 
-@media(max-width:1180px){
+@media(max-width:1200px){
   .relationship-row{grid-template-columns:90px 1fr 16px 1fr}
   .relationship-row small,.relationship-row .deep-link{grid-column:2/-1}
 }
 
-@media(max-width:720px){
+@media(max-width:768px){
   .relationship-row{grid-template-columns:1fr;gap:6px}
   .relationship-row>b{display:none}
   .relationship-row small,.relationship-row .deep-link{grid-column:auto}
@@ -32,22 +32,22 @@
  * The generic media-browse shell hides route filters; Family mode is the
  * explicit exception and must win after all route modules are composed. */
 body[data-v158-context="family"][data-route="media"] .route-shell .filters{
-  display:block!important;
-  margin-top:10px!important;
+  display:block;
+  margin-top:10px;
 }
 body[data-v158-context="family"][data-route="media"] .route-shell .filters>label:not(.search),
 body[data-v158-context="family"][data-route="media"] .route-shell .filters>button{
-  display:none!important;
+  display:none;
 }
 body[data-v158-context="family"][data-route="media"] .route-shell .filters .search{
-  display:block!important;
+  display:block;
 }
 body[data-v158-context="family"][data-route="media"] .route-shell .filters .search input{
-  min-height:44px!important;
+  min-height:44px;
 }
 
 /* The routed tree is repeatedly reconstructed as scope/focus changes. Avoid
  * restarting entrance motion on the context controller itself: a moving
  * controller is not a stable pointer target and can also create resize churn
  * while the tree persistence controller is restoring state. */
-.v174-tree-context{animation:none!important}
+.v174-tree-context{animation:none}
