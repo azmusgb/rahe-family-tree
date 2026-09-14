@@ -67,15 +67,25 @@ test('tokens.css is the single-source owner of active Family design tokens',()=>
   assert.match(tokens,/--evidence-provisional:#a8762b/);
   assert.match(tokens,/--evidence-unresolved:#963f39/);
   assert.match(tokens,/--evidence-rejected:#77766f/);
-  assert.match(tokens,/--space-1:var\(--family-space-1\)/);
   assert.match(tokens,/--green2:#275a4a/);
+
+  const migratedSpacing={
+    '--space-1':'4px','--space-2':'8px','--space-3':'12px','--space-4':'16px',
+    '--space-5':'24px','--space-6':'32px','--space-7':'48px','--space-8':'64px'
+  };
+  for(const [name,value] of Object.entries(migratedSpacing)){
+    const escaped=name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    assert.match(tokens,new RegExp(`${escaped}:${value.replace('.', '\\.')}[;}]`),`${name} must preserve its independent historical value`);
+  }
+  assert.doesNotMatch(tokens,/--space-[1-8]:var\(--family-space-/,'migrated spacing tokens must not become aliases whose values can drift under scoped Family overrides');
 
   const unique=[
     '--bg','--paper','--surface','--ink','--text','--muted','--green','--green-2','--line','--focus','--danger',
     '--family-bg','--family-surface','--family-ink','--family-green','--family-green-2','--family-accent',
     '--family-font-display','--family-font-ui','--family-radius-panel','--family-radius-card','--family-radius-control',
     '--family-shadow-card','--family-shadow-card-hover','--family-shadow-float','--family-motion-fast','--family-motion-normal',
-    '--evidence-supported','--evidence-provisional','--evidence-unresolved','--evidence-rejected','--v16-text-meta'
+    '--evidence-supported','--evidence-provisional','--evidence-unresolved','--evidence-rejected','--v16-text-meta',
+    ...Object.keys(migratedSpacing)
   ];
   for(const name of unique){
     const escaped=name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
