@@ -22,7 +22,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - run: node scripts/css-architecture-audit.mjs --write-baseline
+      - name: Generate normalized CSS ownership baseline
+        run: node scripts/css-architecture-audit.mjs --write-baseline
       - name: Commit explicit ownership baseline
         run: |
           git config user.name "github-actions[bot]"
