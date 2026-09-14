@@ -10,7 +10,7 @@ function familyMenus(){return `<details class="v151-nav-menu v158-explore"><summ
 function researchPrimaryHtml(){return linksHtml(researchPrimary);}
 function researchMenus(){return `<a class="v158-family-return" href="#dashboard" data-v158-family-return>← Back to Family</a>`;}
 
-function preserveActions(menus){return menus?.querySelector('.v155-desktop-actions')||null;}
+function preserveActions(menus){return menus?.querySelector('.page-actions--desktop,.v155-desktop-actions')||null;}
 function markCurrent(container,selector,key){container?.querySelectorAll(selector).forEach(link=>{const active=link.dataset.navKey===key||link.dataset.dockRoute===key;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});}
 function rebuildDesktopNav(){
   const primary=document.querySelector('.v151-primary-nav'),menus=document.querySelector('.v151-nav-menus');

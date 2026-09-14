@@ -1,3 +1,5 @@
+import{canRunUiCommand,commandLabel,runUiCommand}from'./ui-commands.js';
+
 const RELEASE='15.5';
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const familyMinimal=new Set(['dashboard','person','tree']);
@@ -11,43 +13,38 @@ function classifyRoute(route){
   return document.body.dataset.experience==='research'?'research':'browse';
 }
 
-function forwardButton(id,label){
-  return`<button type="button" data-v155-forward="${id}">${label}</button>`;
+function commandButton(command,label){
+  return`<button type="button" data-ui-command="${command}" data-v155-forward="${command}" ${canRunUiCommand(command)?'':'disabled'}>${label}</button>`;
 }
-function modeButton(){
-  const original=document.querySelector('.experience-toggle');
-  const label=original?.textContent?.trim()||'Research mode';
-  return`<button type="button" data-v155-mode>${label}</button>`;
-}
+function modeButton(){return`<button type="button" data-ui-command="toggle-experience" data-v155-mode>${commandLabel('toggle-experience')}</button>`;}
 
 function installActionMenus(){
   const original=document.querySelector('.topbar-actions');
   if(!original)return;
-  original.classList.add('v155-original-actions');
+  original.classList.add('page-actions-source','v155-original-actions');
 
   const menus=document.querySelector('.v151-nav-menus');
-  if(menus&&!menus.querySelector('.v155-desktop-actions')){
+  if(menus&&!menus.querySelector('.page-actions--desktop')){
     const details=document.createElement('details');
-    details.className='v151-nav-menu v155-desktop-actions';
-    details.innerHTML=`<summary>Actions</summary><div class="v151-nav-popover v155-actions-popover">${modeButton()}${forwardButton('share','Share view')}${forwardButton('export','Export view')}${forwardButton('print','Print')}</div>`;
+    details.className='v151-nav-menu page-actions page-actions--desktop v155-desktop-actions';
+    details.innerHTML=`<summary>Actions</summary><div class="v151-nav-popover page-actions-menu v155-actions-popover">${modeButton()}${commandButton('share','Share view')}${commandButton('export','Export view')}${commandButton('print','Print')}</div>`;
     menus.append(details);
   }
 
   const topbar=document.querySelector('.topbar');
-  if(topbar&&!topbar.querySelector('.v155-mobile-actions')){
+  if(topbar&&!topbar.querySelector('.page-actions--mobile')){
     const details=document.createElement('details');
-    details.className='v155-mobile-actions';
-    details.innerHTML=`<summary aria-label="Page actions">•••</summary><div class="v155-mobile-actions-menu">${modeButton()}${forwardButton('share','Share')}${forwardButton('export','Export')}${forwardButton('print','Print')}</div>`;
+    details.className='page-actions page-actions--mobile v155-mobile-actions';
+    details.innerHTML=`<summary aria-label="Page actions">•••</summary><div class="page-actions-menu v155-mobile-actions-menu">${modeButton()}${commandButton('share','Share')}${commandButton('export','Export')}${commandButton('print','Print')}</div>`;
     topbar.append(details);
   }
 }
 
-function syncModeActions(){
-  const original=document.querySelector('.experience-toggle');
-  if(!original)return;
-  document.querySelectorAll('[data-v155-mode]').forEach(button=>{
-    button.textContent=original.textContent||'Research mode';
-    button.dataset.experienceMode=original.dataset.experienceMode||'';
+function syncCommandActions(){
+  document.querySelectorAll('[data-ui-command]').forEach(button=>{
+    const command=button.dataset.uiCommand;
+    if(command==='toggle-experience')button.textContent=commandLabel(command);
+    button.disabled=!canRunUiCommand(command);
   });
 }
 
@@ -58,7 +55,7 @@ function syncLayout(){
   const routeShell=document.querySelector('.route-shell');
   if(routeShell)routeShell.dataset.pageLayout=document.body.dataset.pageLayout;
   installActionMenus();
-  syncModeActions();
+  syncCommandActions();
 }
 
 let queued=false;
@@ -69,21 +66,16 @@ function schedule(){
 }
 
 document.addEventListener('click',event=>{
-  const mode=event.target.closest?.('[data-v155-mode]');
-  if(mode){
-    document.querySelector('.experience-toggle')?.click();
-    mode.closest('details')?.removeAttribute('open');
-    schedule();
-    return;
-  }
-  const button=event.target.closest?.('[data-v155-forward]');
+  const button=event.target.closest?.('[data-ui-command]');
   if(!button)return;
-  const target=document.getElementById(button.dataset.v155Forward);
-  target?.click();
+  const command=button.dataset.uiCommand;
+  if(!runUiCommand(command,{source:button}))return;
   button.closest('details')?.removeAttribute('open');
+  schedule();
 });
 
 window.addEventListener('family-view-rendered',schedule);
 window.addEventListener('hashchange',schedule);
 window.addEventListener('family-auth-ui-refresh',schedule);
+window.addEventListener('family-experience-changed',schedule);
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
