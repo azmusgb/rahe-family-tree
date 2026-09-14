@@ -73,3 +73,17 @@ test('18.8 retires the catch-all redesign layer into semantic composition owners
     assert.match(css,/Presentation-only|Evidence-state semantics/);
   }
 });
+
+
+test('18.9 archive shell uses semantic selectors without specificity escalation',async()=>{
+  const shell=await read('src/styles/archive-shell.css');
+  const runtime=await read('src/runtime/navigation-shell.js');
+  assert.doesNotMatch(shell,/!important/);
+  assert.doesNotMatch(shell,/data-v158-context|\.v151-(?:primary-nav|nav-menus|nav-menu|nav-popover)|\.v158-research-entry/);
+  assert.match(shell,/data-nav-context/);
+  for(const semantic of ['primary-nav','nav-menus','nav-menu','nav-popover','research-entry'])assert.match(shell,new RegExp(`\\.${semantic}`));
+  assert.match(runtime,/dataset\.navContext/);
+  assert.match(runtime,/classList\.add\('primary-nav'\)/);
+  assert.match(runtime,/classList\.add\('nav-menus'\)/);
+  assert.match(runtime,/nav-menu explore-menu v151-nav-menu/);
+});
