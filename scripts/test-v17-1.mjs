@@ -7,6 +7,7 @@ const entry=fs.readFileSync('app-entry.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const experienceRoot=fs.readFileSync('src/runtime/experience.js','utf8');
 const branding=fs.readFileSync('src/runtime/site-branding.js','utf8');
+const neutralBranding=fs.readFileSync('src/runtime/neutral-family-branding.js','utf8');
 const brandingCss=fs.readFileSync('src/styles/branding.css','utf8');
 const navigation=fs.readFileSync('src/runtime/navigation-shell.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
@@ -35,24 +36,26 @@ test('v17.1 mobile capabilities remain intact under the current release',()=>{
   assert.match(build,/shell\.replace\(/);
 });
 
-test('site shell consistently represents the Rahe Family History Archive and its connected branches',()=>{
-  assert.match(index,/<title>Rahe Family History Archive<\/title>/);
-  assert.match(index,/RAHE FAMILY<small>HISTORY ARCHIVE<\/small>/);
-  assert.match(index,/<a href="#dashboard">Rahe Family<\/a>/);
-  assert.match(index,/RAHE FAMILY HISTORY ARCHIVE/);
+test('site shell uses neutral family-history branding while record names remain data-driven',()=>{
+  assert.match(index,/<title>Family History Archive<\/title>/);
+  assert.match(index,/FAMILY HISTORY<small>ARCHIVE<\/small>/);
+  assert.match(index,/<a href="#dashboard">Family History<\/a>/);
+  assert.match(index,/FAMILY HISTORY ARCHIVE/);
   assert.match(index,/Our family, connected\./);
-  assert.match(index,/THE RAHE FAMILY/);
-  assert.match(experienceRoot,/import\('\.\/site-branding\.js'\)/);
-  assert.match(branding,/Rahe Family History Archive/);
-  assert.match(branding,/RAHE FAMILY<small>HISTORY ARCHIVE<\/small>/);
-  assert.match(branding,/setText\(monogram,'R'\)/);
-  assert.match(branding,/every documented family branch/i);
-  assert.match(branding,/import\{researchRoutes\}from'\.\/navigation-model\.js'/);
-  assert.match(branding,/researchRoutes\.has\(routeKey\(\)\)/);
-  assert.match(navigation,/RAHE FAMILY<small>HISTORY ARCHIVE<\/small>/);
+  assert.match(index,/<p class="eyebrow">FAMILY HISTORY<\/p>/);
+  assert.match(index,/<section class="route-shell"[^>]* hidden>/);
+  assert.match(experienceRoot,/import\('\.\/neutral-family-branding\.js'\)/);
+  assert.match(neutralBranding,/const SITE_TITLE='Family History Archive'/);
+  assert.match(neutralBranding,/FAMILY HISTORY<small>ARCHIVE<\/small>/);
+  assert.match(neutralBranding,/setText\(document\.querySelector\('\.brand \.monogram'\),'F'\)/);
+  assert.match(neutralBranding,/routeShell\.hidden!==home/);
+  assert.match(neutralBranding,/every documented family branch/i);
+  assert.match(neutralBranding,/import\{researchRoutes\}from'\.\/navigation-model\.js'/);
+  assert.match(neutralBranding,/researchRoutes\.has\(routeKey\(\)\)/);
+  assert.doesNotMatch(neutralBranding,/RAHE FAMILY/i);
   assert.match(styleRoot,/@import '\.\/home\.css';[\s\S]*@import '\.\/responsive\.css';\s*(?:\/\*[\s\S]*?\*\/\s*)?@import '\.\/home-editorial\.css';/);
-  assert.match(brandingCss,/\.v17-home-hero::after\{content:'R'\}/);
-  assert.doesNotMatch(brandingCss,/content:'F'/);
+  assert.match(brandingCss,/\.v17-home-hero::after\{content:'F'\}/);
+  assert.doesNotMatch(brandingCss,/content:'R'/);
 });
 
 test('mobile Family stylesheet is semantic and layered before final responsive safeguards',()=>{
@@ -96,7 +99,7 @@ test('v17.1 mobile presentation cannot alter canonical genealogy semantics',()=>
   assert.match(String(bridge.state||''),/UNRESOLVED/i);
   assert.notEqual(bridge.type,'parent-child');
   assert.ok((model.relationships||[]).filter(r=>/REJECTED/i.test(String(r.state||''))).every(r=>r.active===false));
-  for(const source of[mobile,density,narrative,branding]){
+  for(const source of[mobile,density,narrative,branding,neutralBranding]){
     assert.doesNotMatch(source,/\.state\s*=\s*[^=]/);
     assert.doesNotMatch(source,/relationships?\.push/);
     assert.doesNotMatch(source,/claims?\.push/);

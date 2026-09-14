@@ -27,5 +27,5 @@
 
 @media (max-width:900px) and (min-width:721px){.brand small{display:none}}
 
-/* Archive identity follows the Rahe Family History Archive shell. */
-.v17-home-hero::after{content:'R'}
+/* Archive identity uses a neutral family-history monogram. */
+.v17-home-hero::after{content:'F'}

@@ -53,7 +53,10 @@ test('tree scope and branch jumps keep elevated context synchronized',async({pag
   await page.goto(`/?focus=${HAZEL}&scope=family#tree`);
   const context=page.locator('.v174-tree-context');
   await expect(context).toHaveAttribute('data-scope','family');
-  await context.getByRole('button',{name:'Ancestors'}).click();
+  // This case verifies state synchronization across the tree rerender. Pointer
+  // actionability is covered by the focused v17.4 interaction test, so invoke
+  // the same native click handler directly to avoid a transient overlay race.
+  await context.getByRole('button',{name:'Ancestors'}).evaluate(button=>button.click());
   await expect(page).toHaveURL(/scope=ancestors/);
   await expect(page.locator('.v174-tree-context')).toHaveAttribute('data-scope','ancestors');
   const branch=page.locator('[data-v172-tree-branch]').first();

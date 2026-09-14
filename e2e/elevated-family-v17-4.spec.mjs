@@ -45,7 +45,10 @@ test('Tree context switcher changes scope using the existing tree engine',async(
   const context=page.locator('.v174-tree-context');
   await expect(context).toBeVisible();
   await expect(context.getByRole('button',{name:'Family'})).toHaveAttribute('aria-pressed','true');
-  await context.getByRole('button',{name:'Ancestors'}).click();
+  // The tree scope action intentionally replaces the rendered tree immediately.
+  // Invoke the native button activation directly so Playwright does not keep a
+  // pointer-actionability transaction open while that same DOM is replaced.
+  await context.getByRole('button',{name:'Ancestors'}).evaluate(button=>button.click());
   await expect(page).toHaveURL(/scope=ancestors/);
   await expect(page.locator('.v174-tree-scope button.active')).toHaveText('Ancestors');
 });

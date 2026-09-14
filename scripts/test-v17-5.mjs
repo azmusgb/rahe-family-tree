@@ -10,6 +10,7 @@ const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const controller=fs.readFileSync('src/runtime/native-family-v17-controller.js','utf8');
 const branches=fs.readFileSync('src/runtime/family-branches-v17-5.js','utf8');
 const navigation=fs.readFileSync('src/runtime/navigation-shell.js','utf8');
+const neutralBranding=fs.readFileSync('src/runtime/neutral-family-branding.js','utf8');
 const navModel=fs.readFileSync('src/runtime/navigation-model.js','utf8');
 const elevation=fs.readFileSync('src/runtime/experience-elevation-v17-4.js','utf8');
 const cssRoot=fs.readFileSync('src/styles/index.css','utf8');
@@ -36,18 +37,23 @@ test('v17.5+ release fingerprints remain synchronized',()=>{
 
 test('Home no longer puts the search/filter bar above the hero',()=>{
   assert.match(shell,/data-route="dashboard"/);
+  assert.match(shell,/<section class="route-shell"[^>]* hidden>/);
   assert.match(shellCss,/body\[data-route="dashboard"\]\[data-v158-context="family"\] \.route-shell/);
   assert.match(navigation,/\['dashboard','families','branch'\]\.includes\(route\)/);
   assert.match(navigation,/filters\.hidden=hideFamilyFilters/);
   assert.match(navigation,/data-global-search/);
+  assert.match(neutralBranding,/routeShell\.hidden!==home/);
 });
 
-test('family header navigation and footer are rebuilt around the family archive',()=>{
+test('family header navigation and footer use neutral archive branding',()=>{
   assert.match(shell,/class="site-header sidebar"/);
-  assert.match(shell,/RAHE FAMILY/);
+  assert.match(shell,/FAMILY HISTORY<small>ARCHIVE<\/small>/);
+  assert.doesNotMatch(shell,/RAHE FAMILY/);
   assert.match(shell,/class="footer site-footer"/);
   assert.match(navModel,/key:'families',label:'Families',href:'#families'/);
-  assert.match(navigation,/RAHE FAMILY<small>HISTORY ARCHIVE<\/small>/);
+  assert.match(experience,/neutral-family-branding\.js/);
+  assert.match(neutralBranding,/FAMILY HISTORY<small>ARCHIVE<\/small>/);
+  assert.doesNotMatch(neutralBranding,/RAHE FAMILY/i);
   assert.match(shellCss,/\.site-header\.sidebar/);
   assert.match(shellCss,/\.site-footer-grid/);
 });

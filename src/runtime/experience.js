@@ -23,3 +23,8 @@ void import('./unified-family-experience.js');
 void import('./family-branches-v17-5.js');
 void import('./person-experience-v17-3.js');
 void import('./experience-elevation-v17-4.js');
+
+// Final UI-only shell naming layer. This intentionally runs after legacy and
+// current presentation enhancers so neutral archive labels cannot be replaced
+// by surname-specific shell branding. Genealogy content is not rewritten.
+void import('./neutral-family-branding.js');

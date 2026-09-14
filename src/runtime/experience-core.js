@@ -1,6 +1,7 @@
 // Primary experience behavior: family/research mode, responsive shell,
 // navigation state, recent-person memory, and production freshness guards.
 // Family route content is rendered by the native v17 archive controller.
+import './tree-state-bootstrap.js';
 import{personById}from'../../core.js';
 
 const UI_RELEASE='18.0.0';
