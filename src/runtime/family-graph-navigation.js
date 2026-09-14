@@ -1,7 +1,8 @@
 // Focused Family Graph navigation shell.
 // Presentation/navigation only: updates URL-backed tree state and rearranges existing
 // controls without mutating genealogy, evidence, source, claim, or privacy data.
-import{displayPeople,personById,esc}from'../../core.js';
+import{displayPeople,allPedigreeRelationships,personById,esc}from'../../core.js';
+import{connectedComponent,usableRelationships}from'../../canonical-graph-engine.js';
 
 const SCOPES=[
   ['family','Family'],
@@ -10,6 +11,8 @@ const SCOPES=[
   ['direct','Direct line'],
   ['connected','Connected']
 ];
+const FAMILY_TYPES=new Set(['parent-child','direct-line-succession','spouse']);
+const COLLAPSE_KEY='family.archive.treeCollapsed.v2';
 const route=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const cleanName=value=>String(value||'').replace(/\s*\/.*$/,'').trim();
 const scopeLabel=scope=>scope==='all'?'Full tree':SCOPES.find(([value])=>value===scope)?.[1]||'Connected';
@@ -34,11 +37,30 @@ function personOptions(focus){
   return displayPeople().slice().sort((a,b)=>cleanName(a.name).localeCompare(cleanName(b.name))||String(a.id).localeCompare(String(b.id)))
     .map(person=>`<option value="${esc(person.id)}" ${person.id===focus?'selected':''}>${esc(cleanName(person.name))}</option>`).join('');
 }
-function visibleTargets(focus){
-  return [...document.querySelectorAll('#family-graph .graph-node[data-person]')]
-    .map(node=>node.dataset.person).filter(id=>id&&id!==focus&&personById(id))
-    .filter((id,index,array)=>array.indexOf(id)===index)
-    .sort((a,b)=>cleanName(personById(a)?.name).localeCompare(cleanName(personById(b)?.name)));
+function renderedIds(){return new Set([...document.querySelectorAll('#family-graph .graph-node[data-person]')].map(node=>node.dataset.person).filter(Boolean));}
+function relationshipTargets(focus){
+  if(!focus||!personById(focus))return[];
+  const people=displayPeople(),visiblePeople=new Set(people.map(person=>person.id));
+  const relationships=usableRelationships(allPedigreeRelationships(),{includeContext:false})
+    .filter(rel=>FAMILY_TYPES.has(rel.type)&&visiblePeople.has(rel.from)&&visiblePeople.has(rel.to));
+  return[...connectedComponent(focus,relationships,{includeContext:false})]
+    .filter(id=>id!==focus&&visiblePeople.has(id)&&personById(id))
+    .sort((a,b)=>cleanName(personById(a)?.name).localeCompare(cleanName(personById(b)?.name))||String(a).localeCompare(String(b)));
+}
+function revealRelationshipTarget(target){
+  if(!target){replaceState({pathTo:''});return;}
+  if(renderedIds().has(target)){replaceState({pathTo:target});return;}
+  const{url,focus}=urlState();
+  if(focus)url.searchParams.set('focus',focus);
+  url.searchParams.set('scope','connected');
+  url.searchParams.delete('depth');
+  url.searchParams.set('pathTo',target);
+  for(const key of['q','branch','state'])url.searchParams.delete(key);
+  for(const selector of['#search','#branch','#state']){const control=document.querySelector(selector);if(control)control.value='';}
+  try{localStorage.setItem(COLLAPSE_KEY,'[]');}catch{}
+  url.hash='tree';
+  history.replaceState(history.state,'',url);
+  window.dispatchEvent(new HashChangeEvent('hashchange'));
 }
 
 function installCommandbar(){
@@ -53,7 +75,8 @@ function installCommandbar(){
   const freshPrimary=advanced?.querySelector(':scope > .tree-advanced-primary');
   if(existing&&!freshPrimary)return false;
   existing?.remove();
-  const{focus,scope,depth,pathTo}=urlState(),focusPerson=personById(focus),targets=visibleTargets(focus);
+  const{focus,scope,depth,pathTo}=urlState(),focusPerson=personById(focus),targets=relationshipTargets(focus),rendered=renderedIds();
+  const outsideView=targets.filter(id=>!rendered.has(id)).length;
   const bar=document.createElement('section');bar.className='family-graph-commandbar';bar.setAttribute('aria-label','Family tree navigation');bar.dataset.familyGraphNavigation='true';
   bar.innerHTML=`
     <div class="family-graph-commandbar-main">
@@ -68,7 +91,8 @@ function installCommandbar(){
         <summary>${pathTo?'Relationship highlighted':'Find relationship'}</summary>
         <div class="family-graph-relationship-panel">
           <label><span>From</span><strong>${esc(focusPerson?cleanName(focusPerson.name):'Current person')}</strong></label>
-          <label><span>To</span><select data-family-graph-path-target aria-label="Choose relationship target"><option value="">Choose person…</option>${targets.map(id=>`<option value="${esc(id)}" ${pathTo===id?'selected':''}>${esc(cleanName(personById(id)?.name||id))}</option>`).join('')}</select></label>
+          <label><span>To</span><select data-family-graph-path-target aria-label="Choose relationship target" aria-describedby="family-graph-relationship-help" ${targets.length?'':'disabled'}><option value="">${targets.length?'Choose person…':'No connected relatives'}</option>${targets.map(id=>`<option value="${esc(id)}" ${pathTo===id?'selected':''}>${esc(cleanName(personById(id)?.name||id))}</option>`).join('')}</select></label>
+          <small id="family-graph-relationship-help" class="family-graph-relationship-help">${targets.length?`${targets.length} connected relative${targets.length===1?'':'s'} available${outsideView?` · ${outsideView} outside this view will open Connected and reveal the path`:''}.`:'Choose a focal person with connected family relationships.'}</small>
           ${pathTo?'<button type="button" data-family-graph-clear-path>Clear path</button>':''}
         </div>
       </details>
@@ -108,7 +132,7 @@ let queued=false;function schedule(){if(queued)return;queued=true;requestAnimati
 
 document.addEventListener('change',event=>{
   const person=event.target.closest?.('[data-family-graph-person]');if(person){const state=urlState();replaceState({focus:person.value,scope:state.scope==='all'?'connected':state.scope,pathTo:''});return;}
-  const path=event.target.closest?.('[data-family-graph-path-target]');if(path){replaceState({pathTo:path.value||''});}
+  const path=event.target.closest?.('[data-family-graph-path-target]');if(path)revealRelationshipTarget(path.value||'');
 });
 document.addEventListener('click',event=>{
   const scope=event.target.closest?.('[data-family-graph-scope]');if(scope){event.preventDefault();replaceState({scope:scope.dataset.familyGraphScope,pathTo:''});return;}
