@@ -1,0 +1,32 @@
+name: One-shot CSS policy normalization
+
+on:
+  push:
+    branches: [refactor/css-architecture-consolidation]
+    paths:
+      - scripts/css-policy-normalize.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refactor/css-architecture-consolidation
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node scripts/css-policy-normalize.mjs
+      - name: Commit normalized CSS policy
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/styles
+          git diff --cached --quiet && exit 0
+          git commit -m "Normalize CSS readability and breakpoints [css-policy]"
+          git push origin HEAD:refactor/css-architecture-consolidation
