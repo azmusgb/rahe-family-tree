@@ -33,7 +33,7 @@ test('failed session refresh and explicit logout clear authorization without log
   assert.doesNotMatch(auth,/auth-create-user[\s\S]*catch\(err\)\{current=null/);
 });
 
-test('Playwright is bounded, diagnosable, parallelized, and release-gated',()=>{
+test('Playwright is bounded, diagnosable, parallelized, cached, and release-gated',()=>{
   const config=read('playwright.config.mjs'),workflow=read('.github/workflows/validate-change.yml');
   assert.match(config,/globalTimeout:8\*60_000/);
   assert.match(config,/actionTimeout:12_000/);
@@ -44,6 +44,15 @@ test('Playwright is bounded, diagnosable, parallelized, and release-gated',()=>{
   assert.match(workflow,/browser shard \$\{\{ matrix\.id \}\}\/4/);
   assert.match(workflow,/fail-fast: false/);
   for(const shard of ['1\/4','2\/4','3\/4','4\/4'])assert.match(workflow,new RegExp(`shard: '${shard}'`));
+  assert.match(workflow,/Restore Playwright browser cache/);
+  assert.match(workflow,/uses: actions\/cache@v4/);
+  assert.match(workflow,/path: ~\/\.cache\/ms-playwright/);
+  assert.match(workflow,/key: playwright-\$\{\{ runner\.os \}\}-\$\{\{ hashFiles\('package-lock\.json'\) \}\}/);
+  assert.match(workflow,/Install Chromium system dependencies/);
+  assert.match(workflow,/npx playwright install-deps chromium/);
+  assert.match(workflow,/Install Playwright Chromium on cache miss/);
+  assert.match(workflow,/steps\.playwright-cache\.outputs\.cache-hit != 'true'/);
+  assert.match(workflow,/npx playwright install chromium/);
   assert.match(workflow,/Run browser interaction shard/);
   assert.match(workflow,/npx playwright test --shard=\$\{\{ matrix\.shard \}\}/);
   assert.match(workflow,/timeout-minutes: 9/);
