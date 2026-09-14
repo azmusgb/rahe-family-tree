@@ -17,10 +17,18 @@ test('advanced tree exposes component navigation, focus trail, compact mode, and
   await expect(page.locator('[data-tree-export-pdf]')).toBeVisible();
 
   const compact=page.locator('[data-tree-compact-toggle]');
+  const body=page.locator('body');
+  const initialPressed=await compact.getAttribute('aria-pressed');
+  expect(['true','false']).toContain(initialPressed);
+  if(initialPressed==='true')await expect(body).toHaveClass(/tree-compact/);else await expect(body).not.toHaveClass(/tree-compact/);
+
   await compact.click();
-  await expect(page.locator('body')).toHaveClass(/tree-compact/);
-  await compact.click();
-  await expect(page.locator('body')).not.toHaveClass(/tree-compact/);
+  await expect(page.locator('[data-tree-compact-toggle]')).toHaveAttribute('aria-pressed',initialPressed==='true'?'false':'true');
+  if(initialPressed==='true')await expect(body).not.toHaveClass(/tree-compact/);else await expect(body).toHaveClass(/tree-compact/);
+
+  await page.locator('[data-tree-compact-toggle]').click();
+  await expect(page.locator('[data-tree-compact-toggle]')).toHaveAttribute('aria-pressed',initialPressed);
+  if(initialPressed==='true')await expect(body).toHaveClass(/tree-compact/);else await expect(body).not.toHaveClass(/tree-compact/);
 });
 
 test('relationship path highlighting marks an evidence-qualified path without changing genealogy state',async({page})=>{
@@ -39,16 +47,23 @@ test('relationship path highlighting marks an evidence-qualified path without ch
 
 test('collapse and expand controls stay local to tree presentation',async({page})=>{
   await page.goto(`/?focus=${HAZEL}&scope=descendants#tree`);
-  const before=await page.locator('.graph-node[data-person]').count();
+  const nodes=page.locator('.graph-node[data-person]');
+  await expect(nodes.first()).toBeVisible();
+  const before=await nodes.count();
+  expect(before).toBeGreaterThan(0);
+
   await page.locator('[data-tree-collapse-focus]').click();
-  await page.waitForTimeout(50);
-  const afterCollapse=await page.locator('.graph-node[data-person]').count();
-  expect(afterCollapse).toBeLessThanOrEqual(before);
-  await page.locator('[data-tree-expand-all]').click();
-  await page.waitForTimeout(50);
-  const afterExpand=await page.locator('.graph-node[data-person]').count();
-  expect(afterExpand).toBeGreaterThanOrEqual(afterCollapse);
   await expect(page.locator('.tree-advanced-nav')).toBeVisible();
+  await expect(nodes.first()).toBeVisible();
+  const afterCollapse=await nodes.count();
+  expect(afterCollapse).toBeGreaterThan(0);
+  expect(afterCollapse).toBeLessThanOrEqual(before);
+
+  await page.locator('[data-tree-expand-all]').click();
+  await expect(page.locator('.tree-advanced-nav')).toBeVisible();
+  await expect(nodes.first()).toBeVisible();
+  const afterExpand=await nodes.count();
+  expect(afterExpand).toBeGreaterThanOrEqual(afterCollapse);
 });
 
 test('recent focus trail follows tree navigation history',async({page})=>{
