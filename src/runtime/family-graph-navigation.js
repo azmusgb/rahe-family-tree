@@ -12,6 +12,7 @@ const SCOPES=[
   ['connected','Connected']
 ];
 const FAMILY_TYPES=new Set(['parent-child','direct-line-succession','spouse']);
+const COLLAPSE_KEY='family.archive.treeCollapsed.v2';
 const route=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const cleanName=value=>String(value||'').replace(/\s*\/.*$/,'').trim();
 const scopeLabel=scope=>scope==='all'?'Full tree':SCOPES.find(([value])=>value===scope)?.[1]||'Connected';
@@ -46,6 +47,21 @@ function relationshipTargets(focus){
     .filter(id=>id!==focus&&visiblePeople.has(id)&&personById(id))
     .sort((a,b)=>cleanName(personById(a)?.name).localeCompare(cleanName(personById(b)?.name))||String(a).localeCompare(String(b)));
 }
+function revealRelationshipTarget(target){
+  if(!target){replaceState({pathTo:''});return;}
+  if(renderedIds().has(target)){replaceState({pathTo:target});return;}
+  const{url,focus}=urlState();
+  if(focus)url.searchParams.set('focus',focus);
+  url.searchParams.set('scope','connected');
+  url.searchParams.delete('depth');
+  url.searchParams.set('pathTo',target);
+  for(const key of['q','branch','state'])url.searchParams.delete(key);
+  for(const selector of['#search','#branch','#state']){const control=document.querySelector(selector);if(control)control.value='';}
+  try{localStorage.setItem(COLLAPSE_KEY,'[]');}catch{}
+  url.hash='tree';
+  history.replaceState(history.state,'',url);
+  window.dispatchEvent(new HashChangeEvent('hashchange'));
+}
 
 function installCommandbar(){
   if(route()!=='tree')return false;
@@ -76,7 +92,7 @@ function installCommandbar(){
         <div class="family-graph-relationship-panel">
           <label><span>From</span><strong>${esc(focusPerson?cleanName(focusPerson.name):'Current person')}</strong></label>
           <label><span>To</span><select data-family-graph-path-target aria-label="Choose relationship target" aria-describedby="family-graph-relationship-help" ${targets.length?'':'disabled'}><option value="">${targets.length?'Choose person…':'No connected relatives'}</option>${targets.map(id=>`<option value="${esc(id)}" ${pathTo===id?'selected':''}>${esc(cleanName(personById(id)?.name||id))}</option>`).join('')}</select></label>
-          <small id="family-graph-relationship-help" class="family-graph-relationship-help">${targets.length?`${targets.length} connected relative${targets.length===1?'':'s'} available${outsideView?` · ${outsideView} outside this view will open Connected`:''}.`:'Choose a focal person with connected family relationships.'}</small>
+          <small id="family-graph-relationship-help" class="family-graph-relationship-help">${targets.length?`${targets.length} connected relative${targets.length===1?'':'s'} available${outsideView?` · ${outsideView} outside this view will open Connected and reveal the path`:''}.`:'Choose a focal person with connected family relationships.'}</small>
           ${pathTo?'<button type="button" data-family-graph-clear-path>Clear path</button>':''}
         </div>
       </details>
@@ -116,10 +132,7 @@ let queued=false;function schedule(){if(queued)return;queued=true;requestAnimati
 
 document.addEventListener('change',event=>{
   const person=event.target.closest?.('[data-family-graph-person]');if(person){const state=urlState();replaceState({focus:person.value,scope:state.scope==='all'?'connected':state.scope,pathTo:''});return;}
-  const path=event.target.closest?.('[data-family-graph-path-target]');if(path){
-    const target=path.value||'';if(!target){replaceState({pathTo:''});return;}
-    replaceState({pathTo:target,scope:renderedIds().has(target)?urlState().scope:'connected'});
-  }
+  const path=event.target.closest?.('[data-family-graph-path-target]');if(path)revealRelationshipTarget(path.value||'');
 });
 document.addEventListener('click',event=>{
   const scope=event.target.closest?.('[data-family-graph-scope]');if(scope){event.preventDefault();replaceState({scope:scope.dataset.familyGraphScope,pathTo:''});return;}
