@@ -62,7 +62,7 @@ test('semantic design system owns stylesheet composition with zero compatibility
 test('tokens.css is the single-source owner of active Family design tokens',()=>{
   assert.match(tokens,/Family design system — single-source tokens/);
   assert.match(tokens,/--family-font-display:"Iowan Old Style"/);
-  assert.match(tokens,/--family-radius-panel:24px/);
+  assert.match(tokens,/--family-radius-panel:20px/);
   assert.match(tokens,/--family-shadow-card:0 1px 1px/);
   assert.match(tokens,/--evidence-provisional:#a8762b/);
   assert.match(tokens,/--evidence-unresolved:#963f39/);
