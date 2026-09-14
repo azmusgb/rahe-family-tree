@@ -6,13 +6,14 @@ import{model,allPedigreeRelationships,personById,esc}from'../../core.js';
 
 const STRUCTURAL_TYPES=new Set(['parent-child','direct-line-succession']);
 const SPOUSE_TYPES=new Set(['spouse','spouse-lead']);
+const FAMILY_UNIT_TYPES=new Set(['spouse']);
 const route=()=>location.hash.slice(1).split('/')[0]||'dashboard';
-const focusId=()=>new URL(location.href).searchParams.get('focus')||'';
+const explicitFocusId=()=>new URL(location.href).searchParams.get('focus')||'';
+const renderedFocusId=()=>explicitFocusId()||document.querySelector('#family-graph .graph-node.focused[data-person]')?.dataset.person||'';
 const allRelationships=()=>[...allPedigreeRelationships(),...(model.contextRelationships||[])];
 const activeRelationships=()=>allRelationships().filter(rel=>rel.active!==false&&!/REJECTED/i.test(String(rel.state||rel.evidenceState||'')));
 const renderedIds=()=>new Set([...document.querySelectorAll('#family-graph .graph-node[data-person]')].map(node=>node.dataset.person).filter(Boolean));
 const cleanName=value=>String(value||'').replace(/\s*\/.*$/,'').trim();
-const stateToken=rel=>String(rel.state||rel.evidenceState||'QUALIFIED').toUpperCase();
 const isMobile=()=>matchMedia('(max-width:760px)').matches;
 
 function structuralReach(seed,direction){
@@ -30,12 +31,12 @@ function structuralReach(seed,direction){
 }
 
 function directLineIds(){
-  const focus=focusId();if(!focus)return new Set();
+  const focus=renderedFocusId();if(!focus)return new Set();
   return new Set([...structuralReach(focus,'up'),...structuralReach(focus,'down')]);
 }
 
 function annotateNodes(){
-  const focus=focusId(),direct=directLineIds();
+  const focus=renderedFocusId(),direct=directLineIds();
   for(const node of document.querySelectorAll('#family-graph .graph-node[data-person]')){
     const id=node.dataset.person||'';
     node.classList.toggle('family-graph-focus',id===focus);
@@ -46,19 +47,14 @@ function annotateNodes(){
 }
 
 function annotateEdges(){
-  const rendered=renderedIds(),rels=activeRelationships().filter(rel=>rendered.has(rel.from)&&rendered.has(rel.to));
-  const edges=[...document.querySelectorAll('#family-graph .edge')];
-  edges.forEach(edge=>edge.classList.remove('family-edge-supported','family-edge-provisional','family-edge-unresolved','family-edge-identity','family-edge-context'));
-  for(const rel of rels){
-    const state=stateToken(rel),type=String(rel.type||'');
-    const titleNeedle=`${type}: ${rel.state||rel.evidenceState||''}`;
-    const edge=edges.find(candidate=>candidate.querySelector('title')?.textContent?.includes(titleNeedle))||edges.find(candidate=>candidate.classList.contains(type));
-    if(!edge)continue;
-    if(/SUPPORTED/.test(state))edge.classList.add('family-edge-supported');
-    else if(/PROVISIONAL/.test(state))edge.classList.add('family-edge-provisional');
-    else if(/UNRESOLVED/.test(state))edge.classList.add('family-edge-unresolved');
-    if(type==='identity-bridge')edge.classList.add('family-edge-identity');
-    if(!STRUCTURAL_TYPES.has(type)&&!SPOUSE_TYPES.has(type)&&type!=='identity-bridge')edge.classList.add('family-edge-context');
+  for(const edge of document.querySelectorAll('#family-graph .edge')){
+    edge.classList.remove('family-edge-supported','family-edge-provisional','family-edge-unresolved','family-edge-identity','family-edge-context');
+    if(edge.classList.contains('state-supported'))edge.classList.add('family-edge-supported');
+    if(edge.classList.contains('state-provisional'))edge.classList.add('family-edge-provisional');
+    if(edge.classList.contains('state-unresolved'))edge.classList.add('family-edge-unresolved');
+    if(edge.classList.contains('identity-bridge'))edge.classList.add('family-edge-identity');
+    const pedigree=edge.classList.contains('parent-child')||edge.classList.contains('direct-line-succession')||edge.classList.contains('spouse')||edge.classList.contains('couple-child');
+    if(!pedigree&&!edge.classList.contains('identity-bridge'))edge.classList.add('family-edge-context');
   }
 }
 
@@ -72,7 +68,9 @@ function installFamilyUnits(){
   const svg=document.querySelector('#family-graph');if(!svg)return;
   svg.querySelector('[data-family-units-v19]')?.remove();
   const rendered=renderedIds(),rels=activeRelationships().filter(rel=>rendered.has(rel.from)&&rendered.has(rel.to));
-  const spouseRels=rels.filter(rel=>SPOUSE_TYPES.has(rel.type));if(!spouseRels.length)return;
+  // Only asserted spouse relationships create a visible family unit. Derivative
+  // spouse-leads remain contextual research edges and are never framed as pedigree.
+  const spouseRels=rels.filter(rel=>FAMILY_UNIT_TYPES.has(rel.type));if(!spouseRels.length)return;
   const ns='http://www.w3.org/2000/svg',group=document.createElementNS(ns,'g');group.dataset.familyUnitsV19='true';group.classList.add('family-unit-layer');
   const seen=new Set();
   for(const rel of spouseRels){
@@ -93,7 +91,7 @@ function installFamilyUnits(){
 function installGraphSummary(){
   const shell=document.querySelector('.graph-shell');if(!shell)return;
   let summary=document.querySelector('.family-graph-summary');if(!summary){summary=document.createElement('section');summary.className='family-graph-summary';summary.dataset.familyGraphV19='true';summary.setAttribute('aria-label','Family graph view');shell.insertAdjacentElement('beforebegin',summary);}
-  const focus=personById(focusId()),direct=[...document.querySelectorAll('#family-graph .graph-node.family-graph-direct')].length,collateral=[...document.querySelectorAll('#family-graph .graph-node.family-graph-collateral')].length,units=[...document.querySelectorAll('#family-graph .family-unit-frame')].length;
+  const focus=personById(renderedFocusId()),direct=[...document.querySelectorAll('#family-graph .graph-node.family-graph-direct')].length,collateral=[...document.querySelectorAll('#family-graph .graph-node.family-graph-collateral')].length,units=[...document.querySelectorAll('#family-graph .family-unit-frame')].length;
   summary.innerHTML=`<div><span class="eyebrow">FAMILY GRAPH</span><strong>${esc(focus?cleanName(focus.name):'Connected family')}</strong><small>${direct} direct-line · ${collateral} collateral · ${units} family unit${units===1?'':'s'}</small></div><div class="family-graph-key" aria-label="Graph meaning"><span><i class="family-key-direct"></i>Direct line</span><span><i class="family-key-collateral"></i>Collateral</span><span><i class="family-key-qualified"></i>Qualified relationship</span></div>`;
 }
 
