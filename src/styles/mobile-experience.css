@@ -5,7 +5,16 @@
 .mobile-more-head{display:none}
 
 @media(max-width:720px){
+  html,body{width:100%;max-width:100%;overflow-x:hidden}
   body.mobile-sheet-open{overflow:hidden;overscroll-behavior:none}
+  .mobile-more-backdrop[hidden]{display:none}
+
+  body[data-route="people"] :where(.workspace,.main,#content,.route-shell,.v17-people,.v17-people-grid,.people-grid),
+  body[data-route="tree"] :where(.workspace,.main,#content,.route-shell,.v17-tree,.graph-shell,.tree-graph-shell){
+    min-width:0;
+    max-width:100%;
+    box-sizing:border-box;
+  }
 
   .mobile-more-backdrop:not([hidden]){
     display:block;
@@ -51,6 +60,7 @@
     gap:4px;
     max-height:min(68dvh,620px);
     overflow:auto;
+    overscroll-behavior:contain;
     padding:10px 10px max(12px,env(safe-area-inset-bottom,0px));
     border:1px solid var(--line);
     border-radius:22px;
@@ -105,11 +115,15 @@
     position:sticky;
     top:0;
     z-index:28;
+    width:100%;
     padding-top:6px;
     padding-bottom:8px;
     background:linear-gradient(var(--family-bg,#f5f1e8) 72%,rgba(245,241,232,0));
   }
   body[data-route="people"] .route-shell .search input{
+    width:100%;
+    max-width:100%;
+    box-sizing:border-box;
     box-shadow:0 7px 22px rgba(18,47,39,.08);
   }
 
@@ -120,7 +134,7 @@
     width:100%;
     max-width:100%;
     min-width:0;
-    overflow-x:clip;
+    overflow-x:hidden;
   }
   body[data-route="tree"] #content.mobile-tree-surface .v161-tree-toolbar{
     position:sticky;
@@ -129,6 +143,7 @@
     width:100%;
     max-width:100%;
     min-width:0;
+    box-sizing:border-box;
     margin:0;
     padding:8px 8px 7px;
     border:1px solid var(--line);
@@ -156,6 +171,7 @@
     width:100%;
     max-width:100%;
     min-width:0;
+    box-sizing:border-box;
     margin:0;
     padding:8px;
   }
