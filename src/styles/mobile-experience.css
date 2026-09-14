@@ -1,0 +1,177 @@
+/* Mobile Family experience: bottom-sheet navigation, progressive directory disclosure,
+ * and tree-first composition. Presentation-only; genealogy/evidence semantics are unchanged. */
+
+.mobile-more-backdrop{display:none}
+.mobile-more-head{display:none}
+
+@media(max-width:720px){
+  body.mobile-sheet-open{overflow:hidden;overscroll-behavior:none}
+
+  .mobile-more-backdrop:not([hidden]){
+    display:block;
+    position:fixed;
+    inset:0;
+    z-index:2147482990;
+    border:0;
+    padding:0;
+    background:rgba(15,28,23,.34);
+    -webkit-backdrop-filter:blur(2px);
+    backdrop-filter:blur(2px);
+  }
+
+  #family-mobile-dock .mobile-more{
+    position:static;
+    min-width:0;
+  }
+  #family-mobile-dock .mobile-more>summary{
+    min-height:46px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    list-style:none;
+    cursor:pointer;
+    border-radius:10px;
+    color:var(--muted);
+    font-size:10px;
+    font-weight:720;
+  }
+  #family-mobile-dock .mobile-more>summary::-webkit-details-marker{display:none}
+  #family-mobile-dock .mobile-more[open]>summary{
+    background:var(--brand-soft);
+    color:var(--green);
+  }
+  #family-mobile-dock .mobile-more>div{
+    position:fixed;
+    left:max(10px,env(safe-area-inset-left,0px));
+    right:max(10px,env(safe-area-inset-right,0px));
+    bottom:calc(78px + env(safe-area-inset-bottom,0px));
+    z-index:2147483005;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:4px;
+    max-height:min(68dvh,620px);
+    overflow:auto;
+    padding:10px 10px max(12px,env(safe-area-inset-bottom,0px));
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:var(--surface,#fff);
+    box-shadow:0 24px 72px rgba(13,35,28,.28);
+    transform-origin:bottom center;
+  }
+  #family-mobile-dock .mobile-more:not([open])>div{display:none}
+  #family-mobile-dock .mobile-more>div>a,
+  #family-mobile-dock .mobile-more>div>button{
+    min-height:50px;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    padding:0 16px;
+    border:0;
+    border-radius:12px;
+    background:transparent;
+    color:var(--text);
+    text-decoration:none;
+    font:700 16px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  #family-mobile-dock .mobile-more>div>a:active,
+  #family-mobile-dock .mobile-more>div>button:active{background:var(--brand-soft)}
+  .mobile-more-head{
+    position:sticky;
+    top:-10px;
+    z-index:2;
+    min-height:52px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin:-10px -10px 4px;
+    padding:12px 14px 8px;
+    background:var(--surface,#fff);
+    border-bottom:1px solid var(--line);
+  }
+  .mobile-more-head strong{font-size:18px;color:var(--text)}
+  .mobile-more-head button{
+    min-height:40px;
+    padding:0 12px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--surface-soft,#f7f5ef);
+    color:var(--text);
+    font:700 13px/1 sans-serif;
+  }
+
+  body[data-route="people"] .route-shell{
+    position:sticky;
+    top:0;
+    z-index:28;
+    padding-top:6px;
+    padding-bottom:8px;
+    background:linear-gradient(var(--family-bg,#f5f1e8) 72%,rgba(245,241,232,0));
+  }
+  body[data-route="people"] .route-shell .search input{
+    box-shadow:0 7px 22px rgba(18,47,39,.08);
+  }
+  .mobile-progressive-hidden{display:none!important}
+  .mobile-people-more{
+    width:100%;
+    min-height:48px;
+    margin:10px 0 24px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:var(--surface,#fff);
+    color:var(--green);
+    font:750 14px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+
+  body[data-route="tree"] #content.mobile-tree-surface{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  body[data-route="tree"] #content.mobile-tree-surface .v161-tree-toolbar{
+    position:sticky;
+    top:0;
+    z-index:24;
+    margin:0;
+    padding:8px 8px 7px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:rgba(250,248,242,.96);
+    -webkit-backdrop-filter:blur(14px);
+    backdrop-filter:blur(14px);
+    box-shadow:0 8px 22px rgba(18,47,39,.08);
+  }
+  body[data-route="tree"] #content.mobile-tree-surface .graph-shell,
+  body[data-route="tree"] #content.mobile-tree-surface .tree-graph-shell{
+    order:10;
+    min-height:68dvh;
+    margin-top:0;
+    border-radius:16px;
+    overflow:hidden;
+  }
+  body[data-route="tree"] #content.mobile-tree-surface [data-v161-secondary]:not(.v161-show-tree-secondary [data-v161-secondary]){
+    display:none;
+  }
+  body[data-route="tree"] #content.mobile-tree-surface .tree-focusbar[data-v161-tree-controls]{
+    margin:0;
+    padding:8px;
+  }
+  body[data-route="tree"] #content.mobile-tree-surface .v161-tree-tool-actions button{
+    min-height:44px;
+  }
+
+  :where(#family-mobile-dock,.mobile-more-backdrop,.mobile-people-more,.v161-tree-toolbar) :focus-visible{
+    outline:3px solid #d4a34d;
+    outline-offset:2px;
+  }
+}
+
+@media(max-width:430px){
+  #family-mobile-dock .mobile-more>div{
+    left:7px;
+    right:7px;
+    bottom:calc(72px + env(safe-area-inset-bottom,0px));
+    border-radius:20px;
+  }
+}
