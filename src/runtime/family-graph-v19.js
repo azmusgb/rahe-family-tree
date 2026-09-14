@@ -52,8 +52,7 @@ function annotateEdges(){
   for(const rel of rels){
     const state=stateToken(rel),type=String(rel.type||'');
     const titleNeedle=`${type}: ${rel.state||rel.evidenceState||''}`;
-    const edge=edges.find(candidate=>candidate.querySelector('title')?.textContent?.includes(titleNeedle))||
-      edges.find(candidate=>candidate.classList.contains(type));
+    const edge=edges.find(candidate=>candidate.querySelector('title')?.textContent?.includes(titleNeedle))||edges.find(candidate=>candidate.classList.contains(type));
     if(!edge)continue;
     if(/SUPPORTED/.test(state))edge.classList.add('family-edge-supported');
     else if(/PROVISIONAL/.test(state))edge.classList.add('family-edge-provisional');
@@ -102,9 +101,10 @@ function closePreview({restore=true}={}){
   const sheet=document.querySelector('.family-person-preview');if(!sheet)return;
   const trigger=sheet._trigger;sheet.remove();document.body.classList.remove('family-preview-open');if(restore&&trigger?.isConnected)trigger.focus({preventScroll:true});
 }
-function openPreview(node){
-  if(!isMobile())return;const id=node.dataset.person,p=personById(id);if(!p)return;
-  closePreview({restore:false});const sheet=document.createElement('section');sheet.className='family-person-preview';sheet.setAttribute('role','dialog');sheet.setAttribute('aria-modal','true');sheet.setAttribute('aria-label',`Preview ${cleanName(p.name)}`);sheet._trigger=node;
+function openPreviewById(id){
+  if(!isMobile()||route()!=='tree')return;const p=personById(id);if(!p)return;
+  const node=document.querySelector(`#family-graph .graph-node[data-person="${CSS.escape(id)}"]`);
+  closePreview({restore:false});const sheet=document.createElement('section');sheet.className='family-person-preview';sheet.setAttribute('role','dialog');sheet.setAttribute('aria-modal','true');sheet.setAttribute('aria-label',`Preview ${cleanName(p.name)}`);sheet._trigger=node||null;
   const state=(p.stateTokens?.[0]||p.state||'QUALIFIED').toString();
   sheet.innerHTML=`<div class="family-person-preview-handle" aria-hidden="true"></div><div class="family-person-preview-head"><div><span class="eyebrow">PERSON</span><h2>${esc(cleanName(p.name))}</h2><p>${esc(String(p.branch||'Family'))}</p></div><button type="button" data-family-preview-close aria-label="Close person preview">Close</button></div><div class="family-person-preview-meta"><span>${esc(state)}</span>${p.living?'<span>Living · private details protected</span>':p.dates?`<span>${esc(String(p.dates))}</span>`:''}</div><div class="family-person-preview-actions"><button type="button" data-family-preview-focus="${esc(id)}">Focus in tree</button><a href="#person/${encodeURIComponent(id)}" data-family-preview-profile>Open profile</a></div>`;
   document.body.append(sheet);document.body.classList.add('family-preview-open');requestAnimationFrame(()=>sheet.querySelector('[data-family-preview-close]')?.focus({preventScroll:true}));
@@ -122,11 +122,9 @@ let queued=false;function schedule(){if(queued)return;queued=true;requestAnimati
 document.addEventListener('click',event=>{
   const close=event.target.closest?.('[data-family-preview-close]');if(close){event.preventDefault();closePreview();return;}
   const focus=event.target.closest?.('[data-family-preview-focus]');if(focus){event.preventDefault();const id=focus.dataset.familyPreviewFocus;closePreview({restore:false});focusInTree(id);return;}
-  if(event.target.closest?.('[data-family-preview-profile]')){closePreview({restore:false});return;}
-  if(!isMobile()||route()!=='tree')return;
-  const node=event.target.closest?.('#family-graph .graph-node[data-person]');if(!node||event.target.closest?.('.node-collapse'))return;
-  event.preventDefault();event.stopImmediatePropagation();openPreview(node);
-},true);
+  if(event.target.closest?.('[data-family-preview-profile]'))closePreview({restore:false});
+});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&document.querySelector('.family-person-preview')){event.preventDefault();closePreview();}});
+window.addEventListener('family-graph-person-preview',event=>openPreviewById(event.detail?.personId||''));
 window.addEventListener('hashchange',schedule);window.addEventListener('family-view-rendered',schedule);window.addEventListener('family-native-rendered',schedule);window.addEventListener('resize',schedule,{passive:true});
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',schedule):schedule();
