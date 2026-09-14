@@ -18,6 +18,7 @@ void import('./site-branding.js');
 void import('./record-ingestion.js');
 void import('./stories-runtime.js');
 void import('./mobile-family-density.js');
+void import('./mobile-experience.js');
 void import('./family-narrative.js');
 void import('./unified-family-experience.js');
 void import('./family-branches-v17-5.js');
