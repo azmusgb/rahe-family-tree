@@ -62,7 +62,6 @@ test('18.7 responsive media-query debt stays within the normalized budget',async
   }
 });
 
-
 test('18.8 retires the catch-all redesign layer into semantic composition owners',async()=>{
   const index=await read('src/styles/index.css');
   assert.doesNotMatch(index,/redesign\.css/);
@@ -73,7 +72,6 @@ test('18.8 retires the catch-all redesign layer into semantic composition owners
     assert.match(css,/Presentation-only|Evidence-state semantics/);
   }
 });
-
 
 test('18.9 archive shell uses semantic selectors without specificity escalation',async()=>{
   const shell=await read('src/styles/archive-shell.css');
@@ -88,7 +86,6 @@ test('18.9 archive shell uses semantic selectors without specificity escalation'
   assert.match(runtime,/nav-menu explore-menu v151-nav-menu/);
 });
 
-
 test('18.10 navigation CSS uses semantic ownership without specificity escalation',async()=>{
   const css=await read('src/styles/navigation.css');
   assert.doesNotMatch(css,/\.v151-(?:primary-nav|nav-menu|nav-menus|nav-popover)/);
@@ -100,7 +97,6 @@ test('18.10 navigation CSS uses semantic ownership without specificity escalatio
   assert.match(css,/body\[data-nav-context="family"\]/);
 });
 
-
 test('18.11 tree CSS uses semantic context without specificity escalation',async()=>{
   const css=await read('src/styles/tree.css');
   assert.doesNotMatch(css,/data-v158-context/);
@@ -109,7 +105,6 @@ test('18.11 tree CSS uses semantic context without specificity escalation',async
   assert.match(css,/\.graph-shell/);
   assert.match(css,/\.tree-focusbar/);
 });
-
 
 test('18.12 tree styling uses semantic classes while runtime retains compatibility aliases',async()=>{
   const css=await read('src/styles/tree.css');
@@ -124,7 +119,6 @@ test('18.12 tree styling uses semantic classes while runtime retains compatibili
   ])assert.doesNotMatch(css,new RegExp(`\\.${legacy}(?![\\w-])`));
   for(const semantic of [
     'tree-memory','tree-context-breadcrumb',
-    'tree-edge-couple-child','tree-edge-spouse',
     'tree-person-summary','tree-person-avatar',
     'tree-person-relations','tree-person-actions','tree-controls',
     'tree-help','tree-graph-shell'
@@ -138,7 +132,6 @@ test('18.12 tree styling uses semantic classes while runtime retains compatibili
   assert.match(polish,/tree-edge-couple-child/);
   assert.match(polish,/tree-edge-spouse/);
 });
-
 
 test('18.13 tree CSS does not depend on release-number state markers',async()=>{
   const css=await read('src/styles/tree.css');
