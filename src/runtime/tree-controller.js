@@ -5,3 +5,4 @@ import './v17-6-stability.js';
 import './tree-advanced.js';
 import './family-graph-v19.js';
 import './family-graph-navigation.js';
+import './family-graph-layout.js';
