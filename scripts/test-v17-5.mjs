@@ -38,7 +38,7 @@ test('v17.5+ release fingerprints remain synchronized',()=>{
 test('Home no longer puts the search/filter bar above the hero',()=>{
   assert.match(shell,/data-route="dashboard"/);
   assert.match(shell,/<section class="route-shell"[^>]* hidden>/);
-  assert.match(shellCss,/body\[data-route="dashboard"\]\[data-v158-context="family"\] \.route-shell/);
+  assert.match(shellCss,/body\[data-route="dashboard"\]\[data-nav-context="family"\] \.route-shell/);
   assert.match(navigation,/\['dashboard','families','branch'\]\.includes\(route\)/);
   assert.match(navigation,/filters\.hidden=hideFamilyFilters/);
   assert.match(navigation,/data-global-search/);
