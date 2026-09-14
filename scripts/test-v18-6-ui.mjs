@@ -29,3 +29,34 @@ test('18.6 has a centralized print contract',async()=>{
   assert.match(print,/@media print/);
   assert.match(print,/#family-graph/);
 });
+
+test('18.7 CSS architecture centralizes print and reduced-motion contracts',async()=>{
+  const index=await read('src/styles/index.css');
+  const print=await read('src/styles/print.css');
+  const interactions=await read('src/styles/interaction-contracts.css');
+  const modules=['shell.css','navigation.css','home.css','tree.css','media.css','mobile-family.css','responsive.css','redesign.css'];
+  const moduleCss=await Promise.all(modules.map(name=>read(`src/styles/${name}`)));
+  assert.ok(index.indexOf("@import './redesign.css';")<index.indexOf("@import './interaction-contracts.css';"));
+  assert.ok(index.indexOf("@import './interaction-contracts.css';")<index.indexOf("@import './print.css';"));
+  assert.match(print,/Consolidated print rules migrated from semantic modules/);
+  assert.match(interactions,/Reduced-motion is a cross-route accessibility contract/);
+  for(const css of moduleCss){
+    assert.doesNotMatch(css,/@media\s*print/);
+    assert.doesNotMatch(css,/@media[^\{]*prefers-reduced-motion\s*:\s*reduce/);
+  }
+});
+
+test('18.7 responsive media-query debt stays within the normalized budget',async()=>{
+  const budgets={
+    'responsive.css':55,
+    'shell.css':36,
+    'tree.css':30,
+    'mobile-family.css':18,
+    'navigation.css':28
+  };
+  for(const [name,max] of Object.entries(budgets)){
+    const css=await read(`src/styles/${name}`);
+    const count=(css.match(/@media/g)||[]).length;
+    assert.ok(count<=max,`${name} has ${count} media blocks; budget is ${max}`);
+  }
+});

@@ -51,3 +51,43 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
  * controller is not a stable pointer target and can also create resize churn
  * while the tree persistence controller is restoring state. */
 .v174-tree-context{animation:none!important}
+
+/* Reduced-motion is a cross-route accessibility contract. */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+
+  /* home.css */
+  .dashboard-recent{animation:none}
+
+  /* stories.css */
+  .v16-stories *{scroll-behavior:auto!important;transition:none!important}
+
+  /* unified-family.css */
+  .v172-branch-card{transition:none!important}.v172-branch-card:hover{transform:none}
+
+  /* tree-advanced.css */
+  .tree-advanced-nav *,#family-graph *{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+
+  /* media.css */
+  .media-library-preview img{transition:none}
+  .media-library-preview:hover img{transform:none}
+
+  /* record-ingestion.css */
+  .record-ingestion *{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+
+  /* responsive.css */
+  .v158-mobile-more[open]>div{animation:none!important}
+  body[data-v158-context="family"] :where(.action,button,.person-card,.v157-person-card,.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card,.media-library-preview img,.v17-native *){scroll-behavior:auto!important;transition:none!important;transform:none!important}
+
+  /* branches.css */
+  .family-branch-card{transition:none}
+  .family-branch-card:hover{transform:none}
+  :where(.family-branch-card,.dashboard-person,.media-library-card,.search-hit.human){transition:none}
+  .v175-family-card{transition:none}
+
+  /* redesign.css */
+  :where(.person-card,.source-card,.v17-person-card>button,.v17-relative,.media-library-card,.dashboard-person,.v17-primary-actions .action,.family-home-actions a,.dashboard-hero-actions .action){
+      transform:none;
+      transition-duration:.01ms;
+    }
+}

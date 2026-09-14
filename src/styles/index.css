@@ -30,8 +30,12 @@
 @import './elevation.css';
 @import './branches.css';
 @import './archive-shell.css';
-@import './interaction-contracts.css';
-@import './print.css';
 
 /* Final visual composition layer. */
 @import './redesign.css';
+
+/* Interaction contracts intentionally follow visual composition. */
+@import './interaction-contracts.css';
+
+/* Print is authoritative and intentionally last in the cascade. */
+@import './print.css';

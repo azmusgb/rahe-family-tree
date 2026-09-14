@@ -36,14 +36,3 @@
     line-height:.92;
   }
 }
-
-@media print{
-  .v17-home-hero h2,
-  .v17-home-hero .v17-home-metrics,
-  .v17-home-hero .v17-home-metrics b,
-  .v17-home-hero .v17-home-metrics strong,
-  .v17-home-hero .v17-home-metrics span,
-  .v17-home-hero .v17-home-metrics small{
-    color:#000;
-  }
-}

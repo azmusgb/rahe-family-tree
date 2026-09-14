@@ -39,7 +39,7 @@
 
 @media(max-width:720px){.audit-grid,.gate-grid{grid-template-columns:1fr}}
 
-@media print{.person-card,.claim-card,.source-card,.task-card,.panel,.timeline-item>div{break-inside:avoid}}
+
 
 .task-workflow label,.intake-form label,.intake-card label{display:grid;gap:6px;font-size:10px;color:var(--muted);margin-bottom:12px}
 

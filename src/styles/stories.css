@@ -147,7 +147,7 @@ body[data-route="dashboard"] .history-highlight-grid article{min-height:160px}
 
 @media(max-width:720px){.v16-story-year{font-size:21px}}
 
-@media(prefers-reduced-motion:reduce){.v16-stories *{scroll-behavior:auto!important;transition:none!important}}
+
 
 /* Stories — editorial family archive, not a record table. */
 .v16-stories{gap:clamp(28px,4vw,52px);padding-bottom:48px}

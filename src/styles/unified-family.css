@@ -33,4 +33,3 @@ body[data-route="tree"][data-v158-context="family"] .node-initials.v172-has-phot
   body[data-route="tree"][data-v158-context="family"] .v172-tree-branch-actions button{min-height:44px;padding-inline:13px}
   body[data-route="tree"][data-v158-context="family"] .tree-focusbar{position:static}
 }
-@media(prefers-reduced-motion:reduce){.v172-branch-card{transition:none!important}.v172-branch-card:hover{transform:none}}
