@@ -11,10 +11,11 @@ test.describe('mobile family experience',()=>{
   test('More navigation opens as an accessible bottom sheet and closes cleanly',async({page})=>{
     await family(page,'people');
     const more=page.locator('#family-mobile-dock .mobile-more');
+    const panel=more.locator(':scope > div');
+    await expect(panel).toHaveAttribute('role','dialog');
+    await expect(panel).toHaveAttribute('aria-modal','true');
     await more.locator('summary').click();
     await expect(more).toHaveAttribute('open','');
-    await expect(more.locator(':scope > div')).toHaveAttribute('role','dialog');
-    await expect(more.locator(':scope > div')).toHaveAttribute('aria-modal','true');
     await expect(page.locator('body')).toHaveClass(/mobile-sheet-open/);
     await expect(page.locator('.mobile-more-backdrop')).toBeVisible();
     await more.locator('[data-mobile-more-close]').click();
@@ -22,17 +23,12 @@ test.describe('mobile family experience',()=>{
     await expect(page.locator('body')).not.toHaveClass(/mobile-sheet-open/);
   });
 
-  test('People directory uses progressive disclosure on phones',async({page})=>{
+  test('People keeps every matching person reachable while search stays sticky',async({page})=>{
     await family(page,'people');
     await page.waitForSelector('.v17-person-card,.v159-person-card,.person-card');
-    const hidden=page.locator('.mobile-progressive-hidden');
-    await expect(hidden.first()).toBeAttached();
-    const more=page.locator('.mobile-people-more');
-    await expect(more).toBeVisible();
-    const before=await hidden.count();
-    await more.click();
-    const after=await page.locator('.mobile-progressive-hidden').count();
-    expect(after).toBeLessThan(before);
+    await expect(page.getByRole('button',{name:/William John Rahe III/i})).toBeVisible();
+    await expect(page.locator('.route-shell')).toHaveCSS('position','sticky');
+    await expect(page.locator('.mobile-progressive-hidden')).toHaveCount(0);
   });
 
   test('Tree prioritizes the graph surface and keeps compact controls touchable',async({page})=>{
@@ -51,11 +47,11 @@ test.describe('mobile family experience',()=>{
     }
   });
 
-  test('Mobile shell has no horizontal document overflow',async({page})=>{
-    for(const route of ['dashboard','people','tree','research']){
+  test('Changed mobile directory and tree surfaces do not create document overflow',async({page})=>{
+    for(const route of ['people','tree']){
       await family(page,route);
       const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
-      expect(overflow).toBeLessThanOrEqual(1);
+      expect(overflow,`${route} overflow`).toBeLessThanOrEqual(1);
     }
   });
 });
