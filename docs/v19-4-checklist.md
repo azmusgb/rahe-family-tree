@@ -1,6 +1,0 @@
-- exact production base retained
-- canonical path engine remains authoritative
-- evidence states preserved
-- privacy-minimal narration
-- static gates added
-- browser coverage added
