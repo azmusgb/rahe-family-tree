@@ -156,7 +156,8 @@ test('native Tree keeps focused family context and compact relationship tools',a
   await expect(tree.locator('.graph-shell')).toBeVisible();
   await expect(page.locator('.v161-tree-toolbar')).toBeVisible();
   await expect(page.locator('[data-v161-relationship]')).toBeVisible();
-  await expect(tree.locator('[data-tree-person]')).toBeVisible();
+  await expect(page.locator('.family-graph-commandbar [data-family-graph-person]')).toBeVisible();
+  await expect(tree.locator('[data-tree-person]')).toBeHidden();
 });
 
 test('Photos keeps contextual search and collapses dedicated media filters on demand',async({page},testInfo)=>{
