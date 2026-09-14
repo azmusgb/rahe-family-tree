@@ -8,20 +8,31 @@ async function mockApis(page){
 }
 test.beforeEach(async({page})=>{await mockApis(page);});
 
-test('relative generation lanes and direct-line rail are present for a focused tree',async({page})=>{
+test('relative generation metadata and direct-line rail are present for a focused tree',async({page})=>{
   await page.goto(`/?focus=${HAZEL}&scope=family&depth=2#tree`);
   const rail=page.locator('[data-family-lineage-rail]');
   await expect(rail).toBeVisible();
   await expect(rail.getByText('Direct family line')).toBeVisible();
-  await expect(page.locator('#family-graph .generation-lane[data-family-generation="0"]')).toHaveCount(1);
+  const focusLane=page.locator('#family-graph .generation-lane.family-generation-focus-lane');
+  await expect(focusLane).toHaveCount(1);
+  await expect(focusLane).toHaveAttribute('data-family-generations',/(^|\s)0(\s|$)/);
   await expect(page.locator('[data-family-lineage-generation="0"]')).toBeVisible();
   await expect(page.locator(`[data-family-lineage-person="${HAZEL}"]`).first()).toHaveAttribute('aria-current','true');
   expect(await page.locator('[data-family-lineage-generation]').count()).toBeGreaterThan(1);
+  const svgLabels=await page.locator('#family-graph .generation-lane text').allTextContents();
+  expect(svgLabels.filter(value=>value==='FOCUS')).toHaveLength(1);
 });
 
 test('lineage rail refocuses the tree without changing canonical graph state',async({page})=>{
   await page.goto(`/?focus=${HAZEL}&scope=family&depth=2#tree`);
-  const other=page.locator('[data-family-lineage-person]').filter({hasNot:page.locator(`[data-family-lineage-person="${HAZEL}"]`)}).first();
+  const candidates=page.locator('[data-family-lineage-person]');
+  const count=await candidates.count();
+  let other=null;
+  for(let i=0;i<count;i++){
+    const candidate=candidates.nth(i);
+    if((await candidate.getAttribute('data-family-lineage-person'))!==HAZEL){other=candidate;break;}
+  }
+  expect(other).toBeTruthy();
   const target=await other.getAttribute('data-family-lineage-person');
   expect(target).toBeTruthy();
   await other.click();
