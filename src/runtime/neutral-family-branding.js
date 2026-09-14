@@ -23,9 +23,10 @@ function syncHeader(){
 }
 
 function syncHome(){
+  const home=isFamilyHome();
   const routeShell=document.querySelector('.route-shell');
-  if(routeShell)routeShell.hidden=isFamilyHome();
-  if(!isFamilyHome())return;
+  if(routeShell&&routeShell.hidden!==home)routeShell.hidden=home;
+  if(!home)return;
   document.querySelectorAll('.v17-home-hero .eyebrow').forEach(element=>setText(element,'FAMILY HISTORY'));
   document.querySelectorAll('.v17-home-hero h1,.v17-home-hero h2').forEach(element=>setText(element,'Our family, connected.'));
   const heroCopy=document.querySelector('.v17-home-hero p:not(.eyebrow)');
