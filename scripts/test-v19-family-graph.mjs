@@ -10,6 +10,7 @@ test('v19 Family Graph is additive and read-only',async()=>{
   assert.match(controller,/import '\.\/family-graph-v19\.js';/);
   assert.match(runtime,/activeRelationships/);
   assert.match(runtime,/STRUCTURAL_TYPES/);
+  assert.match(runtime,/FAMILY_UNIT_TYPES=new Set\(\['spouse'\]\)/);
   assert.match(runtime,/family-unit-frame/);
   assert.match(runtime,/family-graph-direct/);
   assert.match(runtime,/family-graph-collateral/);
@@ -17,14 +18,15 @@ test('v19 Family Graph is additive and read-only',async()=>{
   assert.doesNotMatch(runtime,/\.state\s*=/);
 });
 
-test('v19 preserves evidence-state semantics instead of inventing relationship authority',async()=>{
+test('v19 preserves rendered evidence-state semantics instead of inventing relationship authority',async()=>{
   const runtime=await read('src/runtime/family-graph-v19.js');
   assert.match(runtime,/REJECTED/);
-  assert.match(runtime,/SUPPORTED/);
-  assert.match(runtime,/PROVISIONAL/);
-  assert.match(runtime,/UNRESOLVED/);
+  assert.match(runtime,/state-supported/);
+  assert.match(runtime,/state-provisional/);
+  assert.match(runtime,/state-unresolved/);
   assert.match(runtime,/identity-bridge/);
   assert.match(runtime,/family-edge-identity/);
+  assert.doesNotMatch(runtime,/edges\.find\(/);
 });
 
 test('v19 mobile person preview protects living detail and uses the authoritative tree router',async()=>{
@@ -42,6 +44,12 @@ test('v19 mobile person preview protects living detail and uses the authoritativ
   assert.match(css,/\.family-person-preview/);
   assert.match(css,/@media\(max-width:760px\)/);
   assert.match(css,/prefers-reduced-motion/);
+});
+
+test('v19 derives implicit graph focus from the rendered focused node',async()=>{
+  const runtime=await read('src/runtime/family-graph-v19.js');
+  assert.match(runtime,/graph-node\.focused\[data-person\]/);
+  assert.match(runtime,/renderedFocusId\(\)/);
 });
 
 test('v19 semantic stylesheet is loaded after mobile composition and before interaction contracts',async()=>{
