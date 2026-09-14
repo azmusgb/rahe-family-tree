@@ -22,14 +22,19 @@ test('v19.2 asserted couple context never promotes derivative spouse leads',asyn
   assert.doesNotMatch(runtime,/COUPLE_TYPES=new Set\([^\n]*spouse-lead/);
 });
 
-test('v19.2 relative generation labels and lineage controls remain accessible',async()=>{
+test('v19.2 generation metadata comes from people and preserves advanced SVG labels',async()=>{
   const runtime=await read('src/runtime/family-graph-layout.js');
   const css=await read('src/styles/family-graph-layout.css');
+  assert.match(runtime,/nearest\?\.generations\.add\(offset\)/);
+  assert.match(runtime,/dataset\.familyGenerations=offsets\.join/);
+  assert.match(runtime,/dataset\.familyGenerationLabel=offsets\.map\(generationLabel\)/);
+  assert.doesNotMatch(runtime,/text\.textContent\s*=\s*generationLabel/);
   assert.match(runtime,/Focus generation/);
   assert.match(runtime,/Grandparents/);
   assert.match(runtime,/Grandchildren/);
   assert.match(runtime,/aria-label','Direct family line by generation/);
   assert.match(runtime,/aria-current/);
+  assert.match(css,/family-generation-focus-lane/);
   assert.match(css,/min-height:44px/);
   assert.match(css,/prefers-reduced-motion/);
 });
