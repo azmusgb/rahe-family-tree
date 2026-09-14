@@ -12,6 +12,7 @@ const SCOPES=[
 ];
 const route=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const cleanName=value=>String(value||'').replace(/\s*\/.*$/,'').trim();
+const scopeLabel=scope=>scope==='all'?'Full tree':SCOPES.find(([value])=>value===scope)?.[1]||'Connected';
 const urlState=()=>{const url=new URL(location.href);return{url,focus:url.searchParams.get('focus')||document.querySelector('#family-graph .graph-node.focused[data-person]')?.dataset.person||'',scope:url.searchParams.get('scope')||'connected',depth:Number(url.searchParams.get('depth')||2),pathTo:url.searchParams.get('pathTo')||''};};
 
 function replaceState(changes={}){
@@ -40,9 +41,17 @@ function visibleTargets(focus){
     .sort((a,b)=>cleanName(personById(a)?.name).localeCompare(cleanName(personById(b)?.name)));
 }
 
+function restoreMovedControls(){
+  const existing=document.querySelector('.family-graph-commandbar'),advanced=document.querySelector('.tree-advanced-nav');
+  if(!existing||!advanced)return;
+  const primary=existing.querySelector('.tree-advanced-primary');if(primary)advanced.prepend(primary);
+  const recent=existing.querySelector('.tree-recent-trail');if(recent)advanced.append(recent);
+}
+
 function installCommandbar(){
   if(route()!=='tree')return;
   const graph=document.querySelector('.graph-shell');if(!graph)return;
+  restoreMovedControls();
   document.querySelector('.family-graph-commandbar')?.remove();
   const{focus,scope,depth,pathTo}=urlState(),focusPerson=personById(focus),targets=visibleTargets(focus);
   const bar=document.createElement('section');bar.className='family-graph-commandbar';bar.setAttribute('aria-label','Family tree navigation');bar.dataset.familyGraphNavigation='true';
@@ -85,12 +94,12 @@ function annotateSummary(){
   const summary=document.querySelector('.family-graph-summary');if(!summary)return;
   const{scope}=urlState();summary.dataset.scope=scope;
   const key=summary.querySelector('.family-graph-key');if(key&&!key.querySelector('[data-family-graph-scope-label]')){
-    const scopeLabel=document.createElement('span');scopeLabel.dataset.familyGraphScopeLabel='true';scopeLabel.className='family-graph-scope-label';scopeLabel.textContent=SCOPES.find(([value])=>value===scope)?.[1]||'Connected';key.prepend(scopeLabel);
-  }else if(key){const label=key.querySelector('[data-family-graph-scope-label]');if(label)label.textContent=SCOPES.find(([value])=>value===scope)?.[1]||'Connected';}
+    const label=document.createElement('span');label.dataset.familyGraphScopeLabel='true';label.className='family-graph-scope-label';label.textContent=scopeLabel(scope);key.prepend(label);
+  }else if(key){const label=key.querySelector('[data-family-graph-scope-label]');if(label)label.textContent=scopeLabel(scope);}
 }
 
 function reconcile(){
-  if(route()!=='tree'){document.querySelector('.family-graph-commandbar')?.remove();return;}
+  if(route()!=='tree'){restoreMovedControls();document.querySelector('.family-graph-commandbar')?.remove();return;}
   installCommandbar();consolidateLegacyControls();annotateSummary();
 }
 let queued=false;function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;reconcile();}));}
