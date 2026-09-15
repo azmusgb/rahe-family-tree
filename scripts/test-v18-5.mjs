@@ -17,15 +17,15 @@ const experience=read('src/runtime/experience-core.js');
 const router=read('v11.js');
 const intelligence=read('research-intelligence.js');
 
-test('v18.5 release fingerprint is synchronized and named for Research Intelligence',()=>{
-  assert.match(entry,/APP_VERSION='18\.5\.0'/);
-  assert.match(experience,/UI_RELEASE='18\.5\.0'/);
-  assert.match(experience,/family\.archive\.uiReload\.v18\.5/);
-  assert.match(shell,/data-ui-release="18\.5\.0"/);
-  assert.match(shell,/styles\.css\?v=18\.5\.0/);
-  assert.match(shell,/app\.bundle\.js\?v=18\.5\.0/);
-  assert.match(build,/const appVersion='18\.5\.0'/);
-  assert.match(build,/releaseTrain:'v18-5-research-intelligence'/);
+test('v18.5 Research Intelligence remains wired under the current synchronized release',()=>{
+  assert.match(entry,/APP_VERSION='19\.0\.0'/);
+  assert.match(experience,/UI_RELEASE='19\.0\.0'/);
+  assert.match(experience,/family\.archive\.uiReload\.v19\.0/);
+  assert.match(shell,/data-ui-release="19\.0\.0"/);
+  assert.match(shell,/styles\.css\?v=19\.0\.0/);
+  assert.match(shell,/app\.bundle\.js\?v=19\.0\.0/);
+  assert.match(build,/const appVersion='19\.0\.0'/);
+  assert.match(build,/releaseTrain:'v19-family-graph'/);
 });
 
 test('research automation remains deterministic advisory output with no canonical mutation',()=>{
