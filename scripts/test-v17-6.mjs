@@ -33,7 +33,7 @@ test('failed session refresh and explicit logout clear authorization without log
   assert.doesNotMatch(auth,/auth-create-user[\s\S]*catch\(err\)\{current=null/);
 });
 
-test('Playwright is bounded, diagnosable, parallelized, cached, and release-gated',()=>{
+test('Playwright PR validation is bounded, diagnosable, cached, artifact-backed, and release-gated',()=>{
   const config=read('playwright.config.mjs'),workflow=read('.github/workflows/validate-change.yml');
   assert.match(config,/globalTimeout:8\*60_000/);
   assert.match(config,/actionTimeout:12_000/);
@@ -41,9 +41,10 @@ test('Playwright is bounded, diagnosable, parallelized, cached, and release-gate
   assert.match(config,/reuseExistingServer:false/);
   assert.match(config,/trace:'retain-on-failure'/);
   assert.match(config,/video:'retain-on-failure'/);
-  assert.match(workflow,/browser shard \$\{\{ matrix\.id \}\}\/4/);
-  assert.match(workflow,/fail-fast: false/);
-  for(const shard of ['1\/4','2\/4','3\/4','4\/4'])assert.match(workflow,new RegExp(`shard: '${shard}'`));
+  assert.match(config,/name:'mobile-chromium'/);
+  assert.match(config,/name:'desktop-chromium'/);
+  assert.match(workflow,/name: browser smoke/);
+  assert.match(workflow,/needs: build/);
   assert.match(workflow,/Restore Playwright browser cache/);
   assert.match(workflow,/uses: actions\/cache@v4/);
   assert.match(workflow,/path: ~\/\.cache\/ms-playwright/);
@@ -53,10 +54,10 @@ test('Playwright is bounded, diagnosable, parallelized, cached, and release-gate
   assert.match(workflow,/Install Playwright Chromium on cache miss/);
   assert.match(workflow,/steps\.playwright-cache\.outputs\.cache-hit != 'true'/);
   assert.match(workflow,/npx playwright install chromium/);
-  assert.match(workflow,/Run browser interaction shard/);
-  assert.match(workflow,/npx playwright test --shard=\$\{\{ matrix\.shard \}\}/);
-  assert.match(workflow,/timeout-minutes: 9/);
-  assert.match(workflow,/playwright-diagnostics-[\s\S]*shard-\$\{\{ matrix\.id \}\}/);
-  assert.match(workflow,/name: validate[\s\S]*needs:[\s\S]*- prepare[\s\S]*- browser/);
-  assert.match(workflow,/BROWSER_RESULT: \$\{\{ needs\.browser\.result \}\}/);
+  assert.match(workflow,/Download exact verified build/);
+  assert.match(workflow,/Run Chromium PR smoke suite/);
+  assert.match(workflow,/npx playwright test --workers=2/);
+  assert.match(workflow,/playwright-diagnostics-/);
+  assert.match(workflow,/name: validate[\s\S]*needs: \[core, canonical, experience, build, browser\]/);
+  assert.match(workflow,/BROWSER: \$\{\{ needs\.browser\.result \}\}/);
 });
