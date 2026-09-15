@@ -145,13 +145,14 @@
   body[data-route="dashboard"].v20-mobile-app .v17-home-person{min-height:250px;border:0;border-radius:30px;background:#fff;box-shadow:0 13px 34px rgba(16,47,40,.08)}
   body[data-route="dashboard"].v20-mobile-app .v17-research-door{padding:54px 18px 64px!important;background:var(--immersive-green)!important;color:#fff!important}
 
-  /* Browse/search becomes a compact app command surface. */
+  /* Browse/search becomes a compact app command surface while preserving controller-owned hidden state. */
   body.v20-mobile-app:not([data-route="dashboard"]):not([data-route="tree"]) .route-shell{
     top:114px;padding:12px 12px 10px;border:0;background:rgba(239,233,220,.96);
     -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
   }
   body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .page-heading{display:none!important}
-  body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .filters{display:block!important}
+  body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .filters:not([hidden]){display:block!important}
+  body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .filters[hidden]{display:none!important}
   body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .filters .search{display:block!important}
   body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .filters .search input{
     height:54px;border:0;border-radius:18px;background:#fff;color:var(--immersive-ink);
@@ -160,20 +161,20 @@
   body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .filters>label:not(.search),
   body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .filters>button{display:none!important}
 
-  /* People resembles a people-finder app, not a responsive card grid. */
+  /* People resembles a people-finder app while retaining four useful rows in a normal viewport. */
   body[data-route="people"].v20-mobile-app #content{padding:0 0 34px!important;background:var(--immersive-bg)}
   body[data-route="people"].v20-mobile-app .v17-page-intro{
-    margin:0;padding:40px 18px 30px;background:var(--immersive-green);color:#fff;
+    margin:0;padding:26px 16px 18px;background:var(--immersive-green);color:#fff;
   }
   body[data-route="people"].v20-mobile-app .v17-page-intro :where(h1,h2,p,.eyebrow){color:inherit}
-  body[data-route="people"].v20-mobile-app .v17-page-intro h2{font-size:50px;line-height:.88;letter-spacing:-.055em}
-  body[data-route="people"].v20-mobile-app .v17-branch-browser{padding:18px 14px 12px;background:transparent}
+  body[data-route="people"].v20-mobile-app .v17-page-intro h2{font-size:42px;line-height:.9;letter-spacing:-.05em}
+  body[data-route="people"].v20-mobile-app .v17-branch-browser{padding:10px 14px 8px;background:transparent}
   body[data-route="people"].v20-mobile-app .v17-branch-chip{border:0;background:#fff;color:var(--immersive-green);box-shadow:0 5px 14px rgba(16,47,40,.06)}
   body[data-route="people"].v20-mobile-app .v17-people-grid{
-    margin:6px 12px 0;border:0;border-radius:28px;background:#fff;box-shadow:0 18px 45px rgba(16,47,40,.09);
+    margin:4px 12px 0;border:0;border-radius:28px;background:#fff;box-shadow:0 18px 45px rgba(16,47,40,.09);
   }
-  body[data-route="people"].v20-mobile-app .v17-person-card>button{min-height:92px;padding:14px 15px;grid-template-columns:58px minmax(0,1fr) 24px}
-  body[data-route="people"].v20-mobile-app .v17-person-card .v17-avatar{width:54px;height:54px;border:0;background:#dfe7df}
+  body[data-route="people"].v20-mobile-app .v17-person-card>button{min-height:74px;padding:8px 14px;grid-template-columns:46px minmax(0,1fr) 22px}
+  body[data-route="people"].v20-mobile-app .v17-person-card .v17-avatar{width:44px;height:44px;border:0;background:#dfe7df}
   body[data-route="people"].v20-mobile-app .v17-person-card-copy b{font-size:16px}
   body[data-route="people"].v20-mobile-app .v17-person-card>button::after{content:'›';font-size:28px;color:#8a9891}
 
@@ -230,17 +231,18 @@
   body[data-route="branch"].v20-mobile-app .v175-branch-section{margin:14px!important;padding:26px 18px!important;border-radius:28px!important;background:#fff!important;box-shadow:0 9px 28px rgba(16,47,40,.07)}
   body[data-route="branch"].v20-mobile-app .v175-branch-section:nth-of-type(even){background:#e8e1d2!important}
 
-  /* Tree becomes a true canvas mode. */
+  /* Tree becomes a true canvas mode without sticky controls intercepting graph interactions. */
   body[data-route="tree"].v20-mobile-app{background:#dfe4dc;padding-bottom:calc(86px + env(safe-area-inset-bottom,0px))}
   body[data-route="tree"].v20-mobile-app .site-header.sidebar{height:54px;min-height:54px;padding-top:calc(4px + env(safe-area-inset-top,0px))}
   body[data-route="tree"].v20-mobile-app .v20-context-bar{top:54px;min-height:44px}
   body[data-route="tree"].v20-mobile-app .route-shell{display:none!important}
-  body[data-route="tree"].v20-mobile-app #content{padding:0 6px 8px!important;background:#dfe4dc}
+  body[data-route="tree"].v20-mobile-app #content{padding:0 6px calc(104px + env(safe-area-inset-bottom,0px))!important;background:#dfe4dc}
   body[data-route="tree"].v20-mobile-app .v174-tree-context{
-    position:sticky;top:98px;z-index:68;margin:6px 4px;padding:10px 12px;border:0;border-radius:18px;
+    position:relative;top:auto;z-index:2;margin:6px 4px;padding:10px 12px;border:0;border-radius:18px;
     background:rgba(255,250,240,.94);box-shadow:0 8px 24px rgba(16,47,40,.10);
     -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
   }
+  body[data-route="tree"].v20-mobile-app .family-graph-tools{scroll-margin-top:110px;scroll-margin-bottom:112px}
   body[data-route="tree"].v20-mobile-app .graph-shell,
   body[data-route="tree"].v20-mobile-app .tree-graph-shell{
     min-height:calc(100svh - 178px)!important;margin:0;border:0!important;border-radius:24px!important;
@@ -257,26 +259,32 @@
     border-radius:26px;
   }
 
-  /* The dock is a dark application tab bar; Tree is the unmistakable central action. */
+  /* The dock is a dark application tab bar; explicit important values supersede the prior responsive contract. */
   body.v20-mobile-app #family-mobile-dock:not([hidden]){
-    left:0;right:0;bottom:0;min-height:78px;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));
-    border:0;border-radius:24px 24px 0 0;background:rgba(13,48,40,.97);
-    box-shadow:0 -14px 38px rgba(8,32,26,.20);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);
+    left:0!important;right:0!important;bottom:0!important;min-height:78px!important;
+    padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))!important;
+    border:0!important;border-radius:24px 24px 0 0!important;background:rgba(13,48,40,.97)!important;
+    box-shadow:0 -14px 38px rgba(8,32,26,.20)!important;
+    -webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);
   }
   body.v20-mobile-app #family-mobile-dock>a,
   body.v20-mobile-app #family-mobile-dock>details>summary{min-height:54px;color:rgba(255,255,255,.66);border-radius:16px}
   body.v20-mobile-app #family-mobile-dock>a[aria-current="page"],
   body.v20-mobile-app #family-mobile-dock>a.active{background:rgba(255,255,255,.10);color:#fff}
   body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"]{
-    width:66px;min-height:66px;justify-self:center;margin:-28px auto 0;border:6px solid var(--immersive-bg);border-radius:50%;
-    background:#f4e6bd;color:var(--immersive-green);box-shadow:0 14px 28px rgba(0,0,0,.24);
+    width:66px!important;height:66px!important;min-width:66px!important;min-height:66px!important;max-width:66px!important;max-height:66px!important;
+    padding:0!important;box-sizing:border-box;place-self:start center;display:flex;align-items:center;justify-content:center;flex-direction:column;
+    margin:-28px auto 0!important;border:6px solid var(--immersive-bg)!important;border-radius:50%!important;
+    background:#f4e6bd!important;color:var(--immersive-green)!important;box-shadow:0 14px 28px rgba(0,0,0,.24)!important;
   }
   body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"]::before{color:var(--immersive-green)}
   body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"] span{font-weight:900}
   body.v20-mobile-app #family-mobile-dock .mobile-more>div,
   body.v20-mobile-app #family-mobile-dock .v158-mobile-more>div{
-    left:0;right:0;bottom:0;max-height:82svh;padding:18px 14px calc(96px + env(safe-area-inset-bottom,0px));
-    border-radius:32px 32px 0 0;background:var(--immersive-paper);box-shadow:0 -24px 70px rgba(8,32,26,.34);
+    left:0!important;right:0!important;bottom:0!important;max-height:82svh!important;
+    padding:18px 14px calc(96px + env(safe-area-inset-bottom,0px))!important;
+    border-radius:32px 32px 0 0!important;background:var(--immersive-paper)!important;
+    box-shadow:0 -24px 70px rgba(8,32,26,.34)!important;
   }
   body.v20-mobile-app #family-mobile-dock .mobile-more-head{
     grid-column:1/-1;margin:-2px -2px 8px;padding:8px 4px 16px;border-bottom:1px solid var(--immersive-line);
