@@ -9,7 +9,7 @@ async function open(page,route='dashboard'){
 test.describe('actual mobile family application',()=>{
   test.use({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
 
-  test('Home uses a dedicated mobile header and physically integrates search below the hero',async({page})=>{
+  test('Home uses a dedicated header, search component, and launcher in structural order',async({page})=>{
     await open(page,'dashboard');
     await expect(page.locator('#mobile-app-header')).toBeVisible();
     await expect(page.locator('.site-header.sidebar')).toBeHidden();
@@ -20,19 +20,20 @@ test.describe('actual mobile family application',()=>{
     const structure=await page.evaluate(()=>{
       const home=document.querySelector('[data-v17-native="home"]');
       const hero=home?.querySelector('.v17-home-hero');
-      const shell=home?.querySelector('.route-shell[data-mobile-integrated-search="home"]');
+      const search=home?.querySelector('.v21-mobile-search[data-v21-mobile-search="home"]');
       const launcher=home?.querySelector('.v21-mobile-launcher');
       return{
-        shellInsideHome:Boolean(shell&&shell.parentElement===home),
-        heroBeforeSearch:Boolean(hero&&shell&&(hero.compareDocumentPosition(shell)&Node.DOCUMENT_POSITION_FOLLOWING)),
-        searchBeforeLauncher:Boolean(shell&&launcher&&(shell.compareDocumentPosition(launcher)&Node.DOCUMENT_POSITION_FOLLOWING)),
-        primaryInLauncher:Boolean(launcher?.querySelector('.v17-primary-actions .action.primary'))
+        searchInsideHome:Boolean(search&&search.parentElement===home),
+        heroBeforeSearch:Boolean(hero&&search&&(hero.compareDocumentPosition(search)&Node.DOCUMENT_POSITION_FOLLOWING)),
+        searchBeforeLauncher:Boolean(search&&launcher&&(search.compareDocumentPosition(launcher)&Node.DOCUMENT_POSITION_FOLLOWING)),
+        primaryInLauncher:Boolean(launcher?.querySelector('.v17-primary-actions .action.primary')),
+        stableRouteShellOutsideContent:Boolean(document.querySelector('#main > .route-shell'))
       };
     });
-    expect(structure).toEqual({shellInsideHome:true,heroBeforeSearch:true,searchBeforeLauncher:true,primaryInLauncher:true});
+    expect(structure).toEqual({searchInsideHome:true,heroBeforeSearch:true,searchBeforeLauncher:true,primaryInLauncher:true,stableRouteShellOutsideContent:true});
   });
 
-  test('bottom navigation has actual Home Families Tree People More DOM order',async({page})=>{
+  test('bottom navigation has actual Home Families Tree People More runtime order',async({page})=>{
     await open(page,'dashboard');
     const order=await page.locator('#family-mobile-dock').evaluate(dock=>[...dock.children].map(node=>node.matches('a')?node.querySelector('span')?.textContent?.trim():node.querySelector('summary')?.textContent?.trim()));
     expect(order).toEqual(['Home','Families','Tree','People','More']);
@@ -42,11 +43,21 @@ test.describe('actual mobile family application',()=>{
     expect(Math.abs((treeBox?.width||0)-(treeBox?.height||0))).toBeLessThan(8);
   });
 
+  test('Home search transitions into the real People directory search',async({page})=>{
+    await open(page,'dashboard');
+    const input=page.locator('.v21-mobile-search[data-v21-mobile-search="home"] input');
+    await input.fill('William');
+    await input.press('Enter');
+    await page.waitForURL(/#people/);
+    await expect(page.locator('[data-v17-native="people"] .v21-mobile-search input')).toHaveValue('William');
+    await expect(page.locator('button[data-person="P-WILLIAM-JOHN-RAHE-III"]')).toBeVisible();
+  });
+
   test('People owns its search UI inside the actual directory',async({page})=>{
     await open(page,'people');
-    const shell=page.locator('[data-v17-native="people"] .route-shell[data-mobile-integrated-search="people"]');
-    await expect(shell).toBeVisible();
-    await expect(shell.locator('input[type="search"]')).toBeVisible();
+    const search=page.locator('[data-v17-native="people"] .v21-mobile-search[data-v21-mobile-search="people"]');
+    await expect(search).toBeVisible();
+    await expect(search.locator('input[type="search"]')).toBeVisible();
     const rows=page.locator('.v17-person-card');
     expect(await rows.count()).toBeGreaterThan(3);
   });
