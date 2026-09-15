@@ -165,7 +165,7 @@
   #family-mobile-dock>details>summary::before{width:19px!important;height:19px!important}
   body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"]{
     box-sizing:border-box!important;
-    align-self:center!important;
+    place-self:center stretch!important;
     width:auto!important;
     height:54px!important;
     max-width:none!important;
