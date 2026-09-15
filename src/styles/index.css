@@ -56,6 +56,7 @@
 /* Mobile v20 foundation, followed by the app-level information architecture. */
 @import './mobile-v20.css';
 @import './mobile-app.css';
+@import './mobile-contract-bridge.css';
 
 /* Print is authoritative and intentionally last in the cascade. */
 @import './print.css';
