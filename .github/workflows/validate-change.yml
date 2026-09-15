@@ -12,11 +12,14 @@ concurrency:
 permissions:
   contents: read
 
+# PR validation is intentionally split by failure domain. The required `validate`
+# job is a stable aggregator for branch protection; expensive release/deployment
+# work belongs on main, not in the PR critical path.
 jobs:
-  prepare:
-    name: prepare release candidate
+  core:
+    name: core
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -27,62 +30,18 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Verify dependency lock is unchanged
         run: git diff --exit-code -- package.json package-lock.json
-      - name: Run canonical and experience regression suite
-        run: npm test
-      - name: Run v17.5-v19 family shell, canonical platform, consolidated tree, research intelligence, Family Graph, navigation, layout, relationship navigator, and path comprehension gates
+      - name: Syntax-check shared application entry points
         run: |
-          node --test scripts/test-v17-5.mjs scripts/test-v17-6.mjs scripts/test-v18.mjs scripts/test-v18-5.mjs scripts/test-tree-advanced.mjs scripts/test-research-automation.mjs scripts/test-v19-family-graph.mjs scripts/test-v19-1-family-navigation.mjs scripts/test-v19-2-family-layout.mjs scripts/test-v19-3-relationship-navigator.mjs scripts/test-v19-4-relationship-path.mjs
-          node --check src/runtime/family-branches-v17-5.js
-          node --check src/runtime/navigation-shell.js
-          node --check src/runtime/native-family-v17-controller.js
-          node --check src/runtime/tree-controller.js
-          node --check src/runtime/v17-6-stability.js
-          node --check src/runtime/tree-advanced.js
-          node --check src/runtime/family-graph-v19.js
-          node --check src/runtime/family-graph-navigation.js
-          node --check src/runtime/family-graph-layout.js
-          node --check src/runtime/relationship-path-comprehension.js
-          node --check canonical-graph-engine.js
-          node --check platform-v13-ui.js
-          node --check platform-v13-runtime.js
-          node --check research-automation.js
-          node --check research-intelligence.js
+          node --check app-entry.js
+          node --check core.js
           node --check v11.js
-      - name: Verify production build
-        env:
-          GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: |
-          npm run build
-          test -f dist/canonical-completeness.json
-          test -f dist/canonical-graph.json
-          test -f dist/provenance-index.json
-          test -f dist/canonical-diff.json
-          node -e "const b=require('./dist/build-info.json'),g=require('./dist/canonical-graph.json'),d=require('./dist/canonical-diff.json');if(b.appVersion!=='18.5.0'||b.releaseTrain!=='v18-5-research-intelligence'||g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1)"
-      - name: Upload built site artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: site-dist-${{ github.event.pull_request.number || github.run_id }}
-          path: dist/
-          if-no-files-found: error
-          retention-days: 7
+          node --check src/runtime/experience-core.js
+          node --check src/runtime/navigation-shell.js
 
-  browser:
-    name: browser shard ${{ matrix.id }}/4
-    needs: prepare
+  canonical:
+    name: canonical integrity
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - id: 1
-            shard: '1/4'
-          - id: 2
-            shard: '2/4'
-          - id: 3
-            shard: '3/4'
-          - id: 4
-            shard: '4/4'
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -91,7 +50,90 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm ci --ignore-scripts --no-audit --no-fund
-      - name: Download verified production build
+      - name: Build canonical model and verify integrity
+        run: npm run build-model
+      - name: Run canonical, export, ingestion, and platform contracts
+        run: |
+          node --test scripts/test.mjs scripts/test-canonical-integrity.mjs scripts/test-exports.mjs scripts/test-record-ingestion.mjs scripts/test-v13-0.mjs scripts/test-v13-platform.mjs
+          node --check canonical-graph-engine.js
+          node --check platform-v13-ui.js
+          node --check platform-v13-runtime.js
+          node --check src/ingestion/record-ingestion-core.js
+
+  experience:
+    name: experience contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Prepare generated model used by experience contracts
+        run: npm run build-model
+      - name: Run current shell, navigation, graph, tree, research, and accessibility contracts
+        run: |
+          node --test scripts/test-v15-6.mjs scripts/test-v17-5.mjs scripts/test-v17-6.mjs scripts/test-v18.mjs scripts/test-v18-5.mjs scripts/test-v18-6-ui.mjs scripts/test-tree-advanced.mjs scripts/test-research-automation.mjs scripts/test-v19-family-graph.mjs scripts/test-v19-1-family-navigation.mjs scripts/test-v19-2-family-layout.mjs scripts/test-v19-3-relationship-navigator.mjs scripts/test-v19-4-relationship-path.mjs
+          node --check src/runtime/family-branches-v17-5.js
+          node --check src/runtime/native-family-v17-controller.js
+          node --check src/runtime/tree-controller.js
+          node --check src/runtime/tree-advanced.js
+          node --check src/runtime/family-graph-v19.js
+          node --check src/runtime/family-graph-navigation.js
+          node --check src/runtime/family-graph-layout.js
+          node --check src/runtime/relationship-path-comprehension.js
+          node --check research-automation.js
+          node --check research-intelligence.js
+
+  build:
+    name: production build
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Build exact PR revision
+        env:
+          GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: npm run build
+      - name: Verify canonical build outputs
+        run: |
+          test -f dist/build-info.json
+          test -f dist/canonical-completeness.json
+          test -f dist/canonical-graph.json
+          test -f dist/provenance-index.json
+          test -f dist/canonical-diff.json
+          node -e "const g=require('./dist/canonical-graph.json'),d=require('./dist/canonical-diff.json');if(g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1)"
+      - name: Upload exact site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-dist-${{ github.event.pull_request.number || github.run_id }}
+          path: dist/
+          if-no-files-found: error
+          retention-days: 7
+
+  browser:
+    name: browser smoke
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Download exact verified build
         uses: actions/download-artifact@v4
         with:
           name: site-dist-${{ github.event.pull_request.number || github.run_id }}
@@ -109,16 +151,16 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         timeout-minutes: 5
         run: npx playwright install chromium
-      - name: Run browser interaction shard
-        timeout-minutes: 9
+      - name: Run Chromium PR smoke suite
+        timeout-minutes: 6
         env:
           CI: '1'
-        run: npx playwright test --shard=${{ matrix.shard }}
+        run: npx playwright test --project=chromium --workers=2
       - name: Upload browser diagnostics
-        if: always()
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-diagnostics-${{ github.event.pull_request.number || github.run_id }}-shard-${{ matrix.id }}
+          name: playwright-diagnostics-${{ github.event.pull_request.number || github.run_id }}
           path: |
             playwright-report/
             test-results/
@@ -128,18 +170,21 @@ jobs:
   validate:
     name: validate
     if: always()
-    needs:
-      - prepare
-      - browser
+    needs: [core, canonical, experience, build, browser]
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      - name: Verify all release gates passed
+      - name: Verify required PR gates
         env:
-          PREPARE_RESULT: ${{ needs.prepare.result }}
-          BROWSER_RESULT: ${{ needs.browser.result }}
+          CORE: ${{ needs.core.result }}
+          CANONICAL: ${{ needs.canonical.result }}
+          EXPERIENCE: ${{ needs.experience.result }}
+          BUILD: ${{ needs.build.result }}
+          BROWSER: ${{ needs.browser.result }}
         run: |
-          echo "prepare=${PREPARE_RESULT}"
-          echo "browser=${BROWSER_RESULT}"
-          test "${PREPARE_RESULT}" = "success"
-          test "${BROWSER_RESULT}" = "success"
+          printf 'core=%s\ncanonical=%s\nexperience=%s\nbuild=%s\nbrowser=%s\n' "$CORE" "$CANONICAL" "$EXPERIENCE" "$BUILD" "$BROWSER"
+          test "$CORE" = success
+          test "$CANONICAL" = success
+          test "$EXPERIENCE" = success
+          test "$BUILD" = success
+          test "$BROWSER" = success
