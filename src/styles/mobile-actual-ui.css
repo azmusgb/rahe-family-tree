@@ -12,7 +12,7 @@
     background:#eee8dc;
   }
 
-  /* The phone now has its own real header. The desktop header is not the mobile UI. */
+  /* The phone has its own real header. Desktop navigation is not the mobile UI. */
   body.v21-actual-mobile-ui .site-header.sidebar{display:none!important}
   body.v21-actual-mobile-ui .v20-context-bar{display:none!important}
   body.v21-actual-mobile-ui #mobile-app-header{
@@ -38,22 +38,32 @@
   .mobile-app-heading small{display:block;margin-bottom:2px;color:#8d7a4b;font-size:8px;font-weight:850;letter-spacing:.16em}
   .mobile-app-heading strong{display:block;overflow:hidden;color:var(--actual-green);font-family:var(--family-font-display);font-size:20px;line-height:1.05;text-overflow:ellipsis;white-space:nowrap}
 
-  /* Home is now a real app feed: cover -> search -> launcher -> family content. */
+  /* Stable legacy route shell stays mounted for controller contracts but is not the phone UI on Home/People. */
+  body[data-route="dashboard"].v21-actual-mobile-ui #main>.route-shell{display:none!important}
+  body[data-route="people"].v21-actual-mobile-ui #main>.route-shell{display:none!important;position:sticky!important}
+
+  /* Home is a real app feed: cover -> dedicated search -> launcher -> family content. */
   body[data-route="dashboard"].v21-actual-mobile-ui [data-v17-native="home"]>.v17-home-hero{
     min-height:min(600px,70svh);padding:54px 20px 38px;border-radius:0 0 34px 34px;
   }
   body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero h1,
   body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero h2{font-size:clamp(52px,15vw,70px)}
-  body[data-route="dashboard"].v21-actual-mobile-ui .route-shell[data-mobile-integrated-search="home"]{
-    position:relative!important;top:auto!important;z-index:3;margin:14px;padding:0;background:transparent!important;
-  }
-  body[data-route="dashboard"].v21-actual-mobile-ui .route-shell[data-mobile-integrated-search="home"] .filters{
-    padding:0!important;background:transparent!important;
-  }
-  body[data-route="dashboard"].v21-actual-mobile-ui .route-shell[data-mobile-integrated-search="home"] .search input{
-    height:58px;border:1px solid var(--actual-line);border-radius:19px;background:var(--actual-paper);
+
+  .v21-mobile-search{margin:14px;padding:0;border:0;background:transparent}
+  .v21-mobile-search label>span{display:block;margin:0 4px 7px;color:#8d7540;font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+  .v21-mobile-search label>div{
+    display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;padding:5px;
+    border:1px solid var(--actual-line);border-radius:20px;background:var(--actual-paper);
     box-shadow:0 12px 30px rgba(18,63,52,.09);
   }
+  .v21-mobile-search input{
+    min-width:0;height:48px;padding:0 12px;border:0!important;outline:0;border-radius:15px;background:transparent!important;
+    color:var(--actual-ink);font-size:16px;box-shadow:none!important;
+  }
+  .v21-mobile-search button{
+    min-width:72px;min-height:48px;padding:0 14px;border:0;border-radius:15px;background:var(--actual-green);color:#fff;font-size:11px;font-weight:850;
+  }
+
   .v21-mobile-launcher{
     margin:0 14px 28px;padding:20px;border:1px solid rgba(18,63,52,.09);border-radius:28px;
     background:#fffdf8;box-shadow:0 15px 38px rgba(18,63,52,.08);
@@ -77,21 +87,17 @@
     content:attr(data-v21-surface);display:block;margin-bottom:8px;color:#9b7d38;font-size:9px;font-weight:900;letter-spacing:.17em;text-transform:uppercase;
   }
 
-  /* People owns its search bar inside the directory rather than in global page chrome. */
-  body[data-route="people"].v21-actual-mobile-ui .route-shell[data-mobile-integrated-search="people"]{
-    position:sticky!important;top:calc(var(--actual-header-h) + env(safe-area-inset-top,0px))!important;z-index:80;
-    margin:0;padding:10px 12px;background:rgba(238,232,220,.96)!important;
+  /* People owns an actual search component inside the directory. */
+  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro{padding:30px 18px 22px;border-radius:0 0 32px 32px}
+  body[data-route="people"].v21-actual-mobile-ui .v21-mobile-search{
+    position:sticky;top:calc(var(--actual-header-h) + env(safe-area-inset-top,0px));z-index:80;
+    margin:0;padding:10px 12px;background:rgba(238,232,220,.96);
     -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
   }
-  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro{
-    padding:30px 18px 22px;border-radius:0 0 32px 32px;
-  }
-  body[data-route="people"].v21-actual-mobile-ui .v17-branch-browser[data-v21-people-branches="true"]{
-    padding:14px 12px 10px;scroll-padding-inline:12px;
-  }
+  body[data-route="people"].v21-actual-mobile-ui .v17-branch-browser[data-v21-people-branches="true"]{padding:14px 12px 10px;scroll-padding-inline:12px}
   body[data-route="people"].v21-actual-mobile-ui .v17-people-grid{margin-top:8px}
 
-  /* Person quick actions are now a dedicated app control row outside the identity cover. */
+  /* Person quick actions are structurally outside the identity cover. */
   body[data-route="person"].v21-actual-mobile-ui .v21-person-quick-actions{
     margin:-20px 14px 10px;padding:14px;border:1px solid rgba(18,63,52,.09);border-radius:24px;
     background:#fffdf8;box-shadow:0 16px 38px rgba(18,63,52,.14);position:relative;z-index:4;
@@ -101,7 +107,7 @@
   .v21-person-quick-actions .v17-person-actions .action{min-height:54px;margin:0;border-radius:16px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px}
   body[data-route="person"].v21-actual-mobile-ui .v20-person-tabs{top:calc(var(--actual-header-h) + env(safe-area-inset-top,0px))}
 
-  /* Tree is a purpose-built workspace with its own real mode bar. */
+  /* Tree is a purpose-built workspace with its own actual mode bar. */
   body[data-route="tree"].v21-actual-mobile-ui #content{padding-top:6px!important}
   .v21-tree-mode-bar{
     position:sticky;top:calc(var(--actual-header-h) + env(safe-area-inset-top,0px));z-index:72;
@@ -122,13 +128,11 @@
   #family-mobile-dock :where(.v21-more-discover,.v21-more-research) a{min-height:58px;display:flex;align-items:center;padding:0 14px;border-radius:16px;background:#e7ece7;color:var(--actual-green);text-decoration:none;font-size:13px;font-weight:800}
   #family-mobile-dock .v21-more-research>div{grid-template-columns:1fr}
 
-  /* The actual DOM order is Home / Families / Tree / People / More. */
-  #family-mobile-dock[data-actual-mobile-order="home-families-tree-people-more"]{
-    grid-template-columns:repeat(5,minmax(0,1fr))!important;
-  }
+  /* Runtime actual order is Home / Families / Tree / People / More. */
+  #family-mobile-dock[data-actual-mobile-order="home-families-tree-people-more"]{grid-template-columns:repeat(5,minmax(0,1fr))!important}
 }
 
 @media (min-width:721px){
   #mobile-app-header{display:none!important}
-  .v21-mobile-launcher,.v21-person-quick-actions,.v21-tree-mode-bar{display:none!important}
+  .v21-mobile-search,.v21-mobile-launcher,.v21-person-quick-actions,.v21-tree-mode-bar{display:none!important}
 }
