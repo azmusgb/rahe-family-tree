@@ -23,18 +23,18 @@ const retirement=json('public/css-retirement-report.json');
 
 const releaseOf=(text,pattern)=>{const m=text.match(pattern);assert.ok(m,'release fingerprint missing');return m[1];};
 
-test('v18 release fingerprints are synchronized',()=>{
+test('current release fingerprints remain synchronized across the v18 foundation',()=>{
   const versions=[
     releaseOf(entry,/APP_VERSION='(\d+\.\d+\.\d+)'/),
     releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/),
     releaseOf(shell,/data-ui-release="(\d+\.\d+\.\d+)"/),
     releaseOf(experience,/UI_RELEASE='(\d+\.\d+\.\d+)'/)
   ];
-  assert.deepEqual(new Set(versions),new Set(['18.5.0']));
-  assert.match(shell,/styles\.css\?v=18\.5\.0/);
-  assert.match(shell,/app\.bundle\.js\?v=18\.5\.0/);
-  assert.match(experience,/family\.archive\.uiReload\.v18\.5/);
-  assert.match(build,/releaseTrain:'v18-5-research-intelligence'/);
+  assert.deepEqual(new Set(versions),new Set(['19.0.0']));
+  assert.match(shell,/styles\.css\?v=19\.0\.0/);
+  assert.match(shell,/app\.bundle\.js\?v=19\.0\.0/);
+  assert.match(experience,/family\.archive\.uiReload\.v19\.0/);
+  assert.match(build,/releaseTrain:'v19-family-graph'/);
 });
 
 test('semantic design system owns stylesheet composition with zero compatibility sources',()=>{
