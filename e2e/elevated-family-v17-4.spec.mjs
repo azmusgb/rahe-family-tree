@@ -13,12 +13,12 @@ const versionAtLeast=(version,major,minor)=>{const[a,b]=String(version||'').spli
 
 test.beforeEach(async({page})=>{await mockApis(page);});
 
-test('Home adds a family continuation rail',async({page})=>{
+test('Home keeps the compact editorial discovery instead of the legacy continuation rail',async({page})=>{
   await page.goto('/#dashboard');
-  const rail=page.locator('.v174-discovery');
-  await expect(rail).toBeVisible();
-  await expect(rail.getByRole('heading',{name:'Follow another path through the family'})).toBeVisible();
-  await expect(rail.locator('[data-person]')).toHaveCount(4);
+  const home=page.locator('[data-v17-native="home"]');
+  await expect(home.locator('.home-editorial-discovery')).toBeVisible();
+  await expect(home.locator('.v174-discovery')).toHaveCount(0);
+  await expect(home.locator('.v17-featured-people .v17-home-person')).toHaveCount(3);
 });
 
 test('historical Person shows elevated summary and active navigation',async({page})=>{
@@ -45,9 +45,6 @@ test('Tree context switcher changes scope using the existing tree engine',async(
   const context=page.locator('.v174-tree-context');
   await expect(context).toBeVisible();
   await expect(context.getByRole('button',{name:'Family'})).toHaveAttribute('aria-pressed','true');
-  // The tree scope action intentionally replaces the rendered tree immediately.
-  // Invoke the native button activation directly so Playwright does not keep a
-  // pointer-actionability transaction open while that same DOM is replaced.
   await context.getByRole('button',{name:'Ancestors'}).evaluate(button=>button.click());
   await expect(page).toHaveURL(/scope=ancestors/);
   await expect(page.locator('.v174-tree-scope button.active')).toHaveText('Ancestors');

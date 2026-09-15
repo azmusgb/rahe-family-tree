@@ -103,7 +103,10 @@ function replaceUrlForTree(focus,scope,depth){const url=new URL(location.href);f
 
 function apply(){
   const root=document.querySelector('#content [data-v17-native]');if(!root)return;
-  if(routeKey()==='dashboard'){installHomeBranchIndex(root);installBalancedHomeTree(root);installBalancedFeatured(root);hydrateNativeFamily();}
+  if(routeKey()==='dashboard'){
+    if(!root.matches?.('.home-editorial-layout')){installHomeBranchIndex(root);installBalancedHomeTree(root);installBalancedFeatured(root);}
+    hydrateNativeFamily();
+  }
   if(routeKey()==='tree'){installTreeBranchNavigator(root);hydrateTreePortraits(root);}
 }
 let queued=false;function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;apply();});}

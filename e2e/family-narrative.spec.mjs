@@ -12,7 +12,7 @@ test.beforeEach(async({page})=>{
   await mockApis(page);
 });
 
-test('home is a native archive with supported family story content',async({page})=>{
+test('home is a compact native archive with one supported family story moment',async({page})=>{
   await page.goto('/#dashboard');
   const home=page.locator('[data-v17-native="home"]');
   await expect(home).toBeVisible();
@@ -20,8 +20,10 @@ test('home is a native archive with supported family story content',async({page}
   await expect(home.locator('.v17-home-tree')).toBeVisible();
   const story=home.locator('.v17-home-story');
   await expect(story).toBeVisible();
-  await expect(story.getByRole('heading',{name:'Lives remembered across generations.'})).toBeVisible();
-  await expect(story.locator('.v17-story-moment').first()).toBeVisible();
+  await expect(story.getByRole('heading',{name:'One moment from the family story.'})).toBeVisible();
+  await expect(story.locator('.v17-story-moment')).toHaveCount(1);
+  await expect(home.locator('.v17-featured-people .v17-home-person')).toHaveCount(3);
+  await expect(home.locator('.v172-home-branches,.v174-discovery')).toHaveCount(0);
   await expect(page.locator('.v157-home')).toHaveCount(0);
 });
 

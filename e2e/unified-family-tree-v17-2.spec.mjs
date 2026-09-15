@@ -19,19 +19,13 @@ async function mockApis(page,{withPortraits=false}={}){
 
 test.beforeEach(async({page})=>{await mockApis(page);});
 
-test('Home represents multiple family branches as peers',async({page})=>{
+test('Home stays compact while dedicated Tree retains branch navigation',async({page})=>{
   await page.goto('/#dashboard');
-  const branches=page.locator('.v172-home-branches');
-  await expect(branches).toBeVisible();
-  await expect(branches.getByRole('heading',{name:'One archive, many connected lines'})).toBeVisible();
-  const branchCards=branches.locator('.v172-branch-card');
-  expect(await branchCards.count()).toBeGreaterThanOrEqual(4);
-
-  const featured=page.locator('.v17-home-people-grid .v17-home-person small');
-  await expect(featured.first()).toBeVisible();
-  const labels=(await featured.allTextContents()).map(value=>value.trim()).filter(Boolean);
-  expect(new Set(labels).size,'featured people should represent multiple branches').toBeGreaterThanOrEqual(4);
-  await expect(page.getByRole('heading',{name:'Meet people across the branches'})).toBeVisible();
+  const home=page.locator('[data-v17-native="home"]');
+  await expect(home.locator('.v172-home-branches')).toHaveCount(0);
+  await expect(home.locator('.v174-discovery')).toHaveCount(0);
+  await expect(home.locator('.v17-home-tree')).toBeVisible();
+  await expect(home.locator('.v17-featured-people .v17-home-person')).toHaveCount(3);
 });
 
 test('plain Tree opens the connected family network and offers branch shortcuts',async({page})=>{
