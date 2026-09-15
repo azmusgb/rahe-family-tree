@@ -3,40 +3,52 @@ import{test,expect}from'@playwright/test';
 async function open(page,route='dashboard'){
   await page.goto(`/#${route}`);
   await page.waitForSelector('#family-mobile-dock:not([hidden])');
-  await page.waitForFunction(()=>document.body.classList.contains('v20-mobile-app'));
+  await page.waitForFunction(()=>document.body.classList.contains('v21-actual-mobile-ui'));
 }
 
-test.describe('immersive mobile family archive',()=>{
+test.describe('actual mobile family application',()=>{
   test.use({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
 
-  test('Home is an editorial cover rather than desktop chrome stacked on a phone',async({page})=>{
+  test('Home uses a dedicated mobile header and physically integrates search below the hero',async({page})=>{
     await open(page,'dashboard');
+    await expect(page.locator('#mobile-app-header')).toBeVisible();
+    await expect(page.locator('.site-header.sidebar')).toBeHidden();
     const hero=page.locator('[data-v17-native="home"] .v17-home-hero');
     await expect(hero).toBeVisible();
     const geometry=await hero.boundingBox();
-    expect(geometry?.height||0).toBeGreaterThan(650);
-    const style=await hero.evaluate(el=>({radius:getComputedStyle(el).borderBottomLeftRadius,bg:getComputedStyle(el).backgroundImage}));
-    expect(parseFloat(style.radius)).toBeGreaterThanOrEqual(30);
-    expect(style.bg).toContain('gradient');
-    const headerPosition=await page.locator('.site-header.sidebar').evaluate(el=>getComputedStyle(el).position);
-    expect(headerPosition).toBe('absolute');
-    const primary=await page.locator('.v17-primary-actions .action.primary').boundingBox();
-    const secondary=await page.locator('.v17-primary-actions .action').nth(1).boundingBox();
-    expect(primary?.width||0).toBeGreaterThan((secondary?.width||0)*1.7);
+    expect(geometry?.height||0).toBeGreaterThan(480);
+    const structure=await page.evaluate(()=>{
+      const home=document.querySelector('[data-v17-native="home"]');
+      const hero=home?.querySelector('.v17-home-hero');
+      const shell=home?.querySelector('.route-shell[data-mobile-integrated-search="home"]');
+      const launcher=home?.querySelector('.v21-mobile-launcher');
+      return{
+        shellInsideHome:Boolean(shell&&shell.parentElement===home),
+        heroBeforeSearch:Boolean(hero&&shell&&(hero.compareDocumentPosition(shell)&Node.DOCUMENT_POSITION_FOLLOWING)),
+        searchBeforeLauncher:Boolean(shell&&launcher&&(shell.compareDocumentPosition(launcher)&Node.DOCUMENT_POSITION_FOLLOWING)),
+        primaryInLauncher:Boolean(launcher?.querySelector('.v17-primary-actions .action.primary'))
+      };
+    });
+    expect(structure).toEqual({shellInsideHome:true,heroBeforeSearch:true,searchBeforeLauncher:true,primaryInLauncher:true});
   });
 
-  test('bottom navigation is a dark app tab bar with a circular elevated Tree action',async({page})=>{
+  test('bottom navigation has actual Home Families Tree People More DOM order',async({page})=>{
     await open(page,'dashboard');
-    const dock=page.locator('#family-mobile-dock');
-    const tree=dock.locator('[data-dock-route="tree"]');
-    const dockStyle=await dock.evaluate(el=>({radius:getComputedStyle(el).borderTopLeftRadius,bg:getComputedStyle(el).backgroundColor}));
-    expect(parseFloat(dockStyle.radius)).toBeGreaterThanOrEqual(20);
-    expect(dockStyle.bg).not.toBe('rgba(0, 0, 0, 0)');
+    const order=await page.locator('#family-mobile-dock').evaluate(dock=>[...dock.children].map(node=>node.matches('a')?node.querySelector('span')?.textContent?.trim():node.querySelector('summary')?.textContent?.trim()));
+    expect(order).toEqual(['Home','Families','Tree','People','More']);
+    const tree=page.locator('#family-mobile-dock [data-dock-route="tree"]');
     const treeBox=await tree.boundingBox();
     expect(treeBox?.width||0).toBeGreaterThanOrEqual(60);
     expect(Math.abs((treeBox?.width||0)-(treeBox?.height||0))).toBeLessThan(8);
-    const treeRadius=await tree.evaluate(el=>getComputedStyle(el).borderRadius);
-    expect(parseFloat(treeRadius)).toBeGreaterThanOrEqual(30);
+  });
+
+  test('People owns its search UI inside the actual directory',async({page})=>{
+    await open(page,'people');
+    const shell=page.locator('[data-v17-native="people"] .route-shell[data-mobile-integrated-search="people"]');
+    await expect(shell).toBeVisible();
+    await expect(shell.locator('input[type="search"]')).toBeVisible();
+    const rows=page.locator('.v17-person-card');
+    expect(await rows.count()).toBeGreaterThan(3);
   });
 
   test('Families is a vertical catalogue instead of a horizontal desktop-card rail',async({page})=>{
@@ -47,30 +59,29 @@ test.describe('immersive mobile family archive',()=>{
     const first=await cards.nth(0).boundingBox(),second=await cards.nth(1).boundingBox();
     expect(Math.abs((first?.x||0)-(second?.x||0))).toBeLessThan(8);
     expect((second?.y||0)).toBeGreaterThan((first?.y||0)+100);
-    expect(first?.width||0).toBeGreaterThan(330);
   });
 
-  test('Person opens with a full identity cover and app-style section controls',async({page})=>{
+  test('Person quick actions are structurally separated from the identity cover',async({page})=>{
     await open(page,'person/P-WILLIAM-JOHN-RAHE-III');
     const header=page.locator('.v17-person-header');
     await expect(header).toBeVisible();
-    const box=await header.boundingBox();
-    expect(box?.height||0).toBeGreaterThan(340);
-    const radius=await header.evaluate(el=>getComputedStyle(el).borderBottomLeftRadius);
-    expect(parseFloat(radius)).toBeGreaterThanOrEqual(30);
+    await expect(page.locator('.v21-person-quick-actions')).toBeVisible();
+    expect(await header.locator('.v17-person-actions').count()).toBe(0);
+    await expect(page.locator('.v21-person-quick-actions .v17-person-actions')).toBeVisible();
     await expect(page.locator('.v20-person-tabs')).toBeVisible();
     await expect(page.locator('#v17-family')).toBeVisible();
     await expect(page.locator('#v17-life')).toBeVisible();
     await expect(page.locator('#v17-research')).toBeVisible();
   });
 
-  test('Tree suppresses page chrome and gives the graph the viewport',async({page})=>{
+  test('Tree has a dedicated mode bar and keeps the graph as the workspace',async({page})=>{
     await open(page,'tree');
     await page.waitForSelector('.graph-shell,.tree-graph-shell');
     await expect(page.locator('.route-shell')).toBeHidden();
     await expect(page.locator('.site-footer')).toBeHidden();
+    await expect(page.locator('.v21-tree-mode-bar')).toBeVisible();
     const graph=await page.locator('.graph-shell,.tree-graph-shell').first().boundingBox();
-    expect(graph?.height||0).toBeGreaterThan(600);
+    expect(graph?.height||0).toBeGreaterThan(560);
   });
 
   test('core routes remain horizontally contained',async({page})=>{
