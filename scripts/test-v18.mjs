@@ -64,9 +64,9 @@ test('tokens.css is the single-source owner of active Family design tokens',()=>
   assert.match(tokens,/--family-font-display:"Iowan Old Style"/);
   assert.match(tokens,/--family-radius-panel:20px/);
   assert.match(tokens,/--family-shadow-card:0 1px 1px/);
-  assert.match(tokens,/--evidence-provisional:#a8762b/);
-  assert.match(tokens,/--evidence-unresolved:#963f39/);
-  assert.match(tokens,/--evidence-rejected:#77766f/);
+  assert.match(tokens,/--evidence-provisional:#805817/);
+  assert.match(tokens,/--evidence-unresolved:#873630/);
+  assert.match(tokens,/--evidence-rejected:#5f605b/);
   assert.match(tokens,/--green2:#275a4a/);
 
   const migratedSpacing={
