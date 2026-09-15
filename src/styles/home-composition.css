@@ -26,7 +26,7 @@
   pointer-events:none;
 }
 .v17-home-hero>div{max-width:780px}
-.v17-home-hero>div>p.eyebrow,.family-home-copy .eyebrow,.dashboard-hero-copy .eyebrow{color:#dcc28e}
+.v17-home-hero>div>p.eyebrow,.family-home-copy .eyebrow,.dashboard-hero-copy .eyebrow{color:#dcc28e!important}
 .v17-home-hero h1,.v17-home-hero h2,.family-home-copy h2,.dashboard-hero-copy h2{
   margin:8px 0 20px;
   color:#fffdf8;
@@ -91,8 +91,8 @@
 
 /* Explicit inverse surface: shared paragraph and action rules must not turn
  * hero copy dark. Keep the primary tree action visually distinct. */
-.v17-home-hero .v17-primary-actions .action.primary{background:#fff8e9;color:#123f34;border-color:#fff8e9}
-.v17-home-hero .v17-primary-actions .action.primary:hover{background:#fff;color:#123f34}
+.v17-home-hero .v17-primary-actions .action.primary{background:#fff8e9!important;color:#123f34!important;border-color:#fff8e9!important}
+.v17-home-hero .v17-primary-actions .action.primary:hover{background:#fff!important;color:#123f34!important}
 .v17-home-hero :focus-visible{outline:3px solid #fff8e9;outline-offset:4px}
 .home-branch-disclosure{margin-top:14px}
 .home-branch-disclosure>summary{width:fit-content;min-height:44px;display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line-strong);border-radius:var(--family-radius-control);cursor:pointer;color:var(--green);font-weight:700;list-style:none}

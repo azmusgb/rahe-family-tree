@@ -106,5 +106,6 @@ body{background:#fff}
     border:1px solid #bbb;
     box-shadow:none;
   }
-  .v17-home-hero h1,.v17-home-hero p:not(.eyebrow),.family-home-copy h2,.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy h2,.dashboard-hero-copy>p:not(.eyebrow){color:#000}
+  .v17-home-hero h1,.v17-home-hero h2,.v17-home-hero>div>p,.family-home-copy h2,.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy h2,.dashboard-hero-copy>p:not(.eyebrow){color:#000!important}
+  .v17-home-hero .v17-home-metrics :is(b,small){color:#000!important}
 }
