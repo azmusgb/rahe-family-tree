@@ -63,7 +63,8 @@ test('v16.2 presentation remains under semantic Family design-system ownership',
   assert.match(build,/compatibilityBoundary:null/);
   assert.match(build,/legacySourceCount:0/);
   assert.equal(fs.existsSync('src/styles/v16-2.css'),false);
-  assert.match(experience,/import\('\.\/mobile-family-density\.js'\);\s*void import\('\.\/family-narrative\.js'\);/);
+  assert.match(experience,/const presentationModules=\[[\s\S]*import\('\.\/mobile-family-density\.js'\),[\s\S]*import\('\.\/family-narrative\.js'\),[\s\S]*\];/);
+  assert.match(experience,/Promise\.allSettled\(presentationModules\)\.then\(\(\)=>import\('\.\/neutral-family-branding\.js'\)\)/);
   for(const token of['v162-family-journey','v162-moments','v162-family-path','v162-media-quick'])assert.match(styles,new RegExp(token));
   const semantic=['tokens.css','base.css','shell.css','navigation.css','home.css','people.css','person.css','stories.css','tree.css','media.css','explore.css','research.css','record-ingestion.css','mobile-family.css','responsive.css'];
   let previous=-1;
