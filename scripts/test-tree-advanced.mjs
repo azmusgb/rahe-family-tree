@@ -17,7 +17,8 @@ const styleRoot=read('src/styles/index.css');
 test('advanced tree remains additive behind one deterministic controller without changing the stable tree boundary',()=>{
   const imports=[...composition.matchAll(/import ['"]([^'"]+\.js)['"]/g)].map(match=>match[1]);
   assert.deepEqual(imports,['./tree-engine.js','./tree-polish.js']);
-  assert.match(experience,/void import\('\.\/tree-controller\.js'\)/);
+  assert.match(experience,/import '\.\/tree-controller\.js';/);
+  assert.doesNotMatch(experience,/void import\('\.\/tree-controller\.js'\)/);
   assert.doesNotMatch(experience,/void import\('\.\/tree-advanced\.js'\)/);
   assert.doesNotMatch(experience,/void import\('\.\/v17-6-stability\.js'\)/);
   assert.match(controller,/import '\.\/v17-6-stability\.js';\s*import '\.\/tree-advanced\.js';/);
