@@ -8,9 +8,14 @@ test('mobile Home polish is route-scoped and preserves readable composition',()=
   assert.match(index,/@import '\.\/home-mobile-polish\.css';/);
   assert.match(css,/data-experience="family"\]\[data-route="dashboard"/);
   assert.match(css,/@media\(max-width:720px\)/);
-  assert.match(css,/grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
+  assert.match(css,/\.v17-home-metrics[^}]*\{display:grid;grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
+  assert.match(css,/\.v17-home-hero>div>p:not\(\.eyebrow\)/);
+  assert.match(css,/\.v17-story-moments/);
+  assert.match(css,/\.v17-home-people-grid/);
+  assert.match(css,/\.v17-home-tree-row/);
   assert.match(css,/grid-auto-columns:minmax\(250px,84vw\)/);
   assert.match(css,/scroll-snap-type:x proximity/);
   assert.match(css,/font-size:15px;line-height:1\.5/);
-  assert.doesNotMatch(css,/display:none/);
+  const withoutScrollbarRules=css.replace(/[^{}]*::-webkit-scrollbar\{[^{}]*\}/g,'');
+  assert.doesNotMatch(withoutScrollbarRules,/display:none/);
 });
