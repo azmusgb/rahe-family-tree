@@ -1,5 +1,6 @@
 export function compactMode(state,{width=globalThis.innerWidth||1024,reducedMotion=false}={}){
-  return Boolean(state?.compact||width<=760||reducedMotion&&width<=900);
+  if(typeof state?.compact==='boolean')return state.compact;
+  return Boolean(width<=760||reducedMotion&&width<=900);
 }
 
 export function compactLabel(enabled){return enabled?'Comfort view':'Compact view';}
