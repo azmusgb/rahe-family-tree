@@ -276,7 +276,7 @@ function bindControls(){
     }
     const center=event.target.closest('[data-v21-tree-center]');
     if(center){
-      const target=document.querySelector('[data-tree-fit],button[aria-label*="Fit" i],button[title*="Fit" i]');
+      const target=document.querySelector('[data-graph="fit"],[data-tree-fit],button[aria-label*="Fit" i],button[title*="Fit" i]');
       target?.click();
     }
   },true);
