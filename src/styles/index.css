@@ -58,5 +58,8 @@
 @import './mobile-app.css';
 @import './mobile-contract-bridge.css';
 
+/* Immersive phone composition is the final mobile visual authority. */
+@import './mobile-immersive.css';
+
 /* Print is authoritative and intentionally last in the cascade. */
 @import './print.css';

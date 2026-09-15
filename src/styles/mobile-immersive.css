@@ -1,0 +1,313 @@
+/* Immersive mobile composition — makes the phone experience intentionally distinct
+ * from desktop while consuming the same canonical renderers and read-only data.
+ */
+@media (max-width:720px){
+  body.v20-mobile-app{
+    --immersive-bg:#efe9dc;
+    --immersive-paper:#fffaf0;
+    --immersive-ink:#102f28;
+    --immersive-green:#123f34;
+    --immersive-green-2:#24584a;
+    --immersive-gold:#c9ad68;
+    --immersive-line:rgba(16,47,40,.12);
+    --immersive-radius:28px;
+    background:var(--immersive-bg);
+  }
+
+  /* The phone shell is an app shell, not compressed desktop chrome. */
+  body.v20-mobile-app .site-header.sidebar{
+    height:64px;
+    min-height:64px;
+    padding:calc(7px + env(safe-area-inset-top,0px)) 16px 7px;
+    border:0;
+    background:var(--immersive-green);
+    box-shadow:none;
+  }
+  body.v20-mobile-app .site-header .brand{color:#fff}
+  body.v20-mobile-app .site-header .brand .monogram{
+    width:38px;height:38px;border:1px solid rgba(255,255,255,.28);
+    background:rgba(255,255,255,.08);color:#fff;
+  }
+  body.v20-mobile-app .site-header .brand>span:last-child{color:#fff;letter-spacing:.16em}
+  body.v20-mobile-app .site-header .brand small{color:rgba(255,255,255,.58)}
+  body.v20-mobile-app .site-header-actions button{
+    width:42px;height:42px;border-color:rgba(255,255,255,.18);
+    background:rgba(255,255,255,.08);color:#fff;box-shadow:none;
+  }
+  body.v20-mobile-app .v20-context-bar{
+    top:64px;min-height:50px;padding:5px 12px;border:0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    background:var(--immersive-green);color:#fff;
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+  }
+  body.v20-mobile-app .v20-context-bar strong,
+  body.v20-mobile-app .v20-context-bar>a,
+  body.v20-mobile-app .v20-context-bar>button{color:#fff}
+  body.v20-mobile-app .v20-context-bar>a,
+  body.v20-mobile-app .v20-context-bar>button{background:rgba(255,255,255,.08)}
+
+  /* Home opens like an editorial cover instead of the prior green dashboard. */
+  body[data-route="dashboard"].v20-mobile-app .site-header.sidebar{
+    position:absolute;top:0;left:0;right:0;z-index:95;
+    background:transparent;border:0;
+  }
+  body[data-route="dashboard"].v20-mobile-app .site-header .brand,
+  body[data-route="dashboard"].v20-mobile-app .site-header .brand>span:last-child,
+  body[data-route="dashboard"].v20-mobile-app .site-header .brand small{color:var(--immersive-green)}
+  body[data-route="dashboard"].v20-mobile-app .site-header .brand .monogram{
+    border-color:rgba(18,63,52,.16);background:rgba(255,250,240,.76);color:var(--immersive-green);
+    -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  }
+  body[data-route="dashboard"].v20-mobile-app .site-header-actions button{
+    border-color:rgba(18,63,52,.15);background:rgba(255,250,240,.78);color:var(--immersive-green);
+    -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  }
+  body[data-route="dashboard"].v20-mobile-app [data-v17-native="home"]>.v17-home-hero{
+    position:relative;isolation:isolate;min-height:min(760px,88svh);
+    display:flex;align-items:flex-end;margin:0;padding:132px 20px 42px;
+    overflow:hidden;border-radius:0 0 38px 38px;
+    background:
+      radial-gradient(circle at 79% 22%,rgba(201,173,104,.30) 0 8%,transparent 8.5%),
+      radial-gradient(circle at 83% 29%,rgba(18,63,52,.10) 0 16%,transparent 16.5%),
+      linear-gradient(148deg,#fffaf0 0%,#f0e8d8 68%,#e5dac4 100%);
+    color:var(--immersive-ink);
+    box-shadow:0 22px 55px rgba(16,47,40,.12);
+  }
+  body[data-route="dashboard"].v20-mobile-app .v17-home-hero::before{
+    content:'ARCHIVE';position:absolute;right:-9px;top:92px;z-index:-1;
+    font-family:var(--family-font-display);font-size:clamp(88px,29vw,132px);font-weight:700;
+    letter-spacing:-.08em;color:rgba(18,63,52,.055);writing-mode:vertical-rl;transform:rotate(180deg);
+  }
+  body[data-route="dashboard"].v20-mobile-app .v17-home-hero::after{
+    content:'';position:absolute;z-index:-1;width:220px;height:220px;right:-86px;bottom:120px;
+    border:1px solid rgba(18,63,52,.13);border-radius:50%;
+    box-shadow:-42px 35px 0 -41px var(--immersive-green),-84px 70px 0 -83px var(--immersive-gold);
+  }
+  body[data-route="dashboard"].v20-mobile-app .v17-home-hero .eyebrow{color:#8d7235;font-size:10px;letter-spacing:.19em}
+  body[data-route="dashboard"].v20-mobile-app .v17-home-hero h2,
+  body[data-route="dashboard"].v20-mobile-app .v17-home-hero h1{
+    max-width:8.2ch;margin:10px 0 18px;color:var(--immersive-green);
+    font-size:clamp(54px,16vw,76px);line-height:.86;letter-spacing:-.06em;
+  }
+  body[data-route="dashboard"].v20-mobile-app .v17-home-hero>div>p:not(.eyebrow){max-width:31ch;color:#52645d;font-size:16px;line-height:1.58}
+  body[data-route="dashboard"].v20-mobile-app .v17-primary-actions{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px;
+  }
+  body[data-route="dashboard"].v20-mobile-app .v17-primary-actions .action{
+    min-height:58px;border:1px solid var(--immersive-line);border-radius:18px;
+    background:rgba(255,250,240,.72);color:var(--immersive-green);font-size:12px;font-weight:800;
+    box-shadow:none;
+  }
+  body[data-route="dashboard"].v20-mobile-app .v17-primary-actions .action.primary{
+    grid-column:1/-1;min-height:68px;justify-content:space-between;padding:0 20px;
+    background:var(--immersive-green);border-color:var(--immersive-green);color:#fff;font-size:14px;
+  }
+  body[data-route="dashboard"].v20-mobile-app .v17-primary-actions .action.primary::after{content:'→';font-size:24px;font-weight:350}
+  body[data-route="dashboard"].v20-mobile-app .v17-home-metrics{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:28px;padding:18px 0 0;border-top:1px solid var(--immersive-line);
+  }
+  body[data-route="dashboard"].v20-mobile-app .v17-home-metrics span{border-color:var(--immersive-line)!important}
+  body[data-route="dashboard"].v20-mobile-app .v17-home-metrics b{color:var(--immersive-green);font-size:29px}
+  body[data-route="dashboard"].v20-mobile-app .v17-home-metrics small{color:#728079}
+
+  /* Resume and recents read as a concierge layer attached to the cover. */
+  body[data-route="dashboard"].v20-mobile-app .v20-continue-card{
+    margin:-22px 14px 8px;padding:18px 17px;border:0;border-radius:24px;
+    background:var(--immersive-green);color:#fff;box-shadow:0 18px 40px rgba(16,47,40,.24);
+  }
+  body[data-route="dashboard"].v20-mobile-app .v20-continue-card :where(h2,p,span){color:inherit}
+  body[data-route="dashboard"].v20-mobile-app .v20-continue-card>div>span{color:#d7c690}
+  body[data-route="dashboard"].v20-mobile-app .v20-continue-card>a{
+    min-width:76px;justify-content:center;background:#fff7e7;color:var(--immersive-green);
+  }
+  body[data-route="dashboard"].v20-mobile-app .v20-recent-rail{padding:24px 0 30px;background:transparent}
+  body[data-route="dashboard"].v20-mobile-app .v20-recent-scroller{grid-auto-columns:minmax(164px,45vw);gap:12px}
+  body[data-route="dashboard"].v20-mobile-app .v20-recent-person{
+    min-height:160px;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;
+    border:0;border-radius:26px;background:#dfe7df;box-shadow:none;
+  }
+  body[data-route="dashboard"].v20-mobile-app .v20-recent-person:nth-child(even){background:#e9dfca}
+  body[data-route="dashboard"].v20-mobile-app .v20-recent-person>span{width:52px;height:52px;margin-bottom:auto;background:var(--immersive-green);color:#fff}
+
+  /* Home chapters alternate like a magazine rather than a stack of dashboard cards. */
+  body[data-route="dashboard"].v20-mobile-app #content :where(.v17-home-tree,.v17-home-story,.v17-featured-people,.v17-home-media,.v17-research-door){
+    margin:0!important;padding:46px 16px!important;border:0!important;border-radius:0!important;
+  }
+  body[data-route="dashboard"].v20-mobile-app #content :where(.v17-home-tree,.v17-home-media){background:#f9f4e9!important}
+  body[data-route="dashboard"].v20-mobile-app #content :where(.v17-home-story,.v17-featured-people){background:var(--immersive-bg)!important}
+  body[data-route="dashboard"].v20-mobile-app .v17-section-head h2{font-size:40px;line-height:.92;letter-spacing:-.045em}
+  body[data-route="dashboard"].v20-mobile-app .v17-home-tree-canvas{
+    margin:20px -4px 0;padding:24px 12px;border:0;border-radius:28px;background:#fff;box-shadow:0 12px 36px rgba(16,47,40,.08);
+  }
+  body[data-route="dashboard"].v20-mobile-app .v17-story-moments{grid-auto-columns:86vw;gap:14px}
+  body[data-route="dashboard"].v20-mobile-app .v17-story-moment{min-height:330px;border:0;border-radius:30px;box-shadow:0 15px 38px rgba(16,47,40,.10)}
+  body[data-route="dashboard"].v20-mobile-app .v17-home-people-grid{grid-auto-columns:78vw;gap:14px}
+  body[data-route="dashboard"].v20-mobile-app .v17-home-person{min-height:250px;border:0;border-radius:30px;background:#fff;box-shadow:0 13px 34px rgba(16,47,40,.08)}
+  body[data-route="dashboard"].v20-mobile-app .v17-research-door{padding:54px 18px 64px!important;background:var(--immersive-green)!important;color:#fff!important}
+
+  /* Browse/search becomes a compact app command surface while preserving controller-owned hidden state. */
+  body.v20-mobile-app:not([data-route="dashboard"]):not([data-route="tree"]) .route-shell{
+    top:114px;padding:12px 12px 10px;border:0;background:rgba(239,233,220,.96);
+    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  }
+  body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .page-heading{display:none!important}
+  body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .filters:not([hidden]){display:block!important}
+  body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .filters[hidden]{display:none!important}
+  body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .filters .search{display:block!important}
+  body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .filters .search input{
+    height:54px;border:0;border-radius:18px;background:#fff;color:var(--immersive-ink);
+    box-shadow:0 8px 24px rgba(16,47,40,.08);font-size:16px;
+  }
+  body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .filters>label:not(.search),
+  body.v20-mobile-app:not([data-route="dashboard"]) .route-shell .filters>button{display:none!important}
+
+  /* People resembles a people-finder app while retaining four useful rows in a normal viewport. */
+  body[data-route="people"].v20-mobile-app #content{padding:0 0 34px!important;background:var(--immersive-bg)}
+  body[data-route="people"].v20-mobile-app .v17-page-intro{
+    margin:0;padding:26px 16px 18px;background:var(--immersive-green);color:#fff;
+  }
+  body[data-route="people"].v20-mobile-app .v17-page-intro :where(h1,h2,p,.eyebrow){color:inherit}
+  body[data-route="people"].v20-mobile-app .v17-page-intro h2{font-size:42px;line-height:.9;letter-spacing:-.05em}
+  body[data-route="people"].v20-mobile-app .v17-branch-browser{padding:10px 14px 8px;background:transparent}
+  body[data-route="people"].v20-mobile-app .v17-branch-chip{border:0;background:#fff;color:var(--immersive-green);box-shadow:0 5px 14px rgba(16,47,40,.06)}
+  body[data-route="people"].v20-mobile-app .v17-people-grid{
+    margin:4px 12px 0;border:0;border-radius:28px;background:#fff;box-shadow:0 18px 45px rgba(16,47,40,.09);
+  }
+  body[data-route="people"].v20-mobile-app .v17-person-card>button{min-height:74px;padding:8px 14px;grid-template-columns:46px minmax(0,1fr) 22px}
+  body[data-route="people"].v20-mobile-app .v17-person-card .v17-avatar{width:44px;height:44px;border:0;background:#dfe7df}
+  body[data-route="people"].v20-mobile-app .v17-person-card-copy b{font-size:16px}
+  body[data-route="people"].v20-mobile-app .v17-person-card>button::after{content:'›';font-size:28px;color:#8a9891}
+
+  /* Families is now a vertical visual catalogue, not a narrow horizontal strip. */
+  body[data-route="families"].v20-mobile-app #content{background:var(--immersive-bg)}
+  body[data-route="families"].v20-mobile-app .v175-families-hero{
+    min-height:310px;display:flex;align-items:flex-end;padding:42px 18px 32px;
+    background:linear-gradient(145deg,#0f332a,#24584a 72%,#6f826d);border-radius:0 0 36px 36px;
+  }
+  body[data-route="families"].v20-mobile-app .v175-families-hero h1{font-size:58px;line-height:.84;letter-spacing:-.06em}
+  body[data-route="families"].v20-mobile-app .v175-family-grid{
+    display:grid;grid-auto-flow:row;grid-template-columns:1fr;gap:14px;overflow:visible;padding:24px 14px 42px;
+  }
+  body[data-route="families"].v20-mobile-app .v175-family-card{
+    min-height:280px;padding:24px;border:0;border-radius:30px;background:#fff;box-shadow:0 14px 38px rgba(16,47,40,.09);
+  }
+  body[data-route="families"].v20-mobile-app .v175-family-card:nth-child(3n+1){background:#e2e9e2}
+  body[data-route="families"].v20-mobile-app .v175-family-card:nth-child(3n+2){background:#eadfc8}
+  body[data-route="families"].v20-mobile-app .v175-family-card h2{font-size:48px}
+
+  /* Person becomes an immersive profile with a distinct identity cover. */
+  body[data-route="person"].v20-mobile-app #content{padding:0 0 36px!important;background:var(--immersive-bg)}
+  body[data-route="person"].v20-mobile-app .v17-person-header{
+    min-height:390px;margin:0;padding:42px 18px 32px;border:0;border-radius:0 0 38px 38px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    background:linear-gradient(155deg,#0d3028 0%,#17483a 62%,#3d6a59 100%);color:#fff;box-shadow:none;
+  }
+  body[data-route="person"].v20-mobile-app .v17-person-header :where(h1,h2,p,.eyebrow,.v17-person-dates,.v17-person-context){color:inherit}
+  body[data-route="person"].v20-mobile-app .v17-person-header h2{max-width:9ch;font-size:52px;line-height:.88;letter-spacing:-.055em}
+  body[data-route="person"].v20-mobile-app .v174-profile-snapshot{
+    margin:-24px 14px 18px;padding:16px;border:0;border-radius:26px;background:#fff;box-shadow:0 18px 42px rgba(16,47,40,.14);
+  }
+  body[data-route="person"].v20-mobile-app .v20-person-story,
+  body[data-route="person"].v20-mobile-app :where(#v17-family,#v17-life,#v17-photos,#v17-research){
+    margin:14px;padding:24px 18px;border:0;border-radius:28px;background:#fff;box-shadow:0 9px 28px rgba(16,47,40,.07);
+  }
+  body[data-route="person"].v20-mobile-app .v20-person-story{background:#eadfc8}
+  body[data-route="person"].v20-mobile-app .v20-person-tabs{
+    top:114px;gap:5px;margin:0;padding:8px 12px;border:0;background:rgba(239,233,220,.96);
+    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  }
+  body[data-route="person"].v20-mobile-app .v20-person-tabs button{
+    min-height:42px;padding:0 12px;border:0;border-radius:999px;background:transparent;color:#5f6d66;font-size:11px;
+  }
+  body[data-route="person"].v20-mobile-app .v20-person-tabs button[aria-pressed="true"]{background:var(--immersive-green);color:#fff}
+  body[data-route="person"].v20-mobile-app .v17-person-nav{margin:0 14px 12px;border-radius:20px;background:#fff}
+
+  /* Branch pages read as self-contained family dossiers. */
+  body[data-route="branch"].v20-mobile-app .v175-branch-hero{
+    min-height:330px;display:flex;flex-direction:column;justify-content:flex-end;padding:42px 18px 32px;
+    background:linear-gradient(150deg,#0f332a,#2c5d4e);border-radius:0 0 36px 36px;
+  }
+  body[data-route="branch"].v20-mobile-app .v175-branch-hero h1{font-size:58px;line-height:.84;letter-spacing:-.06em}
+  body[data-route="branch"].v20-mobile-app .v175-branch-section{margin:14px!important;padding:26px 18px!important;border-radius:28px!important;background:#fff!important;box-shadow:0 9px 28px rgba(16,47,40,.07)}
+  body[data-route="branch"].v20-mobile-app .v175-branch-section:nth-of-type(even){background:#e8e1d2!important}
+
+  /* Tree becomes a true canvas mode without sticky controls intercepting graph interactions. */
+  body[data-route="tree"].v20-mobile-app{background:#dfe4dc;padding-bottom:calc(86px + env(safe-area-inset-bottom,0px))}
+  body[data-route="tree"].v20-mobile-app .site-header.sidebar{height:54px;min-height:54px;padding-top:calc(4px + env(safe-area-inset-top,0px))}
+  body[data-route="tree"].v20-mobile-app .v20-context-bar{top:54px;min-height:44px}
+  body[data-route="tree"].v20-mobile-app .route-shell{display:none!important}
+  body[data-route="tree"].v20-mobile-app #content{padding:0 6px calc(104px + env(safe-area-inset-bottom,0px))!important;background:#dfe4dc}
+  body[data-route="tree"].v20-mobile-app .v174-tree-context{
+    position:relative;top:auto;z-index:2;margin:6px 4px;padding:10px 12px;border:0;border-radius:18px;
+    background:rgba(255,250,240,.94);box-shadow:0 8px 24px rgba(16,47,40,.10);
+    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  }
+  body[data-route="tree"].v20-mobile-app .family-graph-tools{scroll-margin-top:110px;scroll-margin-bottom:112px}
+  body[data-route="tree"].v20-mobile-app .graph-shell,
+  body[data-route="tree"].v20-mobile-app .tree-graph-shell{
+    min-height:calc(100svh - 178px)!important;margin:0;border:0!important;border-radius:24px!important;
+    background:#f9f6ed!important;box-shadow:inset 0 0 0 1px rgba(16,47,40,.08);
+  }
+  body[data-route="tree"].v20-mobile-app .site-footer{display:none!important}
+
+  /* Secondary destinations share one premium app language. */
+  body.v20-mobile-app:is([data-route="media"],[data-route="stories"],[data-route="timeline"],[data-route="migration"],[data-route="research"],[data-route="evidence"],[data-route="sources"],[data-route="intelligence"]) #content{
+    padding:0 12px 36px!important;background:var(--immersive-bg);
+  }
+  body.v20-mobile-app:is([data-route="media"],[data-route="stories"],[data-route="timeline"],[data-route="migration"],[data-route="research"],[data-route="evidence"],[data-route="sources"],[data-route="intelligence"]) #content>section,
+  body.v20-mobile-app:is([data-route="media"],[data-route="stories"],[data-route="timeline"],[data-route="migration"],[data-route="research"],[data-route="evidence"],[data-route="sources"],[data-route="intelligence"]) #content>div{
+    border-radius:26px;
+  }
+
+  /* The dock is a dark application tab bar; explicit important values supersede the prior responsive contract. */
+  body.v20-mobile-app #family-mobile-dock:not([hidden]){
+    left:0!important;right:0!important;bottom:0!important;min-height:78px!important;
+    padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))!important;
+    border:0!important;border-radius:24px 24px 0 0!important;background:rgba(13,48,40,.97)!important;
+    box-shadow:0 -14px 38px rgba(8,32,26,.20)!important;
+    -webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);
+  }
+  body.v20-mobile-app #family-mobile-dock>a,
+  body.v20-mobile-app #family-mobile-dock>details>summary{min-height:54px;color:rgba(255,255,255,.66);border-radius:16px}
+  body.v20-mobile-app #family-mobile-dock>a[aria-current="page"],
+  body.v20-mobile-app #family-mobile-dock>a.active{background:rgba(255,255,255,.10);color:#fff}
+  body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"]{
+    width:66px!important;height:66px!important;min-width:66px!important;min-height:66px!important;max-width:66px!important;max-height:66px!important;
+    padding:0!important;box-sizing:border-box;place-self:start center;display:flex;align-items:center;justify-content:center;flex-direction:column;
+    margin:-28px auto 0!important;border:6px solid var(--immersive-bg)!important;border-radius:50%!important;
+    background:#f4e6bd!important;color:var(--immersive-green)!important;box-shadow:0 14px 28px rgba(0,0,0,.24)!important;
+  }
+  body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"]::before{color:var(--immersive-green)}
+  body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"] span{font-weight:900}
+  body.v20-mobile-app #family-mobile-dock .mobile-more>div,
+  body.v20-mobile-app #family-mobile-dock .v158-mobile-more>div{
+    left:0!important;right:0!important;bottom:0!important;max-height:82svh!important;
+    padding:18px 14px calc(96px + env(safe-area-inset-bottom,0px))!important;
+    border-radius:32px 32px 0 0!important;background:var(--immersive-paper)!important;
+    box-shadow:0 -24px 70px rgba(8,32,26,.34)!important;
+  }
+  body.v20-mobile-app #family-mobile-dock .mobile-more-head{
+    grid-column:1/-1;margin:-2px -2px 8px;padding:8px 4px 16px;border-bottom:1px solid var(--immersive-line);
+  }
+  body.v20-mobile-app #family-mobile-dock .mobile-more-head strong{font-family:var(--family-font-display);font-size:30px;color:var(--immersive-green)}
+  body.v20-mobile-app #family-mobile-dock :where(.mobile-more,.v158-mobile-more)>div>a,
+  body.v20-mobile-app #family-mobile-dock :where(.mobile-more,.v158-mobile-more)>div>button{
+    min-height:64px;border:0;border-radius:18px;background:#e6ebe5;color:var(--immersive-green);font-size:13px;font-weight:800;
+  }
+  body.v20-mobile-app #family-mobile-dock :where(.mobile-more,.v158-mobile-more)>div [data-dock-search]{background:var(--immersive-green);color:#fff}
+
+  /* Website footer is redundant in an app-shell experience. */
+  body.v20-mobile-app:not([data-route="dashboard"]) .site-footer{display:none!important}
+  body[data-route="dashboard"].v20-mobile-app .site-footer{margin:0;padding:42px 18px calc(118px + env(safe-area-inset-bottom,0px));border-radius:0;background:#0d3028}
+
+  /* Large phones get more editorial air without becoming tablet UI. */
+  @media (min-width:430px){
+    body[data-route="dashboard"].v20-mobile-app [data-v17-native="home"]>.v17-home-hero{padding-left:26px;padding-right:26px}
+    body[data-route="families"].v20-mobile-app .v175-family-grid{grid-template-columns:1fr 1fr}
+    body[data-route="families"].v20-mobile-app .v175-family-card{min-height:310px}
+  }
+}
+
+@media (max-width:720px) and (prefers-reduced-motion:reduce){
+  body.v20-mobile-app *{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}
+}

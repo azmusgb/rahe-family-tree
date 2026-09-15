@@ -17,7 +17,7 @@ test.describe('mobile v20 app experience',()=>{
       css:document.querySelector('link[rel="stylesheet"]')?.getAttribute('href')||'',
       js:document.querySelector('script[type="module"]')?.getAttribute('src')||''
     }));
-    expect(assets.css).toBe('styles.css?v=20.0.0');
+    expect(assets.css).toBe('styles.css?v=20.0.0&surface=immersive');
     expect(assets.js).toBe('app.bundle.js?v=20.0.0');
     const buildInfo=await page.evaluate(async()=>fetch('/build-info.json').then(response=>response.json()));
     expect(buildInfo.appVersion).toBe('20.0.0');
