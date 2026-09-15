@@ -7,8 +7,11 @@ import '../../v15-family-focus.js';
 import '../../platform-v13-runtime.js';
 import './page-architecture.js';
 import './navigation-shell.js';
-import './ui-resilience.js';
 import './native-family-v17-controller.js';
+
+// UI resilience is additive and intentionally does not participate in the
+// stable route-controller initialization sequence above.
+void import('./ui-resilience.js');
 
 // Workbench, Stories, Tree/mobile density, site naming, unified family,
 // biography-first person presentation, media-specific narrative, branch
