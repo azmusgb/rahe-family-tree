@@ -1,22 +1,17 @@
-// Stable experience boundary. Historical implementation modules remain behind
-// the runtime boundary, while Family Home / People / Person now use the native
-// v17 archive controller instead of post-render v15.7–v15.10 reshaping.
+// Stable experience boundary. Current semantic controllers own shell navigation
+// and native Family routes; historical implementations remain behind explicit
+// boundaries only where they still provide behavior that has not been retired.
 import './experience-core.js';
-import '../../v15-1-runtime.js';
 import '../../v15-family-focus.js';
 import '../../platform-v13-runtime.js';
 import './page-architecture.js';
 import './navigation-shell.js';
 import './native-family-v17-controller.js';
 
-// UI resilience is additive and intentionally does not participate in the
-// stable route-controller initialization sequence above.
+// UI resilience and route-specific presentation enhancers are additive. With
+// esbuild splitting enabled these dynamic imports become lazy browser chunks
+// instead of inflating the stable application entry bundle.
 void import('./ui-resilience.js');
-
-// Workbench, Stories, Tree/mobile density, site naming, unified family,
-// biography-first person presentation, media-specific narrative, branch
-// destinations, and the current premium family-facing elevation layer remain
-// additive capabilities after the stable Family route controller.
 void import('./tree-controller.js');
 void import('./site-branding.js');
 void import('./record-ingestion.js');
@@ -29,8 +24,4 @@ void import('./unified-family-experience.js');
 void import('./family-branches-v17-5.js');
 void import('./person-experience-v17-3.js');
 void import('./experience-elevation-v17-4.js');
-
-// Final UI-only shell naming layer. This intentionally runs after legacy and
-// current presentation enhancers so neutral archive labels cannot be replaced
-// by surname-specific shell branding. Genealogy content is not rewritten.
 void import('./neutral-family-branding.js');
