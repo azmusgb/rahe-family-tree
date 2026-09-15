@@ -10,11 +10,16 @@ async function mockApis(page){
 
 test.beforeEach(async({page})=>{await mockApis(page);});
 
-test('Home begins with the hero and has no inline search bar above it',async({page})=>{
+test('Home begins with the hero and has no inline search bar above it',async({page},testInfo)=>{
   await page.goto('/#dashboard');
   await expect(page.locator('.v17-home-hero')).toBeVisible();
   await expect(page.locator('#filters')).toBeHidden();
-  await expect(page.locator('.site-header')).toBeVisible();
+  if(testInfo.project.name==='mobile-chromium'){
+    await expect(page.locator('#mobile-app-header')).toBeVisible();
+    await expect(page.locator('.site-header.sidebar')).toBeHidden();
+  }else{
+    await expect(page.locator('.site-header')).toBeVisible();
+  }
   await expect(page.locator('.site-footer')).toBeVisible();
 });
 
@@ -75,7 +80,7 @@ test('mobile navigation promotes Families and global Search leaves Home clean',a
   await page.goto('/#dashboard');
   const dock=page.locator('#family-mobile-dock');
   await expect(dock.getByRole('link',{name:'Families'})).toBeVisible();
-  await page.locator('.site-header [data-global-search]').click();
+  await page.locator('#mobile-app-header [data-global-search]').click();
   await expect(page).toHaveURL(/#people$/);
-  await expect(page.locator('#search')).toBeFocused();
+  await expect(page.locator('[data-v17-native="people"] .v21-mobile-search input')).toBeFocused();
 });
