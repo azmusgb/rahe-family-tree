@@ -1,8 +1,37 @@
 /* Cross-module interaction contracts.
  *
- * This semantic layer is intentionally last. It owns presentation contracts
- * shared by multiple route modules where source-order is part of behavior.
+ * This semantic layer is intentionally late in the cascade. It owns presentation
+ * contracts shared by multiple route modules where source-order is part of behavior.
  */
+
+/* Hidden is a state, not a suggestion. No route/layout module may visually revive
+ * an element that the DOM explicitly marks hidden. */
+[hidden]{display:none!important}
+
+/* Keyboard focus is a global product contract. Keep the focus ring visible across
+ * links, buttons, native details, form controls, and programmatic focus targets. */
+:where(a,button,summary,input,select,textarea,[tabindex]):focus-visible{
+  outline:3px solid color-mix(in srgb,var(--green,#123f34) 74%,#fff);
+  outline-offset:3px;
+}
+.skip{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip:focus-visible{
+  left:12px;top:12px;width:auto;height:auto;overflow:visible;z-index:2147483647;
+  padding:10px 14px;border-radius:10px;background:#fff;color:#173f35;
+  box-shadow:0 8px 30px rgba(0,0,0,.18)
+}
+
+/* details/summary is used as a progressive-enhancement popover primitive. */
+summary{cursor:pointer;list-style:none;touch-action:manipulation}
+summary::-webkit-details-marker{display:none}
+summary::marker{content:''}
+:where(.nav-menu,.site-tools,.mobile-more)>summary{min-height:44px}
+:where(.nav-popover,.site-tools>div,.mobile-more>div){isolation:isolate}
+
+/* Keep controls within their grid/flex tracks and prevent long search placeholders
+ * or select options from forcing horizontal overflow. */
+.filters>*{min-width:0}
+.filters :where(input,select){width:100%;min-width:0}
 
 /* Native hidden state must win over layout modules that assign display:grid to
  * the route filter form. Route-specific exceptions can opt back in below. */
@@ -26,10 +55,21 @@
   .relationship-row small,.relationship-row .deep-link{grid-column:2/-1}
 }
 
+@media(max-width:800px){
+  .filters{grid-template-columns:1fr!important}
+}
+
 @media(max-width:720px){
   .relationship-row{grid-template-columns:1fr;gap:6px}
   .relationship-row>b{display:none}
   .relationship-row small,.relationship-row .deep-link{grid-column:auto}
+
+  /* The fixed mobile dock owns the bottom safe-area. Give routed content enough
+   * breathing room even if an older route module forgets to add its own offset. */
+  body.v21-actual-mobile-ui{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+  body.v21-actual-mobile-ui[data-route="tree"]{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+  #family-mobile-dock{padding-bottom:max(8px,env(safe-area-inset-bottom,0px))}
+  #family-mobile-dock :where(a,summary,button){touch-action:manipulation}
 }
 
 /* Media browsing intentionally keeps the contextual archive search visible.
