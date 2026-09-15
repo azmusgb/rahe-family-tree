@@ -13,6 +13,8 @@ const navigation=fs.readFileSync('src/runtime/navigation-shell.js','utf8');
 const neutralBranding=fs.readFileSync('src/runtime/neutral-family-branding.js','utf8');
 const navModel=fs.readFileSync('src/runtime/navigation-model.js','utf8');
 const elevation=fs.readFileSync('src/runtime/experience-elevation-v17-4.js','utf8');
+const editorialHome=fs.readFileSync('src/runtime/native-home-editorial.js','utf8');
+const editorialHomeCss=fs.readFileSync('src/styles/home-editorial-layout.css','utf8');
 const cssRoot=fs.readFileSync('src/styles/index.css','utf8');
 const shellCss=fs.readFileSync('src/styles/archive-shell.css','utf8');
 const branchCss=fs.readFileSync('src/styles/branches.css','utf8');
@@ -43,6 +45,19 @@ test('Home no longer puts the search/filter bar above the hero',()=>{
   assert.match(navigation,/filters\.hidden=hideFamilyFilters/);
   assert.match(navigation,/data-global-search/);
   assert.match(neutralBranding,/routeShell\.hidden!==home/);
+});
+
+test('Home is intentionally short: hero, family connection preview, and compact discovery',()=>{
+  assert.doesNotMatch(editorialHome,/home-editorial-index/);
+  assert.match(editorialHome,/href="#media"\]\'\)\?\.remove/);
+  assert.match(editorialHome,/keepFirst\(story,'\.v17-story-moment',1\)/);
+  assert.match(editorialHome,/keepFirst\(people,'\.v17-home-person',3\)/);
+  assert.match(editorialHome,/\.v17-place-strip'\)\?\.remove/);
+  assert.match(editorialHome,/\[data-v17-home-gallery\]'\)\?\.remove/);
+  assert.match(editorialHome,/home-editorial-discovery/);
+  assert.match(editorialHome,/Sources &amp; evidence are available in the Research Center/);
+  assert.match(editorialHomeCss,/\.home-editorial-discovery\{display:grid;grid-template-columns:/);
+  assert.match(editorialHomeCss,/\.home-editorial-research-link/);
 });
 
 test('family header navigation and footer use neutral archive branding',()=>{
