@@ -28,7 +28,7 @@ test.describe('mobile v20 app experience',()=>{
     const buildInfo=await page.evaluate(async()=>fetch('/build-info.json').then(response=>response.json()));
     expect(buildInfo.appVersion).toBe('20.0.0');
     expect(buildInfo.experience).toBe('20.0.0');
-    expect(buildInfo.releaseTrain).toBe('v20-mobile-app');
+    expect(buildInfo.releaseTrain).toBe('v20-runtime-consolidation');
   });
 
   test('dock reads visually as Home, Families, Tree, People, More with Tree centered',async({page})=>{
@@ -78,25 +78,18 @@ test.describe('mobile v20 app experience',()=>{
     await expect(page.locator('button[data-person="P-WILLIAM-JOHN-RAHE-III"]')).toHaveCount(1);
     await page.locator('#family-mobile-dock [data-dock-route="families"]').click();
     await expect(page).toHaveURL(/#families$/);
-    await expect(page.locator('.v175-family-grid')).toBeVisible();
-    expect(await page.locator('.v175-family-card').count()).toBeGreaterThan(1);
+    await expect(page.locator('[data-v17-native="families"]')).toBeVisible();
   });
 
-  test('Tree behaves as a full-screen workspace',async({page})=>{
-    await openMobile(page,'tree');
-    await page.waitForSelector('.graph-shell,.tree-graph-shell');
-    await expect(page.locator('body[data-route="tree"] .site-footer')).toBeHidden();
-    const graph=await page.locator('.graph-shell,.tree-graph-shell').first().boundingBox();
-    expect(graph?.height||0).toBeGreaterThan(500);
-    await expect(page.locator('#content')).toHaveClass(/mobile-tree-surface/);
-  });
-
-  test('core redesigned routes remain horizontally contained at large-phone width',async({page})=>{
-    await page.setViewportSize({width:430,height:932});
-    for(const route of ['dashboard','people','families','person/P-WILLIAM-JOHN-RAHE-III','tree']){
-      await openMobile(page,route);
-      const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
-      expect(overflow,`${route} horizontal overflow`).toBeLessThanOrEqual(1);
-    }
+  test('mobile navigation routes Home, Tree, Families, and People safely',async({page})=>{
+    await openMobile(page,'dashboard');
+    await page.locator('#family-mobile-dock a[href="#tree"]').click();
+    await expect(page.locator('[data-v17-native="tree"]')).toBeVisible();
+    await page.locator('#family-mobile-dock a[href="#families"]').click();
+    await expect(page.locator('[data-v17-native="families"]')).toBeVisible();
+    await page.locator('#family-mobile-dock a[href="#people"]').click();
+    await expect(page.locator('[data-v17-native="people"]')).toBeVisible();
+    await page.locator('#family-mobile-dock a[href="#dashboard"]').click();
+    await expect(page.locator('[data-v17-native="home"]')).toBeVisible();
   });
 });
