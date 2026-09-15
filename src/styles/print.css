@@ -2,8 +2,8 @@
 @media print{
   @page{margin:12mm}
   html,body{background:#fff!important;color:#000!important}
-  body{font-size:10.5pt}
-  .site-header,.sidebar,.topbar,#family-mobile-dock,.filters,#filters,.local-nav,.graph-toolbar,.page-actions,.skip,.site-footer,.footer,.tree-advanced-nav,.tree-focus-breadcrumb,.tree-recent-trail,.tree-recent-history,.tree-context-nav,.tree-mobile-hint,.v129-tree-memory,.v1291-mobile-hint{display:none!important}
+  body{font-size:10.5pt;padding-bottom:0!important}
+  #mobile-app-header,.mobile-app-header,.site-header,.sidebar,.topbar,#family-mobile-dock,.filters,#filters,.local-nav,.graph-toolbar,.page-actions,.skip,.site-footer,.footer,.tree-advanced-nav,.tree-focus-breadcrumb,.tree-recent-trail,.tree-recent-history,.tree-context-nav,.tree-mobile-hint,.v129-tree-memory,.v1291-mobile-hint{display:none!important}
   .shell,.workspace,.main,.route-shell{display:block!important;width:auto!important;min-width:0!important;max-width:none!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;background:#fff!important}
   a{color:inherit!important;text-decoration:none!important}
   .graph-shell,.graph-scroll{overflow:visible!important;border:0!important;box-shadow:none!important;background:#fff!important}
