@@ -178,32 +178,54 @@ function enhanceHome(){
   home.querySelector('.v17-research-door')?.setAttribute('data-mobile-chapter','research');
 }
 
-function showPersonTab(root,target){
+function activatePersonSection(root,target,{scroll=false}={}){
   root.dataset.v20ActiveTab=target;
-  const panels=[...root.querySelectorAll('[data-v20-person-panel]')];
-  panels.forEach(panel=>panel.hidden=panel.dataset.v20PersonPanel!==target);
-  root.querySelectorAll('.v20-person-tabs button').forEach(button=>{const active=button.dataset.personTab===target;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;});
+  root.querySelectorAll('[data-v20-person-panel]').forEach(panel=>{panel.hidden=false;});
+  root.querySelectorAll('.v20-person-tabs button').forEach(button=>{
+    const active=button.dataset.personTab===target;
+    button.setAttribute('aria-pressed',String(active));
+    button.tabIndex=active?0:-1;
+  });
+  if(!scroll)return;
+  const panel=root.querySelector(`[data-v20-person-panel="${target}"]`);
+  if(panel)panel.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
 }
 function enhancePerson(){
   const root=document.querySelector('[data-v17-native="person"]');if(!root)return;
-  if(!isMobile()){
-    root.querySelectorAll('[data-v20-person-panel]').forEach(panel=>panel.hidden=false);
-    return;
-  }
+  root.querySelectorAll('[data-v20-person-panel]').forEach(panel=>{panel.hidden=false;});
+  if(!isMobile())return;
   const header=root.querySelector('.v17-person-header'),family=root.querySelector('#v17-family'),life=root.querySelector('#v17-life'),photos=root.querySelector('#v17-photos'),research=root.querySelector('#v17-research');
   if(!header||!family||!life||!photos||!research)return;
   let story=root.querySelector('.v20-person-story');
   if(!story){
-    story=document.createElement('section');story.className='v20-person-story';story.dataset.v20PersonPanel='story';
+    story=document.createElement('section');story.className='v20-person-story';story.dataset.v20PersonPanel='story';story.setAttribute('aria-label','Profile story');
     const name=safeText(header.querySelector('h2')?.textContent),dates=safeText(header.querySelector('.v17-person-dates')?.textContent),context=safeText(header.querySelector('.v17-person-context')?.textContent);
     story.innerHTML=`<span>PROFILE</span><h2>${escapeHtml(name)}</h2>${dates?`<p class="v20-story-dates">${escapeHtml(dates)}</p>`:''}${context?`<p>${escapeHtml(context)}</p>`:''}<p>This profile brings together family relationships, chronology, photographs, and source-controlled evidence from the archive.</p>`;
     header.insertAdjacentElement('afterend',story);
   }
-  family.dataset.v20PersonPanel='family';life.dataset.v20PersonPanel='timeline';photos.dataset.v20PersonPanel='photos';research.dataset.v20PersonPanel='evidence';
+  family.dataset.v20PersonPanel='family';family.setAttribute('aria-label','Family');
+  life.dataset.v20PersonPanel='timeline';life.setAttribute('aria-label','Timeline');
+  photos.dataset.v20PersonPanel='photos';photos.setAttribute('aria-label','Photos');
+  research.dataset.v20PersonPanel='evidence';research.setAttribute('aria-label','Evidence');
+  [story,family,life,photos,research].forEach(panel=>{panel.hidden=false;});
   let tabs=root.querySelector('.v20-person-tabs');
-  if(!tabs){tabs=document.createElement('div');tabs.className='v20-person-tabs';tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Person profile sections');tabs.innerHTML=['story:Story','family:Family','timeline:Timeline','photos:Photos','evidence:Evidence'].map((entry,index)=>{const[target,label]=entry.split(':');return`<button type="button" role="tab" data-person-tab="${target}" aria-selected="${index===0?'true':'false'}" tabindex="${index===0?'0':'-1'}">${label}</button>`;}).join('');story.insertAdjacentElement('beforebegin',tabs);}
-  if(!root.dataset.v20Tabs){root.dataset.v20Tabs='true';tabs.addEventListener('click',event=>{const button=event.target.closest('[data-person-tab]');if(button)showPersonTab(root,button.dataset.personTab);});tabs.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight'].includes(event.key))return;const buttons=[...tabs.querySelectorAll('button')],index=buttons.indexOf(document.activeElement),next=(index+(event.key==='ArrowRight'?1:-1)+buttons.length)%buttons.length;event.preventDefault();buttons[next].focus();showPersonTab(root,buttons[next].dataset.personTab);});}
-  root.querySelector('.v17-person-nav')?.setAttribute('aria-hidden','true');showPersonTab(root,root.dataset.v20ActiveTab||'story');
+  if(!tabs){
+    tabs=document.createElement('nav');tabs.className='v20-person-tabs';tabs.setAttribute('aria-label','Person profile sections');
+    tabs.innerHTML=['story:Story','family:Family','timeline:Timeline','photos:Photos','evidence:Evidence'].map((entry,index)=>{const[target,label]=entry.split(':');return`<button type="button" data-person-tab="${target}" aria-pressed="${index===0?'true':'false'}" tabindex="${index===0?'0':'-1'}">${label}</button>`;}).join('');
+    story.insertAdjacentElement('beforebegin',tabs);
+  }
+  if(!root.dataset.v20Tabs){
+    root.dataset.v20Tabs='true';
+    tabs.addEventListener('click',event=>{const button=event.target.closest('[data-person-tab]');if(button)activatePersonSection(root,button.dataset.personTab,{scroll:true});});
+    tabs.addEventListener('keydown',event=>{
+      if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+      const buttons=[...tabs.querySelectorAll('button')];let next=buttons.indexOf(document.activeElement);
+      if(event.key==='Home')next=0;else if(event.key==='End')next=buttons.length-1;else next=(next+(event.key==='ArrowRight'?1:-1)+buttons.length)%buttons.length;
+      event.preventDefault();buttons[next].focus();activatePersonSection(root,buttons[next].dataset.personTab,{scroll:true});
+    });
+  }
+  root.querySelector('.v17-person-nav')?.setAttribute('aria-hidden','true');
+  activatePersonSection(root,root.dataset.v20ActiveTab||'story',{scroll:false});
 }
 
 function enhancePeople(){
