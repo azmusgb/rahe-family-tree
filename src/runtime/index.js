@@ -9,4 +9,3 @@ import './tree.js';
 import './search.js';
 import './media-page.js';
 import './experience.js';
-import './navigation-tap-reliability.js';
