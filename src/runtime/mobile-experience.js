@@ -87,11 +87,19 @@ function enhanceMoreMenu(){
 }
 
 function enhanceMoreRecents(panel){
-  panel.querySelector('.v20-more-recent')?.remove();
-  const recent=readState().recentPeople.slice(0,4);if(!recent.length)return;
+  const recent=readState().recentPeople.slice(0,4);
+  const existing=panel.querySelector('.v20-more-recent');
+  const signature=recent.map(person=>`${person.id}:${person.name}:${person.branch||''}`).join('|');
+  if(!recent.length){
+    existing?.remove();
+    delete panel.dataset.v20RecentSignature;
+    return;
+  }
+  if(existing&&panel.dataset.v20RecentSignature===signature)return;
   const block=document.createElement('section');block.className='v20-more-recent';block.setAttribute('aria-label','Recently viewed people');
   block.innerHTML=`<span>Recently viewed</span><div>${recent.map(person=>`<a href="#person/${encodeURIComponent(person.id)}"><b>${escapeHtml(person.name)}</b><small>${escapeHtml(person.branch||'Family')}</small></a>`).join('')}</div>`;
-  panel.append(block);
+  if(existing)existing.replaceWith(block);else panel.append(block);
+  panel.dataset.v20RecentSignature=signature;
 }
 
 function focusableIn(element){
@@ -157,15 +165,21 @@ function injectRecentRail(root,where='afterbegin'){
   const recent=readState().recentPeople;if(!recent.length)return;
   const section=document.createElement('section');section.className='v20-recent-rail';section.setAttribute('aria-label','Recently viewed family members');
   section.innerHTML=`<div class="v20-section-title"><div><span>Continue exploring</span><h2>Recently viewed</h2></div><a href="#people">All people</a></div><div class="v20-recent-scroller">${recent.slice(0,6).map(recentPersonCard).join('')}</div>`;
-  if(where==='afterhero'){const hero=root.querySelector('.v17-home-hero');hero?.insertAdjacentElement('afterend',section);}else root.insertAdjacentElement(where,section);
+  if(where==='afterhero'){
+    const anchor=root.querySelector('.v20-continue-card')||root.querySelector('.v17-home-hero');
+    anchor?.insertAdjacentElement('afterend',section);
+  }else root.insertAdjacentElement(where,section);
 }
 function injectContinueCard(){
   const home=document.querySelector('[data-v17-native="home"]');if(!home)return;
   home.querySelector('.v20-continue-card')?.remove();
   const state=readState(),person=state.recentPeople[0],tree=state.lastTree;if(!person&&!tree)return;
+  const personTime=Number(person?.savedAt||0),treeTime=Number(tree?.savedAt||0),useTree=Boolean(tree&&(!person||treeTime>personTime));
+  const href=useTree?tree.href:`#person/${encodeURIComponent(person.id)}`;
+  const title=useTree?'Your family tree':person.name;
+  const detail=useTree?'Return to your previous tree view':[person.branch,person.dates].filter(Boolean).join(' · ');
   const card=document.createElement('section');card.className='v20-continue-card';card.setAttribute('aria-label','Continue family exploration');
-  const href=tree?.href||`#person/${encodeURIComponent(person.id)}`;
-  card.innerHTML=`<div><span>CONTINUE EXPLORING</span><h2>${escapeHtml(person?.name||'Your family tree')}</h2><p>${escapeHtml(person?[person.branch,person.dates].filter(Boolean).join(' · '):'Return to your previous tree view')}</p></div><a href="${href}">Resume <span aria-hidden="true">→</span></a>`;
+  card.innerHTML=`<div><span>CONTINUE EXPLORING</span><h2>${escapeHtml(title)}</h2><p>${escapeHtml(detail)}</p></div><a href="${href}">Resume <span aria-hidden="true">→</span></a>`;
   home.querySelector('.v17-home-hero')?.insertAdjacentElement('afterend',card);
 }
 function enhanceHome(){
@@ -190,10 +204,21 @@ function activatePersonSection(root,target,{scroll=false}={}){
   const panel=root.querySelector(`[data-v20-person-panel="${target}"]`);
   if(panel)panel.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
 }
+function cleanupPersonMobile(root){
+  root.querySelector('.v17-person-nav')?.removeAttribute('aria-hidden');
+  root.querySelector('.v20-person-tabs')?.remove();
+  root.querySelector('.v20-person-story')?.remove();
+  root.querySelectorAll('[data-v20-person-panel]').forEach(panel=>{
+    panel.hidden=false;
+    delete panel.dataset.v20PersonPanel;
+  });
+  delete root.dataset.v20Tabs;
+  delete root.dataset.v20ActiveTab;
+}
 function enhancePerson(){
   const root=document.querySelector('[data-v17-native="person"]');if(!root)return;
   root.querySelectorAll('[data-v20-person-panel]').forEach(panel=>{panel.hidden=false;});
-  if(!isMobile())return;
+  if(!isMobile()){cleanupPersonMobile(root);return;}
   const header=root.querySelector('.v17-person-header'),family=root.querySelector('#v17-family'),life=root.querySelector('#v17-life'),photos=root.querySelector('#v17-photos'),research=root.querySelector('#v17-research');
   if(!header||!family||!life||!photos||!research)return;
   let story=root.querySelector('.v20-person-story');
