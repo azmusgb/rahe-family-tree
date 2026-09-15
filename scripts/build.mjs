@@ -1,4 +1,4 @@
-import {mkdir,copyFile,rm,writeFile,readFile} from 'node:fs/promises';
+import {mkdir,copyFile,rm,writeFile,readFile,readdir,stat} from 'node:fs/promises';
 import {execFile} from 'node:child_process';
 import {promisify} from'node:util';
 
@@ -25,8 +25,12 @@ async function esbuild(args){
   if(stderr?.trim())console.error(stderr.trim());
 }
 
+// Keep one stable browser entry filename, but allow the existing dynamic imports
+// behind the experience boundary to become real browser chunks. Previously
+// `--outfile` forced every dynamically imported enhancer into app.bundle.js.
 await esbuild([
-  'app-entry.js','--bundle','--format=esm','--platform=browser','--target=es2022','--minify','--legal-comments=none','--outfile=dist/app.bundle.js'
+  'app-entry.js','--bundle','--splitting','--format=esm','--platform=browser','--target=es2022','--minify','--legal-comments=none',
+  '--outdir=dist','--entry-names=app.bundle','--chunk-names=chunks/[name]-[hash]'
 ]);
 
 await esbuild([
@@ -39,6 +43,18 @@ completeness.failed=Array.isArray(completeness.failed)
   ? completeness.failed
   : (completeness.checks||[]).filter(check=>check.pass!==true).map(check=>check.id);
 await writeFile('dist/canonical-completeness.json',JSON.stringify(completeness,null,2));
+
+async function listBrowserJs(dir='dist'){
+  const out=[];
+  for(const name of await readdir(dir)){
+    const path=`${dir}/${name}`;
+    const info=await stat(path);
+    if(info.isDirectory())out.push(...await listBrowserJs(path));
+    else if(path.endsWith('.js'))out.push(path.replace(/^dist\//,''));
+  }
+  return out.sort();
+}
+const jsAssets=await listBrowserJs();
 
 const model=JSON.parse(await readFile('public/research-model.json','utf8'));
 const genealogySchemaVersion='13.0';
@@ -53,9 +69,10 @@ const buildInfo={
   sourceSha256:model.meta.sourceSha256,
   builtAt:new Date().toISOString(),
   experience:appVersion,
-  releaseTrain:'v20-mobile-app',
+  releaseTrain:'v20-runtime-consolidation',
   bundler:`esbuild@${ESBUILD_VERSION}`,
-  browserAssets:['app.bundle.js','styles.css'],
+  browserAssets:[...jsAssets,'styles.css'],
+  bundleStrategy:{entry:'app.bundle.js',splitting:true,chunkDirectory:'chunks'},
   styleSystem:{
     root:'src/styles/index.css',
     compatibilityBoundary:null,
@@ -63,4 +80,4 @@ const buildInfo={
   }
 };
 await writeFile('dist/build-info.json',JSON.stringify(buildInfo,null,2));
-console.log(`Built Family History Archive v${appVersion} as one JS bundle + one CSS bundle on research model ${buildInfo.release} / platform ${buildInfo.platform||'n/a'} · ${buildInfo.gitSha}.`);
+console.log(`Built Family History Archive v${appVersion} as one stable JS entry + ${Math.max(0,jsAssets.length-1)} lazy chunk(s) + one CSS bundle on research model ${buildInfo.release} / platform ${buildInfo.platform||'n/a'} · ${buildInfo.gitSha}.`);
