@@ -25,7 +25,8 @@ test('v18.5 Research Intelligence remains wired under the current synchronized r
   assert.match(shell,/styles\.css\?v=20\.0\.0/);
   assert.match(shell,/app\.bundle\.js\?v=20\.0\.0/);
   assert.match(build,/const appVersion='20\.0\.0'/);
-  assert.match(build,/releaseTrain:'v20-mobile-app'/);
+  assert.match(build,/releaseTrain:'v20-runtime-consolidation'/);
+  assert.match(build,/bundleStrategy:\{entry:'app\.bundle\.js',splitting:true,chunkDirectory:'chunks'\}/);
 });
 
 test('research automation remains deterministic advisory output with no canonical mutation',()=>{
