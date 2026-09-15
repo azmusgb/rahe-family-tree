@@ -12,14 +12,17 @@ async function clickDockRoute(dock,name){
   await dock.getByRole('link',{name}).click({noWaitAfter:true});
 }
 
-test('mobile dock is simplified to Home Tree Families People and More',async({page},testInfo)=>{
+test('mobile app navigation owns Home Families Tree People and More',async({page},testInfo)=>{
   test.skip(testInfo.project.name!=='mobile-chromium','mobile navigation contract');
   await page.goto('/#dashboard');
   await expect(page.locator('.v17-home-hero')).toBeVisible();
-  await expect(page.locator('.site-header')).toBeVisible();
-  await expect(page.locator('.site-header #nav')).toBeHidden();
+  await expect(page.locator('#mobile-app-header')).toBeVisible();
+  await expect(page.locator('.site-header.sidebar')).toBeHidden();
   const dock=page.locator('#family-mobile-dock');
   await expect(dock).toBeVisible();
+  const order=await dock.evaluate(node=>[...node.children].map(child=>child.matches('a')?child.querySelector('span')?.textContent?.trim():child.querySelector('summary')?.textContent?.trim()));
+  expect(order).toEqual(['Home','Families','Tree','People','More']);
+
   await clickDockRoute(dock,'Tree');
   await expect(page).toHaveURL(/#tree$/);
   await expect(page.locator('[data-v17-native="tree"]')).toBeVisible();
@@ -35,6 +38,6 @@ test('mobile dock is simplified to Home Tree Families People and More',async({pa
   await expect(page.locator('[data-media-page]')).toBeVisible();
   await dock.locator('.v158-mobile-more>summary').click();
   await dock.getByRole('button',{name:'Search'}).click();
-  await expect(page).toHaveURL(/#media$/);
-  await expect(page.locator('#search')).toBeFocused();
+  await expect(page).toHaveURL(/#people$/);
+  await expect(page.locator('[data-v17-native="people"] .v21-mobile-search input')).toBeFocused();
 });

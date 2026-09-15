@@ -58,8 +58,16 @@
 @import './mobile-app.css';
 @import './mobile-contract-bridge.css';
 
-/* Immersive phone composition is the final mobile visual authority. */
+/* Immersive phone composition is retained as visual foundation. */
 @import './mobile-immersive.css';
+
+/* The actual mobile UI owns the dedicated phone header, structural search placement,
+ * app launcher, person actions, tree mode bar, and real dock order. */
+@import './mobile-actual-ui.css';
+
+/* Directory density intentionally follows the actual phone composition so its
+ * touch-safe compact rows are authoritative over older card sizing rules. */
+@import './mobile-directory.css';
 
 /* Print is authoritative and intentionally last in the cascade. */
 @import './print.css';
