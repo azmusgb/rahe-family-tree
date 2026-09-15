@@ -34,7 +34,8 @@ test('current release fingerprints remain synchronized across the v18 foundation
   assert.match(shell,/styles\.css\?v=20\.0\.0/);
   assert.match(shell,/app\.bundle\.js\?v=20\.0\.0/);
   assert.match(experience,/family\.archive\.uiReload\.v20\.0/);
-  assert.match(build,/releaseTrain:'v20-mobile-app'/);
+  assert.match(build,/releaseTrain:'v20-runtime-consolidation'/);
+  assert.match(build,/bundleStrategy:\{entry:'app\.bundle\.js',splitting:true,chunkDirectory:'chunks'\}/);
 });
 
 test('semantic design system owns stylesheet composition with zero compatibility sources',()=>{
