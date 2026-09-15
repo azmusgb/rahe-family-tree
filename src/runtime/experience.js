@@ -24,6 +24,7 @@ const presentationModules=[
   import('./record-ingestion.js'),
   import('./stories-runtime.js'),
   import('./mobile-family-density.js'),
+  import('./mobile-home-polish.js'),
   import('./family-narrative.js'),
   import('./unified-family-experience.js'),
   import('./family-branches-v17-5.js'),
