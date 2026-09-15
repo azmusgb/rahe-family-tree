@@ -43,11 +43,11 @@ test('Families is a first-class navigation destination with branch pages',async(
   await expect(page.locator('.v175-branch-actions')).toBeVisible();
 });
 
-test('Home branch cards open real branch destinations',async({page})=>{
+test('Home delegates branch browsing to the Families destination',async({page},testInfo)=>{
+  test.skip(testInfo.project.name!=='desktop-chromium','desktop Home navigation contract');
   await page.goto('/#dashboard');
-  const card=page.locator('.v172-branch-card').first();
-  await expect(card).toBeVisible();
-  await expect(card).toHaveAttribute('href',/#branch\//);
+  await expect(page.locator('.v172-home-branches,.v172-branch-card')).toHaveCount(0);
+  await expect(page.locator('#nav').getByRole('link',{name:'Families',exact:true})).toBeVisible();
 });
 
 test('plain Tree entry reflects the engine effective connected scope',async({page})=>{
