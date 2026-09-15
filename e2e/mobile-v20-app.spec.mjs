@@ -41,6 +41,31 @@ test.describe('mobile v20 app experience',()=>{
     expect(Math.abs((tree.x+tree.width/2)-(dock.x+dock.width/2))).toBeLessThan(16);
   });
 
+  test('Home keeps hero, search, and dock in a bounded phone composition',async({page})=>{
+    await openMobile(page,'dashboard');
+    await expect(page.locator('.v17-home-hero h2')).toHaveText('Our family, connected.');
+    const hero=await page.locator('[data-v17-native="home"] > .v17-home-hero').boundingBox();
+    const search=await page.locator('.v21-mobile-search[data-v21-mobile-search="home"]').boundingBox();
+    const launcher=await page.locator('.v21-mobile-launcher').boundingBox();
+    const dock=await page.locator('#family-mobile-dock').boundingBox();
+    const tree=await page.locator('#family-mobile-dock > [data-dock-route="tree"]').boundingBox();
+    for(const box of[hero,search,launcher,dock,tree])expect(box).not.toBeNull();
+    expect(hero.height,'Home hero should not consume the phone viewport').toBeLessThan(560);
+    expect(search.y,'Search belongs below the hero').toBeGreaterThanOrEqual(hero.y+hero.height-1);
+    expect(launcher.y,'Launcher belongs below search').toBeGreaterThan(search.y);
+    expect(dock.height,'Bottom navigation should stay compact').toBeLessThanOrEqual(78);
+    expect(tree.height,'Tree should be emphasized without becoming a medallion').toBeLessThanOrEqual(62);
+  });
+
+  test('Home story foregrounds editorial source-backed prose rather than research-state syntax',async({page})=>{
+    await openMobile(page,'dashboard');
+    await expect(page.locator('.v17-home-story .v17-section-head h2')).toHaveText('One moment from the family story.');
+    const first=page.locator('.v17-story-moment').first();
+    await expect(first).toBeVisible();
+    const text=await first.innerText();
+    expect(text).not.toMatch(/\[birth detail withheld\]|\bSUPPORTED\b|\|/i);
+  });
+
   test('Home restores a Continue Exploring card below the hero',async({page})=>{
     await openMobile(page,'dashboard');
     await page.evaluate(({key})=>localStorage.setItem(key,JSON.stringify({recentPeople:[{id:'P-WILLIAM-JOHN-RAHE-III',name:'William John Rahe III',branch:'Rahe',dates:'Family member'}],recentFamilies:[],lastTree:{focus:'P-WILLIAM-JOHN-RAHE-III',scope:'family',depth:'3',href:'/?focus=P-WILLIAM-JOHN-RAHE-III&scope=family&depth=3#tree'},lastRoute:'person'})),{key:stateKey});

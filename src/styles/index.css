@@ -65,6 +65,10 @@
  * app launcher, person actions, tree mode bar, and real dock order. */
 @import './mobile-actual-ui.css';
 
+/* Home-specific mobile stability follows all broad mobile systems so viewport
+ * chrome, hero, chapter density, and dock proportions are deterministic. */
+@import './mobile-home-stability.css';
+
 /* Directory density intentionally follows the actual phone composition so its
  * touch-safe compact rows are authoritative over older card sizing rules. */
 @import './mobile-directory.css';
