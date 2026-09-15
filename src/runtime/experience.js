@@ -2,7 +2,6 @@
 // the runtime boundary, while Family Home / People / Person now use the native
 // v17 archive controller instead of post-render v15.7–v15.10 reshaping.
 import './experience-core.js';
-import '../../v15-1-runtime.js';
 import '../../v15-family-focus.js';
 import '../../platform-v13-runtime.js';
 import './page-architecture.js';

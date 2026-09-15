@@ -5,14 +5,14 @@ import fs from'node:fs';
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
-const runtime=fs.readFileSync('v15-1-runtime.js','utf8');
+const navShell=fs.readFileSync('src/runtime/navigation-shell.js','utf8');
 const css=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const releaseOf=(text,pattern)=>{const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];};
 
-test('v15.1 rearranges the route overview and filters into one layout deck',()=>{
+test('v15.1 route overview and filter layout remain under semantic CSS ownership',()=>{
   assert.match(index,/class="route-shell"/);
   assert.match(index,/class="page-heading"/);
   assert.match(index,/id="filters"/);
@@ -20,53 +20,30 @@ test('v15.1 rearranges the route overview and filters into one layout deck',()=>
   assert.match(css,/grid-template-columns:minmax\(260px,\.72fr\) minmax\(560px,1\.28fr\)/);
 });
 
-test('v15.1 promotes family navigation into a horizontal primary bar with disclosure menus',()=>{
-  assert.match(runtime,/v151-primary-nav/);
-  assert.match(runtime,/v151-nav-menu/);
-  assert.match(runtime,/\['dashboard','Home'\]/);
-  assert.match(runtime,/\['media','Media'\]/);
-  assert.match(runtime,/\['timeline','Timeline'\]/);
+test('semantic navigation replaces the retired v15.1 navigation writer',()=>{
+  assert.doesNotMatch(experience,/v15-1-runtime\.js/);
+  assert.match(navShell,/v151-primary-nav/);
+  assert.match(navShell,/v151-nav-menu/);
+  assert.match(navShell,/navigationOwner='shell'/);
   assert.match(css,/\.primary-nav/);
   assert.match(css,/\.nav-menu/);
   assert.match(css,/\.nav-popover/);
   assert.match(css,/body\[data-nav-context="family"\] \.site-header\.sidebar/);
 });
 
-test('v15.1 groups featured people and branches into its historical family discovery canvas',()=>{
-  assert.match(runtime,/dashboard-family-layout/);
-  assert.match(runtime,/dashboard-featured-title/);
-  assert.match(runtime,/dashboard-branches-title/);
-  assert.match(css,/\.dashboard-family-layout\{/);
-});
-
-test('v15.1 historical person relayout remains available beneath native v17 Family ownership',()=>{
-  assert.match(runtime,/relayoutPerson/);
-  assert.match(runtime,/back\.insertAdjacentElement\('afterend',overview\)/);
-  assert.match(runtime,/person-source-summary/);
-  assert.match(css,/person-source-summary/);
-  assert.match(css,/family-overview-card/);
-});
-
-test('v15.1 remains responsive and retains the mobile dock breakpoint',()=>{
-  assert.match(css,/@media \(max-width:720px\)/);
-  assert.match(css,/\.sidebar\{display:none\}/);
-  assert.match(index,/id="family-mobile-dock"/);
-});
-
-test('v15.1 behavior remains carried by the current semantic bundled release',()=>{
+test('retiring the v15.1 writer does not change the browser bundle strategy',()=>{
   const shellVersion=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/),buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);assert.equal(shellVersion,buildVersion);const escaped=shellVersion.replaceAll('.','\\.');
   assert.match(index,new RegExp(`styles\\.css\\?v=${escaped}`));
   assert.match(index,new RegExp(`app\\.bundle\\.js\\?v=${escaped}`));
   assert.match(entry,/src\/runtime\/index\.js/);
-  assert.match(experience,/\.\.\/\.\.\/v15-1-runtime\.js/);
-  assert.match(build,/app-entry\.js/);
+  assert.match(build,/outfile=dist\/app\.bundle\.js/);
+  assert.match(build,/browserAssets:\['app\.bundle\.js','styles\.css'\]/);
   assert.doesNotMatch(styleRoot,/legacy-compat\.generated\.css/);
   assert.match(build,/const legacyStyleSources=\[\]/);
   assert.equal(fs.existsSync('v15-1.css'),false);
-  assert.match(build,/shell\.replace\(/);
 });
 
-test('v15.1 relayout cannot alter canonical genealogy semantics',()=>{
+test('retired v15.1 production writer cannot alter canonical genealogy semantics',()=>{
   assert.equal(model.meta.release,'13.0');
   const bridge=(model.relationships||[]).find(r=>r.type==='identity-bridge');
   assert.ok(bridge);
