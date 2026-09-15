@@ -21,7 +21,7 @@ test('v20 keeps the route overview and filter deck without the v15.1 runtime wri
 });
 
 test('semantic navigation owns the production desktop and mobile shell',()=>{
-  assert.match(navShell,/data\.navigationOwner='shell'/);
+  assert.match(navShell,/nav\.dataset\.navigationOwner='shell'/);
   assert.match(navShell,/primary-nav/);
   assert.match(navShell,/nav-menus/);
   assert.match(navShell,/family-mobile-dock/);
@@ -43,9 +43,11 @@ test('v20 browser entry remains stable while the build enables lazy chunks',()=>
   assert.match(index,new RegExp(`app\\.bundle\\.js\\?v=${escaped}`));
   assert.match(entry,/src\/runtime\/index\.js/);
   assert.match(build,/--splitting/);
+  assert.match(build,/--outdir=dist/);
   assert.match(build,/--entry-names=app\.bundle/);
   assert.match(build,/--chunk-names=chunks\/\[name\]-\[hash\]/);
-  assert.match(build,/bundleStrategy:/);
+  assert.match(build,/browserAssets:\[\.\.\.jsAssets,'styles\.css'\]/);
+  assert.match(build,/bundleStrategy:\{entry:'app\.bundle\.js',splitting:true,chunkDirectory:'chunks'\}/);
 });
 
 test('runtime consolidation cannot alter canonical genealogy semantics',()=>{
