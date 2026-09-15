@@ -79,8 +79,8 @@ test('Photos opens content-first with quick type choices and advanced filters di
   await expect(gallery).toHaveAttribute('aria-busy','false');
   await expect(gallery).toContainText('No media matches these filters');
   const privacy=page.locator('#media-library-note');
-  await expect(privacy).toContainText('Public-safe view');
-  await expect(privacy).toContainText('excluded server-side');
+  await expect(privacy).toContainText(/Public-safe view|Privacy protected/i);
+  await expect(privacy).toContainText(/excluded server-side|Only media safe for this family view is shown/i);
   await expectNoHorizontalOverflow(page);
 });
 

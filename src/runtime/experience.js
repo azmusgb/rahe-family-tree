@@ -8,28 +8,31 @@ import './page-architecture.js';
 import './navigation-shell.js';
 import './native-family-v17-controller.js';
 
-// UI resilience is additive and intentionally does not participate in the
-// stable route-controller initialization sequence above.
-void import('./ui-resilience.js');
+// Interaction-critical controllers stay in the initial entry chunk. Route,
+// Tree, mobile dock, and history correctness must never depend on a later
+// network fetch completing before the user's first interaction.
+import './tree-controller.js';
+import './mobile-experience.js';
+import './mobile-ui-shell.js';
 
-// Workbench, Stories, Tree/mobile density, site naming, unified family,
-// biography-first person presentation, media-specific narrative, branch
-// destinations, and the current premium family-facing elevation layer remain
-// additive capabilities after the stable Family route controller.
-void import('./tree-controller.js');
-void import('./site-branding.js');
-void import('./record-ingestion.js');
-void import('./stories-runtime.js');
-void import('./mobile-family-density.js');
-void import('./family-narrative.js');
-void import('./mobile-experience.js');
-void import('./mobile-ui-shell.js');
-void import('./unified-family-experience.js');
-void import('./family-branches-v17-5.js');
-void import('./person-experience-v17-3.js');
-void import('./experience-elevation-v17-4.js');
+// Presentation-only capabilities are safe split points. They remain additive
+// and do not own routing, history, the persistent navigation shell, or canonical
+// genealogy state.
+const presentationModules=[
+  import('./ui-resilience.js'),
+  import('./site-branding.js'),
+  import('./record-ingestion.js'),
+  import('./stories-runtime.js'),
+  import('./mobile-family-density.js'),
+  import('./family-narrative.js'),
+  import('./unified-family-experience.js'),
+  import('./family-branches-v17-5.js'),
+  import('./person-experience-v17-3.js'),
+  import('./experience-elevation-v17-4.js')
+];
 
-// Final UI-only shell naming layer. This intentionally runs after legacy and
-// current presentation enhancers so neutral archive labels cannot be replaced
-// by surname-specific shell branding. Genealogy content is not rewritten.
-void import('./neutral-family-branding.js');
+// Final UI-only shell naming layer. Register it only after every presentation
+// chunk has settled so surname-specific branding cannot win a cold-load race.
+// allSettled preserves the final naming layer even if a noncritical enhancer
+// fails to load. Genealogy content is not rewritten.
+void Promise.allSettled(presentationModules).then(()=>import('./neutral-family-branding.js'));

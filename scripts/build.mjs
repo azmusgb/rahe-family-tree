@@ -1,4 +1,4 @@
-import {mkdir,copyFile,rm,writeFile,readFile} from 'node:fs/promises';
+import {mkdir,copyFile,rm,writeFile,readFile,readdir} from 'node:fs/promises';
 import {execFile} from 'node:child_process';
 import {promisify} from'node:util';
 
@@ -26,7 +26,7 @@ async function esbuild(args){
 }
 
 await esbuild([
-  'app-entry.js','--bundle','--format=esm','--platform=browser','--target=es2022','--minify','--legal-comments=none','--outfile=dist/app.bundle.js'
+  'app-entry.js','--bundle','--splitting','--format=esm','--platform=browser','--target=es2022','--minify','--legal-comments=none','--outdir=dist','--entry-names=app.bundle','--chunk-names=chunks/[name]-[hash]'
 ]);
 
 await esbuild([
@@ -43,6 +43,8 @@ await writeFile('dist/canonical-completeness.json',JSON.stringify(completeness,n
 const model=JSON.parse(await readFile('public/research-model.json','utf8'));
 const genealogySchemaVersion='13.0';
 const canonicalSourceVersion='10.0';
+const emitted=await readdir('dist',{recursive:true});
+const jsAssets=emitted.filter(file=>file.endsWith('.js')).map(file=>file.replaceAll('\\','/')).sort((a,b)=>a==='app.bundle.js'?-1:b==='app.bundle.js'?1:a.localeCompare(b));
 const buildInfo={
   appVersion,
   genealogySchemaVersion,
@@ -55,7 +57,13 @@ const buildInfo={
   experience:appVersion,
   releaseTrain:'v20-mobile-app',
   bundler:`esbuild@${ESBUILD_VERSION}`,
-  browserAssets:['app.bundle.js','styles.css'],
+  browserAssets:[...jsAssets,'styles.css'],
+  bundleStrategy:{
+    entry:'app.bundle.js',
+    splitting:true,
+    chunkDirectory:'chunks',
+    criticalRuntime:['tree-controller','mobile-experience','mobile-ui-shell']
+  },
   styleSystem:{
     root:'src/styles/index.css',
     compatibilityBoundary:null,
@@ -63,4 +71,4 @@ const buildInfo={
   }
 };
 await writeFile('dist/build-info.json',JSON.stringify(buildInfo,null,2));
-console.log(`Built Family History Archive v${appVersion} as one JS bundle + one CSS bundle on research model ${buildInfo.release} / platform ${buildInfo.platform||'n/a'} · ${buildInfo.gitSha}.`);
+console.log(`Built Family History Archive v${appVersion} as one stable JS entry + ${Math.max(0,jsAssets.length-1)} split chunk(s) + one CSS bundle on research model ${buildInfo.release} / platform ${buildInfo.platform||'n/a'} · ${buildInfo.gitSha}.`);
