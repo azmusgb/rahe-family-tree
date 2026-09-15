@@ -7,7 +7,6 @@ import '../../v15-family-focus.js';
 import '../../platform-v13-runtime.js';
 import './page-architecture.js';
 import './navigation-shell.js';
-import './navigation-tap-reliability.js';
 import './native-family-v17-controller.js';
 
 // Workbench, Stories, Tree/mobile density, site naming, unified family,
