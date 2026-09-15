@@ -147,23 +147,34 @@
   body[data-route="dashboard"].v21-actual-mobile-ui .v17-research-door{background:var(--actual-forest)!important;color:#fff!important}
   body[data-route="dashboard"].v21-actual-mobile-ui .v17-research-door :where(h2,p,.eyebrow,a){color:inherit!important}
 
-  /* People is a utility/browser destination, not another promotional green landing page. */
+  /* People is a compact utility/browser destination. Keep 44px targets while exposing more rows. */
   body[data-route="people"].v21-actual-mobile-ui #content{background:var(--actual-canvas)!important}
   body[data-route="people"].v21-actual-mobile-ui .v17-page-intro{
-    padding:30px 18px 22px;border-radius:0 0 32px 32px;background:var(--actual-canvas)!important;color:var(--actual-ink)!important;
+    padding:18px 16px 12px;border-radius:0 0 24px 24px;background:var(--actual-canvas)!important;color:var(--actual-ink)!important;
     border-bottom:1px solid var(--actual-line);
   }
   body[data-route="people"].v21-actual-mobile-ui .v17-page-intro :where(h1,h2){color:var(--actual-forest)!important}
+  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro h2{font-size:34px!important;line-height:.95!important;margin-bottom:6px!important}
   body[data-route="people"].v21-actual-mobile-ui .v17-page-intro :where(p,.eyebrow){color:var(--actual-muted)!important}
+  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro p{margin-bottom:0!important;line-height:1.35!important}
   body[data-route="people"].v21-actual-mobile-ui .v21-mobile-search{
     position:sticky;top:calc(var(--actual-header-h) + var(--actual-context-h) + env(safe-area-inset-top,0px));z-index:80;
-    margin:0;padding:10px 12px;background:rgba(243,238,227,.96);
+    margin:0;padding:7px 10px;background:rgba(243,238,227,.96);
     -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
   }
-  body[data-route="people"].v21-actual-mobile-ui .v17-branch-browser[data-v21-people-branches="true"]{padding:14px 12px 10px;scroll-padding-inline:12px}
-  body[data-route="people"].v21-actual-mobile-ui .v17-branch-chip{background:var(--actual-paper)!important;color:var(--actual-forest)!important;border:1px solid var(--actual-line)!important;box-shadow:none!important}
+  body[data-route="people"].v21-actual-mobile-ui .v21-mobile-search label>span{margin-bottom:4px}
+  body[data-route="people"].v21-actual-mobile-ui .v21-mobile-search label>div{padding:3px}
+  body[data-route="people"].v21-actual-mobile-ui .v21-mobile-search input{height:44px}
+  body[data-route="people"].v21-actual-mobile-ui .v21-mobile-search button{min-height:44px}
+  body[data-route="people"].v21-actual-mobile-ui .v17-branch-browser[data-v21-people-branches="true"]{padding:6px 10px;scroll-padding-inline:10px}
+  body[data-route="people"].v21-actual-mobile-ui .v17-branch-chip{min-height:44px!important;background:var(--actual-paper)!important;color:var(--actual-forest)!important;border:1px solid var(--actual-line)!important;box-shadow:none!important}
   body[data-route="people"].v21-actual-mobile-ui .v17-branch-chip:is(.active,[aria-current="true"],[aria-pressed="true"]){background:var(--actual-sage)!important;border-color:rgba(18,63,52,.22)!important}
-  body[data-route="people"].v21-actual-mobile-ui .v17-people-grid{margin-top:8px;background:var(--actual-paper)!important;border-color:var(--actual-line)!important;box-shadow:var(--actual-shadow-soft)!important}
+  body[data-route="people"].v21-actual-mobile-ui .v17-people-grid{margin-top:4px;background:var(--actual-paper)!important;border-color:var(--actual-line)!important;box-shadow:var(--actual-shadow-soft)!important}
+  body[data-route="people"].v21-actual-mobile-ui .v17-person-card>button{min-height:66px!important;padding:7px 12px!important;grid-template-columns:42px minmax(0,1fr) 20px!important}
+  body[data-route="people"].v21-actual-mobile-ui .v17-person-card .v17-avatar{width:40px!important;height:40px!important}
+  body[data-route="people"].v21-actual-mobile-ui .v17-person-card-copy>b{font-size:15px!important;line-height:1.15!important}
+  body[data-route="people"].v21-actual-mobile-ui .v17-person-card-copy>:where(small,em,p){font-size:11px!important;line-height:1.2!important}
+  body[data-route="people"].v21-actual-mobile-ui .v17-directory-foot{padding-top:7px!important}
 
   /* Families earns one dramatic editorial hero; cards remain quiet paper/sage surfaces. */
   body[data-route="families"].v21-actual-mobile-ui #content{background:var(--actual-canvas)!important}
