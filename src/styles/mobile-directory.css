@@ -31,6 +31,9 @@
     gap:3px!important;
     margin-top:1px!important;
   }
+  body[data-route="people"].v21-actual-mobile-ui .v17-person-card{
+    min-height:0!important;
+  }
   body[data-route="people"].v21-actual-mobile-ui .v17-person-card>button{
     height:auto!important;
     min-height:54px!important;
@@ -38,6 +41,13 @@
     gap:8px!important;
     grid-template-columns:38px minmax(0,1fr) 18px!important;
     align-items:center!important;
+  }
+  /* mobile-immersive previously added a second chevron as ::after. The native card
+   * already has its own arrow element; the pseudo-element became a fourth grid item,
+   * wrapped onto a new row, and doubled every directory card's height. */
+  body[data-route="people"].v21-actual-mobile-ui .v17-person-card>button::after{
+    content:none!important;
+    display:none!important;
   }
   body[data-route="people"].v21-actual-mobile-ui .v17-person-card .v17-avatar{
     width:36px!important;
