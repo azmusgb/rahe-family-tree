@@ -1,5 +1,5 @@
 const MOBILE_QUERY='(max-width: 720px)';
-const desiredDockOrder=['dashboard','families','tree','people'];
+const desiredDockOrder=['dashboard','families','tree','people','more'];
 let routeShellAnchor=null;
 let scheduled=false;
 let observing=false;
@@ -20,9 +20,6 @@ function backTarget(){
   const route=routeKey();
   if(route==='person')return'#people';
   if(route==='branch')return'#families';
-  if(route==='tree')return'#dashboard';
-  if(['media','stories','timeline','migration'].includes(route))return'#dashboard';
-  if(['research','evidence','sources','intelligence'].includes(route))return'#dashboard';
   return'#dashboard';
 }
 
@@ -36,27 +33,32 @@ function syncDedicatedHeader(){
   }
   header.hidden=false;
   document.body.classList.add('v21-actual-mobile-ui');
+  const nextTitle=routeTitle();
   const title=header.querySelector('[data-mobile-app-title]');
-  if(title)title.textContent=routeTitle();
+  if(title&&title.textContent!==nextTitle)title.textContent=nextTitle;
   const back=header.querySelector('[data-mobile-app-back]');
   if(back){
     const home=routeKey()==='dashboard';
     back.hidden=home;
     back.href=backTarget();
-    back.setAttribute('aria-label',home?'Home':`Back from ${routeTitle()}`);
+    back.setAttribute('aria-label',home?'Home':`Back from ${nextTitle}`);
   }
 }
 
+function dockKey(node){
+  if(node.matches?.('a[data-dock-route]'))return node.dataset.dockRoute;
+  if(node.matches?.('details'))return'more';
+  return'';
+}
 function reorderDock(){
   if(!isMobile())return;
   const dock=document.getElementById('family-mobile-dock');
   if(!dock)return;
-  for(const key of desiredDockOrder){
-    const item=dock.querySelector(`:scope > a[data-dock-route="${key}"]`);
-    if(item)dock.append(item);
+  const current=[...dock.children].map(dockKey).filter(Boolean);
+  if(current.join('|')!==desiredDockOrder.join('|')){
+    const nodes=new Map([...dock.children].map(node=>[dockKey(node),node]));
+    desiredDockOrder.forEach(key=>{const node=nodes.get(key);if(node)dock.append(node);});
   }
-  const more=dock.querySelector(':scope > details');
-  if(more)dock.append(more);
   dock.dataset.actualMobileOrder='home-families-tree-people-more';
 }
 
@@ -70,9 +72,9 @@ function ensureRouteShellAnchor(shell){
 function restoreRouteShell(){
   const shell=document.querySelector('.route-shell');
   if(!shell||!routeShellAnchor?.isConnected)return;
-  if(shell.parentNode!==routeShellAnchor.parentNode||shell.previousSibling!==routeShellAnchor){
-    routeShellAnchor.parentNode.insertBefore(shell,routeShellAnchor.nextSibling);
-  }
+  const correctParent=shell.parentNode===routeShellAnchor.parentNode;
+  const correctPosition=shell.previousSibling===routeShellAnchor;
+  if(!correctParent||!correctPosition)routeShellAnchor.parentNode.insertBefore(shell,routeShellAnchor.nextSibling);
   delete shell.dataset.mobileIntegratedSearch;
 }
 
@@ -85,13 +87,19 @@ function integrateRouteSearch(){
   if(route==='dashboard'){
     const home=document.querySelector('[data-v17-native="home"]');
     const hero=home?.querySelector('.v17-home-hero');
-    if(home&&hero){hero.insertAdjacentElement('afterend',shell);shell.dataset.mobileIntegratedSearch='home';}
+    if(home&&hero){
+      if(hero.nextElementSibling!==shell)hero.insertAdjacentElement('afterend',shell);
+      shell.dataset.mobileIntegratedSearch='home';
+    }
     return;
   }
   if(route==='people'){
     const people=document.querySelector('[data-v17-native="people"]');
     const intro=people?.querySelector('.v17-page-intro');
-    if(people&&intro){intro.insertAdjacentElement('afterend',shell);shell.dataset.mobileIntegratedSearch='people';}
+    if(people&&intro){
+      if(intro.nextElementSibling!==shell)intro.insertAdjacentElement('afterend',shell);
+      shell.dataset.mobileIntegratedSearch='people';
+    }
     return;
   }
   restoreRouteShell();
@@ -118,8 +126,8 @@ function composeHome(){
   if(!home)return;
   const actions=home.querySelector('.v17-primary-actions');
   if(!isMobile()){
-    home.querySelector('.v21-mobile-launcher')?.remove();
-    restoreMovedNode('home-actions',actions);
+    const launcher=home.querySelector('.v21-mobile-launcher');
+    if(launcher){restoreMovedNode('home-actions',actions);launcher.remove();}
     return;
   }
   const hero=home.querySelector('.v17-home-hero');
@@ -132,20 +140,13 @@ function composeHome(){
     launcher.setAttribute('aria-labelledby','v21-start-title');
     launcher.innerHTML='<div class="v21-launcher-heading"><span>START HERE</span><h2 id="v21-start-title">Explore your family</h2><p>Move through the archive the way you would in an app—not a stacked website.</p></div>';
   }
-  launcher.append(actions);
+  if(actions.parentNode!==launcher)launcher.append(actions);
   const shell=home.querySelector('.route-shell[data-mobile-integrated-search="home"]');
-  (shell||hero).insertAdjacentElement('afterend',launcher);
+  const anchor=shell||hero;
+  if(anchor.nextElementSibling!==launcher)anchor.insertAdjacentElement('afterend',launcher);
 
-  const tree=home.querySelector('.v17-home-tree');
-  const story=home.querySelector('.v17-home-story');
-  const people=home.querySelector('.v17-featured-people');
-  const media=home.querySelector('.v17-home-media');
-  const research=home.querySelector('.v17-research-door');
-  if(tree)tree.dataset.v21Surface='connections';
-  if(story)story.dataset.v21Surface='stories';
-  if(people)people.dataset.v21Surface='people';
-  if(media)media.dataset.v21Surface='media';
-  if(research)research.dataset.v21Surface='research';
+  const surfaceMap=[['.v17-home-tree','connections'],['.v17-home-story','stories'],['.v17-featured-people','people'],['.v17-home-media','media'],['.v17-research-door','research']];
+  surfaceMap.forEach(([selector,value])=>{const node=home.querySelector(selector);if(node)node.dataset.v21Surface=value;});
 }
 
 function composePeople(){
@@ -154,12 +155,7 @@ function composePeople(){
   const search=root.querySelector('.route-shell[data-mobile-integrated-search="people"]');
   const branches=root.querySelector('.v17-branch-browser');
   if(search)search.setAttribute('aria-label','Find a family member');
-  if(branches){
-    branches.dataset.v21PeopleBranches='true';
-    const summary=root.querySelector('.v17-branch-summary');
-    const grid=root.querySelector('.v17-people-grid');
-    if(summary&&grid&&summary.nextElementSibling!==grid)grid.before(summary);
-  }
+  if(branches)branches.dataset.v21PeopleBranches='true';
 }
 
 function composePerson(){
@@ -167,8 +163,8 @@ function composePerson(){
   if(!root)return;
   const actions=root.querySelector('.v17-person-actions');
   if(!isMobile()){
-    root.querySelector('.v21-person-quick-actions')?.remove();
-    restoreMovedNode('person-actions',actions);
+    const quick=root.querySelector('.v21-person-quick-actions');
+    if(quick){restoreMovedNode('person-actions',actions);quick.remove();}
     return;
   }
   const header=root.querySelector('.v17-person-header');
@@ -181,22 +177,28 @@ function composePerson(){
     quick.setAttribute('aria-label','Person quick actions');
     quick.innerHTML='<span>EXPLORE THIS PERSON</span>';
   }
-  quick.append(actions);
-  header.insertAdjacentElement('afterend',quick);
+  if(actions.parentNode!==quick)quick.append(actions);
+  if(header.nextElementSibling!==quick)header.insertAdjacentElement('afterend',quick);
   root.dataset.v21PersonApp='true';
 }
 
 function composeTree(){
   const content=document.getElementById('content');
   if(!content)return;
-  content.querySelector('.v21-tree-mode-bar')?.remove();
-  if(!isMobile()||routeKey()!=='tree')return;
+  if(!isMobile()||routeKey()!=='tree'){
+    content.querySelector('.v21-tree-mode-bar')?.remove();
+    delete content.dataset.v21TreeApp;
+    return;
+  }
   const graph=content.querySelector('.graph-shell,.tree-graph-shell');
   if(!graph)return;
-  const bar=document.createElement('div');
-  bar.className='v21-tree-mode-bar';
-  bar.innerHTML='<div><span>EXPLORE</span><strong>Family Tree</strong></div><div><button type="button" data-v21-tree-center>Center</button><button type="button" data-v21-tree-tools>Tools</button></div>';
-  graph.insertAdjacentElement('beforebegin',bar);
+  let bar=content.querySelector('.v21-tree-mode-bar');
+  if(!bar){
+    bar=document.createElement('div');
+    bar.className='v21-tree-mode-bar';
+    bar.innerHTML='<div><span>EXPLORE</span><strong>Family Tree</strong></div><div><button type="button" data-v21-tree-center>Center</button><button type="button" data-v21-tree-tools>Tools</button></div>';
+  }
+  if(graph.previousElementSibling!==bar)graph.insertAdjacentElement('beforebegin',bar);
   content.dataset.v21TreeApp='true';
 }
 
@@ -218,7 +220,8 @@ function composeMore(){
   researchGroup.className='v21-more-research';
   researchGroup.innerHTML='<span>RESEARCH</span><div></div>';
   if(research)researchGroup.querySelector('div').append(research);
-  if(search)panel.querySelector('.mobile-more-head')?.insertAdjacentElement('afterend',search);
+  const head=panel.querySelector('.mobile-more-head');
+  if(search&&head)head.insertAdjacentElement('afterend',search);
   panel.append(discover,researchGroup);
 }
 
@@ -230,7 +233,7 @@ function bindTreeButtons(){
     if(tools){
       const details=document.querySelector('.family-graph-tools details,.family-graph-tools');
       if(details?.tagName==='DETAILS')details.open=true;
-      details?.scrollIntoView({behavior:'smooth',block:'center'});
+      details?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
       return;
     }
     const center=event.target.closest('[data-v21-tree-center]');
