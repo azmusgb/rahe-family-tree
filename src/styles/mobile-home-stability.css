@@ -161,9 +161,23 @@
   #family-mobile-dock>details>summary::before{width:19px!important;height:19px!important}
   #family-mobile-dock>a[data-dock-route="tree"]{
     min-height:54px!important;
-    transform:translateY(-4px)!important;
+    margin:-4px 0 0!important;
+    transform:translateY(-2px)!important;
+    border:1px solid rgba(18,63,52,.14)!important;
     border-radius:17px!important;
+    background:var(--actual-sage,#e7efe9)!important;
+    color:var(--actual-forest,#123f34)!important;
     box-shadow:none!important;
+  }
+  #family-mobile-dock>a[data-dock-route="tree"]::before{width:20px!important;height:20px!important;color:inherit!important}
+  #family-mobile-dock>a[data-dock-route="tree"][aria-current="page"],
+  #family-mobile-dock>a[data-dock-route="tree"].active{
+    background:var(--actual-forest,#123f34)!important;
+    color:#fff!important;
+  }
+  #family-mobile-dock .mobile-more>div,
+  #family-mobile-dock .v158-mobile-more>div{
+    bottom:calc(72px + env(safe-area-inset-bottom,0px))!important;
   }
 
   /* Footer leaves only the space actually required by the compact dock. */
