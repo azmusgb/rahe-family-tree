@@ -30,11 +30,11 @@ test('current release fingerprints remain synchronized across the v18 foundation
     releaseOf(shell,/data-ui-release="(\d+\.\d+\.\d+)"/),
     releaseOf(experience,/UI_RELEASE='(\d+\.\d+\.\d+)'/)
   ];
-  assert.deepEqual(new Set(versions),new Set(['19.0.0']));
-  assert.match(shell,/styles\.css\?v=19\.0\.0/);
-  assert.match(shell,/app\.bundle\.js\?v=19\.0\.0/);
-  assert.match(experience,/family\.archive\.uiReload\.v19\.0/);
-  assert.match(build,/releaseTrain:'v19-family-graph'/);
+  assert.deepEqual(new Set(versions),new Set(['20.0.0']));
+  assert.match(shell,/styles\.css\?v=20\.0\.0/);
+  assert.match(shell,/app\.bundle\.js\?v=20\.0\.0/);
+  assert.match(experience,/family\.archive\.uiReload\.v20\.0/);
+  assert.match(build,/releaseTrain:'v20-mobile-app'/);
 });
 
 test('semantic design system owns stylesheet composition with zero compatibility sources',()=>{
