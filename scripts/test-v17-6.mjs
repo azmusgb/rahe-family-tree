@@ -56,7 +56,7 @@ test('Playwright PR validation is bounded, diagnosable, cached, artifact-backed,
   assert.match(workflow,/npx playwright install chromium/);
   assert.match(workflow,/Download exact verified build/);
   assert.match(workflow,/Run Chromium PR smoke suite/);
-  assert.match(workflow,/npx playwright test --workers=2/);
+  assert.match(workflow,/npx playwright test[^\n]*--workers=2/);
   assert.match(workflow,/playwright-diagnostics-/);
   assert.match(workflow,/name: validate[\s\S]*needs: \[core, canonical, experience, build, browser\]/);
   assert.match(workflow,/BROWSER: \$\{\{ needs\.browser\.result \}\}/);
