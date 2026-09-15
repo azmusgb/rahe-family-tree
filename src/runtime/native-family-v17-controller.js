@@ -1,6 +1,7 @@
 import{model,personById}from'../../core.js';
 import{renderTree}from'../../graph.js';
-import{renderNativeHome,renderNativePeople,renderNativePerson,hydrateNativeFamily}from'./native-family-v17.js';
+import{renderNativePeople,renderNativePerson,hydrateNativeFamily}from'./native-family-v17.js';
+import{renderEditorialHome}from'./native-home-editorial.js';
 import{renderFamiliesIndex,renderFamilyBranch,routeBranchName,branchMarker}from'./family-branches-v17-5.js';
 
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
@@ -13,93 +14,33 @@ const livingMediaPrivacy='Living-person media remains private in the public fami
 function publicSafeLivingPersonMarkup(markup){
   const life=`<section id="v17-life" class="v17-person-section"><div class="v17-section-head"><div><p class="eyebrow">LIFE</p><h2>Living family member</h2><p>Details protected in the public family archive.</p></div></div><p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p></section>`;
   const photos=`<section id="v17-photos" class="v17-person-section"><div class="v17-section-head"><div><p class="eyebrow">PHOTOS & DOCUMENTS</p><h2>Family archive</h2></div></div><p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p></section>`;
-  return String(markup||'')
-    .replace(/\sdata-v17-person-photo="[^"]*"/g,'')
-    .replace(/<section id="v17-life"[\s\S]*?<\/section>/,life)
-    .replace(/<section id="v17-photos"[\s\S]*?<\/section>/,photos);
+  return String(markup||'').replace(/\sdata-v17-person-photo="[^"]*"/g,'').replace(/<section id="v17-life"[\s\S]*?<\/section>/,life).replace(/<section id="v17-photos"[\s\S]*?<\/section>/,photos);
 }
-
 function nativeMarkup(route){
-  if(route==='dashboard')return renderNativeHome();
+  if(route==='dashboard')return renderEditorialHome();
   if(route==='tree')return`<div class="v17-native v17-tree" data-v17-native="tree">${renderTree()}</div>`;
   if(route==='people')return renderNativePeople();
   if(route==='families')return renderFamiliesIndex();
   if(route==='branch')return renderFamilyBranch(routeBranchName());
-  if(route==='person'){
-    const id=location.hash.split('/')[1]||'',person=personById(id),markup=renderNativePerson(id);
-    return person?.living?publicSafeLivingPersonMarkup(markup):markup;
-  }
+  if(route==='person'){const id=location.hash.split('/')[1]||'',person=personById(id),markup=renderNativePerson(id);return person?.living?publicSafeLivingPersonMarkup(markup):markup;}
   return'';
 }
-
 function enforcePublicPrivacy(route,content){
-  if(route==='people'){
-    // Keep Family-mode branch chronology but suppress place detail. This is a
-    // defense-in-depth public surface: mixed historical/living events must not
-    // be able to expose a living person's location through branch aggregation.
-    const summary=content.querySelector('.v17-branch-summary>div:first-child>p:not(.eyebrow)');
-    if(summary&&summary.textContent.includes(' · '))summary.textContent=summary.textContent.split(' · ')[0];
-    return;
-  }
+  if(route==='people'){const summary=content.querySelector('.v17-branch-summary>div:first-child>p:not(.eyebrow)');if(summary&&summary.textContent.includes(' · '))summary.textContent=summary.textContent.split(' · ')[0];return;}
   if(route!=='person')return;
-  const root=content.querySelector('.v17-person[data-person-id]'),person=personById(root?.dataset.personId||'');
-  if(!person?.living)return;
+  const root=content.querySelector('.v17-person[data-person-id]'),person=personById(root?.dataset.personId||'');if(!person?.living)return;
   content.querySelector('.v17-person-places')?.remove();
-  const life=content.querySelector('#v17-life'),timeline=life?.querySelector('.v17-life-timeline');
-  if(timeline)timeline.outerHTML=`<p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p>`;
-  if(life&&!life.querySelector('.v17-living-chronology'))life.insertAdjacentHTML('beforeend',`<p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p>`);
+  const life=content.querySelector('#v17-life'),timeline=life?.querySelector('.v17-life-timeline');if(timeline)timeline.outerHTML=`<p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p>`;if(life&&!life.querySelector('.v17-living-chronology'))life.insertAdjacentHTML('beforeend',`<p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p>`);
   content.querySelectorAll('[data-v17-person-photo]').forEach(host=>host.removeAttribute('data-v17-person-photo'));
-  const photos=content.querySelector('#v17-photos'),gallery=photos?.querySelector('[data-v17-person-gallery]');
-  if(gallery){gallery.removeAttribute('data-v17-person-gallery');gallery.innerHTML=`<p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p>`;}
-  if(photos&&!photos.querySelector('.v17-living-media'))photos.insertAdjacentHTML('beforeend',`<p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p>`);
+  const photos=content.querySelector('#v17-photos'),gallery=photos?.querySelector('[data-v17-person-gallery]');if(gallery){gallery.removeAttribute('data-v17-person-gallery');gallery.innerHTML=`<p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p>`;}if(photos&&!photos.querySelector('.v17-living-media'))photos.insertAdjacentHTML('beforeend',`<p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p>`);
 }
-
 function announceNative(route){window.dispatchEvent(new CustomEvent('family-native-rendered',{detail:{route}}));}
 function apply(){
-  if(!isFamily()){delete document.body.dataset.familyNative;return false;}
-  const route=routeKey();
-  document.body.dataset.familyNative='v17';
-  if(!nativeRoutes.has(route)||!model)return false;
-  const content=document.getElementById('content');if(!content)return false;
-  const current=content.querySelector('[data-v17-native]');
-  if(current?.dataset.v17Native===nativeMarker(route)){enforcePublicPrivacy(route,content);hydrateNativeFamily();return true;}
-  content.classList.remove('v157-home','v159-people','v159-profile','v161-home','v161-people');
-  content.classList.add('v17-content');
-  content.innerHTML=nativeMarkup(route);
-  enforcePublicPrivacy(route,content);
-  hydrateNativeFamily();
-  announceNative(route);
-  return true;
+  if(!isFamily()){delete document.body.dataset.familyNative;return false;}const route=routeKey();document.body.dataset.familyNative='v17';if(!nativeRoutes.has(route)||!model)return false;
+  const content=document.getElementById('content');if(!content)return false;const current=content.querySelector('[data-v17-native]');if(current?.dataset.v17Native===nativeMarker(route)){enforcePublicPrivacy(route,content);hydrateNativeFamily();return true;}
+  content.classList.remove('v157-home','v159-people','v159-profile','v161-home','v161-people');content.classList.add('v17-content');content.innerHTML=nativeMarkup(route);enforcePublicPrivacy(route,content);hydrateNativeFamily();announceNative(route);return true;
 }
-
-// v11 owns the authoritative route render synchronously. Reconcile the native
-// Family surface in the following microtask so Tree never waits behind older
-// presentation enhancers. If the model has not loaded yet, v11's authoritative
-// family-view-rendered event or the content observer below will retry safely.
-let queued=false;
-function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;try{apply();}catch(error){console.error('[native-family] render failed',error);}});}
-
-// Defense in depth for compatibility layers that still replace #content.
-// Observe direct route-content replacement; applying native markup is
-// idempotent and the marker check prevents a mutation loop.
-let contentObserver=null;
-function observeContent(){
-  const content=document.getElementById('content');if(!content||contentObserver)return;
-  contentObserver=new MutationObserver(()=>{
-    const route=routeKey();
-    if(!isFamily()||!nativeRoutes.has(route))return;
-    const native=content.querySelector('[data-v17-native]');
-    if(native?.dataset.v17Native!==nativeMarker(route))schedule();
-  });
-  contentObserver.observe(content,{childList:true,subtree:false});
-}
-
-document.addEventListener('click',event=>{
-  const local=event.target.closest?.('.v17-person-nav a[href^="#"]');
-  if(local){event.preventDefault();document.querySelector(local.getAttribute('href'))?.scrollIntoView({behavior:'smooth',block:'start'});}
-});
-window.addEventListener('family-view-rendered',schedule);
-window.addEventListener('hashchange',schedule);
-window.addEventListener('family-experience-changed',schedule);
-const start=()=>{observeContent();schedule();};
-document.readyState==='loading'?document.addEventListener('DOMContentLoaded',start):start();
+let queued=false;function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;try{apply();}catch(error){console.error('[native-family] render failed',error);}});}
+let contentObserver=null;function observeContent(){const content=document.getElementById('content');if(!content||contentObserver)return;contentObserver=new MutationObserver(()=>{const route=routeKey();if(!isFamily()||!nativeRoutes.has(route))return;const native=content.querySelector('[data-v17-native]');if(native?.dataset.v17Native!==nativeMarker(route))schedule();});contentObserver.observe(content,{childList:true,subtree:false});}
+document.addEventListener('click',event=>{const local=event.target.closest?.('.v17-person-nav a[href^="#"]');if(local){event.preventDefault();document.querySelector(local.getAttribute('href'))?.scrollIntoView({behavior:'smooth',block:'start'});}});
+window.addEventListener('family-view-rendered',schedule);window.addEventListener('hashchange',schedule);window.addEventListener('family-experience-changed',schedule);const start=()=>{observeContent();schedule();};document.readyState==='loading'?document.addEventListener('DOMContentLoaded',start):start();
