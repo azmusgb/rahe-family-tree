@@ -2,6 +2,11 @@ import{test,expect}from'@playwright/test';
 
 async function openMobile(page,route='dashboard'){
   await page.goto(`/#${route}`);
+  const routeKey=route.split('/')[0];
+  if(routeKey==='tree'){
+    await page.waitForSelector('[data-v17-native="tree"]');
+    return;
+  }
   await page.waitForSelector('#family-mobile-dock:not([hidden])');
 }
 
