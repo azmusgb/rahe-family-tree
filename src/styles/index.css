@@ -45,6 +45,9 @@
 @import './family-graph-layout.css';
 @import './relationship-path-comprehension.css';
 
+/* Final Home mobile quality layer follows shared responsive composition. */
+@import './home-mobile-polish.css';
+
 /* Interaction contracts intentionally follow visual composition. */
 @import './interaction-contracts.css';
 
