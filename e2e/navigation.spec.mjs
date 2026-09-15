@@ -53,11 +53,17 @@ test('global search routes Home to People and a result opens',async({page})=>{
   await expect(page.locator('#title')).toHaveText('Person profile');
 });
 
-test('tree person visual is a one-click route to a native biography',async({page})=>{
+test('tree person visual opens mobile preview first and desktop biography directly',async({page},testInfo)=>{
   await page.goto('/#tree');
   const node=page.locator('[data-v17-native="tree"] .graph-node[data-person]').first();
   await expect(node).toBeAttached();
   await node.locator('.node-avatar').click();
+  if(testInfo.project.name==='mobile-chromium'){
+    const preview=page.locator('.family-person-preview');
+    await expect(preview).toBeVisible();
+    await expect(preview.locator('[data-family-preview-profile]')).toBeVisible();
+    return;
+  }
   await expect(page).toHaveURL(/#person\//);
   await expect(page.locator('[data-v17-native="person"]')).toBeVisible();
 });
@@ -150,7 +156,8 @@ test('native Tree keeps focused family context and compact relationship tools',a
   await expect(tree.locator('.graph-shell')).toBeVisible();
   await expect(page.locator('.v161-tree-toolbar')).toBeVisible();
   await expect(page.locator('[data-v161-relationship]')).toBeVisible();
-  await expect(tree.locator('[data-tree-person]')).toBeVisible();
+  await expect(page.locator('.family-graph-commandbar [data-family-graph-person]')).toBeVisible();
+  await expect(tree.locator('[data-tree-person]')).toBeHidden();
 });
 
 test('Photos keeps contextual search and collapses dedicated media filters on demand',async({page},testInfo)=>{

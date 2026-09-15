@@ -1,7 +1,9 @@
 // Deterministic composition boundary for Tree route presentation/runtime layers.
-// Canonical genealogy remains owned by core/graph modules. Historical runtime
-// stabilization stays in place while v19 takes ownership of graph state,
-// traversal, layout, rendering annotations, mobile behavior, and export APIs.
+// Canonical genealogy remains owned by core/graph modules; this boundary only
+// orders state stabilization before navigation and Family Graph presentation.
 import './v17-6-stability.js';
 import './tree-advanced.js';
-import '../tree/index.js';
+import './family-graph-v19.js';
+import './family-graph-navigation.js';
+import './family-graph-layout.js';
+import './relationship-path-comprehension.js';
