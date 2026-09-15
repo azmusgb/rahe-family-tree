@@ -1,0 +1,9 @@
+/* Preserve the established Person navigation contract while mobile v20 layers app-style section controls above it. */
+@media (max-width:720px){
+  body[data-route="person"][data-experience="family"] .v17-person-nav[aria-hidden="true"]{
+    display:flex!important;
+    visibility:visible!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+  }
+}
