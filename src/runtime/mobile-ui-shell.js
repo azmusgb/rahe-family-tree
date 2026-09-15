@@ -250,21 +250,15 @@ function composeMore(){
   panel.append(discover,researchGroup);
 }
 
-function focusCurrentMobileSearch(){
-  const search=document.querySelector(`[data-v21-mobile-search="${routeKey()==='people'?'people':'home'}"] input`);
-  if(search){search.focus({preventScroll:false});return true;}
-  return false;
-}
-
 function bindControls(){
   if(document.documentElement.dataset.v21Bindings==='true')return;
   document.documentElement.dataset.v21Bindings='true';
   document.addEventListener('click',event=>{
-    const mobileSearchTrigger=event.target.closest('[data-mobile-ui-search]');
+    const mobileSearchTrigger=event.target.closest('[data-mobile-ui-search],#mobile-app-header [data-global-search]');
     if(mobileSearchTrigger&&isMobile()){
       event.preventDefault();event.stopImmediatePropagation();
       document.querySelector('#family-mobile-dock details[open]')?.removeAttribute('open');
-      if(!focusCurrentMobileSearch())queuePeopleSearch('',{focus:true});
+      queuePeopleSearch('',{focus:true});
       return;
     }
     const tools=event.target.closest('[data-v21-tree-tools]');
