@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-ui-release="18.5.0">
+<html lang="en" data-ui-release="19.0.0">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#173f35">
   <title>Family History Archive</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2210%22 fill=%22%23173f35%22/%3E%3Ctext x=%2218%22 y=%2247%22 fill=%22white%22 font-size=%2244%22%3EF%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=18.5.0">
-  <script type="module" src="app.bundle.js?v=18.5.0"></script>
+  <link rel="stylesheet" href="styles.css?v=19.0.0">
+  <script type="module" src="app.bundle.js?v=19.0.0"></script>
 </head>
 <body data-experience="family" data-route="dashboard">
 <a class="skip" href="#main">Skip to family</a>
@@ -38,53 +38,3 @@
     </header>
     <main id="main" class="main" tabindex="-1">
       <section class="route-shell" aria-label="Page overview and family search" hidden>
-        <div class="page-heading"><div><p class="eyebrow">FAMILY HISTORY ARCHIVE</p><h1 id="title">Home</h1><p id="description">Explore the family tree, people, photographs, stories, and source-controlled research across every connected branch.</p></div><span class="version">FAMILY VIEW · v18.5.0</span></div>
-        <form id="filters" class="filters" role="search">
-          <label class="search">Search the family<input id="search" type="search" autocomplete="off" enterkeyhint="search" placeholder="Search a person, branch, source, or record…"></label>
-          <label>Branch<select id="branch"><option value="">All branches</option></select></label>
-          <label>Evidence<select id="state"><option value="">All states</option><option>SUPPORTED</option><option>PROVISIONAL</option><option>UNRESOLVED</option><option>REJECTED</option><option>DERIVATIVE</option></select></label>
-          <button type="reset">Clear</button>
-        </form>
-        <div id="status" role="status" aria-live="polite">Loading family data…</div>
-      </section>
-      <div id="content">
-        <section class="v17-home-hero" data-static-fallback aria-labelledby="fallback-home-title">
-          <div>
-            <p class="eyebrow">FAMILY HISTORY</p>
-            <h1 id="fallback-home-title">Our family, connected.</h1>
-            <p>Explore every documented family branch together—people, relationships, photographs, places, stories, and the evidence behind them.</p>
-            <div class="v17-primary-actions"><a class="action primary" href="#tree">Explore the tree</a><a class="action" href="#families">Explore families</a><a class="action" href="#people">Browse people</a></div>
-          </div>
-        </section>
-        <section class="evidence-legend" data-static-fallback aria-labelledby="evidence-legend-title">
-          <h2 id="evidence-legend-title">Evidence states</h2>
-          <p><strong>Supported</strong> relationships are backed by direct or converging high-quality evidence. <strong>Provisional</strong> claims remain plausible but unproved. <strong>Unresolved</strong> claims preserve competing identities or mechanisms. <strong>Rejected</strong> claims are retained for audit history but excluded from the active pedigree.</p>
-        </section>
-      </div>
-      <noscript>
-        <section class="notice" aria-labelledby="noscript-title">
-          <h2 id="noscript-title">JavaScript is required for the interactive family tree.</h2>
-          <p>The basic navigation above remains available. You can also open the <a href="#archive">research archive</a> for the source-controlled family history.</p>
-        </section>
-      </noscript>
-    </main>
-    <footer class="footer site-footer">
-      <div class="site-footer-grid">
-        <div class="site-footer-brand"><a href="#dashboard"><span class="monogram">F</span><span><b>FAMILY HISTORY</b><small>ARCHIVE</small></span></a><p>A source-backed family archive connecting people, branches, photographs, places, stories, and the evidence behind them.</p></div>
-        <nav aria-label="Explore family history"><b>Explore</b><a href="#tree">Family tree</a><a href="#people">People</a><a href="#families">Families</a><a href="#media">Photos &amp; documents</a></nav>
-        <nav aria-label="Family story"><b>Family story</b><a href="#stories">Stories</a><a href="#timeline">Timeline</a><a href="#migration">Places &amp; migration</a></nav>
-        <nav aria-label="Research links"><b>Research</b><a href="#research">Research Center</a><a href="#evidence">Evidence</a><a href="#sources">Sources</a></nav>
-      </div>
-      <div class="site-footer-bottom"><span>Source-controlled family history · living-person privacy protected</span><span>Family experience v18.5.0</span></div>
-    </footer>
-  </div>
-</div>
-<nav id="family-mobile-dock" class="family-mobile-dock" aria-label="Quick family navigation">
-  <a href="#dashboard" data-dock-route="dashboard" aria-current="page"><span>Home</span></a>
-  <a href="#tree" data-dock-route="tree"><span>Tree</span></a>
-  <a href="#families" data-dock-route="families"><span>Families</span></a>
-  <a href="#people" data-dock-route="people"><span>People</span></a>
-  <details class="v158-mobile-more"><summary>More</summary><div><button type="button" data-dock-search>Search</button><a href="#media">Photos</a><a href="#stories">Stories</a><a href="#timeline">Timeline</a><a href="#migration">Places</a><a href="#research">Research</a></div></details>
-</nav>
-</body>
-</html>
