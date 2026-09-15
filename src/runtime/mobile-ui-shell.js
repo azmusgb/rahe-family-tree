@@ -1,6 +1,7 @@
 const MOBILE_QUERY='(max-width: 720px)';
 const desiredDockOrder=['dashboard','families','tree','people','more'];
-let routeShellAnchor=null;
+const PENDING_SEARCH_KEY='family.mobile.v21.pendingSearch';
+const PENDING_FOCUS_KEY='family.mobile.v21.pendingFocus';
 let scheduled=false;
 let observing=false;
 
@@ -62,47 +63,70 @@ function reorderDock(){
   dock.dataset.actualMobileOrder='home-families-tree-people-more';
 }
 
-function ensureRouteShellAnchor(shell){
-  if(routeShellAnchor?.isConnected)return routeShellAnchor;
-  routeShellAnchor=document.createComment('mobile-route-shell-origin');
-  shell.parentNode?.insertBefore(routeShellAnchor,shell);
-  return routeShellAnchor;
+function originalSearch(){return document.getElementById('search');}
+function setOriginalSearch(value){
+  const input=originalSearch();
+  if(!input)return false;
+  if(input.value!==value)input.value=value;
+  input.dispatchEvent(new Event('input',{bubbles:true}));
+  return true;
+}
+function pendingSearch(){try{return sessionStorage.getItem(PENDING_SEARCH_KEY)||'';}catch{return'';}}
+function consumePendingSearch(){
+  const value=pendingSearch();
+  try{sessionStorage.removeItem(PENDING_SEARCH_KEY);}catch{}
+  return value;
+}
+function queuePeopleSearch(value,{focus=false}={}){
+  try{
+    if(value)sessionStorage.setItem(PENDING_SEARCH_KEY,value);
+    if(focus)sessionStorage.setItem(PENDING_FOCUS_KEY,'1');
+  }catch{}
+  if(routeKey()!=='people')location.hash='people';else schedule();
+}
+function shouldFocusPending(){
+  try{
+    const value=sessionStorage.getItem(PENDING_FOCUS_KEY)==='1';
+    if(value)sessionStorage.removeItem(PENDING_FOCUS_KEY);
+    return value;
+  }catch{return false;}
 }
 
-function restoreRouteShell(){
-  const shell=document.querySelector('.route-shell');
-  if(!shell||!routeShellAnchor?.isConnected)return;
-  const correctParent=shell.parentNode===routeShellAnchor.parentNode;
-  const correctPosition=shell.previousSibling===routeShellAnchor;
-  if(!correctParent||!correctPosition)routeShellAnchor.parentNode.insertBefore(shell,routeShellAnchor.nextSibling);
-  delete shell.dataset.mobileIntegratedSearch;
+function makeSearch(kind,{label,placeholder}){
+  const form=document.createElement('form');
+  form.className='v21-mobile-search';
+  form.dataset.v21MobileSearch=kind;
+  form.setAttribute('role','search');
+  form.innerHTML=`<label><span>${label}</span><div><input type="search" autocomplete="off" enterkeyhint="search" placeholder="${placeholder}" aria-label="${label}"><button type="submit">Search</button></div></label>`;
+  const input=form.querySelector('input');
+  if(kind==='people')input.value=originalSearch()?.value||'';
+  form.addEventListener('submit',event=>{
+    event.preventDefault();
+    const value=input.value.trim();
+    if(kind==='home')queuePeopleSearch(value,{focus:!value});
+    else setOriginalSearch(value);
+  });
+  if(kind==='people')input.addEventListener('input',()=>setOriginalSearch(input.value));
+  return form;
 }
 
-function integrateRouteSearch(){
-  const shell=document.querySelector('.route-shell');
-  if(!shell)return;
-  ensureRouteShellAnchor(shell);
-  if(!isMobile()){restoreRouteShell();return;}
-  const route=routeKey();
-  if(route==='dashboard'){
-    const home=document.querySelector('[data-v17-native="home"]');
-    const hero=home?.querySelector('.v17-home-hero');
-    if(home&&hero){
-      if(hero.nextElementSibling!==shell)hero.insertAdjacentElement('afterend',shell);
-      shell.dataset.mobileIntegratedSearch='home';
-    }
-    return;
+function composeHomeSearch(home,hero){
+  let search=home.querySelector('.v21-mobile-search[data-v21-mobile-search="home"]');
+  if(!search)search=makeSearch('home',{label:'Find someone in the family',placeholder:'Name, family, or place…'});
+  if(hero.nextElementSibling!==search)hero.insertAdjacentElement('afterend',search);
+  return search;
+}
+function composePeopleSearch(root,intro){
+  let search=root.querySelector('.v21-mobile-search[data-v21-mobile-search="people"]');
+  if(!search)search=makeSearch('people',{label:'Search people',placeholder:'Name, branch, or place…'});
+  if(intro.nextElementSibling!==search)intro.insertAdjacentElement('afterend',search);
+  const pending=consumePendingSearch();
+  if(pending){
+    search.querySelector('input').value=pending;
+    setOriginalSearch(pending);
   }
-  if(route==='people'){
-    const people=document.querySelector('[data-v17-native="people"]');
-    const intro=people?.querySelector('.v17-page-intro');
-    if(people&&intro){
-      if(intro.nextElementSibling!==shell)intro.insertAdjacentElement('afterend',shell);
-      shell.dataset.mobileIntegratedSearch='people';
-    }
-    return;
-  }
-  restoreRouteShell();
+  if(shouldFocusPending())requestAnimationFrame(()=>search.querySelector('input')?.focus({preventScroll:false}));
+  return search;
 }
 
 function ensureReturnMarker(node,key){
@@ -115,7 +139,6 @@ function ensureReturnMarker(node,key){
   node.parentNode.insertBefore(marker,node);
   return marker;
 }
-
 function restoreMovedNode(key,node){
   const marker=document.querySelector(`[data-v21-return="${key}"]`);
   if(marker?.parentNode&&node){marker.parentNode.insertBefore(node,marker.nextSibling);marker.remove();}
@@ -128,10 +151,12 @@ function composeHome(){
   if(!isMobile()){
     const launcher=home.querySelector('.v21-mobile-launcher');
     if(launcher){restoreMovedNode('home-actions',actions);launcher.remove();}
+    home.querySelector('.v21-mobile-search')?.remove();
     return;
   }
   const hero=home.querySelector('.v17-home-hero');
   if(!hero||!actions)return;
+  const search=composeHomeSearch(home,hero);
   ensureReturnMarker(actions,'home-actions');
   let launcher=home.querySelector('.v21-mobile-launcher');
   if(!launcher){
@@ -141,9 +166,7 @@ function composeHome(){
     launcher.innerHTML='<div class="v21-launcher-heading"><span>START HERE</span><h2 id="v21-start-title">Explore your family</h2><p>Move through the archive the way you would in an app—not a stacked website.</p></div>';
   }
   if(actions.parentNode!==launcher)launcher.append(actions);
-  const shell=home.querySelector('.route-shell[data-mobile-integrated-search="home"]');
-  const anchor=shell||hero;
-  if(anchor.nextElementSibling!==launcher)anchor.insertAdjacentElement('afterend',launcher);
+  if(search.nextElementSibling!==launcher)search.insertAdjacentElement('afterend',launcher);
 
   const surfaceMap=[['.v17-home-tree','connections'],['.v17-home-story','stories'],['.v17-featured-people','people'],['.v17-home-media','media'],['.v17-research-door','research']];
   surfaceMap.forEach(([selector,value])=>{const node=home.querySelector(selector);if(node)node.dataset.v21Surface=value;});
@@ -151,10 +174,11 @@ function composeHome(){
 
 function composePeople(){
   const root=document.querySelector('[data-v17-native="people"]');
-  if(!root||!isMobile())return;
-  const search=root.querySelector('.route-shell[data-mobile-integrated-search="people"]');
+  if(!root)return;
+  if(!isMobile()){root.querySelector('.v21-mobile-search')?.remove();return;}
+  const intro=root.querySelector('.v17-page-intro');
+  if(intro)composePeopleSearch(root,intro);
   const branches=root.querySelector('.v17-branch-browser');
-  if(search)search.setAttribute('aria-label','Find a family member');
   if(branches)branches.dataset.v21PeopleBranches='true';
 }
 
@@ -212,6 +236,7 @@ function composeMore(){
   const places=panel.querySelector('a[href="#migration"]');
   const research=panel.querySelector('a[href="#research"]');
   const search=panel.querySelector('[data-dock-search]');
+  if(search){search.removeAttribute('data-dock-search');search.dataset.mobileUiSearch='true';}
   const discover=document.createElement('section');
   discover.className='v21-more-discover';
   discover.innerHTML='<span>DISCOVER</span><div></div>';
@@ -225,10 +250,23 @@ function composeMore(){
   panel.append(discover,researchGroup);
 }
 
-function bindTreeButtons(){
-  if(document.documentElement.dataset.v21TreeBindings==='true')return;
-  document.documentElement.dataset.v21TreeBindings='true';
+function focusCurrentMobileSearch(){
+  const search=document.querySelector(`[data-v21-mobile-search="${routeKey()==='people'?'people':'home'}"] input`);
+  if(search){search.focus({preventScroll:false});return true;}
+  return false;
+}
+
+function bindControls(){
+  if(document.documentElement.dataset.v21Bindings==='true')return;
+  document.documentElement.dataset.v21Bindings='true';
   document.addEventListener('click',event=>{
+    const mobileSearchTrigger=event.target.closest('[data-mobile-ui-search]');
+    if(mobileSearchTrigger&&isMobile()){
+      event.preventDefault();event.stopImmediatePropagation();
+      document.querySelector('#family-mobile-dock details[open]')?.removeAttribute('open');
+      if(!focusCurrentMobileSearch())queuePeopleSearch('',{focus:true});
+      return;
+    }
     const tools=event.target.closest('[data-v21-tree-tools]');
     if(tools){
       const details=document.querySelector('.family-graph-tools details,.family-graph-tools');
@@ -241,19 +279,18 @@ function bindTreeButtons(){
       const target=document.querySelector('[data-tree-fit],button[aria-label*="Fit" i],button[title*="Fit" i]');
       target?.click();
     }
-  });
+  },true);
 }
 
 function apply(){
   syncDedicatedHeader();
   reorderDock();
-  integrateRouteSearch();
   composeHome();
   composePeople();
   composePerson();
   composeTree();
   composeMore();
-  bindTreeButtons();
+  bindControls();
 }
 
 function schedule(){
@@ -261,7 +298,6 @@ function schedule(){
   scheduled=true;
   requestAnimationFrame(()=>requestAnimationFrame(()=>{scheduled=false;apply();}));
 }
-
 function observe(){
   if(observing)return;
   observing=true;
