@@ -50,7 +50,7 @@ test.describe('actual mobile family application',()=>{
     await input.press('Enter');
     await page.waitForURL(/#people/);
     await expect(page.locator('[data-v17-native="people"] .v21-mobile-search input')).toHaveValue('William');
-    await expect(page.locator('button[data-person="P-WILLIAM-JOHN-RAHE-III"]')).toBeVisible();
+    await expect(page.locator('[data-v17-native="people"] .v17-people-grid button[data-person="P-WILLIAM-JOHN-RAHE-III"]')).toBeVisible();
   });
 
   test('People owns its search UI inside the actual directory',async({page})=>{
