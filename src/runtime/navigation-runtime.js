@@ -1,3 +1,5 @@
+import'./route-capability-loader.js';
+
 const INTERNAL_LINK_SELECTOR='a[href^="#"]';
 const APP_ROUTES=new Set(['dashboard','tree','people','person','families','branch','media','stories','timeline','migration','research','evidence','sources','intelligence','archive','claim','source','task','intake','identity','conflicts']);
 const TOP_LEVEL_ROUTES=new Set(['dashboard','tree','people','families','media','stories','timeline','migration','research','evidence','sources','intelligence']);
