@@ -57,7 +57,7 @@ jobs:
           test -f dist/canonical-graph.json
           test -f dist/provenance-index.json
           test -f dist/canonical-diff.json
-          node -e "const b=require('./dist/build-info.json'),g=require('./dist/canonical-graph.json'),d=require('./dist/canonical-diff.json');if(b.appVersion!=='20.0.0'||b.releaseTrain!=='v20-mobile-app'||g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1)"
+          node -e "const b=require('./dist/build-info.json'),g=require('./dist/canonical-graph.json'),d=require('./dist/canonical-diff.json');if(b.appVersion!=='20.0.0'||b.releaseTrain!=='v20-runtime-consolidation'||g.integrity?.pass!==true||d.hasCanonicalLoss||d.hasEvidencePromotion)process.exit(1)"
       - name: Upload built site artifact
         uses: actions/upload-artifact@v4
         with:
