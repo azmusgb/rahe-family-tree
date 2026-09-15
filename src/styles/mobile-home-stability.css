@@ -104,14 +104,18 @@
     padding:16px 10px!important;
     border-radius:20px!important;
   }
-  body[data-route="dashboard"] .v17-home-tree-row{
+  body[data-experience="family"][data-route="dashboard"].v20-mobile-app .v17-home-tree-row{
     display:flex!important;
     flex-wrap:wrap!important;
     justify-content:center!important;
     gap:8px!important;
+    grid-auto-flow:initial!important;
+    grid-auto-columns:initial!important;
+    overflow:visible!important;
   }
-  body[data-route="dashboard"] .v17-home-tree-row .v17-relative{
+  body[data-experience="family"][data-route="dashboard"].v20-mobile-app .v17-home-tree-row .v17-relative{
     flex:1 1 132px!important;
+    width:auto!important;
     max-width:190px!important;
     min-height:68px!important;
     padding:8px!important;
@@ -159,19 +163,24 @@
   }
   #family-mobile-dock>a::before,
   #family-mobile-dock>details>summary::before{width:19px!important;height:19px!important}
-  #family-mobile-dock>a[data-dock-route="tree"]{
+  body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"]{
+    width:auto!important;
+    height:auto!important;
+    max-width:none!important;
+    max-height:none!important;
+    min-width:0!important;
     min-height:54px!important;
-    margin:-4px 0 0!important;
-    transform:translateY(-2px)!important;
+    margin:0 2px!important;
+    transform:translateY(-4px)!important;
     border:1px solid rgba(18,63,52,.14)!important;
     border-radius:17px!important;
     background:var(--actual-sage,#e7efe9)!important;
     color:var(--actual-forest,#123f34)!important;
     box-shadow:none!important;
   }
-  #family-mobile-dock>a[data-dock-route="tree"]::before{width:20px!important;height:20px!important;color:inherit!important}
-  #family-mobile-dock>a[data-dock-route="tree"][aria-current="page"],
-  #family-mobile-dock>a[data-dock-route="tree"].active{
+  body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"]::before{width:20px!important;height:20px!important;color:inherit!important}
+  body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"][aria-current="page"],
+  body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"].active{
     background:var(--actual-forest,#123f34)!important;
     color:#fff!important;
   }
