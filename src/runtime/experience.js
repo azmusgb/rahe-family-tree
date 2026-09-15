@@ -8,14 +8,6 @@ import './page-architecture.js';
 import './navigation-shell.js';
 import './native-family-v17-controller.js';
 
-// Navigation-critical orchestration stays eager. These modules install event
-// handlers and tree/mobile presentation contracts that must exist before the
-// first user interaction; turning them into network-lazy chunks introduced
-// observable route/history races under Playwright and on slower clients.
-import './tree-controller.js';
-import './mobile-experience.js';
-import './mobile-ui-shell.js';
-
 // Non-critical presentation enhancers remain lazy so the v20 build still gains
 // real ESM code splitting without making route correctness depend on chunk timing.
 void import('./ui-resilience.js');
