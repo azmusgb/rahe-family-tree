@@ -30,19 +30,23 @@ test.describe('mobile v20 app experience',()=>{
     expect(order).toBe(true);
   });
 
-  test('Person becomes a contextual profile with keyboard-operable app tabs',async({page})=>{
+  test('Person becomes a contextual profile with keyboard-operable section navigation while canonical content stays visible',async({page})=>{
     await openMobile(page,'person/P-WILLIAM-JOHN-RAHE-III');
     await page.waitForSelector('[data-v17-native="person"]');
     await expect(page.locator('.v20-context-bar')).toBeVisible();
     await expect(page.locator('.v20-context-bar')).toContainText('William');
     const tabs=page.locator('.v20-person-tabs');await expect(tabs).toBeVisible();
-    await expect(tabs.locator('[data-person-tab="story"]')).toHaveAttribute('aria-selected','true');
-    await tabs.locator('[data-person-tab="family"]').click();
-    await expect(tabs.locator('[data-person-tab="family"]')).toHaveAttribute('aria-selected','true');
+    await expect(tabs.locator('[data-person-tab="story"]')).toHaveAttribute('aria-pressed','true');
+    await expect(page.locator('.v20-person-story')).toBeVisible();
     await expect(page.locator('#v17-family')).toBeVisible();
-    await expect(page.locator('.v20-person-story')).toBeHidden();
+    await expect(page.locator('#v17-life')).toBeVisible();
+    await expect(page.locator('#v17-photos')).toBeVisible();
+    await expect(page.locator('#v17-research')).toBeVisible();
+    await tabs.locator('[data-person-tab="family"]').click();
+    await expect(tabs.locator('[data-person-tab="family"]')).toHaveAttribute('aria-pressed','true');
+    await expect(page.locator('#v17-family')).toBeVisible();
     await tabs.locator('[data-person-tab="family"]').press('ArrowRight');
-    await expect(tabs.locator('[data-person-tab="timeline"]')).toHaveAttribute('aria-selected','true');
+    await expect(tabs.locator('[data-person-tab="timeline"]')).toHaveAttribute('aria-pressed','true');
     await expect(page.locator('#v17-life')).toBeVisible();
   });
 
