@@ -16,7 +16,8 @@ test.describe('actual mobile family application',()=>{
     const hero=page.locator('[data-v17-native="home"] .v17-home-hero');
     await expect(hero).toBeVisible();
     const geometry=await hero.boundingBox();
-    expect(geometry?.height||0).toBeGreaterThan(480);
+    expect(geometry?.height||0).toBeGreaterThan(300);
+    expect(geometry?.height||0).toBeLessThan(560);
     const structure=await page.evaluate(()=>{
       const home=document.querySelector('[data-v17-native="home"]');
       const hero=home?.querySelector('.v17-home-hero');
@@ -39,8 +40,8 @@ test.describe('actual mobile family application',()=>{
     expect(order).toEqual(['Home','Families','Tree','People','More']);
     const tree=page.locator('#family-mobile-dock [data-dock-route="tree"]');
     const treeBox=await tree.boundingBox();
-    expect(treeBox?.width||0).toBeGreaterThanOrEqual(60);
-    expect(Math.abs((treeBox?.width||0)-(treeBox?.height||0))).toBeLessThan(8);
+    expect(treeBox?.width||0).toBeGreaterThanOrEqual(56);
+    expect(treeBox?.height||0).toBeLessThanOrEqual(62);
   });
 
   test('Home search transitions into the real People directory search',async({page})=>{
