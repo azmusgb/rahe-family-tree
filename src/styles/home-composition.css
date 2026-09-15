@@ -26,8 +26,8 @@
   pointer-events:none;
 }
 .v17-home-hero>div{max-width:780px}
-.v17-home-hero .eyebrow,.family-home-copy .eyebrow,.dashboard-hero-copy .eyebrow{color:#dcc28e}
-.v17-home-hero h1,.family-home-copy h2,.dashboard-hero-copy h2{
+.v17-home-hero>div>p.eyebrow,.family-home-copy .eyebrow,.dashboard-hero-copy .eyebrow{color:#dcc28e}
+.v17-home-hero h1,.v17-home-hero h2,.family-home-copy h2,.dashboard-hero-copy h2{
   margin:8px 0 20px;
   color:#fffdf8;
   font-family:var(--family-font-display);
@@ -39,9 +39,9 @@
 }
 .v17-home-hero h1{max-width:10ch}
 .family-home-copy h2,.dashboard-hero-copy h2{max-width:12ch}
-.v17-home-hero p:not(.eyebrow),.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy>p:not(.eyebrow){
+.v17-home-hero>div>p:not(.eyebrow),.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy>p:not(.eyebrow){
   max-width:59ch;
-  color:rgba(255,255,255,.80);
+  color:#edf4ef;
   font-size:clamp(1rem,1.7vw,1.18rem);
   line-height:1.7;
 }
@@ -85,6 +85,19 @@
 /* Home: preserve identity, reduce visual weight after the hero. */
 .v17-home-hero,.family-home-hero,.dashboard-hero{border-radius:24px;box-shadow:0 18px 48px rgba(18,45,36,.12)}
 .v17-home-hero,.dashboard-hero{min-height:clamp(350px,46vh,520px)}
-.v17-home-hero h1,.family-home-copy h2,.dashboard-hero-copy h2{font-size:clamp(3rem,6vw,5.6rem)}
+.v17-home-hero h1,.v17-home-hero h2,.family-home-copy h2,.dashboard-hero-copy h2{font-size:clamp(3rem,6vw,5.6rem)}
 .v174-discovery{padding-block:clamp(32px,4vw,54px)}
 .v174-discovery-grid>button{min-height:112px;border-radius:16px;box-shadow:none}
+
+/* Explicit inverse surface: shared paragraph and action rules must not turn
+ * hero copy dark. Keep the primary tree action visually distinct. */
+.v17-home-hero .v17-primary-actions .action.primary{background:#fff8e9;color:#123f34;border-color:#fff8e9}
+.v17-home-hero .v17-primary-actions .action.primary:hover{background:#fff;color:#123f34}
+.v17-home-hero :focus-visible{outline:3px solid #fff8e9;outline-offset:4px}
+.home-branch-disclosure{margin-top:14px}
+.home-branch-disclosure>summary{width:fit-content;min-height:44px;display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line-strong);border-radius:var(--family-radius-control);cursor:pointer;color:var(--green);font-weight:700;list-style:none}
+.home-branch-disclosure>summary::before{content:'+';font-size:1.2rem}
+.home-branch-disclosure[open]>summary::before{content:'−'}
+.home-branch-disclosure>summary::-webkit-details-marker{display:none}
+.home-branch-disclosure[open]>.v172-branch-grid{margin-top:14px}
+.home-branch-disclosure:not([open])>.v172-branch-grid{display:none}

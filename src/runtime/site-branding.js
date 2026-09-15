@@ -1,9 +1,9 @@
 import{researchRoutes}from'./navigation-model.js';
 
-// The application shell is explicitly branded as the Rahe Family History Archive.
+// The application shell is explicitly branded as the Family History Archive.
 // Individual branch names remain genealogical content, while the shell consistently
 // identifies the archive the family is using to explore every connected branch.
-const SITE_TITLE='Rahe Family History Archive';
+const SITE_TITLE='Family History Archive';
 const SITE_DESCRIPTION='A source-backed family history archive spanning interconnected family branches, people, generations, photographs, stories, and research evidence.';
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const isResearchContext=()=>document.body.dataset.experience==='research'||researchRoutes.has(routeKey());
@@ -16,10 +16,10 @@ function syncDocumentMetadata(){
 }
 
 function syncShellBrand(){
-  const monogram=document.querySelector('.brand .monogram');setText(monogram,'R');
+  const monogram=document.querySelector('.brand .monogram');setText(monogram,'F');
   const brand=document.querySelector('.brand span:last-child');
   if(brand){
-    const html=isResearchContext()?'RAHE FAMILY<small>RESEARCH CENTER</small>':'RAHE FAMILY<small>HISTORY ARCHIVE</small>';
+    const html=isResearchContext()?'FAMILY HISTORY<small>RESEARCH CENTER</small>':'FAMILY HISTORY<small>ARCHIVE</small>';
     if(brand.innerHTML!==html)brand.innerHTML=html;
   }
   const edition=document.querySelector('.edition');
@@ -31,9 +31,9 @@ function syncShellBrand(){
 
 function syncPageBrand(){
   const pageEyebrow=document.querySelector('.page-heading .eyebrow');
-  if(pageEyebrow)setText(pageEyebrow,isResearchContext()?'RAHE FAMILY RESEARCH ARCHIVE':'RAHE FAMILY HISTORY ARCHIVE');
+  if(pageEyebrow)setText(pageEyebrow,isResearchContext()?'FAMILY HISTORY RESEARCH ARCHIVE':'FAMILY HISTORY ARCHIVE');
   if(routeKey()!=='dashboard'||isResearchContext())return;
-  document.querySelectorAll('.v17-home-hero .eyebrow').forEach(element=>setText(element,'THE RAHE FAMILY'));
+  document.querySelectorAll('.v17-home-hero .eyebrow').forEach(element=>setText(element,'FAMILY HISTORY'));
   document.querySelectorAll('.v17-home-hero h1,.v17-home-hero h2').forEach(element=>setText(element,'Our family, connected.'));
   const heroCopy=document.querySelector('.v17-home-hero p:not(.eyebrow)');
   setText(heroCopy,'Explore every documented family branch together—people, relationships, photographs, places, stories, and the evidence behind them.');

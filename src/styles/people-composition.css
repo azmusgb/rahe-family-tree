@@ -25,3 +25,9 @@
 .v17-person-card>button{border-radius:14px;box-shadow:none}
 .v17-person-card>button:hover,.v17-person-card>button:focus-visible{box-shadow:var(--family-shadow-card)}
 .v17-branch-chip{box-shadow:none}
+
+/* Read the full identity before opening a record. */
+.v17-person-card>button>span:nth-child(2){min-width:0}
+.v17-person-card b{white-space:normal;overflow-wrap:anywhere;line-height:1.3}
+.v17-branch-browser{scrollbar-width:thin}
+.v17-branch-chip{min-height:44px}

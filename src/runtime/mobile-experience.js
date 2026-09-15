@@ -1,6 +1,17 @@
 const MOBILE_QUERY='(max-width: 720px)';
 let lastTrigger=null;
 let observerQueued=false;
+const inertedElements=new Set();
+function restoreBackground(){for(const element of inertedElements)element.inert=false;inertedElements.clear();}
+function disableBackground(panel){
+  restoreBackground();
+  for(let current=panel;current&&current!==document.body;current=current.parentElement){
+    for(const sibling of current.parentElement?.children||[]){
+      if(sibling===current||sibling.classList.contains("mobile-more-backdrop")||sibling.inert)continue;
+      sibling.inert=true;inertedElements.add(sibling);
+    }
+  }
+}
 
 const isMobile=()=>window.matchMedia(MOBILE_QUERY).matches;
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
@@ -29,6 +40,7 @@ function closeMore({restoreFocus=true}={}){
   const backdrop=document.querySelector('.mobile-more-backdrop');
   if(backdrop)backdrop.hidden=true;
   document.body.classList.remove('mobile-sheet-open');
+  restoreBackground();
   if(restoreFocus&&lastTrigger?.isConnected)lastTrigger.focus({preventScroll:true});
 }
 
@@ -39,12 +51,13 @@ function openMore(details){
   const backdrop=ensureBackdrop();
   backdrop.hidden=false;
   document.body.classList.add('mobile-sheet-open');
-  requestAnimationFrame(()=>details.querySelector('[data-mobile-more-close],a,button')?.focus({preventScroll:true}));
+  disableBackground(morePanel(details));
+  requestAnimationFrame(()=>{if(details.open&&isMobile())details.querySelector('[data-mobile-more-close],a,button')?.focus({preventScroll:true});});
 }
 
 function enhanceMoreMenu(){
   const details=moreMenu();
-  if(!details)return;
+  if(!details){closeMore({restoreFocus:false});return;}
   const summary=details.querySelector('summary');
   const panel=morePanel(details);
   if(!summary||!panel)return;
@@ -63,7 +76,7 @@ function enhanceMoreMenu(){
 }
 
 function focusableIn(element){
-  return [...element.querySelectorAll('a[href],button:not([disabled]),summary,[tabindex]:not([tabindex="-1"])')].filter(node=>!node.hidden&&node.getAttribute('aria-hidden')!=='true');
+  return [...element.querySelectorAll('a[href],button:not([disabled]),summary,[tabindex]:not([tabindex="-1"])')].filter(node=>!node.hidden&&!node.closest('[inert]')&&node.getClientRects().length&&node.getAttribute('aria-hidden')!=='true');
 }
 
 function trapSheetFocus(event){
@@ -74,7 +87,8 @@ function trapSheetFocus(event){
   const panel=morePanel(details);if(!panel)return;
   const focusable=focusableIn(panel);if(!focusable.length)return;
   const first=focusable[0],last=focusable.at(-1);
-  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+  if(!panel.contains(document.activeElement)){event.preventDefault();first.focus();}
+  else if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
   else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
 }
 
@@ -105,7 +119,7 @@ function observeNavigationShell(){
 
 document.addEventListener('click',event=>{
   if(event.target.closest('.mobile-more-backdrop,[data-mobile-more-close]')){event.preventDefault();closeMore();return;}
-  if(event.target.closest('#family-mobile-dock .mobile-more a'))closeMore({restoreFocus:false});
+  if(event.target.closest('#family-mobile-dock .mobile-more a,#family-mobile-dock [data-dock-search]'))closeMore({restoreFocus:false});
 });
 document.addEventListener('keydown',trapSheetFocus);
 window.addEventListener('hashchange',()=>{closeMore({restoreFocus:false});schedule();});

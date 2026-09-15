@@ -95,3 +95,12 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
       transition-duration:.01ms;
     }
 }
+
+/* Keyboard focus is stronger than route-local hover styling. */
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{
+  outline:3px solid var(--green)!important;
+  outline-offset:3px!important;
+}
+:where(.site-header,.v17-home-hero) :focus-visible{
+  outline-color:#fff8e9!important;
+}

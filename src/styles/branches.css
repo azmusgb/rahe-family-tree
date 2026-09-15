@@ -172,3 +172,8 @@ body[data-route="people"][data-v158-context="family"] .v159-card-branch{font-siz
 
 @media(max-width:1050px){.v175-family-grid,.v175-branch-people{grid-template-columns:repeat(2,minmax(0,1fr))}.v175-place-grid,.v175-connected-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.v175-branch-hero{grid-template-columns:1fr}.v175-branch-metrics{min-width:0;max-width:520px}}
 @media(max-width:720px){.v175-families,.v175-branch{gap:28px}.v175-families-hero,.v175-branch-hero{grid-template-columns:1fr;padding:22px 18px;border-radius:var(--family-radius-card)}.v175-families-hero h1,.v175-branch-hero h1{font-size:clamp(2.6rem,13vw,3.5rem)}.v175-family-grid,.v175-branch-people,.v175-place-grid,.v175-connected-grid,.v175-question-grid{grid-template-columns:1fr}.v175-family-card{min-height:150px}.v175-branch-back{margin-bottom:-18px}.v175-branch-metrics{display:flex;overflow-x:auto;scroll-snap-type:x proximity}.v175-branch-metrics span{flex:0 0 112px;scroll-snap-align:start}.v175-branch-actions{display:grid;grid-template-columns:1fr}.v175-branch-actions .action{justify-content:center}.v175-branch-timeline::before{left:58px}.v175-branch-event{grid-template-columns:44px minmax(0,1fr);gap:28px}.v175-branch-event::before{left:54px}.v175-open-questions{padding:16px}}
+
+/* Branch records remain readable on narrow screens and at text zoom. */
+.v175-branch-person b{white-space:normal;overflow-wrap:anywhere;line-height:1.3}
+.v175-family-card small,.v175-branch-person em,.v175-place-grid small,.v175-connected-grid small{font-size:.8125rem;line-height:1.5}
+.v175-family-card h2,.v175-question b{overflow-wrap:anywhere}

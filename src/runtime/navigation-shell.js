@@ -29,8 +29,8 @@ function rebuildDesktopNav(){
 }
 function syncBrand(){
   const research=isResearchContext(),context=research?'research':'family',brand=document.querySelector('.brand span:last-child');
-  if(brand&&brand.dataset.navContext!==context){brand.innerHTML=research?'RAHE FAMILY<small>RESEARCH CENTER</small>':'RAHE FAMILY<small>HISTORY ARCHIVE</small>';brand.dataset.navContext=context;}
-  const monogram=document.querySelector('.brand .monogram');if(monogram)monogram.textContent='R';
+  if(brand&&brand.dataset.navContext!==context){brand.innerHTML=research?'FAMILY HISTORY<small>RESEARCH CENTER</small>':'FAMILY HISTORY<small>ARCHIVE</small>';brand.dataset.navContext=context;}
+  const monogram=document.querySelector('.brand .monogram');if(monogram)monogram.textContent='F';
   const edition=document.querySelector('.edition');if(edition)edition.innerHTML=research?'<b>RESEARCH WORKSPACE</b>Evidence · sources · conflicts · acquisition':'<b>SOURCE-BACKED ARCHIVE</b>Family history · privacy protected';
 }
 function contextualSearch(){
@@ -55,7 +55,7 @@ function rebuildMobileDock(){
 function syncCrumb(){const crumb=document.getElementById('crumb');if(crumb)crumb.textContent=branchCrumb()||familyLabels[routeKey()]||crumb.textContent;}
 function returnToFamily(event){const trigger=event.target.closest?.('[data-family-return],[data-v158-family-return],[data-v158-family-mobile]');if(!trigger)return false;if(document.body.dataset.experience==='research')document.querySelector('.experience-toggle')?.click();location.hash='dashboard';return true;}
 function focusSearchInput(){const input=document.getElementById('search'),filters=document.getElementById('filters');if(!input||!filters)return false;if(filters.hidden)return false;filters.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});requestAnimationFrame(()=>input.focus({preventScroll:true}));return true;}
-function openGlobalSearch(){document.querySelector('.mobile-more,.v158-mobile-more')?.removeAttribute('open');if(focusSearchInput())return;if(isResearchContext()){location.hash='research';setTimeout(focusSearchInput,180);return;}location.hash='people';let tries=0;const focus=()=>{if(focusSearchInput()||tries++>8)return;requestAnimationFrame(focus);};requestAnimationFrame(focus);}
+export function openGlobalSearch(){document.querySelector('.mobile-more,.v158-mobile-more')?.removeAttribute('open');if(focusSearchInput())return;if(isResearchContext()){location.hash='research';setTimeout(focusSearchInput,180);return;}location.hash='people';let tries=0;const focus=()=>{if(focusSearchInput()||tries++>8)return;requestAnimationFrame(focus);};requestAnimationFrame(focus);}
 function syncHeaderContext(){const header=document.querySelector('.site-header');if(header)header.dataset.context=isResearchContext()?'research':'family';document.querySelectorAll('.v151-nav-menu').forEach(el=>el.classList.add('nav-menu'));document.querySelectorAll('.v151-nav-popover').forEach(el=>el.classList.add('nav-popover'));document.querySelectorAll('.v158-research-entry').forEach(el=>el.classList.add('research-entry'));document.querySelectorAll('.v158-family-return').forEach(el=>el.classList.add('family-return'));document.querySelectorAll('.v158-mobile-more').forEach(el=>el.classList.add('mobile-more'));document.querySelector('.v153-profile-nav')?.classList.add('profile-nav');document.querySelectorAll('.nav-menu[open],.mobile-more[open]').forEach(details=>{if(details.dataset.keepOpen!=='true')details.removeAttribute('open');});}
 function apply(){rebuildDesktopNav();syncBrand();contextualSearch();rebuildMobileDock();syncCrumb();syncHeaderContext();}
 let queued=false;function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;apply();}));}
