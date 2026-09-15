@@ -21,11 +21,18 @@
   box-shadow:0 8px 30px rgba(0,0,0,.18)
 }
 
-/* details/summary is used as a progressive-enhancement popover primitive. */
-summary{cursor:pointer;list-style:none;touch-action:manipulation}
-summary::-webkit-details-marker{display:none}
-summary::marker{content:''}
-:where(.nav-menu,.site-tools,.mobile-more)>summary{min-height:44px}
+/* Navigation popovers intentionally suppress the native disclosure marker because
+ * their visual affordances are supplied by the shell. Leave ordinary details/
+ * summary controls untouched so Archive, Research, Tree, and content disclosures
+ * retain their native marker and semantics. */
+:where(.nav-menu,.site-tools,.mobile-more)>summary{
+  cursor:pointer;
+  list-style:none;
+  touch-action:manipulation;
+  min-height:44px;
+}
+:where(.nav-menu,.site-tools,.mobile-more)>summary::-webkit-details-marker{display:none}
+:where(.nav-menu,.site-tools,.mobile-more)>summary::marker{content:''}
 :where(.nav-popover,.site-tools>div,.mobile-more>div){isolation:isolate}
 
 /* Keep controls within their grid/flex tracks and prevent long search placeholders
