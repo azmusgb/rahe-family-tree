@@ -50,5 +50,8 @@
 /* Interaction contracts intentionally follow visual composition. */
 @import './interaction-contracts.css';
 
+/* Family Explorer owns the final interactive navigation presentation. */
+@import './family-explorer-navigation.css';
+
 /* Print is authoritative and intentionally last in the cascade. */
 @import './print.css';
