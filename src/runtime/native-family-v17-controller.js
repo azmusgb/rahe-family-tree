@@ -4,6 +4,12 @@ import{renderNativePeople,renderNativePerson,hydrateNativeFamily}from'./native-f
 import{renderEditorialHome}from'./native-home-editorial.js';
 import{renderFamiliesIndex,renderFamilyBranch,routeBranchName,branchMarker}from'./family-branches-v17-5.js';
 import{routeKeyFromLocation}from'./navigation-runtime.js';
+// Interaction-critical tree/mobile runtimes are eager through the native Family
+// boundary so their handlers exist before the first route interaction. Keeping
+// this transitive preserves the stable top-level experience import contract.
+import'./tree-controller.js';
+import'./mobile-experience.js';
+import'./mobile-ui-shell.js';
 
 const routeKey=routeKeyFromLocation;
 const isFamily=()=>document.body.dataset.experience!=='research';
