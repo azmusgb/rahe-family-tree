@@ -3,8 +3,33 @@
  * mobile browser instead of a stack of desktop-sized profile cards.
  */
 @media(max-width:720px){
+  /* The directory is a utility destination: keep identity and search context, but
+   * spend the first viewport on people rather than a desktop-style introduction. */
+  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro{
+    padding:8px 14px 6px!important;
+    border-radius:0 0 18px 18px!important;
+  }
+  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro .eyebrow,
+  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro p:not(.eyebrow){
+    display:none!important;
+  }
+  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro h2{
+    margin:0!important;
+    font-size:29px!important;
+    line-height:1!important;
+  }
+  body[data-route="people"].v21-actual-mobile-ui .v21-mobile-search{
+    padding:4px 10px!important;
+  }
+  body[data-route="people"].v21-actual-mobile-ui .v21-mobile-search label>span{
+    margin-bottom:2px!important;
+  }
+  body[data-route="people"].v21-actual-mobile-ui .v17-branch-browser[data-v21-people-branches="true"]{
+    padding:2px 10px!important;
+  }
   body[data-route="people"].v21-actual-mobile-ui .v17-people-grid{
     gap:3px!important;
+    margin-top:1px!important;
   }
   body[data-route="people"].v21-actual-mobile-ui .v17-person-card>button{
     height:auto!important;
