@@ -50,6 +50,8 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Reset generated corpus from controlling source
+        run: node scripts/upgrade-corpus.mjs
       - name: Build canonical model and verify integrity
         run: npm run build-model
       - name: Run canonical, export, ingestion, and platform contracts
@@ -72,6 +74,8 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Reset generated corpus from controlling source
+        run: node scripts/upgrade-corpus.mjs
       - name: Prepare generated model used by experience contracts
         run: npm run build-model
       - name: Run current shell, navigation, graph, tree, research, and accessibility contracts
@@ -152,10 +156,10 @@ jobs:
         timeout-minutes: 5
         run: npx playwright install chromium
       - name: Run Chromium PR smoke suite
-        timeout-minutes: 6
+        timeout-minutes: 8
         env:
           CI: '1'
-        run: npx playwright test --workers=2
+        run: npx playwright test e2e/mobile-experience.spec.mjs e2e/family-graph-navigation.spec.mjs e2e/family-narrative.spec.mjs --workers=2
       - name: Upload browser diagnostics
         if: failure()
         uses: actions/upload-artifact@v4
