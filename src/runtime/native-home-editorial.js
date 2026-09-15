@@ -3,6 +3,25 @@ import{renderNativeHome}from'./native-family-v17.js';
 const setText=(root,selector,value)=>{const node=root.querySelector(selector);if(node)node.textContent=value;};
 const keepFirst=(root,selector,count=1)=>{[...root.querySelectorAll(selector)].slice(count).forEach(node=>node.remove());};
 
+function normalizeCompactHome(root){
+  if(!root?.matches?.('.v17-home.home-editorial-layout'))return;
+  root.querySelectorAll('.v172-home-branches,.v174-discovery').forEach(node=>node.remove());
+  const tree=root.querySelector('.v17-home-tree');
+  if(tree){tree.classList.add('home-editorial-lead');setText(tree,'.eyebrow','EXPLORE THE FAMILY');setText(tree,'h2','See how the family connects.');tree.querySelector('.v17-section-head>div>p:not(.eyebrow)')?.remove();}
+  const story=root.querySelector('.v17-home-story');
+  if(story){story.classList.add('home-editorial-story');setText(story,'.eyebrow','FROM THE ARCHIVE');setText(story,'h2','One moment from the family story.');keepFirst(story,'.v17-story-moment',1);story.querySelector('.v17-place-strip')?.remove();story.querySelector('.v17-section-head>div>p:not(.eyebrow)')?.remove();}
+  const people=root.querySelector('.v17-featured-people');
+  if(people){people.classList.add('home-editorial-people');setText(people,'.eyebrow','PEOPLE TO DISCOVER');setText(people,'h2','Faces in the family archive.');keepFirst(people,'.v17-home-person',3);}
+  root.querySelector('[data-v17-home-gallery]')?.remove();
+  if(story&&people){let discovery=root.querySelector('.home-editorial-discovery');if(!discovery){discovery=document.createElement('section');discovery.className='home-editorial-discovery';discovery.setAttribute('aria-label','Discover the family archive');tree?.insertAdjacentElement('afterend',discovery);}if(story.parentElement!==discovery||people.parentElement!==discovery)discovery.append(story,people);}
+}
+
+let compactQueued=false;
+function scheduleCompactHome(){
+  if(compactQueued)return;compactQueued=true;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{compactQueued=false;normalizeCompactHome(document.querySelector('#content .v17-home.home-editorial-layout'));}));
+}
+
 export function renderEditorialHome(){
   const template=document.createElement('template');
   template.innerHTML=renderNativeHome();
@@ -19,40 +38,7 @@ export function renderEditorialHome(){
     hero.querySelector('.v17-primary-actions a[href="#media"]')?.remove();
   }
 
-  const tree=root.querySelector('.v17-home-tree');
-  if(tree){
-    tree.classList.add('home-editorial-lead');
-    setText(tree,'.eyebrow','EXPLORE THE FAMILY');
-    setText(tree,'h2','See how the family connects.');
-  }
-
-  const story=root.querySelector('.v17-home-story');
-  if(story){
-    story.classList.add('home-editorial-story');
-    setText(story,'.eyebrow','FROM THE ARCHIVE');
-    setText(story,'h2','One moment from the family story.');
-    keepFirst(story,'.v17-story-moment',1);
-    story.querySelector('.v17-place-strip')?.remove();
-    story.querySelector('.v17-section-head>div>p:not(.eyebrow)')?.remove();
-  }
-
-  const people=root.querySelector('.v17-featured-people');
-  if(people){
-    people.classList.add('home-editorial-people');
-    setText(people,'.eyebrow','PEOPLE TO DISCOVER');
-    setText(people,'h2','Faces in the family archive.');
-    keepFirst(people,'.v17-home-person',3);
-  }
-
-  root.querySelector('[data-v17-home-gallery]')?.remove();
-
-  if(story&&people){
-    const discovery=document.createElement('section');
-    discovery.className='home-editorial-discovery';
-    discovery.setAttribute('aria-label','Discover the family archive');
-    tree?.insertAdjacentElement('afterend',discovery);
-    discovery.append(story,people);
-  }
+  normalizeCompactHome(root);
 
   const research=root.querySelector('.v17-research-door');
   if(research){
@@ -62,3 +48,8 @@ export function renderEditorialHome(){
 
   return template.innerHTML;
 }
+
+window.addEventListener('family-native-rendered',scheduleCompactHome);
+window.addEventListener('family-view-rendered',scheduleCompactHome);
+window.addEventListener('family-experience-changed',scheduleCompactHome);
+window.addEventListener('hashchange',scheduleCompactHome);
