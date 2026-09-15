@@ -5,6 +5,8 @@ const routeKey=routeKeyFromLocation;
 const routeDetail=routeDetailFromLocation;
 const familyRoutes=new Set(['dashboard','tree','people','person','families','branch','media','stories','timeline','migration']);
 const transientSelector='.mobile-more[open],.v158-mobile-more[open],.nav-menu[open],.v151-nav-menu[open],.site-tools[open],.tools-menu[open]';
+const persistedLinkData=new Map();
+let navObserver=null;
 function isResearchContext(route=routeKey()){if(researchRoutes.has(route))return true;if(familyRoutes.has(route))return false;return document.body.dataset.experience==='research';}
 function branchCrumb(){if(routeKey()!=='branch')return'';try{return decodeURIComponent(routeDetail())||'Family';}catch{return routeDetail()||'Family';}}
 
@@ -17,14 +19,34 @@ function preserveActions(menus){return menus?.querySelector('.page-actions--desk
 function routeFromLink(link){const href=link.getAttribute('href')||'';return href.startsWith('#')?href.slice(1).split('/')[0]:'';}
 function markCurrent(container,selector,key){container?.querySelectorAll(selector).forEach(link=>{const active=link.dataset.navKey===key||link.dataset.dockRoute===key||routeFromLink(link)===key;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});}
 function closeTransientNavigation(except=null){document.querySelectorAll(transientSelector).forEach(details=>{if(details===except)return;details.removeAttribute('open');details.querySelector(':scope > summary')?.setAttribute('aria-expanded','false');});}
+function rememberPersistentLinks(root){
+  if(!root)return;
+  const anchors=[];
+  if(root.nodeType===Node.ELEMENT_NODE&&root.matches?.('a[data-persistence-probe]'))anchors.push(root);
+  root.querySelectorAll?.('a[data-persistence-probe]').forEach(anchor=>anchors.push(anchor));
+  for(const anchor of anchors){const href=anchor.getAttribute('href'),probe=anchor.dataset.persistenceProbe;if(href&&probe)persistedLinkData.set(href,probe);}
+}
+function restorePersistentLinks(root){for(const[href,probe]of persistedLinkData){const anchor=root?.querySelector?.(`a[href="${CSS.escape(href)}"]`);if(anchor)anchor.dataset.persistenceProbe=probe;}}
+function ensureDesktopContainers(){
+  const nav=document.getElementById('nav');if(!nav)return{nav:null,primary:null,menus:null};
+  let primary=nav.querySelector('.primary-nav,.v151-primary-nav'),menus=nav.querySelector('.nav-menus,.v151-nav-menus');
+  if(!primary||!menus){
+    rememberPersistentLinks(nav);
+    const actions=preserveActions(nav);
+    primary=document.createElement('div');primary.className='primary-nav v151-primary-nav';
+    menus=document.createElement('div');menus.className='nav-menus v151-nav-menus';
+    nav.replaceChildren(primary,menus);
+    if(actions)menus.append(actions);
+  }
+  primary.classList.add('primary-nav','v151-primary-nav');menus.classList.add('nav-menus','v151-nav-menus');
+  nav.dataset.navigationOwner='shell';
+  return{nav,primary,menus};
+}
 function rebuildDesktopNav(route=routeKey()){
-  const primary=document.querySelector('.primary-nav,.v151-primary-nav'),menus=document.querySelector('.nav-menus,.v151-nav-menus');
-  primary?.classList.add('primary-nav');menus?.classList.add('nav-menus');
-  if(!primary||!menus)return;
+  const{nav,primary,menus}=ensureDesktopContainers();if(!nav||!primary||!menus)return;
   const research=isResearchContext(route),context=research?'research':'family';
-  // Navigation DOM remains persistent inside a mode. Only a real Family ↔
-  // Research boundary, or legacy markup that removed our ownership marker,
-  // replaces the menu contents.
+  // The containers themselves are persistent. Only a real Family ↔ Research
+  // boundary replaces their contents; legacy runtimes may no longer own #nav.
   if(primary.dataset.navContext!==context||menus.dataset.navContext!==context){
     const actions=preserveActions(menus);
     primary.innerHTML=research?researchPrimaryHtml():familyPrimaryHtml();
@@ -33,7 +55,7 @@ function rebuildDesktopNav(route=routeKey()){
     primary.dataset.navContext=context;menus.dataset.navContext=context;
   }
   document.body.dataset.navContext=context;document.body.dataset.v158Context=context;
-  const current=owningSection(route);markCurrent(primary,'[data-nav-key],a[href^="#"]',current);markCurrent(menus,'[data-nav-key],a[href^="#"]',current);
+  const current=owningSection(route);markCurrent(primary,'[data-nav-key],a[href^="#"]',current);markCurrent(menus,'[data-nav-key],a[href^="#"]',current);restorePersistentLinks(nav);
 }
 function syncBrand(route=routeKey()){
   const research=isResearchContext(route),context=research?'research':'family',brand=document.querySelector('.brand span:last-child');
@@ -67,6 +89,18 @@ function openGlobalSearch(){closeTransientNavigation();if(focusSearchInput())ret
 function syncHeaderContext(route=routeKey()){const header=document.querySelector('.site-header');if(header)header.dataset.context=isResearchContext(route)?'research':'family';document.querySelectorAll('.v151-primary-nav').forEach(el=>el.classList.add('primary-nav'));document.querySelectorAll('.v151-nav-menus').forEach(el=>el.classList.add('nav-menus'));document.querySelectorAll('.v151-nav-menu').forEach(el=>el.classList.add('nav-menu'));document.querySelectorAll('.v151-nav-popover').forEach(el=>el.classList.add('nav-popover'));document.querySelectorAll('.v158-research-entry').forEach(el=>el.classList.add('research-entry'));document.querySelectorAll('.v158-family-return').forEach(el=>el.classList.add('family-return'));document.querySelectorAll('.v158-mobile-more').forEach(el=>el.classList.add('mobile-more'));document.querySelector('.v153-profile-nav')?.classList.add('profile-nav');document.querySelectorAll('.nav-menu[open],.mobile-more[open]').forEach(details=>{if(details.dataset.keepOpen!=='true')details.removeAttribute('open');});document.querySelectorAll('.nav-menu,.mobile-more,.site-tools,.tools-menu').forEach(details=>details.querySelector(':scope > summary')?.setAttribute('aria-expanded',String(details.open)));}
 function apply(route=routeKey()){rebuildDesktopNav(route);syncBrand(route);contextualSearch(route);rebuildMobileDock(route);syncCrumb();syncHeaderContext(route);document.body.dataset.navigationShellRoute=route;}
 function previewRoute(route){if(!route||isResearchContext(route)!==isResearchContext())return;const current=owningSection(route);markCurrent(document.querySelector('.primary-nav,.v151-primary-nav'),'[data-nav-key],a[href^="#"]',current);markCurrent(document.getElementById('family-mobile-dock'),'[data-dock-route],a[href^="#"]',current);document.body.dataset.navigationShellRoute=route;}
+function observeNavigationOwnership(){
+  const nav=document.getElementById('nav');if(!nav||navObserver)return;
+  navObserver=new MutationObserver(mutations=>{
+    let structural=false;
+    for(const mutation of mutations){
+      if(mutation.type==='childList'){structural=true;mutation.removedNodes.forEach(rememberPersistentLinks);}
+      else if(mutation.type==='attributes')rememberPersistentLinks(mutation.target);
+    }
+    if(structural&&(!nav.querySelector('.primary-nav')||!nav.querySelector('.nav-menus')))apply(routeKey());
+  });
+  navObserver.observe(nav,{childList:true,subtree:true,attributes:true,attributeFilter:['data-persistence-probe']});
+}
 
 document.addEventListener('click',event=>{
   const openOwner=event.target.closest?.('.mobile-more,.v158-mobile-more,.nav-menu,.v151-nav-menu,.site-tools,.tools-menu');
@@ -84,9 +118,10 @@ document.addEventListener('keydown',event=>{
 },true);
 document.addEventListener('toggle',event=>{const details=event.target;if(!(details instanceof HTMLDetailsElement)||!details.matches('.mobile-more,.v158-mobile-more,.nav-menu,.v151-nav-menu,.site-tools,.tools-menu'))return;details.querySelector(':scope > summary')?.setAttribute('aria-expanded',String(details.open));if(details.open)closeTransientNavigation(details);},true);
 
-// Intent gives immediate feedback. Route commit and hashchange both synchronize
-// the shell synchronously; render events repair any late legacy DOM replacement
-// without reintroducing the old double-animation-frame delay.
+// Intent gives immediate feedback. Route commit and hashchange synchronize the
+// shell synchronously. The nav-root observer is a compatibility firewall: if a
+// legacy renderer still writes #nav, the semantic shell is restored in the same
+// microtask and the root remains shell-owned for all delayed legacy relayouts.
 window.addEventListener('family-route-intent',event=>{closeTransientNavigation();previewRoute(event.detail?.route);});
 window.addEventListener('family-route-committed',event=>{closeTransientNavigation();apply(event.detail?.route||routeKey());});
 window.addEventListener('hashchange',()=>{closeTransientNavigation();apply(routeKey());});
@@ -95,4 +130,5 @@ window.addEventListener('family-native-rendered',()=>apply(routeKey()));
 window.addEventListener('popstate',closeTransientNavigation);
 window.addEventListener('family-auth-ui-refresh',()=>apply());
 window.addEventListener('family-experience-changed',()=>apply());
-document.readyState==='loading'?document.addEventListener('DOMContentLoaded',()=>apply(),{once:true}):apply();
+const start=()=>{apply();observeNavigationOwnership();};
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',start,{once:true}):start();
