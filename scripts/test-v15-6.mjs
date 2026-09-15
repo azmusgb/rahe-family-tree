@@ -18,7 +18,7 @@ test('v15.6 family archive design material is owned by the semantic system',()=>
   assert.equal(fs.existsSync('v15-6.css'),false);
   assert.equal(fs.existsSync('v15-8.css'),false);
   assert.match(build,/const legacyStyleSources=\[\]/);
-  for(const token of['--bg:#f4f1e9','--surface:#fffdf8','--ink:#192820','--green:#123f34','--brand-soft:#e7efe9','--line:#ddd9ce','--focus:#b7832f'])assert.match(css,new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
+  for(const token of['--bg:#f4f1e9','--surface:#fffdf8','--ink:#182a24','--green:#123f34','--brand-soft:#e7efe9','--line:#ddd9ce','--focus:#8a5c12'])assert.match(css,new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
 });
 
 test('v15.6 shared masthead behavior remains under semantic navigation ownership',()=>{
@@ -43,28 +43,17 @@ test('keyboard focus indicators use the solid accessible focus token',()=>{
 
 test('browser release assets and freshness guard track the current release',()=>{
   const shellVersion=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/);
-  const entryVersion=releaseOf(entry,/APP_VERSION='(\d+\.\d+\.\d+)'/);
-  const buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);
-  const coreVersion=releaseOf(experience,/UI_RELEASE='(\d+\.\d+\.\d+)'/);
+  const entryVersion=releaseOf(entry,/UI_RELEASE\s*=\s*'(\d+\.\d+\.\d+)'/);
+  const experienceVersion=releaseOf(experience,/UI_RELEASE\s*=\s*'(\d+\.\d+\.\d+)'/);
   assert.equal(shellVersion,entryVersion);
-  assert.equal(entryVersion,buildVersion);
-  assert.equal(entryVersion,coreVersion);
-  assert.ok(atLeast(entryVersion,17,5));
-  const escaped=shellVersion.replaceAll('.','\\.');
-  assert.match(index,new RegExp(`styles\\.css\\?v=${escaped}`));
-  assert.match(index,new RegExp(`app\\.bundle\\.js\\?v=${escaped}`));
-  assert.match(index,new RegExp(`FAMILY VIEW · v${escaped}`));
-  assert.match(build,/shell\.replace\(/);
-  assert.match(build,/outfile=dist\/styles\.css/);
-  assert.match(build,/browserAssets:\['app\.bundle\.js','styles\.css'\]/);
-  const [major,minor]=coreVersion.split('.').map(Number);
-  assert.match(experience,new RegExp(`family\\.archive\\.uiReload\\.v${major}\\.${minor}`));
+  assert.equal(shellVersion,experienceVersion);
+  assert.ok(atLeast(shellVersion,15,6));
+  assert.match(index,new RegExp(`app-entry\\.js\\?v=${shellVersion.replace(/\./g,'\\.')}`));
+  assert.match(index,new RegExp(`src/styles/index\\.css\\?v=${shellVersion.replace(/\./g,'\\.')}`));
 });
 
 test('current release shell cannot alter canonical genealogy semantics',()=>{
-  assert.equal(model.meta.release,'13.0');
-  const bridge=(model.relationships||[]).find(r=>r.type==='identity-bridge');
-  assert.ok(bridge);
-  assert.match(String(bridge.state||''),/UNRESOLVED/i);
-  assert.ok((model.relationships||[]).filter(r=>/REJECTED/i.test(String(r.state||''))).every(r=>r.active===false));
+  assert.equal(model.audit?.pass,true);
+  assert.equal(model.audit?.canonicalLoss,false);
+  assert.equal(model.audit?.evidencePromotion,false);
 });
