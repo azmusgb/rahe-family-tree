@@ -18,19 +18,21 @@ const stateSignature=()=>{
 let lastStateSignature=stateSignature();
 
 function consolidateFreshTreeControls(){
-  if(route()!=='tree')return;
+  if(route()!=='tree')return false;
   const commandbar=document.querySelector('.family-graph-commandbar');
   const slot=commandbar?.querySelector('[data-family-graph-tools-slot]');
   const advanced=document.querySelector('.tree-advanced-nav');
-  if(!commandbar||!slot||!advanced)return;
+  if(!commandbar||!slot)return false;
 
-  const primary=advanced.querySelector(':scope > .tree-advanced-primary');
-  const recent=advanced.querySelector(':scope > .tree-recent-trail');
-  if(primary)slot.append(primary);
-  if(recent)slot.append(recent);
+  let moved=false;
+  const primary=advanced?.querySelector(':scope > .tree-advanced-primary');
+  const recent=advanced?.querySelector(':scope > .tree-recent-trail');
+  if(primary){slot.append(primary);moved=true;}
+  if(recent){slot.append(recent);moved=true;}
 
   const exportTools=document.querySelector('.graph-toolbar [data-tree-advanced-export]');
-  if(exportTools)slot.append(exportTools);
+  if(exportTools&&!slot.contains(exportTools)){slot.append(exportTools);moved=true;}
+  return moved;
 }
 
 function prepareStateRefresh(){
@@ -50,7 +52,27 @@ function stabilizePresentationRefresh(){
   consolidateFreshTreeControls();
 }
 
+// tree-advanced can emit a fresh source control set from its own animation-frame
+// reconciliation (including resize/media-driven refreshes) without first emitting a
+// Family render event. Observe only DOM additions and immediately adopt those controls
+// into the current command bar before family-graph-navigation's later two-frame pass.
+// Moving a control into the slot creates one more mutation, but the next callback is a
+// no-op because the source no longer contains direct primary/recent children.
+const controlObserver=new MutationObserver(()=>{
+  if(route()!=='tree')return;
+  const advanced=document.querySelector('.tree-advanced-nav');
+  if(!advanced)return;
+  if(advanced.querySelector(':scope > .tree-advanced-primary,:scope > .tree-recent-trail'))consolidateFreshTreeControls();
+});
+function observeTreeControls(){
+  const root=document.getElementById('content')||document.body;
+  controlObserver.disconnect();
+  controlObserver.observe(root,{childList:true,subtree:true});
+  consolidateFreshTreeControls();
+}
+
 window.addEventListener('hashchange',prepareStateRefresh);
 window.addEventListener('popstate',prepareStateRefresh);
 window.addEventListener('family-view-rendered',stabilizePresentationRefresh);
 window.addEventListener('family-native-rendered',stabilizePresentationRefresh);
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',observeTreeControls):observeTreeControls();
