@@ -18,14 +18,14 @@ const router=read('v11.js');
 const intelligence=read('research-intelligence.js');
 
 test('v18.5 Research Intelligence remains wired under the current synchronized release',()=>{
-  assert.match(entry,/APP_VERSION='19\.0\.0'/);
-  assert.match(experience,/UI_RELEASE='19\.0\.0'/);
-  assert.match(experience,/family\.archive\.uiReload\.v19\.0/);
-  assert.match(shell,/data-ui-release="19\.0\.0"/);
-  assert.match(shell,/styles\.css\?v=19\.0\.0/);
-  assert.match(shell,/app\.bundle\.js\?v=19\.0\.0/);
-  assert.match(build,/const appVersion='19\.0\.0'/);
-  assert.match(build,/releaseTrain:'v19-family-graph'/);
+  assert.match(entry,/APP_VERSION='20\.0\.0'/);
+  assert.match(experience,/UI_RELEASE='20\.0\.0'/);
+  assert.match(experience,/family\.archive\.uiReload\.v20\.0/);
+  assert.match(shell,/data-ui-release="20\.0\.0"/);
+  assert.match(shell,/styles\.css\?v=20\.0\.0/);
+  assert.match(shell,/app\.bundle\.js\?v=20\.0\.0/);
+  assert.match(build,/const appVersion='20\.0\.0'/);
+  assert.match(build,/releaseTrain:'v20-mobile-app'/);
 });
 
 test('research automation remains deterministic advisory output with no canonical mutation',()=>{
