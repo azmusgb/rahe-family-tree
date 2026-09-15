@@ -1,0 +1,134 @@
+/* Actual mobile UI composition. This file owns the dedicated phone shell and
+ * structurally recomposed mobile surfaces introduced by mobile-ui-shell.js. */
+@media (max-width:720px){
+  body.v21-actual-mobile-ui{
+    --actual-header-h:64px;
+    --actual-cream:#f7f1e5;
+    --actual-paper:#fffdf8;
+    --actual-green:#123f34;
+    --actual-ink:#15352d;
+    --actual-muted:#68766f;
+    --actual-line:rgba(18,63,52,.12);
+    background:#eee8dc;
+  }
+
+  /* The phone now has its own real header. The desktop header is not the mobile UI. */
+  body.v21-actual-mobile-ui .site-header.sidebar{display:none!important}
+  body.v21-actual-mobile-ui .v20-context-bar{display:none!important}
+  body.v21-actual-mobile-ui #mobile-app-header{
+    position:sticky;top:0;z-index:2147482500;
+    min-height:calc(var(--actual-header-h) + env(safe-area-inset-top,0px));
+    display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;align-items:end;gap:10px;
+    padding:calc(8px + env(safe-area-inset-top,0px)) 14px 8px;
+    border-bottom:1px solid rgba(18,63,52,.10);
+    background:rgba(247,241,229,.96);color:var(--actual-green);
+    -webkit-backdrop-filter:blur(22px) saturate(1.08);backdrop-filter:blur(22px) saturate(1.08);
+    box-shadow:0 8px 26px rgba(20,48,40,.07);
+  }
+  body.v21-actual-mobile-ui #mobile-app-header[hidden]{display:none!important}
+  .mobile-app-mark,.mobile-app-back,.mobile-app-search{
+    width:44px;height:44px;min-width:44px;display:grid;place-items:center;
+    border:0;border-radius:15px;background:#fff;color:var(--actual-green);
+    box-shadow:0 5px 16px rgba(18,63,52,.08);text-decoration:none;font-weight:850;
+  }
+  .mobile-app-mark{background:var(--actual-green);color:#fff;font-family:var(--family-font-display);font-size:22px}
+  .mobile-app-back span{font-size:31px;font-weight:300;line-height:1;transform:translateY(-1px)}
+  .mobile-app-search{font-size:23px}
+  .mobile-app-heading{min-width:0;align-self:center}
+  .mobile-app-heading small{display:block;margin-bottom:2px;color:#8d7a4b;font-size:8px;font-weight:850;letter-spacing:.16em}
+  .mobile-app-heading strong{display:block;overflow:hidden;color:var(--actual-green);font-family:var(--family-font-display);font-size:20px;line-height:1.05;text-overflow:ellipsis;white-space:nowrap}
+
+  /* Home is now a real app feed: cover -> search -> launcher -> family content. */
+  body[data-route="dashboard"].v21-actual-mobile-ui [data-v17-native="home"]>.v17-home-hero{
+    min-height:min(600px,70svh);padding:54px 20px 38px;border-radius:0 0 34px 34px;
+  }
+  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero h1,
+  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero h2{font-size:clamp(52px,15vw,70px)}
+  body[data-route="dashboard"].v21-actual-mobile-ui .route-shell[data-mobile-integrated-search="home"]{
+    position:relative!important;top:auto!important;z-index:3;margin:14px;padding:0;background:transparent!important;
+  }
+  body[data-route="dashboard"].v21-actual-mobile-ui .route-shell[data-mobile-integrated-search="home"] .filters{
+    padding:0!important;background:transparent!important;
+  }
+  body[data-route="dashboard"].v21-actual-mobile-ui .route-shell[data-mobile-integrated-search="home"] .search input{
+    height:58px;border:1px solid var(--actual-line);border-radius:19px;background:var(--actual-paper);
+    box-shadow:0 12px 30px rgba(18,63,52,.09);
+  }
+  .v21-mobile-launcher{
+    margin:0 14px 28px;padding:20px;border:1px solid rgba(18,63,52,.09);border-radius:28px;
+    background:#fffdf8;box-shadow:0 15px 38px rgba(18,63,52,.08);
+  }
+  .v21-launcher-heading span{display:block;color:#9b7d38;font-size:9px;font-weight:900;letter-spacing:.18em}
+  .v21-launcher-heading h2{margin:5px 0 7px;color:var(--actual-green);font-size:31px;line-height:.95;letter-spacing:-.035em}
+  .v21-launcher-heading p{margin:0;color:var(--actual-muted);font-size:13px;line-height:1.45}
+  .v21-mobile-launcher .v17-primary-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 0}
+  .v21-mobile-launcher .v17-primary-actions .action{
+    min-height:68px;margin:0;padding:0 14px;border:0;border-radius:18px;
+    display:flex;align-items:center;justify-content:center;background:#e8eee9;color:var(--actual-green);font-size:12px;font-weight:850;text-align:center;
+  }
+  .v21-mobile-launcher .v17-primary-actions .action.primary{
+    grid-column:1/-1;min-height:78px;justify-content:space-between;padding:0 20px;background:var(--actual-green);color:#fff;font-size:15px;
+  }
+  .v21-mobile-launcher .v17-primary-actions .action.primary::after{content:'Explore →';font-size:11px;letter-spacing:.04em;opacity:.8}
+  body[data-route="dashboard"].v21-actual-mobile-ui .v20-continue-card{margin:0 14px 14px}
+  body[data-route="dashboard"].v21-actual-mobile-ui .v20-recent-rail{padding-top:14px}
+  body[data-route="dashboard"].v21-actual-mobile-ui [data-v21-surface]{position:relative}
+  body[data-route="dashboard"].v21-actual-mobile-ui [data-v21-surface]::before{
+    content:attr(data-v21-surface);display:block;margin-bottom:8px;color:#9b7d38;font-size:9px;font-weight:900;letter-spacing:.17em;text-transform:uppercase;
+  }
+
+  /* People owns its search bar inside the directory rather than in global page chrome. */
+  body[data-route="people"].v21-actual-mobile-ui .route-shell[data-mobile-integrated-search="people"]{
+    position:sticky!important;top:calc(var(--actual-header-h) + env(safe-area-inset-top,0px))!important;z-index:80;
+    margin:0;padding:10px 12px;background:rgba(238,232,220,.96)!important;
+    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  }
+  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro{
+    padding:30px 18px 22px;border-radius:0 0 32px 32px;
+  }
+  body[data-route="people"].v21-actual-mobile-ui .v17-branch-browser[data-v21-people-branches="true"]{
+    padding:14px 12px 10px;scroll-padding-inline:12px;
+  }
+  body[data-route="people"].v21-actual-mobile-ui .v17-people-grid{margin-top:8px}
+
+  /* Person quick actions are now a dedicated app control row outside the identity cover. */
+  body[data-route="person"].v21-actual-mobile-ui .v21-person-quick-actions{
+    margin:-20px 14px 10px;padding:14px;border:1px solid rgba(18,63,52,.09);border-radius:24px;
+    background:#fffdf8;box-shadow:0 16px 38px rgba(18,63,52,.14);position:relative;z-index:4;
+  }
+  .v21-person-quick-actions>span{display:block;margin:0 4px 10px;color:#9b7d38;font-size:9px;font-weight:900;letter-spacing:.17em}
+  .v21-person-quick-actions .v17-person-actions{display:grid!important;grid-template-columns:1fr 1fr;gap:8px;margin:0!important}
+  .v21-person-quick-actions .v17-person-actions .action{min-height:54px;margin:0;border-radius:16px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px}
+  body[data-route="person"].v21-actual-mobile-ui .v20-person-tabs{top:calc(var(--actual-header-h) + env(safe-area-inset-top,0px))}
+
+  /* Tree is a purpose-built workspace with its own real mode bar. */
+  body[data-route="tree"].v21-actual-mobile-ui #content{padding-top:6px!important}
+  .v21-tree-mode-bar{
+    position:sticky;top:calc(var(--actual-header-h) + env(safe-area-inset-top,0px));z-index:72;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 4px 8px;padding:10px 12px;
+    border:1px solid rgba(18,63,52,.10);border-radius:18px;background:rgba(255,253,248,.95);box-shadow:0 8px 22px rgba(18,63,52,.09);
+    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  }
+  .v21-tree-mode-bar span{display:block;color:#9b7d38;font-size:8px;font-weight:900;letter-spacing:.16em}
+  .v21-tree-mode-bar strong{display:block;color:var(--actual-green);font-family:var(--family-font-display);font-size:20px}
+  .v21-tree-mode-bar>div:last-child{display:flex;gap:7px}
+  .v21-tree-mode-bar button{min-height:42px;padding:0 13px;border:0;border-radius:13px;background:#e7ece7;color:var(--actual-green);font-size:11px;font-weight:850}
+  body[data-route="tree"].v21-actual-mobile-ui .v174-tree-context{position:relative!important;top:auto!important}
+
+  /* More is physically grouped into Discover and Research sections. */
+  #family-mobile-dock .v21-more-discover,#family-mobile-dock .v21-more-research{grid-column:1/-1;display:block;margin-top:6px}
+  #family-mobile-dock :where(.v21-more-discover,.v21-more-research)>span{display:block;margin:0 4px 7px;color:#8c7747;font-size:9px;font-weight:900;letter-spacing:.16em}
+  #family-mobile-dock :where(.v21-more-discover,.v21-more-research)>div{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  #family-mobile-dock :where(.v21-more-discover,.v21-more-research) a{min-height:58px;display:flex;align-items:center;padding:0 14px;border-radius:16px;background:#e7ece7;color:var(--actual-green);text-decoration:none;font-size:13px;font-weight:800}
+  #family-mobile-dock .v21-more-research>div{grid-template-columns:1fr}
+
+  /* The actual DOM order is Home / Families / Tree / People / More. */
+  #family-mobile-dock[data-actual-mobile-order="home-families-tree-people-more"]{
+    grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  }
+}
+
+@media (min-width:721px){
+  #mobile-app-header{display:none!important}
+  .v21-mobile-launcher,.v21-person-quick-actions,.v21-tree-mode-bar{display:none!important}
+}
