@@ -50,8 +50,11 @@
 /* Interaction contracts intentionally follow visual composition. */
 @import './interaction-contracts.css';
 
-/* Family Explorer owns the final interactive navigation presentation. */
+/* Family Explorer owns desktop navigation presentation. */
 @import './family-explorer-navigation.css';
+
+/* Mobile v20 is authoritative for the complete phone experience. */
+@import './mobile-v20.css';
 
 /* Print is authoritative and intentionally last in the cascade. */
 @import './print.css';
