@@ -53,8 +53,10 @@
 /* Family Explorer owns desktop navigation presentation. */
 @import './family-explorer-navigation.css';
 
-/* Mobile v20 is authoritative for the complete phone experience. */
+/* Mobile v20 foundation, followed by the app-level information architecture. */
 @import './mobile-v20.css';
+@import './mobile-app.css';
+@import './mobile-contract-bridge.css';
 
 /* Print is authoritative and intentionally last in the cascade. */
 @import './print.css';
