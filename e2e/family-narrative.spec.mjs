@@ -20,7 +20,7 @@ test('home is a native archive with supported family story content',async({page}
   await expect(home.locator('.v17-home-tree')).toBeVisible();
   const story=home.locator('.v17-home-story');
   await expect(story).toBeVisible();
-  await expect(story.getByRole('heading',{name:'Across generations and places'})).toBeVisible();
+  await expect(story.getByRole('heading',{name:'Lives remembered across generations.'})).toBeVisible();
   await expect(story.locator('.v17-story-moment').first()).toBeVisible();
   await expect(page.locator('.v157-home')).toHaveCount(0);
 });
