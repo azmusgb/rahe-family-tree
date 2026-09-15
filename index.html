@@ -7,11 +7,17 @@
   <meta name="theme-color" content="#173f35">
   <title>Family History Archive</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2210%22 fill=%22%23173f35%22/%3E%3Ctext x=%2218%22 y=%2247%22 fill=%22white%22 font-size=%2244%22%3EF%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20.0.0&amp;surface=immersive">
-  <script type="module" src="app.bundle.js?v=20.0.0"></script>
+  <link rel="stylesheet" href="styles.css?v=20.0.0&amp;surface=actual-ui">
+  <script type="module" src="app.bundle.js?v=20.0.0&amp;ui=actual-v1"></script>
 </head>
 <body data-experience="family" data-route="dashboard">
 <a class="skip" href="#main">Skip to family</a>
+<header id="mobile-app-header" class="mobile-app-header" aria-label="Mobile family navigation" hidden>
+  <a class="mobile-app-back" data-mobile-app-back href="#dashboard" aria-label="Back" hidden><span aria-hidden="true">‹</span></a>
+  <a class="mobile-app-mark" href="#dashboard" aria-label="Family History Archive home">F</a>
+  <div class="mobile-app-heading"><small>FAMILY ARCHIVE</small><strong data-mobile-app-title>Home</strong></div>
+  <button class="mobile-app-search" type="button" data-global-search aria-label="Search the family archive"><span aria-hidden="true">⌕</span></button>
+</header>
 <div class="shell">
   <header class="site-header sidebar">
     <a class="brand" href="#dashboard" aria-label="Family History Archive home"><span class="monogram">F</span><span>FAMILY HISTORY<small>ARCHIVE</small></span></a>
@@ -81,8 +87,8 @@
 </div>
 <nav id="family-mobile-dock" class="family-mobile-dock" aria-label="Quick family navigation">
   <a href="#dashboard" data-dock-route="dashboard" aria-current="page"><span>Home</span></a>
-  <a href="#tree" data-dock-route="tree"><span>Tree</span></a>
   <a href="#families" data-dock-route="families"><span>Families</span></a>
+  <a href="#tree" data-dock-route="tree"><span>Tree</span></a>
   <a href="#people" data-dock-route="people"><span>People</span></a>
   <details class="v158-mobile-more"><summary>More</summary><div><button type="button" data-dock-search>Search</button><a href="#media">Photos</a><a href="#stories">Stories</a><a href="#timeline">Timeline</a><a href="#migration">Places</a><a href="#research">Research</a></div></details>
 </nav>
