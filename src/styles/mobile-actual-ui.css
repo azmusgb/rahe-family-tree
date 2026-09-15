@@ -1,56 +1,74 @@
 /* Actual mobile UI composition. This file owns the dedicated phone shell and
- * structurally recomposed mobile surfaces introduced by mobile-ui-shell.js. */
+ * structurally recomposed mobile surfaces introduced by mobile-ui-shell.js.
+ *
+ * Mobile color contract:
+ * - canvas: application background only
+ * - paper: content, cards, search, sheets
+ * - forest: brand, primary actions, active navigation, deep Research emphasis
+ * - sage: secondary actions and subordinate navigation
+ * - archival brown: editorial micro-labels only
+ * - brass: ornament only; never evidence-state text
+ * Canonical evidence colors continue to come from tokens.css and are not remapped here.
+ */
 @media (max-width:720px){
   body.v21-actual-mobile-ui{
     --actual-header-h:64px;
     --actual-context-h:42px;
-    --actual-cream:#f7f1e5;
+    --actual-canvas:#f3eee3;
     --actual-paper:#fffdf8;
-    --actual-green:#123f34;
-    --actual-ink:#15352d;
-    --actual-muted:#68766f;
-    --actual-line:rgba(18,63,52,.12);
-    background:#eee8dc;
+    --actual-forest:#123f34;
+    --actual-ink:#192820;
+    --actual-muted:#66716a;
+    --actual-sage:#e7efe9;
+    --actual-label:#735f35;
+    --actual-line:#ddd9ce;
+    --actual-brass:#c9ad68;
+    --actual-shadow-soft:0 7px 22px rgba(18,47,39,.06);
+    --actual-shadow-card:0 12px 30px rgba(18,47,39,.08);
+    /* Compatibility aliases used by the structural rules below. */
+    --actual-cream:var(--actual-canvas);
+    --actual-green:var(--actual-forest);
+    background:var(--actual-canvas);
+    color:var(--actual-ink);
   }
 
-  /* The phone has its own real header. Desktop navigation is not the mobile UI. */
+  /* The phone has its own real header. Keep chrome quiet so content owns the page. */
   body.v21-actual-mobile-ui .site-header.sidebar{display:none!important}
   body.v21-actual-mobile-ui #mobile-app-header{
     position:sticky;top:0;z-index:2147482500;
     min-height:calc(var(--actual-header-h) + env(safe-area-inset-top,0px));
     display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;align-items:end;gap:10px;
     padding:calc(8px + env(safe-area-inset-top,0px)) 14px 8px;
-    border-bottom:1px solid rgba(18,63,52,.10);
-    background:rgba(247,241,229,.96);color:var(--actual-green);
-    -webkit-backdrop-filter:blur(22px) saturate(1.08);backdrop-filter:blur(22px) saturate(1.08);
-    box-shadow:0 8px 26px rgba(20,48,40,.07);
+    border-bottom:1px solid var(--actual-line);
+    background:rgba(243,238,227,.97);color:var(--actual-forest);
+    -webkit-backdrop-filter:blur(22px) saturate(1.05);backdrop-filter:blur(22px) saturate(1.05);
+    box-shadow:0 2px 12px rgba(20,48,40,.035);
   }
   body.v21-actual-mobile-ui #mobile-app-header[hidden]{display:none!important}
   .mobile-app-mark,.mobile-app-back,.mobile-app-search{
     width:44px;height:44px;min-width:44px;display:grid;place-items:center;
-    border:0;border-radius:15px;background:#fff;color:var(--actual-green);
-    box-shadow:0 5px 16px rgba(18,63,52,.08);text-decoration:none;font-weight:850;
+    border:0;border-radius:14px;background:var(--actual-sage);color:var(--actual-forest);
+    box-shadow:none;text-decoration:none;font-weight:850;
   }
-  .mobile-app-mark{background:var(--actual-green);color:#fff;font-family:var(--family-font-display);font-size:22px}
+  .mobile-app-mark{background:var(--actual-forest);color:#fff;font-family:var(--family-font-display);font-size:22px}
   .mobile-app-back span{font-size:31px;font-weight:300;line-height:1;transform:translateY(-1px)}
   .mobile-app-search{font-size:23px}
   .mobile-app-heading{min-width:0;align-self:center}
-  .mobile-app-heading small{display:block;margin-bottom:2px;color:#8d7a4b;font-size:8px;font-weight:850;letter-spacing:.16em}
-  .mobile-app-heading strong{display:block;overflow:hidden;color:var(--actual-green);font-family:var(--family-font-display);font-size:20px;line-height:1.05;text-overflow:ellipsis;white-space:nowrap}
+  .mobile-app-heading small{display:block;margin-bottom:2px;color:var(--actual-label);font-size:8px;font-weight:850;letter-spacing:.16em}
+  .mobile-app-heading strong{display:block;overflow:hidden;color:var(--actual-ink);font-family:var(--family-font-display);font-size:20px;line-height:1.05;text-overflow:ellipsis;white-space:nowrap}
 
-  /* Keep the established contextual route contract on inner screens, but make it
-   * a compact subordinate breadcrumb below the dedicated app header. */
+  /* Inner-route context is subordinate navigation: sage, not another primary green hero. */
   body[data-route="dashboard"].v21-actual-mobile-ui .v20-context-bar,
   body[data-route="tree"].v21-actual-mobile-ui .v20-context-bar{display:none!important}
   body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar:not([hidden]){
     position:sticky;top:calc(var(--actual-header-h) + env(safe-area-inset-top,0px));z-index:2147482400;
     min-height:var(--actual-context-h);height:var(--actual-context-h);padding:2px 10px;
-    border:0;border-bottom:1px solid rgba(255,255,255,.10);background:var(--actual-green);color:#fff;
+    border:0;border-bottom:1px solid var(--actual-line);background:var(--actual-sage);color:var(--actual-forest);
     -webkit-backdrop-filter:none;backdrop-filter:none;
   }
   body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar strong,
   body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar>a,
-  body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar>button{color:#fff}
+  body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar>button{color:var(--actual-forest)}
   body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar>a,
   body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar>button{min-height:36px;background:transparent}
 
@@ -58,90 +76,159 @@
   body[data-route="dashboard"].v21-actual-mobile-ui #main>.route-shell{display:none!important}
   body[data-route="people"].v21-actual-mobile-ui #main>.route-shell{display:none!important;position:sticky!important}
 
-  /* Home is a real app feed: cover -> dedicated search -> launcher -> family content. */
+  /* Home is an archival cover, then functional search and a clear action hierarchy. */
   body[data-route="dashboard"].v21-actual-mobile-ui [data-v17-native="home"]>.v17-home-hero{
     min-height:min(600px,70svh);padding:54px 20px 38px;border-radius:0 0 34px 34px;
+    background:
+      radial-gradient(circle at 80% 20%,rgba(201,173,104,.22) 0 8%,transparent 8.5%),
+      radial-gradient(circle at 84% 29%,rgba(18,63,52,.07) 0 16%,transparent 16.5%),
+      linear-gradient(148deg,var(--actual-paper) 0%,#f0e8d8 70%,#e6dcc8 100%);
+    color:var(--actual-ink);
   }
+  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero .eyebrow{color:var(--actual-label)!important}
   body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero h1,
-  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero h2{font-size:clamp(52px,15vw,70px)}
+  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero h2{font-size:clamp(52px,15vw,70px);color:var(--actual-forest)!important}
+  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero>div>p:not(.eyebrow){color:var(--actual-muted)!important}
 
   .v21-mobile-search{margin:14px;padding:0;border:0;background:transparent}
-  .v21-mobile-search label>span{display:block;margin:0 4px 7px;color:#8d7540;font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+  .v21-mobile-search label>span{display:block;margin:0 4px 7px;color:var(--actual-label);font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
   .v21-mobile-search label>div{
     display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;padding:5px;
     border:1px solid var(--actual-line);border-radius:20px;background:var(--actual-paper);
-    box-shadow:0 12px 30px rgba(18,63,52,.09);
+    box-shadow:var(--actual-shadow-soft);
   }
   .v21-mobile-search input{
     min-width:0;height:48px;padding:0 12px;border:0!important;outline:0;border-radius:15px;background:transparent!important;
     color:var(--actual-ink);font-size:16px;box-shadow:none!important;
   }
   .v21-mobile-search button{
-    min-width:72px;min-height:48px;padding:0 14px;border:0;border-radius:15px;background:var(--actual-green);color:#fff;font-size:11px;font-weight:850;
+    min-width:72px;min-height:48px;padding:0 14px;border:0;border-radius:15px;background:var(--actual-forest);color:#fff;font-size:11px;font-weight:850;
   }
 
   .v21-mobile-launcher{
-    margin:0 14px 28px;padding:20px;border:1px solid rgba(18,63,52,.09);border-radius:28px;
-    background:#fffdf8;box-shadow:0 15px 38px rgba(18,63,52,.08);
+    margin:0 14px 28px;padding:20px;border:1px solid var(--actual-line);border-radius:28px;
+    background:var(--actual-paper);box-shadow:var(--actual-shadow-card);
   }
-  .v21-launcher-heading span{display:block;color:#9b7d38;font-size:9px;font-weight:900;letter-spacing:.18em}
-  .v21-launcher-heading h2{margin:5px 0 7px;color:var(--actual-green);font-size:31px;line-height:.95;letter-spacing:-.035em}
+  .v21-launcher-heading span{display:block;color:var(--actual-label);font-size:9px;font-weight:900;letter-spacing:.18em}
+  .v21-launcher-heading h2{margin:5px 0 7px;color:var(--actual-forest);font-size:31px;line-height:.95;letter-spacing:-.035em}
   .v21-launcher-heading p{margin:0;color:var(--actual-muted);font-size:13px;line-height:1.45}
   .v21-mobile-launcher .v17-primary-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 0}
   .v21-mobile-launcher .v17-primary-actions .action{
     min-height:68px;margin:0;padding:0 14px;border:0;border-radius:18px;
-    display:flex;align-items:center;justify-content:center;background:#e8eee9;color:var(--actual-green);font-size:12px;font-weight:850;text-align:center;
+    display:flex;align-items:center;justify-content:center;background:var(--actual-sage);color:var(--actual-forest);font-size:12px;font-weight:850;text-align:center;
   }
   .v21-mobile-launcher .v17-primary-actions .action.primary{
-    grid-column:1/-1;min-height:78px;justify-content:space-between;padding:0 20px;background:var(--actual-green);color:#fff;font-size:15px;
+    grid-column:1/-1;min-height:78px;justify-content:space-between;padding:0 20px;background:var(--actual-forest);color:#fff;font-size:15px;
   }
-  .v21-mobile-launcher .v17-primary-actions .action.primary::after{content:'Explore →';font-size:11px;letter-spacing:.04em;opacity:.8}
-  body[data-route="dashboard"].v21-actual-mobile-ui .v20-continue-card{margin:0 14px 14px}
+  .v21-mobile-launcher .v17-primary-actions .action.primary::after{content:'Explore →';font-size:11px;letter-spacing:.04em;opacity:.82}
+
+  /* Personalized continuation is useful, but intentionally secondary to Explore Tree. */
+  body[data-route="dashboard"].v21-actual-mobile-ui .v20-continue-card{
+    margin:0 14px 14px!important;border:1px solid var(--actual-line)!important;background:var(--actual-sage)!important;color:var(--actual-ink)!important;
+    box-shadow:var(--actual-shadow-soft)!important;
+  }
+  body[data-route="dashboard"].v21-actual-mobile-ui .v20-continue-card :where(h2,p,span){color:inherit!important}
+  body[data-route="dashboard"].v21-actual-mobile-ui .v20-continue-card>div>span{color:var(--actual-label)!important}
+  body[data-route="dashboard"].v21-actual-mobile-ui .v20-continue-card>a{background:var(--actual-forest)!important;color:#fff!important}
   body[data-route="dashboard"].v21-actual-mobile-ui .v20-recent-rail{padding-top:14px}
+  body[data-route="dashboard"].v21-actual-mobile-ui .v20-recent-person,
+  body[data-route="dashboard"].v21-actual-mobile-ui .v20-recent-person:nth-child(even){background:var(--actual-paper)!important;color:var(--actual-ink)!important;border:1px solid var(--actual-line)!important;box-shadow:none!important}
+  body[data-route="dashboard"].v21-actual-mobile-ui .v20-recent-person>span{background:var(--actual-sage)!important;color:var(--actual-forest)!important}
   body[data-route="dashboard"].v21-actual-mobile-ui [data-v21-surface]{position:relative}
   body[data-route="dashboard"].v21-actual-mobile-ui [data-v21-surface]::before{
-    content:attr(data-v21-surface);display:block;margin-bottom:8px;color:#9b7d38;font-size:9px;font-weight:900;letter-spacing:.17em;text-transform:uppercase;
+    content:attr(data-v21-surface);display:block;margin-bottom:8px;color:var(--actual-label);font-size:9px;font-weight:900;letter-spacing:.17em;text-transform:uppercase;
   }
 
-  /* People owns an actual search component inside the directory. */
-  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro{padding:30px 18px 22px;border-radius:0 0 32px 32px}
+  /* Home chapters use one canvas/paper system instead of cycling through near-identical beiges. */
+  body[data-route="dashboard"].v21-actual-mobile-ui #content :where(.v17-home-tree,.v17-home-story,.v17-featured-people,.v17-home-media){background:var(--actual-canvas)!important}
+  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-tree-canvas,
+  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-person,
+  body[data-route="dashboard"].v21-actual-mobile-ui .v17-story-moment{background:var(--actual-paper)!important;border-color:var(--actual-line)!important}
+  body[data-route="dashboard"].v21-actual-mobile-ui .v17-research-door{background:var(--actual-forest)!important;color:#fff!important}
+  body[data-route="dashboard"].v21-actual-mobile-ui .v17-research-door :where(h2,p,.eyebrow,a){color:inherit!important}
+
+  /* People is a utility/browser destination, not another promotional green landing page. */
+  body[data-route="people"].v21-actual-mobile-ui #content{background:var(--actual-canvas)!important}
+  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro{
+    padding:30px 18px 22px;border-radius:0 0 32px 32px;background:var(--actual-canvas)!important;color:var(--actual-ink)!important;
+    border-bottom:1px solid var(--actual-line);
+  }
+  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro :where(h1,h2){color:var(--actual-forest)!important}
+  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro :where(p,.eyebrow){color:var(--actual-muted)!important}
   body[data-route="people"].v21-actual-mobile-ui .v21-mobile-search{
     position:sticky;top:calc(var(--actual-header-h) + var(--actual-context-h) + env(safe-area-inset-top,0px));z-index:80;
-    margin:0;padding:10px 12px;background:rgba(238,232,220,.96);
+    margin:0;padding:10px 12px;background:rgba(243,238,227,.96);
     -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
   }
   body[data-route="people"].v21-actual-mobile-ui .v17-branch-browser[data-v21-people-branches="true"]{padding:14px 12px 10px;scroll-padding-inline:12px}
-  body[data-route="people"].v21-actual-mobile-ui .v17-people-grid{margin-top:8px}
+  body[data-route="people"].v21-actual-mobile-ui .v17-branch-chip{background:var(--actual-paper)!important;color:var(--actual-forest)!important;border:1px solid var(--actual-line)!important;box-shadow:none!important}
+  body[data-route="people"].v21-actual-mobile-ui .v17-branch-chip:is(.active,[aria-current="true"],[aria-pressed="true"]){background:var(--actual-sage)!important;border-color:rgba(18,63,52,.22)!important}
+  body[data-route="people"].v21-actual-mobile-ui .v17-people-grid{margin-top:8px;background:var(--actual-paper)!important;border-color:var(--actual-line)!important;box-shadow:var(--actual-shadow-soft)!important}
 
-  /* Person quick actions are structurally outside the identity cover. */
-  body[data-route="person"].v21-actual-mobile-ui .v21-person-quick-actions{
-    margin:-20px 14px 10px;padding:14px;border:1px solid rgba(18,63,52,.09);border-radius:24px;
-    background:#fffdf8;box-shadow:0 16px 38px rgba(18,63,52,.14);position:relative;z-index:4;
+  /* Families earns one dramatic editorial hero; cards remain quiet paper/sage surfaces. */
+  body[data-route="families"].v21-actual-mobile-ui #content{background:var(--actual-canvas)!important}
+  body[data-route="families"].v21-actual-mobile-ui .v175-families-hero{
+    background:linear-gradient(145deg,#0f332a,var(--actual-forest) 58%,#315d4e)!important;color:#fff!important;
   }
-  .v21-person-quick-actions>span{display:block;margin:0 4px 10px;color:#9b7d38;font-size:9px;font-weight:900;letter-spacing:.17em}
+  body[data-route="families"].v21-actual-mobile-ui .v175-families-hero :where(h1,h2,p,.eyebrow){color:inherit!important}
+  body[data-route="families"].v21-actual-mobile-ui .v175-family-card{background:var(--actual-paper)!important;color:var(--actual-ink)!important;border:1px solid var(--actual-line)!important}
+  body[data-route="families"].v21-actual-mobile-ui .v175-family-card:nth-child(3n+1){background:var(--actual-sage)!important}
+  body[data-route="families"].v21-actual-mobile-ui .v175-family-card:nth-child(3n+2){background:var(--actual-paper)!important}
+
+  /* Person is paper-first. The person, not the controls, is the visual hero. */
+  body[data-route="person"].v21-actual-mobile-ui #content{background:var(--actual-canvas)!important}
+  body[data-route="person"].v21-actual-mobile-ui .v17-person-header{
+    background:linear-gradient(155deg,var(--actual-paper),#edf2ec)!important;color:var(--actual-ink)!important;box-shadow:none!important;
+    border-bottom:1px solid var(--actual-line)!important;
+  }
+  body[data-route="person"].v21-actual-mobile-ui .v17-person-header :where(h1,h2){color:var(--actual-forest)!important}
+  body[data-route="person"].v21-actual-mobile-ui .v17-person-header :where(p,.eyebrow,.v17-person-dates,.v17-person-context){color:var(--actual-muted)!important}
+  body[data-route="person"].v21-actual-mobile-ui .v21-person-quick-actions{
+    margin:-20px 14px 10px;padding:14px;border:1px solid var(--actual-line);border-radius:24px;
+    background:var(--actual-paper);box-shadow:var(--actual-shadow-soft);position:relative;z-index:4;
+  }
+  .v21-person-quick-actions>span{display:block;margin:0 4px 10px;color:var(--actual-label);font-size:9px;font-weight:900;letter-spacing:.17em}
   .v21-person-quick-actions .v17-person-actions{display:grid!important;grid-template-columns:1fr 1fr;gap:8px;margin:0!important}
   .v21-person-quick-actions .v17-person-actions .action{min-height:54px;margin:0;border-radius:16px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px}
-  body[data-route="person"].v21-actual-mobile-ui .v20-person-tabs{top:calc(var(--actual-header-h) + var(--actual-context-h) + env(safe-area-inset-top,0px))}
+  body[data-route="person"].v21-actual-mobile-ui .v20-person-tabs{top:calc(var(--actual-header-h) + var(--actual-context-h) + env(safe-area-inset-top,0px));background:rgba(243,238,227,.96)!important}
+  body[data-route="person"].v21-actual-mobile-ui .v20-person-tabs button{color:var(--actual-muted)!important}
+  body[data-route="person"].v21-actual-mobile-ui .v20-person-tabs button[aria-pressed="true"]{background:var(--actual-sage)!important;color:var(--actual-forest)!important}
+  body[data-route="person"].v21-actual-mobile-ui :where(.v20-person-story,#v17-family,#v17-life,#v17-photos,#v17-research){background:var(--actual-paper)!important;border:1px solid var(--actual-line)!important;box-shadow:none!important}
 
-  /* Tree is a purpose-built workspace with its own actual mode bar. */
-  body[data-route="tree"].v21-actual-mobile-ui #content{padding-top:6px!important}
+  /* Tree is functional: neutral canvas, paper tools, semantic evidence colors untouched. */
+  body[data-route="tree"].v21-actual-mobile-ui{background:var(--actual-canvas)!important}
+  body[data-route="tree"].v21-actual-mobile-ui #content{padding-top:6px!important;background:var(--actual-canvas)!important}
   .v21-tree-mode-bar{
     position:sticky;top:calc(var(--actual-header-h) + env(safe-area-inset-top,0px));z-index:72;
     display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 4px 8px;padding:10px 12px;
-    border:1px solid rgba(18,63,52,.10);border-radius:18px;background:rgba(255,253,248,.95);box-shadow:0 8px 22px rgba(18,63,52,.09);
+    border:1px solid var(--actual-line);border-radius:18px;background:rgba(255,253,248,.96);box-shadow:var(--actual-shadow-soft);
     -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
   }
-  .v21-tree-mode-bar span{display:block;color:#9b7d38;font-size:8px;font-weight:900;letter-spacing:.16em}
-  .v21-tree-mode-bar strong{display:block;color:var(--actual-green);font-family:var(--family-font-display);font-size:20px}
+  .v21-tree-mode-bar span{display:block;color:var(--actual-label);font-size:8px;font-weight:900;letter-spacing:.16em}
+  .v21-tree-mode-bar strong{display:block;color:var(--actual-forest);font-family:var(--family-font-display);font-size:20px}
   .v21-tree-mode-bar>div:last-child{display:flex;gap:7px}
-  .v21-tree-mode-bar button{min-height:42px;padding:0 13px;border:0;border-radius:13px;background:#e7ece7;color:var(--actual-green);font-size:11px;font-weight:850}
-  body[data-route="tree"].v21-actual-mobile-ui .v174-tree-context{position:relative!important;top:auto!important}
+  .v21-tree-mode-bar button{min-height:42px;padding:0 13px;border:0;border-radius:13px;background:var(--actual-sage);color:var(--actual-forest);font-size:11px;font-weight:850}
+  body[data-route="tree"].v21-actual-mobile-ui .v174-tree-context{position:relative!important;top:auto!important;background:var(--actual-paper)!important;border-color:var(--actual-line)!important;box-shadow:var(--actual-shadow-soft)!important}
+  body[data-route="tree"].v21-actual-mobile-ui :where(.graph-shell,.tree-graph-shell){background:#f8f6ef!important}
 
-  /* More is physically grouped into Discover and Research sections. */
+  /* Editorial destinations are warm/neutral; photography supplies color on Media. */
+  body.v21-actual-mobile-ui:is([data-route="stories"],[data-route="timeline"],[data-route="migration"],[data-route="media"]) #content{background:var(--actual-canvas)!important}
+  body[data-route="media"].v21-actual-mobile-ui #content :where(.card,.media-card,.gallery-card){background:var(--actual-paper)!important;border-color:var(--actual-line)!important;box-shadow:none!important}
+  body[data-route="stories"].v21-actual-mobile-ui #content :where(.card,.story-card){background:var(--actual-paper)!important;border-color:var(--actual-line)!important}
+  body.v21-actual-mobile-ui:is([data-route="timeline"],[data-route="migration"]) #content :where(.card,.event-card,.place-card){background:var(--actual-paper)!important;border-color:var(--actual-line)!important}
+
+  /* Research is intentionally the deep, high-contrast end of the experience. */
+  body[data-route="research"].v21-actual-mobile-ui #content{background:var(--actual-canvas)!important}
+  body[data-route="research"].v21-actual-mobile-ui #content>:where(.v17-page-intro,.research-hero,.v17-research-hero):first-child{
+    background:var(--actual-forest)!important;color:#fff!important;border-color:var(--actual-forest)!important;
+  }
+  body[data-route="research"].v21-actual-mobile-ui #content>:where(.v17-page-intro,.research-hero,.v17-research-hero):first-child :where(h1,h2,p,.eyebrow){color:inherit!important}
+
+  /* More is physically grouped into Discover and Research; labels use archival brown, never evidence amber. */
   #family-mobile-dock .v21-more-discover,#family-mobile-dock .v21-more-research{grid-column:1/-1;display:block;margin-top:6px}
-  #family-mobile-dock :where(.v21-more-discover,.v21-more-research)>span{display:block;margin:0 4px 7px;color:#8c7747;font-size:9px;font-weight:900;letter-spacing:.16em}
+  #family-mobile-dock :where(.v21-more-discover,.v21-more-research)>span{display:block;margin:0 4px 7px;color:var(--actual-label);font-size:9px;font-weight:900;letter-spacing:.16em}
   #family-mobile-dock :where(.v21-more-discover,.v21-more-research)>div{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  #family-mobile-dock :where(.v21-more-discover,.v21-more-research) a{min-height:58px;display:flex;align-items:center;padding:0 14px;border-radius:16px;background:#e7ece7;color:var(--actual-green);text-decoration:none;font-size:13px;font-weight:800}
+  #family-mobile-dock :where(.v21-more-discover,.v21-more-research) a{min-height:58px;display:flex;align-items:center;padding:0 14px;border-radius:16px;background:var(--actual-sage);color:var(--actual-forest);text-decoration:none;font-size:13px;font-weight:800}
   #family-mobile-dock .v21-more-research>div{grid-template-columns:1fr}
 
   /* Runtime actual order is Home / Families / Tree / People / More. */
