@@ -55,6 +55,7 @@ test.describe('mobile v20 app experience',()=>{
     expect(launcher.y,'Launcher belongs below search').toBeGreaterThan(search.y);
     expect(dock.height,'Bottom navigation should stay compact').toBeLessThanOrEqual(78);
     expect(tree.height,'Tree should be emphasized without becoming a medallion').toBeLessThanOrEqual(62);
+    expect(tree.width,'Tree should remain a usable tab, not collapse to its label').toBeGreaterThanOrEqual(56);
   });
 
   test('Home story foregrounds editorial source-backed prose rather than research-state syntax',async({page})=>{
