@@ -3,8 +3,9 @@ import{routeKeyFromLocation,routeDetailFromLocation}from'./navigation-runtime.js
 
 const routeKey=routeKeyFromLocation;
 const routeDetail=routeDetailFromLocation;
+const familyRoutes=new Set(['dashboard','tree','people','person','families','branch','media','stories','timeline','migration']);
 const transientSelector='.mobile-more[open],.v158-mobile-more[open],.nav-menu[open],.v151-nav-menu[open],.site-tools[open],.tools-menu[open]';
-function isResearchContext(route=routeKey()){return document.body.dataset.experience==='research'||researchRoutes.has(route);}
+function isResearchContext(route=routeKey()){if(researchRoutes.has(route))return true;if(familyRoutes.has(route))return false;return document.body.dataset.experience==='research';}
 function branchCrumb(){if(routeKey()!=='branch')return'';try{return decodeURIComponent(routeDetail())||'Family';}catch{return routeDetail()||'Family';}}
 
 function familyPrimaryHtml(){return linksHtml(familyPrimary);}
@@ -21,8 +22,9 @@ function rebuildDesktopNav(route=routeKey()){
   primary?.classList.add('primary-nav');menus?.classList.add('nav-menus');
   if(!primary||!menus)return;
   const research=isResearchContext(route),context=research?'research':'family';
-  // Navigation DOM is persistent inside a mode. Only a real Family ↔ Research
-  // boundary replaces markup; ordinary route changes only update state.
+  // Navigation DOM remains persistent inside a mode. Only a real Family ↔
+  // Research boundary, or legacy markup that removed our ownership marker,
+  // replaces the menu contents.
   if(primary.dataset.navContext!==context||menus.dataset.navContext!==context){
     const actions=preserveActions(menus);
     primary.innerHTML=research?researchPrimaryHtml():familyPrimaryHtml();
@@ -82,12 +84,14 @@ document.addEventListener('keydown',event=>{
 },true);
 document.addEventListener('toggle',event=>{const details=event.target;if(!(details instanceof HTMLDetailsElement)||!details.matches('.mobile-more,.v158-mobile-more,.nav-menu,.v151-nav-menu,.site-tools,.tools-menu'))return;details.querySelector(':scope > summary')?.setAttribute('aria-expanded',String(details.open));if(details.open)closeTransientNavigation(details);},true);
 
-// One route lifecycle owns ordinary navigation. Route intent previews active
-// state immediately; route commit performs the synchronous shell update.
+// Intent gives immediate feedback. Route commit and hashchange both synchronize
+// the shell synchronously; render events repair any late legacy DOM replacement
+// without reintroducing the old double-animation-frame delay.
 window.addEventListener('family-route-intent',event=>{closeTransientNavigation();previewRoute(event.detail?.route);});
 window.addEventListener('family-route-committed',event=>{closeTransientNavigation();apply(event.detail?.route||routeKey());});
-window.addEventListener('family-view-rendered',()=>{syncCrumb();syncHeaderContext();});
-window.addEventListener('family-native-rendered',()=>{syncCrumb();syncHeaderContext();});
+window.addEventListener('hashchange',()=>{closeTransientNavigation();apply(routeKey());});
+window.addEventListener('family-view-rendered',()=>apply(routeKey()));
+window.addEventListener('family-native-rendered',()=>apply(routeKey()));
 window.addEventListener('popstate',closeTransientNavigation);
 window.addEventListener('family-auth-ui-refresh',()=>apply());
 window.addEventListener('family-experience-changed',()=>apply());
