@@ -164,13 +164,16 @@
   #family-mobile-dock>a::before,
   #family-mobile-dock>details>summary::before{width:19px!important;height:19px!important}
   body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"]{
+    box-sizing:border-box!important;
+    align-self:center!important;
     width:auto!important;
-    height:auto!important;
+    height:54px!important;
     max-width:none!important;
-    max-height:none!important;
+    max-height:54px!important;
     min-width:0!important;
     min-height:54px!important;
     margin:0 2px!important;
+    padding:4px 2px!important;
     transform:translateY(-4px)!important;
     border:1px solid rgba(18,63,52,.14)!important;
     border-radius:17px!important;
