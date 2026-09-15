@@ -44,7 +44,7 @@ function resultHtml(packet){
 function workbenchHtml(){
   const reviews=readReviews();
   return `<section class="panel record-ingestion" data-record-ingestion>
-    <div class="section-title"><div><p class="eyebrow">v16.1 RECORD INGESTION</p><h2>Evidence intake workbench</h2></div><span>${reviews.length} local review decision(s)</span></div>
+    <div class="section-title"><div><p class="eyebrow">RECORD INTAKE</p><h2>Evidence intake workbench</h2></div><span>${reviews.length} local review decision(s)</span></div>
     <aside class="notice control"><strong>Controlled intake</strong><p>Paste a transcript or load a text-based research record. The analyzer preserves the original text, matches only explicit canonical names/aliases and place labels, identifies claim candidates, and produces review signals. It never changes the canonical tree automatically.</p></aside>
     <form id="record-ingestion-form" class="ingest-form">
       <div class="ingest-grid"><label>Record title<input name="title" required maxlength="160" placeholder="1918 Cook County birth record"></label><label>Record type<select name="recordType"><option>vital</option><option>church</option><option>census</option><option>marriage</option><option>military</option><option>newspaper</option><option>directory</option><option>probate</option><option>correspondence</option><option selected>other</option></select></label><label>Repository / database<input name="repository" maxlength="200" placeholder="Cook County Clerk"></label><label>Citation / locator<input name="citation" maxlength="500" placeholder="certificate, volume/page, URL, archive call number"></label></div>
@@ -61,7 +61,7 @@ function mount(){
   if(route!=='research')return;
   const content=document.querySelector('#content');
   if(!content||content.querySelector('[data-record-ingestion]'))return;
-  content.insertAdjacentHTML('afterbegin',workbenchHtml());
+  content.insertAdjacentHTML('afterbegin',`<details class="research-intake-disclosure" data-keep-open="true"><summary><strong>Add a research record</strong><span>Transcribe a document and review its evidence</span></summary>${workbenchHtml()}</details>`);
 }
 
 async function analyze(form){

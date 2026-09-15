@@ -12,7 +12,7 @@ const setText=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
 const setHtml=(el,value)=>{if(el&&el.innerHTML!==value)el.innerHTML=value;};
 
 function ensureMediaNav(){
-  const nav=document.querySelector('#nav');if(!nav)return;
+  const nav=document.querySelector('#nav');if(!nav||nav.querySelector('.primary-nav'))return;
   let link=nav.querySelector('a[href="#media"]');
   if(!link){link=document.createElement('a');link.href='#media';link.innerHTML='<span>00</span>Media';const people=nav.querySelector('a[href="#people"]');people?.insertAdjacentElement('afterend',link);if(!people)nav.appendChild(link);}
   [...nav.querySelectorAll('a')].forEach((a,i)=>{const n=a.querySelector('span'),value=String(i+1).padStart(2,'0');if(n&&n.textContent!==value)n.textContent=value;});

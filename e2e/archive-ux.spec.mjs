@@ -81,3 +81,13 @@ for(const route of ['people','families','branch/Berg','person/P-HAZEL-EMMA-BERG-
     await page.screenshot({path:info.outputPath(`${route.replaceAll('/','-')}.png`),fullPage:false});
   });
 }
+
+ test('research prioritizes the queue and keeps intake available on demand',async({page})=>{
+  await page.goto('/#research');
+  const intake=page.locator('.research-intake-disclosure');
+  await expect(intake).toBeVisible();
+  await expect(page.locator('#record-ingestion-form')).toBeHidden();
+  await intake.locator(':scope > summary').click();
+  await expect(page.locator('#record-ingestion-form')).toBeVisible();
+  await expect(page.locator('#nav>a[href="#media"]')).toHaveCount(0);
+});
