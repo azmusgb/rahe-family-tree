@@ -22,8 +22,10 @@ test('semantic shell owns surface state and hidden always wins',async({page})=>{
 test('desktop popovers close on outside click and Escape and sync aria-expanded',async({page},testInfo)=>{
   test.skip(testInfo.project.name!=='desktop-chromium','desktop popover contract');
   await page.goto('/#dashboard');
-  const explore=page.locator('#nav .nav-menu');
+  await expect(page.locator('#nav .primary-nav')).toHaveAttribute('data-nav-context','family');
+  const explore=page.locator('#nav details.nav-menu').filter({hasText:'Explore'}).first();
   const exploreSummary=explore.locator(':scope > summary');
+  await expect(exploreSummary).toBeVisible();
   await exploreSummary.click();
   await expect(explore).toHaveAttribute('open','');
   await expect(exploreSummary).toHaveAttribute('aria-expanded','true');
@@ -31,8 +33,9 @@ test('desktop popovers close on outside click and Escape and sync aria-expanded'
   await expect(explore).not.toHaveAttribute('open','');
   await expect(exploreSummary).toHaveAttribute('aria-expanded','false');
 
-  const tools=page.locator('.site-tools');
+  const tools=page.locator('.site-tools').first();
   const toolsSummary=tools.locator(':scope > summary');
+  await expect(toolsSummary).toBeVisible();
   await toolsSummary.click();
   await expect(toolsSummary).toHaveAttribute('aria-expanded','true');
   await page.keyboard.press('Escape');
