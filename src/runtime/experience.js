@@ -8,6 +8,10 @@ import './page-architecture.js';
 import './navigation-shell.js';
 import './native-family-v17-controller.js';
 
+// Navigation-critical tree-controller.js, mobile-experience.js, and mobile-ui-shell.js
+// are loaded eagerly by native-family-v17-controller.js so route correctness does not
+// depend on lazy chunk timing while this boundary keeps its stable import contract.
+
 // Non-critical presentation enhancers remain lazy so the v20 build still gains
 // real ESM code splitting without making route correctness depend on chunk timing.
 void import('./ui-resilience.js');
