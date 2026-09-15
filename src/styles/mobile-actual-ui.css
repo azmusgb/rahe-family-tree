@@ -3,6 +3,7 @@
 @media (max-width:720px){
   body.v21-actual-mobile-ui{
     --actual-header-h:64px;
+    --actual-context-h:42px;
     --actual-cream:#f7f1e5;
     --actual-paper:#fffdf8;
     --actual-green:#123f34;
@@ -14,7 +15,6 @@
 
   /* The phone has its own real header. Desktop navigation is not the mobile UI. */
   body.v21-actual-mobile-ui .site-header.sidebar{display:none!important}
-  body.v21-actual-mobile-ui .v20-context-bar{display:none!important}
   body.v21-actual-mobile-ui #mobile-app-header{
     position:sticky;top:0;z-index:2147482500;
     min-height:calc(var(--actual-header-h) + env(safe-area-inset-top,0px));
@@ -37,6 +37,22 @@
   .mobile-app-heading{min-width:0;align-self:center}
   .mobile-app-heading small{display:block;margin-bottom:2px;color:#8d7a4b;font-size:8px;font-weight:850;letter-spacing:.16em}
   .mobile-app-heading strong{display:block;overflow:hidden;color:var(--actual-green);font-family:var(--family-font-display);font-size:20px;line-height:1.05;text-overflow:ellipsis;white-space:nowrap}
+
+  /* Keep the established contextual route contract on inner screens, but make it
+   * a compact subordinate breadcrumb below the dedicated app header. */
+  body[data-route="dashboard"].v21-actual-mobile-ui .v20-context-bar,
+  body[data-route="tree"].v21-actual-mobile-ui .v20-context-bar{display:none!important}
+  body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar:not([hidden]){
+    position:sticky;top:calc(var(--actual-header-h) + env(safe-area-inset-top,0px));z-index:2147482400;
+    min-height:var(--actual-context-h);height:var(--actual-context-h);padding:2px 10px;
+    border:0;border-bottom:1px solid rgba(255,255,255,.10);background:var(--actual-green);color:#fff;
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+  }
+  body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar strong,
+  body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar>a,
+  body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar>button{color:#fff}
+  body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar>a,
+  body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar>button{min-height:36px;background:transparent}
 
   /* Stable legacy route shell stays mounted for controller contracts but is not the phone UI on Home/People. */
   body[data-route="dashboard"].v21-actual-mobile-ui #main>.route-shell{display:none!important}
@@ -90,7 +106,7 @@
   /* People owns an actual search component inside the directory. */
   body[data-route="people"].v21-actual-mobile-ui .v17-page-intro{padding:30px 18px 22px;border-radius:0 0 32px 32px}
   body[data-route="people"].v21-actual-mobile-ui .v21-mobile-search{
-    position:sticky;top:calc(var(--actual-header-h) + env(safe-area-inset-top,0px));z-index:80;
+    position:sticky;top:calc(var(--actual-header-h) + var(--actual-context-h) + env(safe-area-inset-top,0px));z-index:80;
     margin:0;padding:10px 12px;background:rgba(238,232,220,.96);
     -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
   }
@@ -105,7 +121,7 @@
   .v21-person-quick-actions>span{display:block;margin:0 4px 10px;color:#9b7d38;font-size:9px;font-weight:900;letter-spacing:.17em}
   .v21-person-quick-actions .v17-person-actions{display:grid!important;grid-template-columns:1fr 1fr;gap:8px;margin:0!important}
   .v21-person-quick-actions .v17-person-actions .action{min-height:54px;margin:0;border-radius:16px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px}
-  body[data-route="person"].v21-actual-mobile-ui .v20-person-tabs{top:calc(var(--actual-header-h) + env(safe-area-inset-top,0px))}
+  body[data-route="person"].v21-actual-mobile-ui .v20-person-tabs{top:calc(var(--actual-header-h) + var(--actual-context-h) + env(safe-area-inset-top,0px))}
 
   /* Tree is a purpose-built workspace with its own actual mode bar. */
   body[data-route="tree"].v21-actual-mobile-ui #content{padding-top:6px!important}
