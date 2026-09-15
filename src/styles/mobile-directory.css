@@ -1,0 +1,34 @@
+/* Mobile People directory density.
+ * Keep every row touch-safe while making the directory behave like a compact
+ * mobile browser instead of a stack of desktop-sized profile cards.
+ */
+@media(max-width:720px){
+  body[data-route="people"].v21-actual-mobile-ui .v17-people-grid{
+    gap:3px!important;
+  }
+  body[data-route="people"].v21-actual-mobile-ui .v17-person-card>button{
+    height:auto!important;
+    min-height:54px!important;
+    padding:5px 10px!important;
+    gap:8px!important;
+    grid-template-columns:38px minmax(0,1fr) 18px!important;
+    align-items:center!important;
+  }
+  body[data-route="people"].v21-actual-mobile-ui .v17-person-card .v17-avatar{
+    width:36px!important;
+    height:36px!important;
+    border-radius:10px!important;
+  }
+  body[data-route="people"].v21-actual-mobile-ui .v17-person-card-copy{
+    gap:1px!important;
+  }
+  body[data-route="people"].v21-actual-mobile-ui .v17-person-card-copy>small,
+  body[data-route="people"].v21-actual-mobile-ui .v17-person-card-copy>em{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  body[data-route="people"].v21-actual-mobile-ui .v17-person-card-copy>p{
+    display:none!important;
+  }
+}
