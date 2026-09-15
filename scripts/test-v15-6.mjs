@@ -56,7 +56,10 @@ test('browser release assets and freshness guard track the current release',()=>
   assert.match(index,new RegExp(`FAMILY VIEW · v${escaped}`));
   assert.match(build,/shell\.replace\(/);
   assert.match(build,/outfile=dist\/styles\.css/);
-  assert.match(build,/browserAssets:\['app\.bundle\.js','styles\.css'\]/);
+  assert.match(build,/browserAssets:\[\.\.\.jsAssets,'styles\.css'\]/);
+  assert.match(build,/bundleStrategy:\{/);
+  assert.match(build,/splitting:true/);
+  assert.match(build,/chunkDirectory:'chunks'/);
   const [major,minor]=coreVersion.split('.').map(Number);
   assert.match(experience,new RegExp(`family\\.archive\\.uiReload\\.v${major}\\.${minor}`));
 });
