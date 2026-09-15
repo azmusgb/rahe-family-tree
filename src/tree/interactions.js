@@ -15,9 +15,22 @@ export function refreshFamilyGraph(){
   if(route()!=='tree')return null;
   const graph=currentFamilyGraph(),saved=storageState(),state=readTreeState();
   let focus=state.focus;
-  if(!focus||!graph.nodes.has(focus)){
+  const invalidFocus=Boolean(focus)&&!graph.nodes.has(focus);
+  if(state.scope==='all'){
+    if(invalidFocus){
+      const next=writeTreeState({...state,focus:''});
+      history.replaceState(history.state,'',next);
+      window.dispatchEvent(new HashChangeEvent('hashchange'));
+      return null;
+    }
+    focus='';
+  }else if(!focus||invalidFocus){
     const anchor=chooseDefaultAnchor(graph);focus=anchor?.id||'';
-    if(focus&&!state.focus){const next=writeTreeState({...state,focus,scope:'connected'});history.replaceState(history.state,'',next);}
+    if(focus){
+      const next=writeTreeState({...state,focus,scope:'connected'});
+      history.replaceState(history.state,'',next);
+      if(invalidFocus){window.dispatchEvent(new HashChangeEvent('hashchange'));return null;}
+    }
   }
   const effective={...state,focus};
   if(focus)saved.remember(focus);saved.save(effective);
