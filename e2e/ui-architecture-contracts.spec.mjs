@@ -33,15 +33,13 @@ test('desktop popovers close on outside click and Escape and sync aria-expanded'
   await expect(explore).not.toHaveAttribute('open','');
   await expect(exploreSummary).toHaveAttribute('aria-expanded','false');
 
-  const tools=page.locator('.site-tools').first();
-  const toolsSummary=tools.locator(':scope > summary');
-  await expect(toolsSummary).toBeVisible();
-  await toolsSummary.click();
-  await expect(toolsSummary).toHaveAttribute('aria-expanded','true');
+  await exploreSummary.click();
+  await expect(explore).toHaveAttribute('open','');
+  await expect(exploreSummary).toHaveAttribute('aria-expanded','true');
   await page.keyboard.press('Escape');
-  await expect(tools).not.toHaveAttribute('open','');
-  await expect(toolsSummary).toHaveAttribute('aria-expanded','false');
-  await expect(toolsSummary).toBeFocused();
+  await expect(explore).not.toHaveAttribute('open','');
+  await expect(exploreSummary).toHaveAttribute('aria-expanded','false');
+  await expect(exploreSummary).toBeFocused();
 });
 
 test('route navigation keeps current-page semantics synchronized',async({page},testInfo)=>{
