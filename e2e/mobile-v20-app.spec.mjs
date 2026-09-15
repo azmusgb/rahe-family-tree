@@ -13,11 +13,12 @@ test.describe('mobile v20 app experience',()=>{
   test('production shell and browser assets advertise the v20 cache key',async({page})=>{
     await openMobile(page,'dashboard');
     await expect(page.locator('html')).toHaveAttribute('data-ui-release','20.0.0');
+    await expect(page.locator('body')).toHaveAttribute('data-surface','immersive');
     const assets=await page.evaluate(()=>({
       css:document.querySelector('link[rel="stylesheet"]')?.getAttribute('href')||'',
       js:document.querySelector('script[type="module"]')?.getAttribute('src')||''
     }));
-    expect(assets.css).toBe('styles.css?v=20.0.0&surface=immersive');
+    expect(assets.css).toBe('styles.css?v=20.0.0');
     expect(assets.js).toBe('app.bundle.js?v=20.0.0');
     const buildInfo=await page.evaluate(async()=>fetch('/build-info.json').then(response=>response.json()));
     expect(buildInfo.appVersion).toBe('20.0.0');

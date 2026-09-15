@@ -7,10 +7,10 @@
   <meta name="theme-color" content="#173f35">
   <title>Family History Archive</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2210%22 fill=%22%23173f35%22/%3E%3Ctext x=%2218%22 y=%2247%22 fill=%22white%22 font-size=%2244%22%3EF%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20.0.0&amp;surface=immersive">
+  <link rel="stylesheet" href="styles.css?v=20.0.0">
   <script type="module" src="app.bundle.js?v=20.0.0"></script>
 </head>
-<body data-experience="family" data-route="dashboard">
+<body data-experience="family" data-route="dashboard" data-surface="immersive">
 <a class="skip" href="#main">Skip to family</a>
 <header id="mobile-app-header" class="mobile-app-header" aria-label="Mobile family navigation" hidden>
   <a class="mobile-app-back" data-mobile-app-back href="#dashboard" aria-label="Back" hidden><span aria-hidden="true">‹</span></a>
@@ -22,16 +22,16 @@
   <header class="site-header sidebar">
     <a class="brand" href="#dashboard" aria-label="Family History Archive home"><span class="monogram">F</span><span>FAMILY HISTORY<small>ARCHIVE</small></span></a>
     <nav id="nav" aria-label="Primary navigation">
-      <div class="v151-primary-nav" data-static-nav data-nav-context="family">
+      <div class="primary-nav v151-primary-nav" data-static-nav data-nav-context="family">
         <a href="#dashboard" data-nav-key="dashboard" aria-current="page">Home</a>
         <a href="#tree" data-nav-key="tree">Tree</a>
         <a href="#people" data-nav-key="people">People</a>
         <a href="#families" data-nav-key="families">Families</a>
         <a href="#media" data-nav-key="media">Photos</a>
       </div>
-      <div class="v151-nav-menus" data-static-nav data-nav-context="family">
-        <details class="v151-nav-menu v158-explore"><summary>Explore</summary><div class="v151-nav-popover"><a href="#stories" data-nav-key="stories"><b>Stories</b><small>Read source-controlled family highlights</small></a><a href="#timeline" data-nav-key="timeline"><b>Timeline</b><small>Browse family events through time</small></a><a href="#migration" data-nav-key="migration"><b>Places &amp; Migration</b><small>Follow connected families across places and generations</small></a></div></details>
-        <a class="v158-research-entry" href="#research">Research</a>
+      <div class="nav-menus v151-nav-menus" data-static-nav data-nav-context="family">
+        <details class="nav-menu explore-menu v151-nav-menu v158-explore"><summary aria-expanded="false">Explore</summary><div class="nav-popover v151-nav-popover"><a href="#stories" data-nav-key="stories"><b>Stories</b><small>Read source-controlled family highlights</small></a><a href="#timeline" data-nav-key="timeline"><b>Timeline</b><small>Browse family events through time</small></a><a href="#migration" data-nav-key="migration"><b>Places &amp; Migration</b><small>Follow connected families across places and generations</small></a></div></details>
+        <a class="research-entry v158-research-entry" href="#research">Research</a>
       </div>
     </nav>
     <div class="site-header-actions"><button type="button" data-global-search aria-label="Search the family archive"><span aria-hidden="true">⌕</span><span>Search</span></button></div>
@@ -39,8 +39,8 @@
   </header>
   <div class="workspace">
     <header class="topbar">
-      <nav class="site-breadcrumb" aria-label="Breadcrumb"><a href="#dashboard">Family History</a><span aria-hidden="true">/</span><b id="crumb">Home</b></nav>
-      <div class="topbar-actions"><button type="button" data-global-search>Search</button><button id="share" type="button">Share</button><details class="site-tools"><summary>Tools</summary><div><button id="export" type="button">Export view</button><button id="print" type="button">Print</button></div></details></div>
+      <nav class="site-breadcrumb" aria-label="Breadcrumb"><a href="#dashboard">Family History</a><span aria-hidden="true">/</span><b id="crumb" aria-current="page">Home</b></nav>
+      <div class="topbar-actions"><button type="button" data-global-search>Search</button><button id="share" type="button">Share</button><details class="site-tools tools-menu"><summary aria-expanded="false">Tools</summary><div><button id="export" type="button">Export view</button><button id="print" type="button">Print</button></div></details></div>
     </header>
     <main id="main" class="main" tabindex="-1">
       <div id="content">
@@ -69,8 +69,8 @@
       </section>
       <noscript>
         <section class="notice" aria-labelledby="noscript-title">
-          <h2 id="noscript-title">JavaScript is required for the interactive family tree.</h2>
-          <p>The basic navigation above remains available. You can also open the <a href="#archive">research archive</a> for the source-controlled family history.</p>
+          <h2 id="noscript-title">JavaScript is required for the interactive family archive.</h2>
+          <p>The static family introduction above remains readable, but routed views such as the tree, people directory, photographs, stories, evidence, and sources require JavaScript to load safely.</p>
         </section>
       </noscript>
     </main>
@@ -90,7 +90,7 @@
   <a href="#tree" data-dock-route="tree"><span>Tree</span></a>
   <a href="#families" data-dock-route="families"><span>Families</span></a>
   <a href="#people" data-dock-route="people"><span>People</span></a>
-  <details class="v158-mobile-more"><summary>More</summary><div><button type="button" data-dock-search>Search</button><a href="#media">Photos</a><a href="#stories">Stories</a><a href="#timeline">Timeline</a><a href="#migration">Places</a><a href="#research">Research</a></div></details>
+  <details class="mobile-more v158-mobile-more"><summary>More</summary><div><button type="button" data-dock-search>Search</button><a href="#media">Photos</a><a href="#stories">Stories</a><a href="#timeline">Timeline</a><a href="#migration">Places</a><a href="#research">Research</a></div></details>
 </nav>
 </body>
 </html>

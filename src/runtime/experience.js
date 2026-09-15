@@ -9,6 +9,10 @@ import './page-architecture.js';
 import './navigation-shell.js';
 import './native-family-v17-controller.js';
 
+// UI resilience is additive and intentionally does not participate in the
+// stable route-controller initialization sequence above.
+void import('./ui-resilience.js');
+
 // Workbench, Stories, Tree/mobile density, site naming, unified family,
 // biography-first person presentation, media-specific narrative, branch
 // destinations, and the current premium family-facing elevation layer remain

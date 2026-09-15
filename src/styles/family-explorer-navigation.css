@@ -21,6 +21,35 @@
   body[data-experience="family"] .v151-nav-popover a{padding:12px 13px;border-radius:12px;touch-action:manipulation}
   body[data-experience="family"] .v151-nav-popover a b{font-family:var(--family-font-display);font-size:14px}
   body[data-experience="family"] .v151-nav-popover a small{font-size:10px;line-height:1.4}
+
+  /* Keep primary destinations visually dominant. Secondary navigation remains
+   * available but sits one level back until hover/focus. */
+  body[data-experience="family"] .v151-nav-menus{gap:2px;margin-left:10px}
+  body[data-experience="family"] .v151-nav-menu>summary,
+  body[data-experience="family"] .v158-research-entry{
+    min-height:40px;
+    padding-inline:10px;
+    border-color:transparent;
+    background:transparent;
+    color:rgba(229,238,234,.78);
+    font-size:10.5px;
+  }
+  body[data-experience="family"] .v151-nav-menu>summary:hover,
+  body[data-experience="family"] .v151-nav-menu>summary:focus-visible,
+  body[data-experience="family"] .v158-research-entry:hover,
+  body[data-experience="family"] .v158-research-entry:focus-visible{
+    border-color:rgba(255,255,255,.12);
+    background:rgba(255,255,255,.08);
+    color:#fff;
+  }
+  body[data-experience="family"] .site-header-actions{margin-left:auto}
+  body[data-experience="family"] .site-header-actions button{
+    min-height:40px;
+    padding-inline:13px;
+    border-color:rgba(255,255,255,.20);
+    background:rgba(255,255,255,.065);
+    color:#f0f5f2;
+  }
 }
 
 /* Mobile explorer dock: the Tree is the spatial center of the product. */
