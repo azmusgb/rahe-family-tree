@@ -44,7 +44,11 @@ function apply(){
 let queued=false;function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;try{apply();}catch(error){console.error('[native-family] render failed',error);}});}
 let contentObserver=null;function observeContent(){const content=document.getElementById('content');if(!content||contentObserver)return;contentObserver=new MutationObserver(()=>{const route=routeKey();if(!isFamily()||!nativeRoutes.has(route))return;const native=content.querySelector('[data-v17-native]');if(native?.dataset.v17Native!==nativeMarker(route))schedule();});contentObserver.observe(content,{childList:true,subtree:false});}
 document.addEventListener('click',event=>{const local=event.target.closest?.('.v17-person-nav a[href^="#"]');if(local){event.preventDefault();document.querySelector(local.getAttribute('href'))?.scrollIntoView({behavior:'smooth',block:'start'});}});
+// The shared lifecycle gives the shell immediate intent/commit state, while
+// hashchange remains the compatibility trigger for route content. The marker
+// check above makes these duplicate-safe and prevents competing DOM writes.
 window.addEventListener('family-route-committed',schedule);
+window.addEventListener('hashchange',schedule);
 window.addEventListener('family-view-rendered',schedule);
 window.addEventListener('family-experience-changed',schedule);
 const start=()=>{observeContent();schedule();};document.readyState==='loading'?document.addEventListener('DOMContentLoaded',start):start();
