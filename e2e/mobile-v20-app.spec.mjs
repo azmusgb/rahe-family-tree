@@ -10,6 +10,21 @@ const stateKey='family.mobile.v20.state';
 test.describe('mobile v20 app experience',()=>{
   test.use({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
 
+  test('production shell and browser assets advertise the v20 cache key',async({page})=>{
+    await openMobile(page,'dashboard');
+    await expect(page.locator('html')).toHaveAttribute('data-ui-release','20.0.0');
+    const assets=await page.evaluate(()=>({
+      css:document.querySelector('link[rel="stylesheet"]')?.getAttribute('href')||'',
+      js:document.querySelector('script[type="module"]')?.getAttribute('src')||''
+    }));
+    expect(assets.css).toBe('styles.css?v=20.0.0');
+    expect(assets.js).toBe('app.bundle.js?v=20.0.0');
+    const buildInfo=await page.evaluate(async()=>fetch('/build-info.json').then(response=>response.json()));
+    expect(buildInfo.appVersion).toBe('20.0.0');
+    expect(buildInfo.experience).toBe('20.0.0');
+    expect(buildInfo.releaseTrain).toBe('v20-mobile-app');
+  });
+
   test('dock reads visually as Home, Families, Tree, People, More with Tree centered',async({page})=>{
     await openMobile(page,'dashboard');
     const selectors=['[data-dock-route="dashboard"]','[data-dock-route="families"]','[data-dock-route="tree"]','[data-dock-route="people"]','details.mobile-more'];
