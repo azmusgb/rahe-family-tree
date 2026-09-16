@@ -2,7 +2,7 @@ const normalizeRoutes=routes=>new Set((Array.isArray(routes)?routes:[routes]).fi
 
 export function createRouteCapabilityLoader(){
   const registry=new Map();
-  const loaded=new Set();
+  const loaded=new Map();
   const loading=new Map();
 
   function register({name,routes,load}){
@@ -10,17 +10,37 @@ export function createRouteCapabilityLoader(){
     if(typeof load!=='function')throw new TypeError(`Route capability ${name} requires a load function`);
     const routeSet=normalizeRoutes(routes);
     if(routeSet.size===0)throw new TypeError(`Route capability ${name} requires at least one route`);
-    registry.set(name,{name,routes:routeSet,load});
-    return()=>{registry.delete(name);loaded.delete(name);loading.delete(name);};
+    const capability={name,routes:routeSet,load};
+    const previous=registry.get(name);
+    registry.set(name,capability);
+    if(previous&&previous!==capability){
+      loaded.delete(name);
+      if(loading.get(name)?.capability===previous)loading.delete(name);
+    }
+    return()=>{
+      if(registry.get(name)===capability)registry.delete(name);
+      if(loaded.get(name)===capability)loaded.delete(name);
+      if(loading.get(name)?.capability===capability)loading.delete(name);
+    };
   }
 
   function matching(route){return[...registry.values()].filter(capability=>capability.routes.has(route));}
 
   function loadOnce(capability){
-    if(loaded.has(capability.name))return Promise.resolve(capability.name);
-    if(loading.has(capability.name))return loading.get(capability.name);
-    const pending=Promise.resolve().then(()=>capability.load()).then(()=>{loaded.add(capability.name);loading.delete(capability.name);return capability.name;},error=>{loading.delete(capability.name);throw error;});
-    loading.set(capability.name,pending);
+    if(loaded.get(capability.name)===capability)return Promise.resolve(capability.name);
+    const active=loading.get(capability.name);
+    if(active?.capability===capability)return active.promise;
+    let pending;
+    pending=Promise.resolve().then(()=>capability.load()).then(()=>{
+      if(loading.get(capability.name)?.promise===pending)loading.delete(capability.name);
+      if(registry.get(capability.name)!==capability)throw new Error(`Route capability ${capability.name} registration changed during load`);
+      loaded.set(capability.name,capability);
+      return capability.name;
+    },error=>{
+      if(loading.get(capability.name)?.promise===pending)loading.delete(capability.name);
+      throw error;
+    });
+    loading.set(capability.name,{capability,promise:pending});
     return pending;
   }
 
@@ -31,7 +51,7 @@ export function createRouteCapabilityLoader(){
     return{route,sequence,status:failures.length?'failed':'ready',capabilities:capabilities.map(capability=>capability.name),failures};
   }
 
-  function snapshot(route){return{registered:[...registry.keys()],loaded:[...loaded],loading:[...loading.keys()],matched:route?matching(route).map(capability=>capability.name):[]};}
+  function snapshot(route){return{registered:[...registry.keys()],loaded:[...loaded.keys()],loading:[...loading.keys()],matched:route?matching(route).map(capability=>capability.name):[]};}
 
   return{register,ensure,snapshot};
 }
