@@ -39,7 +39,7 @@ test('v17.6 state runtime mounts and consolidated tree tools survive repeated na
 
 test('tree state survives leaving, history, and a later bare tree entry',async({page})=>{
   await page.goto(`/?focus=${HAZEL}&scope=descendants&depth=3#tree`);
-  await expect(page.locator('.v174-tree-context')).toHaveAttribute('data-scope','descendants');
+  await expect(page.locator('.tree-context')).toHaveAttribute('data-scope','descendants');
   await page.goto('/#people');
   await page.goBack();
   await expect(page).toHaveURL(/focus=P-HAZEL-EMMA-BERG-DENNEWITZ/);
@@ -48,7 +48,7 @@ test('tree state survives leaving, history, and a later bare tree entry',async({
   await page.goto('/#tree');
   await expect(page).toHaveURL(/focus=P-HAZEL-EMMA-BERG-DENNEWITZ/);
   await expect(page).toHaveURL(/scope=descendants/);
-  await expect(page.locator('.v174-tree-context')).toHaveAttribute('data-scope','descendants');
+  await expect(page.locator('.tree-context')).toHaveAttribute('data-scope','descendants');
 });
 
 test('auth loss removes private cards and clears private viewer content from the DOM',async({page})=>{

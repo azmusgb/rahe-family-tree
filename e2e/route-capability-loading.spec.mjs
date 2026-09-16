@@ -93,7 +93,7 @@ test.describe('v20.2 route-level capability loading',()=>{
 
   test('cold Tree deep link route-loads elevated and unified Tree presentation',async({page})=>{
     await open(page,'tree');
-    await expect(page.locator('.v174-tree-context')).toBeVisible();
+    await expect(page.locator('.tree-context')).toBeVisible();
     await expect(page.locator('.v172-tree-branches')).toBeVisible();
     const state=await snapshot(page,'tree');
     expect(state.loaded).toEqual(expect.arrayContaining(['experience-elevation-v17-4','unified-family-experience']));

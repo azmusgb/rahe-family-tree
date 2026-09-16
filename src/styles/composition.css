@@ -110,7 +110,7 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
 #status{color:var(--muted);font-size:.76rem}
 
 /* Shared cards and sections */
-:where(.person-card,.source-card,.claim-card,.queue-card,.dossier-section,.family-overview-card,.v17-person-card>button,.v17-relative,.v17-family-summary,.v174-tree-context,.v174-profile-snapshot,.graph-panel,.media-library-card,.dashboard-person){
+:where(.person-card,.source-card,.claim-card,.queue-card,.dossier-section,.family-overview-card,.v17-person-card>button,.v17-relative,.v17-family-summary,.tree-context,.v174-profile-snapshot,.graph-panel,.media-library-card,.dashboard-person){
   border-color:var(--line);
   background:rgba(255,253,248,.92);
   box-shadow:var(--family-shadow-card);
@@ -441,7 +441,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 /* Final Tree composition. Evidence-state semantics remain authoritative. */
 
 /* Tree: editorial workspace without flattening canonical state distinctions. */
-.v174-tree-context{
+.tree-context{
   padding:20px 22px;
   border-radius:20px;
   background:linear-gradient(135deg,#fffdf8,#f2f4ee);
@@ -484,7 +484,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 .edge.state-rejected{display:none}
 
 /* Tree: controls first, canvas second; remove decorative noise. */
-.v174-tree-context{padding:16px 18px;border-radius:16px;background:var(--surface-soft);box-shadow:none}
+.tree-context{padding:16px 18px;border-radius:16px;background:var(--surface-soft);box-shadow:none}
 .v154-graph-shell,.graph-shell,.graph-panel{border-radius:18px}
 .graph-toolbar{padding:10px 12px}
 .graph-scroll{background-color:#faf9f5;background-image:none}

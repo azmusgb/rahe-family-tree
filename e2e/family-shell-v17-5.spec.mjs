@@ -52,7 +52,7 @@ test('Home delegates branch browsing to the Families destination',async({page},t
 
 test('plain Tree entry reflects the engine effective connected scope',async({page})=>{
   await page.goto('/#tree');
-  const context=page.locator('.v174-tree-context');
+  const context=page.locator('.tree-context');
   await expect(context).toBeVisible();
   await expect(context).toHaveAttribute('data-scope','connected');
   await expect(context.getByRole('button',{name:'Connected'})).toHaveAttribute('aria-pressed','true');
@@ -60,19 +60,19 @@ test('plain Tree entry reflects the engine effective connected scope',async({pag
 
 test('tree scope and branch jumps keep elevated context synchronized',async({page})=>{
   await page.goto(`/?focus=${HAZEL}&scope=family#tree`);
-  const context=page.locator('.v174-tree-context');
+  const context=page.locator('.tree-context');
   await expect(context).toHaveAttribute('data-scope','family');
   // This case verifies state synchronization across the tree rerender. Pointer
   // actionability is covered by the focused v17.4 interaction test, so invoke
   // the same native click handler directly to avoid a transient overlay race.
   await context.getByRole('button',{name:'Ancestors'}).evaluate(button=>button.click());
   await expect(page).toHaveURL(/scope=ancestors/);
-  await expect(page.locator('.v174-tree-context')).toHaveAttribute('data-scope','ancestors');
+  await expect(page.locator('.tree-context')).toHaveAttribute('data-scope','ancestors');
   const branch=page.locator('[data-v172-tree-branch]').first();
   await expect(branch).toBeVisible();
   await branch.click();
   await expect(page).toHaveURL(/scope=family/);
-  await expect(page.locator('.v174-tree-context')).toHaveAttribute('data-scope','family');
+  await expect(page.locator('.tree-context')).toHaveAttribute('data-scope','family');
 });
 
 test('mobile navigation promotes Families and global Search leaves Home clean',async({page},testInfo)=>{
