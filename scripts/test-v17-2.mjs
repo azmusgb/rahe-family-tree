@@ -87,7 +87,10 @@ test('tree portraits are public-only and defense-in-depth excludes living people
 });
 
 test('unified family styles remain semantic and mobile-safe',()=>{
-  assert.match(styleRoot,/@import '\.\/tree\.css';\s*@import '\.\/unified-family\.css';/);
+  assert.match(styleRoot,/@import '\.\/core\.css';/);
+  const tree=unifiedCss.indexOf('Source: tree.css');
+  const family=unifiedCss.indexOf('Source: unified-family.css');
+  assert.ok(tree>-1&&family>tree);
   assert.match(unifiedCss,/\.v172-branch-grid/);
   assert.match(unifiedCss,/\.v172-tree-branch-actions button/);
   assert.match(unifiedCss,/@media\(max-width:720px\)/);
