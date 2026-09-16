@@ -1,0 +1,57 @@
+name: Reconcile experience and mobile CSS once
+
+on:
+  push:
+    branches:
+      - css-mobile-ownership-v20-2
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: css-mobile-ownership-v20-2
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Reconcile experience/mobile overlap
+        run: |
+          node scripts/reconcile-experience-mobile-ownership.mjs
+          node scripts/css-mobile-ownership-audit.mjs
+      - name: Verify mobile ownership overlaps are gone
+        run: |
+          node - <<'NODE'
+          const r=require('./docs/css-mobile-ownership-report.json');
+          if(r.totals.crossFileSelectorOverlaps!==0){
+            console.error(`cross-file selector overlaps remain: ${r.totals.crossFileSelectorOverlaps}`);
+            console.error(r.pairCounts);
+            process.exit(1);
+          }
+          console.log('mobile ownership overlap gate: 0');
+          NODE
+      - name: Run CSS-sensitive regression tests
+        run: node --test scripts/test-v16.mjs scripts/test-v16-2.mjs scripts/test-v17-1.mjs scripts/test-v17-2.mjs scripts/test-v17-3.mjs scripts/test-v17-4.mjs scripts/test-v18-6-ui.mjs scripts/test-v20-2-route-loader.mjs scripts/test-tree-advanced.mjs
+      - name: Verify production build
+        run: npm run build
+      - name: Commit reconciled ownership
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/styles/experience.css src/styles/mobile.css docs/css-mobile-ownership-report.json
+          if git diff --cached --quiet; then
+            echo "No reconciliation changes"
+            exit 0
+          fi
+          git commit -m "Complete mobile CSS ownership reconciliation"
+          git pull --rebase origin css-mobile-ownership-v20-2
+          git push origin HEAD:css-mobile-ownership-v20-2
