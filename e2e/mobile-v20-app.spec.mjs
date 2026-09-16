@@ -125,4 +125,23 @@ test.describe('mobile v20 app experience',()=>{
       expect(overflow,`${route} horizontal overflow`).toBeLessThanOrEqual(1);
     }
   });
+  test('dedicated mobile header is the sole phone header and desktop header returns above the breakpoint',async({page})=>{
+    await openMobile(page,'dashboard');
+    await expect(page.locator('#mobile-app-header')).toBeVisible();
+    await expect(page.locator('.site-header.sidebar')).toBeHidden();
+    await expect(page.locator('body')).toHaveAttribute('data-mobile-header-owner','dedicated');
+    await expect(page.locator('#mobile-app-header [data-mobile-app-title]')).toHaveText('Home');
+
+    await openMobile(page,'person/P-WILLIAM-JOHN-RAHE-III');
+    await page.waitForSelector('[data-v17-native="person"]');
+    await expect(page.locator('#mobile-app-header')).toBeVisible();
+    await expect(page.locator('.site-header.sidebar')).toBeHidden();
+    await expect(page.locator('#mobile-app-header [data-mobile-app-back]')).toHaveAttribute('href','#people');
+
+    await page.setViewportSize({width:900,height:900});
+    await expect(page.locator('#mobile-app-header')).toBeHidden();
+    await expect(page.locator('.site-header.sidebar')).toBeVisible();
+    await expect(page.locator('body')).not.toHaveAttribute('data-mobile-header-owner','dedicated');
+  });
+
 });

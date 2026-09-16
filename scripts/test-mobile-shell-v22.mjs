@@ -16,3 +16,10 @@ test('navigation shell owns final family mobile dock order',()=>{
 test('mobile UI shell does not reorder navigation-owned dock nodes',()=>{
   assert.doesNotMatch(mobile,/desiredDockOrder|reorderDock\(|function dockKey/);
 });
+
+
+test('dedicated mobile header exclusively owns phone chrome',()=>{
+  assert.match(mobile,/siteHeader\.hidden=mobileViewport/);
+  assert.match(mobile,/dataset\.mobileHeaderOwner='dedicated'/);
+  assert.match(mobile,/header\.hidden=!mobileViewport/);
+});

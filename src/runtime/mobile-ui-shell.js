@@ -25,13 +25,20 @@ function backTarget(){
 
 function syncDedicatedHeader(){
   const header=document.getElementById('mobile-app-header');
+  const siteHeader=document.querySelector('.site-header.sidebar');
   if(!header)return;
-  if(!isMobile()){
-    header.hidden=true;
+  const mobileViewport=isMobile();
+  header.hidden=!mobileViewport;
+  if(siteHeader){
+    siteHeader.hidden=mobileViewport;
+    siteHeader.setAttribute('aria-hidden',String(mobileViewport));
+  }
+  if(!mobileViewport){
     document.body.classList.remove('v21-actual-mobile-ui');
+    delete document.body.dataset.mobileHeaderOwner;
     return;
   }
-  header.hidden=false;
+  document.body.dataset.mobileHeaderOwner='dedicated';
   document.body.classList.add('v21-actual-mobile-ui');
   const nextTitle=routeTitle();
   const title=header.querySelector('[data-mobile-app-title]');
