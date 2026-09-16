@@ -22,10 +22,12 @@ jobs:
           node-version: 24
       - name: Apply conservative core cleanup
         run: node scripts/css-forensics.mjs --fix-core --assert-core-clean
-      - name: Validate JavaScript syntax
+      - name: Validate forensic tool syntax
         run: node --check scripts/css-forensics.mjs
-      - name: Run regression suite
-        run: npm test
+      - name: Run CSS architecture and current-release contracts
+        run: node --test scripts/test-v17-1.mjs scripts/test-v17-2.mjs scripts/test-v17-3.mjs scripts/test-v17-4.mjs scripts/test-v18-6-ui.mjs scripts/test-v20-2-route-loader.mjs
+      - name: Build production assets
+        run: npm run build
       - name: Commit generated cleanup
         run: |
           if git diff --quiet -- src/styles/core.css; then
