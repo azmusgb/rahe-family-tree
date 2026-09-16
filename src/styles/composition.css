@@ -110,7 +110,11 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
 #status{color:var(--muted);font-size:.76rem}
 
 /* Shared cards and sections */
-
+:where(.person-card,.source-card,.claim-card,.queue-card,.dossier-section,.family-overview-card,.v17-person-card>button,.v17-relative,.v17-family-summary,.v174-tree-context,.v174-profile-snapshot,.graph-panel,.media-library-card,.dashboard-person){
+  border-color:var(--line);
+  background:rgba(255,253,248,.92);
+  box-shadow:var(--family-shadow-card);
+}
 :where(.person-card,.source-card,.v17-person-card>button,.v17-relative,.media-library-card,.dashboard-person){
   transition:
     transform var(--family-motion-normal,220ms) ease,
@@ -134,7 +138,9 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
    -------------------------------------------------------------------------- */
 
 /* Flatten generic surfaces. Cards should identify objects, not every section. */
-
+:where(.panel,.family-overview-card,.v17-family-summary,.v174-profile-snapshot,.graph-panel,.dossier-section){
+  box-shadow:none;
+}
 :where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.v17-person-card>button,.v17-relative){
   box-shadow:var(--family-shadow-card);
 }
@@ -323,7 +329,8 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.famil
     radial-gradient(circle at 84% 76%,rgba(255,255,255,.055),transparent 20rem),
     linear-gradient(135deg,#123f34 0%,#1f5848 56%,#6f5b2d 150%);
 }
-body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero)::after,body[data-experience="family"][data-route="dashboard"] .dashboard-hero::before{
+body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero)::after,
+body[data-experience="family"][data-route="dashboard"] .dashboard-hero::before{
   inset:auto -4% -50% 47%;
   width:55%;
   border-color:rgba(255,255,255,.19);
@@ -351,11 +358,16 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-primary-actions 
   border-color:#fff8e9;
   box-shadow:0 8px 24px rgba(6,28,22,.16);
 }
-
+body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,.family-home-stat small,.dashboard-hero-stat small,.dashboard-stat small){
+  color:rgba(255,255,255,.78);
+  font-weight:700;
+  letter-spacing:.08em;
+}
 
 @media(max-width:720px){
   body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero){min-height:auto}
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero)::after,body[data-experience="family"][data-route="dashboard"] .dashboard-hero::before{inset:auto -38% -28% 35%;width:88%}
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero)::after,
+  body[data-experience="family"][data-route="dashboard"] .dashboard-hero::before{inset:auto -38% -28% 35%;width:88%}
 }
 
 /* ==========================================================================
@@ -363,7 +375,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-primary-actions 
    ========================================================================== */
 /* Final Person composition. Presentation-only. */
 
-.v17-page-intro h2,.v17-person-header h2,.media-library-title h2{
+.v17-page-intro h2,.v17-person-header h2,.v17-section-heading h2,.media-library-title h2{
   color:var(--green);
   letter-spacing:-.045em;
 }
@@ -480,7 +492,8 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-primary-actions 
 .graph-node:hover rect,.graph-node:focus rect{filter:drop-shadow(0 6px 12px rgba(18,63,52,.09))}
 body[data-route="tree"][data-v158-context="family"] .graph-shell{box-shadow:none!important}
 body[data-route="tree"][data-v158-context="family"] .graph-scroll{background:#faf9f5!important;background-image:none!important}
-body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar,body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{background:transparent!important}
+body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar,
+body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{background:transparent!important}
 
 /* ==========================================================================
    Source: responsive-composition.css
@@ -538,7 +551,9 @@ body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar,body[data
     -webkit-backdrop-filter:blur(22px) saturate(125%)!important;
     backdrop-filter:blur(22px) saturate(125%)!important;
   }
-  #family-mobile-dock>a,#family-mobile-dock>button,#family-mobile-dock>.v158-mobile-more>summary{
+  #family-mobile-dock>a,
+  #family-mobile-dock>button,
+  #family-mobile-dock>.v158-mobile-more>summary{
     min-height:50px!important;
     border-radius:14px!important;
     color:var(--muted-strong)!important;
@@ -609,7 +624,8 @@ body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar,body[data
     scrollbar-width:none;
   }
   body[data-route="person"] .v1510-profile-tabs::-webkit-scrollbar{display:none}
-  body[data-route="person"] .v1510-profile-tabs>button,body[data-route="person"] .v1510-profile-tabs>a{width:auto!important;min-height:42px!important;flex:0 0 auto!important}
+  body[data-route="person"] .v1510-profile-tabs>button,
+  body[data-route="person"] .v1510-profile-tabs>a{width:auto!important;min-height:42px!important;flex:0 0 auto!important}
   body[data-route="person"] .v1510-profile-tabs>a{grid-column:auto!important}
 
   /* Keep utility/history content stacked instead of creating more swipe rails. */
@@ -618,7 +634,8 @@ body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar,body[data
   .v162-places{flex-wrap:wrap;overflow:visible}
 
   body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:60dvh!important;border-radius:14px!important}
-  body[data-route="tree"][data-v158-context="family"] .graph-stage,body[data-route="tree"][data-v158-context="family"] .graph-scroll{min-height:56dvh!important}
+  body[data-route="tree"][data-v158-context="family"] .graph-stage,
+  body[data-route="tree"][data-v158-context="family"] .graph-scroll{min-height:56dvh!important}
 
   :where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.v17-person-card>button,.v17-relative){box-shadow:none}
 }
