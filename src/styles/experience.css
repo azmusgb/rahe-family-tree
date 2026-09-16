@@ -13,12 +13,11 @@
 .mobile-more-head{display:none}
 
 @media(max-width:720px){
-  html,body{width:100%;max-width:100%;overflow-x:hidden}
+  body{width:100%;max-width:100%;overflow-x:hidden}
   body.mobile-sheet-open{overflow:hidden;overscroll-behavior:none}
   .mobile-more-backdrop[hidden]{display:none}
 
-  body[data-route="people"] :where(.workspace,.main,#content,.route-shell,.v17-people,.v17-people-grid,.people-grid),
-  body[data-route="tree"] :where(.workspace,.main,#content,.route-shell,.v17-tree,.graph-shell,.tree-graph-shell){
+  body[data-route="people"] :where(.workspace,.main,#content,.route-shell,.v17-people,.v17-people-grid,.people-grid),body[data-route="tree"] :where(.workspace,.main,#content,.route-shell,.v17-tree,.graph-shell,.tree-graph-shell){
     min-width:0;
     max-width:100%;
     box-sizing:border-box;
@@ -57,43 +56,10 @@
     background:var(--brand-soft);
     color:var(--green);
   }
-  #family-mobile-dock .mobile-more>div{
-    position:fixed;
-    left:max(10px,env(safe-area-inset-left,0px));
-    right:max(10px,env(safe-area-inset-right,0px));
-    bottom:calc(78px + env(safe-area-inset-bottom,0px));
-    z-index:2147483005;
-    display:grid;
-    grid-template-columns:1fr;
-    gap:4px;
-    max-height:min(68dvh,620px);
-    overflow:auto;
-    overscroll-behavior:contain;
-    padding:10px 10px max(12px,env(safe-area-inset-bottom,0px));
-    border:1px solid var(--line);
-    border-radius:22px;
-    background:var(--surface,#fff);
-    box-shadow:0 24px 72px rgba(13,35,28,.28);
-    transform-origin:bottom center;
-  }
+  
   #family-mobile-dock .mobile-more:not([open])>div{display:none}
-  #family-mobile-dock .mobile-more>div>a,
-  #family-mobile-dock .mobile-more>div>button{
-    min-height:50px;
-    width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
-    padding:0 16px;
-    border:0;
-    border-radius:12px;
-    background:transparent;
-    color:var(--text);
-    text-decoration:none;
-    font:700 16px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  }
-  #family-mobile-dock .mobile-more>div>a:active,
-  #family-mobile-dock .mobile-more>div>button:active{background:var(--brand-soft)}
+  
+  #family-mobile-dock .mobile-more>div>a:active,#family-mobile-dock .mobile-more>div>button:active{background:var(--brand-soft)}
   .mobile-more-head{
     position:sticky;
     top:-10px;
@@ -161,8 +127,7 @@
     backdrop-filter:blur(14px);
     box-shadow:0 8px 22px rgba(18,47,39,.08);
   }
-  body[data-route="tree"] #content.mobile-tree-surface .graph-shell,
-  body[data-route="tree"] #content.mobile-tree-surface .tree-graph-shell{
+  body[data-route="tree"] #content.mobile-tree-surface .graph-shell,body[data-route="tree"] #content.mobile-tree-surface .tree-graph-shell{
     order:10;
     width:100%;
     max-width:100%;
@@ -198,12 +163,7 @@
 }
 
 @media(max-width:430px){
-  #family-mobile-dock .mobile-more>div{
-    left:7px;
-    right:7px;
-    bottom:calc(72px + env(safe-area-inset-bottom,0px));
-    border-radius:20px;
-  }
+  
 }
 
 /* ==========================================================================
@@ -278,3 +238,26 @@ body[data-family-graph="v19"] .family-graph-summary{display:flex;align-items:cen
 #family-graph .tree-path-start>rect,#family-graph .tree-path-end>rect{stroke-width:5.5!important}#family-graph .tree-path-middle>rect{stroke-width:3.5!important}#family-graph .tree-path-segment-supported{stroke:var(--evidence-supported)}#family-graph .tree-path-segment-provisional{stroke:var(--evidence-provisional);stroke-dasharray:10 7}#family-graph .tree-path-segment-unresolved{stroke:var(--evidence-unresolved);stroke-dasharray:5 6}#family-graph .tree-path-segment-rejected{stroke:var(--evidence-rejected);stroke-dasharray:3 7;opacity:.65}
 @media(max-width:760px){.relationship-path-card{padding:12px;border-radius:13px}.relationship-path-heading{display:grid;gap:8px}.relationship-path-badges{justify-content:flex-start}.relationship-path-step{grid-template-columns:28px minmax(0,1fr)}.relationship-path-step-state{grid-column:2;justify-self:start}.relationship-path-step-copy{display:grid;gap:2px}.relationship-path-relation{font-size:.75rem}.relationship-path-note{font-size:.76rem}}
 @media(prefers-reduced-motion:reduce){.relationship-path-card *{transition:none!important;animation:none!important}}
+
+/* ==========================================================================
+   Ownership migration: mobile -> Family Graph / Tree experience
+   ========================================================================== */
+/* Family Graph preview and Tree workspace rules belong to the route experience. These were previously late mobile overrides and remain last inside the experience owner. */
+@media (max-width:720px){
+body[data-route="tree"] #content.mobile-tree-surface .v161-tree-toolbar{top:58px;border-radius:16px;background:rgba(247,243,234,.94)}
+}
+@media (max-width:720px){
+body[data-route="tree"] #content.mobile-tree-surface{min-height:calc(100dvh - var(--app-header) - var(--app-context) - 88px)}
+}
+@media (max-width:720px){
+.family-person-preview{position:fixed!important;left:8px!important;right:8px!important;bottom:calc(82px + env(safe-area-inset-bottom,0px))!important;z-index:2147483100!important;max-height:70dvh;padding:10px 16px 18px!important;border:1px solid var(--app-border)!important;border-radius:28px!important;background:var(--app-paper)!important;box-shadow:0 30px 90px rgba(12,39,31,.34)!important}
+}
+@media (max-width:720px){
+.family-person-preview-handle{width:42px;height:5px;margin:0 auto 14px;border-radius:999px;background:#c7cbc6}
+}
+@media (max-width:720px){
+.family-person-preview-head h2{font-size:30px;line-height:.95}
+}
+@media (max-width:720px){
+.family-person-preview-actions{display:grid!important;grid-template-columns:1fr 1fr;gap:8px}
+}
