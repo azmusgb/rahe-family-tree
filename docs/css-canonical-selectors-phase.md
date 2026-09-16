@@ -14,17 +14,21 @@ A first dead-selector retirement experiment was reverted after review showed tha
 
 A fresh exact-name inventory from the merged Stage A baseline reported 241 versioned classes, 2,062 CSS occurrences, 730 non-style source references, and 10 CSS-only candidates. Stage B deliberately did not delete those CSS-only candidates; it instead migrated one live, tightly coupled compatibility contract whose semantic replacement already existed throughout the navigation shell.
 
-`v151-nav-menu` was migrated to the stable `nav-menu` class across:
+`v151-nav-menu` was migrated to the stable `nav-menu` class across static navigation markup, navigation-shell/page-architecture runtime producers and queries, the legacy v15.1 compatibility runtime, navigation-focused regression tests, and `composition.css`, `core.css`, and `interaction.css` selectors.
+
+The migration removed the versioned class from the exact-name inventory. The regenerated inventory reported 240 versioned classes, 2,053 CSS occurrences, and 717 non-style source references. The 10 CSS-only candidates remain quarantined for a later parser-safe retirement slice.
+
+## Stage C — primary navigation semantic migration
+
+`v151-primary-nav` has now been migrated to the stable `primary-nav` contract across its full audited dependency set:
 
 - static navigation markup;
-- navigation-shell and page-architecture runtime producers/queries;
-- the legacy v15.1 compatibility runtime;
-- navigation-focused regression tests;
-- `composition.css`, `core.css`, and `interaction.css` selectors.
+- `navigation-shell.js` producers, queries, and class synchronization;
+- the legacy v15.1 runtime;
+- navigation regression coverage;
+- `core.css` and `interaction.css`.
 
-The migration replaced 22 production/test/runtime/CSS references and removed the versioned class from the exact-name inventory. The regenerated inventory now reports 240 versioned classes, 2,053 CSS occurrences, and 717 non-style source references. The 10 CSS-only candidates remain quarantined for a later parser-safe retirement slice.
-
-Before commit, the migration passed the navigation/CSS-sensitive regression set and the production build. Temporary migration workflow/helper files were removed afterward.
+The exact-name post-migration inventory now reports 239 versioned classes, 2,039 CSS occurrences, and 709 non-style source references. `v151-primary-nav` is absent from the inventory. The migration passed the targeted navigation/CSS-sensitive regression set and the production build before commit. Temporary migration workflow/helper files were removed afterward.
 
 ## Migration strategy
 
@@ -41,6 +45,6 @@ Live versioned classes require semantic migration in dependency-aware slices. Fo
 
 Dead-selector cleanup follows the same standard: a class is removable only after the corrected exact-name audit shows no source producers/references, and selector parsing must preserve live arguments inside grouped selectors and functional pseudo-classes.
 
-High-impact remaining migration families include Home hero, person cards/profile surfaces, mobile More/search, tree context, media filters, discovery components, and the remaining legacy navigation wrapper/popover aliases.
+High-impact remaining migration families include the remaining navigation wrappers/popovers, mobile More/search, tree context, media filters, person cards/profile surfaces, discovery components, and Home hero.
 
 Phase 4 closes only when production CSS reaches zero `.vXX-*` classes without changing runtime, genealogy, evidence, privacy, routing, or browser behavior.

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-16T18:17:39.678Z",
+  "generatedAt": "2026-09-16T18:34:22.672Z",
   "totals": {
-    "versionedClasses": 240,
-    "cssOccurrences": 2053,
-    "sourceOccurrences": 717,
+    "versionedClasses": 239,
+    "cssOccurrences": 2039,
+    "sourceOccurrences": 709,
     "cssOnlyClasses": 10,
     "cssOnlyClassNames": [
       "v129-recent",
@@ -70,11 +70,6 @@
       "sourceOccurrences": 9
     },
     {
-      "className": "v151-primary-nav",
-      "cssOccurrences": 14,
-      "sourceOccurrences": 8
-    },
-    {
       "className": "v17-home-tree",
       "cssOccurrences": 9,
       "sourceOccurrences": 8
@@ -118,6 +113,11 @@
       "className": "v17-home-person",
       "cssOccurrences": 17,
       "sourceOccurrences": 7
+    },
+    {
+      "className": "v17-avatar",
+      "cssOccurrences": 16,
+      "sourceOccurrences": 7
     }
   ],
   "byCssFile": {
@@ -126,8 +126,8 @@
       "occurrences": 117
     },
     "src/styles/core.css": {
-      "classes": 205,
-      "occurrences": 1037
+      "classes": 204,
+      "occurrences": 1031
     },
     "src/styles/experience.css": {
       "classes": 6,
@@ -142,8 +142,8 @@
       "occurrences": 0
     },
     "src/styles/interaction.css": {
-      "classes": 18,
-      "occurrences": 40
+      "classes": 17,
+      "occurrences": 32
     },
     "src/styles/mobile.css": {
       "classes": 91,
@@ -427,26 +427,6 @@
         "src/runtime/native-family-v17-controller.js",
         "src/runtime/native-family-v17.js",
         "v11.js"
-      ],
-      "cssOnly": false
-    },
-    {
-      "className": "v151-primary-nav",
-      "cssOccurrences": 14,
-      "cssOccurrencesByFile": {
-        "src/styles/core.css": 6,
-        "src/styles/interaction.css": 8
-      },
-      "cssFiles": [
-        "src/styles/core.css",
-        "src/styles/interaction.css"
-      ],
-      "sourceOccurrences": 8,
-      "sourceFiles": [
-        "index.html",
-        "scripts/test-v15-1.mjs",
-        "src/runtime/navigation-shell.js",
-        "v15-1-runtime.js"
       ],
       "cssOnly": false
     },

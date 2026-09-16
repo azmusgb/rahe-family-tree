@@ -22,7 +22,7 @@ test('v15.1 route overview and filter layout remain under semantic CSS ownership
 
 test('semantic navigation replaces the retired v15.1 navigation writer',()=>{
   assert.doesNotMatch(experience,/v15-1-runtime\.js/);
-  assert.match(navShell,/v151-primary-nav/);
+  assert.match(navShell,/primary-nav/);
   assert.match(navShell,/nav-menu/);
   assert.match(navShell,/navigationOwner='shell'/);
   assert.match(css,/\.primary-nav/);
