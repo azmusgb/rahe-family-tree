@@ -23,11 +23,11 @@ function installActionMenus(){
   if(!original)return;
   original.classList.add('page-actions-source','v155-original-actions');
 
-  const menus=document.querySelector('.v151-nav-menus');
+  const menus=document.querySelector('.nav-menus');
   if(menus&&!menus.querySelector('.page-actions--desktop')){
     const details=document.createElement('details');
     details.className='nav-menu page-actions page-actions--desktop v155-desktop-actions';
-    details.innerHTML=`<summary>Actions</summary><div class="v151-nav-popover page-actions-menu v155-actions-popover">${modeButton()}${commandButton('share','Share view')}${commandButton('export','Export view')}${commandButton('print','Print')}</div>`;
+    details.innerHTML=`<summary>Actions</summary><div class="nav-popover page-actions-menu v155-actions-popover">${modeButton()}${commandButton('share','Share view')}${commandButton('export','Export view')}${commandButton('print','Print')}</div>`;
     menus.append(details);
   }
 

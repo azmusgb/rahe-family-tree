@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-16T18:34:22.672Z",
+  "generatedAt": "2026-09-16T18:48:07.178Z",
   "totals": {
-    "versionedClasses": 239,
-    "cssOccurrences": 2039,
-    "sourceOccurrences": 709,
+    "versionedClasses": 237,
+    "cssOccurrences": 2033,
+    "sourceOccurrences": 696,
     "cssOnlyClasses": 10,
     "cssOnlyClassNames": [
       "v129-recent",
@@ -142,8 +142,8 @@
       "occurrences": 0
     },
     "src/styles/interaction.css": {
-      "classes": 17,
-      "occurrences": 32
+      "classes": 15,
+      "occurrences": 26
     },
     "src/styles/mobile.css": {
       "classes": 91,
@@ -676,24 +676,6 @@
       "cssOnly": false
     },
     {
-      "className": "v151-nav-menus",
-      "cssOccurrences": 2,
-      "cssOccurrencesByFile": {
-        "src/styles/interaction.css": 2
-      },
-      "cssFiles": [
-        "src/styles/interaction.css"
-      ],
-      "sourceOccurrences": 7,
-      "sourceFiles": [
-        "index.html",
-        "src/runtime/navigation-shell.js",
-        "src/runtime/page-architecture.js",
-        "v15-1-runtime.js"
-      ],
-      "cssOnly": false
-    },
-    {
       "className": "v172-node-photo",
       "cssOccurrences": 1,
       "cssOccurrencesByFile": {
@@ -871,24 +853,6 @@
         "e2e/unified-family-tree-v17-2.spec.mjs",
         "src/runtime/experience-elevation-v17-4.js",
         "src/runtime/native-home-editorial.js"
-      ],
-      "cssOnly": false
-    },
-    {
-      "className": "v151-nav-popover",
-      "cssOccurrences": 4,
-      "cssOccurrencesByFile": {
-        "src/styles/interaction.css": 4
-      },
-      "cssFiles": [
-        "src/styles/interaction.css"
-      ],
-      "sourceOccurrences": 6,
-      "sourceFiles": [
-        "index.html",
-        "src/runtime/navigation-shell.js",
-        "src/runtime/page-architecture.js",
-        "v15-1-runtime.js"
       ],
       "cssOnly": false
     },

@@ -166,20 +166,20 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
   body[data-experience="family"] .primary-nav a[aria-current="page"],body[data-experience="family"] .primary-nav a.active{background:#f6f1e6;color:#173f35;box-shadow:0 7px 18px rgba(5,24,19,.18)}
   body[data-experience="family"] .primary-nav a[data-nav-key="tree"]{padding-inline:17px;font-family:var(--family-font-display);font-size:14px}
   body[data-experience="family"] .primary-nav a[data-nav-key="tree"]::before{content:'⌘';margin-right:7px;font-family:system-ui;font-size:12px;opacity:.68}
-  body[data-experience="family"] .v151-nav-menus{display:flex;align-items:center;gap:6px;margin-left:auto}
+  body[data-experience="family"] .nav-menus{display:flex;align-items:center;gap:6px;margin-left:auto}
   body[data-experience="family"] .nav-menu>summary,body[data-experience="family"] .v158-research-entry{min-height:42px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.12);border-radius:11px;background:rgba(255,255,255,.055);color:#e5eeea;padding:0 12px;font-size:11px;font-weight:700;text-decoration:none;cursor:pointer;touch-action:manipulation}
   body[data-experience="family"] .nav-menu>summary:hover,body[data-experience="family"] .v158-research-entry:hover,body[data-experience="family"] .site-header-actions button:hover{background:rgba(255,255,255,.12);color:#fff}
   
   
   body[data-experience="family"] .edition{display:none}
-  body[data-experience="family"] .v151-nav-popover{top:calc(100% + 14px);width:292px;padding:9px;border-radius:18px;border:1px solid rgba(23,63,53,.12);background:rgba(255,253,248,.98);box-shadow:0 24px 64px rgba(10,34,27,.24);backdrop-filter:blur(18px)}
-  body[data-experience="family"] .v151-nav-popover a{padding:12px 13px;border-radius:12px;touch-action:manipulation}
-  body[data-experience="family"] .v151-nav-popover a b{font-family:var(--family-font-display);font-size:14px}
-  body[data-experience="family"] .v151-nav-popover a small{font-size:10px;line-height:1.4}
+  body[data-experience="family"] .nav-popover{top:calc(100% + 14px);width:292px;padding:9px;border-radius:18px;border:1px solid rgba(23,63,53,.12);background:rgba(255,253,248,.98);box-shadow:0 24px 64px rgba(10,34,27,.24);backdrop-filter:blur(18px)}
+  body[data-experience="family"] .nav-popover a{padding:12px 13px;border-radius:12px;touch-action:manipulation}
+  body[data-experience="family"] .nav-popover a b{font-family:var(--family-font-display);font-size:14px}
+  body[data-experience="family"] .nav-popover a small{font-size:10px;line-height:1.4}
 
   /* Keep primary destinations visually dominant. Secondary navigation remains
    * available but sits one level back until hover/focus. */
-  body[data-experience="family"] .v151-nav-menus{gap:2px;margin-left:10px}
+  body[data-experience="family"] .nav-menus{gap:2px;margin-left:10px}
   body[data-experience="family"] .nav-menu>summary,body[data-experience="family"] .v158-research-entry{
     min-height:40px;
     padding-inline:10px;
