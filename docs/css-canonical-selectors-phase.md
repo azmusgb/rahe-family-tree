@@ -66,6 +66,16 @@ The migration used exact class-name boundaries across media runtime producers/qu
 
 The post-migration inventory reports 233 versioned classes, 1,954 CSS occurrences, and 651 non-style source references. `v161-media-filters` is absent from the exact-name inventory. Targeted media/CSS-sensitive regressions and the production build passed before commit. Temporary one-shot migration infrastructure was removed afterward.
 
+## Stage H — relationship dialog
+
+The relationship-dialog compatibility class has now been migrated to its stable semantic contract:
+
+- `v161-relationship-dialog` → `relationship-dialog`
+
+The migration used exact class-name boundaries across platform/runtime producers and queries, mobile relationship-density behavior, platform regression coverage, and the owning `core.css` selectors. Semantic duplicates created by compatibility replacement were collapsed locally.
+
+The post-migration inventory reports 232 versioned classes, 1,952 CSS occurrences, and 643 non-style source references. `v161-relationship-dialog` is absent from the exact-name inventory. Targeted relationship/media/CSS-sensitive regressions and the production build passed before commit. Temporary one-shot migration infrastructure was removed afterward.
+
 ## Migration strategy
 
 Live versioned classes require semantic migration in dependency-aware slices. For each class family:
@@ -81,6 +91,6 @@ Live versioned classes require semantic migration in dependency-aware slices. Fo
 
 Dead-selector cleanup follows the same standard: a class is removable only after the corrected exact-name audit shows no source producers/references, and selector parsing must preserve live arguments inside grouped selectors and functional pseudo-classes.
 
-High-impact remaining migration families now include relationship/media dialogs, person cards/profile surfaces, discovery components, and Home hero.
+High-impact remaining migration families now include person cards/profile surfaces, discovery components, and Home hero.
 
 Phase 4 closes only when production CSS reaches zero `.vXX-*` classes without changing runtime, genealogy, evidence, privacy, routing, or browser behavior.

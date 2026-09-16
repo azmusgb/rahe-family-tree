@@ -14,9 +14,9 @@ function stripFamilyDiagnostics(){
 }
 
 function installTreeRelationshipDialog(content){
-  if(content.querySelector('#v161-relationship-dialog'))return;
+  if(content.querySelector('#relationship-dialog'))return;
   const dialog=document.createElement('dialog');
-  dialog.id='v161-relationship-dialog';dialog.className='v161-relationship-dialog';
+  dialog.id='relationship-dialog';dialog.className='relationship-dialog';
   dialog.innerHTML=`<div class="v161-dialog-head"><div><p class="eyebrow">RELATIONSHIP FINDER</p><h2>How are two people related?</h2></div><button type="button" data-v161-close aria-label="Close relationship finder">Close</button></div><div class="v161-dialog-body">${renderRelationshipFinder()}</div>`;
   content.append(dialog);
 }
@@ -34,7 +34,7 @@ function installTreeToolbar(content){
 function reopenRelationshipResult(){
   if(document.body.dataset.v161ReopenRelationship!=='true')return;
   delete document.body.dataset.v161ReopenRelationship;
-  const dialog=document.getElementById('v161-relationship-dialog');
+  const dialog=document.getElementById('relationship-dialog');
   if(dialog?.showModal)dialog.showModal();else dialog?.setAttribute('open','');
 }
 
@@ -85,7 +85,7 @@ function apply(){stripFamilyDiagnostics();compactHome();compactTree();compactPeo
 let queued=false;function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;apply();}));}
 
 document.addEventListener('click',event=>{
-  const open=event.target.closest?.('[data-v161-relationship]');if(open){const dialog=document.getElementById('v161-relationship-dialog');if(dialog?.showModal)dialog.showModal();else dialog?.setAttribute('open','');return;}
+  const open=event.target.closest?.('[data-v161-relationship]');if(open){const dialog=document.getElementById('relationship-dialog');if(dialog?.showModal)dialog.showModal();else dialog?.setAttribute('open','');return;}
   const close=event.target.closest?.('[data-v161-close]');if(close){const dialog=close.closest('dialog');if(dialog?.close)dialog.close();else dialog?.removeAttribute('open');return;}
   const more=event.target.closest?.('[data-v161-tree-more]');if(more){const content=document.getElementById('content');const expanded=content?.classList.toggle('v161-show-tree-secondary');more.setAttribute('aria-expanded',String(Boolean(expanded)));}
 });
