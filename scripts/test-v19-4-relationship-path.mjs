@@ -17,7 +17,7 @@ test('v19.4 narrates the existing evidence-qualified relationship path without n
 
 test('v19.4 visually distinguishes path endpoints and controlling evidence states',async()=>{
   const runtime=await read('src/runtime/relationship-path-comprehension.js');
-  const css=await read('src/styles/relationship-path-comprehension.css');
+  const css=await read('src/styles/experience.css');
   assert.match(runtime,/tree-path-start/);
   assert.match(runtime,/tree-path-middle/);
   assert.match(runtime,/tree-path-end/);
@@ -29,7 +29,7 @@ test('v19.4 visually distinguishes path endpoints and controlling evidence state
 
 test('v19.4 path narration is privacy-minimal responsive and accessible',async()=>{
   const runtime=await read('src/runtime/relationship-path-comprehension.js');
-  const css=await read('src/styles/relationship-path-comprehension.css');
+  const css=await read('src/styles/experience.css');
   assert.match(runtime,/aria-label/);
   assert.match(runtime,/aria-live/);
   assert.match(runtime,/personById\(id\)\?\.name/);

@@ -8,7 +8,7 @@ const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const capabilities=fs.readFileSync('src/runtime/route-capabilities.js','utf8');
 const elevation=fs.readFileSync('src/runtime/experience-elevation-v17-4.js','utf8');
 const cssRoot=fs.readFileSync('src/styles/index.css','utf8');
-const css=fs.readFileSync('src/styles/elevation.css','utf8');
+const css=fs.readFileSync('src/styles/core.css','utf8');
 const shell=fs.readFileSync('index.html','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
@@ -33,7 +33,8 @@ test('v17.4+ capabilities remain synchronized in later releases',()=>{
 test('v17.4 premium layer remains route-loaded and styled semantically',()=>{
   assert.match(capabilities,/name:'experience-elevation-v17-4'[\s\S]*routes:\['dashboard','person','tree'\][\s\S]*import\('\.\/experience-elevation-v17-4\.js'\)/);
   assert.doesNotMatch(experience,/import\('\.\/experience-elevation-v17-4\.js'\)/);
-  assert.match(cssRoot,/@import '.\/elevation\.css';/);
+  assert.match(cssRoot,/@import '.\/core\.css';/);
+  assert.match(css,/Source: elevation\.css/);
   assert.match(css,/v17\.4 — elevated family experience/);
 });
 

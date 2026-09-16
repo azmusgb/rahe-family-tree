@@ -8,10 +8,10 @@ const experience=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const experienceRoot=fs.readFileSync('src/runtime/experience.js','utf8');
 const branding=fs.readFileSync('src/runtime/site-branding.js','utf8');
 const neutralBranding=fs.readFileSync('src/runtime/neutral-family-branding.js','utf8');
-const brandingCss=fs.readFileSync('src/styles/branding.css','utf8');
+const brandingCss=fs.readFileSync('src/styles/core.css','utf8');
 const navigation=fs.readFileSync('src/runtime/navigation-shell.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
-const mobile=fs.readFileSync('src/styles/mobile-family.css','utf8');
+const mobile=fs.readFileSync('src/styles/core.css','utf8');
 const density=fs.readFileSync('src/runtime/mobile-family-density.js','utf8');
 const narrative=fs.readFileSync('src/runtime/family-narrative.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
@@ -53,13 +53,20 @@ test('site shell uses neutral family-history branding while record names remain 
   assert.match(neutralBranding,/import\{researchRoutes\}from'\.\/navigation-model\.js'/);
   assert.match(neutralBranding,/researchRoutes\.has\(routeKey\(\)\)/);
   assert.doesNotMatch(neutralBranding,/RAHE FAMILY/i);
-  assert.match(styleRoot,/@import '\.\/home\.css';[\s\S]*@import '\.\/responsive\.css';\s*(?:\/\*[\s\S]*?\*\/\s*)?@import '\.\/home-editorial\.css';/);
+  assert.match(styleRoot,/@import '\.\/core\.css';/);
+  const home=brandingCss.indexOf('Source: home.css');
+  const responsive=brandingCss.indexOf('Source: responsive.css');
+  const editorial=brandingCss.indexOf('Source: home-editorial.css');
+  assert.ok(home>-1&&responsive>home&&editorial>responsive);
   assert.match(brandingCss,/\.v17-home-hero::after\{content:'F'\}/);
-  assert.doesNotMatch(brandingCss,/content:'R'/);
+  assert.doesNotMatch(brandingCss,/\.v17-home-hero::after\{content:'R'\}/);
 });
 
 test('mobile Family stylesheet is semantic and layered before final responsive safeguards',()=>{
-  assert.match(styleRoot,/@import '\.\/mobile-family\.css';\s*@import '\.\/responsive\.css';/);
+  assert.match(styleRoot,/@import '\.\/core\.css';/);
+  const family=mobile.indexOf('Source: mobile-family.css');
+  const responsive=mobile.indexOf('Source: responsive.css');
+  assert.ok(family>-1&&responsive>family);
   assert.match(mobile,/@media\(max-width:720px\)/);
   assert.match(mobile,/body\[data-route="people"\]\[data-v158-context="family"\]/);
   assert.match(mobile,/body\[data-route="media"\]\[data-v158-context="family"\]/);

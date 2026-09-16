@@ -14,10 +14,10 @@ const neutralBranding=fs.readFileSync('src/runtime/neutral-family-branding.js','
 const navModel=fs.readFileSync('src/runtime/navigation-model.js','utf8');
 const elevation=fs.readFileSync('src/runtime/experience-elevation-v17-4.js','utf8');
 const editorialHome=fs.readFileSync('src/runtime/native-home-editorial.js','utf8');
-const editorialHomeCss=fs.readFileSync('src/styles/home-editorial-layout.css','utf8');
+const editorialHomeCss=fs.readFileSync('src/styles/home-responsive.css','utf8');
 const cssRoot=fs.readFileSync('src/styles/index.css','utf8');
-const shellCss=fs.readFileSync('src/styles/archive-shell.css','utf8');
-const branchCss=fs.readFileSync('src/styles/branches.css','utf8');
+const shellCss=fs.readFileSync('src/styles/core.css','utf8');
+const branchCss=fs.readFileSync('src/styles/core.css','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const releaseOf=(text,pattern)=>{const match=text.match(pattern);assert.ok(match,'release fingerprint missing');return match[1];};
 
@@ -78,7 +78,8 @@ test('Families and Branch are first-class native family routes',()=>{
   assert.match(controller,/renderFamiliesIndex\(\)/);
   assert.match(controller,/renderFamilyBranch\(routeBranchName\(\)\)/);
   assert.match(experience,/family-branches-v17-5\.js/);
-  assert.match(cssRoot,/@import '.\/branches\.css';/);
+  assert.match(cssRoot,/@import '.\/core\.css';/);
+  assert.match(branchCss,/Source: branches\.css/);
   assert.match(branchCss,/\.v175-family-grid/);
 });
 

@@ -1,77 +1,15 @@
 /* Family design-system composition root.
  *
- * Historical release CSS has been retired. Every live selector is owned by a semantic module; do not add version-numbered CSS or compatibility layers.
+ * Eight live stylesheets. The bundle order preserves the previous cascade while
+ * eliminating release-era, compatibility, and micro-layer stylesheet sprawl.
+ * New CSS belongs in the owning consolidated file; do not add version-numbered
+ * stylesheets or one-off override files.
  */
-/* Current semantic design system. Order is deliberate: tokens and shared
- * foundations first, route composition second, mobile/responsive safeguards last. */
 @import './tokens.css';
-@import './base.css';
-@import './shell.css';
-@import './navigation.css';
-@import './home.css';
-@import './branding.css';
-@import './people.css';
-@import './person.css';
-@import './stories.css';
-@import './tree.css';
-@import './unified-family.css';
-@import './tree-advanced.css';
-@import './media.css';
-@import './explore.css';
-@import './research.css';
-@import './record-ingestion.css';
-@import './mobile-family.css';
-@import './responsive.css';
-
-@import './home-editorial.css';
-
-@import './elevation.css';
-@import './branches.css';
-@import './archive-shell.css';
-
-/* Final semantic composition. Each file owns one UI domain. */
-@import './base-composition.css';
-@import './shell-composition.css';
-@import './home-composition.css';
-@import './person-composition.css';
-@import './people-composition.css';
-@import './tree-composition.css';
-@import './responsive-composition.css';
-@import './mobile-experience.css';
-@import './family-graph-v19.css';
-@import './family-graph-navigation.css';
-@import './family-graph-layout.css';
-@import './relationship-path-comprehension.css';
-
-/* Native Home structure first, then phone-specific tuning. */
-@import './home-editorial-layout.css';
-@import './home-mobile-polish.css';
-
-/* Interaction contracts intentionally follow visual composition. */
-@import './interaction-contracts.css';
-
-/* Family Explorer owns desktop navigation presentation. */
-@import './family-explorer-navigation.css';
-
-/* Mobile v20 foundation, followed by the app-level information architecture. */
-@import './mobile-v20.css';
-@import './mobile-app.css';
-@import './mobile-contract-bridge.css';
-
-/* Immersive phone composition is retained as visual foundation. */
-@import './mobile-immersive.css';
-
-/* The actual mobile UI owns the dedicated phone header, structural search placement,
- * app launcher, person actions, tree mode bar, and real dock order. */
-@import './mobile-actual-ui.css';
-
-/* Home-specific mobile stability follows all broad mobile systems so viewport
- * chrome, hero, chapter density, and dock proportions are deterministic. */
-@import './mobile-home-stability.css';
-
-/* Directory density intentionally follows the actual phone composition so its
- * touch-safe compact rows are authoritative over older card sizing rules. */
-@import './mobile-directory.css';
-
-/* Print is authoritative and intentionally last in the cascade. */
+@import './core.css';
+@import './composition.css';
+@import './experience.css';
+@import './home-responsive.css';
+@import './interaction.css';
+@import './mobile.css';
 @import './print.css';

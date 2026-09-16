@@ -1,0 +1,280 @@
+/* Consolidated stylesheet.
+ * Source sections are kept in the previous cascade order so this refactor changes
+ * ownership and file count without intentionally changing visual precedence.
+ */
+
+/* ==========================================================================
+   Source: mobile-experience.css
+   ========================================================================== */
+/* Mobile Family experience: bottom-sheet navigation and tree-first composition.
+ * Presentation-only; genealogy/evidence semantics are unchanged. */
+
+.mobile-more-backdrop{display:none}
+.mobile-more-head{display:none}
+
+@media(max-width:720px){
+  html,body{width:100%;max-width:100%;overflow-x:hidden}
+  body.mobile-sheet-open{overflow:hidden;overscroll-behavior:none}
+  .mobile-more-backdrop[hidden]{display:none}
+
+  body[data-route="people"] :where(.workspace,.main,#content,.route-shell,.v17-people,.v17-people-grid,.people-grid),
+  body[data-route="tree"] :where(.workspace,.main,#content,.route-shell,.v17-tree,.graph-shell,.tree-graph-shell){
+    min-width:0;
+    max-width:100%;
+    box-sizing:border-box;
+  }
+
+  .mobile-more-backdrop:not([hidden]){
+    display:block;
+    position:fixed;
+    inset:0;
+    z-index:2147482990;
+    border:0;
+    padding:0;
+    background:rgba(15,28,23,.34);
+    -webkit-backdrop-filter:blur(2px);
+    backdrop-filter:blur(2px);
+  }
+
+  #family-mobile-dock .mobile-more{
+    position:static;
+    min-width:0;
+  }
+  #family-mobile-dock .mobile-more>summary{
+    min-height:46px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    list-style:none;
+    cursor:pointer;
+    border-radius:10px;
+    color:var(--muted);
+    font-size:10px;
+    font-weight:720;
+  }
+  #family-mobile-dock .mobile-more>summary::-webkit-details-marker{display:none}
+  #family-mobile-dock .mobile-more[open]>summary{
+    background:var(--brand-soft);
+    color:var(--green);
+  }
+  #family-mobile-dock .mobile-more>div{
+    position:fixed;
+    left:max(10px,env(safe-area-inset-left,0px));
+    right:max(10px,env(safe-area-inset-right,0px));
+    bottom:calc(78px + env(safe-area-inset-bottom,0px));
+    z-index:2147483005;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:4px;
+    max-height:min(68dvh,620px);
+    overflow:auto;
+    overscroll-behavior:contain;
+    padding:10px 10px max(12px,env(safe-area-inset-bottom,0px));
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:var(--surface,#fff);
+    box-shadow:0 24px 72px rgba(13,35,28,.28);
+    transform-origin:bottom center;
+  }
+  #family-mobile-dock .mobile-more:not([open])>div{display:none}
+  #family-mobile-dock .mobile-more>div>a,
+  #family-mobile-dock .mobile-more>div>button{
+    min-height:50px;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    padding:0 16px;
+    border:0;
+    border-radius:12px;
+    background:transparent;
+    color:var(--text);
+    text-decoration:none;
+    font:700 16px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  #family-mobile-dock .mobile-more>div>a:active,
+  #family-mobile-dock .mobile-more>div>button:active{background:var(--brand-soft)}
+  .mobile-more-head{
+    position:sticky;
+    top:-10px;
+    z-index:2;
+    min-height:52px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin:-10px -10px 4px;
+    padding:12px 14px 8px;
+    background:var(--surface,#fff);
+    border-bottom:1px solid var(--line);
+  }
+  .mobile-more-head strong{font-size:18px;color:var(--text)}
+  .mobile-more-head button{
+    min-height:40px;
+    padding:0 12px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--surface-soft,#f7f5ef);
+    color:var(--text);
+    font:700 13px/1 sans-serif;
+  }
+
+  body[data-route="people"] .route-shell{
+    position:sticky;
+    top:0;
+    z-index:28;
+    width:100%;
+    padding-top:6px;
+    padding-bottom:8px;
+    background:linear-gradient(var(--family-bg,#f5f1e8) 72%,rgba(245,241,232,0));
+  }
+  body[data-route="people"] .route-shell .search input{
+    width:100%;
+    max-width:100%;
+    box-sizing:border-box;
+    box-shadow:0 7px 22px rgba(18,47,39,.08);
+  }
+
+  body[data-route="tree"] #content.mobile-tree-surface{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    overflow-x:hidden;
+  }
+  body[data-route="tree"] #content.mobile-tree-surface .v161-tree-toolbar{
+    position:sticky;
+    top:0;
+    z-index:24;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    box-sizing:border-box;
+    margin:0;
+    padding:8px 8px 7px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:rgba(250,248,242,.96);
+    -webkit-backdrop-filter:blur(14px);
+    backdrop-filter:blur(14px);
+    box-shadow:0 8px 22px rgba(18,47,39,.08);
+  }
+  body[data-route="tree"] #content.mobile-tree-surface .graph-shell,
+  body[data-route="tree"] #content.mobile-tree-surface .tree-graph-shell{
+    order:10;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    min-height:68dvh;
+    margin-top:0;
+    border-radius:16px;
+    overflow:hidden;
+  }
+  body[data-route="tree"] #content.mobile-tree-surface [data-v161-secondary]:not(.v161-show-tree-secondary [data-v161-secondary]){
+    display:none;
+  }
+  body[data-route="tree"] #content.mobile-tree-surface .tree-focusbar[data-v161-tree-controls]{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    box-sizing:border-box;
+    margin:0;
+    padding:8px;
+  }
+  body[data-route="tree"] #content.mobile-tree-surface .v161-tree-tool-actions{
+    max-width:100%;
+    min-width:0;
+  }
+  body[data-route="tree"] #content.mobile-tree-surface .v161-tree-tool-actions button{
+    min-height:44px;
+  }
+
+  :where(#family-mobile-dock,.mobile-more-backdrop,.v161-tree-toolbar) :focus-visible{
+    outline:3px solid #d4a34d;
+    outline-offset:2px;
+  }
+}
+
+@media(max-width:430px){
+  #family-mobile-dock .mobile-more>div{
+    left:7px;
+    right:7px;
+    bottom:calc(72px + env(safe-area-inset-bottom,0px));
+    border-radius:20px;
+  }
+}
+
+/* ==========================================================================
+   Source: family-graph-v19.css
+   ========================================================================== */
+/* v19 Family Graph. Presentation-only hierarchy layered on the existing tree SVG. */
+body[data-family-graph="v19"] .family-graph-summary{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 0 10px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface-soft);box-shadow:0 6px 18px rgba(18,47,39,.05)}
+.family-graph-summary>div:first-child{display:grid;gap:2px}.family-graph-summary strong{font-size:1rem;color:var(--text)}.family-graph-summary small{font-size:.78rem;color:var(--muted)}
+.family-graph-key{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:.75rem}.family-graph-key span{display:inline-flex;align-items:center;gap:5px}.family-graph-key i{display:inline-block;width:16px;height:8px;border-radius:5px;border:2px solid var(--line-strong)}.family-key-direct{background:var(--surface-tint);border-color:var(--green)!important}.family-key-collateral{opacity:.55}.family-key-qualified{border-style:dashed!important}
+#family-graph .family-unit-layer{pointer-events:none}#family-graph .family-unit-frame{fill:color-mix(in srgb,var(--surface-tint) 48%,transparent);stroke:color-mix(in srgb,var(--green) 22%,transparent);stroke-width:1.5;stroke-dasharray:7 6;pointer-events:none}
+#family-graph .graph-node.family-graph-direct>rect{stroke:var(--green);stroke-width:2.5;filter:drop-shadow(0 3px 7px rgba(18,63,52,.12))}#family-graph .graph-node.family-graph-focus>rect{stroke-width:4;filter:drop-shadow(0 5px 12px rgba(18,63,52,.2))}#family-graph .graph-node.family-graph-collateral{opacity:.82}
+#family-graph .edge.family-edge-provisional,#family-graph .edge.family-edge-unresolved{stroke-dasharray:8 7}#family-graph .edge.family-edge-unresolved{stroke-width:3.5}#family-graph .edge.family-edge-identity{stroke-dasharray:4 7;stroke-width:3.5}#family-graph .edge.family-edge-context{opacity:.58}
+.family-person-preview{display:none}
+@media(max-width:760px){
+  body[data-family-graph="v19"] .family-graph-summary{display:grid;gap:8px;padding:10px 12px}.family-graph-key{justify-content:flex-start;overflow:auto;white-space:nowrap;flex-wrap:nowrap;padding-bottom:2px}
+  #family-graph .graph-node.family-graph-collateral{opacity:.66}#family-graph .family-unit-frame{fill:color-mix(in srgb,var(--surface-tint) 62%,transparent)}
+  body.family-preview-open{overflow:hidden}
+  .family-person-preview{position:fixed;left:max(8px,env(safe-area-inset-left,0px));right:max(8px,env(safe-area-inset-right,0px));bottom:calc(74px + env(safe-area-inset-bottom,0px));z-index:2147483010;display:grid;gap:12px;max-height:62dvh;overflow:auto;padding:8px 14px 14px;border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:0 26px 80px rgba(13,35,28,.32)}
+  .family-person-preview::before{content:"";position:fixed;inset:0;z-index:-1;background:rgba(15,28,23,.34);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+  .family-person-preview-handle{width:42px;height:4px;margin:2px auto 0;border-radius:999px;background:var(--line-strong)}
+  .family-person-preview-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.family-person-preview-head h2{margin:1px 0 2px;font-size:1.24rem}.family-person-preview-head p{margin:0;color:var(--muted);font-size:.82rem}.family-person-preview-head button{min-height:42px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface-soft);color:var(--text);font-weight:700}
+  .family-person-preview-meta{display:flex;gap:7px;flex-wrap:wrap}.family-person-preview-meta span{padding:5px 8px;border-radius:999px;background:var(--surface-tint);font-size:.76rem;color:var(--muted-strong)}
+  .family-person-preview-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.family-person-preview-actions button,.family-person-preview-actions a{min-height:46px;display:flex;align-items:center;justify-content:center;padding:0 12px;border:1px solid var(--line);border-radius:11px;background:var(--surface-soft);color:var(--text);text-decoration:none;font-weight:750}.family-person-preview-actions a{background:var(--green);color:white;border-color:var(--green)}
+}
+@media(prefers-reduced-motion:reduce){.family-person-preview,#family-graph .graph-node.family-graph-direct>rect{transition:none!important;animation:none!important}}
+
+/* ==========================================================================
+   Source: family-graph-navigation.css
+   ========================================================================== */
+/* Family Graph navigation composition. Navigation-only; genealogy semantics live elsewhere. */
+.family-graph-commandbar{position:sticky;top:0;z-index:18;display:grid;gap:8px;margin:0 0 10px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--surface) 94%,transparent);box-shadow:0 8px 24px rgba(18,47,39,.08);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.family-graph-commandbar-main,.family-graph-commandbar-secondary{display:flex;align-items:center;gap:8px;min-width:0}.family-graph-commandbar-main{flex-wrap:wrap}.family-graph-commandbar-secondary{justify-content:space-between}
+.family-graph-person-picker{display:flex;align-items:center;gap:7px;min-width:min(100%,280px)}.family-graph-person-picker>span,.family-graph-depth>span,.family-graph-relationship-panel label>span{font-size:.72rem;font-weight:750;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.family-graph-person-picker select,.family-graph-relationship-panel select{min-height:40px;max-width:300px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text);padding:0 34px 0 10px;font:inherit;font-size:.86rem}.family-graph-relationship-panel select:disabled{opacity:.65;cursor:not-allowed}
+.family-graph-scope-tabs,.family-graph-depth{display:flex;align-items:center;gap:4px;padding:3px;border:1px solid var(--line);border-radius:11px;background:var(--surface-soft)}.family-graph-scope-tabs button,.family-graph-depth button{min-height:34px;padding:0 9px;border:0;border-radius:8px;background:transparent;color:var(--muted-strong);font:inherit;font-size:.78rem;font-weight:720;white-space:nowrap}.family-graph-scope-tabs button.active,.family-graph-depth button.active{background:var(--green);color:#fff}.family-graph-scope-tabs button:focus-visible,.family-graph-depth button:focus-visible,.family-graph-commandbar summary:focus-visible,.family-graph-commandbar select:focus-visible,.family-graph-commandbar button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.family-graph-depth{padding-left:8px}.family-graph-depth>span{margin-right:2px}
+.family-graph-commandbar details{position:relative}.family-graph-commandbar summary{min-height:38px;display:flex;align-items:center;cursor:pointer;list-style:none;padding:0 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface-soft);font-size:.8rem;font-weight:760;color:var(--text)}.family-graph-commandbar summary::-webkit-details-marker{display:none}.family-graph-commandbar details[open]>summary{background:var(--surface-tint)}
+.family-graph-relationship-panel,.family-graph-tools>[data-family-graph-tools-slot]{position:absolute;top:calc(100% + 6px);z-index:40;display:grid;gap:9px;min-width:290px;max-width:min(430px,calc(100vw - 30px));padding:12px;border:1px solid var(--line);border-radius:13px;background:var(--surface);box-shadow:0 18px 46px rgba(18,47,39,.18)}.family-graph-relationship-panel{left:0}.family-graph-tools>[data-family-graph-tools-slot]{right:0}.family-graph-relationship-panel label{display:grid;gap:4px}.family-graph-relationship-panel strong{font-size:.9rem}.family-graph-relationship-panel button{min-height:40px;border:1px solid var(--line);border-radius:10px;background:var(--surface-soft);font:inherit;font-weight:700;color:var(--text)}.family-graph-relationship-help{display:block;max-width:36ch;color:var(--muted);font-size:.74rem;line-height:1.4}
+.family-graph-commandbar [data-family-graph-tools-slot] .tree-advanced-primary{display:grid;gap:10px}.family-graph-commandbar [data-family-graph-tools-slot] .tree-advanced-primary>label{display:grid;gap:5px}.family-graph-commandbar [data-family-graph-tools-slot] .tree-advanced-actions,.family-graph-commandbar [data-family-graph-tools-slot] .tree-advanced-export{display:flex;gap:6px;flex-wrap:wrap}.family-graph-commandbar [data-family-graph-tools-slot] .tree-advanced-export{padding-top:8px;border-top:1px solid var(--line)}.family-graph-commandbar [data-family-graph-tools-slot] .tree-recent-trail{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding-top:8px;border-top:1px solid var(--line)}
+.family-graph-focusbar-source{display:none!important}.family-graph-path-source{display:none!important}.family-graph-advanced-source>.tree-advanced-primary,.family-graph-advanced-source>.tree-recent-trail{display:none}.family-graph-advanced-source{margin-top:0}.family-graph-advanced-source:empty{display:none}.family-graph-scope-label{padding:3px 7px;border-radius:999px;background:var(--surface-tint);color:var(--muted-strong);font-weight:750}
+@media(max-width:760px){
+ .family-graph-commandbar{top:0;margin:0 -2px 8px;padding:8px;border-radius:12px}.family-graph-commandbar-main{display:grid;grid-template-columns:1fr;gap:6px}.family-graph-person-picker{min-width:0;width:100%}.family-graph-person-picker select{width:100%;max-width:none;min-height:44px}.family-graph-scope-tabs{width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:none}.family-graph-scope-tabs::-webkit-scrollbar{display:none}.family-graph-scope-tabs button{min-height:42px;padding-inline:12px}.family-graph-depth{overflow-x:auto;width:100%}.family-graph-depth button{min-height:40px}.family-graph-commandbar-secondary{justify-content:flex-start}.family-graph-commandbar summary{min-height:42px}.family-graph-relationship-panel{position:fixed;left:10px;right:10px;top:auto;bottom:calc(80px + env(safe-area-inset-bottom,0px));max-width:none;min-width:0}.family-graph-relationship-panel select{width:100%;max-width:none;min-height:44px}.family-graph-tools>[data-family-graph-tools-slot]{position:fixed;left:10px;right:10px;top:auto;bottom:calc(80px + env(safe-area-inset-bottom,0px));max-width:none;min-width:0;max-height:55dvh;overflow:auto}.family-graph-commandbar [data-family-graph-tools-slot] button,.family-graph-commandbar [data-family-graph-tools-slot] select{min-height:44px}.family-graph-summary{position:relative;z-index:1}}
+@media(prefers-reduced-motion:reduce){.family-graph-commandbar *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* ==========================================================================
+   Source: family-graph-layout.css
+   ========================================================================== */
+/* Readable Family Graph layout. Presentation-only relative generations + lineage rail. */
+.family-lineage-rail{display:grid;gap:10px;margin:10px 0 12px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:0 5px 18px rgba(18,47,39,.04)}
+.family-lineage-rail-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.family-lineage-rail-head strong{color:var(--text);font-size:.95rem}.family-lineage-rail-head small{color:var(--muted);font-size:.76rem}
+.family-lineage-generations{display:flex;gap:10px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;padding:1px 1px 5px;scrollbar-width:thin}
+.family-lineage-generation{flex:0 0 auto;min-width:180px;max-width:290px;padding:9px;border:1px solid var(--line);border-radius:12px;background:var(--surface-soft);scroll-snap-align:start}.family-lineage-generation>span{display:block;margin-bottom:7px;color:var(--muted-strong);font-size:.71rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}.family-lineage-generation>div{display:grid;gap:6px}
+.family-lineage-person{display:flex;align-items:stretch;gap:4px}.family-lineage-person button{min-height:38px;padding:7px 9px;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--text);font:inherit;font-size:.78rem;font-weight:700;text-align:left;cursor:pointer}.family-lineage-person>button:first-child{flex:1 1 auto}.family-lineage-person.is-focus>button:first-child{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green);background:var(--surface-tint)}.family-lineage-spouse{flex:0 1 auto;max-width:46%;color:var(--muted-strong)!important;font-weight:650!important}
+#family-graph .generation-lane text{font-size:13px;font-weight:800;letter-spacing:.03em;fill:var(--muted-strong)}#family-graph .generation-lane.family-generation-focus-lane text{fill:var(--green)}#family-graph .generation-lane.family-generation-focus-lane line{stroke:color-mix(in srgb,var(--green) 45%,var(--line));stroke-width:2}
+#family-graph .graph-node.family-asserted-couple>rect{outline:none}#family-graph .graph-node.family-asserted-couple:not(.family-graph-focus)>rect{stroke-linejoin:round}
+#family-graph .graph-node.family-generation-ancestor .node-branch::after,#family-graph .graph-node.family-generation-descendant .node-branch::after{content:""}
+@media(max-width:760px){
+  .family-lineage-rail{margin:8px 0 10px;padding:10px;border-radius:13px;gap:8px}.family-lineage-rail-head{display:grid;grid-template-columns:auto 1fr;gap:2px 7px}.family-lineage-rail-head small{grid-column:1/-1}
+  .family-lineage-generations{gap:8px;margin-inline:-2px;padding-inline:2px}.family-lineage-generation{min-width:min(78vw,260px);padding:8px}.family-lineage-person button{min-height:44px;font-size:.8rem}
+  #family-graph .generation-lane text{font-size:14px}.family-graph-summary+.family-lineage-rail{margin-top:8px}
+  body[data-family-graph="v19"] .graph-shell{scroll-margin-top:190px}
+}
+@media(prefers-reduced-motion:reduce){.family-lineage-generations{scroll-behavior:auto!important}}
+
+/* ==========================================================================
+   Source: relationship-path-comprehension.css
+   ========================================================================== */
+/* Relationship-path comprehension. Presentation-only; evidence colors mirror canonical state tokens. */
+.relationship-path-card{display:grid;gap:12px;margin:0 0 12px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--surface);box-shadow:var(--shadow-sm)}
+.relationship-path-heading{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.relationship-path-heading h3{margin:2px 0 0;font-family:var(--family-font-display);font-size:clamp(1.05rem,1.7vw,1.35rem);line-height:1.2;color:var(--text)}.relationship-path-eyebrow{display:block;font-size:var(--family-text-eyebrow);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.relationship-path-badges{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.relationship-path-badges>span,.relationship-path-step-state{display:inline-flex;align-items:center;min-height:26px;padding:3px 8px;border-radius:999px;background:var(--surface-soft);border:1px solid var(--line);font-size:.7rem;font-weight:800;letter-spacing:.04em;color:var(--muted-strong)}.relationship-path-badges>[data-evidence-state="SUPPORTED"],.relationship-path-step[data-evidence-state="SUPPORTED"] .relationship-path-step-state{background:var(--evidence-supported-soft);border-color:color-mix(in srgb,var(--evidence-supported) 28%,var(--line));color:var(--evidence-supported)}.relationship-path-badges>[data-evidence-state="PROVISIONAL"],.relationship-path-step[data-evidence-state="PROVISIONAL"] .relationship-path-step-state{background:var(--evidence-provisional-soft);border-color:color-mix(in srgb,var(--evidence-provisional) 30%,var(--line));color:var(--evidence-provisional)}.relationship-path-badges>[data-evidence-state="UNRESOLVED"],.relationship-path-step[data-evidence-state="UNRESOLVED"] .relationship-path-step-state{background:var(--evidence-unresolved-soft);border-color:color-mix(in srgb,var(--evidence-unresolved) 30%,var(--line));color:var(--evidence-unresolved)}
+.relationship-path-steps{display:grid;gap:7px;margin:0;padding:0;list-style:none}.relationship-path-step{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:9px;padding:9px 10px;border:1px solid var(--line);border-radius:12px;background:var(--surface-soft)}.relationship-path-step-number{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-size:.72rem;font-weight:850}.relationship-path-step-copy{display:flex;align-items:center;gap:7px;min-width:0;flex-wrap:wrap;font-size:.82rem}.relationship-path-step-copy strong{color:var(--text)}.relationship-path-relation{color:var(--muted);font-weight:700}.relationship-path-note{margin:0;color:var(--muted-strong);font-size:.78rem;line-height:1.45}
+#family-graph .tree-path-start>rect,#family-graph .tree-path-end>rect{stroke-width:5.5!important}#family-graph .tree-path-middle>rect{stroke-width:3.5!important}#family-graph .tree-path-segment-supported{stroke:var(--evidence-supported)}#family-graph .tree-path-segment-provisional{stroke:var(--evidence-provisional);stroke-dasharray:10 7}#family-graph .tree-path-segment-unresolved{stroke:var(--evidence-unresolved);stroke-dasharray:5 6}#family-graph .tree-path-segment-rejected{stroke:var(--evidence-rejected);stroke-dasharray:3 7;opacity:.65}
+@media(max-width:760px){.relationship-path-card{padding:12px;border-radius:13px}.relationship-path-heading{display:grid;gap:8px}.relationship-path-badges{justify-content:flex-start}.relationship-path-step{grid-template-columns:28px minmax(0,1fr)}.relationship-path-step-state{grid-column:2;justify-self:start}.relationship-path-step-copy{display:grid;gap:2px}.relationship-path-relation{font-size:.75rem}.relationship-path-note{font-size:.76rem}}
+@media(prefers-reduced-motion:reduce){.relationship-path-card *{transition:none!important;animation:none!important}}

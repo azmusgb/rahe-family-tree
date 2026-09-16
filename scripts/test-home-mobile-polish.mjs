@@ -4,13 +4,13 @@ import fs from 'node:fs';
 const read=path=>fs.readFileSync(new URL(`../${path}`,import.meta.url),'utf8');
 
 test('Family Home uses the structural editorial renderer and mobile composition',()=>{
-  const mobile=read('src/styles/home-mobile-polish.css');
-  const layout=read('src/styles/home-editorial-layout.css');
+  const mobile=read('src/styles/home-responsive.css');
+  const layout=read('src/styles/home-responsive.css');
   const index=read('src/styles/index.css');
   const controller=read('src/runtime/native-family-v17-controller.js');
   const renderer=read('src/runtime/native-home-editorial.js');
-  assert.match(index,/@import '\.\/home-editorial-layout\.css';/);
-  assert.match(index,/@import '\.\/home-mobile-polish\.css';/);
+  assert.match(index,/@import '\.\/home-responsive\.css';/);
+  assert.ok(layout.indexOf('Source: home-editorial-layout.css')<layout.indexOf('Source: home-mobile-polish.css'));
   assert.match(controller,/renderEditorialHome/);
   assert.match(controller,/route==='dashboard'\)return renderEditorialHome\(\)/);
   assert.match(renderer,/home-editorial-layout/);

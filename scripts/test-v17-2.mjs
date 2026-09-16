@@ -14,7 +14,7 @@ const treeAdvanced=fs.readFileSync('src/runtime/tree-advanced.js','utf8');
 const treePolish=fs.readFileSync('src/runtime/tree-polish.js','utf8');
 const unified=fs.readFileSync('src/runtime/unified-family-experience.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
-const unifiedCss=fs.readFileSync('src/styles/unified-family.css','utf8');
+const unifiedCss=fs.readFileSync('src/styles/core.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
@@ -87,7 +87,10 @@ test('tree portraits are public-only and defense-in-depth excludes living people
 });
 
 test('unified family styles remain semantic and mobile-safe',()=>{
-  assert.match(styleRoot,/@import '\.\/tree\.css';\s*@import '\.\/unified-family\.css';/);
+  assert.match(styleRoot,/@import '\.\/core\.css';/);
+  const tree=unifiedCss.indexOf('Source: tree.css');
+  const family=unifiedCss.indexOf('Source: unified-family.css');
+  assert.ok(tree>-1&&family>tree);
   assert.match(unifiedCss,/\.v172-branch-grid/);
   assert.match(unifiedCss,/\.v172-tree-branch-actions button/);
   assert.match(unifiedCss,/@media\(max-width:720px\)/);

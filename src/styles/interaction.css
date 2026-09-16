@@ -1,3 +1,159 @@
+/* Consolidated stylesheet.
+ * Source sections are kept in the previous cascade order so this refactor changes
+ * ownership and file count without intentionally changing visual precedence.
+ */
+
+/* ==========================================================================
+   Source: interaction-contracts.css
+   ========================================================================== */
+/* Cross-module interaction contracts.
+ *
+ * This semantic layer is intentionally late in the cascade. It owns presentation
+ * contracts shared by multiple route modules where source-order is part of behavior.
+ */
+
+/* Hidden is a state, not a suggestion. No route/layout module may visually revive
+ * an element that the DOM explicitly marks hidden. */
+[hidden]{display:none!important}
+
+/* Keyboard focus is a global product contract. Keep the focus ring visible across
+ * links, buttons, native details, form controls, and programmatic focus targets. */
+:where(a,button,summary,input,select,textarea,[tabindex]):focus-visible{
+  outline:3px solid color-mix(in srgb,var(--green,#123f34) 74%,#fff);
+  outline-offset:3px;
+}
+.skip{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip:focus-visible{
+  left:12px;top:12px;width:auto;height:auto;overflow:visible;z-index:2147483647;
+  padding:10px 14px;border-radius:10px;background:#fff;color:#173f35;
+  box-shadow:0 8px 30px rgba(0,0,0,.18)
+}
+
+/* Navigation popovers intentionally suppress the native disclosure marker because
+ * their visual affordances are supplied by the shell. Leave ordinary details/
+ * summary controls untouched so Archive, Research, Tree, and content disclosures
+ * retain their native marker and semantics. */
+:where(.nav-menu,.site-tools,.mobile-more)>summary{
+  cursor:pointer;
+  list-style:none;
+  touch-action:manipulation;
+  min-height:44px;
+}
+:where(.nav-menu,.site-tools,.mobile-more)>summary::-webkit-details-marker{display:none}
+:where(.nav-menu,.site-tools,.mobile-more)>summary::marker{content:''}
+:where(.nav-popover,.site-tools>div,.mobile-more>div){isolation:isolate}
+
+/* Keep controls within their grid/flex tracks and prevent long search placeholders
+ * or select options from forcing horizontal overflow. */
+.filters>*{min-width:0}
+.filters :where(input,select){width:100%;min-width:0}
+
+/* Native hidden state must win over layout modules that assign display:grid to
+ * the route filter form. Route-specific exceptions can opt back in below. */
+.filters[hidden]{display:none!important}
+
+/* Relationship rows belong to the tree/evidence interaction model. Research
+ * list-card styling must not collapse their six-column desktop structure. */
+.relationship-row{
+  display:grid;
+  grid-template-columns:120px minmax(160px,1fr) 20px minmax(160px,1fr) minmax(220px,1.3fr) auto;
+  gap:12px;
+  align-items:center;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:14px;
+}
+
+@media(max-width:1180px){
+  .relationship-row{grid-template-columns:90px 1fr 16px 1fr}
+  .relationship-row small,.relationship-row .deep-link{grid-column:2/-1}
+}
+
+@media(max-width:800px){
+  .filters{grid-template-columns:1fr!important}
+}
+
+@media(max-width:720px){
+  .relationship-row{grid-template-columns:1fr;gap:6px}
+  .relationship-row>b{display:none}
+  .relationship-row small,.relationship-row .deep-link{grid-column:auto}
+
+  /* The fixed mobile dock owns the bottom safe-area. Give routed content enough
+   * breathing room even if an older route module forgets to add its own offset. */
+  body.v21-actual-mobile-ui{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+  body.v21-actual-mobile-ui[data-route="tree"]{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+  #family-mobile-dock{padding-bottom:max(8px,env(safe-area-inset-bottom,0px))}
+  #family-mobile-dock :where(a,summary,button){touch-action:manipulation}
+}
+
+/* Media browsing intentionally keeps the contextual archive search visible.
+ * The generic media-browse shell hides route filters; Family mode is the
+ * explicit exception and must win after all route modules are composed. */
+body[data-v158-context="family"][data-route="media"] .route-shell .filters{
+  display:block!important;
+  margin-top:10px!important;
+}
+body[data-v158-context="family"][data-route="media"] .route-shell .filters>label:not(.search),
+body[data-v158-context="family"][data-route="media"] .route-shell .filters>button{
+  display:none!important;
+}
+body[data-v158-context="family"][data-route="media"] .route-shell .filters .search{
+  display:block!important;
+}
+body[data-v158-context="family"][data-route="media"] .route-shell .filters .search input{
+  min-height:44px!important;
+}
+
+/* The routed tree is repeatedly reconstructed as scope/focus changes. Avoid
+ * restarting entrance motion on the context controller itself: a moving
+ * controller is not a stable pointer target and can also create resize churn
+ * while the tree persistence controller is restoring state. */
+.v174-tree-context{animation:none!important}
+
+/* Reduced-motion is a cross-route accessibility contract. */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+
+  /* home.css */
+  .dashboard-recent{animation:none}
+
+  /* stories.css */
+  .v16-stories *{scroll-behavior:auto!important;transition:none!important}
+
+  /* unified-family.css */
+  .v172-branch-card{transition:none!important}.v172-branch-card:hover{transform:none}
+
+  /* tree-advanced.css */
+  .tree-advanced-nav *,#family-graph *{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+
+  /* media.css */
+  .media-library-preview img{transition:none}
+  .media-library-preview:hover img{transform:none}
+
+  /* record-ingestion.css */
+  .record-ingestion *{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+
+  /* responsive.css */
+  .v158-mobile-more[open]>div{animation:none!important}
+  body[data-v158-context="family"] :where(.action,button,.person-card,.v157-person-card,.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card,.media-library-preview img,.v17-native *){scroll-behavior:auto!important;transition:none!important;transform:none!important}
+
+  /* branches.css */
+  .family-branch-card{transition:none}
+  .family-branch-card:hover{transform:none}
+  :where(.family-branch-card,.dashboard-person,.media-library-card,.search-hit.human){transition:none}
+  .v175-family-card{transition:none}
+
+  /* redesign.css */
+  :where(.person-card,.source-card,.v17-person-card>button,.v17-relative,.media-library-card,.dashboard-person,.v17-primary-actions .action,.family-home-actions a,.dashboard-hero-actions .action){
+      transform:none;
+      transition-duration:.01ms;
+    }
+}
+
+/* ==========================================================================
+   Source: family-explorer-navigation.css
+   ========================================================================== */
 /* Family Explorer navigation — spatial, genealogy-first navigation. */
 @media (min-width:721px){
   body[data-experience="family"] .site-header.sidebar{min-height:74px;height:74px;padding:0 22px;gap:18px;background:linear-gradient(115deg,#102f28 0%,#173f35 58%,#1d4a3e 100%);border-bottom:1px solid rgba(255,255,255,.12);box-shadow:0 12px 36px rgba(9,28,23,.18)}

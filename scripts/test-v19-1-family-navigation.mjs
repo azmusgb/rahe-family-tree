@@ -28,7 +28,7 @@ test('choosing a focal person exits legacy full-tree scope',async()=>{
 
 test('Legacy tree controls are consolidated rather than duplicated',async()=>{
   const runtime=await read('src/runtime/family-graph-navigation.js');
-  const css=await read('src/styles/family-graph-navigation.css');
+  const css=await read('src/styles/experience.css');
   assert.match(runtime,/tree-advanced-primary/);
   assert.match(runtime,/tree-recent-trail/);
   assert.match(runtime,/family-graph-focusbar-source/);
@@ -38,7 +38,7 @@ test('Legacy tree controls are consolidated rather than duplicated',async()=>{
 
 test('navigation composition remains accessible and mobile safe',async()=>{
   const runtime=await read('src/runtime/family-graph-navigation.js');
-  const css=await read('src/styles/family-graph-navigation.css');
+  const css=await read('src/styles/experience.css');
   assert.match(runtime,/aria-label="Choose focal person"/);
   assert.match(runtime,/role="group" aria-label="Tree scope"/);
   assert.match(runtime,/aria-pressed/);

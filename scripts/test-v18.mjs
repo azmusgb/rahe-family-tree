@@ -13,8 +13,8 @@ const platformRuntime=read('platform-v13-runtime.js');
 const graphEngine=read('canonical-graph-engine.js');
 const styleRoot=read('src/styles/index.css');
 const tokens=read('src/styles/tokens.css');
-const compositions=['base-composition.css','shell-composition.css','home-composition.css','person-composition.css','people-composition.css','tree-composition.css','responsive-composition.css'].map(name=>read(`src/styles/${name}`)).join('\n');
-const homeEditorial=read('src/styles/home-editorial.css');
+const compositions=read('src/styles/composition.css');
+const homeEditorial=read('src/styles/core.css');
 const model=json('public/research-model.json');
 const graph=json('public/canonical-graph.json');
 const diff=json('public/canonical-diff.json');
@@ -41,7 +41,7 @@ test('semantic design system owns stylesheet composition with zero compatibility
   assert.doesNotMatch(styleRoot,/legacy-compat\.generated\.css/);
   assert.doesNotMatch(styleRoot,/redesign-fixes\.css/);
   assert.doesNotMatch(styleRoot,/@import ['"](?:\.\.\/)*?(?:v\d|dashboard-v\d|media-page-v\d|experience-v\d|platform-v\d)/);
-  for(const semantic of['tokens.css','base.css','shell.css','navigation.css','home.css','home-editorial.css','people.css','person.css','tree.css','media.css','research.css','record-ingestion.css','mobile-family.css','responsive.css']){
+  for(const semantic of['tokens.css','core.css','composition.css','experience.css','home-responsive.css','interaction.css','mobile.css','print.css']){
     assert.match(styleRoot,new RegExp(`@import '\\.\\/${semantic.replace('.','\\.')}';`));
   }
   assert.equal(fs.existsSync('src/styles/redesign-fixes.css'),false,'post-cascade redesign fix layer must stay retired');
