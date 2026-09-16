@@ -5,10 +5,6 @@ import './experience-core.js';
 import '../../v15-family-focus.js';
 import '../../platform-v13-runtime.js';
 import './page-architecture.js';
-
-// Register route-scoped presentation capabilities before navigation runtime can
-// emit its initial committed-route event.
-import './route-capabilities.js';
 import './navigation-shell.js';
 import './native-family-v17-controller.js';
 
@@ -20,7 +16,8 @@ import './mobile-experience.js';
 import './mobile-ui-shell.js';
 
 // Presentation-only startup capabilities that still apply broadly. Stories and
-// research ingestion are now true route-level capabilities registered above.
+// research ingestion are true route-level capabilities bootstrapped by the
+// navigation runtime before its first committed-route event.
 const presentationModules=[
   import('./ui-resilience.js'),
   import('./site-branding.js'),
