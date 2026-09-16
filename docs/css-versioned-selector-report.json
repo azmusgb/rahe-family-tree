@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-16T20:02:26.279Z",
+  "generatedAt": "2026-09-16T20:20:57.445Z",
   "totals": {
-    "versionedClasses": 231,
-    "cssOccurrences": 1925,
-    "sourceOccurrences": 630,
+    "versionedClasses": 230,
+    "cssOccurrences": 1887,
+    "sourceOccurrences": 619,
     "cssOnlyClasses": 10,
     "cssOnlyClassNames": [
       "v129-recent",
@@ -28,11 +28,6 @@
       "className": "v17-section-head",
       "cssOccurrences": 23,
       "sourceOccurrences": 25
-    },
-    {
-      "className": "v17-person-card",
-      "cssOccurrences": 38,
-      "sourceOccurrences": 11
     },
     {
       "className": "v17-person-nav",
@@ -118,40 +113,45 @@
       "className": "v17-home-tree-row",
       "cssOccurrences": 12,
       "sourceOccurrences": 6
+    },
+    {
+      "className": "v173-research-details",
+      "cssOccurrences": 11,
+      "sourceOccurrences": 6
     }
   ],
   "byCssFile": {
     "src/styles/composition.css": {
-      "classes": 29,
-      "occurrences": 103
+      "classes": 28,
+      "occurrences": 92
     },
     "src/styles/core.css": {
-      "classes": 199,
-      "occurrences": 984
+      "classes": 198,
+      "occurrences": 974
     },
     "src/styles/experience.css": {
       "classes": 6,
       "occurrences": 9
     },
     "src/styles/home-responsive.css": {
-      "classes": 16,
-      "occurrences": 55
+      "classes": 15,
+      "occurrences": 54
     },
     "src/styles/index.css": {
       "classes": 0,
       "occurrences": 0
     },
     "src/styles/interaction.css": {
-      "classes": 13,
-      "occurrences": 18
+      "classes": 12,
+      "occurrences": 17
     },
     "src/styles/mobile.css": {
-      "classes": 87,
-      "occurrences": 705
+      "classes": 86,
+      "occurrences": 691
     },
     "src/styles/print.css": {
-      "classes": 32,
-      "occurrences": 51
+      "classes": 31,
+      "occurrences": 50
     },
     "src/styles/tokens.css": {
       "classes": 0,
@@ -225,40 +225,6 @@
         "src/runtime/native-home-editorial.js",
         "src/runtime/person-experience-v17-3.js",
         "src/runtime/unified-family-experience.js"
-      ],
-      "cssOnly": false
-    },
-    {
-      "className": "v17-person-card",
-      "cssOccurrences": 38,
-      "cssOccurrencesByFile": {
-        "src/styles/composition.css": 11,
-        "src/styles/core.css": 10,
-        "src/styles/home-responsive.css": 1,
-        "src/styles/interaction.css": 1,
-        "src/styles/mobile.css": 14,
-        "src/styles/print.css": 1
-      },
-      "cssFiles": [
-        "src/styles/composition.css",
-        "src/styles/core.css",
-        "src/styles/home-responsive.css",
-        "src/styles/interaction.css",
-        "src/styles/mobile.css",
-        "src/styles/print.css"
-      ],
-      "sourceOccurrences": 11,
-      "sourceFiles": [
-        "e2e/family-narrative.spec.mjs",
-        "e2e/mobile-experience.spec.mjs",
-        "e2e/mobile-family-v17-1.spec.mjs",
-        "e2e/mobile-immersive.spec.mjs",
-        "e2e/mobile-v20-app.spec.mjs",
-        "e2e/platform-v13.spec.mjs",
-        "scripts/test-v16-2.mjs",
-        "scripts/test-v17-1.mjs",
-        "src/runtime/mobile-experience.js",
-        "src/runtime/native-family-v17.js"
       ],
       "cssOnly": false
     },

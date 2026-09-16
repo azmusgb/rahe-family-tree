@@ -41,7 +41,7 @@ test('evidence workbench exposes canonical graph integrity provenance and diff',
 
 test('family person profile keeps platform provenance out of the foreground but exposes Research Center',async({page})=>{
   await page.goto('/#people');
-  const result=page.locator('.v17-person-card button[data-person]').filter({hasText:/Hazel.*Berg/i}).first();
+  const result=page.locator('.person-card button[data-person]').filter({hasText:/Hazel.*Berg/i}).first();
   await expect(result).toBeVisible();
   await result.click();
   const profile=page.locator('[data-v17-native="person"]');

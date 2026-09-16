@@ -59,7 +59,7 @@ test.describe('actual mobile family application',()=>{
     const search=page.locator('[data-v17-native="people"] .mobile-search[data-v21-mobile-search="people"]');
     await expect(search).toBeVisible();
     await expect(search.locator('input[type="search"]')).toBeVisible();
-    const rows=page.locator('.v17-person-card');
+    const rows=page.locator('.person-card');
     expect(await rows.count()).toBeGreaterThan(3);
   });
 

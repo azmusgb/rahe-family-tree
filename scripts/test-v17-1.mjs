@@ -74,7 +74,7 @@ test('mobile Family stylesheet is semantic and layered before final responsive s
 });
 
 test('mobile People directory establishes compact rows, readable text, and touch targets',()=>{
-  assert.match(mobile,/\.v17-person-card>button[\s\S]*min-height:88px/);
+  assert.match(mobile,/\.person-card>button[\s\S]*min-height:88px/);
   assert.match(mobile,/\.v17-branch-chip\{min-width:46px;min-height:46px/);
   assert.match(mobile,/\.v17-person-card-copy>b\{font-size:17px/);
   assert.match(mobile,/\.v17-person-card-copy>small\{font-size:11px/);

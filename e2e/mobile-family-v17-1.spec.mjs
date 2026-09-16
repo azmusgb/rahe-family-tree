@@ -26,7 +26,7 @@ test('People is a compact mobile family directory with readable rows and no over
   await page.goto('/#people');
   const people=page.locator('[data-v17-native="people"]');
   await expect(people).toBeVisible();
-  const cards=people.locator('.v17-person-card');
+  const cards=people.locator('.person-card');
   expect(await cards.count()).toBeGreaterThan(12);
 
   const firstButton=cards.first().locator('button[data-person]');

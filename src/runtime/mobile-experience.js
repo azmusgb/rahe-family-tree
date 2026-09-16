@@ -257,7 +257,7 @@ function enhancePeople(){
   const root=document.querySelector('[data-v17-native="people"]');if(!root||!isMobile())return;
   injectRecentRail(root,'afterbegin');
   root.querySelector('.v17-people-grid')?.setAttribute('role','list');
-  root.querySelectorAll('.v17-person-card').forEach(card=>card.setAttribute('role','listitem'));
+  root.querySelectorAll('.person-card').forEach(card=>card.setAttribute('role','listitem'));
 }
 function enhanceFamilies(){
   const root=document.querySelector('[data-v17-native="families"]');if(!root||!isMobile())return;

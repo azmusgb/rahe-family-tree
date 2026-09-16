@@ -25,7 +25,7 @@ test.describe('mobile family experience',()=>{
 
   test('People keeps every matching person reachable while search stays sticky',async({page})=>{
     await family(page,'people');
-    await page.waitForSelector('.v17-person-card,.v159-person-card,.person-card');
+    await page.waitForSelector('.person-card,.v159-person-card,.person-card');
     const william=page.locator('button[data-person="P-WILLIAM-JOHN-RAHE-III"]');
     await expect(william).toHaveCount(1);
     await expect(william).toBeVisible();

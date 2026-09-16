@@ -164,7 +164,7 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
   }
   body[data-experience="family"][data-route="dashboard"] :is(.v17-story-moments,.v17-home-people-grid,.v17-home-tree-row,.dashboard-people-grid,.dashboard-story-grid)::-webkit-scrollbar{display:none}
   body[data-experience="family"][data-route="dashboard"] :is(.v17-story-moments,.v17-home-people-grid,.v17-home-tree-row,.dashboard-people-grid,.dashboard-story-grid)>*{min-width:0;scroll-snap-align:start}
-  body[data-experience="family"][data-route="dashboard"] :is(.person-card,.dashboard-person,.v17-person-card>button,.v17-relative){min-height:104px;border-radius:17px;box-shadow:none}
+  body[data-experience="family"][data-route="dashboard"] :is(.person-card,.dashboard-person,.person-card>button,.v17-relative){min-height:104px;border-radius:17px;box-shadow:none}
 
   /* Research is supporting material on Family Home, not the visual finale. */
   body[data-experience="family"][data-route="dashboard"] :is(.dashboard-research-details,.technical-details){border-radius:15px;background:rgba(255,253,248,.72)}

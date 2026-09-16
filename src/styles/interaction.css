@@ -144,7 +144,7 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
   .v175-family-card{transition:none}
 
   /* redesign.css */
-  :where(.person-card,.source-card,.v17-person-card>button,.v17-relative,.media-library-card,.dashboard-person,.v17-primary-actions .action,.family-home-actions a,.dashboard-hero-actions .action){
+  :where(.person-card,.source-card,.person-card>button,.v17-relative,.media-library-card,.dashboard-person,.v17-primary-actions .action,.family-home-actions a,.dashboard-hero-actions .action){
       transform:none;
       transition-duration:.01ms;
     }

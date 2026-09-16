@@ -99,7 +99,7 @@ test.describe('mobile v20 app experience',()=>{
 
   test('People and Families use app discovery surfaces without hiding canonical entries',async({page})=>{
     await openMobile(page,'people');
-    await page.waitForSelector('.v17-person-card');
+    await page.waitForSelector('.person-card');
     await expect(page.locator('.v17-people-grid')).toBeVisible();
     await expect(page.locator('button[data-person="P-WILLIAM-JOHN-RAHE-III"]')).toHaveCount(1);
     await page.locator('#family-mobile-dock [data-dock-route="families"]').click();
