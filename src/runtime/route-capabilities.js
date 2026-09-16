@@ -38,3 +38,9 @@ registerRouteCapability({
   routes:['dashboard','person','tree'],
   load:()=>import('./experience-elevation-v17-4.js')
 });
+
+registerRouteCapability({
+  name:'unified-family-experience',
+  routes:['dashboard','tree'],
+  load:()=>import('./unified-family-experience.js')
+});
