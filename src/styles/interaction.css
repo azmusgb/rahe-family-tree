@@ -134,7 +134,7 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
   .record-ingestion *{scroll-behavior:auto!important;transition:none!important;animation:none!important}
 
   /* responsive.css */
-  .v158-mobile-more[open]>div{animation:none!important}
+  .mobile-more[open]>div{animation:none!important}
   body[data-v158-context="family"] :where(.action,button,.person-card,.v157-person-card,.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card,.media-library-preview img,.v17-native *){scroll-behavior:auto!important;transition:none!important;transform:none!important}
 
   /* branches.css */
@@ -213,13 +213,13 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
   
   
   
-  #family-mobile-dock .v158-mobile-more{position:static;margin:0;z-index:3}
-  #family-mobile-dock .v158-mobile-more>summary::-webkit-details-marker{display:none}
+  #family-mobile-dock .mobile-more{position:static;margin:0;z-index:3}
+  #family-mobile-dock .mobile-more>summary::-webkit-details-marker{display:none}
   
-  #family-mobile-dock .v158-mobile-more:not([open])>div{display:none;pointer-events:none}
-  #family-mobile-dock .v158-mobile-more[open]>div{pointer-events:auto}
-  #family-mobile-dock .v158-mobile-more>div :where(a,button){min-height:50px;display:flex;align-items:center;padding:0 13px;border:0;border-radius:13px;background:#eef2ed;color:#24463b;text-decoration:none;font:inherit;font-size:12px;font-weight:700;text-align:left;touch-action:manipulation}
-  #family-mobile-dock .v158-mobile-more>div [data-dock-search]{grid-column:1/-1;background:#173f35;color:#fff}
+  #family-mobile-dock .mobile-more:not([open])>div{display:none;pointer-events:none}
+  #family-mobile-dock .mobile-more[open]>div{pointer-events:auto}
+  #family-mobile-dock .mobile-more>div :where(a,button){min-height:50px;display:flex;align-items:center;padding:0 13px;border:0;border-radius:13px;background:#eef2ed;color:#24463b;text-decoration:none;font:inherit;font-size:12px;font-weight:700;text-align:left;touch-action:manipulation}
+  #family-mobile-dock .mobile-more>div [data-dock-search]{grid-column:1/-1;background:#173f35;color:#fff}
 }
 
 @media (prefers-reduced-motion:reduce){body[data-experience="family"] .primary-nav a{transition:none}}

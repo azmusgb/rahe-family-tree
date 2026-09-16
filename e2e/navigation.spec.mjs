@@ -32,12 +32,12 @@ test('mobile app navigation owns Home Families Tree People and More',async({page
   await clickDockRoute(dock,'People');
   await expect(page).toHaveURL(/#people$/);
   await expect(page.locator('[data-v17-native="people"]')).toBeVisible();
-  await dock.locator('.v158-mobile-more>summary').click();
+  await dock.locator('.mobile-more>summary').click();
   await clickDockRoute(dock,'Photos');
   await expect(page).toHaveURL(/#media$/);
   await expect(page.locator('[data-media-page]')).toBeVisible();
-  await dock.locator('.v158-mobile-more>summary').click();
+  await dock.locator('.mobile-more>summary').click();
   await dock.getByRole('button',{name:'Search'}).click();
   await expect(page).toHaveURL(/#people$/);
-  await expect(page.locator('[data-v17-native="people"] .v21-mobile-search input')).toBeFocused();
+  await expect(page.locator('[data-v17-native="people"] .mobile-search input')).toBeFocused();
 });
