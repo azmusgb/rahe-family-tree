@@ -84,12 +84,32 @@ function queuePeopleSearch(value,{focus=false}={}){
   }catch{}
   if(routeKey()!=='people')location.hash='people';else schedule();
 }
-function shouldFocusPending(){
-  try{
-    const value=sessionStorage.getItem(PENDING_FOCUS_KEY)==='1';
-    if(value)sessionStorage.removeItem(PENDING_FOCUS_KEY);
-    return value;
-  }catch{return false;}
+function hasPendingFocus(){
+  try{return sessionStorage.getItem(PENDING_FOCUS_KEY)==='1';}catch{return false;}
+}
+function clearPendingFocus(){try{sessionStorage.removeItem(PENDING_FOCUS_KEY);}catch{}}
+function focusPendingPeopleSearch(){
+  if(!hasPendingFocus())return;
+  const selector='[data-v17-native="people"] .v21-mobile-search[data-v21-mobile-search="people"] input';
+  const tryFocus=(attempt=0)=>{
+    if(!hasPendingFocus())return;
+    const input=document.querySelector(selector);
+    if(routeKey()!=='people'||!isMobile()||!input?.isConnected){
+      if(attempt<20)setTimeout(()=>tryFocus(attempt+1),60);
+      return;
+    }
+    input.focus({preventScroll:false});
+    setTimeout(()=>{
+      if(!hasPendingFocus())return;
+      const live=document.querySelector(selector);
+      if(live===input&&document.activeElement===input){
+        clearPendingFocus();
+        return;
+      }
+      if(attempt<20)tryFocus(attempt+1);
+    },80);
+  };
+  requestAnimationFrame(()=>requestAnimationFrame(()=>tryFocus()));
 }
 
 function makeSearch(kind,{label,placeholder}){
@@ -125,7 +145,7 @@ function composePeopleSearch(root,intro){
     search.querySelector('input').value=pending;
     setOriginalSearch(pending);
   }
-  if(shouldFocusPending())requestAnimationFrame(()=>search.querySelector('input')?.focus({preventScroll:false}));
+  focusPendingPeopleSearch();
   return search;
 }
 
