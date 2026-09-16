@@ -5,6 +5,7 @@ import fs from'node:fs';
 const entry=fs.readFileSync('app-entry.js','utf8');
 const core=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const capabilities=fs.readFileSync('src/runtime/route-capabilities.js','utf8');
 const elevation=fs.readFileSync('src/runtime/experience-elevation-v17-4.js','utf8');
 const cssRoot=fs.readFileSync('src/styles/index.css','utf8');
 const css=fs.readFileSync('src/styles/elevation.css','utf8');
@@ -29,8 +30,9 @@ test('v17.4+ capabilities remain synchronized in later releases',()=>{
   assert.match(shell,new RegExp(`app\\.bundle\\.js\\?v=${escaped}`));
 });
 
-test('v17.4 premium layer remains loaded and bundled semantically',()=>{
-  assert.match(experience,/experience-elevation-v17-4\.js/);
+test('v17.4 premium layer remains route-loaded and styled semantically',()=>{
+  assert.match(capabilities,/name:'experience-elevation-v17-4'[\s\S]*routes:\['dashboard','person','tree'\][\s\S]*import\('\.\/experience-elevation-v17-4\.js'\)/);
+  assert.doesNotMatch(experience,/import\('\.\/experience-elevation-v17-4\.js'\)/);
   assert.match(cssRoot,/@import '.\/elevation\.css';/);
   assert.match(css,/v17\.4 — elevated family experience/);
 });
