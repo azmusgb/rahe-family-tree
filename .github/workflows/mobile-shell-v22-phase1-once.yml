@@ -15,9 +15,10 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
-      - run: npm ci
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Apply phase 1 ownership migration
         run: node scripts/mobile-shell-v22-phase1-once.mjs
       - name: Verify targeted contracts
@@ -28,6 +29,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add src/runtime/navigation-shell.js src/runtime/mobile-ui-shell.js scripts/test-mobile-shell-v22.mjs scripts/mobile-shell-v22-phase1-once.mjs .github/workflows/mobile-shell-v22-phase1-once.yml
           git commit -m "Start Mobile Shell v22 ownership cleanup"
           git push origin HEAD:mobile-shell-v22
