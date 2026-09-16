@@ -19,6 +19,13 @@ function preserveActions(menus){return menus?.querySelector('.page-actions--desk
 function routeFromLink(link){const href=link.getAttribute('href')||'';return href.startsWith('#')?href.slice(1).split('/')[0]:'';}
 function markCurrent(container,selector,key){container?.querySelectorAll(selector).forEach(link=>{const active=link.dataset.navKey===key||link.dataset.dockRoute===key||routeFromLink(link)===key;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});}
 function closeTransientNavigation(except=null){document.querySelectorAll(transientSelector).forEach(details=>{if(details===except)return;details.removeAttribute('open');details.querySelector(':scope > summary')?.setAttribute('aria-expanded','false');});}
+function scheduleNoopNavigationClose(link){
+  if(!link)return;
+  try{
+    const target=new URL(link.href,location.href);
+    if(target.origin===location.origin&&target.pathname===location.pathname&&target.search===location.search&&target.hash===location.hash)setTimeout(()=>closeTransientNavigation(),0);
+  }catch{}
+}
 function rememberPersistentLinks(root){
   if(!root)return;
   const anchors=[];
@@ -107,8 +114,11 @@ document.addEventListener('click',event=>{
   const openOwner=event.target.closest?.('.mobile-more,.nav-menu,.site-tools,.tools-menu');
   // Keep the disclosure alive through the anchor's default activation. Safari
   // can defer same-document hash navigation until after event dispatch; closing
-  // the ancestor during capture can make the first tap appear ignored.
+  // the ancestor during capture can make the first tap appear ignored. When a
+  // link targets the hash already selected there will be no committed-route
+  // event, so close transient UI in the next task instead.
   if(!navLink){if(openOwner)closeTransientNavigation(openOwner);else closeTransientNavigation();}
+  else scheduleNoopNavigationClose(navLink);
   if(returnToFamily(event)){event.preventDefault();apply('dashboard');return;}
   if(event.target.closest?.('[data-mobile-more-close]')){event.preventDefault();closeTransientNavigation();return;}
   if(event.target.closest?.('[data-dock-search],[data-global-search]')){event.preventDefault();openGlobalSearch();}
