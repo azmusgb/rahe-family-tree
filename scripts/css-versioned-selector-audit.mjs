@@ -33,9 +33,15 @@ for(const file of styleFiles){
   const css=fs.readFileSync(path.join(styleDir,file),'utf8');
   for(const match of css.matchAll(legacyClassPattern)){
     const className=match[1];
-    const entry=classes.get(className)||{className,cssOccurrences:0,cssFiles:new Set(),sourceOccurrences:0,sourceFiles:new Set()};
+    const entry=classes.get(className)||{
+      className,
+      cssOccurrences:0,
+      cssOccurrencesByFile:new Map(),
+      sourceOccurrences:0,
+      sourceFiles:new Set(),
+    };
     entry.cssOccurrences+=1;
-    entry.cssFiles.add(rel);
+    entry.cssOccurrencesByFile.set(rel,(entry.cssOccurrencesByFile.get(rel)||0)+1);
     classes.set(className,entry);
   }
 }
@@ -56,7 +62,8 @@ for(const file of sourceFiles){
 const inventory=[...classes.values()].map((entry)=>({
   className:entry.className,
   cssOccurrences:entry.cssOccurrences,
-  cssFiles:[...entry.cssFiles].sort(),
+  cssOccurrencesByFile:Object.fromEntries([...entry.cssOccurrencesByFile.entries()].sort(([a],[b])=>a.localeCompare(b))),
+  cssFiles:[...entry.cssOccurrencesByFile.keys()].sort(),
   sourceOccurrences:entry.sourceOccurrences,
   sourceFiles:[...entry.sourceFiles].sort(),
   cssOnly:entry.sourceOccurrences===0,
@@ -77,8 +84,11 @@ const report={
   topSourceClasses,
   byCssFile:Object.fromEntries(styleFiles.map((file)=>{
     const rel=path.join('src','styles',file);
-    const items=inventory.filter((item)=>item.cssFiles.includes(rel));
-    return [rel,{classes:items.length,occurrences:items.reduce((sum,item)=>sum+item.cssOccurrences,0)}];
+    const items=inventory.filter((item)=>(item.cssOccurrencesByFile[rel]||0)>0);
+    return [rel,{
+      classes:items.length,
+      occurrences:items.reduce((sum,item)=>sum+(item.cssOccurrencesByFile[rel]||0),0),
+    }];
   })),
   inventory,
 };
