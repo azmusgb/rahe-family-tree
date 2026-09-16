@@ -32,3 +32,9 @@ registerRouteCapability({
   routes:['dashboard','people','person','media'],
   load:()=>import('./family-narrative.js')
 });
+
+registerRouteCapability({
+  name:'experience-elevation-v17-4',
+  routes:['dashboard','person','tree'],
+  load:()=>import('./experience-elevation-v17-4.js')
+});

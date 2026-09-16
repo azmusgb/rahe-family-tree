@@ -23,8 +23,7 @@ const presentationModules=[
   import('./site-branding.js'),
   import('./mobile-family-density.js'),
   import('./unified-family-experience.js'),
-  import('./family-branches-v17-5.js'),
-  import('./experience-elevation-v17-4.js')
+  import('./family-branches-v17-5.js')
 ];
 
 // Final UI-only shell naming layer. Register it only after every startup
