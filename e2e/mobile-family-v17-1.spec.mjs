@@ -96,7 +96,7 @@ test('mobile dock, footer, and safe-area composition stay Family-facing',async({
     await expectMinTarget(control);
   }
 
-  const more=dock.locator('.v158-mobile-more');
+  const more=dock.locator('.mobile-more');
   await more.locator('summary').click();
   await expect(more).toHaveAttribute('open','');
   const secondaryControls=more.locator('div > a, div > button');

@@ -553,7 +553,7 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   }
   #family-mobile-dock>a,
   #family-mobile-dock>button,
-  #family-mobile-dock>.v158-mobile-more>summary{
+  #family-mobile-dock>.mobile-more>summary{
     min-height:50px!important;
     border-radius:14px!important;
     color:var(--muted-strong)!important;

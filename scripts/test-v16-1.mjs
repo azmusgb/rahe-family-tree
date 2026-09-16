@@ -48,7 +48,7 @@ test('v16.1 presentation is retained under semantic module ownership',()=>{
   assert.match(build,/const legacyStyleSources=\[\]/);
   assert.equal(fs.existsSync('src/styles/v16-1.css'),false);
   assert.match(experience,/import\('\.\/mobile-family-density\.js'\)/);
-  for(const token of['v161-tree-toolbar','v161-people','v161-media-filters','v161-research-band','v158-mobile-more'])assert.match(styles,new RegExp(token));
+  for(const token of['v161-tree-toolbar','v161-people','v161-media-filters','v161-research-band','mobile-more'])assert.match(styles,new RegExp(token));
 });
 
 test('mobile density work cannot alter canonical genealogy semantics',()=>{

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-16T18:48:07.178Z",
+  "generatedAt": "2026-09-16T18:59:45.268Z",
   "totals": {
-    "versionedClasses": 237,
-    "cssOccurrences": 2033,
-    "sourceOccurrences": 696,
+    "versionedClasses": 235,
+    "cssOccurrences": 1981,
+    "sourceOccurrences": 671,
     "cssOnlyClasses": 10,
     "cssOnlyClassNames": [
       "v129-recent",
@@ -33,16 +33,6 @@
       "className": "v17-person-header",
       "cssOccurrences": 27,
       "sourceOccurrences": 13
-    },
-    {
-      "className": "v21-mobile-search",
-      "cssOccurrences": 18,
-      "sourceOccurrences": 13
-    },
-    {
-      "className": "v158-mobile-more",
-      "cssOccurrences": 34,
-      "sourceOccurrences": 12
     },
     {
       "className": "v17-person-card",
@@ -118,16 +108,26 @@
       "className": "v17-avatar",
       "cssOccurrences": 16,
       "sourceOccurrences": 7
+    },
+    {
+      "className": "v162-media-quick",
+      "cssOccurrences": 14,
+      "sourceOccurrences": 7
+    },
+    {
+      "className": "v172-node-photo",
+      "cssOccurrences": 1,
+      "sourceOccurrences": 7
     }
   ],
   "byCssFile": {
     "src/styles/composition.css": {
-      "classes": 32,
-      "occurrences": 117
+      "classes": 31,
+      "occurrences": 116
     },
     "src/styles/core.css": {
-      "classes": 204,
-      "occurrences": 1031
+      "classes": 203,
+      "occurrences": 1015
     },
     "src/styles/experience.css": {
       "classes": 6,
@@ -142,12 +142,12 @@
       "occurrences": 0
     },
     "src/styles/interaction.css": {
-      "classes": 15,
-      "occurrences": 26
+      "classes": 14,
+      "occurrences": 19
     },
     "src/styles/mobile.css": {
-      "classes": 91,
-      "occurrences": 744
+      "classes": 89,
+      "occurrences": 716
     },
     "src/styles/print.css": {
       "classes": 32,
@@ -252,51 +252,6 @@
         "src/runtime/mobile-ui-shell.js",
         "src/runtime/native-family-v17.js",
         "src/runtime/person-experience-v17-3.js"
-      ],
-      "cssOnly": false
-    },
-    {
-      "className": "v21-mobile-search",
-      "cssOccurrences": 18,
-      "cssOccurrencesByFile": {
-        "src/styles/mobile.css": 18
-      },
-      "cssFiles": [
-        "src/styles/mobile.css"
-      ],
-      "sourceOccurrences": 13,
-      "sourceFiles": [
-        "e2e/family-shell-v17-5.spec.mjs",
-        "e2e/mobile-immersive.spec.mjs",
-        "e2e/mobile-v20-app.spec.mjs",
-        "e2e/navigation.spec.mjs",
-        "src/runtime/mobile-ui-shell.js"
-      ],
-      "cssOnly": false
-    },
-    {
-      "className": "v158-mobile-more",
-      "cssOccurrences": 34,
-      "cssOccurrencesByFile": {
-        "src/styles/composition.css": 1,
-        "src/styles/core.css": 16,
-        "src/styles/interaction.css": 7,
-        "src/styles/mobile.css": 10
-      },
-      "cssFiles": [
-        "src/styles/composition.css",
-        "src/styles/core.css",
-        "src/styles/interaction.css",
-        "src/styles/mobile.css"
-      ],
-      "sourceOccurrences": 12,
-      "sourceFiles": [
-        "e2e/mobile-family-v17-1.spec.mjs",
-        "e2e/navigation.spec.mjs",
-        "index.html",
-        "scripts/test-v15.mjs",
-        "scripts/test-v16-1.mjs",
-        "src/runtime/navigation-shell.js"
       ],
       "cssOnly": false
     },

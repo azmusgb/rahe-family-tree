@@ -82,5 +82,5 @@ test('mobile navigation promotes Families and global Search leaves Home clean',a
   await expect(dock.getByRole('link',{name:'Families'})).toBeVisible();
   await page.locator('#mobile-app-header [data-global-search]').click();
   await expect(page).toHaveURL(/#people$/);
-  await expect(page.locator('[data-v17-native="people"] .v21-mobile-search input')).toBeFocused();
+  await expect(page.locator('[data-v17-native="people"] .mobile-search input')).toBeFocused();
 });

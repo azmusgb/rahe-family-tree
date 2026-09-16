@@ -21,7 +21,7 @@ test.describe('actual mobile family application',()=>{
     const structure=await page.evaluate(()=>{
       const home=document.querySelector('[data-v17-native="home"]');
       const hero=home?.querySelector('.v17-home-hero');
-      const search=home?.querySelector('.v21-mobile-search[data-v21-mobile-search="home"]');
+      const search=home?.querySelector('.mobile-search[data-v21-mobile-search="home"]');
       const launcher=home?.querySelector('.v21-mobile-launcher');
       return{
         searchInsideHome:Boolean(search&&search.parentElement===home),
@@ -46,17 +46,17 @@ test.describe('actual mobile family application',()=>{
 
   test('Home search transitions into the real People directory search',async({page})=>{
     await open(page,'dashboard');
-    const input=page.locator('.v21-mobile-search[data-v21-mobile-search="home"] input');
+    const input=page.locator('.mobile-search[data-v21-mobile-search="home"] input');
     await input.fill('William');
     await input.press('Enter');
     await page.waitForURL(/#people/);
-    await expect(page.locator('[data-v17-native="people"] .v21-mobile-search input')).toHaveValue('William');
+    await expect(page.locator('[data-v17-native="people"] .mobile-search input')).toHaveValue('William');
     await expect(page.locator('[data-v17-native="people"] .v17-people-grid button[data-person="P-WILLIAM-JOHN-RAHE-III"]')).toBeVisible();
   });
 
   test('People owns its search UI inside the actual directory',async({page})=>{
     await open(page,'people');
-    const search=page.locator('[data-v17-native="people"] .v21-mobile-search[data-v21-mobile-search="people"]');
+    const search=page.locator('[data-v17-native="people"] .mobile-search[data-v21-mobile-search="people"]');
     await expect(search).toBeVisible();
     await expect(search.locator('input[type="search"]')).toBeVisible();
     const rows=page.locator('.v17-person-card');

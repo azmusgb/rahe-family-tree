@@ -45,7 +45,7 @@ test.describe('mobile v20 app experience',()=>{
     await openMobile(page,'dashboard');
     await expect(page.locator('.v17-home-hero h2')).toHaveText('Our family, connected.');
     const hero=await page.locator('[data-v17-native="home"] > .v17-home-hero').boundingBox();
-    const search=await page.locator('.v21-mobile-search[data-v21-mobile-search="home"]').boundingBox();
+    const search=await page.locator('.mobile-search[data-v21-mobile-search="home"]').boundingBox();
     const launcher=await page.locator('.v21-mobile-launcher').boundingBox();
     const dock=await page.locator('#family-mobile-dock').boundingBox();
     const tree=await page.locator('#family-mobile-dock > [data-dock-route="tree"]').boundingBox();

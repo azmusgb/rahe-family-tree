@@ -90,7 +90,7 @@ function hasPendingFocus(){
 function clearPendingFocus(){try{sessionStorage.removeItem(PENDING_FOCUS_KEY);}catch{}}
 function focusPendingPeopleSearch(){
   if(!hasPendingFocus())return;
-  const selector='[data-v17-native="people"] .v21-mobile-search[data-v21-mobile-search="people"] input';
+  const selector='[data-v17-native="people"] .mobile-search[data-v21-mobile-search="people"] input';
   const tryFocus=(attempt=0)=>{
     if(!hasPendingFocus())return;
     const input=document.querySelector(selector);
@@ -114,7 +114,7 @@ function focusPendingPeopleSearch(){
 
 function makeSearch(kind,{label,placeholder}){
   const form=document.createElement('form');
-  form.className='v21-mobile-search';
+  form.className='mobile-search';
   form.dataset.v21MobileSearch=kind;
   form.setAttribute('role','search');
   form.innerHTML=`<label><span>${label}</span><div><input type="search" autocomplete="off" enterkeyhint="search" placeholder="${placeholder}" aria-label="${label}"><button type="submit">Search</button></div></label>`;
@@ -131,13 +131,13 @@ function makeSearch(kind,{label,placeholder}){
 }
 
 function composeHomeSearch(home,hero){
-  let search=home.querySelector('.v21-mobile-search[data-v21-mobile-search="home"]');
+  let search=home.querySelector('.mobile-search[data-v21-mobile-search="home"]');
   if(!search)search=makeSearch('home',{label:'Find someone in the family',placeholder:'Name, family, or place…'});
   if(hero.nextElementSibling!==search)hero.insertAdjacentElement('afterend',search);
   return search;
 }
 function composePeopleSearch(root,intro){
-  let search=root.querySelector('.v21-mobile-search[data-v21-mobile-search="people"]');
+  let search=root.querySelector('.mobile-search[data-v21-mobile-search="people"]');
   if(!search)search=makeSearch('people',{label:'Search people',placeholder:'Name, branch, or place…'});
   if(intro.nextElementSibling!==search)intro.insertAdjacentElement('afterend',search);
   const pending=consumePendingSearch();
@@ -171,7 +171,7 @@ function composeHome(){
   if(!isMobile()){
     const launcher=home.querySelector('.v21-mobile-launcher');
     if(launcher){restoreMovedNode('home-actions',actions);launcher.remove();}
-    home.querySelector('.v21-mobile-search')?.remove();
+    home.querySelector('.mobile-search')?.remove();
     return;
   }
   const hero=home.querySelector('.v17-home-hero');
@@ -195,7 +195,7 @@ function composeHome(){
 function composePeople(){
   const root=document.querySelector('[data-v17-native="people"]');
   if(!root)return;
-  if(!isMobile()){root.querySelector('.v21-mobile-search')?.remove();return;}
+  if(!isMobile()){root.querySelector('.mobile-search')?.remove();return;}
   const intro=root.querySelector('.v17-page-intro');
   if(intro)composePeopleSearch(root,intro);
   const branches=root.querySelector('.v17-branch-browser');
