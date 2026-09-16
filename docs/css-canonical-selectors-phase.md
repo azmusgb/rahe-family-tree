@@ -86,6 +86,16 @@ The migration used exact class-name boundaries across person/profile runtime pro
 
 The post-migration inventory reports 231 versioned classes, 1,925 CSS occurrences, and 630 non-style source references. `v17-person-header` is absent from the exact-name inventory. Targeted person/profile/CSS-sensitive regressions and the production build passed before commit. Temporary one-shot migration infrastructure was removed afterward.
 
+## Stage J — person card
+
+The person-card compatibility class has now been migrated to its stable semantic contract:
+
+- `v17-person-card` → `person-card`
+
+The migration used exact class-name boundaries across person-card runtime producers and queries, person/profile browser and regression coverage, and all owning CSS bundles. Semantic duplicates created by compatibility replacement were collapsed locally.
+
+The post-migration inventory reports 230 versioned classes, 1,887 CSS occurrences, and 619 non-style source references. `v17-person-card` is absent from the exact-name inventory. Targeted person/profile/CSS-sensitive regressions and the production build passed before commit. Temporary one-shot migration infrastructure was removed afterward.
+
 ## Migration strategy
 
 Live versioned classes require semantic migration in dependency-aware slices. For each class family:
@@ -101,6 +111,6 @@ Live versioned classes require semantic migration in dependency-aware slices. Fo
 
 Dead-selector cleanup follows the same standard: a class is removable only after the corrected exact-name audit shows no source producers/references, and selector parsing must preserve live arguments inside grouped selectors and functional pseudo-classes.
 
-High-impact remaining migration families now include person cards/profile surfaces, discovery components, and Home hero.
+High-impact remaining migration families now include person navigation/card-copy/profile surfaces, discovery components, and Home hero.
 
 Phase 4 closes only when production CSS reaches zero `.vXX-*` classes without changing runtime, genealogy, evidence, privacy, routing, or browser behavior.
