@@ -66,17 +66,19 @@ test('route-scoped presentation modules are registered rather than startup prese
   assert.match(loaderSource,/family-route-capabilities-ready/);
   assert.match(loaderSource,/family-route-capabilities-failed/);
   assert.match(loaderSource,/__familyRouteCapabilityRuntime/);
-  const expected=[
+  const singleRoute=[
     ['stories-runtime','stories','stories-runtime'],
     ['record-ingestion','research','record-ingestion'],
     ['person-experience-v17-3','person','person-experience-v17-3'],
     ['mobile-home-polish','dashboard','mobile-home-polish']
   ];
-  for(const[name,route,module]of expected){
+  for(const[name,route,module]of singleRoute){
     assert.match(capabilities,new RegExp(`name:'${name}'[\\s\\S]*routes:\\['${route}'\\][\\s\\S]*import\\('\\./${module}\\.js'\\)`));
     assert.doesNotMatch(experience,new RegExp(`import\\('\\./${module}\\.js'\\)`));
   }
-  for(const module of['family-narrative','family-branches-v17-5','experience-elevation-v17-4'])assert.match(experience,new RegExp(`import\\('./${module}\\.js'\\)`));
+  assert.match(capabilities,/name:'family-narrative'[\s\S]*routes:\['dashboard','people','person','media'\][\s\S]*import\('\.\/family-narrative\.js'\)/);
+  assert.doesNotMatch(experience,/import\('\.\/family-narrative\.js'\)/);
+  for(const module of['unified-family-experience','family-branches-v17-5','experience-elevation-v17-4'])assert.match(experience,new RegExp(`import\\('./${module}\\.js'\\)`));
 });
 
 test('route capability migration remains presentation-only and cannot promote genealogy evidence',()=>{
