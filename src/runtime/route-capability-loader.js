@@ -63,6 +63,7 @@ export const routeCapabilitySnapshot=route=>routeCapabilityLoader.snapshot(route
 
 if(typeof window!=='undefined'){
   let activeSequence=0;
+  globalThis.__familyRouteCapabilityRuntime={snapshot:routeCapabilitySnapshot};
   window.addEventListener('family-route-committed',event=>{
     const route=event.detail?.route||location.hash.slice(1).split('/')[0]||'dashboard';
     const sequence=Number(event.detail?.sequence||0);
