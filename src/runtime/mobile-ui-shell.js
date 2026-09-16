@@ -12,7 +12,7 @@ const safeText=value=>String(value||'').replace(/\s+/g,' ').trim();
 
 function routeTitle(){
   const route=routeKey();
-  if(route==='person')return safeText(document.querySelector('.v17-person-header h2')?.textContent)||'Person';
+  if(route==='person')return safeText(document.querySelector('.person-header h2')?.textContent)||'Person';
   if(route==='branch')return safeText(document.querySelector('.v175-branch-hero h1')?.textContent)||'Family';
   return titleMap[route]||'Family History';
 }
@@ -211,7 +211,7 @@ function composePerson(){
     if(quick){restoreMovedNode('person-actions',actions);quick.remove();}
     return;
   }
-  const header=root.querySelector('.v17-person-header');
+  const header=root.querySelector('.person-header');
   if(!header||!actions)return;
   ensureReturnMarker(actions,'person-actions');
   let quick=root.querySelector('.v21-person-quick-actions');

@@ -62,7 +62,7 @@ function enhance(){
   if(!root||!person||root.dataset.v173Person==='ready')return;
   root.dataset.v173Person='ready';
   const nav=addStoryNav(root),story=document.createElement('div');story.innerHTML=storyMarkup(person);const section=story.firstElementChild;
-  if(nav&&section)nav.insertAdjacentElement('afterend',section);else root.querySelector('.v17-person-header')?.insertAdjacentElement('afterend',section);
+  if(nav&&section)nav.insertAdjacentElement('afterend',section);else root.querySelector('.person-header')?.insertAdjacentElement('afterend',section);
   tuneLifeSection(root,person);
   makeResearchProgressive(root);
   window.dispatchEvent(new CustomEvent('family-person-v17-3-ready',{detail:{personId:id}}));

@@ -75,7 +75,7 @@ test.describe('actual mobile family application',()=>{
 
   test('Person quick actions are structurally separated from the identity cover',async({page})=>{
     await open(page,'person/P-WILLIAM-JOHN-RAHE-III');
-    const header=page.locator('.v17-person-header');
+    const header=page.locator('.person-header');
     await expect(header).toBeVisible();
     await expect(page.locator('.v21-person-quick-actions')).toBeVisible();
     expect(await header.locator('.v17-person-actions').count()).toBe(0);

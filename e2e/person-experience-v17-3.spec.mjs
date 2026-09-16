@@ -19,7 +19,7 @@ test('historical Person opens as a biography-first family profile',async({page})
   await page.goto(`/#person/${HAZEL}`);
   const profile=page.locator(`[data-v17-native="person"][data-person-id="${HAZEL}"]`);
   await expect(profile).toBeVisible();
-  await expect(profile.locator('.v17-person-header')).toBeVisible();
+  await expect(profile.locator('.person-header')).toBeVisible();
   const storyLink=profile.locator('.v17-person-nav a[href="#v17-story"]');
   await expect(storyLink).toHaveText('Story');
   const story=profile.locator('#v17-story');

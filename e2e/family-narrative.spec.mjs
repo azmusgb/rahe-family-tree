@@ -51,7 +51,7 @@ test('historical person uses native biography and clean focused-tree navigation'
   await result.click();
   const profile=page.locator('[data-v17-native="person"]');
   await expect(profile).toBeVisible();
-  await expect(profile.locator('.v17-person-header')).toBeVisible();
+  await expect(profile.locator('.person-header')).toBeVisible();
   await expect(profile.getByRole('heading',{name:'Immediate family'})).toBeVisible();
   await expect(profile.locator('.family-overview-card')).toHaveCount(0);
   const treeLink=profile.getByRole('link',{name:'View in family tree'});
