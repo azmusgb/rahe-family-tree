@@ -52,10 +52,14 @@ function scanTopLevelRules(css){
 
 function parseDeclarations(body){
   const out=new Map();
+  // Remove comments before declaration tokenization. A comment may prefix a real
+  // declaration in the same semicolon-delimited segment, and skipping that whole
+  // segment could make the cleanup incorrectly believe a property is absent.
+  const source=body.replace(/\/\*[\s\S]*?\*\//g,' ');
   let quote='', escaped=false, paren=0, start=0;
   const parts=[];
-  for(let i=0;i<=body.length;i++){
-    const c=body[i]??';';
+  for(let i=0;i<=source.length;i++){
+    const c=source[i]??';';
     if(quote){
       if(escaped){escaped=false;continue;}
       if(c==='\\'){escaped=true;continue;}
@@ -65,16 +69,18 @@ function parseDeclarations(body){
     if(c==='"'||c==="'"){quote=c;continue;}
     if(c==='('){paren++;continue;}
     if(c===')'){paren=Math.max(0,paren-1);continue;}
-    if(c===';'&&paren===0){parts.push(body.slice(start,i));start=i+1;}
+    if(c===';'&&paren===0){parts.push(source.slice(start,i));start=i+1;}
   }
   for(const raw of parts){
     const decl=raw.trim();
-    if(!decl||decl.startsWith('/*'))continue;
+    if(!decl)continue;
     const colon=decl.indexOf(':');
     if(colon<1)continue;
     const property=decl.slice(0,colon).trim().toLowerCase();
     const value=decl.slice(colon+1).trim();
-    out.set(property,{important:/!important\s*$/i.test(value),value});
+    const important=/!important\s*$/i.test(value);
+    const comparableValue=value.replace(/!important\s*$/i,'').replace(/\s+/g,' ').trim();
+    out.set(property,{important,value,comparableValue});
   }
   return out;
 }
@@ -97,7 +103,17 @@ function findSafelySuperseded(css){
         let fullyCovered=true;
         for(const [prop,meta] of earlier.decls){
           const replacement=later.decls.get(prop);
-          if(!replacement||(meta.important&&!replacement.important)){fullyCovered=false;break;}
+          // For automatic deletion, require the later declaration to preserve
+          // both priority and the actual value. Property-name coverage alone is
+          // not enough: a later color-mix(), var(), or other modern syntax may
+          // intentionally rely on the earlier declaration as a compatibility
+          // fallback in browsers that reject the newer value.
+          if(!replacement||
+             (meta.important&&!replacement.important)||
+             replacement.comparableValue!==meta.comparableValue){
+            fullyCovered=false;
+            break;
+          }
         }
         if(fullyCovered){removable.push({...earlier,replacedBy:later});break;}
       }
