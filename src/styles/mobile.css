@@ -4,6 +4,39 @@
  */
 
 /* ==========================================================================
+   Ownership migration: experience -> mobile shell
+   ========================================================================== */
+/* Mobile More sheet geometry belongs to the mobile shell. Inserted before later mobile layers so established mobile overrides retain precedence. */
+@media(max-width:720px){
+#family-mobile-dock .mobile-more>div{
+    position:fixed;
+    left:max(10px,env(safe-area-inset-left,0px));
+    right:max(10px,env(safe-area-inset-right,0px));
+    bottom:calc(78px + env(safe-area-inset-bottom,0px));
+    z-index:2147483005;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:4px;
+    max-height:min(68dvh,620px);
+    overflow:auto;
+    overscroll-behavior:contain;
+    padding:10px 10px max(12px,env(safe-area-inset-bottom,0px));
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:var(--surface,#fff);
+    box-shadow:0 24px 72px rgba(13,35,28,.28);
+    transform-origin:bottom center;
+  }
+}
+@media(max-width:430px){
+#family-mobile-dock .mobile-more>div{
+    left:7px;
+    right:7px;
+    bottom:calc(72px + env(safe-area-inset-bottom,0px));
+    border-radius:20px;
+  }
+}
+/* ==========================================================================
    Ownership migration: interaction -> mobile
    ========================================================================== */
 /* Visual mobile-shell rules previously carried by interaction.css.
@@ -146,7 +179,7 @@ body[data-experience="family"]{padding-bottom:96px}
   /* Tree is a canvas mode: maximize family graph, minimize chrome. */
   body[data-route="tree"] .route-shell{padding-bottom:6px}
   body[data-route="tree"] #content{padding:0 8px 18px}
-  body[data-route="tree"] #content.mobile-tree-surface .v161-tree-toolbar{top:58px;border-radius:16px;background:rgba(247,243,234,.94)}
+  
   body[data-route="tree"] #content.mobile-tree-surface :where(.graph-shell,.tree-graph-shell){min-height:calc(100dvh - 214px);border-radius:20px;background:#fbf9f3}
 
   /* Footer becomes intentionally minimal on phones. */
@@ -263,11 +296,11 @@ body[data-experience="family"]{padding-bottom:96px}
   body[data-route="person"] [data-v20-person-panel]{margin:0;padding:30px 16px 38px;border-radius:0;background:var(--app-paper)}body[data-route="person"] [data-v20-person-panel][hidden]{display:none!important}body[data-route="person"] .v17-family-groups{display:grid;gap:16px}body[data-route="person"] .v17-family-group-grid{grid-template-columns:1fr}body[data-route="person"] .v17-relative{min-height:74px;border-radius:18px}
   body[data-route="person"] .v17-life-timeline{position:relative;display:grid;gap:0;padding-left:17px}body[data-route="person"] .v17-life-timeline::before{content:'';position:absolute;left:6px;top:10px;bottom:10px;width:2px;background:#d9dfd9}body[data-route="person"] .v17-life-event{position:relative;margin:0 0 12px;border-radius:20px}body[data-route="person"] .v17-life-event::before{content:'';position:absolute;left:-18px;top:22px;width:10px;height:10px;border:3px solid var(--app-bg);border-radius:50%;background:var(--app-green)}body[data-route="person"] .v17-person-research{background:#173f35!important;color:#fff!important}body[data-route="person"] .v17-person-research :where(h2,p,.eyebrow){color:inherit}
 
-  body[data-route="tree"].v20-mobile-app{padding-bottom:calc(86px + env(safe-area-inset-bottom,0px))}body[data-route="tree"] .route-shell{display:none!important}body[data-route="tree"] .site-footer{display:none!important}body[data-route="tree"] #content{padding:0 5px 8px!important;overflow:hidden}body[data-route="tree"] #content.mobile-tree-surface{min-height:calc(100dvh - var(--app-header) - var(--app-context) - 88px)}body[data-route="tree"] :where(.v17-native,.v17-tree,.tree-view,.tree-page){margin:0!important;padding:0!important}
+  body[data-route="tree"].v20-mobile-app{padding-bottom:calc(86px + env(safe-area-inset-bottom,0px))}body[data-route="tree"] .route-shell{display:none!important}body[data-route="tree"] .site-footer{display:none!important}body[data-route="tree"] #content{padding:0 5px 8px!important;overflow:hidden}body[data-route="tree"] :where(.v17-native,.v17-tree,.tree-view,.tree-page){margin:0!important;padding:0!important}
   body[data-route="tree"] .family-graph-summary{margin:8px 7px 6px;padding:10px 12px;border-radius:17px;background:rgba(255,253,248,.92);box-shadow:0 7px 20px rgba(12,39,31,.06)}body[data-route="tree"] .family-graph-summary .family-graph-key{display:none}
   body[data-route="tree"] .v161-tree-toolbar{position:sticky!important;top:calc(var(--app-header) + var(--app-context) + 4px)!important;z-index:65;margin:5px 5px 7px;padding:6px;border:1px solid var(--app-border);border-radius:18px!important;background:rgba(255,253,248,.95)!important;box-shadow:0 8px 24px rgba(12,39,31,.08)}body[data-route="tree"] .v161-tree-toolbar button{min-width:44px;min-height:44px;border-radius:13px}
   body[data-route="tree"] :where(.graph-shell,.tree-graph-shell){height:calc(100dvh - 226px)!important;min-height:520px!important;margin:0!important;border:0!important;border-radius:22px!important;background:#fbf9f3!important;box-shadow:inset 0 0 0 1px rgba(23,63,53,.08)}
-  .family-person-preview{position:fixed!important;left:8px!important;right:8px!important;bottom:calc(82px + env(safe-area-inset-bottom,0px))!important;z-index:2147483100!important;max-height:70dvh;padding:10px 16px 18px!important;border:1px solid var(--app-border)!important;border-radius:28px!important;background:var(--app-paper)!important;box-shadow:0 30px 90px rgba(12,39,31,.34)!important}.family-person-preview-handle{width:42px;height:5px;margin:0 auto 14px;border-radius:999px;background:#c7cbc6}.family-person-preview-head h2{font-size:30px;line-height:.95}.family-person-preview-actions{display:grid!important;grid-template-columns:1fr 1fr;gap:8px}.family-person-preview-actions :where(a,button){min-height:50px;border-radius:15px}
+  .family-person-preview-actions :where(a,button){min-height:50px;border-radius:15px}
 
   body[data-route="media"] #content{padding:0 10px 28px!important}body[data-route="media"] .v128-library{padding:0 3px}body[data-route="media"] .v128-media-filters{display:flex;gap:7px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none}body[data-route="media"] .v128-media-filters label{flex:0 0 auto;min-width:145px}body[data-route="media"] .v128-media-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}body[data-route="media"] .v128-media-tile{border:0;border-radius:18px;overflow:hidden;background:var(--app-paper);box-shadow:0 6px 18px rgba(12,39,31,.07)}body[data-route="media"] .v128-media-tile>button{aspect-ratio:1/1.08}body[data-route="media"] .v128-media-tile>div{padding:9px}.v128-media-tile>div small{font-size:8px}
   #person-media-viewer.media-viewer{width:100vw;max-width:none;height:100dvh;max-height:none;margin:0;padding:0;border:0;border-radius:0;background:#101614;color:#fff}#person-media-viewer .media-viewer-close{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:12px;z-index:4;width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,.52);color:#fff}#person-media-viewer .media-viewer-content{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:70px 14px 26px}#person-media-viewer .media-viewer-content>img{max-height:62dvh;object-fit:contain;border-radius:18px}#person-media-viewer .media-viewer-copy{padding:18px 5px 0}

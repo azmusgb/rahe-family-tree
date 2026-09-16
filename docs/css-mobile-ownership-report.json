@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T17:03:08.152Z",
+  "generatedAt": "2026-09-16T17:05:22.627Z",
   "files": [
     "experience.css",
     "home-responsive.css",
@@ -8,210 +8,11 @@
   ],
   "totals": {
     "rules": 905,
-    "crossFileSelectorOverlaps": 7,
+    "crossFileSelectorOverlaps": 0,
     "ownerViolations": 273
   },
-  "pairCounts": {
-    "experience.css <-> mobile.css": 7
-  },
-  "overlaps": [
-    {
-      "selector": ".family-person-preview",
-      "files": [
-        "experience.css",
-        "mobile.css"
-      ],
-      "occurrences": [
-        {
-          "file": "experience.css",
-          "ancestry": [],
-          "body": "display:none",
-          "suggestedOwner": null
-        },
-        {
-          "file": "experience.css",
-          "ancestry": [
-            "@media(max-width:760px)"
-          ],
-          "body": "position:fixed;left:max(8px,env(safe-area-inset-left,0px));right:max(8px,env(safe-area-inset-right,0px));bottom:calc(74px + env(safe-area-inset-bottom,0px));z-index:2147483010;display:grid;gap:12px;max-height:62dvh;overflow:auto;padding:8px 14px 14px;border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:0 26px 80px rgba(13,35,28,.32)",
-          "suggestedOwner": "mobile.css"
-        },
-        {
-          "file": "mobile.css",
-          "ancestry": [
-            "@media (max-width:720px)"
-          ],
-          "body": "position:fixed!important;left:8px!important;right:8px!important;bottom:calc(82px + env(safe-area-inset-bottom,0px))!important;z-index:2147483100!important;max-height:70dvh;padding:10px 16px 18px!important;border:1px solid var(--app-border)!important;border-radius:28px!important;background:var(--app-paper)!important;box-shadow:0 30px 90px rgba(12,39,31,.34)!important",
-          "suggestedOwner": "mobile.css"
-        }
-      ],
-      "suggestedOwner": "mobile.css"
-    },
-    {
-      "selector": ".family-person-preview-actions",
-      "files": [
-        "experience.css",
-        "mobile.css"
-      ],
-      "occurrences": [
-        {
-          "file": "experience.css",
-          "ancestry": [
-            "@media(max-width:760px)"
-          ],
-          "body": "display:grid;grid-template-columns:1fr 1fr;gap:8px",
-          "suggestedOwner": "mobile.css"
-        },
-        {
-          "file": "mobile.css",
-          "ancestry": [
-            "@media (max-width:720px)"
-          ],
-          "body": "display:grid!important;grid-template-columns:1fr 1fr;gap:8px",
-          "suggestedOwner": "mobile.css"
-        }
-      ],
-      "suggestedOwner": "mobile.css"
-    },
-    {
-      "selector": ".family-person-preview-handle",
-      "files": [
-        "experience.css",
-        "mobile.css"
-      ],
-      "occurrences": [
-        {
-          "file": "experience.css",
-          "ancestry": [
-            "@media(max-width:760px)"
-          ],
-          "body": "width:42px;height:4px;margin:2px auto 0;border-radius:999px;background:var(--line-strong)",
-          "suggestedOwner": "mobile.css"
-        },
-        {
-          "file": "mobile.css",
-          "ancestry": [
-            "@media (max-width:720px)"
-          ],
-          "body": "width:42px;height:5px;margin:0 auto 14px;border-radius:999px;background:#c7cbc6",
-          "suggestedOwner": "mobile.css"
-        }
-      ],
-      "suggestedOwner": "mobile.css"
-    },
-    {
-      "selector": ".family-person-preview-head h2",
-      "files": [
-        "experience.css",
-        "mobile.css"
-      ],
-      "occurrences": [
-        {
-          "file": "experience.css",
-          "ancestry": [
-            "@media(max-width:760px)"
-          ],
-          "body": "margin:1px 0 2px;font-size:1.24rem",
-          "suggestedOwner": "mobile.css"
-        },
-        {
-          "file": "mobile.css",
-          "ancestry": [
-            "@media (max-width:720px)"
-          ],
-          "body": "font-size:30px;line-height:.95",
-          "suggestedOwner": "mobile.css"
-        }
-      ],
-      "suggestedOwner": "mobile.css"
-    },
-    {
-      "selector": "#family-mobile-dock .mobile-more>div",
-      "files": [
-        "experience.css",
-        "mobile.css"
-      ],
-      "occurrences": [
-        {
-          "file": "experience.css",
-          "ancestry": [
-            "@media(max-width:720px)"
-          ],
-          "body": "position:fixed; left:max(10px,env(safe-area-inset-left,0px)); right:max(10px,env(safe-area-inset-right,0px)); bottom:calc(78px + env(safe-area-inset-bottom,0px)); z-index:2147483005; display:grid; grid-template-columns:1fr; gap:4px; max-height:min(68dvh,620px); overflow:auto; overscroll-behavior:contain; padding:10px 10px max(12px,env(safe-area-inset-bottom,0px)); border:1px solid var(--line); border-radius:22px; background:var(--surface,#fff); box-shadow:0 24px 72px rgba(13,35,28,.28); transform-origin:bottom center;",
-          "suggestedOwner": "mobile.css"
-        },
-        {
-          "file": "experience.css",
-          "ancestry": [
-            "@media(max-width:430px)"
-          ],
-          "body": "left:7px; right:7px; bottom:calc(72px + env(safe-area-inset-bottom,0px)); border-radius:20px;",
-          "suggestedOwner": "mobile.css"
-        },
-        {
-          "file": "mobile.css",
-          "ancestry": [
-            "@media (max-width:720px)"
-          ],
-          "body": "max-height:min(72dvh,620px);overflow:auto;overscroll-behavior:contain",
-          "suggestedOwner": "mobile.css"
-        }
-      ],
-      "suggestedOwner": "mobile.css"
-    },
-    {
-      "selector": "body[data-route=\"tree\"] #content.mobile-tree-surface",
-      "files": [
-        "experience.css",
-        "mobile.css"
-      ],
-      "occurrences": [
-        {
-          "file": "experience.css",
-          "ancestry": [
-            "@media(max-width:720px)"
-          ],
-          "body": "display:flex; flex-direction:column; gap:8px; width:100%; max-width:100%; min-width:0; overflow-x:hidden;",
-          "suggestedOwner": "experience.css"
-        },
-        {
-          "file": "mobile.css",
-          "ancestry": [
-            "@media (max-width:720px)"
-          ],
-          "body": "min-height:calc(100dvh - var(--app-header) - var(--app-context) - 88px)",
-          "suggestedOwner": "experience.css"
-        }
-      ],
-      "suggestedOwner": "experience.css"
-    },
-    {
-      "selector": "body[data-route=\"tree\"] #content.mobile-tree-surface .v161-tree-toolbar",
-      "files": [
-        "experience.css",
-        "mobile.css"
-      ],
-      "occurrences": [
-        {
-          "file": "experience.css",
-          "ancestry": [
-            "@media(max-width:720px)"
-          ],
-          "body": "position:sticky; top:0; z-index:24; width:100%; max-width:100%; min-width:0; box-sizing:border-box; margin:0; padding:8px 8px 7px; border:1px solid var(--line); border-radius:14px; background:rgba(250,248,242,.96); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); box-shadow:0 8px 22px rgba(18,47,39,.08);",
-          "suggestedOwner": "experience.css"
-        },
-        {
-          "file": "mobile.css",
-          "ancestry": [
-            "@media (max-width:720px)"
-          ],
-          "body": "top:58px;border-radius:16px;background:rgba(247,243,234,.94)",
-          "suggestedOwner": "experience.css"
-        }
-      ],
-      "suggestedOwner": "experience.css"
-    }
-  ],
+  "pairCounts": {},
+  "overlaps": [],
   "ownerViolations": [
     {
       "file": "experience.css",
@@ -301,9 +102,25 @@
     },
     {
       "file": "experience.css",
+      "selector": ".family-person-preview",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
       "selector": ".family-person-preview-actions",
       "ancestry": [
         "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview-actions",
+      "ancestry": [
+        "@media (max-width:720px)"
       ],
       "suggestedOwner": "mobile.css"
     },
@@ -333,6 +150,14 @@
     },
     {
       "file": "experience.css",
+      "selector": ".family-person-preview-handle",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
       "selector": ".family-person-preview-head",
       "ancestry": [
         "@media(max-width:760px)"
@@ -352,6 +177,14 @@
       "selector": ".family-person-preview-head h2",
       "ancestry": [
         "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview-head h2",
+      "ancestry": [
+        "@media (max-width:720px)"
       ],
       "suggestedOwner": "mobile.css"
     },
@@ -476,22 +309,6 @@
       "selector": "#family-mobile-dock .mobile-more[open]>summary",
       "ancestry": [
         "@media(max-width:720px)"
-      ],
-      "suggestedOwner": "mobile.css"
-    },
-    {
-      "file": "experience.css",
-      "selector": "#family-mobile-dock .mobile-more>div",
-      "ancestry": [
-        "@media(max-width:720px)"
-      ],
-      "suggestedOwner": "mobile.css"
-    },
-    {
-      "file": "experience.css",
-      "selector": "#family-mobile-dock .mobile-more>div",
-      "ancestry": [
-        "@media(max-width:430px)"
       ],
       "suggestedOwner": "mobile.css"
     },
@@ -2322,23 +2139,7 @@
     },
     {
       "file": "mobile.css",
-      "selector": "body[data-route=\"tree\"] #content.mobile-tree-surface",
-      "ancestry": [
-        "@media (max-width:720px)"
-      ],
-      "suggestedOwner": "experience.css"
-    },
-    {
-      "file": "mobile.css",
       "selector": "body[data-route=\"tree\"] #content.mobile-tree-surface :where(.graph-shell,.tree-graph-shell)",
-      "ancestry": [
-        "@media (max-width:720px)"
-      ],
-      "suggestedOwner": "experience.css"
-    },
-    {
-      "file": "mobile.css",
-      "selector": "body[data-route=\"tree\"] #content.mobile-tree-surface .v161-tree-toolbar",
       "ancestry": [
         "@media (max-width:720px)"
       ],
