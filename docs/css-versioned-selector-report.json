@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-16T18:59:45.268Z",
+  "generatedAt": "2026-09-16T19:09:11.396Z",
   "totals": {
-    "versionedClasses": 235,
-    "cssOccurrences": 1981,
-    "sourceOccurrences": 671,
+    "versionedClasses": 234,
+    "cssOccurrences": 1971,
+    "sourceOccurrences": 660,
     "cssOnlyClasses": 10,
     "cssOnlyClassNames": [
       "v129-recent",
@@ -37,11 +37,6 @@
     {
       "className": "v17-person-card",
       "cssOccurrences": 38,
-      "sourceOccurrences": 11
-    },
-    {
-      "className": "v174-tree-context",
-      "cssOccurrences": 10,
       "sourceOccurrences": 11
     },
     {
@@ -118,16 +113,21 @@
       "className": "v172-node-photo",
       "cssOccurrences": 1,
       "sourceOccurrences": 7
+    },
+    {
+      "className": "v17-research-door",
+      "cssOccurrences": 17,
+      "sourceOccurrences": 6
     }
   ],
   "byCssFile": {
     "src/styles/composition.css": {
-      "classes": 31,
-      "occurrences": 116
+      "classes": 30,
+      "occurrences": 113
     },
     "src/styles/core.css": {
-      "classes": 203,
-      "occurrences": 1015
+      "classes": 202,
+      "occurrences": 1011
     },
     "src/styles/experience.css": {
       "classes": 6,
@@ -142,12 +142,12 @@
       "occurrences": 0
     },
     "src/styles/interaction.css": {
-      "classes": 14,
-      "occurrences": 19
+      "classes": 13,
+      "occurrences": 18
     },
     "src/styles/mobile.css": {
-      "classes": 89,
-      "occurrences": 716
+      "classes": 88,
+      "occurrences": 714
     },
     "src/styles/print.css": {
       "classes": 32,
@@ -286,32 +286,6 @@
         "scripts/test-v17-1.mjs",
         "src/runtime/mobile-experience.js",
         "src/runtime/native-family-v17.js"
-      ],
-      "cssOnly": false
-    },
-    {
-      "className": "v174-tree-context",
-      "cssOccurrences": 10,
-      "cssOccurrencesByFile": {
-        "src/styles/composition.css": 3,
-        "src/styles/core.css": 4,
-        "src/styles/interaction.css": 1,
-        "src/styles/mobile.css": 2
-      },
-      "cssFiles": [
-        "src/styles/composition.css",
-        "src/styles/core.css",
-        "src/styles/interaction.css",
-        "src/styles/mobile.css"
-      ],
-      "sourceOccurrences": 11,
-      "sourceFiles": [
-        "e2e/elevated-family-v17-4.spec.mjs",
-        "e2e/family-shell-v17-5.spec.mjs",
-        "e2e/route-capability-loading.spec.mjs",
-        "e2e/v17-6-stability.spec.mjs",
-        "scripts/test-v17-4.mjs",
-        "src/runtime/experience-elevation-v17-4.js"
       ],
       "cssOnly": false
     },

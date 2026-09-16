@@ -108,7 +108,7 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
  * restarting entrance motion on the context controller itself: a moving
  * controller is not a stable pointer target and can also create resize churn
  * while the tree persistence controller is restoring state. */
-.v174-tree-context{animation:none!important}
+.tree-context{animation:none!important}
 
 /* Reduced-motion is a cross-route accessibility contract. */
 @media(prefers-reduced-motion:reduce){

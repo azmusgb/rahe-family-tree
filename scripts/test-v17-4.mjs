@@ -65,7 +65,7 @@ test('Tree context switcher derives the effective tree scope',()=>{
   assert.match(elevation,/data-tree-scope="ancestors"/);
   assert.match(elevation,/data-tree-scope="descendants"/);
   assert.match(elevation,/data-tree-scope="connected"/);
-  assert.match(css,/\.v174-tree-context/);
+  assert.match(css,/\.tree-context/);
 });
 
 test('v17.4+ remains presentation-only and preserves genealogy evidence rules',()=>{

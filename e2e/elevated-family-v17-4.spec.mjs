@@ -42,7 +42,7 @@ test('living Person keeps chronology and place summary private',async({page})=>{
 test('Tree context switcher changes scope using the existing tree engine',async({page},testInfo)=>{
   test.skip(testInfo.project.name!=='desktop-chromium','elevated context is a desktop presentation layer; mobile uses the native tree controls');
   await page.goto(`/?focus=${HAZEL}&scope=family#tree`);
-  const context=page.locator('.v174-tree-context');
+  const context=page.locator('.tree-context');
   await expect(context).toBeVisible();
   await expect(context.getByRole('button',{name:'Family'})).toHaveAttribute('aria-pressed','true');
   await context.getByRole('button',{name:'Ancestors'}).evaluate(button=>button.click());
