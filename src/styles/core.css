@@ -3375,9 +3375,9 @@ body[data-route="tree"][data-nav-context="family"] #content.v161-tree.v161-show-
 
 .v161-tree-tool-actions button[data-v161-relationship]{background:var(--green);color:#fff;border-color:var(--green)}
 
-.v161-relationship-dialog{width:min(720px,calc(100vw - 24px));max-height:min(84dvh,760px);padding:0;border:1px solid var(--line);border-radius:20px;background:var(--bg);box-shadow:0 30px 80px rgba(20,45,37,.24)}
+.relationship-dialog{width:min(720px,calc(100vw - 24px));max-height:min(84dvh,760px);padding:0;border:1px solid var(--line);border-radius:20px;background:var(--bg);box-shadow:0 30px 80px rgba(20,45,37,.24)}
 
-.v161-relationship-dialog::backdrop{background:rgba(20,36,31,.42);backdrop-filter:blur(2px)}
+.relationship-dialog::backdrop{background:rgba(20,36,31,.42);backdrop-filter:blur(2px)}
 
 .v161-dialog-body .relationship-finder{margin-top:0}
 

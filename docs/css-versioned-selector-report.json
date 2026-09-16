@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-16T19:31:10.019Z",
+  "generatedAt": "2026-09-16T19:44:37.571Z",
   "totals": {
-    "versionedClasses": 233,
-    "cssOccurrences": 1954,
-    "sourceOccurrences": 651,
+    "versionedClasses": 232,
+    "cssOccurrences": 1952,
+    "sourceOccurrences": 643,
     "cssOnlyClasses": 10,
     "cssOnlyClassNames": [
       "v129-recent",
@@ -70,11 +70,6 @@
       "sourceOccurrences": 8
     },
     {
-      "className": "v161-relationship-dialog",
-      "cssOccurrences": 2,
-      "sourceOccurrences": 8
-    },
-    {
       "className": "v172-home-branches",
       "cssOccurrences": 2,
       "sourceOccurrences": 8
@@ -118,6 +113,11 @@
       "className": "v174-profile-snapshot",
       "cssOccurrences": 15,
       "sourceOccurrences": 6
+    },
+    {
+      "className": "v20-continue-card",
+      "cssOccurrences": 13,
+      "sourceOccurrences": 6
     }
   ],
   "byCssFile": {
@@ -126,8 +126,8 @@
       "occurrences": 113
     },
     "src/styles/core.css": {
-      "classes": 201,
-      "occurrences": 994
+      "classes": 200,
+      "occurrences": 992
     },
     "src/styles/experience.css": {
       "classes": 6,
@@ -430,23 +430,6 @@
         "src/runtime/native-family-v17.js",
         "src/runtime/native-home-editorial.js",
         "src/runtime/unified-family-experience.js"
-      ],
-      "cssOnly": false
-    },
-    {
-      "className": "v161-relationship-dialog",
-      "cssOccurrences": 2,
-      "cssOccurrencesByFile": {
-        "src/styles/core.css": 2
-      },
-      "cssFiles": [
-        "src/styles/core.css"
-      ],
-      "sourceOccurrences": 8,
-      "sourceFiles": [
-        "e2e/platform-v13.spec.mjs",
-        "platform-v13-runtime.js",
-        "src/runtime/mobile-family-density.js"
       ],
       "cssOnly": false
     },
