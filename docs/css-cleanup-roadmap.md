@@ -27,6 +27,7 @@ The stylesheet topology is consolidated. The next phase reduces semantic debt wi
 
 - No selector removal solely because a name looks old.
 - No evidence-state, privacy, genealogy, or routing changes in CSS cleanup PRs.
-- Remove a rule automatically only when a later top-level rule with the same selector fully replaces every declaration with equal or stronger `!important` semantics.
+- Automatic rule removal is deliberately stricter than ordinary cascade reasoning: a later top-level rule must use the same selector, cover every earlier property with equal-or-stronger `!important` semantics, **and preserve the same effective declaration value**. Different values such as `color-mix(...)`, `var(...)`, or newer syntax may depend on an earlier declaration as a browser fallback and are not auto-removed.
+- Comments are stripped before declaration tokenization so an inline/source comment cannot hide a declaration from the forensic scanner.
 - Keep interaction-critical Tree/mobile behavior stable while CSS ownership changes.
-- Every cleanup PR must pass the repository validation workflow before merge.
+- Every cleanup PR must pass the repository validation workflow against the exact PR head before merge.
