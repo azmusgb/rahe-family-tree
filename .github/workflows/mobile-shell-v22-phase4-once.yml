@@ -1,0 +1,41 @@
+name: Mobile Shell v22 phase 4 once
+
+on:
+  push:
+    branches:
+      - mobile-shell-v22-4-search-state
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: mobile-shell-v22-4-search-state
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Apply phase 4 search-state migration
+        run: node scripts/migrate-mobile-shell-v22-phase4-once.mjs
+      - name: Verify targeted contracts
+        run: |
+          node --test scripts/test-mobile-shell-v22.mjs
+          node --check src/runtime/mobile-ui-shell.js
+      - name: Verify production build
+        run: npm run build
+      - name: Commit generated migration
+        run: |
+          rm scripts/migrate-mobile-shell-v22-phase4-once.mjs
+          rm .github/workflows/mobile-shell-v22-phase4-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/runtime/mobile-ui-shell.js scripts/test-mobile-shell-v22.mjs scripts/migrate-mobile-shell-v22-phase4-once.mjs .github/workflows/mobile-shell-v22-phase4-once.yml
+          git commit -m 'Simplify mobile search handoff state'
+          git push origin HEAD:mobile-shell-v22-4-search-state
