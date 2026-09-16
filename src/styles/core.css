@@ -11,7 +11,7 @@
  * maintained by this module; obsolete selector arms were removed during migration. */
 *{box-sizing:border-box}
 
-html{scroll-behavior:smooth}
+
 
 body{margin:0;background:var(--cream);color:var(--ink)}
 
@@ -289,9 +289,9 @@ th{background:#edf2ed}
 
 .editor-card>div:first-child{display:grid;gap:4px}
 
-.editor-card b{font-size:12px}
 
-.editor-card small{font-size:9px;color:var(--muted)}
+
+
 
 .edition b:after{content:' · v11.6';color:#d7e5dd}
 
@@ -1196,7 +1196,7 @@ body[data-experience="family"] .filters.family-compact{grid-template-columns:min
 
 body[data-experience="family"] .filters.family-compact label:not(.search),body[data-experience="family"] .filters.family-compact button[type="reset"]{display:none}
 
-body[data-experience="family"] .filters.family-compact .search{font-size:12px}
+
 
 body[data-experience="family"] .filters.family-compact input{min-height:46px;font-size:14px;background:#fff}
 
@@ -1204,7 +1204,7 @@ body[data-experience="family"] .page-heading h1{font-size:48px}
 
 body[data-experience="family"] .notice.control{border-color:#d9e2dd;background:#f4f7f5}
 
-body[data-experience="family"] .badge{letter-spacing:0;text-transform:none}
+
 
 @media(max-width:720px){
 .legend{overflow:auto;flex-wrap:nowrap}
@@ -1473,7 +1473,7 @@ body[data-v158-context="family"] .page-heading{padding-block:18px 10px}
 
 body[data-v158-context="family"] .page-heading>div{max-width:var(--v16-copy-max)}
 
-body[data-v158-context="family"] .page-heading .version{display:none}
+
 
 body[data-route="tree"][data-v158-context="family"] .route-shell .page-heading{padding-bottom:4px}
 
@@ -1481,7 +1481,7 @@ body[data-route="tree"][data-v158-context="family"] .route-shell #status{display
 
 .v1510-profile-tabs>button,.v1510-profile-tabs>a{position:relative;z-index:1;pointer-events:auto;min-width:0}
 
-body[data-route="media"][data-v158-context="family"] .route-shell{padding-bottom:4px}
+
 
 @media(max-width:720px){
 body[data-v158-context="family"] .page-heading{padding-top:14px}
@@ -1838,7 +1838,7 @@ body[data-route="person"] .v153-profile-nav{border-color:var(--line);background:
 
 @media (max-width:900px) and (min-width:721px){.sidebar{padding-inline:12px;gap:10px}}
 
-body[data-nav-context="family"] .topbar-actions{display:none}
+
 
 body[data-nav-context="family"] .topbar{min-height:46px;border-bottom-color:color-mix(in srgb,var(--line) 72%,transparent)}
 
@@ -2455,7 +2455,7 @@ body[data-route="dashboard"][data-v158-context="family"] .v161-research-band h2{
 
 .dashboard-person-open span:last-child{display:grid;gap:4px}
 
-.dashboard-person-open b{line-height:1.25}
+
 
 .dashboard-person-open small{color:var(--muted,#6b746f);line-height:1.35}
 
@@ -2774,7 +2774,7 @@ body[data-route="person"][data-v158-context="family"] #content>.panel{border:0!i
 
 .history-highlight-grid article{padding:20px 22px;border-left:3px solid rgba(23,63,53,.25);background:rgba(23,63,53,.035);border-radius:0 14px 14px 0}
 
-.history-highlight-grid h3{margin:0 0 8px}
+
 
 .history-highlight-grid p{margin:0;color:var(--muted,#66716b);line-height:1.6}
 
@@ -3346,7 +3346,7 @@ body[data-nav-context="family"] .v157-tree-preview{box-shadow:none}
 
 body[data-route="tree"][data-nav-context="family"] .graph-shell{min-height:calc(100dvh - 190px);border-radius:var(--v16-radius);box-shadow:none}
 
-body[data-route="tree"][data-nav-context="family"] .graph-stage{min-height:calc(100dvh - 270px)}
+
 
 @media(max-width:720px){
 body[data-route="tree"][data-nav-context="family"] .graph-shell{min-height:calc(100dvh - 150px);border-radius:12px}
@@ -4417,7 +4417,7 @@ body[data-v158-context="research"] .route-shell{border-bottom:1px solid var(--li
 
 body[data-v158-context="research"] .page-heading h1{font-size:clamp(32px,4vw,52px)}
 
-body[data-v158-context="research"] .edition{font-size:11px}
+
 
 body[data-route="dashboard"][data-v158-context="family"] #content.v161-home .v161-research-band{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:16px;padding:18px 0!important;border:0!important;border-top:1px solid var(--line)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
 
@@ -4527,7 +4527,7 @@ body[data-v158-context="research"] .site-footer-bottom{
 .mobile-family-list{display:none!important}
 }
 
-.mobile-family-nav{display:none}
+
 
 @media(max-width:720px){
 .mobile-family-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);left:10px;right:10px;bottom:10px;z-index:90;background:rgba(255,255,255,.95);backdrop-filter:blur(18px);border:1px solid rgba(33,53,47,.12);border-radius:18px;box-shadow:0 12px 34px rgba(23,63,53,.18);overflow:hidden}

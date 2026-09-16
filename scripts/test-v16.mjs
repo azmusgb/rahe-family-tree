@@ -51,8 +51,8 @@ test('v16 presentation is owned by the current semantic design system',()=>{
   assert.match(build,/const legacyStyleSources=\[\]/);
   assert.equal(fs.existsSync('src/styles/v16.css'),false);
   for(const token of['--v16-page-max','data-route="tree"','data-route="people"','data-route="person"','data-route="media"','v16-stories'])assert.match(v16,new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
-  assert.match(v16,/topbar-actions\{display:none\}/);
-  assert.match(v16,/\.v1510-profile-tabs\{[\s\S]*position:static!important/);
+  assert.match(v16,/\.topbar-actions\s*\{[\s\S]*?display\s*:\s*none/);
+  assert.match(v16,/\.v1510-profile-tabs\s*\{[\s\S]*?position\s*:\s*static\s*!important/);
 });
 
 test('v16 presentation cannot alter canonical genealogy semantics',()=>{
