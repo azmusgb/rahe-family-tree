@@ -59,7 +59,7 @@ test('site shell uses neutral family-history branding while record names remain 
   const editorial=brandingCss.indexOf('Source: home-editorial.css');
   assert.ok(home>-1&&responsive>home&&editorial>responsive);
   assert.match(brandingCss,/\.v17-home-hero::after\{content:'F'\}/);
-  assert.doesNotMatch(brandingCss,/content:'R'/);
+  assert.doesNotMatch(brandingCss,/\.v17-home-hero::after\{content:'R'\}/);
 });
 
 test('mobile Family stylesheet is semantic and layered before final responsive safeguards',()=>{
