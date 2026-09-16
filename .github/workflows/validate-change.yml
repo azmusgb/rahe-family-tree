@@ -27,6 +27,8 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Verify dependency lock is unchanged
         run: git diff --exit-code -- package.json package-lock.json
+      - name: Verify CSS forensic cleanup safety
+        run: node scripts/css-forensics.mjs --self-test
       - name: Run canonical and experience regression suite
         run: npm test
       - name: Run v17.5-v19 family shell, canonical platform, consolidated tree, research intelligence, Family Graph, navigation, layout, relationship navigator, and path comprehension gates

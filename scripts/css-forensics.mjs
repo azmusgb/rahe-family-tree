@@ -51,10 +51,10 @@ function scanTopLevelRules(css){
 }
 
 function parseDeclarations(body){
+  // Keep every declaration for a property in source order. Duplicate declarations
+  // are often intentional compatibility fallbacks, so collapsing them to the last
+  // value would make whole-rule deletion unsafe.
   const out=new Map();
-  // Remove comments before declaration tokenization. A comment may prefix a real
-  // declaration in the same semicolon-delimited segment, and skipping that whole
-  // segment could make the cleanup incorrectly believe a property is absent.
   const source=body.replace(/\/\*[\s\S]*?\*\//g,' ');
   let quote='', escaped=false, paren=0, start=0;
   const parts=[];
@@ -80,12 +80,54 @@ function parseDeclarations(body){
     const value=decl.slice(colon+1).trim();
     const important=/!important\s*$/i.test(value);
     const comparableValue=value.replace(/!important\s*$/i,'').replace(/\s+/g,' ').trim();
-    out.set(property,{important,value,comparableValue});
+    const entries=out.get(property)||[];
+    entries.push({important,value,comparableValue});
+    out.set(property,entries);
   }
   return out;
 }
 
-function normalizeSelector(header){return header.replace(/\s+/g,' ').trim();}
+function normalizeSelector(header){
+  // Normalize insignificant whitespace without modifying quoted attribute/string
+  // values, where repeated spaces are semantically significant.
+  let out='';
+  let quote='', escaped=false, pendingSpace=false;
+  for(const c of header.trim()){
+    if(quote){
+      out+=c;
+      if(escaped){escaped=false;continue;}
+      if(c==='\\'){escaped=true;continue;}
+      if(c===quote)quote='';
+      continue;
+    }
+    if(c==='"'||c==="'"){
+      if(pendingSpace&&out&&!out.endsWith(' '))out+=' ';
+      pendingSpace=false;
+      quote=c;
+      out+=c;
+      continue;
+    }
+    if(/\s/.test(c)){
+      pendingSpace=true;
+      continue;
+    }
+    if(pendingSpace&&out&&!out.endsWith(' '))out+=' ';
+    pendingSpace=false;
+    out+=c;
+  }
+  return out.trim();
+}
+
+function declarationSequencesMatch(earlier,later){
+  if(!later||earlier.length!==later.length)return false;
+  for(let i=0;i<earlier.length;i++){
+    const source=earlier[i];
+    const replacement=later[i];
+    if((source.important&&!replacement.important)||
+       replacement.comparableValue!==source.comparableValue)return false;
+  }
+  return true;
+}
 
 function findSafelySuperseded(css){
   const rules=scanTopLevelRules(css).map(rule=>({...rule,selector:normalizeSelector(rule.header),decls:parseDeclarations(rule.body)}));
@@ -101,16 +143,12 @@ function findSafelySuperseded(css){
       for(let j=i+1;j<list.length;j++){
         const later=list[j];
         let fullyCovered=true;
-        for(const [prop,meta] of earlier.decls){
+        for(const [prop,sequence] of earlier.decls){
           const replacement=later.decls.get(prop);
-          // For automatic deletion, require the later declaration to preserve
-          // both priority and the actual value. Property-name coverage alone is
-          // not enough: a later color-mix(), var(), or other modern syntax may
-          // intentionally rely on the earlier declaration as a compatibility
-          // fallback in browsers that reject the newer value.
-          if(!replacement||
-             (meta.important&&!replacement.important)||
-             replacement.comparableValue!==meta.comparableValue){
+          // Automatic deletion is deliberately conservative: the later rule must
+          // preserve the complete declaration sequence (including fallbacks), the
+          // effective values, and equal-or-stronger priority for every occurrence.
+          if(!declarationSequencesMatch(sequence,replacement)){
             fullyCovered=false;
             break;
           }
@@ -122,7 +160,7 @@ function findSafelySuperseded(css){
   return removable.sort((a,b)=>b.start-a.start);
 }
 
-function cleanupCore(css){
+function cleanupFile(css){
   const removable=findSafelySuperseded(css);
   let next=css;
   for(const rule of removable){
@@ -138,32 +176,69 @@ function countSourceMarkers(css){return [...css.matchAll(/Source:\s*([^*\n]+\.cs
 function countLegacySelectors(css){return (css.match(/\.v\d{2,}[a-z0-9_-]*/gi)||[]).length;}
 function countImportant(css){return (css.match(/!important\b/g)||[]).length;}
 
+function fixBundle(file){
+  const full=path.join(stylesDir,file);
+  const original=fs.readFileSync(full,'utf8');
+  const {css,removed}=cleanupFile(original);
+  if(css!==original){
+    fs.writeFileSync(full,css);
+    console.log(`Removed ${removed.length} provably superseded top-level ${file} rule blocks.`);
+    for(const rule of removed)console.log(`  ${normalizeSelector(rule.header)}`);
+  }else console.log(`No provably superseded top-level ${file} rule blocks found.`);
+}
+
+function assertBundleClean(file){
+  const css=fs.readFileSync(path.join(stylesDir,file),'utf8');
+  const remaining=findSafelySuperseded(css);
+  if(remaining.length){
+    console.error(`${file} still contains ${remaining.length} safely removable top-level rule blocks.`);
+    for(const rule of remaining)console.error(`  ${normalizeSelector(rule.header)}`);
+    process.exitCode=1;
+  }
+}
+
+function runSelfTest(){
+  const cases=[
+    {
+      name:'quoted selector whitespace remains distinct',
+      css:'[data-label="a  b"]{color:red}[data-label="a b"]{color:red}',
+      expected:0,
+    },
+    {
+      name:'fallback sequence is not replaced by modern-only declaration',
+      css:'.fallback{color:red;color:color-mix(in srgb,red 50%,blue)}.fallback{color:color-mix(in srgb,red 50%,blue)}',
+      expected:0,
+    },
+    {
+      name:'identical single declaration is removable',
+      css:'.same{color:red}.same{color:red}',
+      expected:1,
+    },
+    {
+      name:'identical fallback sequence is removable',
+      css:'.same{color:red;color:color-mix(in srgb,red 50%,blue)}.same{color:red;color:color-mix(in srgb,red 50%,blue)}',
+      expected:1,
+    },
+  ];
+  for(const test of cases){
+    const actual=findSafelySuperseded(test.css).length;
+    if(actual!==test.expected)throw new Error(`Self-test failed: ${test.name}; expected ${test.expected}, got ${actual}`);
+  }
+  console.log(`CSS forensics self-test passed (${cases.length} cases).`);
+}
+
+if(args.has('--self-test'))runSelfTest();
+if(args.has('--fix-core'))fixBundle('core.css');
+if(args.has('--fix-composition'))fixBundle('composition.css');
+if(args.has('--assert-core-clean'))assertBundleClean('core.css');
+if(args.has('--assert-composition-clean'))assertBundleClean('composition.css');
+
 const report={generatedAt:new Date().toISOString(),files:{}};
 for(const file of liveFiles){
   const full=path.join(stylesDir,file);
   const css=fs.readFileSync(full,'utf8');
   const safe=findSafelySuperseded(css);
   report.files[file]={bytes:Buffer.byteLength(css),sourceSections:countSourceMarkers(css).length,legacySelectorArms:countLegacySelectors(css),importantDeclarations:countImportant(css),safelySupersededTopLevelRules:safe.length};
-}
-
-if(args.has('--fix-core')){
-  const full=path.join(stylesDir,'core.css');
-  const original=fs.readFileSync(full,'utf8');
-  const {css,removed}=cleanupCore(original);
-  if(css!==original){
-    fs.writeFileSync(full,css);
-    console.log(`Removed ${removed.length} provably superseded top-level core.css rule blocks.`);
-    for(const rule of removed)console.log(`  ${normalizeSelector(rule.header)}`);
-  }else console.log('No provably superseded top-level core.css rule blocks found.');
-}
-
-if(args.has('--assert-core-clean')){
-  const css=fs.readFileSync(path.join(stylesDir,'core.css'),'utf8');
-  const remaining=findSafelySuperseded(css);
-  if(remaining.length){
-    console.error(`core.css still contains ${remaining.length} safely removable top-level rule blocks.`);
-    process.exitCode=1;
-  }
 }
 
 console.log(JSON.stringify(report,null,2));
