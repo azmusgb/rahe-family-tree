@@ -2,54 +2,31 @@
 
 Phase 4 retires historical version-numbered CSS class contracts and replaces them with stable semantic component names. This work is intentionally staged because many `.vXX-*` classes are still emitted or queried by runtime code and tests.
 
-## Inventory baseline
+## Stage A — establish a trustworthy migration inventory
 
-The first repository-wide inventory found:
+The first repository-wide CSS scan found 241 versioned classes and 2,062 CSS occurrences. The non-style reference count from the first report was later found to be unreliable because the original matcher used `\b`, which treats hyphens as boundaries and can count a longer class name as a reference to a shorter hyphen-delimited prefix.
 
-- 241 versioned classes in production styles;
-- 2,062 CSS occurrences;
-- 1,074 non-style source references;
-- 9 classes with no non-style source references.
+The audit has now been corrected to require complete class-name boundaries that exclude CSS identifier characters, including hyphens and underscores. Generated output, build artifacts, dependencies, and the generated report itself are excluded from the source corpus.
 
-The audit excludes generated output, build artifacts, dependencies, and the generated inventory report itself so the report cannot make dead selectors appear live.
+A first dead-selector retirement experiment was also reverted after review showed that removing a selector arm containing a dead class could remove live selector arguments nested inside `:where(...)` / `:is(...)` groups. All production stylesheets were restored exactly to the verified Phase 3 `main` versions before continuing. No visual behavior change from that experiment is being carried forward.
 
-## Stage A — retire provably CSS-only selector arms
+Because the previous generated report was produced before both corrections, it has been removed rather than retained as misleading evidence. The persistent `scripts/css-versioned-selector-audit.mjs` script is the authoritative migration ledger and will regenerate a fresh report before any selector is retired in a later slice.
 
-The first cleanup pass removed selector arms containing the audited CSS-only classes:
+## Migration strategy
 
-- `v17-family-summary`
-- `v17-home-branches`
-- `v17-home-places`
-- `v17-home-research`
-- `v17-home-section`
-- `v17-home-stat`
-- `v17-home-stories`
-- `v17-research-hero`
-- `v17-section-heading`
-
-Selectors were removed at selector-arm granularity, including within nested at-rules. Other arms in grouped selectors were preserved. A selector arm containing one of these absent classes can never match, even if that arm also contains another live class.
-
-After this pass the inventory reports:
-
-- 231 versioned classes in production styles;
-- 2,037 CSS occurrences;
-- 1,072 non-style source references;
-- 0 CSS-only versioned classes.
-
-CSS-sensitive regression tests and the production build passed before the transformation was committed.
-
-## Remaining migration strategy
-
-The remaining 231 classes are not deletion candidates: they are referenced by runtime, markup, tests, or other source assets. They require semantic migration in dependency-aware slices. For each class family:
+Live versioned classes require semantic migration in dependency-aware slices. For each class family:
 
 1. introduce or confirm the stable semantic class;
 2. update producers in HTML/runtime code;
 3. update DOM queries and behavior hooks;
 4. update tests;
 5. migrate CSS selectors;
-6. remove the versioned compatibility arm;
-7. run exact-head regression and browser validation.
+6. remove the versioned compatibility arm only when the semantic class is authoritative;
+7. regenerate the exact-name inventory;
+8. run exact-head regression, production-build, and browser validation.
 
-High-impact families include Home hero, person cards/profile surfaces, navigation, mobile More/search, tree context, media filters, and discovery components.
+Dead-selector cleanup follows the same standard: a class is removable only after the corrected exact-name audit shows no source producers/references, and selector parsing must preserve live arguments inside grouped selectors and functional pseudo-classes.
 
-The persistent `scripts/css-versioned-selector-audit.mjs` report is retained as the migration ledger. Phase 4 closes only when the production CSS inventory reaches zero `.vXX-*` classes without breaking runtime or browser behavior.
+High-impact migration families include Home hero, person cards/profile surfaces, navigation, mobile More/search, tree context, media filters, and discovery components.
+
+Phase 4 closes only when production CSS reaches zero `.vXX-*` classes without changing runtime, genealogy, evidence, privacy, routing, or browser behavior.
