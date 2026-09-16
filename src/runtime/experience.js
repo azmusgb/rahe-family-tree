@@ -15,14 +15,12 @@ import './tree-controller.js';
 import './mobile-experience.js';
 import './mobile-ui-shell.js';
 
-// Presentation-only capabilities are safe split points. They remain additive
-// and do not own routing, history, the persistent navigation shell, or canonical
-// genealogy state.
+// Presentation-only startup capabilities that still apply broadly. Stories and
+// research ingestion are true route-level capabilities bootstrapped by the
+// navigation runtime before its first committed-route event.
 const presentationModules=[
   import('./ui-resilience.js'),
   import('./site-branding.js'),
-  import('./record-ingestion.js'),
-  import('./stories-runtime.js'),
   import('./mobile-family-density.js'),
   import('./mobile-home-polish.js'),
   import('./family-narrative.js'),
@@ -32,8 +30,9 @@ const presentationModules=[
   import('./experience-elevation-v17-4.js')
 ];
 
-// Final UI-only shell naming layer. Register it only after every presentation
-// chunk has settled so surname-specific branding cannot win a cold-load race.
+// Final UI-only shell naming layer. Register it only after every startup
+// presentation chunk has settled so surname-specific branding cannot win a
+// cold-load completion race. Route-scoped capabilities do not own shell naming.
 // allSettled preserves the final naming layer even if a noncritical enhancer
 // fails to load. Genealogy content is not rewritten.
 void Promise.allSettled(presentationModules).then(()=>import('./neutral-family-branding.js'));

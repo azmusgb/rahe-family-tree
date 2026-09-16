@@ -4,6 +4,7 @@ import fs from'node:fs';
 import{createRouteCapabilityLoader}from'../src/runtime/route-capability-loader.js';
 
 const loaderSource=fs.readFileSync('src/runtime/route-capability-loader.js','utf8');
+const capabilities=fs.readFileSync('src/runtime/route-capabilities.js','utf8');
 const navigationRuntime=fs.readFileSync('src/runtime/navigation-runtime.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
@@ -58,18 +59,24 @@ test('unregistering a pending capability cannot poison a replacement with the sa
   assert.deepEqual(loader.snapshot('stories').loaded,['stories']);
 });
 
-test('loader is wired to the route commit lifecycle without moving presentation modules yet',()=>{
-  assert.match(navigationRuntime,/import'\.\/route-capability-loader\.js'/);
+test('Stories and record ingestion are registered as route capabilities rather than startup presentation imports',()=>{
+  assert.match(navigationRuntime,/^import'\.\/route-capabilities\.js'/);
+  assert.match(capabilities,/from'\.\/route-capability-loader\.js'/);
   assert.match(loaderSource,/family-route-committed/);
   assert.match(loaderSource,/family-route-capabilities-ready/);
   assert.match(loaderSource,/family-route-capabilities-failed/);
-  assert.match(loaderSource,/routeCapabilityState='loading'/);
-  assert.match(experience,/const presentationModules=\[/);
-  for(const module of['stories-runtime','record-ingestion','person-experience-v17-3','family-branches-v17-5'])assert.match(experience,new RegExp(`import\\('./${module}\\.js'\\)`));
+  assert.match(loaderSource,/__familyRouteCapabilityRuntime/);
+  assert.match(capabilities,/name:'stories-runtime'[\s\S]*routes:\['stories'\][\s\S]*import\('\.\/stories-runtime\.js'\)/);
+  assert.match(capabilities,/name:'record-ingestion'[\s\S]*routes:\['research'\][\s\S]*import\('\.\/record-ingestion\.js'\)/);
+  assert.doesNotMatch(experience,/import\('\.\/stories-runtime\.js'\)/);
+  assert.doesNotMatch(experience,/import\('\.\/record-ingestion\.js'\)/);
+  for(const module of['person-experience-v17-3','family-branches-v17-5'])assert.match(experience,new RegExp(`import\\('./${module}\\.js'\\)`));
 });
 
-test('route capability foundation is presentation-only and cannot promote genealogy evidence',()=>{
-  assert.doesNotMatch(loaderSource,/research-model|relationships?\.push|claims?\.push|\.state\s*=/);
+test('route capability migration remains presentation-only and cannot promote genealogy evidence',()=>{
+  for(const source of[loaderSource,capabilities]){
+    assert.doesNotMatch(source,/research-model|relationships?\.push|claims?\.push|\.state\s*=/);
+  }
   const bridge=(model.relationships||[]).find(r=>r.type==='identity-bridge');
   assert.ok(bridge);
   assert.match(String(bridge.state||''),/UNRESOLVED/i);
