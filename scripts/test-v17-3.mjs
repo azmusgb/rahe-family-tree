@@ -5,6 +5,7 @@ import fs from'node:fs';
 const entry=fs.readFileSync('app-entry.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const experienceRoot=fs.readFileSync('src/runtime/experience.js','utf8');
+const routeCapabilities=fs.readFileSync('src/runtime/route-capabilities.js','utf8');
 const personRuntime=fs.readFileSync('src/runtime/person-experience-v17-3.js','utf8');
 const personCss=fs.readFileSync('src/styles/person.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
@@ -25,8 +26,9 @@ test('v17.3 capabilities remain synchronized in later releases',()=>{
   assert.match(build,/shell\.replace\(/);
 });
 
-test('Person experience is loaded behind the stable Family experience boundary',()=>{
-  assert.match(experienceRoot,/person-experience-v17-3\.js/);
+test('Person experience is route-loaded behind the stable capability boundary',()=>{
+  assert.match(routeCapabilities,/name:'person-experience-v17-3'[\s\S]*routes:\['person'\][\s\S]*import\('\.\/person-experience-v17-3\.js'\)/);
+  assert.doesNotMatch(experienceRoot,/import\('\.\/person-experience-v17-3\.js'\)/);
   assert.match(personRuntime,/family-person-v17-3-ready/);
   assert.match(personRuntime,/routePersonId/);
   assert.match(personRuntime,/isFamily/);

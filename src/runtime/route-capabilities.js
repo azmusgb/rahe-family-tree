@@ -1,8 +1,8 @@
 import{registerRouteCapability}from'./route-capability-loader.js';
 
-// v20.2 first true route-level migrations. These modules are presentation-only
-// and are intentionally absent from the startup presentation import set.
-// Interaction-critical navigation, Tree, mobile shell/dock, and history remain eager.
+// v20.2 true route-level presentation migrations. These modules are intentionally
+// absent from the startup presentation import set. Interaction-critical
+// navigation, Tree, mobile shell/dock, and history remain eager.
 registerRouteCapability({
   name:'stories-runtime',
   routes:['stories'],
@@ -13,4 +13,16 @@ registerRouteCapability({
   name:'record-ingestion',
   routes:['research'],
   load:()=>import('./record-ingestion.js')
+});
+
+registerRouteCapability({
+  name:'person-experience-v17-3',
+  routes:['person'],
+  load:()=>import('./person-experience-v17-3.js')
+});
+
+registerRouteCapability({
+  name:'mobile-home-polish',
+  routes:['dashboard'],
+  load:()=>import('./mobile-home-polish.js')
 });

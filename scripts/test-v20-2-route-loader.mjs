@@ -59,18 +59,24 @@ test('unregistering a pending capability cannot poison a replacement with the sa
   assert.deepEqual(loader.snapshot('stories').loaded,['stories']);
 });
 
-test('Stories and record ingestion are registered as route capabilities rather than startup presentation imports',()=>{
+test('route-scoped presentation modules are registered rather than startup presentation imports',()=>{
   assert.match(navigationRuntime,/^import'\.\/route-capabilities\.js'/);
   assert.match(capabilities,/from'\.\/route-capability-loader\.js'/);
   assert.match(loaderSource,/family-route-committed/);
   assert.match(loaderSource,/family-route-capabilities-ready/);
   assert.match(loaderSource,/family-route-capabilities-failed/);
   assert.match(loaderSource,/__familyRouteCapabilityRuntime/);
-  assert.match(capabilities,/name:'stories-runtime'[\s\S]*routes:\['stories'\][\s\S]*import\('\.\/stories-runtime\.js'\)/);
-  assert.match(capabilities,/name:'record-ingestion'[\s\S]*routes:\['research'\][\s\S]*import\('\.\/record-ingestion\.js'\)/);
-  assert.doesNotMatch(experience,/import\('\.\/stories-runtime\.js'\)/);
-  assert.doesNotMatch(experience,/import\('\.\/record-ingestion\.js'\)/);
-  for(const module of['person-experience-v17-3','family-branches-v17-5'])assert.match(experience,new RegExp(`import\\('./${module}\\.js'\\)`));
+  const expected=[
+    ['stories-runtime','stories','stories-runtime'],
+    ['record-ingestion','research','record-ingestion'],
+    ['person-experience-v17-3','person','person-experience-v17-3'],
+    ['mobile-home-polish','dashboard','mobile-home-polish']
+  ];
+  for(const[name,route,module]of expected){
+    assert.match(capabilities,new RegExp(`name:'${name}'[\\s\\S]*routes:\\['${route}'\\][\\s\\S]*import\\('\\./${module}\\.js'\\)`));
+    assert.doesNotMatch(experience,new RegExp(`import\\('\\./${module}\\.js'\\)`));
+  }
+  for(const module of['family-narrative','family-branches-v17-5','experience-elevation-v17-4'])assert.match(experience,new RegExp(`import\\('./${module}\\.js'\\)`));
 });
 
 test('route capability migration remains presentation-only and cannot promote genealogy evidence',()=>{
