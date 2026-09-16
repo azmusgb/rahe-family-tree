@@ -83,7 +83,7 @@
    * breathing room even if an older route module forgets to add its own offset. */
   
   body.v21-actual-mobile-ui[data-route="tree"]{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
-  #family-mobile-dock{padding-bottom:max(8px,env(safe-area-inset-bottom,0px))}
+  
   #family-mobile-dock :where(a,summary,button){touch-action:manipulation}
 }
 
@@ -94,8 +94,7 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters{
   display:block!important;
   margin-top:10px!important;
 }
-body[data-v158-context="family"][data-route="media"] .route-shell .filters>label:not(.search),
-body[data-v158-context="family"][data-route="media"] .route-shell .filters>button{
+body[data-v158-context="family"][data-route="media"] .route-shell .filters>label:not(.search),body[data-v158-context="family"][data-route="media"] .route-shell .filters>button{
   display:none!important;
 }
 body[data-v158-context="family"][data-route="media"] .route-shell .filters .search{
@@ -168,7 +167,7 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
   body[data-experience="family"] .v151-primary-nav a[data-nav-key="tree"]{padding-inline:17px;font-family:var(--family-font-display);font-size:14px}
   body[data-experience="family"] .v151-primary-nav a[data-nav-key="tree"]::before{content:'⌘';margin-right:7px;font-family:system-ui;font-size:12px;opacity:.68}
   body[data-experience="family"] .v151-nav-menus{display:flex;align-items:center;gap:6px;margin-left:auto}
-  body[data-experience="family"] .v151-nav-menu>summary,body[data-experience="family"] .v158-research-entry,body[data-experience="family"] .site-header-actions button{min-height:42px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.12);border-radius:11px;background:rgba(255,255,255,.055);color:#e5eeea;padding:0 12px;font-size:11px;font-weight:700;text-decoration:none;cursor:pointer;touch-action:manipulation}
+  body[data-experience="family"] .v151-nav-menu>summary,body[data-experience="family"] .v158-research-entry{min-height:42px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.12);border-radius:11px;background:rgba(255,255,255,.055);color:#e5eeea;padding:0 12px;font-size:11px;font-weight:700;text-decoration:none;cursor:pointer;touch-action:manipulation}
   body[data-experience="family"] .v151-nav-menu>summary:hover,body[data-experience="family"] .v158-research-entry:hover,body[data-experience="family"] .site-header-actions button:hover{background:rgba(255,255,255,.12);color:#fff}
   
   
@@ -181,8 +180,7 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
   /* Keep primary destinations visually dominant. Secondary navigation remains
    * available but sits one level back until hover/focus. */
   body[data-experience="family"] .v151-nav-menus{gap:2px;margin-left:10px}
-  body[data-experience="family"] .v151-nav-menu>summary,
-  body[data-experience="family"] .v158-research-entry{
+  body[data-experience="family"] .v151-nav-menu>summary,body[data-experience="family"] .v158-research-entry{
     min-height:40px;
     padding-inline:10px;
     border-color:transparent;
@@ -190,10 +188,7 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
     color:rgba(229,238,234,.78);
     font-size:10.5px;
   }
-  body[data-experience="family"] .v151-nav-menu>summary:hover,
-  body[data-experience="family"] .v151-nav-menu>summary:focus-visible,
-  body[data-experience="family"] .v158-research-entry:hover,
-  body[data-experience="family"] .v158-research-entry:focus-visible{
+  body[data-experience="family"] .v151-nav-menu>summary:hover,body[data-experience="family"] .v151-nav-menu>summary:focus-visible,body[data-experience="family"] .v158-research-entry:hover,body[data-experience="family"] .v158-research-entry:focus-visible{
     border-color:rgba(255,255,255,.12);
     background:rgba(255,255,255,.08);
     color:#fff;
@@ -208,7 +203,7 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
   
   
   
-  #family-mobile-dock>a>span,#family-mobile-dock>details>summary{pointer-events:auto}
+  #family-mobile-dock>a>span{pointer-events:auto}
   
   
   
@@ -220,7 +215,7 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
   
   #family-mobile-dock .v158-mobile-more{position:static;margin:0;z-index:3}
   #family-mobile-dock .v158-mobile-more>summary::-webkit-details-marker{display:none}
-  #family-mobile-dock .v158-mobile-more>div{position:absolute;left:0;right:0;bottom:calc(100% + 10px);z-index:4;display:grid;grid-template-columns:repeat(2,1fr);gap:6px;padding:12px;border:1px solid rgba(23,63,53,.12);border-radius:22px;background:rgba(255,253,248,.98);box-shadow:0 18px 50px rgba(12,39,31,.22);backdrop-filter:blur(22px)}
+  
   #family-mobile-dock .v158-mobile-more:not([open])>div{display:none;pointer-events:none}
   #family-mobile-dock .v158-mobile-more[open]>div{pointer-events:auto}
   #family-mobile-dock .v158-mobile-more>div :where(a,button){min-height:50px;display:flex;align-items:center;padding:0 13px;border:0;border-radius:13px;background:#eef2ed;color:#24463b;text-decoration:none;font:inherit;font-size:12px;font-weight:700;text-align:left;touch-action:manipulation}
