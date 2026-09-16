@@ -4,7 +4,7 @@ import{routeKeyFromLocation,routeDetailFromLocation}from'./navigation-runtime.js
 const routeKey=routeKeyFromLocation;
 const routeDetail=routeDetailFromLocation;
 const familyRoutes=new Set(['dashboard','tree','people','person','families','branch','media','stories','timeline','migration']);
-const transientSelector='.mobile-more[open],.mobile-more[open],.nav-menu[open],.nav-menu[open],.site-tools[open],.tools-menu[open]';
+const transientSelector='.mobile-more[open],.nav-menu[open],.site-tools[open],.tools-menu[open]';
 const persistedLinkData=new Map();
 let navObserver=null;
 function isResearchContext(route=routeKey()){if(researchRoutes.has(route))return true;if(familyRoutes.has(route))return false;return document.body.dataset.experience==='research';}
@@ -38,7 +38,7 @@ function ensureDesktopContainers(){
     nav.replaceChildren(primary,menus);
     if(actions)menus.append(actions);
   }
-  primary.classList.add('primary-nav','primary-nav');menus.classList.add('nav-menus','nav-menus');
+  primary.classList.add('primary-nav');menus.classList.add('nav-menus');
   nav.dataset.navigationOwner='shell';
   return{nav,primary,menus};
 }
@@ -103,10 +103,12 @@ function observeNavigationOwnership(){
 }
 
 document.addEventListener('click',event=>{
-  const openOwner=event.target.closest?.('.mobile-more,.nav-menu,.nav-menu,.site-tools,.tools-menu');
-  if(openOwner)closeTransientNavigation(openOwner);else closeTransientNavigation();
   const navLink=event.target.closest?.('#family-mobile-dock a[href^="#"],#nav a[href^="#"],.site-header .brand[href^="#"]');
-  if(navLink)closeTransientNavigation();
+  const openOwner=event.target.closest?.('.mobile-more,.nav-menu,.site-tools,.tools-menu');
+  // Keep the disclosure alive through the anchor's default activation. Safari
+  // can defer same-document hash navigation until after event dispatch; closing
+  // the ancestor during capture can make the first tap appear ignored.
+  if(!navLink){if(openOwner)closeTransientNavigation(openOwner);else closeTransientNavigation();}
   if(returnToFamily(event)){event.preventDefault();apply('dashboard');return;}
   if(event.target.closest?.('[data-mobile-more-close]')){event.preventDefault();closeTransientNavigation();return;}
   if(event.target.closest?.('[data-dock-search],[data-global-search]')){event.preventDefault();openGlobalSearch();}
@@ -122,9 +124,8 @@ document.addEventListener('toggle',event=>{const details=event.target;if(!(detai
 // shell synchronously. The nav-root observer is a compatibility firewall: if a
 // legacy renderer still writes #nav, the semantic shell is restored in the same
 // microtask and the root remains shell-owned for all delayed legacy relayouts.
-window.addEventListener('family-route-intent',event=>{closeTransientNavigation();previewRoute(event.detail?.route);});
+window.addEventListener('family-route-intent',event=>{previewRoute(event.detail?.route);});
 window.addEventListener('family-route-committed',event=>{closeTransientNavigation();apply(event.detail?.route||routeKey());});
-window.addEventListener('hashchange',()=>{closeTransientNavigation();apply(routeKey());});
 window.addEventListener('family-view-rendered',()=>apply(routeKey()));
 window.addEventListener('family-native-rendered',()=>apply(routeKey()));
 window.addEventListener('popstate',closeTransientNavigation);
