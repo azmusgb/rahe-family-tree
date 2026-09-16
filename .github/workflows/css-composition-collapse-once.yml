@@ -24,9 +24,9 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm ci --ignore-scripts --no-audit --no-fund
-      - name: Collapse safely superseded composition rules
+      - name: Collapse sequential composition overrides
         run: |
-          node scripts/css-forensics.mjs --fix-composition
+          node scripts/collapse-composition-pass.mjs
           node scripts/css-forensics.mjs --assert-composition-clean
       - name: Run CSS-sensitive regression tests
         run: node --test scripts/test-v16.mjs scripts/test-v16-2.mjs scripts/test-v17-1.mjs scripts/test-v17-2.mjs scripts/test-v17-3.mjs scripts/test-v17-4.mjs scripts/test-v18-6-ui.mjs scripts/test-v20-2-route-loader.mjs scripts/test-tree-advanced.mjs
@@ -37,9 +37,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src/styles/composition.css
-          if git diff --cached --quiet; then
-            echo "No composition changes"
-            exit 0
-          fi
-          git commit -m "Collapse safely superseded composition rules"
+          git commit -m "Collapse sequential composition overrides"
           git push origin HEAD:css-composition-collapse-v20-3
