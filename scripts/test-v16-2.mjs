@@ -90,7 +90,7 @@ test('family surfaces are content-first and retain readable metadata floors',()=
   assert.match(personStyles,/family-overview-card\.v159-person-overview[\s\S]*border:0!important/);
   assert.match(personStyles,/#content>\.panel[\s\S]*border-radius:0!important/);
   assert.match(mediaStyles,/media-library-note[\s\S]*background:transparent!important/);
-  assert.match(baseStyles,/font-size\s*:\s*max\(var\(--family-text-meta\),\s*12px\)\s*!important/);
+  assert.match(tokens,/--family-text-meta\s*:\s*\.75rem\s*;/);
   assert.match(treeStyles,/rgba\(23,63,53,\.012\)/);
   assert.match(responsiveStyles,/node-id\s*\{[\s\S]*?font-size\s*:\s*9px\s*!important/);
 });
