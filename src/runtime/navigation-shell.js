@@ -4,7 +4,7 @@ import{routeKeyFromLocation,routeDetailFromLocation}from'./navigation-runtime.js
 const routeKey=routeKeyFromLocation;
 const routeDetail=routeDetailFromLocation;
 const familyRoutes=new Set(['dashboard','tree','people','person','families','branch','media','stories','timeline','migration']);
-const transientSelector='.mobile-more[open],.mobile-more[open],.nav-menu[open],.nav-menu[open],.site-tools[open],.tools-menu[open]';
+const transientSelector='.mobile-more[open],.nav-menu[open],.site-tools[open],.tools-menu[open]';
 const persistedLinkData=new Map();
 let navObserver=null;
 function isResearchContext(route=routeKey()){if(researchRoutes.has(route))return true;if(familyRoutes.has(route))return false;return document.body.dataset.experience==='research';}
@@ -19,6 +19,13 @@ function preserveActions(menus){return menus?.querySelector('.page-actions--desk
 function routeFromLink(link){const href=link.getAttribute('href')||'';return href.startsWith('#')?href.slice(1).split('/')[0]:'';}
 function markCurrent(container,selector,key){container?.querySelectorAll(selector).forEach(link=>{const active=link.dataset.navKey===key||link.dataset.dockRoute===key||routeFromLink(link)===key;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});}
 function closeTransientNavigation(except=null){document.querySelectorAll(transientSelector).forEach(details=>{if(details===except)return;details.removeAttribute('open');details.querySelector(':scope > summary')?.setAttribute('aria-expanded','false');});}
+function scheduleNoopNavigationClose(link){
+  if(!link)return;
+  try{
+    const target=new URL(link.href,location.href);
+    if(target.origin===location.origin&&target.pathname===location.pathname&&target.search===location.search&&target.hash===location.hash)setTimeout(()=>closeTransientNavigation(),0);
+  }catch{}
+}
 function rememberPersistentLinks(root){
   if(!root)return;
   const anchors=[];
@@ -38,7 +45,7 @@ function ensureDesktopContainers(){
     nav.replaceChildren(primary,menus);
     if(actions)menus.append(actions);
   }
-  primary.classList.add('primary-nav','primary-nav');menus.classList.add('nav-menus','nav-menus');
+  primary.classList.add('primary-nav');menus.classList.add('nav-menus');
   nav.dataset.navigationOwner='shell';
   return{nav,primary,menus};
 }
@@ -103,10 +110,15 @@ function observeNavigationOwnership(){
 }
 
 document.addEventListener('click',event=>{
-  const openOwner=event.target.closest?.('.mobile-more,.nav-menu,.nav-menu,.site-tools,.tools-menu');
-  if(openOwner)closeTransientNavigation(openOwner);else closeTransientNavigation();
   const navLink=event.target.closest?.('#family-mobile-dock a[href^="#"],#nav a[href^="#"],.site-header .brand[href^="#"]');
-  if(navLink)closeTransientNavigation();
+  const openOwner=event.target.closest?.('.mobile-more,.nav-menu,.site-tools,.tools-menu');
+  // Keep the disclosure alive through the anchor's default activation. Safari
+  // can defer same-document hash navigation until after event dispatch; closing
+  // the ancestor during capture can make the first tap appear ignored. When a
+  // link targets the hash already selected there will be no committed-route
+  // event, so close transient UI in the next task instead.
+  if(!navLink){if(openOwner)closeTransientNavigation(openOwner);else closeTransientNavigation();}
+  else scheduleNoopNavigationClose(navLink);
   if(returnToFamily(event)){event.preventDefault();apply('dashboard');return;}
   if(event.target.closest?.('[data-mobile-more-close]')){event.preventDefault();closeTransientNavigation();return;}
   if(event.target.closest?.('[data-dock-search],[data-global-search]')){event.preventDefault();openGlobalSearch();}
@@ -122,9 +134,8 @@ document.addEventListener('toggle',event=>{const details=event.target;if(!(detai
 // shell synchronously. The nav-root observer is a compatibility firewall: if a
 // legacy renderer still writes #nav, the semantic shell is restored in the same
 // microtask and the root remains shell-owned for all delayed legacy relayouts.
-window.addEventListener('family-route-intent',event=>{closeTransientNavigation();previewRoute(event.detail?.route);});
+window.addEventListener('family-route-intent',event=>{previewRoute(event.detail?.route);});
 window.addEventListener('family-route-committed',event=>{closeTransientNavigation();apply(event.detail?.route||routeKey());});
-window.addEventListener('hashchange',()=>{closeTransientNavigation();apply(routeKey());});
 window.addEventListener('family-view-rendered',()=>apply(routeKey()));
 window.addEventListener('family-native-rendered',()=>apply(routeKey()));
 window.addEventListener('popstate',closeTransientNavigation);
