@@ -15,18 +15,16 @@ import './tree-controller.js';
 import './mobile-experience.js';
 import './mobile-ui-shell.js';
 
-// Presentation-only startup capabilities that still apply broadly. Stories and
-// research ingestion are true route-level capabilities bootstrapped by the
-// navigation runtime before its first committed-route event.
+// Presentation-only startup capabilities that still apply broadly. Route-bound
+// presentation modules are registered in route-capabilities.js and load only
+// after their committed route is active.
 const presentationModules=[
   import('./ui-resilience.js'),
   import('./site-branding.js'),
   import('./mobile-family-density.js'),
-  import('./mobile-home-polish.js'),
   import('./family-narrative.js'),
   import('./unified-family-experience.js'),
   import('./family-branches-v17-5.js'),
-  import('./person-experience-v17-3.js'),
   import('./experience-elevation-v17-4.js')
 ];
 
