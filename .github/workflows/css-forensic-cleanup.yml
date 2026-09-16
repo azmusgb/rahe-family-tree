@@ -1,0 +1,39 @@
+name: CSS forensic cleanup
+
+on:
+  push:
+    branches:
+      - css-forensic-cleanup-v20-1
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: css-forensic-cleanup-v20-1
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Apply conservative core cleanup
+        run: node scripts/css-forensics.mjs --fix-core --assert-core-clean
+      - name: Validate JavaScript syntax
+        run: node --check scripts/css-forensics.mjs
+      - name: Run regression suite
+        run: npm test
+      - name: Commit generated cleanup
+        run: |
+          if git diff --quiet -- src/styles/core.css; then
+            echo "No core.css changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/styles/core.css
+          git commit -m "Remove provably superseded core CSS rules"
+          git push origin HEAD:css-forensic-cleanup-v20-1
