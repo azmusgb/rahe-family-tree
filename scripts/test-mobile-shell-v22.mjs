@@ -30,3 +30,12 @@ test('mobile shell schedules one frame and observes only routed content',()=>{
   assert.match(mobile,/contentObserver\.observe\(content,\{childList:true,subtree:true\}\)/);
   assert.doesNotMatch(mobile,/observe\(document\.body/);
 });
+
+
+test('mobile people search handoff uses transient runtime state',()=>{
+  assert.doesNotMatch(mobile,/sessionStorage|PENDING_SEARCH_KEY|PENDING_FOCUS_KEY|attempt<20|tryFocus/);
+  assert.match(mobile,/let pendingPeopleSearchValue=''/);
+  assert.match(mobile,/let pendingPeopleSearchFocus=false/);
+  assert.match(mobile,/function consumePeopleSearchRequest\(\)/);
+  assert.match(mobile,/function focusPeopleSearch\(input\)/);
+});
