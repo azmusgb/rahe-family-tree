@@ -1,0 +1,3021 @@
+{
+  "generatedAt": "2026-09-16T16:59:43.878Z",
+  "files": [
+    "experience.css",
+    "home-responsive.css",
+    "interaction.css",
+    "mobile.css"
+  ],
+  "totals": {
+    "rules": 905,
+    "crossFileSelectorOverlaps": 23,
+    "ownerViolations": 290
+  },
+  "pairCounts": {
+    "experience.css <-> mobile.css": 7,
+    "interaction.css <-> mobile.css": 16
+  },
+  "overlaps": [
+    {
+      "selector": ".family-person-preview",
+      "files": [
+        "experience.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "experience.css",
+          "ancestry": [],
+          "body": "display:none",
+          "suggestedOwner": null
+        },
+        {
+          "file": "experience.css",
+          "ancestry": [
+            "@media(max-width:760px)"
+          ],
+          "body": "position:fixed;left:max(8px,env(safe-area-inset-left,0px));right:max(8px,env(safe-area-inset-right,0px));bottom:calc(74px + env(safe-area-inset-bottom,0px));z-index:2147483010;display:grid;gap:12px;max-height:62dvh;overflow:auto;padding:8px 14px 14px;border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:0 26px 80px rgba(13,35,28,.32)",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "position:fixed!important;left:8px!important;right:8px!important;bottom:calc(82px + env(safe-area-inset-bottom,0px))!important;z-index:2147483100!important;max-height:70dvh;padding:10px 16px 18px!important;border:1px solid var(--app-border)!important;border-radius:28px!important;background:var(--app-paper)!important;box-shadow:0 30px 90px rgba(12,39,31,.34)!important",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": ".family-person-preview-actions",
+      "files": [
+        "experience.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "experience.css",
+          "ancestry": [
+            "@media(max-width:760px)"
+          ],
+          "body": "display:grid;grid-template-columns:1fr 1fr;gap:8px",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "display:grid!important;grid-template-columns:1fr 1fr;gap:8px",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": ".family-person-preview-handle",
+      "files": [
+        "experience.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "experience.css",
+          "ancestry": [
+            "@media(max-width:760px)"
+          ],
+          "body": "width:42px;height:4px;margin:2px auto 0;border-radius:999px;background:var(--line-strong)",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "width:42px;height:5px;margin:0 auto 14px;border-radius:999px;background:#c7cbc6",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": ".family-person-preview-head h2",
+      "files": [
+        "experience.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "experience.css",
+          "ancestry": [
+            "@media(max-width:760px)"
+          ],
+          "body": "margin:1px 0 2px;font-size:1.24rem",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "font-size:30px;line-height:.95",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "#family-mobile-dock .mobile-more>div",
+      "files": [
+        "experience.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "experience.css",
+          "ancestry": [
+            "@media(max-width:720px)"
+          ],
+          "body": "position:fixed; left:max(10px,env(safe-area-inset-left,0px)); right:max(10px,env(safe-area-inset-right,0px)); bottom:calc(78px + env(safe-area-inset-bottom,0px)); z-index:2147483005; display:grid; grid-template-columns:1fr; gap:4px; max-height:min(68dvh,620px); overflow:auto; overscroll-behavior:contain; padding:10px 10px max(12px,env(safe-area-inset-bottom,0px)); border:1px solid var(--line); border-radius:22px; background:var(--surface,#fff); box-shadow:0 24px 72px rgba(13,35,28,.28); transform-origin:bottom center;",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "experience.css",
+          "ancestry": [
+            "@media(max-width:430px)"
+          ],
+          "body": "left:7px; right:7px; bottom:calc(72px + env(safe-area-inset-bottom,0px)); border-radius:20px;",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "max-height:min(72dvh,620px);overflow:auto;overscroll-behavior:contain",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "#family-mobile-dock:not([hidden])",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "position:fixed;left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));z-index:100;min-height:68px;padding:7px 8px;display:grid;grid-template-columns:1fr 1.16fr 1fr 1fr 1fr;align-items:center;border:1px solid rgba(23,63,53,.14);border-radius:24px;background:rgba(250,247,239,.94);backdrop-filter:blur(22px) saturate(1.15);box-shadow:0 18px 50px rgba(12,39,31,.22),0 2px 8px rgba(12,39,31,.08);isolation:isolate",
+          "suggestedOwner": "interaction.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "left:10px;right:10px;bottom:max(8px,env(safe-area-inset-bottom,0px));z-index:2147483000;min-height:70px;padding:6px;grid-template-columns:repeat(5,1fr);border:1px solid rgba(23,63,53,.12);border-radius:24px;background:rgba(255,253,248,.96);-webkit-backdrop-filter:blur(24px) saturate(1.12);backdrop-filter:blur(24px) saturate(1.12);box-shadow:0 18px 50px rgba(12,39,31,.22)",
+          "suggestedOwner": "interaction.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media(max-width:390px)"
+          ],
+          "body": "left:7px;right:7px",
+          "suggestedOwner": "interaction.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "left:8px!important;right:8px!important; bottom:calc(5px + env(safe-area-inset-bottom,0px))!important; min-height:62px!important; padding:5px!important; gap:3px!important; border-radius:20px!important; box-shadow:0 10px 28px rgba(12,39,31,.18)!important;",
+          "suggestedOwner": "interaction.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:430px)"
+          ],
+          "body": "left:5px!important;right:5px!important",
+          "suggestedOwner": "interaction.css"
+        }
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "selector": "#family-mobile-dock>a,#family-mobile-dock>details>summary",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "position:relative;z-index:2;min-width:0;min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:0;border-radius:16px;background:transparent;color:#53645d;text-decoration:none;font-size:10px;font-weight:760;list-style:none;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "min-height:56px;gap:5px;border-radius:17px;font-size:9px;font-weight:780;letter-spacing:.01em;color:#637069;touch-action:manipulation",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "#family-mobile-dock>a::before,#family-mobile-dock>details>summary::before",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "font-family:system-ui;font-size:18px;line-height:1;color:#29483e;pointer-events:none",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "font-size:0;width:21px;height:21px;background:currentColor;mask-position:center;mask-repeat:no-repeat;mask-size:contain;-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:contain;content:''",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "#family-mobile-dock>a[aria-current=\"page\"],#family-mobile-dock>a.active",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "background:#e8eee9;color:#173f35",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "background:#e9eee9;color:#173f35",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "#family-mobile-dock>a[data-dock-route=\"dashboard\"]::before",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "content:'⌂'",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "mask-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 11.2 12 4l9 7.2V21h-6v-6H9v6H3z'/%3E%3C/svg%3E\");-webkit-mask-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 11.2 12 4l9 7.2V21h-6v-6H9v6H3z'/%3E%3C/svg%3E\")",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "#family-mobile-dock>a[data-dock-route=\"families\"]::before",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "content:'♧'",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "mask-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8ZM4 20c0-4 3.6-6.5 8-6.5S20 16 20 20v1H4z'/%3E%3C/svg%3E\");-webkit-mask-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8ZM4 20c0-4 3.6-6.5 8-6.5S20 16 20 20v1H4z'/%3E%3C/svg%3E\")",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "#family-mobile-dock>a[data-dock-route=\"people\"]::before",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "content:'◉'",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "mask-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8-1a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM1 21v-2c0-3.8 3.1-6 7-6s7 2.2 7 6v2zm14-7c4.5.2 8 2.2 8 5.5V21h-6v-2c0-2-.7-3.7-2-5Z'/%3E%3C/svg%3E\");-webkit-mask-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8-1a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM1 21v-2c0-3.8 3.1-6 7-6s7 2.2 7 6v2zm14-7c4.5.2 8 2.2 8 5.5V21h-6v-2c0-2-.7-3.7-2-5Z'/%3E%3C/svg%3E\")",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "#family-mobile-dock>a[data-dock-route=\"tree\"]",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "min-height:60px;margin-top:-18px;border:5px solid #f8f4ea;border-radius:20px;background:#173f35;color:#fff;box-shadow:0 10px 24px rgba(16,54,43,.28)",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "min-height:62px;margin:-18px 2px 0;border:5px solid #f3efe5;border-radius:22px;background:#173f35;color:#fff;box-shadow:0 11px 25px rgba(16,54,43,.3)",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "grid-column:3;grid-row:1;transform:translateY(-3px)",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "#family-mobile-dock>a[data-dock-route=\"tree\"]::before",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "content:'⌘'",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "color:#fff;font-size:21px",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "mask-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11 3h2v5h5v2h-5v4h4v7h-2v-5H9v5H7v-7h4v-4H6V8h5z'/%3E%3C/svg%3E\");-webkit-mask-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11 3h2v5h5v2h-5v4h4v7h-2v-5H9v5H7v-7h4v-4H6V8h5z'/%3E%3C/svg%3E\")",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "width:24px;height:24px;color:#fff",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "#family-mobile-dock>a[data-dock-route=\"tree\"][aria-current=\"page\"],#family-mobile-dock>a[data-dock-route=\"tree\"].active",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "background:#214f42;color:#fff",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "background:#245346;color:#fff",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "#family-mobile-dock>details>summary::before",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "content:'•••';letter-spacing:1px",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "mask-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='5' cy='12' r='2'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3Ccircle cx='19' cy='12' r='2'/%3E%3C/svg%3E\");-webkit-mask-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='5' cy='12' r='2'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3Ccircle cx='19' cy='12' r='2'/%3E%3C/svg%3E\")",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "body.v21-actual-mobile-ui",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media(max-width:720px)"
+          ],
+          "body": "padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "--actual-header-h:64px; --actual-context-h:42px; --actual-canvas:#f3eee3; --actual-paper:#fffdf8; --actual-forest:#123f34; --actual-ink:#192820; --actual-muted:#66716a; --actual-sage:#e7efe9; --actual-label:#735f35; --actual-line:#ddd9ce; --actual-brass:#c9ad68; --actual-shadow-soft:0 7px 22px rgba(18,47,39,.06); --actual-shadow-card:0 12px 30px rgba(18,47,39,.08); --actual-cream:var(--actual-canvas); --actual-green:var(--actual-forest); background:var(--actual-canvas); color:var(--actual-ink);",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "body[data-experience=\"family\"]",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "padding-bottom:96px",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "padding:0 0 calc(104px + env(safe-area-inset-bottom,0px));background:#f3efe5;color:#183028",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (min-width:721px) and (max-width:1023px)"
+          ],
+          "body": "--tablet-gutter:24px",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))!important;",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "body[data-experience=\"family\"] .site-header-actions",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (min-width:721px)"
+          ],
+          "body": "display:flex;align-items:center",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (min-width:721px)"
+          ],
+          "body": "margin-left:auto",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "display:flex!important;margin:0",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "body[data-experience=\"family\"] .site-header-actions button",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (min-width:721px)"
+          ],
+          "body": "gap:7px;font:inherit",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (min-width:721px)"
+          ],
+          "body": "min-height:40px; padding-inline:13px; border-color:rgba(255,255,255,.20); background:rgba(255,255,255,.065); color:#f0f5f2;",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "width:42px;height:42px;min-height:42px;padding:0;display:grid;place-items:center;border:1px solid rgba(23,63,53,.11);border-radius:50%;background:#fffdf8;color:#173f35;box-shadow:0 3px 12px rgba(18,47,39,.06)",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "body[data-experience=\"family\"] .site-header.sidebar",
+      "files": [
+        "interaction.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "interaction.css",
+          "ancestry": [
+            "@media (min-width:721px)"
+          ],
+          "body": "min-height:74px;height:74px;padding:0 22px;gap:18px;background:linear-gradient(115deg,#102f28 0%,#173f35 58%,#1d4a3e 100%);border-bottom:1px solid rgba(255,255,255,.12);box-shadow:0 12px 36px rgba(9,28,23,.18)",
+          "suggestedOwner": "mobile.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "position:sticky;top:0;z-index:90;height:58px;min-height:58px;width:100%; display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px; padding:calc(4px + env(safe-area-inset-top,0px)) var(--mobile-gutter) 4px; border:0;border-bottom:1px solid rgba(23,63,53,.09); background:rgba(247,243,234,.9);-webkit-backdrop-filter:blur(20px) saturate(1.1);backdrop-filter:blur(20px) saturate(1.1); box-shadow:none;",
+          "suggestedOwner": "mobile.css"
+        }
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "selector": "body[data-route=\"tree\"] #content.mobile-tree-surface",
+      "files": [
+        "experience.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "experience.css",
+          "ancestry": [
+            "@media(max-width:720px)"
+          ],
+          "body": "display:flex; flex-direction:column; gap:8px; width:100%; max-width:100%; min-width:0; overflow-x:hidden;",
+          "suggestedOwner": "experience.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "min-height:calc(100dvh - var(--app-header) - var(--app-context) - 88px)",
+          "suggestedOwner": "experience.css"
+        }
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "selector": "body[data-route=\"tree\"] #content.mobile-tree-surface .v161-tree-toolbar",
+      "files": [
+        "experience.css",
+        "mobile.css"
+      ],
+      "occurrences": [
+        {
+          "file": "experience.css",
+          "ancestry": [
+            "@media(max-width:720px)"
+          ],
+          "body": "position:sticky; top:0; z-index:24; width:100%; max-width:100%; min-width:0; box-sizing:border-box; margin:0; padding:8px 8px 7px; border:1px solid var(--line); border-radius:14px; background:rgba(250,248,242,.96); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); box-shadow:0 8px 22px rgba(18,47,39,.08);",
+          "suggestedOwner": "experience.css"
+        },
+        {
+          "file": "mobile.css",
+          "ancestry": [
+            "@media (max-width:720px)"
+          ],
+          "body": "top:58px;border-radius:16px;background:rgba(247,243,234,.94)",
+          "suggestedOwner": "experience.css"
+        }
+      ],
+      "suggestedOwner": "experience.css"
+    }
+  ],
+  "ownerViolations": [
+    {
+      "file": "experience.css",
+      "selector": ":where(#family-mobile-dock,.mobile-more-backdrop,.v161-tree-toolbar) :focus-visible",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-graph-commandbar *",
+      "ancestry": [
+        "@media(prefers-reduced-motion:reduce)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-graph-scope-tabs button:focus-visible,.family-graph-depth button:focus-visible,.family-graph-commandbar summary:focus-visible,.family-graph-commandbar select:focus-visible,.family-graph-commandbar button:focus-visible",
+      "ancestry": [],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-lineage-generation",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-lineage-generations",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-lineage-generations",
+      "ancestry": [
+        "@media(prefers-reduced-motion:reduce)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-lineage-person button",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-lineage-rail",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-lineage-rail-head",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-lineage-rail-head small",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview-actions",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview-actions a",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview-actions button,.family-person-preview-actions a",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview-handle",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview-head",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview-head button",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview-head h2",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview-head p",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview-meta",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview-meta span",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview,#family-graph .graph-node.family-graph-direct>rect",
+      "ancestry": [
+        "@media(prefers-reduced-motion:reduce)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".family-person-preview::before",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".mobile-more-backdrop",
+      "ancestry": [],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".mobile-more-backdrop:not([hidden])",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".mobile-more-backdrop[hidden]",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".mobile-more-head",
+      "ancestry": [],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".mobile-more-head",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".mobile-more-head button",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".mobile-more-head strong",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": ".relationship-path-card *",
+      "ancestry": [
+        "@media(prefers-reduced-motion:reduce)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": "#family-mobile-dock .mobile-more",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": "#family-mobile-dock .mobile-more:not([open])>div",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": "#family-mobile-dock .mobile-more[open]>summary",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": "#family-mobile-dock .mobile-more>div",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": "#family-mobile-dock .mobile-more>div",
+      "ancestry": [
+        "@media(max-width:430px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": "#family-mobile-dock .mobile-more>div>a, #family-mobile-dock .mobile-more>div>button",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": "#family-mobile-dock .mobile-more>div>a:active, #family-mobile-dock .mobile-more>div>button:active",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": "#family-mobile-dock .mobile-more>summary",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": "#family-mobile-dock .mobile-more>summary::-webkit-details-marker",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": "body.family-preview-open",
+      "ancestry": [
+        "@media(max-width:760px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": "body.mobile-sheet-open",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": "body[data-route=\"people\"] .route-shell",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": "body[data-route=\"people\"] .route-shell .search input",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "experience.css",
+      "selector": "html,body",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": ":where(.nav-menu,.site-tools,.mobile-more)>summary",
+      "ancestry": [],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": ":where(.nav-menu,.site-tools,.mobile-more)>summary::-webkit-details-marker",
+      "ancestry": [],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": ":where(.nav-menu,.site-tools,.mobile-more)>summary::marker",
+      "ancestry": [],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": ":where(.nav-popover,.site-tools>div,.mobile-more>div)",
+      "ancestry": [],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": ".filters",
+      "ancestry": [
+        "@media(max-width:800px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": ".relationship-row",
+      "ancestry": [
+        "@media(max-width:1180px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": ".relationship-row",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": ".relationship-row small,.relationship-row .deep-link",
+      "ancestry": [
+        "@media(max-width:1180px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": ".relationship-row small,.relationship-row .deep-link",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": ".relationship-row>b",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": ".v174-tree-context",
+      "ancestry": [],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock :where(a,summary,button)",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock .v158-mobile-more",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock .v158-mobile-more:not([open])>div",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock .v158-mobile-more[open]>div",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock .v158-mobile-more>div",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock .v158-mobile-more>div :where(a,button)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock .v158-mobile-more>div [data-dock-search]",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock .v158-mobile-more>summary::-webkit-details-marker",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock>a,#family-mobile-dock>details>summary",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock>a::before,#family-mobile-dock>details>summary::before",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock>a[aria-current=\"page\"],#family-mobile-dock>a.active",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock>a[data-dock-route=\"dashboard\"]::before",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock>a[data-dock-route=\"families\"]::before",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock>a[data-dock-route=\"people\"]::before",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock>a[data-dock-route=\"tree\"]",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock>a[data-dock-route=\"tree\"]::before",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock>a[data-dock-route=\"tree\"]::before",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock>a[data-dock-route=\"tree\"][aria-current=\"page\"],#family-mobile-dock>a[data-dock-route=\"tree\"].active",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock>a>span,#family-mobile-dock>details>summary",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "#family-mobile-dock>details>summary::before",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "body.v21-actual-mobile-ui",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "body.v21-actual-mobile-ui[data-route=\"tree\"]",
+      "ancestry": [
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "body[data-experience=\"family\"]",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "body[data-experience=\"family\"] .site-header-actions",
+      "ancestry": [
+        "@media (min-width:721px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "body[data-experience=\"family\"] .site-header-actions",
+      "ancestry": [
+        "@media (min-width:721px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "body[data-experience=\"family\"] .site-header-actions button",
+      "ancestry": [
+        "@media (min-width:721px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "body[data-experience=\"family\"] .site-header-actions button",
+      "ancestry": [
+        "@media (min-width:721px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "body[data-experience=\"family\"] .site-header.sidebar",
+      "ancestry": [
+        "@media (min-width:721px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "body[data-experience=\"family\"] .v151-nav-menu>summary,body[data-experience=\"family\"] .v158-research-entry,body[data-experience=\"family\"] .site-header-actions button",
+      "ancestry": [
+        "@media (min-width:721px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "interaction.css",
+      "selector": "body[data-experience=\"family\"] .v151-nav-menu>summary:hover,body[data-experience=\"family\"] .v158-research-entry:hover,body[data-experience=\"family\"] .site-header-actions button:hover",
+      "ancestry": [
+        "@media (min-width:721px)"
+      ],
+      "suggestedOwner": "mobile.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": ".v20-context-bar,#family-mobile-dock,.family-person-preview",
+      "ancestry": [
+        "@media (prefers-reduced-motion:reduce)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": ".v20-context-bar[hidden]",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": ".v21-mobile-search,.v21-mobile-launcher,.v21-person-quick-actions,.v21-tree-mode-bar",
+      "ancestry": [
+        "@media (min-width:721px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": ".v21-tree-mode-bar",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": ".v21-tree-mode-bar button",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": ".v21-tree-mode-bar span",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": ".v21-tree-mode-bar strong",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": ".v21-tree-mode-bar>div:last-child",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "*",
+      "ancestry": [
+        "@media(prefers-reduced-motion:reduce)",
+        "@media(max-width:720px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "#family-mobile-dock:not([hidden])",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "#family-mobile-dock:not([hidden])",
+      "ancestry": [
+        "@media(max-width:390px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "#family-mobile-dock:not([hidden])",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "#family-mobile-dock:not([hidden])",
+      "ancestry": [
+        "@media (max-width:430px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "#family-mobile-dock[data-actual-mobile-order=\"home-families-tree-people-more\"]",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body:not([data-route=\"dashboard\"])[data-experience=\"family\"] .route-shell",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body:not([data-route=\"dashboard\"])[data-experience=\"family\"] .route-shell .filters",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body:not([data-route=\"dashboard\"])[data-experience=\"family\"] .route-shell .filters .search",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body:not([data-route=\"dashboard\"])[data-experience=\"family\"] .route-shell .filters .search input",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body:not([data-route=\"dashboard\"])[data-experience=\"family\"] .route-shell .filters>button",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body:not([data-route=\"dashboard\"])[data-experience=\"family\"] .route-shell .filters>label:not(.search)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body:not([data-route=\"dashboard\"])[data-experience=\"family\"] .route-shell .page-heading",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body:not([data-route=\"dashboard\"])[data-experience=\"family\"] .route-shell .page-heading .eyebrow,body:not([data-route=\"dashboard\"])[data-experience=\"family\"] .route-shell .version",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body:not([data-route=\"dashboard\"])[data-experience=\"family\"] .route-shell .page-heading h1",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body:not([data-route=\"dashboard\"])[data-experience=\"family\"] .route-shell .page-heading p",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body:not([data-route=\"dashboard\"])[data-experience=\"family\"] .route-shell[data-page-layout=\"browse\"]",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body:not([data-route=\"dashboard\"])[data-experience=\"family\"] #content",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v20-mobile-app :where(button,a,summary):focus-visible",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v20-mobile-app *",
+      "ancestry": [
+        "@media (max-width:720px) and (prefers-reduced-motion:reduce)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v20-mobile-app #family-mobile-dock:not([hidden])",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v20-mobile-app:not([data-route=\"dashboard\"]) .route-shell .filters .search",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v20-mobile-app:not([data-route=\"dashboard\"]) .route-shell .filters .search input",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v20-mobile-app:not([data-route=\"dashboard\"]) .route-shell .filters:not([hidden])",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v20-mobile-app:not([data-route=\"dashboard\"]) .route-shell .filters[hidden]",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v20-mobile-app:not([data-route=\"dashboard\"]) .route-shell .filters>label:not(.search), body.v20-mobile-app:not([data-route=\"dashboard\"]) .route-shell .filters>button",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v20-mobile-app:not([data-route=\"dashboard\"]) .route-shell .page-heading",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v20-mobile-app:not([data-route=\"dashboard\"]) .site-footer",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v20-mobile-app:not([data-route=\"dashboard\"]):not([data-route=\"tree\"]) .route-shell",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v21-actual-mobile-ui #mobile-app-header[hidden]",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v21-actual-mobile-ui:not([data-route=\"dashboard\"]):not([data-route=\"tree\"]) .v20-context-bar strong, body.v21-actual-mobile-ui:not([data-route=\"dashboard\"]):not([data-route=\"tree\"]) .v20-context-bar>a, body.v21-actual-mobile-ui:not([data-route=\"dashboard\"]):not([data-route=\"tree\"]) .v20-context-bar>button",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v21-actual-mobile-ui:not([data-route=\"dashboard\"]):not([data-route=\"tree\"]) .v20-context-bar:not([hidden])",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body.v21-actual-mobile-ui:not([data-route=\"dashboard\"]):not([data-route=\"tree\"]) .v20-context-bar>a, body.v21-actual-mobile-ui:not([data-route=\"dashboard\"]):not([data-route=\"tree\"]) .v20-context-bar>button",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-experience=\"family\"] #content :where(.v17-home-section,.v17-home-tree,.v17-home-story,.v17-home-stories,.v17-home-people,.v17-home-branches,.v17-home-research,.v17-home-places)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-experience=\"family\"][data-route=\"dashboard\"].v20-mobile-app .v17-home-tree-row",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-experience=\"family\"][data-route=\"dashboard\"].v20-mobile-app .v17-home-tree-row .v17-relative",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] :where(.v17-home-tree,.v17-home-story,.v17-featured-people,.v17-home-media,.v17-research-door)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .route-shell",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .route-shell .filters",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .route-shell .filters>label:not(.search),body[data-route=\"dashboard\"] .route-shell .filters>button",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .route-shell .page-heading,body[data-route=\"dashboard\"] .route-shell #status",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .route-shell .search",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .route-shell .search input",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-hero",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-hero .eyebrow",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-hero .eyebrow",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-hero .v17-home-metrics",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-hero .v17-home-metrics",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-hero .v17-primary-actions",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-hero h1",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-hero h1",
+      "ancestry": [
+        "@media(max-width:390px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-hero h2",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-hero h2",
+      "ancestry": [
+        "@media (max-width:720px)",
+        "@media(max-width:374px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-hero p:not(.eyebrow)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-hero>div",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-hero>div>p:not(.eyebrow)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-metrics b",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-metrics b",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-metrics small",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-metrics small",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-metrics span",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-metrics span:first-child",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-metrics span:last-child",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-people-grid",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-people-grid",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-person",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-person",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-person em",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-person p",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-person>button",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-tree",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-tree-canvas",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-tree-canvas",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-tree-canvas>i",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-home-tree-row .v17-avatar.small",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-place-strip",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-primary-actions",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-primary-actions .action",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-primary-actions .action.primary",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-research-door",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-research-door :where(h2,p,.eyebrow)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-section-head",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-section-head",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-section-head h2",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-section-head h2",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-section-head>a",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-section-head>a",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-section-head>div>p:not(.eyebrow)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-story-moment",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-story-moment",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-story-moment h3",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-story-moment p, body[data-route=\"dashboard\"] .v17-story-moment small",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-story-moment time",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-story-moments",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] .v17-story-moments",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] [data-v17-native=\"home\"]",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] [data-v17-native=\"home\"]>.v17-home-hero",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"] #content>[data-v17-native=\"home\"],body[data-route=\"dashboard\"] #content>.v17-home",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .site-footer",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .site-header .brand .monogram",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .site-header .brand, body[data-route=\"dashboard\"].v20-mobile-app .site-header .brand>span:last-child, body[data-route=\"dashboard\"].v20-mobile-app .site-header .brand small",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .site-header-actions button",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .site-header.sidebar",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-home-hero .eyebrow",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-home-hero h2, body[data-route=\"dashboard\"].v20-mobile-app .v17-home-hero h1",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-home-hero::after",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-home-hero::before",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-home-hero>div>p:not(.eyebrow)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-home-metrics",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-home-metrics b",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-home-metrics small",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-home-metrics span",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-home-people-grid",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-home-person",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-home-tree-canvas",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-primary-actions",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-primary-actions .action",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-primary-actions .action.primary",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-primary-actions .action.primary::after",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-research-door",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-section-head h2",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-story-moment",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v17-story-moments",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v20-continue-card",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v20-continue-card :where(h2,p,span)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v20-continue-card>a",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v20-continue-card>div>span",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v20-recent-person",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v20-recent-person:nth-child(even)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v20-recent-person>span",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v20-recent-rail",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app .v20-recent-scroller",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app [data-v17-native=\"home\"]>.v17-home-hero",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app [data-v17-native=\"home\"]>.v17-home-hero",
+      "ancestry": [
+        "@media (max-width:720px)",
+        "@media (min-width:430px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app #content :where(.v17-home-story,.v17-featured-people)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app #content :where(.v17-home-tree,.v17-home-media)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app #content :where(.v17-home-tree,.v17-home-story,.v17-featured-people,.v17-home-media,.v17-research-door)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v20-mobile-app #content :where(.v17-home-tree,.v17-home-story,.v17-featured-people,.v17-home-media,.v17-research-door), body[data-route=\"dashboard\"].v21-actual-mobile-ui #content :where(.v17-home-tree,.v17-home-story,.v17-featured-people,.v17-home-media,.v17-research-door)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .mobile-app-heading strong",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .mobile-app-mark, body[data-route=\"dashboard\"].v21-actual-mobile-ui .mobile-app-search",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-home-hero .eyebrow",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-home-hero .eyebrow, body[data-route=\"dashboard\"].v20-mobile-app .v17-home-hero .eyebrow",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-home-hero h1, body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-home-hero h2",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-home-hero h1, body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-home-hero h2, body[data-route=\"dashboard\"].v20-mobile-app .v17-home-hero h1, body[data-route=\"dashboard\"].v20-mobile-app .v17-home-hero h2",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-home-hero h1, body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-home-hero h2, body[data-route=\"dashboard\"].v20-mobile-app .v17-home-hero h1, body[data-route=\"dashboard\"].v20-mobile-app .v17-home-hero h2",
+      "ancestry": [
+        "@media (max-width:430px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-home-hero::after, body[data-route=\"dashboard\"].v20-mobile-app .v17-home-hero::after",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-home-hero::before, body[data-route=\"dashboard\"].v20-mobile-app .v17-home-hero::before",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-home-hero>div>p:not(.eyebrow)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-home-hero>div>p:not(.eyebrow), body[data-route=\"dashboard\"].v20-mobile-app .v17-home-hero>div>p:not(.eyebrow)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-home-tree-canvas, body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-home-person, body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-story-moment",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-research-door",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v17-research-door :where(h2,p,.eyebrow,a)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v20-context-bar, body[data-route=\"tree\"].v21-actual-mobile-ui .v20-context-bar",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v20-continue-card",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v20-continue-card :where(h2,p,span)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v20-continue-card>a",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v20-continue-card>div>span",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v20-recent-person, body[data-route=\"dashboard\"].v21-actual-mobile-ui .v20-recent-person:nth-child(even)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v20-recent-person>span",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v20-recent-rail",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v21-launcher-heading h2",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v21-launcher-heading p",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v21-mobile-launcher",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v21-mobile-launcher .v17-primary-actions",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v21-mobile-launcher .v17-primary-actions .action",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v21-mobile-launcher .v17-primary-actions .action.primary",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v21-mobile-search",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v21-mobile-search button",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v21-mobile-search input",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v21-mobile-search label>div",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui .v21-mobile-search label>span",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui [data-v17-native=\"home\"]>.v17-home-hero",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui [data-v17-native=\"home\"]>.v17-home-hero, body[data-route=\"dashboard\"].v20-mobile-app [data-v17-native=\"home\"]>.v17-home-hero",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui [data-v17-native=\"home\"]>.v17-home-hero, body[data-route=\"dashboard\"].v20-mobile-app [data-v17-native=\"home\"]>.v17-home-hero",
+      "ancestry": [
+        "@media (max-width:430px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui [data-v21-surface]",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui [data-v21-surface]::before",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui #content :where(.v17-home-tree,.v17-home-story,.v17-featured-people,.v17-home-media)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui #main>.route-shell",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"dashboard\"].v21-actual-mobile-ui #mobile-app-header",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "home-responsive.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"person\"] [data-v20-person-panel][hidden]",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "interaction.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"tree\"] :where(.graph-shell,.tree-graph-shell)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"tree\"] :where(.v17-native,.v17-tree,.tree-view,.tree-page)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"tree\"] .family-graph-summary",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"tree\"] .family-graph-summary .family-graph-key",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"tree\"] .v161-tree-toolbar",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"tree\"] .v161-tree-toolbar button",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"tree\"] #content.mobile-tree-surface",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"tree\"] #content.mobile-tree-surface :where(.graph-shell,.tree-graph-shell)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"tree\"] #content.mobile-tree-surface .v161-tree-toolbar",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"tree\"].v20-mobile-app .family-graph-tools",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"tree\"].v20-mobile-app .graph-shell, body[data-route=\"tree\"].v20-mobile-app .tree-graph-shell",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"tree\"].v20-mobile-app .v174-tree-context",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"tree\"].v21-actual-mobile-ui :where(.graph-shell,.tree-graph-shell)",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    },
+    {
+      "file": "mobile.css",
+      "selector": "body[data-route=\"tree\"].v21-actual-mobile-ui .v174-tree-context",
+      "ancestry": [
+        "@media (max-width:720px)"
+      ],
+      "suggestedOwner": "experience.css"
+    }
+  ]
+}
