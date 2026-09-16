@@ -31,7 +31,8 @@ function syncDedicatedHeader(){
   header.hidden=!mobileViewport;
   if(siteHeader){
     siteHeader.hidden=mobileViewport;
-    siteHeader.setAttribute('aria-hidden',String(mobileViewport));
+    if(mobileViewport)siteHeader.setAttribute('aria-hidden','true');
+    else siteHeader.removeAttribute('aria-hidden');
   }
   if(!mobileViewport){
     document.body.classList.remove('v21-actual-mobile-ui');
