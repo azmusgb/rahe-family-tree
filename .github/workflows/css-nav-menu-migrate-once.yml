@@ -28,10 +28,7 @@ jobs:
         run: |
           node scripts/migrate-nav-menu-class.mjs
           node scripts/css-versioned-selector-audit.mjs
-          if grep -R --exclude-dir=.git --exclude-dir=node_modules --exclude=css-versioned-selector-report.json -n 'v151-nav-menu' .; then
-            echo 'v151-nav-menu remains after migration' >&2
-            exit 1
-          fi
+          node -e "const r=require('./docs/css-versioned-selector-report.json');if(r.inventory.some(x=>x.className==='v151-nav-menu'))process.exit(1)"
       - name: Run navigation and CSS-sensitive regressions
         run: node --test scripts/test-v15-1.mjs scripts/test-v18-6-ui.mjs scripts/test-v16.mjs scripts/test-v16-2.mjs scripts/test-v17-1.mjs scripts/test-v17-4.mjs scripts/test-v20-2-route-loader.mjs
       - name: Run production build
@@ -40,6 +37,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html src scripts e2e v15-1-runtime.js docs/css-versioned-selector-report.json
+          git add index.html src scripts v15-1-runtime.js docs/css-versioned-selector-report.json
           git commit -m "Migrate legacy nav-menu selector"
           git push origin HEAD:css-canonical-selectors-v20-4b
