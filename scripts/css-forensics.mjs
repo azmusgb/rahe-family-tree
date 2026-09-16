@@ -51,6 +51,9 @@ function scanTopLevelRules(css){
 }
 
 function parseDeclarations(body){
+  // Keep every declaration for a property in source order. Duplicate declarations
+  // are often intentional compatibility fallbacks, so collapsing them to the last
+  // value would make whole-rule deletion unsafe.
   const out=new Map();
   const source=body.replace(/\/\*[\s\S]*?\*\//g,' ');
   let quote='', escaped=false, paren=0, start=0;
@@ -77,12 +80,54 @@ function parseDeclarations(body){
     const value=decl.slice(colon+1).trim();
     const important=/!important\s*$/i.test(value);
     const comparableValue=value.replace(/!important\s*$/i,'').replace(/\s+/g,' ').trim();
-    out.set(property,{important,value,comparableValue});
+    const entries=out.get(property)||[];
+    entries.push({important,value,comparableValue});
+    out.set(property,entries);
   }
   return out;
 }
 
-function normalizeSelector(header){return header.replace(/\s+/g,' ').trim();}
+function normalizeSelector(header){
+  // Normalize insignificant whitespace without modifying quoted attribute/string
+  // values, where repeated spaces are semantically significant.
+  let out='';
+  let quote='', escaped=false, pendingSpace=false;
+  for(const c of header.trim()){
+    if(quote){
+      out+=c;
+      if(escaped){escaped=false;continue;}
+      if(c==='\\'){escaped=true;continue;}
+      if(c===quote)quote='';
+      continue;
+    }
+    if(c==='"'||c==="'"){
+      if(pendingSpace&&out&&!out.endsWith(' '))out+=' ';
+      pendingSpace=false;
+      quote=c;
+      out+=c;
+      continue;
+    }
+    if(/\s/.test(c)){
+      pendingSpace=true;
+      continue;
+    }
+    if(pendingSpace&&out&&!out.endsWith(' '))out+=' ';
+    pendingSpace=false;
+    out+=c;
+  }
+  return out.trim();
+}
+
+function declarationSequencesMatch(earlier,later){
+  if(!later||earlier.length!==later.length)return false;
+  for(let i=0;i<earlier.length;i++){
+    const source=earlier[i];
+    const replacement=later[i];
+    if((source.important&&!replacement.important)||
+       replacement.comparableValue!==source.comparableValue)return false;
+  }
+  return true;
+}
 
 function findSafelySuperseded(css){
   const rules=scanTopLevelRules(css).map(rule=>({...rule,selector:normalizeSelector(rule.header),decls:parseDeclarations(rule.body)}));
@@ -98,14 +143,12 @@ function findSafelySuperseded(css){
       for(let j=i+1;j<list.length;j++){
         const later=list[j];
         let fullyCovered=true;
-        for(const [prop,meta] of earlier.decls){
+        for(const [prop,sequence] of earlier.decls){
           const replacement=later.decls.get(prop);
-          // Automatic deletion is deliberately conservative: later declarations
-          // must preserve both priority and the effective value. Different modern
-          // syntax may rely on the earlier declaration as a compatibility fallback.
-          if(!replacement||
-             (meta.important&&!replacement.important)||
-             replacement.comparableValue!==meta.comparableValue){
+          // Automatic deletion is deliberately conservative: the later rule must
+          // preserve the complete declaration sequence (including fallbacks), the
+          // effective values, and equal-or-stronger priority for every occurrence.
+          if(!declarationSequencesMatch(sequence,replacement)){
             fullyCovered=false;
             break;
           }
