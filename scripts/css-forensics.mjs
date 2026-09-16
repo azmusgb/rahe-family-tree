@@ -52,9 +52,6 @@ function scanTopLevelRules(css){
 
 function parseDeclarations(body){
   const out=new Map();
-  // Remove comments before declaration tokenization. A comment may prefix a real
-  // declaration in the same semicolon-delimited segment, and skipping that whole
-  // segment could make the cleanup incorrectly believe a property is absent.
   const source=body.replace(/\/\*[\s\S]*?\*\//g,' ');
   let quote='', escaped=false, paren=0, start=0;
   const parts=[];
@@ -103,11 +100,9 @@ function findSafelySuperseded(css){
         let fullyCovered=true;
         for(const [prop,meta] of earlier.decls){
           const replacement=later.decls.get(prop);
-          // For automatic deletion, require the later declaration to preserve
-          // both priority and the actual value. Property-name coverage alone is
-          // not enough: a later color-mix(), var(), or other modern syntax may
-          // intentionally rely on the earlier declaration as a compatibility
-          // fallback in browsers that reject the newer value.
+          // Automatic deletion is deliberately conservative: later declarations
+          // must preserve both priority and the effective value. Different modern
+          // syntax may rely on the earlier declaration as a compatibility fallback.
           if(!replacement||
              (meta.important&&!replacement.important)||
              replacement.comparableValue!==meta.comparableValue){
@@ -122,7 +117,7 @@ function findSafelySuperseded(css){
   return removable.sort((a,b)=>b.start-a.start);
 }
 
-function cleanupCore(css){
+function cleanupFile(css){
   const removable=findSafelySuperseded(css);
   let next=css;
   for(const rule of removable){
@@ -138,32 +133,38 @@ function countSourceMarkers(css){return [...css.matchAll(/Source:\s*([^*\n]+\.cs
 function countLegacySelectors(css){return (css.match(/\.v\d{2,}[a-z0-9_-]*/gi)||[]).length;}
 function countImportant(css){return (css.match(/!important\b/g)||[]).length;}
 
+function fixBundle(file){
+  const full=path.join(stylesDir,file);
+  const original=fs.readFileSync(full,'utf8');
+  const {css,removed}=cleanupFile(original);
+  if(css!==original){
+    fs.writeFileSync(full,css);
+    console.log(`Removed ${removed.length} provably superseded top-level ${file} rule blocks.`);
+    for(const rule of removed)console.log(`  ${normalizeSelector(rule.header)}`);
+  }else console.log(`No provably superseded top-level ${file} rule blocks found.`);
+}
+
+function assertBundleClean(file){
+  const css=fs.readFileSync(path.join(stylesDir,file),'utf8');
+  const remaining=findSafelySuperseded(css);
+  if(remaining.length){
+    console.error(`${file} still contains ${remaining.length} safely removable top-level rule blocks.`);
+    for(const rule of remaining)console.error(`  ${normalizeSelector(rule.header)}`);
+    process.exitCode=1;
+  }
+}
+
+if(args.has('--fix-core'))fixBundle('core.css');
+if(args.has('--fix-composition'))fixBundle('composition.css');
+if(args.has('--assert-core-clean'))assertBundleClean('core.css');
+if(args.has('--assert-composition-clean'))assertBundleClean('composition.css');
+
 const report={generatedAt:new Date().toISOString(),files:{}};
 for(const file of liveFiles){
   const full=path.join(stylesDir,file);
   const css=fs.readFileSync(full,'utf8');
   const safe=findSafelySuperseded(css);
   report.files[file]={bytes:Buffer.byteLength(css),sourceSections:countSourceMarkers(css).length,legacySelectorArms:countLegacySelectors(css),importantDeclarations:countImportant(css),safelySupersededTopLevelRules:safe.length};
-}
-
-if(args.has('--fix-core')){
-  const full=path.join(stylesDir,'core.css');
-  const original=fs.readFileSync(full,'utf8');
-  const {css,removed}=cleanupCore(original);
-  if(css!==original){
-    fs.writeFileSync(full,css);
-    console.log(`Removed ${removed.length} provably superseded top-level core.css rule blocks.`);
-    for(const rule of removed)console.log(`  ${normalizeSelector(rule.header)}`);
-  }else console.log('No provably superseded top-level core.css rule blocks found.');
-}
-
-if(args.has('--assert-core-clean')){
-  const css=fs.readFileSync(path.join(stylesDir,'core.css'),'utf8');
-  const remaining=findSafelySuperseded(css);
-  if(remaining.length){
-    console.error(`core.css still contains ${remaining.length} safely removable top-level rule blocks.`);
-    process.exitCode=1;
-  }
 }
 
 console.log(JSON.stringify(report,null,2));
