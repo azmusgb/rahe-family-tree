@@ -6,6 +6,7 @@ const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience-core.js','utf8');
 const experienceRoot=fs.readFileSync('src/runtime/experience.js','utf8');
+const capabilities=fs.readFileSync('src/runtime/route-capabilities.js','utf8');
 const graph=fs.readFileSync('graph.js','utf8');
 const baseControls=fs.readFileSync('src/runtime/base-controls.js','utf8');
 const treeEngine=fs.readFileSync('src/runtime/tree-engine.js','utf8');
@@ -54,8 +55,12 @@ test('tree memory uses neutral keys while historical client preferences are migr
   assert.doesNotMatch(treeEngine,/data-v129-recent/);
 });
 
-test('unified family experience exposes peer branches on Home and Tree',()=>{
-  assert.match(experienceRoot,/unified-family-experience\.js/);
+test('unified family experience is route-loaded for Home and Tree and exposes peer branches',()=>{
+  assert.match(capabilities,/name:'unified-family-experience'[\s\S]*routes:\['dashboard','tree'\][\s\S]*import\('\.\/unified-family-experience\.js'\)/);
+  assert.doesNotMatch(experienceRoot,/import\('\.\/unified-family-experience\.js'\)/);
+  assert.match(unified,/import\{branchHref\}from'\.\/family-branches-v17-5\.js'/);
+  assert.doesNotMatch(unified,/function peopleHref\(/);
+  assert.match(unified,/href="\$\{esc\(branchHref\(branch\)\)\}"/);
   assert.match(unified,/function branchNames\(\)/);
   assert.match(unified,/function balancedFeatured\(limit=6\)/);
   assert.match(unified,/v172-home-branches/);
