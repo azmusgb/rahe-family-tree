@@ -7,9 +7,14 @@ const runtime=fs.readFileSync('src/runtime/navigation-runtime.js','utf8');
 
 test('navigation capture preserves disclosure hash links until route activation',()=>{
   assert.match(shell,/const navLink=event\.target\.closest/);
-  assert.match(shell,/if\(!navLink\)\{if\(openOwner\)closeTransientNavigation\(openOwner\);else closeTransientNavigation\(\);\}/);
+  assert.match(shell,/if\(!navLink\)\{if\(openOwner\)closeTransientNavigation\(openOwner\);else closeTransientNavigation\(\);\}\s*else scheduleNoopNavigationClose\(navLink\);/);
   assert.doesNotMatch(shell,/if\(navLink\)closeTransientNavigation\(\)/);
   assert.match(shell,/family-route-intent',event=>\{previewRoute\(event\.detail\?\.route\);\}/);
+});
+
+test('same-route navigation closes transient disclosures after activation',()=>{
+  assert.match(shell,/function scheduleNoopNavigationClose\(link\)/);
+  assert.match(shell,/target\.hash===location\.hash\)setTimeout\(\(\)=>closeTransientNavigation\(\),0\);/);
 });
 
 test('same-document route clicks yield before expensive hashchange work begins',()=>{
