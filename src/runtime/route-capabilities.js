@@ -26,3 +26,9 @@ registerRouteCapability({
   routes:['dashboard'],
   load:()=>import('./mobile-home-polish.js')
 });
+
+registerRouteCapability({
+  name:'family-narrative',
+  routes:['dashboard','people','person','media'],
+  load:()=>import('./family-narrative.js')
+});
