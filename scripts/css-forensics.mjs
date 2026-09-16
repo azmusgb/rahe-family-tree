@@ -197,6 +197,37 @@ function assertBundleClean(file){
   }
 }
 
+function runSelfTest(){
+  const cases=[
+    {
+      name:'quoted selector whitespace remains distinct',
+      css:'[data-label="a  b"]{color:red}[data-label="a b"]{color:red}',
+      expected:0,
+    },
+    {
+      name:'fallback sequence is not replaced by modern-only declaration',
+      css:'.fallback{color:red;color:color-mix(in srgb,red 50%,blue)}.fallback{color:color-mix(in srgb,red 50%,blue)}',
+      expected:0,
+    },
+    {
+      name:'identical single declaration is removable',
+      css:'.same{color:red}.same{color:red}',
+      expected:1,
+    },
+    {
+      name:'identical fallback sequence is removable',
+      css:'.same{color:red;color:color-mix(in srgb,red 50%,blue)}.same{color:red;color:color-mix(in srgb,red 50%,blue)}',
+      expected:1,
+    },
+  ];
+  for(const test of cases){
+    const actual=findSafelySuperseded(test.css).length;
+    if(actual!==test.expected)throw new Error(`Self-test failed: ${test.name}; expected ${test.expected}, got ${actual}`);
+  }
+  console.log(`CSS forensics self-test passed (${cases.length} cases).`);
+}
+
+if(args.has('--self-test'))runSelfTest();
 if(args.has('--fix-core'))fixBundle('core.css');
 if(args.has('--fix-composition'))fixBundle('composition.css');
 if(args.has('--assert-core-clean'))assertBundleClean('core.css');
