@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const root=process.cwd();
 const styleDir=path.join(root,'src','styles');
+const output=path.join(root,'docs','css-versioned-selector-report.json');
 const styleFiles=fs.readdirSync(styleDir).filter((name)=>name.endsWith('.css')).sort();
 const ignoredDirs=new Set(['.git','node_modules','dist','.netlify','playwright-report','test-results']);
 const sourceExtensions=new Set(['.html','.js','.mjs','.cjs','.json','.md']);
@@ -36,7 +37,9 @@ for(const file of styleFiles){
   }
 }
 
-const sourceFiles=walk(root).filter((file)=>!file.startsWith(styleDir+path.sep));
+// Exclude generated audit output from the source corpus; otherwise the report
+// becomes self-referential and makes every inventoried class appear live.
+const sourceFiles=walk(root).filter((file)=>!file.startsWith(styleDir+path.sep)&&path.resolve(file)!==path.resolve(output));
 for(const file of sourceFiles){
   const text=fs.readFileSync(file,'utf8');
   for(const entry of classes.values()){
@@ -77,7 +80,6 @@ const report={
   inventory,
 };
 
-const output=path.join(root,'docs','css-versioned-selector-report.json');
 fs.writeFileSync(output,`${JSON.stringify(report,null,2)}\n`);
 
 if(process.argv.includes('--assert-none')&&inventory.length){
