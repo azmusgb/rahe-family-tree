@@ -17,9 +17,16 @@ test('mobile UI shell does not reorder navigation-owned dock nodes',()=>{
   assert.doesNotMatch(mobile,/desiredDockOrder|reorderDock\(|function dockKey/);
 });
 
-
 test('dedicated mobile header exclusively owns phone chrome',()=>{
   assert.match(mobile,/siteHeader\.hidden=mobileViewport/);
   assert.match(mobile,/dataset\.mobileHeaderOwner='dedicated'/);
   assert.match(mobile,/header\.hidden=!mobileViewport/);
+});
+
+test('mobile shell schedules one frame and observes only routed content',()=>{
+  const scheduleBody=mobile.match(/function schedule\(\)\{([\s\S]*?)\n\}/)?.[1]||'';
+  assert.match(scheduleBody,/requestAnimationFrame\(\(\)=>\{scheduled=false;apply\(\);\}\)/);
+  assert.doesNotMatch(scheduleBody,/requestAnimationFrame\(\(\)=>requestAnimationFrame/);
+  assert.match(mobile,/contentObserver\.observe\(content,\{childList:true,subtree:true\}\)/);
+  assert.doesNotMatch(mobile,/observe\(document\.body/);
 });

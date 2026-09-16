@@ -2,7 +2,8 @@ const MOBILE_QUERY='(max-width: 720px)';
 const PENDING_SEARCH_KEY='family.mobile.v21.pendingSearch';
 const PENDING_FOCUS_KEY='family.mobile.v21.pendingFocus';
 let scheduled=false;
-let observing=false;
+let observedContent=null;
+let contentObserver=null;
 
 const isMobile=()=>window.matchMedia(MOBILE_QUERY).matches;
 const routeKey=()=>document.body.dataset.route||location.hash.slice(1).split('/')[0]||'dashboard';
@@ -293,18 +294,21 @@ function apply(){
   composeTree();
   composeMore();
   bindControls();
+  observeContent();
 }
 
 function schedule(){
   if(scheduled)return;
   scheduled=true;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{scheduled=false;apply();}));
+  requestAnimationFrame(()=>{scheduled=false;apply();});
 }
-function observe(){
-  if(observing)return;
-  observing=true;
-  const observer=new MutationObserver(schedule);
-  observer.observe(document.body,{childList:true,subtree:true});
+function observeContent(){
+  const content=document.getElementById('content');
+  if(!content||content===observedContent)return;
+  contentObserver?.disconnect();
+  observedContent=content;
+  contentObserver=new MutationObserver(schedule);
+  contentObserver.observe(content,{childList:true,subtree:true});
 }
 
 window.addEventListener('hashchange',schedule);
@@ -313,4 +317,4 @@ window.addEventListener('resize',schedule,{passive:true});
 window.addEventListener('family-view-rendered',schedule);
 window.addEventListener('family-native-rendered',schedule);
 window.addEventListener('family-media-changed',schedule);
-document.readyState==='loading'?document.addEventListener('DOMContentLoaded',()=>{apply();observe();}):(()=>{apply();observe();})();
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',apply):apply();
