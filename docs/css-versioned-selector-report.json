@@ -1,0 +1,3492 @@
+{
+  "generatedAt": "2026-09-16T18:09:36.260Z",
+  "totals": {
+    "versionedClasses": 241,
+    "cssOccurrences": 2062,
+    "sourceOccurrences": 730,
+    "cssOnlyClasses": 10,
+    "cssOnlyClassNames": [
+      "v129-recent",
+      "v17-family-summary",
+      "v17-home-branches",
+      "v17-home-places",
+      "v17-home-research",
+      "v17-home-section",
+      "v17-home-stat",
+      "v17-home-stories",
+      "v17-research-hero",
+      "v17-section-heading"
+    ]
+  },
+  "topSourceClasses": [
+    {
+      "className": "v17-home-hero",
+      "cssOccurrences": 105,
+      "sourceOccurrences": 32
+    },
+    {
+      "className": "v17-section-head",
+      "cssOccurrences": 23,
+      "sourceOccurrences": 25
+    },
+    {
+      "className": "v17-person-header",
+      "cssOccurrences": 27,
+      "sourceOccurrences": 13
+    },
+    {
+      "className": "v21-mobile-search",
+      "cssOccurrences": 18,
+      "sourceOccurrences": 13
+    },
+    {
+      "className": "v151-nav-menu",
+      "cssOccurrences": 9,
+      "sourceOccurrences": 13
+    },
+    {
+      "className": "v158-mobile-more",
+      "cssOccurrences": 34,
+      "sourceOccurrences": 12
+    },
+    {
+      "className": "v17-person-card",
+      "cssOccurrences": 38,
+      "sourceOccurrences": 11
+    },
+    {
+      "className": "v174-tree-context",
+      "cssOccurrences": 10,
+      "sourceOccurrences": 11
+    },
+    {
+      "className": "v17-person-nav",
+      "cssOccurrences": 17,
+      "sourceOccurrences": 10
+    },
+    {
+      "className": "v161-media-filters",
+      "cssOccurrences": 17,
+      "sourceOccurrences": 9
+    },
+    {
+      "className": "v17-native",
+      "cssOccurrences": 6,
+      "sourceOccurrences": 9
+    },
+    {
+      "className": "v151-primary-nav",
+      "cssOccurrences": 14,
+      "sourceOccurrences": 8
+    },
+    {
+      "className": "v17-home-tree",
+      "cssOccurrences": 9,
+      "sourceOccurrences": 8
+    },
+    {
+      "className": "v17-home-story",
+      "cssOccurrences": 8,
+      "sourceOccurrences": 8
+    },
+    {
+      "className": "v175-family-grid",
+      "cssOccurrences": 8,
+      "sourceOccurrences": 8
+    },
+    {
+      "className": "v17-featured-people",
+      "cssOccurrences": 7,
+      "sourceOccurrences": 8
+    },
+    {
+      "className": "v161-relationship-dialog",
+      "cssOccurrences": 2,
+      "sourceOccurrences": 8
+    },
+    {
+      "className": "v172-home-branches",
+      "cssOccurrences": 2,
+      "sourceOccurrences": 8
+    },
+    {
+      "className": "v17-story-moment",
+      "cssOccurrences": 22,
+      "sourceOccurrences": 7
+    },
+    {
+      "className": "v17-person-card-copy",
+      "cssOccurrences": 21,
+      "sourceOccurrences": 7
+    }
+  ],
+  "byCssFile": {
+    "src/styles/composition.css": {
+      "classes": 33,
+      "occurrences": 541
+    },
+    "src/styles/core.css": {
+      "classes": 206,
+      "occurrences": 1618
+    },
+    "src/styles/experience.css": {
+      "classes": 6,
+      "occurrences": 38
+    },
+    "src/styles/home-responsive.css": {
+      "classes": 16,
+      "occurrences": 388
+    },
+    "src/styles/index.css": {
+      "classes": 0,
+      "occurrences": 0
+    },
+    "src/styles/interaction.css": {
+      "classes": 19,
+      "occurrences": 396
+    },
+    "src/styles/mobile.css": {
+      "classes": 91,
+      "occurrences": 1287
+    },
+    "src/styles/print.css": {
+      "classes": 32,
+      "occurrences": 507
+    },
+    "src/styles/tokens.css": {
+      "classes": 0,
+      "occurrences": 0
+    }
+  },
+  "inventory": [
+    {
+      "className": "v17-home-hero",
+      "cssOccurrences": 105,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/home-responsive.css",
+        "src/styles/mobile.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 32,
+      "sourceFiles": [
+        "e2e/family-shell-v17-5.spec.mjs",
+        "e2e/home-hero-order.spec.mjs",
+        "e2e/mobile-immersive.spec.mjs",
+        "e2e/mobile-v20-app.spec.mjs",
+        "e2e/navigation-runtime.spec.mjs",
+        "e2e/navigation.spec.mjs",
+        "index.html",
+        "scripts/test-v16-2.mjs",
+        "scripts/test-v17-1.mjs",
+        "scripts/test-v18.mjs",
+        "src/runtime/experience-elevation-v17-4.js",
+        "src/runtime/family-branches-v17-5.js",
+        "src/runtime/mobile-experience.js",
+        "src/runtime/mobile-ui-shell.js",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/native-home-editorial.js",
+        "src/runtime/neutral-family-branding.js",
+        "src/runtime/site-branding.js",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-section-head",
+      "cssOccurrences": 23,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/home-responsive.css",
+        "src/styles/mobile.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 25,
+      "sourceFiles": [
+        "e2e/mobile-v20-app.spec.mjs",
+        "src/runtime/family-branches-v17-5.js",
+        "src/runtime/mobile-home-polish.js",
+        "src/runtime/native-family-v17-controller.js",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/native-home-editorial.js",
+        "src/runtime/person-experience-v17-3.js",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-person-header",
+      "cssOccurrences": 27,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 13,
+      "sourceFiles": [
+        "e2e/family-narrative.spec.mjs",
+        "e2e/mobile-immersive.spec.mjs",
+        "e2e/person-experience-v17-3.spec.mjs",
+        "scripts/test-v16-2.mjs",
+        "src/runtime/experience-elevation-v17-4.js",
+        "src/runtime/mobile-experience.js",
+        "src/runtime/mobile-ui-shell.js",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/person-experience-v17-3.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v21-mobile-search",
+      "cssOccurrences": 18,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 13,
+      "sourceFiles": [
+        "e2e/family-shell-v17-5.spec.mjs",
+        "e2e/mobile-immersive.spec.mjs",
+        "e2e/mobile-v20-app.spec.mjs",
+        "e2e/navigation.spec.mjs",
+        "src/runtime/mobile-ui-shell.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v151-nav-menu",
+      "cssOccurrences": 9,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/interaction.css"
+      ],
+      "sourceOccurrences": 13,
+      "sourceFiles": [
+        "index.html",
+        "scripts/test-v15-1.mjs",
+        "scripts/test-v18-6-ui.mjs",
+        "src/runtime/navigation-shell.js",
+        "src/runtime/page-architecture.js",
+        "v15-1-runtime.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v158-mobile-more",
+      "cssOccurrences": 34,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/interaction.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 12,
+      "sourceFiles": [
+        "e2e/mobile-family-v17-1.spec.mjs",
+        "e2e/navigation.spec.mjs",
+        "index.html",
+        "scripts/test-v15.mjs",
+        "scripts/test-v16-1.mjs",
+        "src/runtime/navigation-shell.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-person-card",
+      "cssOccurrences": 38,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/home-responsive.css",
+        "src/styles/interaction.css",
+        "src/styles/mobile.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 11,
+      "sourceFiles": [
+        "e2e/family-narrative.spec.mjs",
+        "e2e/mobile-experience.spec.mjs",
+        "e2e/mobile-family-v17-1.spec.mjs",
+        "e2e/mobile-immersive.spec.mjs",
+        "e2e/mobile-v20-app.spec.mjs",
+        "e2e/platform-v13.spec.mjs",
+        "scripts/test-v16-2.mjs",
+        "scripts/test-v17-1.mjs",
+        "src/runtime/mobile-experience.js",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v174-tree-context",
+      "cssOccurrences": 10,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/interaction.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 11,
+      "sourceFiles": [
+        "e2e/elevated-family-v17-4.spec.mjs",
+        "e2e/family-shell-v17-5.spec.mjs",
+        "e2e/route-capability-loading.spec.mjs",
+        "e2e/v17-6-stability.spec.mjs",
+        "scripts/test-v17-4.mjs",
+        "src/runtime/experience-elevation-v17-4.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-person-nav",
+      "cssOccurrences": 17,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/mobile.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 10,
+      "sourceFiles": [
+        "e2e/elevated-family-v17-4.spec.mjs",
+        "e2e/person-experience-v17-3.spec.mjs",
+        "scripts/test-v17-4.mjs",
+        "src/runtime/experience-elevation-v17-4.js",
+        "src/runtime/mobile-experience.js",
+        "src/runtime/native-family-v17-controller.js",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/person-experience-v17-3.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v161-media-filters",
+      "cssOccurrences": 17,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 9,
+      "sourceFiles": [
+        "e2e/family-narrative.spec.mjs",
+        "e2e/mobile-family-v17-1.spec.mjs",
+        "scripts/test-v16-1.mjs",
+        "scripts/test-v17-1.mjs",
+        "src/runtime/family-narrative.js",
+        "src/runtime/mobile-family-density.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-native",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/interaction.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 9,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js",
+        "src/runtime/native-family-v17-controller.js",
+        "src/runtime/native-family-v17.js",
+        "v11.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v151-primary-nav",
+      "cssOccurrences": 14,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/interaction.css"
+      ],
+      "sourceOccurrences": 8,
+      "sourceFiles": [
+        "index.html",
+        "scripts/test-v15-1.mjs",
+        "src/runtime/navigation-shell.js",
+        "v15-1-runtime.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-home-tree",
+      "cssOccurrences": 9,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 8,
+      "sourceFiles": [
+        "e2e/family-narrative.spec.mjs",
+        "e2e/unified-family-tree-v17-2.spec.mjs",
+        "scripts/test-v16-2.mjs",
+        "src/runtime/mobile-experience.js",
+        "src/runtime/mobile-ui-shell.js",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/native-home-editorial.js",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-home-story",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 8,
+      "sourceFiles": [
+        "e2e/family-narrative.spec.mjs",
+        "e2e/mobile-v20-app.spec.mjs",
+        "src/runtime/mobile-experience.js",
+        "src/runtime/mobile-home-polish.js",
+        "src/runtime/mobile-ui-shell.js",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/native-home-editorial.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-family-grid",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 8,
+      "sourceFiles": [
+        "e2e/family-shell-v17-5.spec.mjs",
+        "e2e/mobile-v20-app.spec.mjs",
+        "e2e/navigation-runtime.spec.mjs",
+        "e2e/navigation.spec.mjs",
+        "scripts/test-v17-5.mjs",
+        "src/runtime/family-branches-v17-5.js",
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-featured-people",
+      "cssOccurrences": 7,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 8,
+      "sourceFiles": [
+        "e2e/elevated-family-v17-4.spec.mjs",
+        "e2e/family-narrative.spec.mjs",
+        "e2e/unified-family-tree-v17-2.spec.mjs",
+        "src/runtime/mobile-experience.js",
+        "src/runtime/mobile-ui-shell.js",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/native-home-editorial.js",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v161-relationship-dialog",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 8,
+      "sourceFiles": [
+        "e2e/platform-v13.spec.mjs",
+        "platform-v13-runtime.js",
+        "src/runtime/mobile-family-density.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v172-home-branches",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 8,
+      "sourceFiles": [
+        "e2e/family-narrative.spec.mjs",
+        "e2e/family-shell-v17-5.spec.mjs",
+        "e2e/unified-family-tree-v17-2.spec.mjs",
+        "scripts/test-v17-2.mjs",
+        "src/runtime/experience-elevation-v17-4.js",
+        "src/runtime/native-home-editorial.js",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-story-moment",
+      "cssOccurrences": 22,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/home-responsive.css",
+        "src/styles/mobile.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 7,
+      "sourceFiles": [
+        "e2e/family-narrative.spec.mjs",
+        "e2e/mobile-v20-app.spec.mjs",
+        "scripts/test-v17-5.mjs",
+        "src/runtime/mobile-home-polish.js",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/native-home-editorial.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-person-card-copy",
+      "cssOccurrences": 21,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 7,
+      "sourceFiles": [
+        "e2e/mobile-family-v17-1.spec.mjs",
+        "scripts/test-v17-1.mjs",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-home-person",
+      "cssOccurrences": 17,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/home-responsive.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 7,
+      "sourceFiles": [
+        "e2e/elevated-family-v17-4.spec.mjs",
+        "e2e/family-narrative.spec.mjs",
+        "e2e/unified-family-tree-v17-2.spec.mjs",
+        "scripts/test-v17-5.mjs",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/native-home-editorial.js",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-avatar",
+      "cssOccurrences": 16,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 7,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v162-media-quick",
+      "cssOccurrences": 14,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 7,
+      "sourceFiles": [
+        "e2e/family-narrative.spec.mjs",
+        "e2e/mobile-family-v17-1.spec.mjs",
+        "e2e/route-capability-loading.spec.mjs",
+        "scripts/test-v16-2.mjs",
+        "scripts/test-v17-1.mjs",
+        "src/runtime/family-narrative.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v151-nav-menus",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/interaction.css"
+      ],
+      "sourceOccurrences": 7,
+      "sourceFiles": [
+        "index.html",
+        "src/runtime/navigation-shell.js",
+        "src/runtime/page-architecture.js",
+        "v15-1-runtime.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v172-node-photo",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 7,
+      "sourceFiles": [
+        "e2e/unified-family-tree-v17-2.spec.mjs",
+        "scripts/test-v17-2.mjs",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-research-door",
+      "cssOccurrences": 17,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 6,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js",
+        "src/runtime/mobile-experience.js",
+        "src/runtime/mobile-ui-shell.js",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/native-home-editorial.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v174-profile-snapshot",
+      "cssOccurrences": 15,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 6,
+      "sourceFiles": [
+        "e2e/elevated-family-v17-4.spec.mjs",
+        "e2e/route-capability-loading.spec.mjs",
+        "scripts/test-v17-4.mjs",
+        "src/runtime/experience-elevation-v17-4.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v20-continue-card",
+      "cssOccurrences": 13,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 6,
+      "sourceFiles": [
+        "e2e/mobile-v20-app.spec.mjs",
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-home-tree-row",
+      "cssOccurrences": 12,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/home-responsive.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 6,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v173-research-details",
+      "cssOccurrences": 11,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 6,
+      "sourceFiles": [
+        "e2e/person-experience-v17-3.spec.mjs",
+        "e2e/platform-v13.spec.mjs",
+        "scripts/test-v17-3.mjs",
+        "src/runtime/person-experience-v17-3.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v161-tree-toolbar",
+      "cssOccurrences": 9,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/experience.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 6,
+      "sourceFiles": [
+        "e2e/family-narrative.spec.mjs",
+        "e2e/mobile-experience.spec.mjs",
+        "e2e/platform-v13.spec.mjs",
+        "scripts/test-v16-1.mjs",
+        "src/runtime/mobile-family-density.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v20-person-tabs",
+      "cssOccurrences": 9,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 6,
+      "sourceFiles": [
+        "e2e/mobile-immersive.spec.mjs",
+        "e2e/mobile-v20-app.spec.mjs",
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v174-discovery",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/home-responsive.css"
+      ],
+      "sourceOccurrences": 6,
+      "sourceFiles": [
+        "e2e/elevated-family-v17-4.spec.mjs",
+        "e2e/family-narrative.spec.mjs",
+        "e2e/unified-family-tree-v17-2.spec.mjs",
+        "src/runtime/experience-elevation-v17-4.js",
+        "src/runtime/native-home-editorial.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v151-nav-popover",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/interaction.css"
+      ],
+      "sourceOccurrences": 6,
+      "sourceFiles": [
+        "index.html",
+        "src/runtime/navigation-shell.js",
+        "src/runtime/page-architecture.js",
+        "v15-1-runtime.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v172-tree-branches",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 6,
+      "sourceFiles": [
+        "e2e/route-capability-loading.spec.mjs",
+        "e2e/unified-family-tree-v17-2.spec.mjs",
+        "scripts/test-v17-2.mjs",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v129-tree-memory",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 6,
+      "sourceFiles": [
+        "scripts/test-v18-6-ui.mjs",
+        "src/runtime/mobile-family-density.js",
+        "src/runtime/tree-engine.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v20-mobile-app",
+      "cssOccurrences": 152,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 5,
+      "sourceFiles": [
+        "e2e/mobile-v20-app.spec.mjs",
+        "scripts/build.mjs",
+        "scripts/test-v18-5.mjs",
+        "scripts/test-v18.mjs",
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-primary-actions",
+      "cssOccurrences": 37,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/home-responsive.css",
+        "src/styles/interaction.css",
+        "src/styles/mobile.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 5,
+      "sourceFiles": [
+        "e2e/mobile-immersive.spec.mjs",
+        "index.html",
+        "src/runtime/mobile-ui-shell.js",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/native-home-editorial.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-family-card",
+      "cssOccurrences": 22,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/interaction.css",
+        "src/styles/mobile.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 5,
+      "sourceFiles": [
+        "e2e/family-shell-v17-5.spec.mjs",
+        "e2e/mobile-immersive.spec.mjs",
+        "e2e/mobile-v20-app.spec.mjs",
+        "src/runtime/family-branches-v17-5.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-profile-nav",
+      "cssOccurrences": 12,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 5,
+      "sourceFiles": [
+        "scripts/test-v15-family-focus.mjs",
+        "src/runtime/navigation-shell.js",
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-branch-hero",
+      "cssOccurrences": 12,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 5,
+      "sourceFiles": [
+        "e2e/family-shell-v17-5.spec.mjs",
+        "src/runtime/family-branches-v17-5.js",
+        "src/runtime/mobile-experience.js",
+        "src/runtime/mobile-ui-shell.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v21-mobile-launcher",
+      "cssOccurrences": 10,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 5,
+      "sourceFiles": [
+        "e2e/mobile-immersive.spec.mjs",
+        "e2e/mobile-v20-app.spec.mjs",
+        "src/runtime/mobile-ui-shell.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-person-card",
+      "cssOccurrences": 7,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 5,
+      "sourceFiles": [
+        "e2e/mobile-experience.spec.mjs",
+        "src/runtime/compact-disclosure.js",
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-person-overview",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 5,
+      "sourceFiles": [
+        "scripts/test-v16-2.mjs",
+        "src/runtime/compact-disclosure.js",
+        "src/runtime/family-narrative.js",
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-person-section",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 5,
+      "sourceFiles": [
+        "src/runtime/native-family-v17-controller.js",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-branch-section",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 5,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v21-person-quick-actions",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 5,
+      "sourceFiles": [
+        "e2e/mobile-immersive.spec.mjs",
+        "src/runtime/mobile-ui-shell.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v128-library",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 5,
+      "sourceFiles": [
+        "scripts/test-v12-8.mjs",
+        "src/runtime/media-enhancements.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-person-places",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 5,
+      "sourceFiles": [
+        "e2e/family-narrative.spec.mjs",
+        "e2e/person-experience-v17-3.spec.mjs",
+        "scripts/test-v16-2.mjs",
+        "src/runtime/native-family-v17-controller.js",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-person",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 5,
+      "sourceFiles": [
+        "src/runtime/experience-elevation-v17-4.js",
+        "src/runtime/mobile-experience.js",
+        "src/runtime/native-family-v17-controller.js",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/person-experience-v17-3.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v21-actual-mobile-ui",
+      "cssOccurrences": 126,
+      "cssFiles": [
+        "src/styles/interaction.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "e2e/mobile-immersive.spec.mjs",
+        "e2e/ui-architecture-contracts.spec.mjs",
+        "src/runtime/mobile-ui-shell.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v20-context-bar",
+      "cssOccurrences": 22,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "e2e/mobile-v20-app.spec.mjs",
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v1510-profile-tabs",
+      "cssOccurrences": 18,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "scripts/test-v16.mjs",
+        "src/runtime/compact-disclosure.js",
+        "src/runtime/family-narrative.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-branch-chip",
+      "cssOccurrences": 13,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "e2e/mobile-family-v17-1.spec.mjs",
+        "scripts/test-v17-1.mjs",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-branch-summary",
+      "cssOccurrences": 12,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "e2e/family-narrative.spec.mjs",
+        "scripts/test-v16-2.mjs",
+        "src/runtime/native-family-v17-controller.js",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-people-grid",
+      "cssOccurrences": 12,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/experience.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "e2e/mobile-immersive.spec.mjs",
+        "e2e/mobile-v20-app.spec.mjs",
+        "src/runtime/mobile-experience.js",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v158-research-entry",
+      "cssOccurrences": 10,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/interaction.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "index.html",
+        "scripts/test-v18-6-ui.mjs",
+        "src/runtime/navigation-shell.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-person-actions",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "e2e/mobile-immersive.spec.mjs",
+        "src/runtime/mobile-ui-shell.js",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v173-story-moment",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "e2e/person-experience-v17-3.spec.mjs",
+        "scripts/test-v17-3.mjs",
+        "src/runtime/person-experience-v17-3.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v20-person-story",
+      "cssOccurrences": 7,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "e2e/mobile-v20-app.spec.mjs",
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v21-tree-mode-bar",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "e2e/mobile-immersive.spec.mjs",
+        "src/runtime/mobile-ui-shell.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v1291-mobile-hint",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "scripts/test-v18-6-ui.mjs",
+        "src/runtime/tree-polish.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v173-person-story",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "scripts/test-v17-3.mjs",
+        "src/runtime/person-experience-v17-3.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v157-research-center",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "src/runtime/compact-disclosure.js",
+        "src/runtime/home-flow.js",
+        "src/runtime/mobile-family-density.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-family-network",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "scripts/test-v15-family-focus.mjs",
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v16-stories",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/interaction.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "e2e/route-capability-loading.spec.mjs",
+        "scripts/test-v16.mjs",
+        "src/runtime/stories-view.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v152-research-secondary",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "scripts/test-v15-family-focus.mjs",
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v157-tree-preview",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "src/runtime/family-narrative.js",
+        "src/runtime/home-flow.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-home",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js",
+        "src/runtime/native-home-editorial.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v154-tree-help",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 4,
+      "sourceFiles": [
+        "scripts/test-v18-6-ui.mjs",
+        "src/runtime/mobile-family-density.js",
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v162-branch-context",
+      "cssOccurrences": 13,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/interaction.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "scripts/test-v16-2.mjs",
+        "src/runtime/family-narrative.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-home-people-grid",
+      "cssOccurrences": 11,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/home-responsive.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "scripts/css-versioned-selector-audit.mjs",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v172-branch-card",
+      "cssOccurrences": 9,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/interaction.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "e2e/family-shell-v17-5.spec.mjs",
+        "src/runtime/family-branches-v17-5.js",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v1291-breadcrumb",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "scripts/test-v18-6-ui.mjs",
+        "src/runtime/tree-polish.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v162-family-path",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/interaction.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "scripts/test-v16-2.mjs",
+        "src/runtime/family-narrative.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-branch-browser",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "e2e/family-narrative.spec.mjs",
+        "src/runtime/mobile-ui-shell.js",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v174-tree-scope",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "e2e/elevated-family-v17-4.spec.mjs",
+        "src/runtime/experience-elevation-v17-4.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-home-media",
+      "cssOccurrences": 7,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "src/runtime/mobile-experience.js",
+        "src/runtime/mobile-ui-shell.js",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v161-people",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "scripts/test-v16-1.mjs",
+        "src/runtime/mobile-family-density.js",
+        "src/runtime/native-family-v17-controller.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-life-timeline",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "scripts/test-v16-2.mjs",
+        "src/runtime/native-family-v17-controller.js",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-place-strip",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "scripts/test-v17-5.mjs",
+        "src/runtime/native-family-v17.js",
+        "src/runtime/native-home-editorial.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-person-dates",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "src/runtime/mobile-experience.js",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v21-launcher-heading",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "e2e/route-capability-loading.spec.mjs",
+        "src/runtime/mobile-home-polish.js",
+        "src/runtime/mobile-ui-shell.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v128-svg-photo",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "scripts/test-v12-9-1.mjs",
+        "src/runtime/media-enhancements.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v154-tree-person",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "scripts/test-v18-6-ui.mjs",
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v174-tree-context-copy",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "src/runtime/experience-elevation-v17-4.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-life-story",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "scripts/test-v15-family-focus.mjs",
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v155-desktop-actions",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "scripts/test-v15-5.mjs",
+        "src/runtime/navigation-shell.js",
+        "src/runtime/page-architecture.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v162-family-journey",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "scripts/test-v16-2.mjs",
+        "src/runtime/family-narrative.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v173-story-copy",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "src/runtime/person-experience-v17-3.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v129-memory-actions",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "scripts/test-v18-6-ui.mjs",
+        "src/runtime/tree-engine.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-life-summary",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "src/runtime/compact-disclosure.js",
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-tree",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/experience.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "src/runtime/native-family-v17-controller.js",
+        "src/runtime/native-family-v17.js",
+        "v11.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v174-snapshot-stat",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "src/runtime/experience-elevation-v17-4.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-branch",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 3,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js",
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-home-metrics",
+      "cssOccurrences": 40,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/home-responsive.css",
+        "src/styles/mobile.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v18.mjs",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-page-intro",
+      "cssOccurrences": 36,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/mobile-ui-shell.js",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-relative",
+      "cssOccurrences": 21,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/home-responsive.css",
+        "src/styles/interaction.css",
+        "src/styles/mobile.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v174-discovery-grid",
+      "cssOccurrences": 19,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/home-responsive.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v17-4.mjs",
+        "src/runtime/experience-elevation-v17-4.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-life-event",
+      "cssOccurrences": 17,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v17-3.mjs",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v161-home",
+      "cssOccurrences": 16,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/mobile-family-density.js",
+        "src/runtime/native-family-v17-controller.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-home-tree-canvas",
+      "cssOccurrences": 10,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/home-responsive.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-person-research",
+      "cssOccurrences": 9,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "e2e/platform-v13.spec.mjs",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v128-media-filters",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v12-8.mjs",
+        "src/runtime/media-enhancements.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v161-research-band",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v16-1.mjs",
+        "src/runtime/mobile-family-density.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v20-more-recent",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v155-actions-popover",
+      "cssOccurrences": 7,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v15-6.mjs",
+        "src/runtime/page-architecture.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v155-mobile-actions",
+      "cssOccurrences": 7,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v15-5.mjs",
+        "src/runtime/page-architecture.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v172-tree-branch-actions",
+      "cssOccurrences": 7,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v17-2.mjs",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-relation-person",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js",
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-people-header",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v162-moments",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v16-2.mjs",
+        "src/runtime/family-narrative.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-section-heading",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-people-heading",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/mobile-family-density.js",
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-person-context",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/mobile-experience.js",
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v173-research-body",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v17-3.mjs",
+        "src/runtime/person-experience-v17-3.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-branch-actions",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "e2e/family-shell-v17-5.spec.mjs",
+        "src/runtime/family-branches-v17-5.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v20-recent-rail",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v154-graph-shell",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v18-6-ui.mjs",
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v154-tree-actions",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v18-6-ui.mjs",
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v154-tree-controls",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v18-6-ui.mjs",
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-branch-people",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js",
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-branch-timeline",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js",
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v21-more-discover",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/mobile-ui-shell.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v128-photo",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/media-enhancements.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v157-person-copy",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/home-flow.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v158-family-return",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/navigation-shell.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-card-media",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v172-branch-grid",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v17-2.mjs",
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-profile-identity",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v128-meta",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/media-enhancements.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v1291-spouse",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v18-6-ui.mjs",
+        "src/runtime/tree-polish.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-mini-avatar",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js",
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v155-original-actions",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "scripts/test-v15-5.mjs",
+        "src/runtime/page-architecture.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-profile-context",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 2,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v162-moment",
+      "cssOccurrences": 23,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/interaction.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-narrative.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-profile",
+      "cssOccurrences": 21,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v128-media-tile",
+      "cssOccurrences": 16,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/media-enhancements.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v152-home",
+      "cssOccurrences": 15,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-families-hero",
+      "cssOccurrences": 13,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v16-story-card",
+      "cssOccurrences": 12,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/stories-view.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v162-journey-head",
+      "cssOccurrences": 12,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-narrative.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v174-discovery-head",
+      "cssOccurrences": 12,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/home-responsive.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/experience-elevation-v17-4.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-branch-person",
+      "cssOccurrences": 12,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v20-recent-person",
+      "cssOccurrences": 12,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v162-family-path-group",
+      "cssOccurrences": 11,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-narrative.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-story-moments",
+      "cssOccurrences": 11,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/home-responsive.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-card-relations",
+      "cssOccurrences": 10,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v16-stories-hero",
+      "cssOccurrences": 10,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/stories-view.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v162-places",
+      "cssOccurrences": 10,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-narrative.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-story-lead",
+      "cssOccurrences": 9,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-branch-browser",
+      "cssOccurrences": 9,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v161-tree-tool-actions",
+      "cssOccurrences": 9,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/experience.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/mobile-family-density.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v162-family-path-head",
+      "cssOccurrences": 9,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-narrative.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-home-gallery-grid",
+      "cssOccurrences": 9,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-branch-event",
+      "cssOccurrences": 9,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-story-grid",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v16-story-chapter-heading",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/stories-view.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-branch-metrics",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-connected-grid",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-place-grid",
+      "cssOccurrences": 8,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v152-home-hero",
+      "cssOccurrences": 7,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v157-person-card",
+      "cssOccurrences": 7,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/interaction.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/home-flow.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v152-start-here",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-profile-overview",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v157-media-card",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/home-flow.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-card-context",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v162-branch-actions",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-narrative.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-family-groups",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-gallery-item",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-branch-back",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css",
+        "src/styles/print.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v128-drop-zone",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/media-enhancements.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-people-totals",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-person-gallery",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v21-more-research",
+      "cssOccurrences": 5,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/mobile-ui-shell.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v128-media-grid",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/media-enhancements.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v157-hero",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/home-flow.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v157-tree-person",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/home-flow.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v158-context-search",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/navigation-shell.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-card-copy",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-card-dates",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v16-story-chapter",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/stories-view.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v16-story-year",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/stories-view.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v161-tree",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/mobile-family-density.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v161-tree-focus",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/mobile-family-density.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-directory-foot",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v174-discovery-avatar",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/core.css",
+        "src/styles/home-responsive.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/experience-elevation-v17-4.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-question",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v20-recent-scroller",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v20-section-title",
+      "cssOccurrences": 4,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v155-mobile-actions-menu",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/page-architecture.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-life-copy",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-life-facts",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v161-dialog-body",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/mobile-family-density.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v161-dialog-head",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/mobile-family-density.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v161-show-tree-secondary",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/experience.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/mobile-family-density.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-back",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-people",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/experience.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-question-grid",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-relation-grid",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-relation-title",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v161-media",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/mobile-family-density.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-family-group",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-family-group-grid",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-qualified-state",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-families",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v175-open-questions",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/family-branches-v17-5.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v20-context-back",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v128-doc",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/media-enhancements.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v128-edit-link",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/media-enhancements.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-none",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-relation-group",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-relation-people",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-research-detail",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-source-record",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v153-story-avatar",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v154-tree",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "v15-family-focus.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-card-arrow",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-card-branch",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v159-family-block",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/people-person-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v16-story-list",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/stories-view.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-content",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/native-family-v17-controller.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-document-mark",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/native-family-v17.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v17-home-people",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "scripts/css-versioned-selector-audit.mjs"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v172-has-photo",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v172-home-person",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v172-home-tree-canvas",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v172-whole-family",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/unified-family-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v173-story-moments",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/person-experience-v17-3.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v174-snapshot-intro",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/experience-elevation-v17-4.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v20-story-dates",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 1,
+      "sourceFiles": [
+        "src/runtime/mobile-experience.js"
+      ],
+      "cssOnly": false
+    },
+    {
+      "className": "v129-recent",
+      "cssOccurrences": 6,
+      "cssFiles": [
+        "src/styles/core.css"
+      ],
+      "sourceOccurrences": 0,
+      "sourceFiles": [],
+      "cssOnly": true
+    },
+    {
+      "className": "v17-section-heading",
+      "cssOccurrences": 3,
+      "cssFiles": [
+        "src/styles/composition.css",
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 0,
+      "sourceFiles": [],
+      "cssOnly": true
+    },
+    {
+      "className": "v17-family-summary",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/composition.css"
+      ],
+      "sourceOccurrences": 0,
+      "sourceFiles": [],
+      "cssOnly": true
+    },
+    {
+      "className": "v17-research-hero",
+      "cssOccurrences": 2,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 0,
+      "sourceFiles": [],
+      "cssOnly": true
+    },
+    {
+      "className": "v17-home-branches",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 0,
+      "sourceFiles": [],
+      "cssOnly": true
+    },
+    {
+      "className": "v17-home-places",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 0,
+      "sourceFiles": [],
+      "cssOnly": true
+    },
+    {
+      "className": "v17-home-research",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 0,
+      "sourceFiles": [],
+      "cssOnly": true
+    },
+    {
+      "className": "v17-home-section",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 0,
+      "sourceFiles": [],
+      "cssOnly": true
+    },
+    {
+      "className": "v17-home-stat",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/composition.css"
+      ],
+      "sourceOccurrences": 0,
+      "sourceFiles": [],
+      "cssOnly": true
+    },
+    {
+      "className": "v17-home-stories",
+      "cssOccurrences": 1,
+      "cssFiles": [
+        "src/styles/mobile.css"
+      ],
+      "sourceOccurrences": 0,
+      "sourceFiles": [],
+      "cssOnly": true
+    }
+  ]
+}
