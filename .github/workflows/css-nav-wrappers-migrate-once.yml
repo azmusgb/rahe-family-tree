@@ -1,0 +1,42 @@
+name: Migrate navigation wrapper selectors once
+
+on:
+  push:
+    branches:
+      - css-canonical-selectors-v20-4d-nav-wrappers
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: css-canonical-selectors-v20-4d-nav-wrappers
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Migrate semantic navigation wrappers and refresh inventory
+        run: |
+          node scripts/migrate-nav-wrapper-classes.mjs
+          node scripts/css-versioned-selector-audit.mjs
+          node -e "const r=require('./docs/css-versioned-selector-report.json');const legacy=new Set(['v151-nav-menus','v151-nav-popover']);if(r.inventory.some(x=>legacy.has(x.className)))process.exit(1)"
+      - name: Run navigation and CSS-sensitive regressions
+        run: node --test scripts/test-v15-1.mjs scripts/test-v18-6-ui.mjs scripts/test-v16.mjs scripts/test-v16-2.mjs scripts/test-v17-1.mjs scripts/test-v17-4.mjs scripts/test-v20-2-route-loader.mjs
+      - name: Run production build
+        run: npm run build
+      - name: Commit migration
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html src scripts e2e v15-1-runtime.js docs/css-versioned-selector-report.json
+          git commit -m "Migrate legacy navigation wrapper selectors"
+          git push origin HEAD:css-canonical-selectors-v20-4d-nav-wrappers
