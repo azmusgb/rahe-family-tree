@@ -92,7 +92,7 @@ test('photos quick filters stay synchronized with clear filters',async({page})=>
   await quick.getByRole('button',{name:'Photos',exact:true}).click();
   await expect(page.locator('#media-type')).toHaveValue('photo');
   await expect(quick.getByRole('button',{name:'Photos',exact:true})).toHaveClass(/active/);
-  const details=page.locator('.v161-media-filters');
+  const details=page.locator('.media-filters');
   await details.locator('summary').click();
   await details.getByRole('button',{name:'Clear media filters'}).click();
   await expect(page.locator('#media-type')).toHaveValue('all');

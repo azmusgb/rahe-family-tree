@@ -86,10 +86,10 @@ test('mobile Photos keeps quick type choices foregrounded and advanced filters d
   assert.match(narrative,/data-v162-media-type="all"/);
   assert.match(narrative,/data-v162-media-type="photo"/);
   assert.match(narrative,/data-v162-media-type="document"/);
-  assert.match(density,/v161-media-filters/);
+  assert.match(density,/media-filters/);
   assert.match(density,/Privacy protected/);
   assert.match(mobile,/\.v162-media-quick button\{flex:0 0 auto;min-height:44px/);
-  assert.match(mobile,/\.v161-media-filters>summary\{min-height:44px/);
+  assert.match(mobile,/\.media-filters>summary\{min-height:44px/);
 });
 
 test('Family footer and safe-area behavior remain non-technical',()=>{
