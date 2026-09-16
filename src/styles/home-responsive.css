@@ -75,8 +75,7 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
       linear-gradient(145deg,#0f3a30 0%,#174b3d 66%,#285d4d 100%);
     box-shadow:0 18px 42px rgba(20,45,37,.15);
   }
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero)::before,
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero)::after{opacity:.55}
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero)::before,body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero)::after{opacity:.55}
   body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero>div,.family-home-copy,.dashboard-hero-copy){max-width:none}
   body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero .eyebrow,.family-home-copy .eyebrow,.dashboard-hero-copy .eyebrow){
     margin:0 0 12px;color:#e0c58d;font-size:9px;font-weight:800;letter-spacing:.18em;
@@ -142,12 +141,10 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
   body[data-experience="family"][data-route="dashboard"] :is(.dashboard-section,.v174-discovery){margin:var(--home-gap) 0;padding:0}
   body[data-experience="family"][data-route="dashboard"] :is(.section-title,.v174-discovery-head){display:block;margin:0 0 16px}
   body[data-experience="family"][data-route="dashboard"] :is(.section-title,.v174-discovery-head) .eyebrow{margin-bottom:7px;color:#8a6b36;font-size:9px;letter-spacing:.16em}
-  body[data-experience="family"][data-route="dashboard"] :is(.section-title,.v174-discovery-head) h2,
-  body[data-experience="family"][data-route="dashboard"] .dashboard-section>h2{
+  body[data-experience="family"][data-route="dashboard"] :is(.section-title,.v174-discovery-head) h2,body[data-experience="family"][data-route="dashboard"] .dashboard-section>h2{
     max-width:12ch;margin:0;color:#173d33;font:600 clamp(2.15rem,10.5vw,3rem)/.94 var(--family-font-display);letter-spacing:-.045em;text-wrap:balance;
   }
-  body[data-experience="family"][data-route="dashboard"] :is(.section-title,.v174-discovery-head) p,
-  body[data-experience="family"][data-route="dashboard"] .dashboard-section>p{max-width:36ch;margin:9px 0 0;color:#647068;font-size:13px;line-height:1.5}
+  body[data-experience="family"][data-route="dashboard"] :is(.section-title,.v174-discovery-head) p,body[data-experience="family"][data-route="dashboard"] .dashboard-section>p{max-width:36ch;margin:9px 0 0;color:#647068;font-size:13px;line-height:1.5}
 
   /* Discovery becomes three strong stacked choices instead of tiny tiles. */
   body[data-experience="family"][data-route="dashboard"] :is(.v174-discovery-grid,.dashboard-recent-strip){display:grid;grid-template-columns:1fr;gap:9px}

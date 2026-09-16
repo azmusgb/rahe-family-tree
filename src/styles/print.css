@@ -82,12 +82,7 @@ body{background:#fff!important}
   body[data-v158-context="family"] :where(.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card,.v17-story-moment,.v17-person-card>button,.v17-relative){box-shadow:none!important}
 
 /* home-editorial.css */
-.v17-home-hero h2,
-  .v17-home-hero .v17-home-metrics,
-  .v17-home-hero .v17-home-metrics b,
-  .v17-home-hero .v17-home-metrics strong,
-  .v17-home-hero .v17-home-metrics span,
-  .v17-home-hero .v17-home-metrics small{
+.v17-home-hero h2,.v17-home-hero .v17-home-metrics,.v17-home-hero .v17-home-metrics b,.v17-home-hero .v17-home-metrics strong,.v17-home-hero .v17-home-metrics span,.v17-home-hero .v17-home-metrics small{
     color:#000;
   }
 

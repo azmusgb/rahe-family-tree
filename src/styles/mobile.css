@@ -209,9 +209,9 @@ body[data-experience="family"]{padding-bottom:96px}
   body[data-route="dashboard"] .route-shell .search input{height:56px;width:100%;margin:0;padding:0 18px;border:1px solid rgba(23,63,53,.12);border-radius:18px;background:#fffdf8;color:#183028;font-size:16px;box-shadow:0 10px 28px rgba(18,47,39,.08)}
 
   /* Every mobile section reads as a deliberate chapter rather than desktop cards squeezed together. */
-  body[data-experience="family"] #content :where(.v17-home-section,.v17-home-tree,.v17-home-story,.v17-home-stories,.v17-home-people,.v17-home-branches,.v17-home-research,.v17-home-places){margin:0;padding:30px var(--mobile-gutter);border-radius:0}
-  body[data-experience="family"] #content :where(.section-heading,.v17-section-heading) h2{font-size:clamp(29px,8vw,38px);line-height:1;letter-spacing:-.025em}
-  body[data-experience="family"] #content :where(.section-heading,.v17-section-heading) p{font-size:14px;line-height:1.55;color:#68736d}
+  
+  
+  
   body[data-experience="family"] #content :where(.card,.person-card,.branch-card,.story-card){border-radius:var(--mobile-radius);box-shadow:0 8px 24px rgba(18,47,39,.07)}
 
   /* Route pages get a compact editorial title and full-width working surface. Browse routes preserve the established sticky-search contract. */
@@ -909,10 +909,8 @@ body[data-experience="family"]{padding-bottom:96px}
 
   /* Research is intentionally the deep, high-contrast end of the experience. */
   body[data-route="research"].v21-actual-mobile-ui #content{background:var(--actual-canvas)!important}
-  body[data-route="research"].v21-actual-mobile-ui #content>:where(.v17-page-intro,.research-hero,.v17-research-hero):first-child{
-    background:var(--actual-forest)!important;color:#fff!important;border-color:var(--actual-forest)!important;
-  }
-  body[data-route="research"].v21-actual-mobile-ui #content>:where(.v17-page-intro,.research-hero,.v17-research-hero):first-child :where(h1,h2,p,.eyebrow){color:inherit!important}
+  
+  
 
   /* More is physically grouped into Discover and Research; labels use archival brown, never evidence amber. */
   #family-mobile-dock .v21-more-discover,#family-mobile-dock .v21-more-research{grid-column:1/-1;display:block;margin-top:6px}
