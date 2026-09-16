@@ -33,7 +33,8 @@ test('v17.4+ capabilities remain synchronized in later releases',()=>{
 test('v17.4 premium layer remains route-loaded and styled semantically',()=>{
   assert.match(capabilities,/name:'experience-elevation-v17-4'[\s\S]*routes:\['dashboard','person','tree'\][\s\S]*import\('\.\/experience-elevation-v17-4\.js'\)/);
   assert.doesNotMatch(experience,/import\('\.\/experience-elevation-v17-4\.js'\)/);
-  assert.match(cssRoot,/@import '.\/elevation\.css';/);
+  assert.match(cssRoot,/@import '.\/core\.css';/);
+  assert.match(css,/Source: elevation\.css/);
   assert.match(css,/v17\.4 — elevated family experience/);
 });
 
