@@ -76,6 +76,16 @@ The migration used exact class-name boundaries across platform/runtime producers
 
 The post-migration inventory reports 232 versioned classes, 1,952 CSS occurrences, and 643 non-style source references. `v161-relationship-dialog` is absent from the exact-name inventory. Targeted relationship/media/CSS-sensitive regressions and the production build passed before commit. Temporary one-shot migration infrastructure was removed afterward.
 
+## Stage I — person header
+
+The person-header compatibility class has now been migrated to its stable semantic contract:
+
+- `v17-person-header` → `person-header`
+
+The migration used exact class-name boundaries across person/profile runtime producers and queries, browser and regression coverage, and all owning CSS bundles. Semantic duplicates created by compatibility replacement were collapsed locally.
+
+The post-migration inventory reports 231 versioned classes, 1,925 CSS occurrences, and 630 non-style source references. `v17-person-header` is absent from the exact-name inventory. Targeted person/profile/CSS-sensitive regressions and the production build passed before commit. Temporary one-shot migration infrastructure was removed afterward.
+
 ## Migration strategy
 
 Live versioned classes require semantic migration in dependency-aware slices. For each class family:
