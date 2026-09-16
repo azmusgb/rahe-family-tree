@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-16T19:44:37.571Z",
+  "generatedAt": "2026-09-16T20:02:26.279Z",
   "totals": {
-    "versionedClasses": 232,
-    "cssOccurrences": 1952,
-    "sourceOccurrences": 643,
+    "versionedClasses": 231,
+    "cssOccurrences": 1925,
+    "sourceOccurrences": 630,
     "cssOnlyClasses": 10,
     "cssOnlyClassNames": [
       "v129-recent",
@@ -28,11 +28,6 @@
       "className": "v17-section-head",
       "cssOccurrences": 23,
       "sourceOccurrences": 25
-    },
-    {
-      "className": "v17-person-header",
-      "cssOccurrences": 27,
-      "sourceOccurrences": 13
     },
     {
       "className": "v17-person-card",
@@ -118,16 +113,21 @@
       "className": "v20-continue-card",
       "cssOccurrences": 13,
       "sourceOccurrences": 6
+    },
+    {
+      "className": "v17-home-tree-row",
+      "cssOccurrences": 12,
+      "sourceOccurrences": 6
     }
   ],
   "byCssFile": {
     "src/styles/composition.css": {
-      "classes": 30,
-      "occurrences": 113
+      "classes": 29,
+      "occurrences": 103
     },
     "src/styles/core.css": {
-      "classes": 200,
-      "occurrences": 992
+      "classes": 199,
+      "occurrences": 984
     },
     "src/styles/experience.css": {
       "classes": 6,
@@ -146,8 +146,8 @@
       "occurrences": 18
     },
     "src/styles/mobile.css": {
-      "classes": 88,
-      "occurrences": 714
+      "classes": 87,
+      "occurrences": 705
     },
     "src/styles/print.css": {
       "classes": 32,
@@ -225,33 +225,6 @@
         "src/runtime/native-home-editorial.js",
         "src/runtime/person-experience-v17-3.js",
         "src/runtime/unified-family-experience.js"
-      ],
-      "cssOnly": false
-    },
-    {
-      "className": "v17-person-header",
-      "cssOccurrences": 27,
-      "cssOccurrencesByFile": {
-        "src/styles/composition.css": 10,
-        "src/styles/core.css": 8,
-        "src/styles/mobile.css": 9
-      },
-      "cssFiles": [
-        "src/styles/composition.css",
-        "src/styles/core.css",
-        "src/styles/mobile.css"
-      ],
-      "sourceOccurrences": 13,
-      "sourceFiles": [
-        "e2e/family-narrative.spec.mjs",
-        "e2e/mobile-immersive.spec.mjs",
-        "e2e/person-experience-v17-3.spec.mjs",
-        "scripts/test-v16-2.mjs",
-        "src/runtime/experience-elevation-v17-4.js",
-        "src/runtime/mobile-experience.js",
-        "src/runtime/mobile-ui-shell.js",
-        "src/runtime/native-family-v17.js",
-        "src/runtime/person-experience-v17-3.js"
       ],
       "cssOnly": false
     },

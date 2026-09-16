@@ -111,7 +111,7 @@ test('v17 retires route-specific v15.7 v15.9 and v15.10 presentation imports',()
   assert.doesNotMatch(build,/'v15-7\.css'/);
   assert.doesNotMatch(build,/'v15-9\.css'/);
   assert.doesNotMatch(build,/'v15-10\.css'/);
-  for(const token of['v17-home-hero','v17-home-tree','v17-person-card','v17-person-header','v17-life-timeline'])assert.ok(homeStyles.includes(token)||peopleStyles.includes(token)||personStyles.includes(token)||baseStyles.includes(token),`${token} should be owned by semantic Family CSS`);
+  for(const token of['v17-home-hero','v17-home-tree','v17-person-card','person-header','v17-life-timeline'])assert.ok(homeStyles.includes(token)||peopleStyles.includes(token)||personStyles.includes(token)||baseStyles.includes(token),`${token} should be owned by semantic Family CSS`);
 });
 
 test('v17 public Family controller suppresses living-person chronology location and media surfaces',()=>{
