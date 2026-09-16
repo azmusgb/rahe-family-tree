@@ -13,6 +13,76 @@ function stripComments(value) {
   return value.replace(/\/\*[\s\S]*?\*\//g, ' ');
 }
 
+function splitSelectorList(header) {
+  const selectors = [];
+  let start = 0;
+  let quote = '';
+  let escaped = false;
+  let comment = false;
+  let paren = 0;
+  let bracket = 0;
+
+  for (let i = 0; i <= header.length; i += 1) {
+    const c = header[i] ?? ',';
+    const n = header[i + 1];
+
+    if (comment) {
+      if (c === '*' && n === '/') {
+        comment = false;
+        i += 1;
+      }
+      continue;
+    }
+
+    if (quote) {
+      if (escaped) {
+        escaped = false;
+        continue;
+      }
+      if (c === '\\') {
+        escaped = true;
+        continue;
+      }
+      if (c === quote) quote = '';
+      continue;
+    }
+
+    if (c === '/' && n === '*') {
+      comment = true;
+      i += 1;
+      continue;
+    }
+    if (c === '"' || c === "'") {
+      quote = c;
+      continue;
+    }
+    if (c === '(') {
+      paren += 1;
+      continue;
+    }
+    if (c === ')') {
+      paren = Math.max(0, paren - 1);
+      continue;
+    }
+    if (c === '[') {
+      bracket += 1;
+      continue;
+    }
+    if (c === ']') {
+      bracket = Math.max(0, bracket - 1);
+      continue;
+    }
+
+    if (c === ',' && paren === 0 && bracket === 0) {
+      const selector = normalizeWhitespace(stripComments(header.slice(start, i)));
+      if (selector) selectors.push(selector);
+      start = i + 1;
+    }
+  }
+
+  return selectors;
+}
+
 function findMatchingBrace(css, openIndex) {
   let depth = 0;
   let quote = '';
@@ -137,12 +207,11 @@ function parseBlocks(css, file, start = 0, end = css.length, ancestry = []) {
         rules.push(...parseBlocks(css, file, bodyStart, bodyEnd, [...ancestry, header]));
       }
     } else if (header) {
-      rules.push({
-        file,
-        selector: header,
-        ancestry: ancestry.map(normalizeWhitespace),
-        body: normalizeWhitespace(stripComments(css.slice(bodyStart, bodyEnd))),
-      });
+      const normalizedAncestry = ancestry.map(normalizeWhitespace);
+      const body = normalizeWhitespace(stripComments(css.slice(bodyStart, bodyEnd)));
+      for (const selector of splitSelectorList(header)) {
+        rules.push({ file, selector, ancestry: normalizedAncestry, body });
+      }
     }
 
     cursor = close + 1;
@@ -189,7 +258,7 @@ for (const overlap of overlaps) {
 const report = {
   files,
   totals: {
-    rules: allRules.length,
+    selectorArms: allRules.length,
     crossFileSelectorOverlaps: overlaps.length,
   },
   pairCounts,
