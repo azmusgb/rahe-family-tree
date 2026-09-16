@@ -56,14 +56,19 @@ const inventory=[...classes.values()].map((entry)=>({
   cssOnly:entry.sourceOccurrences===0,
 })).sort((a,b)=>b.sourceOccurrences-a.sourceOccurrences||b.cssOccurrences-a.cssOccurrences||a.className.localeCompare(b.className));
 
+const cssOnlyClassNames=inventory.filter((item)=>item.cssOnly).map((item)=>item.className).sort();
+const topSourceClasses=inventory.slice(0,20).map(({className,cssOccurrences,sourceOccurrences})=>({className,cssOccurrences,sourceOccurrences}));
+
 const report={
   generatedAt:new Date().toISOString(),
   totals:{
     versionedClasses:inventory.length,
     cssOccurrences:inventory.reduce((sum,item)=>sum+item.cssOccurrences,0),
     sourceOccurrences:inventory.reduce((sum,item)=>sum+item.sourceOccurrences,0),
-    cssOnlyClasses:inventory.filter((item)=>item.cssOnly).length,
+    cssOnlyClasses:cssOnlyClassNames.length,
+    cssOnlyClassNames,
   },
+  topSourceClasses,
   byCssFile:Object.fromEntries(styleFiles.map((file)=>{
     const rel=path.join('src','styles',file);
     const items=inventory.filter((item)=>item.cssFiles.includes(rel));
