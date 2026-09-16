@@ -23,18 +23,18 @@ function relayoutNavigation(){
   if(nav.dataset.navigationOwner==='shell')return;
   const active=routeForNav();
   nav.dataset.layout='15.1';
-  nav.innerHTML=`<div class="v151-primary-nav">${primary.map(([key,label])=>linkMarkup(key,label)).join('')}</div><div class="v151-nav-menus">${menus.map(([label,items])=>{const menuActive=items.some(([key])=>key===active);return`<details class="v151-nav-menu ${menuActive?'active':''}"><summary>${label}</summary><div class="v151-nav-popover">${items.map(([key,itemLabel])=>`<a href="#${key}" class="${active===key?'active':''}" ${active===key?'aria-current="page"':''}><b>${itemLabel}</b><small>${routeDescription(key)}</small></a>`).join('')}</div></details>`;}).join('')}</div>`;
+  nav.innerHTML=`<div class="v151-primary-nav">${primary.map(([key,label])=>linkMarkup(key,label)).join('')}</div><div class="v151-nav-menus">${menus.map(([label,items])=>{const menuActive=items.some(([key])=>key===active);return`<details class="nav-menu ${menuActive?'active':''}"><summary>${label}</summary><div class="v151-nav-popover">${items.map(([key,itemLabel])=>`<a href="#${key}" class="${active===key?'active':''}" ${active===key?'aria-current="page"':''}><b>${itemLabel}</b><small>${routeDescription(key)}</small></a>`).join('')}</div></details>`;}).join('')}</div>`;
 }
 
 function closeMenusAfterNavigation(){
   document.addEventListener('click',event=>{
     const link=event.target.closest?.('.v151-nav-popover a');
     if(link)link.closest('details')?.removeAttribute('open');
-    const opened=event.target.closest?.('.v151-nav-menu[open]');
+    const opened=event.target.closest?.('.nav-menu[open]');
     if(opened)return;
-    document.querySelectorAll('.v151-nav-menu[open]').forEach(menu=>menu.removeAttribute('open'));
+    document.querySelectorAll('.nav-menu[open]').forEach(menu=>menu.removeAttribute('open'));
   });
-  document.addEventListener('keydown',event=>{if(event.key==='Escape')document.querySelectorAll('.v151-nav-menu[open]').forEach(menu=>menu.removeAttribute('open'));});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape')document.querySelectorAll('.nav-menu[open]').forEach(menu=>menu.removeAttribute('open'));});
 }
 
 function relayoutDashboard(){

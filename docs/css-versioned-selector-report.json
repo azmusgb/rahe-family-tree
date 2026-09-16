@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-16T18:09:36.260Z",
+  "generatedAt": "2026-09-16T18:13:00.931Z",
   "totals": {
-    "versionedClasses": 241,
-    "cssOccurrences": 2062,
-    "sourceOccurrences": 730,
+    "versionedClasses": 240,
+    "cssOccurrences": 2053,
+    "sourceOccurrences": 717,
     "cssOnlyClasses": 10,
     "cssOnlyClassNames": [
       "v129-recent",
@@ -37,11 +37,6 @@
     {
       "className": "v21-mobile-search",
       "cssOccurrences": 18,
-      "sourceOccurrences": 13
-    },
-    {
-      "className": "v151-nav-menu",
-      "cssOccurrences": 9,
       "sourceOccurrences": 13
     },
     {
@@ -118,16 +113,21 @@
       "className": "v17-person-card-copy",
       "cssOccurrences": 21,
       "sourceOccurrences": 7
+    },
+    {
+      "className": "v17-home-person",
+      "cssOccurrences": 17,
+      "sourceOccurrences": 7
     }
   ],
   "byCssFile": {
     "src/styles/composition.css": {
-      "classes": 33,
-      "occurrences": 541
+      "classes": 32,
+      "occurrences": 532
     },
     "src/styles/core.css": {
-      "classes": 206,
-      "occurrences": 1618
+      "classes": 205,
+      "occurrences": 1609
     },
     "src/styles/experience.css": {
       "classes": 6,
@@ -142,8 +142,8 @@
       "occurrences": 0
     },
     "src/styles/interaction.css": {
-      "classes": 19,
-      "occurrences": 396
+      "classes": 18,
+      "occurrences": 387
     },
     "src/styles/mobile.css": {
       "classes": 91,
@@ -250,25 +250,6 @@
         "e2e/mobile-v20-app.spec.mjs",
         "e2e/navigation.spec.mjs",
         "src/runtime/mobile-ui-shell.js"
-      ],
-      "cssOnly": false
-    },
-    {
-      "className": "v151-nav-menu",
-      "cssOccurrences": 9,
-      "cssFiles": [
-        "src/styles/composition.css",
-        "src/styles/core.css",
-        "src/styles/interaction.css"
-      ],
-      "sourceOccurrences": 13,
-      "sourceFiles": [
-        "index.html",
-        "scripts/test-v15-1.mjs",
-        "scripts/test-v18-6-ui.mjs",
-        "src/runtime/navigation-shell.js",
-        "src/runtime/page-architecture.js",
-        "v15-1-runtime.js"
       ],
       "cssOnly": false
     },

@@ -4,14 +4,14 @@ import{routeKeyFromLocation,routeDetailFromLocation}from'./navigation-runtime.js
 const routeKey=routeKeyFromLocation;
 const routeDetail=routeDetailFromLocation;
 const familyRoutes=new Set(['dashboard','tree','people','person','families','branch','media','stories','timeline','migration']);
-const transientSelector='.mobile-more[open],.v158-mobile-more[open],.nav-menu[open],.v151-nav-menu[open],.site-tools[open],.tools-menu[open]';
+const transientSelector='.mobile-more[open],.v158-mobile-more[open],.nav-menu[open],.nav-menu[open],.site-tools[open],.tools-menu[open]';
 const persistedLinkData=new Map();
 let navObserver=null;
 function isResearchContext(route=routeKey()){if(researchRoutes.has(route))return true;if(familyRoutes.has(route))return false;return document.body.dataset.experience==='research';}
 function branchCrumb(){if(routeKey()!=='branch')return'';try{return decodeURIComponent(routeDetail())||'Family';}catch{return routeDetail()||'Family';}}
 
 function familyPrimaryHtml(){return linksHtml(familyPrimary);}
-function familyMenus(){return `<details class="nav-menu explore-menu v151-nav-menu v158-explore"><summary aria-expanded="false">Explore</summary><div class="nav-popover v151-nav-popover">${linksHtml(familyExplore)}</div></details><a class="research-entry v158-research-entry" href="#research">Research</a>`;}
+function familyMenus(){return `<details class="nav-menu explore-menu nav-menu v158-explore"><summary aria-expanded="false">Explore</summary><div class="nav-popover v151-nav-popover">${linksHtml(familyExplore)}</div></details><a class="research-entry v158-research-entry" href="#research">Research</a>`;}
 function researchPrimaryHtml(){return linksHtml(researchPrimary);}
 function researchMenus(){return `<a class="family-return v158-family-return" href="#dashboard" data-family-return data-v158-family-return>← Back to Family</a>`;}
 
@@ -86,7 +86,7 @@ function syncCrumb(){const crumb=document.getElementById('crumb');if(crumb){crum
 function returnToFamily(event){const trigger=event.target.closest?.('[data-family-return],[data-v158-family-return],[data-v158-family-mobile]');if(!trigger)return false;if(document.body.dataset.experience==='research')document.querySelector('.experience-toggle')?.click();location.hash='dashboard';return true;}
 function focusSearchInput(){const input=document.getElementById('search'),filters=document.getElementById('filters');if(!input||!filters)return false;if(filters.hidden)return false;filters.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});requestAnimationFrame(()=>input.focus({preventScroll:true}));return true;}
 function openGlobalSearch(){closeTransientNavigation();if(focusSearchInput())return;if(isResearchContext()){location.hash='research';setTimeout(focusSearchInput,180);return;}location.hash='people';let tries=0;const focus=()=>{if(focusSearchInput()||tries++>8)return;requestAnimationFrame(focus);};requestAnimationFrame(focus);}
-function syncHeaderContext(route=routeKey()){const header=document.querySelector('.site-header');if(header)header.dataset.context=isResearchContext(route)?'research':'family';document.querySelectorAll('.v151-primary-nav').forEach(el=>el.classList.add('primary-nav'));document.querySelectorAll('.v151-nav-menus').forEach(el=>el.classList.add('nav-menus'));document.querySelectorAll('.v151-nav-menu').forEach(el=>el.classList.add('nav-menu'));document.querySelectorAll('.v151-nav-popover').forEach(el=>el.classList.add('nav-popover'));document.querySelectorAll('.v158-research-entry').forEach(el=>el.classList.add('research-entry'));document.querySelectorAll('.v158-family-return').forEach(el=>el.classList.add('family-return'));document.querySelectorAll('.v158-mobile-more').forEach(el=>el.classList.add('mobile-more'));document.querySelector('.v153-profile-nav')?.classList.add('profile-nav');document.querySelectorAll('.nav-menu[open],.mobile-more[open]').forEach(details=>{if(details.dataset.keepOpen!=='true')details.removeAttribute('open');});document.querySelectorAll('.nav-menu,.mobile-more,.site-tools,.tools-menu').forEach(details=>details.querySelector(':scope > summary')?.setAttribute('aria-expanded',String(details.open)));}
+function syncHeaderContext(route=routeKey()){const header=document.querySelector('.site-header');if(header)header.dataset.context=isResearchContext(route)?'research':'family';document.querySelectorAll('.v151-primary-nav').forEach(el=>el.classList.add('primary-nav'));document.querySelectorAll('.v151-nav-menus').forEach(el=>el.classList.add('nav-menus'));document.querySelectorAll('.nav-menu').forEach(el=>el.classList.add('nav-menu'));document.querySelectorAll('.v151-nav-popover').forEach(el=>el.classList.add('nav-popover'));document.querySelectorAll('.v158-research-entry').forEach(el=>el.classList.add('research-entry'));document.querySelectorAll('.v158-family-return').forEach(el=>el.classList.add('family-return'));document.querySelectorAll('.v158-mobile-more').forEach(el=>el.classList.add('mobile-more'));document.querySelector('.v153-profile-nav')?.classList.add('profile-nav');document.querySelectorAll('.nav-menu[open],.mobile-more[open]').forEach(details=>{if(details.dataset.keepOpen!=='true')details.removeAttribute('open');});document.querySelectorAll('.nav-menu,.mobile-more,.site-tools,.tools-menu').forEach(details=>details.querySelector(':scope > summary')?.setAttribute('aria-expanded',String(details.open)));}
 function apply(route=routeKey()){rebuildDesktopNav(route);syncBrand(route);contextualSearch(route);rebuildMobileDock(route);syncCrumb();syncHeaderContext(route);document.body.dataset.navigationShellRoute=route;}
 function previewRoute(route){if(!route||isResearchContext(route)!==isResearchContext())return;const current=owningSection(route);markCurrent(document.querySelector('.primary-nav,.v151-primary-nav'),'[data-nav-key],a[href^="#"]',current);markCurrent(document.getElementById('family-mobile-dock'),'[data-dock-route],a[href^="#"]',current);document.body.dataset.navigationShellRoute=route;}
 function observeNavigationOwnership(){
@@ -103,7 +103,7 @@ function observeNavigationOwnership(){
 }
 
 document.addEventListener('click',event=>{
-  const openOwner=event.target.closest?.('.mobile-more,.v158-mobile-more,.nav-menu,.v151-nav-menu,.site-tools,.tools-menu');
+  const openOwner=event.target.closest?.('.mobile-more,.v158-mobile-more,.nav-menu,.nav-menu,.site-tools,.tools-menu');
   if(openOwner)closeTransientNavigation(openOwner);else closeTransientNavigation();
   const navLink=event.target.closest?.('#family-mobile-dock a[href^="#"],#nav a[href^="#"],.site-header .brand[href^="#"]');
   if(navLink)closeTransientNavigation();
@@ -116,7 +116,7 @@ document.addEventListener('keydown',event=>{
   const open=document.querySelector(transientSelector);if(!open)return;
   event.preventDefault();const summary=open.querySelector(':scope > summary');closeTransientNavigation();summary?.focus();
 },true);
-document.addEventListener('toggle',event=>{const details=event.target;if(!(details instanceof HTMLDetailsElement)||!details.matches('.mobile-more,.v158-mobile-more,.nav-menu,.v151-nav-menu,.site-tools,.tools-menu'))return;details.querySelector(':scope > summary')?.setAttribute('aria-expanded',String(details.open));if(details.open)closeTransientNavigation(details);},true);
+document.addEventListener('toggle',event=>{const details=event.target;if(!(details instanceof HTMLDetailsElement)||!details.matches('.mobile-more,.v158-mobile-more,.nav-menu,.nav-menu,.site-tools,.tools-menu'))return;details.querySelector(':scope > summary')?.setAttribute('aria-expanded',String(details.open));if(details.open)closeTransientNavigation(details);},true);
 
 // Intent gives immediate feedback. Route commit and hashchange synchronize the
 // shell synchronously. The nav-root observer is a compatibility firewall: if a

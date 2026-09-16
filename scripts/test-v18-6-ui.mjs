@@ -92,7 +92,7 @@ test('18.9 archive shell uses semantic selectors without specificity escalation'
   assert.match(runtime,/dataset\.navContext/);
   assert.match(runtime,/classList\.add\('primary-nav'\)/);
   assert.match(runtime,/classList\.add\('nav-menus'\)/);
-  assert.match(runtime,/nav-menu explore-menu v151-nav-menu/);
+  assert.match(runtime,/nav-menu explore-menu nav-menu/);
 });
 
 test('18.10 navigation CSS uses semantic ownership without specificity escalation',async()=>{

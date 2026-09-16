@@ -182,14 +182,14 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
 }
 
-#nav a,.v151-nav-menu>summary,.v158-research-entry{
+#nav a,.nav-menu>summary,.v158-research-entry{
   border-radius:12px;
   transition:
     background var(--family-motion-fast,140ms) ease,
     color var(--family-motion-fast,140ms) ease,
     transform var(--family-motion-fast,140ms) ease;
 }
-#nav a:hover,.v151-nav-menu>summary:hover{background:rgba(255,255,255,.08);color:#fff}
+#nav a:hover,.nav-menu>summary:hover{background:rgba(255,255,255,.08);color:#fff}
 #nav a[aria-current="page"],#nav a.active{
   background:#f4eee0;
   color:#153f34;
