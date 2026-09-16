@@ -12,14 +12,14 @@ const build=fs.readFileSync('scripts/build.mjs','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const routeCapabilities=fs.readFileSync('src/runtime/route-capabilities.js','utf8');
 const tokens=fs.readFileSync('src/styles/tokens.css','utf8');
-const baseStyles=fs.readFileSync('src/styles/base.css','utf8');
-const shellStyles=fs.readFileSync('src/styles/shell.css','utf8');
-const homeStyles=fs.readFileSync('src/styles/home.css','utf8');
-const peopleStyles=fs.readFileSync('src/styles/people.css','utf8');
-const personStyles=fs.readFileSync('src/styles/person.css','utf8');
-const treeStyles=fs.readFileSync('src/styles/tree.css','utf8');
-const mediaStyles=fs.readFileSync('src/styles/media.css','utf8');
-const responsiveStyles=fs.readFileSync('src/styles/responsive.css','utf8');
+const baseStyles=fs.readFileSync('src/styles/core.css','utf8');
+const shellStyles=fs.readFileSync('src/styles/core.css','utf8');
+const homeStyles=fs.readFileSync('src/styles/core.css','utf8');
+const peopleStyles=fs.readFileSync('src/styles/core.css','utf8');
+const personStyles=fs.readFileSync('src/styles/core.css','utf8');
+const treeStyles=fs.readFileSync('src/styles/core.css','utf8');
+const mediaStyles=fs.readFileSync('src/styles/core.css','utf8');
+const responsiveStyles=fs.readFileSync('src/styles/core.css','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
 test('family narrative uses supported historical normalized events only for homepage moments',()=>{
@@ -71,7 +71,7 @@ test('v16.2 presentation remains under semantic Family design-system ownership',
   assert.match(experience,/const presentationModules=\[[\s\S]*import\('\.\/mobile-family-density\.js'\),[\s\S]*import\('\.\/family-branches-v17-5\.js'\)[\s\S]*\];/);
   assert.match(experience,/Promise\.allSettled\(presentationModules\)\.then\(\(\)=>import\('\.\/neutral-family-branding\.js'\)\)/);
   for(const token of['v162-family-journey','v162-moments','v162-family-path','v162-media-quick'])assert.match(styles,new RegExp(token));
-  const semantic=['tokens.css','base.css','shell.css','navigation.css','home.css','people.css','person.css','stories.css','tree.css','media.css','explore.css','research.css','record-ingestion.css','mobile-family.css','responsive.css'];
+  const semantic=['tokens.css','core.css','composition.css','experience.css','home-responsive.css','interaction.css','mobile.css','print.css'];
   let previous=-1;
   for(const file of semantic){const index=styleRoot.indexOf(`@import './${file}';`);assert.ok(index>previous,`${file} should follow the previous semantic layer`);previous=index;}
   assert.equal(fs.existsSync('src/styles/v16-3.css'),false);

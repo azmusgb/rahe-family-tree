@@ -14,7 +14,7 @@ const treeAdvanced=fs.readFileSync('src/runtime/tree-advanced.js','utf8');
 const treePolish=fs.readFileSync('src/runtime/tree-polish.js','utf8');
 const unified=fs.readFileSync('src/runtime/unified-family-experience.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
-const unifiedCss=fs.readFileSync('src/styles/unified-family.css','utf8');
+const unifiedCss=fs.readFileSync('src/styles/core.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 

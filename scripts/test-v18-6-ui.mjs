@@ -4,6 +4,13 @@ import{readFile}from'node:fs/promises';
 
 // Release-candidate architecture regression suite.
 const read=path=>readFile(new URL(`../${path}`,import.meta.url),'utf8');
+const cssSource=(bundle,source)=>{
+  const marker=`Source: ${source}`;
+  const start=bundle.indexOf(marker);
+  assert.ok(start>-1,`missing consolidated CSS source ${source}`);
+  const next=bundle.indexOf('Source: ',start+marker.length);
+  return bundle.slice(start,next>-1?next:bundle.length);
+};
 
 test('18.6 page actions use the shared UI command layer',async()=>{
   const runtime=await read('src/runtime/page-architecture.js');
@@ -31,24 +38,24 @@ test('18.6 has a centralized print contract',async()=>{
   assert.match(print,/#family-graph/);
 });
 
-test('18.7 CSS architecture centralizes print and reduced-motion contracts',async()=>{
+test('18.7 CSS architecture uses consolidated ownership with print authoritative last',async()=>{
   const index=await read('src/styles/index.css');
   const print=await read('src/styles/print.css');
-  const interactions=await read('src/styles/interaction-contracts.css');
-  const modules=['shell.css','navigation.css','home.css','tree.css','media.css','mobile-family.css','responsive.css','base-composition.css','shell-composition.css','home-composition.css','person-composition.css','people-composition.css','tree-composition.css','responsive-composition.css'];
-  const moduleCss=await Promise.all(modules.map(name=>read(`src/styles/${name}`)));
-  for(const name of ['base-composition.css','shell-composition.css','home-composition.css','person-composition.css','people-composition.css','tree-composition.css','responsive-composition.css'])assert.ok(index.indexOf(`@import './${name}';`)>-1);
-  assert.ok(index.indexOf("@import './responsive-composition.css';")<index.indexOf("@import './interaction-contracts.css';"));
-  assert.ok(index.indexOf("@import './interaction-contracts.css';")<index.indexOf("@import './print.css';"));
+  const interactions=await read('src/styles/interaction.css');
+  const expected=['tokens.css','core.css','composition.css','experience.css','home-responsive.css','interaction.css','mobile.css','print.css'];
+  let previous=-1;
+  for(const name of expected){
+    const position=index.indexOf(`@import './${name}';`);
+    assert.ok(position>previous,`${name} should follow the previous consolidated layer`);
+    previous=position;
+  }
+  assert.equal((index.match(/@import/g)||[]).length,8);
   assert.match(print,/Consolidated print rules migrated from semantic modules/);
   assert.match(interactions,/Reduced-motion is a cross-route accessibility contract/);
-  for(const css of moduleCss){
-    assert.doesNotMatch(css,/@media\s*print/);
-    assert.doesNotMatch(css,/@media[^\{]*prefers-reduced-motion\s*:\s*reduce/);
-  }
 });
 
-test('18.7 responsive media-query debt stays within the normalized budget',async()=>{
+test('18.7 responsive media-query debt stays within the normalized source budgets',async()=>{
+  const core=await read('src/styles/core.css');
   const budgets={
     'responsive.css':55,
     'shell.css':36,
@@ -57,25 +64,26 @@ test('18.7 responsive media-query debt stays within the normalized budget',async
     'navigation.css':28
   };
   for(const [name,max] of Object.entries(budgets)){
-    const css=await read(`src/styles/${name}`);
+    const css=cssSource(core,name);
     const count=(css.match(/@media/g)||[]).length;
     assert.ok(count<=max,`${name} has ${count} media blocks; budget is ${max}`);
   }
 });
 
-test('18.8 retires the catch-all redesign layer into semantic composition owners',async()=>{
+test('18.8 retires catch-all and micro-layer CSS into consolidated owners',async()=>{
   const index=await read('src/styles/index.css');
   assert.doesNotMatch(index,/redesign\.css/);
-  for(const name of ['base','shell','home','person','people','tree','responsive']){
-    const file=`${name}-composition.css`;
-    assert.match(index,new RegExp(`@import './${file.replace('.', '\\.')}';`));
-    const css=await read(`src/styles/${file}`);
-    assert.match(css,/Presentation-only|Evidence-state semantics/);
+  assert.equal((index.match(/@import/g)||[]).length,8);
+  const composition=await read('src/styles/composition.css');
+  for(const source of ['base-composition.css','shell-composition.css','home-composition.css','person-composition.css','people-composition.css','tree-composition.css','responsive-composition.css']){
+    assert.match(composition,new RegExp(`Source: ${source.replace('.', '\\.')}`));
   }
+  assert.match(composition,/Presentation-only|Evidence-state semantics/);
 });
 
 test('18.9 archive shell uses semantic selectors without specificity escalation',async()=>{
-  const shell=await read('src/styles/archive-shell.css');
+  const core=await read('src/styles/core.css');
+  const shell=cssSource(core,'archive-shell.css');
   const runtime=await read('src/runtime/navigation-shell.js');
   assert.doesNotMatch(shell,/!important/);
   assert.doesNotMatch(shell,/data-v158-context|\.v151-(?:primary-nav|nav-menus|nav-menu|nav-popover)|\.v158-research-entry/);
@@ -88,7 +96,8 @@ test('18.9 archive shell uses semantic selectors without specificity escalation'
 });
 
 test('18.10 navigation CSS uses semantic ownership without specificity escalation',async()=>{
-  const css=await read('src/styles/navigation.css');
+  const core=await read('src/styles/core.css');
+  const css=cssSource(core,'navigation.css');
   assert.doesNotMatch(css,/\.v151-(?:primary-nav|nav-menu|nav-menus|nav-popover)/);
   assert.doesNotMatch(css,/data-v158-context/);
   assert.doesNotMatch(css,/!important/);
@@ -99,7 +108,8 @@ test('18.10 navigation CSS uses semantic ownership without specificity escalatio
 });
 
 test('18.11 tree CSS uses semantic context without specificity escalation',async()=>{
-  const css=await read('src/styles/tree.css');
+  const core=await read('src/styles/core.css');
+  const css=cssSource(core,'tree.css');
   assert.doesNotMatch(css,/data-v158-context/);
   assert.doesNotMatch(css,/!important/);
   assert.match(css,/body\[data-route="tree"\]\[data-nav-context="family"\]/);
@@ -108,7 +118,8 @@ test('18.11 tree CSS uses semantic context without specificity escalation',async
 });
 
 test('18.12 tree styling uses semantic classes while runtime retains compatibility aliases',async()=>{
-  const css=await read('src/styles/tree.css');
+  const core=await read('src/styles/core.css');
+  const css=cssSource(core,'tree.css');
   const engine=await read('src/runtime/tree-engine.js');
   const polish=await read('src/runtime/tree-polish.js');
   for(const legacy of [
@@ -135,7 +146,8 @@ test('18.12 tree styling uses semantic classes while runtime retains compatibili
 });
 
 test('18.13 tree CSS does not depend on release-number state markers',async()=>{
-  const css=await read('src/styles/tree.css');
+  const core=await read('src/styles/core.css');
+  const css=cssSource(core,'tree.css');
   const engine=await read('src/runtime/tree-engine.js');
   const polish=await read('src/runtime/tree-polish.js');
   assert.doesNotMatch(css,/data-tree-(?:release|polish-release)/);
@@ -147,7 +159,7 @@ test('18.13 tree CSS does not depend on release-number state markers',async()=>{
 });
 
 test('18.14 hidden route filters remain hidden despite layout display rules',async()=>{
-  const interactions=await read('src/styles/interaction-contracts.css');
+  const interactions=await read('src/styles/interaction.css');
   assert.match(interactions,/\.filters\[hidden\]\{display:none!important\}/);
   assert.match(interactions,/data-route="media"[^\{]*\.route-shell \.filters\{[\s\S]*display:block!important/);
 });

@@ -33,7 +33,7 @@ test('v19.3 navigation remains presentation-only and privacy-neutral',async()=>{
 });
 
 test('v19.3 relationship panel remains mobile and keyboard accessible',async()=>{
-  const css=await read('src/styles/family-graph-navigation.css');
+  const css=await read('src/styles/experience.css');
   assert.match(css,/family-graph-relationship-help/);
   assert.match(css,/family-graph-relationship-panel select\{width:100%;max-width:none;min-height:44px\}/);
   assert.match(css,/focus-visible/);

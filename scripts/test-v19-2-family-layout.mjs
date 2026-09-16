@@ -24,7 +24,7 @@ test('v19.2 asserted couple context never promotes derivative spouse leads',asyn
 
 test('v19.2 generation metadata comes from people and preserves advanced SVG labels',async()=>{
   const runtime=await read('src/runtime/family-graph-layout.js');
-  const css=await read('src/styles/family-graph-layout.css');
+  const css=await read('src/styles/experience.css');
   assert.match(runtime,/nearest\?\.generations\.add\(offset\)/);
   assert.match(runtime,/dataset\.familyGenerations=offsets\.join/);
   assert.match(runtime,/dataset\.familyGenerationLabel=offsets\.map\(generationLabel\)/);
@@ -41,8 +41,11 @@ test('v19.2 generation metadata comes from people and preserves advanced SVG lab
 
 test('v19.2 stylesheet is layered after Family Graph navigation and before interaction contracts',async()=>{
   const index=await read('src/styles/index.css');
-  const nav=index.indexOf("@import './family-graph-navigation.css';");
-  const layout=index.indexOf("@import './family-graph-layout.css';");
-  const interactions=index.indexOf("@import './interaction-contracts.css';");
-  assert.ok(nav>-1&&layout>nav&&interactions>layout);
+  const experienceImport=index.indexOf("@import './experience.css';");
+  const interactions=index.indexOf("@import './interaction.css';");
+  const experience=await read('src/styles/experience.css');
+  const nav=experience.indexOf('Source: family-graph-navigation.css');
+  const layout=experience.indexOf('Source: family-graph-layout.css');
+  assert.ok(experienceImport>-1&&interactions>experienceImport);
+  assert.ok(nav>-1&&layout>nav);
 });

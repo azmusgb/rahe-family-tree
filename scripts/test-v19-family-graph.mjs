@@ -32,7 +32,7 @@ test('v19 preserves rendered evidence-state semantics instead of inventing relat
 test('v19 mobile person preview protects living detail and uses the authoritative tree router',async()=>{
   const runtime=await read('src/runtime/family-graph-v19.js');
   const experience=await read('src/runtime/experience-core.js');
-  const css=await read('src/styles/family-graph-v19.css');
+  const css=await read('src/styles/experience.css');
   assert.match(runtime,/Living · private details protected/);
   assert.match(runtime,/data-family-preview-focus/);
   assert.match(runtime,/data-family-preview-profile/);
@@ -54,8 +54,11 @@ test('v19 derives implicit graph focus from the rendered focused node',async()=>
 
 test('v19 semantic stylesheet is loaded after mobile composition and before interaction contracts',async()=>{
   const index=await read('src/styles/index.css');
-  const mobile=index.indexOf("@import './mobile-experience.css';");
-  const graph=index.indexOf("@import './family-graph-v19.css';");
-  const interactions=index.indexOf("@import './interaction-contracts.css';");
-  assert.ok(mobile>-1&&graph>mobile&&interactions>graph);
+  const experienceImport=index.indexOf("@import './experience.css';");
+  const interactions=index.indexOf("@import './interaction.css';");
+  const experience=await read('src/styles/experience.css');
+  const mobile=experience.indexOf('Source: mobile-experience.css');
+  const graph=experience.indexOf('Source: family-graph-v19.css');
+  assert.ok(experienceImport>-1&&interactions>experienceImport);
+  assert.ok(mobile>-1&&graph>mobile);
 });
