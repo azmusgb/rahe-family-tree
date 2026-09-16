@@ -13,18 +13,18 @@ async function snapshot(page,route){
 }
 
 test.describe('v20.2 route-level capability loading',()=>{
-  test('dashboard loads only its Home polish capability',async({page})=>{
+  test('dashboard loads its Home-scoped presentation capabilities',async({page})=>{
     await open(page,'dashboard');
     const state=await snapshot(page,'dashboard');
-    expect(state.registered).toEqual(expect.arrayContaining(['stories-runtime','record-ingestion','person-experience-v17-3','mobile-home-polish']));
-    expect(state.loaded).toContain('mobile-home-polish');
+    expect(state.registered).toEqual(expect.arrayContaining(['stories-runtime','record-ingestion','person-experience-v17-3','mobile-home-polish','family-narrative']));
+    expect(state.loaded).toEqual(expect.arrayContaining(['mobile-home-polish','family-narrative']));
     expect(state.loaded).not.toContain('stories-runtime');
     expect(state.loaded).not.toContain('record-ingestion');
     expect(state.loaded).not.toContain('person-experience-v17-3');
-    expect(state.matched).toEqual(['mobile-home-polish']);
+    expect(state.matched).toEqual(['mobile-home-polish','family-narrative']);
   });
 
-  test('Stories loads on its route without pulling in research or Person capabilities',async({page})=>{
+  test('Stories loads its route capability without pulling in research or Person capabilities',async({page})=>{
     await open(page,'dashboard');
     await page.evaluate(()=>{location.hash='#stories';});
     await page.waitForSelector('.v16-stories');
@@ -58,25 +58,38 @@ test.describe('v20.2 route-level capability loading',()=>{
     expect(state.loaded).not.toContain('record-ingestion');
     expect(state.loaded).not.toContain('mobile-home-polish');
     expect(state.loaded).not.toContain('person-experience-v17-3');
+    expect(state.loaded).not.toContain('family-narrative');
   });
 
-  test('cold Person deep link route-loads the biography enhancement',async({page})=>{
+  test('cold Person deep link route-loads biography and family narrative enhancements',async({page})=>{
     await open(page,`person/${HAZEL}`);
     await expect(page.locator(`[data-v17-native="person"][data-person-id="${HAZEL}"]`)).toBeVisible();
     await expect(page.locator('#v17-story')).toBeVisible();
     const state=await snapshot(page,'person');
-    expect(state.loaded).toContain('person-experience-v17-3');
+    expect(state.loaded).toEqual(expect.arrayContaining(['person-experience-v17-3','family-narrative']));
     expect(state.loaded).not.toContain('stories-runtime');
     expect(state.loaded).not.toContain('record-ingestion');
     expect(state.loaded).not.toContain('mobile-home-polish');
-    expect(state.matched).toEqual(['person-experience-v17-3']);
+    expect(state.matched).toEqual(['person-experience-v17-3','family-narrative']);
   });
 
-  test('mobile Dashboard route-loads Home polish after native Home renders',async({page})=>{
+  test('cold Media deep link route-loads family narrative quick filters',async({page})=>{
+    await open(page,'media');
+    await expect(page.locator('.v162-media-quick')).toBeVisible();
+    const state=await snapshot(page,'media');
+    expect(state.loaded).toContain('family-narrative');
+    expect(state.loaded).not.toContain('stories-runtime');
+    expect(state.loaded).not.toContain('record-ingestion');
+    expect(state.loaded).not.toContain('person-experience-v17-3');
+    expect(state.loaded).not.toContain('mobile-home-polish');
+    expect(state.matched).toEqual(['family-narrative']);
+  });
+
+  test('mobile Dashboard route-loads Home polish and family narrative after native Home renders',async({page})=>{
     await page.setViewportSize({width:390,height:844});
     await open(page,'dashboard');
     const state=await snapshot(page,'dashboard');
-    expect(state.loaded).toContain('mobile-home-polish');
+    expect(state.loaded).toEqual(expect.arrayContaining(['mobile-home-polish','family-narrative']));
     await expect(page.locator('.v21-launcher-heading p')).toHaveText('Choose a path into the archive and start exploring.');
   });
 });
