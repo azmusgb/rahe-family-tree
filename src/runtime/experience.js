@@ -22,7 +22,6 @@ const presentationModules=[
   import('./ui-resilience.js'),
   import('./site-branding.js'),
   import('./mobile-family-density.js'),
-  import('./family-narrative.js'),
   import('./unified-family-experience.js'),
   import('./family-branches-v17-5.js'),
   import('./experience-elevation-v17-4.js')
