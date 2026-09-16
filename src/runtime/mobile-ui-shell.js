@@ -1,5 +1,4 @@
 const MOBILE_QUERY='(max-width: 720px)';
-const desiredDockOrder=['dashboard','families','tree','people','more'];
 const PENDING_SEARCH_KEY='family.mobile.v21.pendingSearch';
 const PENDING_FOCUS_KEY='family.mobile.v21.pendingFocus';
 let scheduled=false;
@@ -44,23 +43,6 @@ function syncDedicatedHeader(){
     back.href=backTarget();
     back.setAttribute('aria-label',home?'Home':`Back from ${nextTitle}`);
   }
-}
-
-function dockKey(node){
-  if(node.matches?.('a[data-dock-route]'))return node.dataset.dockRoute;
-  if(node.matches?.('details'))return'more';
-  return'';
-}
-function reorderDock(){
-  if(!isMobile())return;
-  const dock=document.getElementById('family-mobile-dock');
-  if(!dock)return;
-  const current=[...dock.children].map(dockKey).filter(Boolean);
-  if(current.join('|')!==desiredDockOrder.join('|')){
-    const nodes=new Map([...dock.children].map(node=>[dockKey(node),node]));
-    desiredDockOrder.forEach(key=>{const node=nodes.get(key);if(node)dock.append(node);});
-  }
-  dock.dataset.actualMobileOrder='home-families-tree-people-more';
 }
 
 function originalSearch(){return document.getElementById('search');}
@@ -298,7 +280,6 @@ function bindControls(){
 
 function apply(){
   syncDedicatedHeader();
-  reorderDock();
   composeHome();
   composePeople();
   composePerson();
