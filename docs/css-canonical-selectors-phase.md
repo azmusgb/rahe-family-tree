@@ -20,15 +20,20 @@ The migration removed the versioned class from the exact-name inventory. The reg
 
 ## Stage C — primary navigation semantic migration
 
-`v151-primary-nav` has now been migrated to the stable `primary-nav` contract across its full audited dependency set:
+`v151-primary-nav` was migrated to the stable `primary-nav` contract across static navigation markup, `navigation-shell.js` producers/queries/class synchronization, the legacy v15.1 runtime, navigation regression coverage, and `core.css` / `interaction.css`.
 
-- static navigation markup;
-- `navigation-shell.js` producers, queries, and class synchronization;
-- the legacy v15.1 runtime;
-- navigation regression coverage;
-- `core.css` and `interaction.css`.
+The exact-name post-migration inventory reported 239 versioned classes, 2,039 CSS occurrences, and 709 non-style source references. `v151-primary-nav` is absent from the inventory. The migration passed the targeted navigation/CSS-sensitive regression set and the production build before commit. Temporary migration workflow/helper files were removed afterward.
 
-The exact-name post-migration inventory now reports 239 versioned classes, 2,039 CSS occurrences, and 709 non-style source references. `v151-primary-nav` is absent from the inventory. The migration passed the targeted navigation/CSS-sensitive regression set and the production build before commit. Temporary migration workflow/helper files were removed afterward.
+## Stage D — navigation wrappers and popovers
+
+The remaining v15.1 navigation-shell wrapper aliases have now been retired:
+
+- `v151-nav-menus` → `nav-menus`
+- `v151-nav-popover` → `nav-popover`
+
+The migration used exact identifier boundaries across HTML, runtime code, tests, and CSS so longer versioned names were not accidentally rewritten. Semantic duplicates created by replacing paired compatibility aliases were collapsed locally.
+
+The post-migration inventory now reports 237 versioned classes, 2,033 CSS occurrences, and 696 non-style source references. Both v15.1 wrapper aliases are absent from the exact-name inventory. The targeted navigation/CSS-sensitive regression set and production build passed before commit. Temporary one-shot migration infrastructure was removed afterward.
 
 ## Migration strategy
 
@@ -45,6 +50,6 @@ Live versioned classes require semantic migration in dependency-aware slices. Fo
 
 Dead-selector cleanup follows the same standard: a class is removable only after the corrected exact-name audit shows no source producers/references, and selector parsing must preserve live arguments inside grouped selectors and functional pseudo-classes.
 
-High-impact remaining migration families include the remaining navigation wrappers/popovers, mobile More/search, tree context, media filters, person cards/profile surfaces, discovery components, and Home hero.
+High-impact remaining migration families now include mobile More/search, tree context, media filters, person cards/profile surfaces, discovery components, and Home hero.
 
 Phase 4 closes only when production CSS reaches zero `.vXX-*` classes without changing runtime, genealogy, evidence, privacy, routing, or browser behavior.
