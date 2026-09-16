@@ -26,17 +26,20 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Retire audited CSS-only selector arms
         run: |
+          set -euxo pipefail
           node scripts/remove-css-only-versioned-selectors.mjs
           node scripts/css-versioned-selector-audit.mjs
+          git diff -- src/styles docs/css-versioned-selector-report.json
       - name: Run CSS-sensitive regression tests
         run: node --test scripts/test-v16.mjs scripts/test-v16-2.mjs scripts/test-v17-1.mjs scripts/test-v17-2.mjs scripts/test-v17-3.mjs scripts/test-v17-4.mjs scripts/test-v18-6-ui.mjs scripts/test-v20-2-route-loader.mjs scripts/test-tree-advanced.mjs
       - name: Verify production build
         run: npm run build
       - name: Commit retirement
         run: |
+          set -euxo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src/styles docs/css-versioned-selector-report.json
+          git diff --cached --stat
           git commit -m "Retire CSS-only versioned selectors"
-          git pull --rebase origin css-canonical-selectors-v20-4
           git push origin HEAD:css-canonical-selectors-v20-4
