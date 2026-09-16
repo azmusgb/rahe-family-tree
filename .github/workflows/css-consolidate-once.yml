@@ -1,0 +1,42 @@
+name: Consolidate CSS once
+
+on:
+  push:
+    branches:
+      - css-consolidation-v20
+
+permissions:
+  contents: write
+
+jobs:
+  consolidate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: css-consolidation-v20
+          fetch-depth: 0
+      - name: Consolidate stylesheets
+        run: python3 scripts/consolidate_css.py
+      - name: Validate CSS architecture regressions
+        run: >-
+          node --test
+          scripts/test-v14.mjs
+          scripts/test-v15.mjs
+          scripts/test-v16-2.mjs
+          scripts/test-v18-6-ui.mjs
+          scripts/test-tree-advanced.mjs
+          scripts/test-v19-family-graph.mjs
+          scripts/test-v19-2-family-layout.mjs
+          scripts/test-v19-3-relationship-navigator.mjs
+          scripts/test-v19-4-relationship-path.mjs
+      - name: Remove one-time migration files
+        run: rm scripts/consolidate_css.py .github/workflows/css-consolidate-once.yml
+      - name: Commit consolidated CSS
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Consolidate CSS architecture into eight live bundles"
+          git push origin HEAD:css-consolidation-v20
