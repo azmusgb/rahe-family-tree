@@ -68,7 +68,7 @@ test('Photos opens content-first with quick type choices and advanced filters di
     await expectMinTarget(button);
   }
 
-  const disclosure=page.locator('.v161-media-filters');
+  const disclosure=page.locator('.media-filters');
   await expect(disclosure).toBeVisible();
   await expect(disclosure).not.toHaveAttribute('open','');
   await expectMinTarget(disclosure.locator('summary'));

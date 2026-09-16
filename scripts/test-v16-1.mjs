@@ -33,7 +33,7 @@ test('people and media remove internal inventory language from family foreground
   assert.match(runtime,/Inventory scope/);
   assert.match(runtime,/Person\\s\*\\\/\\s\*identity inventory/);
   assert.match(runtime,/media-page-hero/);
-  assert.match(runtime,/v161-media-filters/);
+  assert.match(runtime,/media-filters/);
   assert.match(runtime,/Privacy protected/);
 });
 
@@ -48,7 +48,7 @@ test('v16.1 presentation is retained under semantic module ownership',()=>{
   assert.match(build,/const legacyStyleSources=\[\]/);
   assert.equal(fs.existsSync('src/styles/v16-1.css'),false);
   assert.match(experience,/import\('\.\/mobile-family-density\.js'\)/);
-  for(const token of['v161-tree-toolbar','v161-people','v161-media-filters','v161-research-band','mobile-more'])assert.match(styles,new RegExp(token));
+  for(const token of['v161-tree-toolbar','v161-people','media-filters','v161-research-band','mobile-more'])assert.match(styles,new RegExp(token));
 });
 
 test('mobile density work cannot alter canonical genealogy semantics',()=>{

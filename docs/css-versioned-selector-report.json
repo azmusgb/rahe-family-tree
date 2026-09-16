@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-16T19:09:11.396Z",
+  "generatedAt": "2026-09-16T19:31:10.019Z",
   "totals": {
-    "versionedClasses": 234,
-    "cssOccurrences": 1971,
-    "sourceOccurrences": 660,
+    "versionedClasses": 233,
+    "cssOccurrences": 1954,
+    "sourceOccurrences": 651,
     "cssOnlyClasses": 10,
     "cssOnlyClassNames": [
       "v129-recent",
@@ -43,11 +43,6 @@
       "className": "v17-person-nav",
       "cssOccurrences": 17,
       "sourceOccurrences": 10
-    },
-    {
-      "className": "v161-media-filters",
-      "cssOccurrences": 17,
-      "sourceOccurrences": 9
     },
     {
       "className": "v17-native",
@@ -118,6 +113,11 @@
       "className": "v17-research-door",
       "cssOccurrences": 17,
       "sourceOccurrences": 6
+    },
+    {
+      "className": "v174-profile-snapshot",
+      "cssOccurrences": 15,
+      "sourceOccurrences": 6
     }
   ],
   "byCssFile": {
@@ -126,8 +126,8 @@
       "occurrences": 113
     },
     "src/styles/core.css": {
-      "classes": 202,
-      "occurrences": 1011
+      "classes": 201,
+      "occurrences": 994
     },
     "src/styles/experience.css": {
       "classes": 6,
@@ -314,26 +314,6 @@
         "src/runtime/native-family-v17-controller.js",
         "src/runtime/native-family-v17.js",
         "src/runtime/person-experience-v17-3.js"
-      ],
-      "cssOnly": false
-    },
-    {
-      "className": "v161-media-filters",
-      "cssOccurrences": 17,
-      "cssOccurrencesByFile": {
-        "src/styles/core.css": 17
-      },
-      "cssFiles": [
-        "src/styles/core.css"
-      ],
-      "sourceOccurrences": 9,
-      "sourceFiles": [
-        "e2e/family-narrative.spec.mjs",
-        "e2e/mobile-family-v17-1.spec.mjs",
-        "scripts/test-v16-1.mjs",
-        "scripts/test-v17-1.mjs",
-        "src/runtime/family-narrative.js",
-        "src/runtime/mobile-family-density.js"
       ],
       "cssOnly": false
     },

@@ -73,8 +73,8 @@ function compactMedia(){
   const content=document.getElementById('content');if(!content)return;content.classList.add('v161-media');
   content.querySelector('.media-page-hero')?.remove();
   const controls=content.querySelector('.media-library-controls');
-  if(controls&&!controls.closest('.v161-media-filters')){
-    const details=document.createElement('details');details.className='v161-media-filters';details.innerHTML='<summary><span>Filters</span><small>Type · decade · visibility · sort</small></summary>';controls.insertAdjacentElement('beforebegin',details);details.appendChild(controls);
+  if(controls&&!controls.closest('.media-filters')){
+    const details=document.createElement('details');details.className='media-filters';details.innerHTML='<summary><span>Filters</span><small>Type · decade · visibility · sort</small></summary>';controls.insertAdjacentElement('beforebegin',details);details.appendChild(controls);
   }
   const note=content.querySelector('#media-library-note');if(note&&!note.dataset.v161){note.dataset.v161='';note.innerHTML='<strong>Privacy protected.</strong> Only media safe for this family view is shown.';}
   const title=content.querySelector('.media-library-title h2');if(title)title.textContent='Photos & documents';
