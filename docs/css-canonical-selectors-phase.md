@@ -26,14 +26,25 @@ The exact-name post-migration inventory reported 239 versioned classes, 2,039 CS
 
 ## Stage D — navigation wrappers and popovers
 
-The remaining v15.1 navigation-shell wrapper aliases have now been retired:
+The remaining v15.1 navigation-shell wrapper aliases were retired:
 
 - `v151-nav-menus` → `nav-menus`
 - `v151-nav-popover` → `nav-popover`
 
 The migration used exact identifier boundaries across HTML, runtime code, tests, and CSS so longer versioned names were not accidentally rewritten. Semantic duplicates created by replacing paired compatibility aliases were collapsed locally.
 
-The post-migration inventory now reports 237 versioned classes, 2,033 CSS occurrences, and 696 non-style source references. Both v15.1 wrapper aliases are absent from the exact-name inventory. The targeted navigation/CSS-sensitive regression set and production build passed before commit. Temporary one-shot migration infrastructure was removed afterward.
+The post-migration inventory reported 237 versioned classes, 2,033 CSS occurrences, and 696 non-style source references. Both v15.1 wrapper aliases are absent from the exact-name inventory. The targeted navigation/CSS-sensitive regression set and production build passed before commit. Temporary one-shot migration infrastructure was removed afterward.
+
+## Stage E — mobile More and mobile search
+
+The primary mobile navigation/search compatibility classes have now been migrated to stable semantic contracts:
+
+- `v158-mobile-more` → `mobile-more`
+- `v21-mobile-search` → `mobile-search`
+
+The migration used the same exact-name boundary rules across markup, runtime producers/queries, mobile/browser regression tests, and all owning CSS bundles. Existing `data-v21-*` behavior attributes were intentionally preserved because this stage retires CSS class contracts, not runtime data contracts.
+
+The post-migration inventory now reports 235 versioned classes, 1,981 CSS occurrences, and 671 non-style source references. Both migrated class names are absent from the exact-name inventory. Targeted mobile/navigation/CSS-sensitive regressions and the production build passed before commit. Temporary one-shot migration infrastructure was removed afterward.
 
 ## Migration strategy
 
@@ -50,6 +61,6 @@ Live versioned classes require semantic migration in dependency-aware slices. Fo
 
 Dead-selector cleanup follows the same standard: a class is removable only after the corrected exact-name audit shows no source producers/references, and selector parsing must preserve live arguments inside grouped selectors and functional pseudo-classes.
 
-High-impact remaining migration families now include mobile More/search, tree context, media filters, person cards/profile surfaces, discovery components, and Home hero.
+High-impact remaining migration families now include tree context, media filters, person cards/profile surfaces, discovery components, and Home hero.
 
 Phase 4 closes only when production CSS reaches zero `.vXX-*` classes without changing runtime, genealogy, evidence, privacy, routing, or browser behavior.
