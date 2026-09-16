@@ -21,7 +21,10 @@ function walk(dir,out=[]){
 
 function countMatches(text,className){
   const escaped=className.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-  return (text.match(new RegExp(`\\b${escaped}\\b`,'g'))||[]).length;
+  // A CSS identifier may contain hyphens/underscores, so \b is not a safe
+  // class-name delimiter (for example `v17-home-people` is a prefix of
+  // `v17-home-people-grid`). Require non-identifier characters on both sides.
+  return (text.match(new RegExp(`(?<![-_a-zA-Z0-9])${escaped}(?![-_a-zA-Z0-9])`,'g'))||[]).length;
 }
 
 const classes=new Map();
