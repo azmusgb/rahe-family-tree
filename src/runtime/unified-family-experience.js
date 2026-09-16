@@ -1,5 +1,6 @@
 import{displayPeople,allPedigreeRelationships,branchMembership,personById,esc}from'../../core.js';
 import{hydrateNativeFamily}from'./native-family-v17.js';
+import{branchHref}from'./family-branches-v17-5.js';
 
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const cleanBranch=value=>String(value||'Family').split('/')[0].trim();
@@ -43,14 +44,13 @@ function balancedFeatured(limit=6){
   return rows;
 }
 function treeHref(id,scope='family',depth=3){const url=new URL(location.href);for(const key of['q','branch','state','from','to'])url.searchParams.delete(key);if(id)url.searchParams.set('focus',id);else url.searchParams.delete('focus');url.searchParams.set('scope',scope);if(scope==='family')url.searchParams.set('depth',String(depth));else url.searchParams.delete('depth');url.hash='tree';return`${url.pathname}${url.search}${url.hash}`;}
-function peopleHref(branch){const url=new URL(location.href);for(const key of['q','state','focus','scope','depth','from','to'])url.searchParams.delete(key);url.searchParams.set('branch',branch);url.hash='people';return`${url.pathname}${url.search}${url.hash}`;}
 function initials(name){return String(name||'?').replace(/\/.*/,'').trim().split(/\s+/).filter(Boolean).map(token=>token[0]).slice(0,2).join('').toUpperCase()||'?';}
 function personCard(person,branch){return`<article class="v17-home-person v172-home-person"><button type="button" data-person="${esc(person.id)}"><span class="v17-avatar" data-v17-person-photo="${esc(person.id)}">${esc(initials(person.name))}</span><span><small>${esc(branch||personBranches(person)[0]||'Family')}</small><b>${esc(String(person.name||'').replace(/\s*\/.*$/,'').trim())}</b><em>${person.living?'Living — details protected':esc(person.dates||'Dates not recorded')}</em><p>Open this person and follow their connected family.</p></span><i aria-hidden="true">→</i></button></article>`;}
 
 function installHomeBranchIndex(root){
   if(root.querySelector('.v172-home-branches'))return;
   const hero=root.querySelector('.v17-home-hero'),branches=branchNames(),rels=activeRelationships();if(!hero||!branches.length)return;
-  const cards=branches.map(branch=>{const members=displayPeople().filter(person=>personBranches(person).includes(branch)),rep=branchRepresentative(branch,rels);return`<a class="v172-branch-card" href="${esc(peopleHref(branch))}"><span>${esc(branch)}</span><b>${members.length} ${members.length===1?'person':'people'}</b>${rep?`<small>Start with ${esc(String(rep.name||'').replace(/\s*\/.*$/,'').trim())}</small>`:''}</a>`;}).join('');
+  const cards=branches.map(branch=>{const members=displayPeople().filter(person=>personBranches(person).includes(branch)),rep=branchRepresentative(branch,rels);return`<a class="v172-branch-card" href="${esc(branchHref(branch))}"><span>${esc(branch)}</span><b>${members.length} ${members.length===1?'person':'people'}</b>${rep?`<small>Start with ${esc(String(rep.name||'').replace(/\s*\/.*$/,'').trim())}</small>`:''}</a>`;}).join('');
   const section=document.createElement('section');section.className='v172-home-branches';section.innerHTML=`<div class="v17-section-head"><div><p class="eyebrow">FAMILY BRANCHES</p><h2>One archive, many connected lines</h2><p>Every documented branch is a peer part of the family history. Open a branch for its people, places, stories, and records.</p></div><a href="#people">Browse all people ↗</a></div><div class="v172-branch-grid">${cards}</div>`;hero.insertAdjacentElement('afterend',section);
 }
 function installBalancedHomeTree(root){

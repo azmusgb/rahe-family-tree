@@ -78,13 +78,14 @@ test('route-scoped presentation modules are registered rather than startup prese
   }
   const multiRoute=[
     ['family-narrative',"'dashboard','people','person','media'",'family-narrative'],
-    ['experience-elevation-v17-4',"'dashboard','person','tree'",'experience-elevation-v17-4']
+    ['experience-elevation-v17-4',"'dashboard','person','tree'",'experience-elevation-v17-4'],
+    ['unified-family-experience',"'dashboard','tree'",'unified-family-experience']
   ];
   for(const[name,routes,module]of multiRoute){
     assert.match(capabilities,new RegExp(`name:'${name}'[\\s\\S]*routes:\\[${routes}[\\s\\S]*import\\('\\./${module}\\.js'\\)`));
     assert.doesNotMatch(experience,new RegExp(`import\\('\\./${module}\\.js'\\)`));
   }
-  for(const module of['unified-family-experience','family-branches-v17-5'])assert.match(experience,new RegExp(`import\\('./${module}\\.js'\\)`));
+  assert.match(experience,/import\('\.\/family-branches-v17-5\.js'\)/);
 });
 
 test('route capability migration remains presentation-only and cannot promote genealogy evidence',()=>{

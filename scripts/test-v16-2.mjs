@@ -66,7 +66,9 @@ test('v16.2 presentation remains under semantic Family design-system ownership',
   assert.equal(fs.existsSync('src/styles/v16-2.css'),false);
   assert.match(routeCapabilities,/name:'family-narrative'[\s\S]*routes:\['dashboard','people','person','media'\][\s\S]*import\('\.\/family-narrative\.js'\)/);
   assert.doesNotMatch(experience,/import\('\.\/family-narrative\.js'\)/);
-  assert.match(experience,/const presentationModules=\[[\s\S]*import\('\.\/mobile-family-density\.js'\),[\s\S]*import\('\.\/unified-family-experience\.js'\),[\s\S]*\];/);
+  assert.match(routeCapabilities,/name:'unified-family-experience'[\s\S]*routes:\['dashboard','tree'\][\s\S]*import\('\.\/unified-family-experience\.js'\)/);
+  assert.doesNotMatch(experience,/import\('\.\/unified-family-experience\.js'\)/);
+  assert.match(experience,/const presentationModules=\[[\s\S]*import\('\.\/mobile-family-density\.js'\),[\s\S]*import\('\.\/family-branches-v17-5\.js'\)[\s\S]*\];/);
   assert.match(experience,/Promise\.allSettled\(presentationModules\)\.then\(\(\)=>import\('\.\/neutral-family-branding\.js'\)\)/);
   for(const token of['v162-family-journey','v162-moments','v162-family-path','v162-media-quick'])assert.match(styles,new RegExp(token));
   const semantic=['tokens.css','base.css','shell.css','navigation.css','home.css','people.css','person.css','stories.css','tree.css','media.css','explore.css','research.css','record-ingestion.css','mobile-family.css','responsive.css'];
