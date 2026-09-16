@@ -23,7 +23,7 @@ function relayoutNavigation(){
   if(nav.dataset.navigationOwner==='shell')return;
   const active=routeForNav();
   nav.dataset.layout='15.1';
-  nav.innerHTML=`<div class="v151-primary-nav">${primary.map(([key,label])=>linkMarkup(key,label)).join('')}</div><div class="v151-nav-menus">${menus.map(([label,items])=>{const menuActive=items.some(([key])=>key===active);return`<details class="nav-menu ${menuActive?'active':''}"><summary>${label}</summary><div class="v151-nav-popover">${items.map(([key,itemLabel])=>`<a href="#${key}" class="${active===key?'active':''}" ${active===key?'aria-current="page"':''}><b>${itemLabel}</b><small>${routeDescription(key)}</small></a>`).join('')}</div></details>`;}).join('')}</div>`;
+  nav.innerHTML=`<div class="primary-nav">${primary.map(([key,label])=>linkMarkup(key,label)).join('')}</div><div class="v151-nav-menus">${menus.map(([label,items])=>{const menuActive=items.some(([key])=>key===active);return`<details class="nav-menu ${menuActive?'active':''}"><summary>${label}</summary><div class="v151-nav-popover">${items.map(([key,itemLabel])=>`<a href="#${key}" class="${active===key?'active':''}" ${active===key?'aria-current="page"':''}><b>${itemLabel}</b><small>${routeDescription(key)}</small></a>`).join('')}</div></details>`;}).join('')}</div>`;
 }
 
 function closeMenusAfterNavigation(){
