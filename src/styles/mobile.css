@@ -4,6 +4,75 @@
  */
 
 /* ==========================================================================
+   Ownership migration: interaction -> mobile
+   ========================================================================== */
+/* Visual mobile-shell rules previously carried by interaction.css.
+ * They are inserted before the historical mobile sections so existing mobile
+ * declarations retain their later cascade precedence. */
+@media(max-width:720px){
+body.v21-actual-mobile-ui{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+}
+@media (min-width:721px){
+body[data-experience="family"] .site-header.sidebar{min-height:74px;height:74px;padding:0 22px;gap:18px;background:linear-gradient(115deg,#102f28 0%,#173f35 58%,#1d4a3e 100%);border-bottom:1px solid rgba(255,255,255,.12);box-shadow:0 12px 36px rgba(9,28,23,.18)}
+}
+@media (min-width:721px){
+body[data-experience="family"] .site-header-actions{display:flex;align-items:center}
+}
+@media (min-width:721px){
+body[data-experience="family"] .site-header-actions button{gap:7px;font:inherit}
+}
+@media (min-width:721px){
+body[data-experience="family"] .site-header-actions{margin-left:auto}
+}
+@media (min-width:721px){
+body[data-experience="family"] .site-header-actions button{
+    min-height:40px;
+    padding-inline:13px;
+    border-color:rgba(255,255,255,.20);
+    background:rgba(255,255,255,.065);
+    color:#f0f5f2;
+  }
+}
+@media (max-width:720px){
+body[data-experience="family"]{padding-bottom:96px}
+}
+@media (max-width:720px){
+#family-mobile-dock:not([hidden]){position:fixed;left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));z-index:100;min-height:68px;padding:7px 8px;display:grid;grid-template-columns:1fr 1.16fr 1fr 1fr 1fr;align-items:center;border:1px solid rgba(23,63,53,.14);border-radius:24px;background:rgba(250,247,239,.94);backdrop-filter:blur(22px) saturate(1.15);box-shadow:0 18px 50px rgba(12,39,31,.22),0 2px 8px rgba(12,39,31,.08);isolation:isolate}
+}
+@media (max-width:720px){
+#family-mobile-dock>a,#family-mobile-dock>details>summary{position:relative;z-index:2;min-width:0;min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:0;border-radius:16px;background:transparent;color:#53645d;text-decoration:none;font-size:10px;font-weight:760;list-style:none;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none}
+}
+@media (max-width:720px){
+#family-mobile-dock>a::before,#family-mobile-dock>details>summary::before{font-family:system-ui;font-size:18px;line-height:1;color:#29483e;pointer-events:none}
+}
+@media (max-width:720px){
+#family-mobile-dock>a[data-dock-route="dashboard"]::before{content:'⌂'}
+}
+@media (max-width:720px){
+#family-mobile-dock>a[data-dock-route="tree"]::before{content:'⌘'}
+}
+@media (max-width:720px){
+#family-mobile-dock>a[data-dock-route="families"]::before{content:'♧'}
+}
+@media (max-width:720px){
+#family-mobile-dock>a[data-dock-route="people"]::before{content:'◉'}
+}
+@media (max-width:720px){
+#family-mobile-dock>details>summary::before{content:'•••';letter-spacing:1px}
+}
+@media (max-width:720px){
+#family-mobile-dock>a[aria-current="page"],#family-mobile-dock>a.active{background:#e8eee9;color:#173f35}
+}
+@media (max-width:720px){
+#family-mobile-dock>a[data-dock-route="tree"]{min-height:60px;margin-top:-18px;border:5px solid #f8f4ea;border-radius:20px;background:#173f35;color:#fff;box-shadow:0 10px 24px rgba(16,54,43,.28)}
+}
+@media (max-width:720px){
+#family-mobile-dock>a[data-dock-route="tree"]::before{color:#fff;font-size:21px}
+}
+@media (max-width:720px){
+#family-mobile-dock>a[data-dock-route="tree"][aria-current="page"],#family-mobile-dock>a[data-dock-route="tree"].active{background:#214f42;color:#fff}
+}
+/* ==========================================================================
    Source: mobile-v20.css
    ========================================================================== */
 /* Mobile v20 — a native-feeling family archive, not a compressed desktop site. */
