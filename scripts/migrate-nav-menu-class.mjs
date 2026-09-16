@@ -2,35 +2,36 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root=process.cwd();
-const ignored=new Set(['.git','node_modules','dist','.netlify','playwright-report','test-results']);
-const extensions=new Set(['.css','.html','.js','.mjs','.cjs']);
 const oldName='v151-nav-menu';
 const newName='nav-menu';
-
-function walk(dir,out=[]){
-  for(const entry of fs.readdirSync(dir,{withFileTypes:true})){
-    if(ignored.has(entry.name))continue;
-    const full=path.join(dir,entry.name);
-    if(entry.isDirectory())walk(full,out);
-    else if(extensions.has(path.extname(entry.name).toLowerCase()))out.push(full);
-  }
-  return out;
-}
+const targetFiles=[
+  'index.html',
+  'scripts/test-v15-1.mjs',
+  'scripts/test-v18-6-ui.mjs',
+  'src/runtime/navigation-shell.js',
+  'src/runtime/page-architecture.js',
+  'src/styles/composition.css',
+  'src/styles/core.css',
+  'src/styles/interaction.css',
+  'v15-1-runtime.js',
+];
+const exactPattern=/(?<![-_a-zA-Z0-9])v151-nav-menu(?![-_a-zA-Z0-9])/g;
 
 let filesChanged=0,replacements=0;
-for(const file of walk(root)){
+for(const relative of targetFiles){
+  const file=path.join(root,relative);
   const original=fs.readFileSync(file,'utf8');
-  const matches=original.match(/(?<![-_a-zA-Z0-9])v151-nav-menu(?![-_a-zA-Z0-9])/g)||[];
+  const matches=original.match(exactPattern)||[];
   if(!matches.length)continue;
-  let next=original.replace(/(?<![-_a-zA-Z0-9])v151-nav-menu(?![-_a-zA-Z0-9])/g,newName);
+  let next=original.replace(exactPattern,newName);
   // Where the semantic class already existed beside its compatibility alias,
-  // remove only the now-adjacent duplicate class token in markup/runtime strings.
+  // remove only adjacent duplicate class tokens in markup/runtime strings.
   next=next.replace(/\bnav-menu\s+nav-menu\b/g,'nav-menu');
   fs.writeFileSync(file,next);
   filesChanged++;
   replacements+=matches.length;
-  console.log(`${path.relative(root,file)}: ${matches.length} replacement(s)`);
+  console.log(`${relative}: ${matches.length} replacement(s)`);
 }
 
-if(!replacements)throw new Error(`No ${oldName} references found to migrate.`);
+if(!replacements)throw new Error(`No exact ${oldName} references found in the migration target set.`);
 console.log(`Migrated ${replacements} ${oldName} reference(s) across ${filesChanged} file(s) to ${newName}.`);
