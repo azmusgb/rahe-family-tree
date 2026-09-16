@@ -60,13 +60,12 @@ test('unregistering a pending capability cannot poison a replacement with the sa
 });
 
 test('Stories and record ingestion are registered as route capabilities rather than startup presentation imports',()=>{
-  assert.match(navigationRuntime,/import'\.\/route-capability-loader\.js'/);
+  assert.match(navigationRuntime,/^import'\.\/route-capabilities\.js'/);
+  assert.match(capabilities,/from'\.\/route-capability-loader\.js'/);
   assert.match(loaderSource,/family-route-committed/);
   assert.match(loaderSource,/family-route-capabilities-ready/);
   assert.match(loaderSource,/family-route-capabilities-failed/);
   assert.match(loaderSource,/__familyRouteCapabilityRuntime/);
-  assert.match(experience,/import '\.\/route-capabilities\.js'/);
-  assert.ok(experience.indexOf("import './route-capabilities.js'")<experience.indexOf("import './navigation-shell.js'"),'capabilities must register before navigation can commit the initial route');
   assert.match(capabilities,/name:'stories-runtime'[\s\S]*routes:\['stories'\][\s\S]*import\('\.\/stories-runtime\.js'\)/);
   assert.match(capabilities,/name:'record-ingestion'[\s\S]*routes:\['research'\][\s\S]*import\('\.\/record-ingestion\.js'\)/);
   assert.doesNotMatch(experience,/import\('\.\/stories-runtime\.js'\)/);
