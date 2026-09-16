@@ -1,0 +1,36 @@
+name: Regenerate mobile selector-arm ownership report once
+
+on:
+  push:
+    branches:
+      - css-mobile-ownership-v20-2
+
+permissions:
+  contents: write
+
+jobs:
+  report:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: css-mobile-ownership-v20-2
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Generate selector-arm ownership report
+        run: node scripts/css-mobile-ownership-audit.mjs
+      - name: Commit report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/css-mobile-ownership-report.json
+          if git diff --cached --quiet; then
+            echo "No report changes"
+            exit 0
+          fi
+          git commit -m "Regenerate mobile selector-arm ownership report"
+          git push origin HEAD:css-mobile-ownership-v20-2
