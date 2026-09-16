@@ -10,6 +10,7 @@ const styles=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='ind
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const routeCapabilities=fs.readFileSync('src/runtime/route-capabilities.js','utf8');
 const tokens=fs.readFileSync('src/styles/tokens.css','utf8');
 const baseStyles=fs.readFileSync('src/styles/base.css','utf8');
 const shellStyles=fs.readFileSync('src/styles/shell.css','utf8');
@@ -63,7 +64,9 @@ test('v16.2 presentation remains under semantic Family design-system ownership',
   assert.match(build,/compatibilityBoundary:null/);
   assert.match(build,/legacySourceCount:0/);
   assert.equal(fs.existsSync('src/styles/v16-2.css'),false);
-  assert.match(experience,/const presentationModules=\[[\s\S]*import\('\.\/mobile-family-density\.js'\),[\s\S]*import\('\.\/family-narrative\.js'\),[\s\S]*\];/);
+  assert.match(routeCapabilities,/name:'family-narrative'[\s\S]*routes:\['dashboard','people','person','media'\][\s\S]*import\('\.\/family-narrative\.js'\)/);
+  assert.doesNotMatch(experience,/import\('\.\/family-narrative\.js'\)/);
+  assert.match(experience,/const presentationModules=\[[\s\S]*import\('\.\/mobile-family-density\.js'\),[\s\S]*import\('\.\/unified-family-experience\.js'\),[\s\S]*\];/);
   assert.match(experience,/Promise\.allSettled\(presentationModules\)\.then\(\(\)=>import\('\.\/neutral-family-branding\.js'\)\)/);
   for(const token of['v162-family-journey','v162-moments','v162-family-path','v162-media-quick'])assert.match(styles,new RegExp(token));
   const semantic=['tokens.css','base.css','shell.css','navigation.css','home.css','people.css','person.css','stories.css','tree.css','media.css','explore.css','research.css','record-ingestion.css','mobile-family.css','responsive.css'];
