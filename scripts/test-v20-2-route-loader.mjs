@@ -36,6 +36,28 @@ test('failed route capability loads are reported and remain retryable',async()=>
   assert.equal(attempts,2);
 });
 
+test('unregistering a pending capability cannot poison a replacement with the same name',async()=>{
+  const loader=createRouteCapabilityLoader();
+  let release;
+  const gate=new Promise(resolve=>{release=resolve;});
+  let firstLoads=0;
+  let replacementLoads=0;
+  const dispose=loader.register({name:'stories',routes:['stories'],load:async()=>{firstLoads+=1;await gate;}});
+  const staleEnsure=loader.ensure('stories',{sequence:6});
+  await Promise.resolve();
+  dispose();
+  loader.register({name:'stories',routes:['stories'],load:async()=>{replacementLoads+=1;}});
+  release();
+  const staleResult=await staleEnsure;
+  assert.equal(staleResult.status,'failed');
+  assert.equal(firstLoads,1);
+  assert.deepEqual(loader.snapshot('stories').loaded,[]);
+  const currentResult=await loader.ensure('stories',{sequence:7});
+  assert.equal(currentResult.status,'ready');
+  assert.equal(replacementLoads,1);
+  assert.deepEqual(loader.snapshot('stories').loaded,['stories']);
+});
+
 test('loader is wired to the route commit lifecycle without moving presentation modules yet',()=>{
   assert.match(navigationRuntime,/import'\.\/route-capability-loader\.js'/);
   assert.match(loaderSource,/family-route-committed/);
