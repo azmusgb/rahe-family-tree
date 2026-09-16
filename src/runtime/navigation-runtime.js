@@ -9,6 +9,7 @@ let currentHref=location.href;
 let currentRoute=location.hash.slice(1).split('/')[0]||'dashboard';
 let popTraversal=false;
 let renderedBeforeCommitRoute='';
+let pendingHashNavigation='';
 
 export function routeKeyFromLocation(){return location.hash.slice(1).split('/')[0]||'dashboard';}
 export function routeDetailFromLocation(){return location.hash.slice(1).split('/').slice(1).join('/');}
@@ -24,6 +25,26 @@ function markIntent(link){
   document.body.dataset.navigationState='navigating';
   document.body.dataset.navigationTarget=route;
   dispatch('family-route-intent',{route,href:link.href,sequence:sequence+1});
+}
+
+function deferHashNavigation(link,event){
+  if(!sameDocumentHashLink(link)||event.defaultPrevented)return false;
+  const route=routeFromHref(link.href);if(!APP_ROUTES.has(route))return false;
+  const url=new URL(link.href,location.href),targetHash=url.hash;
+  if(!targetHash||targetHash===location.hash)return false;
+  // A native same-document hash navigation can run hashchange listeners before
+  // the initiating click task yields. Tree rendering is intentionally rich and
+  // can make that physical click appear stuck for seconds. Preserve the normal
+  // history/hash semantics, but commit the hash in the next task so pointer
+  // activation and pressed-state feedback finish immediately.
+  event.preventDefault();
+  pendingHashNavigation=targetHash;
+  setTimeout(()=>{
+    if(pendingHashNavigation!==targetHash)return;
+    pendingHashNavigation='';
+    if(location.hash!==targetHash)location.hash=targetHash;
+  },0);
+  return true;
 }
 
 function commit(source,{historyTraversal=false}={}){
@@ -52,11 +73,13 @@ export function markRouteContentReady(route=routeKeyFromLocation()){
 
 document.addEventListener('click',event=>{
   if(event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
-  markIntent(event.target.closest?.(INTERNAL_LINK_SELECTOR));
+  const link=event.target.closest?.(INTERNAL_LINK_SELECTOR);
+  markIntent(link);
+  deferHashNavigation(link,event);
 },true);
 
-window.addEventListener('popstate',()=>{popTraversal=true;commit('popstate',{historyTraversal:true});queueMicrotask(()=>{popTraversal=false;});});
-window.addEventListener('hashchange',()=>commit('hashchange',{historyTraversal:popTraversal}));
+window.addEventListener('popstate',()=>{popTraversal=true;pendingHashNavigation='';commit('popstate',{historyTraversal:true});queueMicrotask(()=>{popTraversal=false;});});
+window.addEventListener('hashchange',()=>{pendingHashNavigation='';commit('hashchange',{historyTraversal:popTraversal});});
 window.addEventListener('family-view-rendered',()=>markRouteContentReady(routeKeyFromLocation()));
 window.addEventListener('family-native-rendered',event=>markRouteContentReady(event.detail?.route||routeKeyFromLocation()));
 
