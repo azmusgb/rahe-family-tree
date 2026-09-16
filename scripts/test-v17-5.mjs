@@ -78,7 +78,8 @@ test('Families and Branch are first-class native family routes',()=>{
   assert.match(controller,/renderFamiliesIndex\(\)/);
   assert.match(controller,/renderFamilyBranch\(routeBranchName\(\)\)/);
   assert.match(experience,/family-branches-v17-5\.js/);
-  assert.match(cssRoot,/@import '.\/branches\.css';/);
+  assert.match(cssRoot,/@import '.\/core\.css';/);
+  assert.match(branchCss,/Source: branches\.css/);
   assert.match(branchCss,/\.v175-family-grid/);
 });
 
