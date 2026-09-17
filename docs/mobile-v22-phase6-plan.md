@@ -25,6 +25,14 @@ Phase 6 evolves the phone experience from a responsive archive into a coherent m
 
 `test-mobile-shell-v22.mjs` now locks the route trail, modal focus contract, expanded compact discovery destinations, contextual person-action accessibility, and the tree toolbar/canvas semantics. Existing Mobile Shell ownership tests remain intact.
 
+## Next evolution targets
+
+- collapse duplicate Person sub-navigation into one sticky section controller
+- convert More from a generic grid into route-aware commands and recently used destinations
+- persist useful mobile context such as last viewed person and tree focus without persisting transient UI state
+- add viewport-level visual regression snapshots for Home, People, Person, Families, Tree, and More at compact and large-phone widths
+- further reduce legacy mobile CSS override depth after Phase 6 behavior is verified
+
 ## Data safety
 
 This phase is presentation and navigation only. It does not mutate genealogy records, relationships, evidence states, source metadata, privacy flags, or canonical graph data.
