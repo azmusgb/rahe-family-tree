@@ -66,13 +66,15 @@ test.describe('mobile family experience',()=>{
     await expect(summary).toBeFocused();
   });
 
-  test('More navigation adapts to the active family context',async({page})=>{
+  test('More navigation adapts to the active family context without duplicating destinations',async({page})=>{
     await family(page,'people');
+    const more=page.locator('#family-mobile-dock .mobile-more');
     const section=page.locator('[data-v22-context-actions]');
     await expect(section).toBeAttached();
     await expect(section.getByRole('link',{name:'Families'})).toHaveAttribute('href','#families');
     await expect(section.getByRole('link',{name:'Tree'})).toHaveAttribute('href','#tree');
-    await expect(section.getByRole('link',{name:'Photos'})).toHaveAttribute('href','#media');
+    await expect(section.getByRole('link',{name:'Photos'})).toHaveCount(0);
+    await expect(more.getByRole('link',{name:'Photos'})).toHaveCount(1);
 
     await page.goto('/#research');
     await expect(section.getByRole('link',{name:'Evidence'})).toHaveAttribute('href','#evidence');
