@@ -5,6 +5,10 @@ import fs from'node:fs';
 const nav=fs.readFileSync('src/runtime/navigation-shell.js','utf8');
 const mobile=fs.readFileSync('src/runtime/mobile-ui-shell.js','utf8');
 const evolution=fs.readFileSync('src/runtime/mobile-ui-phase7.js','utf8');
+const ownership=fs.readFileSync('src/runtime/mobile-ui-ownership.js','utf8');
+const transient=fs.readFileSync('src/runtime/mobile-ui-transient.js','utf8');
+const legacyMobile=fs.readFileSync('src/runtime/mobile-experience.js','utf8');
+const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 
 test('navigation shell owns final family mobile dock order',()=>{
   const home=nav.indexOf('data-dock-route="dashboard"');
@@ -126,4 +130,36 @@ test('phase 7 tree focus mode is transient, reversible, and keyboard escapable',
   assert.match(evolution,/button\.setAttribute\('aria-pressed','false'\)/);
   assert.match(evolution,/event\.key!=='Escape'\|\|document\.body\.dataset\.v22TreeFocus!=='true'/);
   assert.doesNotMatch(evolution,/localStorage|sessionStorage/);
+});
+
+test('phase 8 declares v22 transient ownership before legacy mobile enhancement executes',()=>{
+  assert.match(ownership,/mobileTransientOwner='v22-shell'/);
+  assert.match(ownership,/mobileNavigationOwner='v22-shell'/);
+  assert.match(ownership,/mobileSearchOwner='v22-shell'/);
+  const ownerIndex=experience.indexOf("import './mobile-ui-ownership.js'");
+  const legacyIndex=experience.indexOf("import './mobile-experience.js'");
+  const shellIndex=experience.indexOf("import './mobile-ui-shell.js'");
+  const transientIndex=experience.indexOf("import './mobile-ui-transient.js'");
+  assert.ok(ownerIndex>=0&&ownerIndex<legacyIndex&&legacyIndex<shellIndex&&shellIndex<transientIndex);
+});
+
+test('phase 8 retires legacy More modal ownership and persistent last-route state',()=>{
+  assert.doesNotMatch(legacyMobile,/function enhanceMoreMenu|function openMore|function closeMore|function trapSheetFocus|mobile-more-backdrop/);
+  assert.doesNotMatch(legacyMobile,/lastRoute/);
+  assert.match(legacyMobile,/recentPeople/);
+  assert.match(legacyMobile,/recentFamilies/);
+  assert.match(legacyMobile,/lastTree/);
+});
+
+test('phase 8 transient controller owns backdrop, keyboard trap, escape, and focus return',()=>{
+  assert.match(transient,/function ensureBackdrop\(\)/);
+  assert.match(transient,/function closeMore\(\{restoreFocus=true\}=\{\}\)/);
+  assert.match(transient,/function openMore\(details\)/);
+  assert.match(transient,/function trapFocus\(event\)/);
+  assert.match(transient,/event\.key==='Escape'/);
+  assert.match(transient,/event\.key!=='Tab'/);
+  assert.match(transient,/mobile-sheet-open/);
+  assert.match(transient,/mobileModalOpen='more'/);
+  assert.match(transient,/returnFocus\.focus\(\{preventScroll:true\}\)/);
+  assert.doesNotMatch(transient,/localStorage|sessionStorage/);
 });
