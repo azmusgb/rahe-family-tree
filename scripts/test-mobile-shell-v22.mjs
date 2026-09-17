@@ -50,6 +50,8 @@ test('mobile home collapses secondary previews into one compact discovery launch
   assert.match(mobile,/href="#stories">Stories/);
   assert.match(mobile,/href="#people">People/);
   assert.match(mobile,/href="#media">Photos/);
+  assert.match(mobile,/href="#timeline">Timeline/);
+  assert.match(mobile,/href="#migration">Places/);
   assert.match(mobile,/href="#research">Research/);
   assert.match(mobile,/composeHomeDiscover\(home,treePreview\|\|launcher\)/);
 });
@@ -63,7 +65,36 @@ test('desktop restoration removes mobile-only home composition',()=>{
 test('mobile More sheet has a stable accessible label and grouped destinations',()=>{
   assert.match(mobile,/heading\.id='mobile-more-title'/);
   assert.match(mobile,/panel\.setAttribute\('aria-labelledby',heading\.id\)/);
+  assert.match(mobile,/panel\.setAttribute\('role','dialog'\)/);
+  assert.match(mobile,/panel\.setAttribute\('aria-modal','true'\)/);
   assert.match(mobile,/search\.setAttribute\('aria-label','Search the family archive'\)/);
   assert.match(mobile,/className='v21-more-discover'/);
   assert.match(mobile,/className='v21-more-research'/);
+});
+
+test('mobile back navigation follows an internal route trail before route fallbacks',()=>{
+  assert.match(mobile,/const MOBILE_ROUTE_TRAIL_LIMIT=12/);
+  assert.match(mobile,/const mobileRouteTrail=\[\]/);
+  assert.match(mobile,/function recordMobileRoute\(\)/);
+  assert.match(mobile,/function navigateMobileBack\(\)/);
+  assert.match(mobile,/back\.dataset\.mobileSmartBack='true'/);
+  assert.match(mobile,/event\.target\.closest\('\[data-mobile-smart-back\]'\)/);
+});
+
+test('More sheet manages modal focus and returns focus to its trigger',()=>{
+  assert.match(mobile,/function syncMoreModalState\(details\)/);
+  assert.match(mobile,/document\.body\.dataset\.mobileModalOpen='more'/);
+  assert.match(mobile,/target\?\.focus\(\{preventScroll:true\}\)/);
+  assert.match(mobile,/moreReturnFocus\?\.focus\?\.\(\{preventScroll:true\}\)/);
+  assert.match(mobile,/details\.matches\('#family-mobile-dock details\.mobile-more'\)/);
+});
+
+test('person and tree mobile surfaces expose explicit interaction semantics',()=>{
+  assert.match(mobile,/root\.dataset\.v22PersonFlow='compact'/);
+  assert.match(mobile,/control\.dataset\.mobilePersonAction='true'/);
+  assert.match(mobile,/bar\.setAttribute\('role','toolbar'\)/);
+  assert.match(mobile,/bar\.setAttribute\('aria-label','Family tree controls'\)/);
+  assert.match(mobile,/graph\.setAttribute\('role','region'\)/);
+  assert.match(mobile,/graph\.setAttribute\('aria-label','Interactive family tree canvas'\)/);
+  assert.match(mobile,/content\.dataset\.v22TreeCanvas='focused'/);
 });
