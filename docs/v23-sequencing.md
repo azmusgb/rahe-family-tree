@@ -1,13 +1,38 @@
-# v23 implementation sequence
+# Five-train implementation sequence
 
-1. Merge detail-aware route identity and telemetry foundation.
-2. Remove old routeKey-only Back implementation and consume canonical contextual destinations.
-3. Collect Tree baseline; separate primary and secondary readiness; calibrate budgets.
-4. Consolidate Person controller and semantic selectors.
-5. Implement unified search with People parity.
-6. Integrate evidence-native Person/Tree and Research Command Center.
-7. Purge retired runtime/CSS ownership and enforce budgets.
-8. Complete accessibility/adversarial certification.
-9. Exact-head production certification and v23 release.
+The aggressive consolidation is executed as five release trains, not as a sequence of small independent feature PRs.
 
-Do not defer deletion of superseded ownership beyond the release train that replaces it.
+1. **v22.9 — Correctness**
+   - detail-aware route identity
+   - one transient mobile Back controller
+   - canonical navigation metadata and contextual peers
+   - same-route entity navigation regressions
+
+2. **v22.10 — Speed**
+   - Tree render/readiness coordinator
+   - startup and interaction telemetry
+   - traversal/layout caching where semantics are unchanged
+   - progressive secondary enhancement
+   - calibrated performance budgets
+
+3. **v22.11 — Experience**
+   - one Person controller
+   - Home hierarchy consolidation
+   - unified search
+   - contextual navigation from the canonical model
+   - evidence-aware Person/Tree entry points
+
+4. **v22.12 — Consolidation**
+   - CSS/domain ownership finalization
+   - semantic selector migration
+   - runtime ownership purge
+   - specificity/important/selector/byte budgets
+
+5. **v23.0 — Platform**
+   - Research Command Center and evidence-native UI
+   - accessibility certification
+   - performance certification
+   - adversarial mobile regression suite
+   - exact-head production certification
+
+Each train must finish with canonical genealogy/evidence/privacy gates intact, a production build, all four browser shards, aggregate validation, and an exact-head re-read before merge. Superseded ownership must be deleted in the same train that replaces it; no compatibility layer is allowed to accumulate behind the train.
