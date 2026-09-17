@@ -5,6 +5,7 @@ const LIMIT=12;
 const trail=[];
 let current='';
 let suppress=false;
+let wasMobile=window.matchMedia(MOBILE_QUERY).matches;
 
 const isMobile=()=>window.matchMedia(MOBILE_QUERY).matches;
 const fallback=identity=>{
@@ -15,6 +16,7 @@ const fallback=identity=>{
 };
 
 function reset(){trail.length=0;current='';suppress=false;}
+function initialize(){trail.length=0;current=routeIdentity();suppress=false;}
 
 function record(){
   if(!isMobile()){reset();return;}
@@ -62,5 +64,10 @@ document.addEventListener('click',event=>{
 window.addEventListener('hashchange',record);
 window.addEventListener('popstate',record);
 window.addEventListener('family-route-committed',record);
-window.addEventListener('resize',()=>{if(!isMobile())reset();},{passive:true});
-document.readyState==='loading'?document.addEventListener('DOMContentLoaded',record,{once:true}):record();
+window.addEventListener('resize',()=>{
+  const mobile=isMobile();
+  if(mobile&&!wasMobile)initialize();
+  else if(!mobile&&wasMobile)reset();
+  wasMobile=mobile;
+},{passive:true});
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',()=>{if(isMobile())initialize();},{once:true}):isMobile()&&initialize();
