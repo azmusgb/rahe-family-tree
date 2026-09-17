@@ -10,11 +10,11 @@ import './native-family-v17-controller.js';
 
 // Interaction-critical controllers stay in the initial entry chunk. Route,
 // Tree, mobile dock, and history correctness must never depend on a later
-// network fetch completing before the user's first interaction.
-import './performance-contracts.js';
+// network fetch completing before the user's first interaction. v23 telemetry
+// and detail-aware mobile Back are loaded behind their durable domain owners so
+// this stable boundary does not accumulate another version-specific layer.
 import './tree-controller.js';
 import './mobile-ui-ownership.js';
-import './mobile-route-state.js';
 import './mobile-experience.js';
 import './mobile-ui-shell.js';
 import './mobile-ui-transient.js';
