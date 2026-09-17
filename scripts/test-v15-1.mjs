@@ -35,7 +35,8 @@ test('retiring the v15.1 writer remains compatible with the current split browse
   const shellVersion=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/),buildVersion=releaseOf(build,/const appVersion='(\d+\.\d+\.\d+)'/);assert.equal(shellVersion,buildVersion);const escaped=shellVersion.replaceAll('.','\\.');
   assert.match(index,new RegExp(`styles\\.css\\?v=${escaped}`));
   assert.match(index,new RegExp(`app\\.bundle\\.js\\?v=${escaped}`));
-  assert.match(entry,/src\/runtime\/index\.js/);
+  assert.match(entry,/src\/app\/runtime\.js/);
+  assert.doesNotMatch(entry,/src\/runtime\/index\.js/);
   assert.match(build,/--splitting/);
   assert.match(build,/--outdir=dist/);
   assert.match(build,/--entry-names=app\.bundle/);
