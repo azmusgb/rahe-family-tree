@@ -4,8 +4,6 @@ const MOBILE_ROUTE_TRAIL_LIMIT=12;
 let pendingPeopleSearchValue='';
 let pendingPeopleSearchFocus=false;
 let scheduled=false;
-let observedContent=null;
-let contentObserver=null;
 let lastMobileRoute='';
 let suppressNextTrailPush=false;
 const mobileRouteTrail=[];
@@ -375,30 +373,26 @@ function bindControls(){
   },true);
 }
 
+function composeActiveRoute(route){
+  if(route==='dashboard')composeHome();
+  else if(route==='people')composePeople();
+  else if(route==='person')composePerson();
+  else if(route==='tree')composeTree();
+}
+
 function apply(){
+  const route=routeKey();
   recordMobileRoute();
   syncDedicatedHeader();
-  composeHome();
-  composePeople();
-  composePerson();
-  composeTree();
+  composeActiveRoute(route);
   composeMore();
   bindControls();
-  observeContent();
 }
 
 function schedule(){
   if(scheduled)return;
   scheduled=true;
   requestAnimationFrame(()=>{scheduled=false;apply();});
-}
-function observeContent(){
-  const content=document.getElementById('content');
-  if(!content||content===observedContent)return;
-  contentObserver?.disconnect();
-  observedContent=content;
-  contentObserver=new MutationObserver(schedule);
-  contentObserver.observe(content,{childList:true,subtree:true});
 }
 
 window.addEventListener('hashchange',schedule);
