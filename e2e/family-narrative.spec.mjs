@@ -12,15 +12,22 @@ test.beforeEach(async({page})=>{
   await mockApis(page);
 });
 
-test('home is a compact native archive with one supported family story moment',async({page})=>{
+test('home keeps the native archive story canonical while v22 compacts phone previews',async({page})=>{
   await page.goto('/#dashboard');
   const home=page.locator('[data-v17-native="home"]');
   await expect(home).toBeVisible();
   await expect(home.getByRole('heading',{name:'Our family, connected.'})).toBeVisible();
   await expect(home.locator('.v17-home-tree')).toBeVisible();
   const story=home.locator('.v17-home-story');
-  await expect(story).toBeVisible();
-  await expect(story.getByRole('heading',{name:'One moment from the family story.'})).toBeVisible();
+  const isPhone=await page.evaluate(()=>matchMedia('(max-width: 720px)').matches);
+  if(isPhone){
+    await expect(story).toBeHidden();
+    await expect(story).toHaveAttribute('data-v22-mobile-collapsed','true');
+    await expect(home.getByRole('region',{name:'Keep exploring'})).toBeVisible();
+  }else{
+    await expect(story).toBeVisible();
+    await expect(story.getByRole('heading',{name:'One moment from the family story.'})).toBeVisible();
+  }
   await expect(story.locator('.v17-story-moment')).toHaveCount(1);
   await expect(home.locator('.v17-featured-people .v17-home-person')).toHaveCount(3);
   await expect(home.locator('.v172-home-branches,.v174-discovery')).toHaveCount(0);
