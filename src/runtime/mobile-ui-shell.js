@@ -8,7 +8,6 @@ let observedContent=null;
 let contentObserver=null;
 let lastMobileRoute='';
 let suppressNextTrailPush=false;
-let moreReturnFocus=null;
 const mobileRouteTrail=[];
 
 const isMobile=()=>window.matchMedia(MOBILE_QUERY).matches;
@@ -107,12 +106,17 @@ function queuePeopleSearch(value,{focus=false}={}){
 function consumePeopleSearchRequest(){
   const request={value:pendingPeopleSearchValue,focus:pendingPeopleSearchFocus};
   pendingPeopleSearchValue='';
-  pendingPeopleSearchFocus=false;
+  if(!request.focus)pendingPeopleSearchFocus=false;
   return request;
 }
 function focusPeopleSearch(input){
   if(!input||routeKey()!=='people'||!isMobile())return;
-  requestAnimationFrame(()=>{if(input.isConnected)input.focus({preventScroll:false});});
+  input.focus({preventScroll:false});
+  requestAnimationFrame(()=>{
+    if(!input.isConnected||routeKey()!=='people'||!isMobile())return;
+    if(document.activeElement!==input)input.focus({preventScroll:false});
+    if(document.activeElement===input)pendingPeopleSearchFocus=false;
+  });
 }
 
 function makeSearch(kind,{label,placeholder}){
@@ -302,26 +306,6 @@ function composeTree(){
   content.dataset.v22TreeCanvas='focused';
 }
 
-function syncMoreModalState(details){
-  if(!details||!isMobile())return;
-  const panel=details.querySelector(':scope > div');
-  if(details.open){
-    moreReturnFocus=details.querySelector(':scope > summary')||document.activeElement;
-    document.body.dataset.mobileModalOpen='more';
-    panel?.setAttribute('aria-modal','true');
-    requestAnimationFrame(()=>{
-      const target=panel?.querySelector('[data-mobile-ui-search],a[href],button:not([disabled])');
-      target?.focus({preventScroll:true});
-    });
-    return;
-  }
-  delete document.body.dataset.mobileModalOpen;
-  panel?.setAttribute('aria-modal','true');
-  const active=document.activeElement;
-  if(panel?.contains(active)||active===document.body)moreReturnFocus?.focus?.({preventScroll:true});
-  moreReturnFocus=null;
-}
-
 function composeMore(){
   if(!isMobile())return;
   const details=document.querySelector('#family-mobile-dock details.mobile-more');
@@ -388,10 +372,6 @@ function bindControls(){
       const target=document.querySelector('[data-graph="fit"],[data-tree-fit],button[aria-label*="Fit" i],button[title*="Fit" i]');
       target?.click();
     }
-  },true);
-  document.addEventListener('toggle',event=>{
-    const details=event.target;
-    if(details instanceof HTMLDetailsElement&&details.matches('#family-mobile-dock details.mobile-more'))syncMoreModalState(details);
   },true);
 }
 
