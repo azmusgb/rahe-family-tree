@@ -1,11 +1,12 @@
 import {mkdir,copyFile,rm,writeFile,readFile,readdir} from 'node:fs/promises';
 import {execFile} from 'node:child_process';
 import {promisify} from'node:util';
+import {APP_VERSION,RELEASE_TRAIN} from'../src/config/release.js';
 
 const run=promisify(execFile);
 const ESBUILD_VERSION='0.25.10';
 const NPX=process.platform==='win32'?'npx.cmd':'npx';
-const appVersion='20.0.0';
+const VERSION_TOKEN='__APP_VERSION__';
 
 const legacyStyleSources=[];
 const generatedLegacyStyle=null;
@@ -14,7 +15,9 @@ await rm('dist',{recursive:true,force:true});
 await mkdir('dist');
 await copyFile('index.html','dist/index.html');
 const shell=await readFile('dist/index.html','utf8');
-await writeFile('dist/index.html',shell.replace(/\b(?:17|18|19|20)\.\d+\.\d+\b/g,match=>match===appVersion?match:appVersion));
+const stampedShell=shell.replaceAll(VERSION_TOKEN,APP_VERSION);
+if(stampedShell.includes(VERSION_TOKEN))throw new Error(`Unresolved release token ${VERSION_TOKEN} in dist/index.html`);
+await writeFile('dist/index.html',stampedShell);
 
 async function esbuild(args){
   const {stdout,stderr}=await run(NPX,['--yes',`esbuild@${ESBUILD_VERSION}`,...args],{
@@ -46,7 +49,7 @@ const canonicalSourceVersion='10.0';
 const emitted=await readdir('dist',{recursive:true});
 const jsAssets=emitted.filter(file=>file.endsWith('.js')).map(file=>file.replaceAll('\\','/')).sort((a,b)=>a==='app.bundle.js'?-1:b==='app.bundle.js'?1:a.localeCompare(b));
 const buildInfo={
-  appVersion,
+  appVersion:APP_VERSION,
   genealogySchemaVersion,
   canonicalSourceVersion,
   release:model.meta.release||model.meta.version,
@@ -54,8 +57,8 @@ const buildInfo={
   gitSha:process.env.COMMIT_REF||process.env.GITHUB_SHA||process.env.HEAD||'local-build',
   sourceSha256:model.meta.sourceSha256,
   builtAt:new Date().toISOString(),
-  experience:appVersion,
-  releaseTrain:'v20-mobile-app',
+  experience:APP_VERSION,
+  releaseTrain:RELEASE_TRAIN,
   bundler:`esbuild@${ESBUILD_VERSION}`,
   browserAssets:[...jsAssets,'styles.css'],
   bundleStrategy:{
@@ -71,4 +74,4 @@ const buildInfo={
   }
 };
 await writeFile('dist/build-info.json',JSON.stringify(buildInfo,null,2));
-console.log(`Built Family History Archive v${appVersion} as one stable JS entry + ${Math.max(0,jsAssets.length-1)} split chunk(s) + one CSS bundle on research model ${buildInfo.release} / platform ${buildInfo.platform||'n/a'} · ${buildInfo.gitSha}.`);
+console.log(`Built Family History Archive v${APP_VERSION} as one stable JS entry + ${Math.max(0,jsAssets.length-1)} split chunk(s) + one CSS bundle on research model ${buildInfo.release} / platform ${buildInfo.platform||'n/a'} · ${buildInfo.gitSha}.`);
