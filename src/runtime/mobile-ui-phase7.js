@@ -38,6 +38,10 @@ function syncContextualMore(){
       .filter(Boolean)
   );
   const items=configured.filter(([,href])=>!baseHrefs.has(href));
+  if(!items.length){
+    existing?.remove();
+    return;
+  }
   let section=existing;
   if(!section){
     section=document.createElement('section');
@@ -155,14 +159,16 @@ function bind(){
     if(event.key!=='Escape'||document.body.dataset.v22TreeFocus!=='true')return;
     event.preventDefault();
     setTreeFocus(false);
-    document.querySelector('[data-v22-tree-focus]')?.focus({preventScroll:true});
+    document.querySelector('button[data-v22-tree-focus]')?.focus({preventScroll:true});
   },true);
 }
 
 function apply(){
+  const route=routeKey();
   syncContextualMore();
-  syncPersonNavigation();
-  syncTreeFocusControl();
+  if(route==='person')syncPersonNavigation();
+  if(route==='tree')syncTreeFocusControl();
+  else if(document.body.dataset.v22TreeFocus==='true')setTreeFocus(false,{moveFocus:false});
   bind();
 }
 
