@@ -3,8 +3,8 @@
 // historical version-layer files can be retired incrementally without changing
 // the public browser entry or production bundle contract.
 import './src/runtime/index.js';
+import {APP_VERSION} from'./src/config/release.js';
 
-const APP_VERSION='20.0.0';
 const syncAppVersion=()=>{
   document.documentElement.dataset.uiRelease=APP_VERSION;
   const version=document.querySelector('.version');
