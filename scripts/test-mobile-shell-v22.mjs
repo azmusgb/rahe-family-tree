@@ -28,12 +28,17 @@ test('dedicated mobile header exclusively owns phone chrome',()=>{
   assert.match(mobile,/header\.hidden=!mobileViewport/);
 });
 
-test('mobile shell schedules one frame and observes only routed content',()=>{
+test('mobile shell schedules one frame, composes only the active route, and avoids subtree observers',()=>{
   const scheduleBody=mobile.match(/function schedule\(\)\{([\s\S]*?)\n\}/)?.[1]||'';
   assert.match(scheduleBody,/requestAnimationFrame\(\(\)=>\{scheduled=false;apply\(\);\}\)/);
   assert.doesNotMatch(scheduleBody,/requestAnimationFrame\(\(\)=>requestAnimationFrame/);
-  assert.match(mobile,/contentObserver\.observe\(content,\{childList:true,subtree:true\}\)/);
-  assert.doesNotMatch(mobile,/observe\(document\.body/);
+  assert.match(mobile,/function composeActiveRoute\(route\)/);
+  assert.match(mobile,/if\(route==='dashboard'\)composeHome\(\)/);
+  assert.match(mobile,/else if\(route==='people'\)composePeople\(\)/);
+  assert.match(mobile,/else if\(route==='person'\)composePerson\(\)/);
+  assert.match(mobile,/else if\(route==='tree'\)composeTree\(\)/);
+  assert.match(mobile,/composeActiveRoute\(route\)/);
+  assert.doesNotMatch(mobile,/MutationObserver|contentObserver|observedContent|observeContent/);
 });
 
 test('mobile people search handoff uses transient runtime state',()=>{
@@ -114,6 +119,8 @@ test('phase 7 More menu is route-aware without taking ownership of the dock',()=
   assert.match(evolution,/const contextualDestinations=\{/);
   assert.match(evolution,/person:\[\['People','#people'\],\['Tree','#tree'\],\['Photos','#media'\]\]/);
   assert.match(evolution,/research:\[\['Evidence','#evidence'\],\['Sources','#sources'\],\['Family home','#dashboard'\]\]/);
+  assert.match(evolution,/if\(!items\.length\)\{/);
+  assert.match(evolution,/existing\?\.remove\(\)/);
   assert.match(evolution,/section\.dataset\.v22ContextActions='true'/);
   assert.match(evolution,/link\.dataset\.v22ContextDestination='true'/);
   assert.doesNotMatch(evolution,/rebuildMobileDock|desiredDockOrder|reorderDock/);
@@ -136,6 +143,13 @@ test('phase 7 tree focus mode is transient, reversible, and keyboard escapable',
   assert.match(evolution,/button\.setAttribute\('aria-pressed','false'\)/);
   assert.match(evolution,/event\.key!=='Escape'\|\|document\.body\.dataset\.v22TreeFocus!=='true'/);
   assert.doesNotMatch(evolution,/localStorage|sessionStorage/);
+});
+
+test('phase 7 route-selects person/tree work and clears tree focus when leaving the route',()=>{
+  assert.match(evolution,/const route=routeKey\(\)/);
+  assert.match(evolution,/if\(route==='person'\)syncPersonNavigation\(\)/);
+  assert.match(evolution,/if\(route==='tree'\)syncTreeFocusControl\(\)/);
+  assert.match(evolution,/else if\(document\.body\.dataset\.v22TreeFocus==='true'\)setTreeFocus\(false,\{moveFocus:false\}\)/);
 });
 
 test('phase 8 declares v22 transient ownership before legacy mobile enhancement executes',()=>{
