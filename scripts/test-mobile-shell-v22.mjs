@@ -4,6 +4,7 @@ import fs from'node:fs';
 
 const nav=fs.readFileSync('src/runtime/navigation-shell.js','utf8');
 const mobile=fs.readFileSync('src/runtime/mobile-ui-shell.js','utf8');
+const evolution=fs.readFileSync('src/runtime/mobile-ui-phase7.js','utf8');
 
 test('navigation shell owns final family mobile dock order',()=>{
   const home=nav.indexOf('data-dock-route="dashboard"');
@@ -97,4 +98,32 @@ test('person and tree mobile surfaces expose explicit interaction semantics',()=
   assert.match(mobile,/graph\.setAttribute\('role','region'\)/);
   assert.match(mobile,/graph\.setAttribute\('aria-label','Interactive family tree canvas'\)/);
   assert.match(mobile,/content\.dataset\.v22TreeCanvas='focused'/);
+});
+
+test('phase 7 More menu is route-aware without taking ownership of the dock',()=>{
+  assert.match(evolution,/const contextualDestinations=\{/);
+  assert.match(evolution,/person:\[\['People','#people'\],\['Tree','#tree'\],\['Photos','#media'\]\]/);
+  assert.match(evolution,/research:\[\['Evidence','#evidence'\],\['Sources','#sources'\],\['Family home','#dashboard'\]\]/);
+  assert.match(evolution,/section\.dataset\.v22ContextActions='true'/);
+  assert.match(evolution,/link\.dataset\.v22ContextDestination='true'/);
+  assert.doesNotMatch(evolution,/rebuildMobileDock|desiredDockOrder|reorderDock/);
+});
+
+test('phase 7 suppresses duplicate person navigation only on phones and restores it on desktop',()=>{
+  assert.match(evolution,/legacy\.hidden=true/);
+  assert.match(evolution,/legacy\.dataset\.v22Suppressed='true'/);
+  assert.match(evolution,/legacy\.hidden=false/);
+  assert.match(evolution,/tabs\.dataset\.v22PrimaryPersonNav='true'/);
+  assert.match(evolution,/tabs\.setAttribute\('aria-label','Person sections'\)/);
+});
+
+test('phase 7 tree focus mode is transient, reversible, and keyboard escapable',()=>{
+  assert.match(evolution,/function setTreeFocus\(enabled,\{moveFocus=true\}=\{\}\)/);
+  assert.match(evolution,/content\.dataset\.v22TreeFocus='true'/);
+  assert.match(evolution,/node\.dataset\.v22FocusHidden='true'/);
+  assert.match(evolution,/node\.hidden=false;delete node\.dataset\.v22FocusHidden/);
+  assert.match(evolution,/button\.dataset\.v22TreeFocus='true'/);
+  assert.match(evolution,/button\.setAttribute\('aria-pressed','false'\)/);
+  assert.match(evolution,/event\.key!=='Escape'\|\|document\.body\.dataset\.v22TreeFocus!=='true'/);
+  assert.doesNotMatch(evolution,/localStorage|sessionStorage/);
 });
