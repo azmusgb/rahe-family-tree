@@ -47,7 +47,8 @@ test('family-focus behavior remains bundled with historical CSS fully retired',(
   assert.match(index,new RegExp(`data-ui-release="${escaped}"`));
   assert.match(index,new RegExp(`styles\\.css\\?v=${escaped}`));
   assert.match(index,new RegExp(`app\\.bundle\\.js\\?v=${escaped}`));
-  assert.match(entry,/src\/runtime\/index\.js/);
+  assert.match(entry,/src\/app\/runtime\.js/);
+  assert.doesNotMatch(entry,/src\/runtime\/index\.js/);
   assert.match(experience,/\.\.\/\.\.\/v15-family-focus\.js/);
   assert.match(build,/app-entry\.js/);
   assert.doesNotMatch(styleRoot,/legacy-compat\.generated\.css/);
