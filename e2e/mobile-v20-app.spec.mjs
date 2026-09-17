@@ -46,7 +46,7 @@ test.describe('mobile v20 app experience',()=>{
     await expect(page.locator('.v17-home-hero h2')).toHaveText('Our family, connected.');
     const hero=await page.locator('[data-v17-native="home"] > .v17-home-hero').boundingBox();
     const search=await page.locator('.mobile-search[data-v21-mobile-search="home"]').boundingBox();
-    const launcher=await page.locator('.v21-mobile-launcher').boundingBox();
+    const launcher=await page.getByRole('region',{name:'Explore your family'}).boundingBox();
     const dock=await page.locator('#family-mobile-dock').boundingBox();
     const tree=await page.locator('#family-mobile-dock > [data-dock-route="tree"]').boundingBox();
     for(const box of[hero,search,launcher,dock,tree])expect(box).not.toBeNull();
@@ -58,13 +58,17 @@ test.describe('mobile v20 app experience',()=>{
     expect(tree.width,'Tree should remain a usable tab, not collapse to its label').toBeGreaterThanOrEqual(56);
   });
 
-  test('Home story foregrounds editorial source-backed prose rather than research-state syntax',async({page})=>{
+  test('Home keeps source-backed story content available behind compact mobile discovery',async({page})=>{
     await openMobile(page,'dashboard');
-    await expect(page.locator('.v17-home-story .v17-section-head h2')).toHaveText('One moment from the family story.');
-    const first=page.locator('.v17-story-moment').first();
-    await expect(first).toBeVisible();
-    const text=await first.innerText();
-    expect(text).not.toMatch(/\[birth detail withheld\]|\bSUPPORTED\b|\|/i);
+    const story=page.locator('.v17-home-story');
+    await expect(story.locator('.v17-section-head h2')).toHaveText('One moment from the family story.');
+    await expect(story).toBeHidden();
+    await expect(story).toHaveAttribute('data-v22-mobile-collapsed','true');
+    const first=story.locator('.v17-story-moment').first();
+    await expect(first).toHaveCount(1);
+    const text=await first.textContent();
+    expect(text||'').not.toMatch(/\[birth detail withheld\]|\bSUPPORTED\b|\|/i);
+    await expect(page.getByRole('region',{name:'Keep exploring'}).getByRole('link',{name:'Stories'})).toBeVisible();
   });
 
   test('Home restores a Continue Exploring card below the hero',async({page})=>{
