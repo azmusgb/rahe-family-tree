@@ -32,16 +32,12 @@ Mobile state is split by durability rather than by historical module generation.
 
 ### v22 transient ownership
 
-`mobile-ui-ownership.js`, `mobile-ui-shell.js`, `mobile-ui-transient.js`, and `mobile-ui-phase7.js` own transient interaction state:
+`mobile-ui-ownership.js`, `mobile-ui-shell.js`, `mobile-ui-transient.js`, and `mobile-ui-phase7.js` own transient interaction state, but each subdomain has one final owner:
 
-- pending search handoff
-- route-aware Back trail
-- More open/closed state
-- backdrop visibility
-- modal focus containment and focus return
-- route-aware More commands
-- Tree Focus mode
-- temporary Person navigation suppression
+- `mobile-ui-shell.js`: mobile structure, route-aware Back, search handoff, and route composition
+- `mobile-ui-transient.js`: More open/closed state, backdrop visibility, modal focus entry/containment, dismissal, and focus return
+- `mobile-ui-phase7.js`: route-aware More commands, Tree Focus mode, and temporary Person navigation suppression
+- `mobile-ui-ownership.js`: startup ownership declaration
 
 None of those states are written to browser storage.
 
@@ -62,24 +58,31 @@ It no longer owns More/modal behavior and no longer persists `lastRoute`.
 ## Phase 8 cleanup completed
 
 - Removed legacy More open/close/backdrop/focus-trap implementation from `mobile-experience.js`.
+- Removed duplicate More modal/focus ownership from `mobile-ui-shell.js`.
 - Removed document-wide navigation observation that existed only to keep the old More implementation alive.
 - Removed persisted `lastRoute` state.
 - Reduced legacy scheduling to a single animation frame.
-- Centralized backdrop, Escape, Tab containment, dismissal, and focus-return behavior in `mobile-ui-transient.js`.
+- Centralized backdrop, focus entry, Escape, Tab containment, dismissal, and focus-return behavior in `mobile-ui-transient.js`.
+- Made the More backdrop non-focusable so pointer dismissal does not become part of the keyboard tab cycle.
+- Ported the validated Phase 4 transient People-search focus handoff onto the phases 5–8 branch.
 - Kept structural More composition in the v22 shell and contextual destination composition in the Phase 7 layer.
-- Added permanent source-contract tests preventing transient ownership from drifting back into the legacy module.
+- Added permanent source-contract tests preventing transient ownership from drifting back into the shell or legacy module.
+- Added Playwright coverage for focus entry, focus containment, Escape, backdrop cleanup, and deterministic focus return.
 
 ## Data safety
 
 This work is presentation, continuity, and navigation only. It does not mutate genealogy records, relationships, evidence states, source metadata, privacy flags, or canonical graph data.
 
-## Next gates
+## Release-candidate gates
 
 Before release:
 
 1. Run the permanent source-contract suite.
-2. Run Playwright mobile interaction tests at representative phone widths.
-3. Confirm Home, People, Person, Families, Tree, and More have no horizontal overflow.
-4. Confirm desktop restoration after crossing above 720px.
-5. Confirm More focus containment and Tree Focus mode with keyboard input.
-6. Confirm persisted storage contains continuity data only and no transient route/search/modal state.
+2. Run the full production build and canonical/evidence integrity gates.
+3. Run all four Playwright browser shards against the built artifact.
+4. Confirm Home, People, Person, Families, Tree, and More have no horizontal overflow.
+5. Confirm desktop restoration after crossing above 720px.
+6. Confirm More focus entry, containment, Escape, backdrop dismissal, and focus return with keyboard and pointer input.
+7. Confirm Tree Focus mode enters and exits cleanly with keyboard input.
+8. Confirm persisted storage contains continuity data only and no transient route/search/modal state.
+9. Merge only from the exact validated PR head SHA.
