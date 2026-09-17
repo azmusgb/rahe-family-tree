@@ -21,6 +21,10 @@ Phase 6 evolves the phone experience from a responsive archive into a coherent m
 6. Mobile route history is bounded and transient; it is never persisted to storage.
 7. Reduced-motion behavior continues to avoid animation-dependent state.
 
+## Validation coverage
+
+`test-mobile-shell-v22.mjs` now locks the route trail, modal focus contract, expanded compact discovery destinations, contextual person-action accessibility, and the tree toolbar/canvas semantics. Existing Mobile Shell ownership tests remain intact.
+
 ## Data safety
 
 This phase is presentation and navigation only. It does not mutate genealogy records, relationships, evidence states, source metadata, privacy flags, or canonical graph data.
