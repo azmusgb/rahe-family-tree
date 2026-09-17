@@ -7,7 +7,7 @@ const runtime=read('src/runtime/tree-advanced.js');
 const controller=read('src/runtime/tree-controller.js');
 const stability=read('src/runtime/v17-6-stability.js');
 const treeEngine=read('src/runtime/tree-engine.js');
-const composition=read('src/runtime/tree.js');
+const composition=read('src/features/tree/index.js');
 const experience=read('src/runtime/experience.js');
 const styles=read('src/styles/core.css');
 const printStyles=read('src/styles/print.css');
@@ -15,8 +15,8 @@ const interactionStyles=read('src/styles/interaction.css');
 const styleRoot=read('src/styles/index.css');
 
 test('advanced tree remains additive behind one deterministic controller without changing the stable tree boundary',()=>{
-  const imports=[...composition.matchAll(/import ['"]([^'"]+\.js)['"]/g)].map(match=>match[1]);
-  assert.deepEqual(imports,['./tree-engine.js','./tree-polish.js']);
+  const imports=[...composition.matchAll(/import ['\"]([^'\"]+\.js)['\"]/g)].map(match=>match[1]);
+  assert.deepEqual(imports,['../../runtime/tree-engine.js','../../runtime/tree-polish.js']);
   assert.match(experience,/import '\.\/tree-controller\.js';/);
   assert.doesNotMatch(experience,/void import\('\.\/tree-controller\.js'\)/);
   assert.doesNotMatch(experience,/void import\('\.\/tree-advanced\.js'\)/);
