@@ -69,12 +69,17 @@ function queuePeopleSearch(value,{focus=false}={}){
 function consumePeopleSearchRequest(){
   const request={value:pendingPeopleSearchValue,focus:pendingPeopleSearchFocus};
   pendingPeopleSearchValue='';
-  pendingPeopleSearchFocus=false;
+  if(!request.focus)pendingPeopleSearchFocus=false;
   return request;
 }
 function focusPeopleSearch(input){
   if(!input||routeKey()!=='people'||!isMobile())return;
-  requestAnimationFrame(()=>{if(input.isConnected)input.focus({preventScroll:false});});
+  input.focus({preventScroll:false});
+  requestAnimationFrame(()=>{
+    if(!input.isConnected||routeKey()!=='people'||!isMobile())return;
+    if(document.activeElement!==input)input.focus({preventScroll:false});
+    if(document.activeElement===input)pendingPeopleSearchFocus=false;
+  });
 }
 
 function makeSearch(kind,{label,placeholder}){
