@@ -1,72 +1,85 @@
-# Mobile Shell v22 — Phases 6–7
+# Mobile Shell v22 — Phases 6–8
 
-The phone experience is being evolved from a responsive archive into a coherent mobile application shell while preserving the canonical genealogy, evidence, privacy, source, and route contracts.
+The phone experience is evolving from a responsive archive into a coherent mobile application shell with explicit state ownership.
 
-## Phase 6 contract
+## Goals
 
 - Make **More** a concise command center rather than a grid of equivalent destinations.
 - Reduce duplicate mobile chrome and give each route one clear hierarchy.
 - Make **Person** navigation compact and sticky without hiding content behind stacked bars.
 - Make **Tree** controls thumb-friendly and canvas-first.
 - Preserve the existing navigation, route, genealogy, evidence, privacy, and search contracts.
+- Give transient UI state exactly one owner so older mobile layers cannot compete with v22.
 
-## Phase 7 evolution
+## Interaction contract
 
-Phase 7 builds on that contract with context-aware behavior rather than adding more permanent chrome.
+1. Bottom dock remains the primary phone navigation.
+2. Home / Families / Tree / People stay first-class dock destinations.
+3. More contains grouped secondary destinations and Search as a prominent command.
+4. Person quick actions become a horizontal action rail when space is constrained.
+5. Tree receives a compact floating control rail with Center and Tools, leaving graph interaction unobstructed.
+6. All mobile-only structural changes restore cleanly above the 720px breakpoint.
+7. Reduced-motion users receive no animated scrolling or transition-dependent state.
+8. Mobile Back uses a bounded in-memory route trail; it is never persisted.
+9. More behaves as a modal sheet with deterministic focus entry, focus containment, Escape dismissal, backdrop dismissal, and focus return.
+10. More may expose route-aware contextual destinations, but navigation-shell remains the sole owner of bottom-dock structure and ordering.
+11. Person has one primary phone section controller; legacy profile navigation is suppressed only on phones and restored above the breakpoint.
+12. Tree Focus mode is transient and reversible; secondary tree chrome may hide while the graph remains the primary interactive region.
 
-1. **Route-aware More**
-   - More keeps Search and grouped archive destinations.
-   - A Current Context section changes by route so Person, Tree, Media, Stories, Timeline, Places, and Research expose relevant next destinations.
-   - The navigation shell remains the sole owner of dock order and primary navigation.
-2. **One Person section controller**
-   - The app-style Person section tabs are the primary phone sub-navigation.
-   - The legacy Person navigation is suppressed only while the phone controller exists.
-   - Desktop restoration is explicit and reversible.
-3. **Tree focus mode**
-   - A Focus control is added to the existing mobile tree toolbar.
-   - Focus mode temporarily removes nonessential graph summary/tool chrome while preserving the graph and the exit control.
-   - Escape exits focus mode.
-   - Focus state is transient and is never written to browser storage.
-4. **Continuity without transient-state persistence**
-   - Existing recent-person and last-tree continuity remains owned by `mobile-experience.js`.
-   - Search handoff, open sheets, route trail, and Tree focus remain transient runtime state.
-5. **Accessibility**
-   - More remains a labelled modal sheet with focus handoff and return.
-   - Person has one labelled section controller.
-   - Tree is an explicitly labelled interactive region with toolbar controls and a keyboard exit path.
+## Phase 8 ownership contract
 
-## Mobile hierarchy
+Mobile state is split by durability rather than by historical module generation.
 
-The intended phone hierarchy is:
+### v22 transient ownership
 
-**Global:** dedicated header → route content → bottom dock.
+`mobile-ui-ownership.js`, `mobile-ui-shell.js`, `mobile-ui-transient.js`, and `mobile-ui-phase7.js` own transient interaction state:
 
-**Home:** editorial hero → search → primary launcher → relationship preview → compact Discover destinations.
+- pending search handoff
+- route-aware Back trail
+- More open/closed state
+- backdrop visibility
+- modal focus containment and focus return
+- route-aware More commands
+- Tree Focus mode
+- temporary Person navigation suppression
 
-**Person:** identity cover → quick actions → one Person section controller → profile content.
+None of those states are written to browser storage.
 
-**Tree:** compact tree toolbar → graph canvas, with optional Focus mode.
+### Durable continuity ownership
 
-**More:** Search → Current Context → Discover → Research → recent people when available.
+`mobile-experience.js` is reduced to durable continuity and presentation enhancement only. It may persist:
 
-## Restoration contract
+- recently viewed people
+- recently viewed families
+- the last useful Tree context
 
-Every phone-only structural change must restore above the 720px breakpoint. No mobile phase may permanently move, hide, rename, or mutate canonical content when the viewport returns to desktop width.
+It no longer owns More/modal behavior and no longer persists `lastRoute`.
+
+### Startup ordering
+
+`mobile-ui-ownership.js` executes before the legacy mobile enhancer. This makes ownership explicit before any DOM-ready callback can run and prevents startup races between v20 and v22 behavior.
+
+## Phase 8 cleanup completed
+
+- Removed legacy More open/close/backdrop/focus-trap implementation from `mobile-experience.js`.
+- Removed document-wide navigation observation that existed only to keep the old More implementation alive.
+- Removed persisted `lastRoute` state.
+- Reduced legacy scheduling to a single animation frame.
+- Centralized backdrop, Escape, Tab containment, dismissal, and focus-return behavior in `mobile-ui-transient.js`.
+- Kept structural More composition in the v22 shell and contextual destination composition in the Phase 7 layer.
+- Added permanent source-contract tests preventing transient ownership from drifting back into the legacy module.
 
 ## Data safety
 
-These phases are presentation and navigation only. They do not mutate genealogy records, relationships, evidence states, source metadata, privacy flags, or canonical graph data.
+This work is presentation, continuity, and navigation only. It does not mutate genealogy records, relationships, evidence states, source metadata, privacy flags, or canonical graph data.
 
-## Next validation gates
+## Next gates
 
-Before merge:
+Before release:
 
-- run the permanent Mobile Shell v22 contract tests;
-- run the full production build;
-- execute phone interaction tests at small, standard, and large phone widths;
-- verify More open/close/focus behavior;
-- verify Person legacy navigation restoration at desktop width;
-- verify Tree Focus enter/exit/Escape behavior;
-- verify no horizontal overflow and no dock interception of Tree gestures;
-- verify reduced-motion behavior remains non-animated;
-- require the PR head used for validation to be the exact head merged.
+1. Run the permanent source-contract suite.
+2. Run Playwright mobile interaction tests at representative phone widths.
+3. Confirm Home, People, Person, Families, Tree, and More have no horizontal overflow.
+4. Confirm desktop restoration after crossing above 720px.
+5. Confirm More focus containment and Tree Focus mode with keyboard input.
+6. Confirm persisted storage contains continuity data only and no transient route/search/modal state.
