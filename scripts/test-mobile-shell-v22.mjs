@@ -3,6 +3,7 @@ import assert from'node:assert/strict';
 import fs from'node:fs';
 
 const nav=fs.readFileSync('src/runtime/navigation-shell.js','utf8');
+const navModel=fs.readFileSync('src/runtime/navigation-model.js','utf8');
 const mobile=fs.readFileSync('src/runtime/mobile-ui-shell.js','utf8');
 const evolution=fs.readFileSync('src/runtime/mobile-ui-phase7.js','utf8');
 const ownership=fs.readFileSync('src/runtime/mobile-ui-ownership.js','utf8');
@@ -115,10 +116,12 @@ test('person and tree mobile surfaces expose explicit interaction semantics',()=
   assert.match(mobile,/content\.dataset\.v22TreeCanvas='focused'/);
 });
 
-test('phase 7 More menu is route-aware without taking ownership of the dock',()=>{
-  assert.match(evolution,/const contextualDestinations=\{/);
-  assert.match(evolution,/person:\[\['People','#people'\],\['Tree','#tree'\],\['Photos','#media'\]\]/);
-  assert.match(evolution,/research:\[\['Evidence','#evidence'\],\['Sources','#sources'\],\['Family home','#dashboard'\]\]/);
+test('phase 7 More menu is route-aware through the canonical navigation model without taking ownership of the dock',()=>{
+  assert.match(evolution,/import \{contextualDestinations\} from'\.\/navigation-model\.js'/);
+  assert.match(evolution,/const configured=contextualDestinations\(route\)/);
+  assert.match(navModel,/person:\['people','tree','media'\]/);
+  assert.match(navModel,/research:\['evidence','sources','dashboard'\]/);
+  assert.doesNotMatch(evolution,/const contextualDestinations=\{/);
   assert.match(evolution,/if\(!items\.length\)\{/);
   assert.match(evolution,/existing\?\.remove\(\)/);
   assert.match(evolution,/section\.dataset\.v22ContextActions='true'/);

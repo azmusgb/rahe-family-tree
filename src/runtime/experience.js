@@ -6,14 +6,18 @@ import '../../v15-family-focus.js';
 import '../../platform-v13-runtime.js';
 import './page-architecture.js';
 import './navigation-shell.js';
+import './performance-contracts.js';
 import './native-family-v17-controller.js';
 
 // Interaction-critical controllers stay in the initial entry chunk. Route,
 // Tree, mobile dock, and history correctness must never depend on a later
-// network fetch completing before the user's first interaction.
+// network fetch completing before the user's first interaction. The detail-aware
+// route-state controller is initialized before the legacy mobile shell so it is
+// the authoritative smart-Back owner rather than a compatibility follower.
 import './tree-controller.js';
 import './mobile-ui-ownership.js';
 import './mobile-experience.js';
+import './mobile-route-state.js';
 import './mobile-ui-shell.js';
 import './mobile-ui-transient.js';
 import './mobile-ui-phase7.js';

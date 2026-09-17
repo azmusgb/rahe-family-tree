@@ -31,3 +31,39 @@ export const owningSection=route=>({person:'people',branch:'families',claim:'evi
 export const linksHtml=links=>links.map(({key,label,href,description})=>description
   ?`<a href="${href}" data-nav-key="${key}"><b>${label}</b><small>${description}</small></a>`
   :`<a href="${href}" data-nav-key="${key}">${label}</a>`).join('');
+
+// Durable route metadata consumed by shell surfaces. Keep route relationships
+// here rather than duplicating them in mobile/desktop controllers.
+export const navigationPeers=Object.freeze({
+  dashboard:['tree','people','families'],
+  people:['families','tree','media'],
+  person:['people','tree','media'],
+  families:['tree','people','migration'],
+  branch:['families','tree','timeline'],
+  tree:['people','families','media'],
+  media:['people','stories','timeline'],
+  stories:['timeline','media','people'],
+  timeline:['stories','migration','people'],
+  migration:['timeline','families','people'],
+  research:['evidence','sources','dashboard'],
+  evidence:['sources','research','dashboard'],
+  sources:['evidence','research','dashboard'],
+  intelligence:['evidence','sources','dashboard']
+});
+
+const routeLabel=key=>{
+  const item=[...familyPrimary,...familyExplore,...researchPrimary].find(entry=>entry.key===key);
+  if(item)return item.label;
+  return {dashboard:'Family home',person:'People',branch:'Families'}[key]||familyLabels[key]||key;
+};
+
+export const routeHref=key=>`#${key==='dashboard'?'dashboard':key}`;
+export const contextualDestinations=route=>(navigationPeers[route]||navigationPeers.dashboard)
+  .map(key=>[routeLabel(key),routeHref(key)]);
+
+// Full normalized hash identity is intentionally distinct from owningSection.
+// This preserves Person A -> Person B and Branch A -> Branch B in transient Back.
+export const routeIdentity=()=>{
+  const raw=(location.hash||'#dashboard').slice(1).replace(/^\/+|\/+$/g,'');
+  return raw||'dashboard';
+};
