@@ -2,10 +2,17 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const productionRoots = ['src', '.'];
 const ignoredTopLevel = new Set([
   '.git', '.github', 'docs', 'e2e', 'netlify', 'node_modules', 'scripts', 'data', 'public', 'dist', 'exports',
 ]);
+
+const requiredBoundaries = [
+  'src/app/runtime.js',
+  'src/features/family/index.js',
+  'src/features/media/index.js',
+  'src/features/search/index.js',
+  'src/features/tree/index.js',
+];
 
 const legacyVersionedAllowlist = new Set([
   'dashboard-v13-3.js',
@@ -38,6 +45,13 @@ function walk(dir, prefix = '') {
   return out;
 }
 
+const missingBoundaries = requiredBoundaries.filter((file) => !fs.existsSync(path.join(root, file)));
+if (missingBoundaries.length) {
+  console.error('Architecture audit failed: required permanent domain boundaries are missing.');
+  for (const file of missingBoundaries) console.error(` - ${file}`);
+  process.exit(1);
+}
+
 const files = walk(root);
 const productionJs = files.filter((file) => file.endsWith('.js') || file.endsWith('.mjs'));
 const versionPattern = /(?:^|[-_.])v\d+(?:[-_.]\d+)*/i;
@@ -55,12 +69,14 @@ if (unexpected.length) {
   process.exit(1);
 }
 
-// v23.2 migration gate: current baseline is intentionally tolerated, but any
-// growth beyond it fails. The cap ratchets downward as files move into domains.
-const FLAT_RUNTIME_BASELINE = 62;
-if (flatRuntimeFiles > FLAT_RUNTIME_BASELINE) {
-  console.error(`Architecture audit failed: src/runtime grew from ${FLAT_RUNTIME_BASELINE} to ${flatRuntimeFiles} flat JS files.`);
+// v23.2 ratchet: the certified v23 baseline had 62 flat runtime files. The first
+// domain extraction retired seven compatibility facades; flat runtime sprawl may
+// never grow back above 55 while the remaining modules move into feature/domain
+// packages.
+const FLAT_RUNTIME_MAX = 55;
+if (flatRuntimeFiles > FLAT_RUNTIME_MAX) {
+  console.error(`Architecture audit failed: src/runtime contains ${flatRuntimeFiles} flat JS files; maximum is ${FLAT_RUNTIME_MAX}.`);
   process.exit(1);
 }
 
-console.log(`Architecture audit passed: ${versioned.length} legacy versioned production files remain allowlisted; src/runtime flat JS count=${flatRuntimeFiles}.`);
+console.log(`Architecture audit passed: ${versioned.length} legacy versioned production files remain allowlisted; src/runtime flat JS count=${flatRuntimeFiles}/${FLAT_RUNTIME_MAX}.`);
