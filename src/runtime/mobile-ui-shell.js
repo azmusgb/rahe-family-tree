@@ -1,6 +1,6 @@
 const MOBILE_QUERY='(max-width: 720px)';
-const PENDING_SEARCH_KEY='family.mobile.v21.pendingSearch';
-const PENDING_FOCUS_KEY='family.mobile.v21.pendingFocus';
+let pendingPeopleSearchValue='';
+let pendingPeopleSearchFocus=false;
 let scheduled=false;
 let observedContent=null;
 let contentObserver=null;
@@ -61,45 +61,25 @@ function setOriginalSearch(value){
   input.dispatchEvent(new Event('input',{bubbles:true}));
   return true;
 }
-function pendingSearch(){try{return sessionStorage.getItem(PENDING_SEARCH_KEY)||'';}catch{return'';}}
-function consumePendingSearch(){
-  const value=pendingSearch();
-  try{sessionStorage.removeItem(PENDING_SEARCH_KEY);}catch{}
-  return value;
-}
 function queuePeopleSearch(value,{focus=false}={}){
-  try{
-    if(value)sessionStorage.setItem(PENDING_SEARCH_KEY,value);
-    if(focus)sessionStorage.setItem(PENDING_FOCUS_KEY,'1');
-  }catch{}
+  pendingPeopleSearchValue=value;
+  pendingPeopleSearchFocus=focus;
   if(routeKey()!=='people')location.hash='people';else schedule();
 }
-function hasPendingFocus(){
-  try{return sessionStorage.getItem(PENDING_FOCUS_KEY)==='1';}catch{return false;}
+function consumePeopleSearchRequest(){
+  const request={value:pendingPeopleSearchValue,focus:pendingPeopleSearchFocus};
+  pendingPeopleSearchValue='';
+  if(!request.focus)pendingPeopleSearchFocus=false;
+  return request;
 }
-function clearPendingFocus(){try{sessionStorage.removeItem(PENDING_FOCUS_KEY);}catch{}}
-function focusPendingPeopleSearch(){
-  if(!hasPendingFocus())return;
-  const selector='[data-v17-native="people"] .mobile-search[data-v21-mobile-search="people"] input';
-  const tryFocus=(attempt=0)=>{
-    if(!hasPendingFocus())return;
-    const input=document.querySelector(selector);
-    if(routeKey()!=='people'||!isMobile()||!input?.isConnected){
-      if(attempt<20)setTimeout(()=>tryFocus(attempt+1),60);
-      return;
-    }
-    input.focus({preventScroll:false});
-    setTimeout(()=>{
-      if(!hasPendingFocus())return;
-      const live=document.querySelector(selector);
-      if(live===input&&document.activeElement===input){
-        clearPendingFocus();
-        return;
-      }
-      if(attempt<20)tryFocus(attempt+1);
-    },80);
-  };
-  requestAnimationFrame(()=>requestAnimationFrame(()=>tryFocus()));
+function focusPeopleSearch(input){
+  if(!input||routeKey()!=='people'||!isMobile())return;
+  input.focus({preventScroll:false});
+  requestAnimationFrame(()=>{
+    if(!input.isConnected||routeKey()!=='people'||!isMobile())return;
+    if(document.activeElement!==input)input.focus({preventScroll:false});
+    if(document.activeElement===input)pendingPeopleSearchFocus=false;
+  });
 }
 
 function makeSearch(kind,{label,placeholder}){
@@ -130,12 +110,13 @@ function composePeopleSearch(root,intro){
   let search=root.querySelector('.mobile-search[data-v21-mobile-search="people"]');
   if(!search)search=makeSearch('people',{label:'Search people',placeholder:'Name, branch, or place…'});
   if(intro.nextElementSibling!==search)intro.insertAdjacentElement('afterend',search);
-  const pending=consumePendingSearch();
-  if(pending){
-    search.querySelector('input').value=pending;
-    setOriginalSearch(pending);
+  const request=consumePeopleSearchRequest();
+  const input=search.querySelector('input');
+  if(request.value){
+    input.value=request.value;
+    setOriginalSearch(request.value);
   }
-  focusPendingPeopleSearch();
+  if(request.focus)focusPeopleSearch(input);
   return search;
 }
 
