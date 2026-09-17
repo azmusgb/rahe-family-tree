@@ -11,6 +11,7 @@ import './native-family-v17-controller.js';
 // Interaction-critical controllers stay in the initial entry chunk. Route,
 // Tree, mobile dock, and history correctness must never depend on a later
 // network fetch completing before the user's first interaction.
+import './performance-contracts.js';
 import './tree-controller.js';
 import './mobile-ui-ownership.js';
 import './mobile-experience.js';
