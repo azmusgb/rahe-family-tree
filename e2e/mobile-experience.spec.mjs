@@ -2,6 +2,11 @@ import{test,expect}from'@playwright/test';
 
 async function family(page,hash='dashboard'){
   await page.goto(`/#${hash}`);
+  const route=hash.split('/')[0];
+  if(route==='tree'){
+    await page.waitForSelector('[data-v17-native="tree"]');
+    return;
+  }
   await page.waitForSelector('#family-mobile-dock:not([hidden])');
 }
 
@@ -70,16 +75,19 @@ test.describe('mobile family experience',()=>{
     await family(page,'people');
     const more=page.locator('#family-mobile-dock .mobile-more');
     const section=page.locator('[data-v22-context-actions]');
-    await expect(section).toBeAttached();
+    await more.locator('summary').click();
+    await expect(section).toBeVisible();
     await expect(section.getByRole('link',{name:'Families'})).toHaveAttribute('href','#families');
     await expect(section.getByRole('link',{name:'Tree'})).toHaveAttribute('href','#tree');
     await expect(section.getByRole('link',{name:'Photos'})).toHaveCount(0);
     await expect(more.getByRole('link',{name:'Photos'})).toHaveCount(1);
 
-    await page.goto('/#research');
-    await expect(section.getByRole('link',{name:'Evidence'})).toHaveAttribute('href','#evidence');
-    await expect(section.getByRole('link',{name:'Sources'})).toHaveAttribute('href','#sources');
-    await expect(section.getByRole('link',{name:'Family home'})).toHaveAttribute('href','#dashboard');
+    await family(page,'tree');
+    await more.locator('summary').click();
+    await expect(section).toBeVisible();
+    await expect(section.getByRole('link',{name:'People'})).toHaveAttribute('href','#people');
+    await expect(section.getByRole('link',{name:'Families'})).toHaveAttribute('href','#families');
+    await expect(more.getByRole('link',{name:'Photos'})).toHaveCount(1);
   });
 
   test('People keeps every matching person reachable while search stays sticky',async({page})=>{
@@ -121,7 +129,7 @@ test.describe('mobile family experience',()=>{
 
   test('Tree focus mode removes secondary chrome and restores it on exit',async({page})=>{
     await family(page,'tree');
-    const focus=page.locator('[data-v22-tree-focus]');
+    const focus=page.locator('button[data-v22-tree-focus]');
     const content=page.locator('#content');
     const graph=page.locator('.graph-shell,.tree-graph-shell').first();
     await expect(focus).toBeVisible();
