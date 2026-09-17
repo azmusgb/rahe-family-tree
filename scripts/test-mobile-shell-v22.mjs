@@ -39,3 +39,31 @@ test('mobile people search handoff uses transient runtime state',()=>{
   assert.match(mobile,/function focusPeopleSearch\(input\)/);
   assert.match(mobile,/requestAnimationFrame\(\(\)=>\{if\(input\.isConnected\)input\.focus\(\{preventScroll:false\}\);\}\)/);
 });
+
+test('mobile home collapses secondary previews into one compact discovery launcher',()=>{
+  assert.match(mobile,/const MOBILE_HOME_COLLAPSED_SURFACES=\['\.v17-home-story','\.v17-featured-people','\.v17-home-media','\.v17-research-door'\]/);
+  assert.match(mobile,/function setMobileHomePreviewState\(home,collapsed\)/);
+  assert.match(mobile,/node\.dataset\.v22MobileCollapsed='true'/);
+  assert.match(mobile,/node\.hidden=true/);
+  assert.match(mobile,/node\.hidden=false/);
+  assert.match(mobile,/className='v21-mobile-launcher v22-mobile-discover'/);
+  assert.match(mobile,/href="#stories">Stories/);
+  assert.match(mobile,/href="#people">People/);
+  assert.match(mobile,/href="#media">Photos/);
+  assert.match(mobile,/href="#research">Research/);
+  assert.match(mobile,/composeHomeDiscover\(home,treePreview\|\|launcher\)/);
+});
+
+test('desktop restoration removes mobile-only home composition',()=>{
+  assert.match(mobile,/function restoreHomeComposition\(home,actions\)/);
+  assert.match(mobile,/home\.querySelector\('\.v22-mobile-discover'\)\?\.remove\(\)/);
+  assert.match(mobile,/setMobileHomePreviewState\(home,false\)/);
+});
+
+test('mobile More sheet has a stable accessible label and grouped destinations',()=>{
+  assert.match(mobile,/heading\.id='mobile-more-title'/);
+  assert.match(mobile,/panel\.setAttribute\('aria-labelledby',heading\.id\)/);
+  assert.match(mobile,/search\.setAttribute\('aria-label','Search the family archive'\)/);
+  assert.match(mobile,/className='v21-more-discover'/);
+  assert.match(mobile,/className='v21-more-research'/);
+});
