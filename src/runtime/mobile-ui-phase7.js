@@ -1,25 +1,10 @@
+import {contextualDestinations} from'./navigation-model.js';
+
 const MOBILE_QUERY='(max-width: 720px)';
 let scheduled=false;
 
 const isMobile=()=>window.matchMedia(MOBILE_QUERY).matches;
 const routeKey=()=>location.hash.slice(1).split('/')[0]||document.body.dataset.route||'dashboard';
-
-const contextualDestinations={
-  dashboard:[['Tree','#tree'],['People','#people'],['Families','#families']],
-  people:[['Families','#families'],['Tree','#tree'],['Photos','#media']],
-  person:[['People','#people'],['Tree','#tree'],['Photos','#media']],
-  families:[['Tree','#tree'],['People','#people'],['Places','#migration']],
-  branch:[['Families','#families'],['Tree','#tree'],['Timeline','#timeline']],
-  tree:[['People','#people'],['Families','#families'],['Photos','#media']],
-  media:[['People','#people'],['Stories','#stories'],['Timeline','#timeline']],
-  stories:[['Timeline','#timeline'],['Photos','#media'],['People','#people']],
-  timeline:[['Stories','#stories'],['Places','#migration'],['People','#people']],
-  migration:[['Timeline','#timeline'],['Families','#families'],['People','#people']],
-  research:[['Evidence','#evidence'],['Sources','#sources'],['Family home','#dashboard']],
-  evidence:[['Sources','#sources'],['Research','#research'],['Family home','#dashboard']],
-  sources:[['Evidence','#evidence'],['Research','#research'],['Family home','#dashboard']],
-  intelligence:[['Evidence','#evidence'],['Sources','#sources'],['Family home','#dashboard']]
-};
 
 function syncContextualMore(){
   const panel=document.querySelector('#family-mobile-dock details.mobile-more > div');
@@ -30,7 +15,7 @@ function syncContextualMore(){
     return;
   }
   const route=routeKey();
-  const configured=contextualDestinations[route]||contextualDestinations.dashboard;
+  const configured=contextualDestinations(route);
   const baseHrefs=new Set(
     [...panel.querySelectorAll('a[href^="#"]')]
       .filter(link=>!link.hasAttribute('data-v22-context-destination'))
