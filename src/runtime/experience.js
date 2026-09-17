@@ -12,8 +12,10 @@ import './native-family-v17-controller.js';
 // Tree, mobile dock, and history correctness must never depend on a later
 // network fetch completing before the user's first interaction.
 import './tree-controller.js';
+import './mobile-ui-ownership.js';
 import './mobile-experience.js';
 import './mobile-ui-shell.js';
+import './mobile-ui-transient.js';
 import './mobile-ui-phase7.js';
 
 // Presentation-only startup capabilities that still apply broadly. Route-bound
