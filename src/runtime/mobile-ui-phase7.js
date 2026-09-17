@@ -2,7 +2,7 @@ const MOBILE_QUERY='(max-width: 720px)';
 let scheduled=false;
 
 const isMobile=()=>window.matchMedia(MOBILE_QUERY).matches;
-const routeKey=()=>document.body.dataset.route||location.hash.slice(1).split('/')[0]||'dashboard';
+const routeKey=()=>location.hash.slice(1).split('/')[0]||document.body.dataset.route||'dashboard';
 
 const contextualDestinations={
   dashboard:[['Tree','#tree'],['People','#people'],['Families','#families']],
@@ -29,18 +29,25 @@ function syncContextualMore(){
     existing?.remove();
     return;
   }
-  const items=contextualDestinations[routeKey()]||contextualDestinations.dashboard;
+  const route=routeKey();
+  const configured=contextualDestinations[route]||contextualDestinations.dashboard;
+  const baseHrefs=new Set(
+    [...panel.querySelectorAll('a[href^="#"]')]
+      .filter(link=>!link.hasAttribute('data-v22-context-destination'))
+      .map(link=>link.getAttribute('href'))
+      .filter(Boolean)
+  );
+  const items=configured.filter(([,href])=>!baseHrefs.has(href));
   let section=existing;
   if(!section){
     section=document.createElement('section');
     section.className='v21-more-research v22-context-actions';
     section.dataset.v22ContextActions='true';
     section.innerHTML='<span>CURRENT CONTEXT</span><div></div>';
-    const search=panel.querySelector('[data-mobile-ui-search]');
-    if(search)search.insertAdjacentElement('afterend',section);else panel.prepend(section);
   }
+  if(panel.lastElementChild!==section)panel.append(section);
   const list=section.querySelector('div');
-  const signature=`${routeKey()}:${items.map(([label,href])=>`${label}:${href}`).join('|')}`;
+  const signature=`${route}:${items.map(([label,href])=>`${label}:${href}`).join('|')}`;
   if(section.dataset.v22Signature===signature)return;
   list.replaceChildren(...items.map(([label,href])=>{
     const link=document.createElement('a');
