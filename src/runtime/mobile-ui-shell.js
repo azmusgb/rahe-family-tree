@@ -1,10 +1,15 @@
 const MOBILE_QUERY='(max-width: 720px)';
 const MOBILE_HOME_COLLAPSED_SURFACES=['.v17-home-story','.v17-featured-people','.v17-home-media','.v17-research-door'];
+const MOBILE_ROUTE_TRAIL_LIMIT=12;
 let pendingPeopleSearchValue='';
 let pendingPeopleSearchFocus=false;
 let scheduled=false;
 let observedContent=null;
 let contentObserver=null;
+let lastMobileRoute='';
+let suppressNextTrailPush=false;
+let moreReturnFocus=null;
+const mobileRouteTrail=[];
 
 const isMobile=()=>window.matchMedia(MOBILE_QUERY).matches;
 const routeKey=()=>document.body.dataset.route||location.hash.slice(1).split('/')[0]||'dashboard';
@@ -23,6 +28,37 @@ function backTarget(){
   if(route==='person')return'#people';
   if(route==='branch')return'#families';
   return'#dashboard';
+}
+
+function recordMobileRoute(){
+  if(!isMobile()){
+    lastMobileRoute='';
+    mobileRouteTrail.length=0;
+    suppressNextTrailPush=false;
+    return;
+  }
+  const current=routeKey();
+  if(!lastMobileRoute){lastMobileRoute=current;return;}
+  if(current===lastMobileRoute)return;
+  if(!suppressNextTrailPush){
+    mobileRouteTrail.push(lastMobileRoute);
+    if(mobileRouteTrail.length>MOBILE_ROUTE_TRAIL_LIMIT)mobileRouteTrail.splice(0,mobileRouteTrail.length-MOBILE_ROUTE_TRAIL_LIMIT);
+  }
+  suppressNextTrailPush=false;
+  lastMobileRoute=current;
+}
+
+function navigateMobileBack(){
+  if(!isMobile())return false;
+  const current=routeKey();
+  let previous='';
+  while(mobileRouteTrail.length&&!previous){
+    const candidate=mobileRouteTrail.pop();
+    if(candidate&&candidate!==current)previous=candidate;
+  }
+  suppressNextTrailPush=true;
+  location.hash=previous||backTarget();
+  return true;
 }
 
 function syncDedicatedHeader(){
@@ -50,6 +86,7 @@ function syncDedicatedHeader(){
     const home=routeKey()==='dashboard';
     back.hidden=home;
     back.href=backTarget();
+    back.dataset.mobileSmartBack='true';
     back.setAttribute('aria-label',home?'Home':`Back from ${nextTitle}`);
   }
 }
@@ -151,7 +188,7 @@ function composeHomeDiscover(home,anchor){
     discover=document.createElement('section');
     discover.className='v21-mobile-launcher v22-mobile-discover';
     discover.setAttribute('aria-labelledby','v22-discover-title');
-    discover.innerHTML='<div class="v21-launcher-heading"><span>DISCOVER MORE</span><h2 id="v22-discover-title">Keep exploring</h2><p>Jump straight to the part of the archive you want instead of scrolling through every preview.</p></div><nav class="v17-primary-actions" aria-label="More family destinations"><a class="action" href="#stories">Stories</a><a class="action" href="#people">People</a><a class="action" href="#media">Photos</a><a class="action" href="#research">Research</a></nav>';
+    discover.innerHTML='<div class="v21-launcher-heading"><span>DISCOVER MORE</span><h2 id="v22-discover-title">Keep exploring</h2><p>Jump straight to the part of the archive you want instead of scrolling through every preview.</p></div><nav class="v17-primary-actions" aria-label="More family destinations"><a class="action" href="#stories">Stories</a><a class="action" href="#people">People</a><a class="action" href="#media">Photos</a><a class="action" href="#timeline">Timeline</a><a class="action" href="#migration">Places</a><a class="action" href="#research">Research</a></nav>';
   }
   if(anchor?.parentNode&&anchor.nextElementSibling!==discover)anchor.insertAdjacentElement('afterend',discover);
   return discover;
@@ -212,6 +249,7 @@ function composePerson(){
   if(!isMobile()){
     const quick=root.querySelector('.v21-person-quick-actions');
     if(quick){restoreMovedNode('person-actions',actions);quick.remove();}
+    delete root.dataset.v22PersonFlow;
     return;
   }
   const header=root.querySelector('.person-header');
@@ -226,7 +264,15 @@ function composePerson(){
   }
   if(actions.parentNode!==quick)quick.append(actions);
   if(header.nextElementSibling!==quick)header.insertAdjacentElement('afterend',quick);
+  actions.querySelectorAll('a,button').forEach(control=>{
+    control.dataset.mobilePersonAction='true';
+    if(!control.getAttribute('aria-label')){
+      const label=safeText(control.textContent);
+      if(label)control.setAttribute('aria-label',`${label} for ${routeTitle()}`);
+    }
+  });
   root.dataset.v21PersonApp='true';
+  root.dataset.v22PersonFlow='compact';
 }
 
 function composeTree(){
@@ -235,6 +281,7 @@ function composeTree(){
   if(!isMobile()||routeKey()!=='tree'){
     content.querySelector('.v21-tree-mode-bar')?.remove();
     delete content.dataset.v21TreeApp;
+    delete content.dataset.v22TreeCanvas;
     return;
   }
   const graph=content.querySelector('.graph-shell,.tree-graph-shell');
@@ -243,10 +290,36 @@ function composeTree(){
   if(!bar){
     bar=document.createElement('div');
     bar.className='v21-tree-mode-bar';
-    bar.innerHTML='<div><span>EXPLORE</span><strong>Family Tree</strong></div><div><button type="button" data-v21-tree-center>Center</button><button type="button" data-v21-tree-tools>Tools</button></div>';
+    bar.setAttribute('role','toolbar');
+    bar.setAttribute('aria-label','Family tree controls');
+    bar.innerHTML='<div><span>EXPLORE</span><strong>Family Tree</strong></div><div><button type="button" data-v21-tree-center aria-label="Center and fit family tree">Center</button><button type="button" data-v21-tree-tools aria-label="Open family tree tools">Tools</button></div>';
   }
   if(graph.previousElementSibling!==bar)graph.insertAdjacentElement('beforebegin',bar);
+  if(!graph.hasAttribute('tabindex'))graph.tabIndex=0;
+  if(!graph.hasAttribute('role'))graph.setAttribute('role','region');
+  if(!graph.getAttribute('aria-label'))graph.setAttribute('aria-label','Interactive family tree canvas');
   content.dataset.v21TreeApp='true';
+  content.dataset.v22TreeCanvas='focused';
+}
+
+function syncMoreModalState(details){
+  if(!details||!isMobile())return;
+  const panel=details.querySelector(':scope > div');
+  if(details.open){
+    moreReturnFocus=details.querySelector(':scope > summary')||document.activeElement;
+    document.body.dataset.mobileModalOpen='more';
+    panel?.setAttribute('aria-modal','true');
+    requestAnimationFrame(()=>{
+      const target=panel?.querySelector('[data-mobile-ui-search],a[href],button:not([disabled])');
+      target?.focus({preventScroll:true});
+    });
+    return;
+  }
+  delete document.body.dataset.mobileModalOpen;
+  panel?.setAttribute('aria-modal','true');
+  const active=document.activeElement;
+  if(panel?.contains(active)||active===document.body)moreReturnFocus?.focus?.({preventScroll:true});
+  moreReturnFocus=null;
 }
 
 function composeMore(){
@@ -259,6 +332,8 @@ function composeMore(){
     if(!heading.id)heading.id='mobile-more-title';
     panel.setAttribute('aria-labelledby',heading.id);
   }
+  panel.setAttribute('role','dialog');
+  panel.setAttribute('aria-modal','true');
   if(panel.querySelector('.v21-more-discover'))return;
   const photos=panel.querySelector('a[href="#media"]');
   const stories=panel.querySelector('a[href="#stories"]');
@@ -288,6 +363,12 @@ function bindControls(){
   if(document.documentElement.dataset.v21Bindings==='true')return;
   document.documentElement.dataset.v21Bindings='true';
   document.addEventListener('click',event=>{
+    const smartBack=event.target.closest('[data-mobile-smart-back]');
+    if(smartBack&&isMobile()){
+      event.preventDefault();
+      navigateMobileBack();
+      return;
+    }
     const mobileSearchTrigger=event.target.closest('[data-mobile-ui-search],#mobile-app-header [data-global-search]');
     if(mobileSearchTrigger&&isMobile()){
       event.preventDefault();event.stopImmediatePropagation();
@@ -308,9 +389,14 @@ function bindControls(){
       target?.click();
     }
   },true);
+  document.addEventListener('toggle',event=>{
+    const details=event.target;
+    if(details instanceof HTMLDetailsElement&&details.matches('#family-mobile-dock details.mobile-more'))syncMoreModalState(details);
+  },true);
 }
 
 function apply(){
+  recordMobileRoute();
   syncDedicatedHeader();
   composeHome();
   composePeople();
