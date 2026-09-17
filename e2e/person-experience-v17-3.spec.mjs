@@ -15,17 +15,20 @@ async function mockApis(page){
 
 test.beforeEach(async({page})=>{await mockApis(page);});
 
-test('historical Person opens as a biography-first family profile',async({page})=>{
+test('historical Person opens as a biography-first family profile',async({page},testInfo)=>{
   await page.goto(`/#person/${HAZEL}`);
   const profile=page.locator(`[data-v17-native="person"][data-person-id="${HAZEL}"]`);
   await expect(profile).toBeVisible();
   await expect(profile.locator('.person-header')).toBeVisible();
-  const storyLink=profile.locator('.v17-person-nav a[href="#v17-story"]');
-  await expect(storyLink).toHaveText('Story');
+  const mobile=testInfo.project.name==='mobile-chromium';
+  const storyControl=mobile
+    ? profile.locator('.v20-person-tabs [data-person-tab="story"]')
+    : profile.locator('.v17-person-nav a[href="#v17-story"]');
+  await expect(storyControl).toHaveText('Story');
   const story=profile.locator('#v17-story');
   await expect(story).toBeVisible();
   await expect(story.getByRole('heading',{name:/A life in the family record|A place in the family story/})).toBeVisible();
-  await storyLink.click();
+  await storyControl.click();
   await expect(page).toHaveURL(new RegExp(`#person/${HAZEL}$`));
   await expect(story).toBeVisible();
   await expect(profile.getByRole('heading',{name:'Immediate family'})).toBeVisible();
