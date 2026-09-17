@@ -1,38 +1,72 @@
-# Mobile Shell v22 — Phase 6
+# Mobile Shell v22 — Phases 6–7
 
-Phase 6 evolves the phone experience from a responsive archive into a coherent mobile application shell.
+The phone experience is being evolved from a responsive archive into a coherent mobile application shell while preserving the canonical genealogy, evidence, privacy, source, and route contracts.
 
-## Implemented
+## Phase 6 contract
 
-- **Route-aware mobile back navigation** now follows an internal route trail before falling back to People, Families, or Home. This prevents Person and Branch views from feeling like dead-end pages while avoiding unsafe browser-history assumptions.
-- **More behaves as a real modal sheet** with a stable dialog label, `aria-modal`, focus handoff on open, and focus return to the More trigger on close.
-- **Home discovery is broader but shorter**: the long secondary preview stack remains collapsed on phones, while the compact launcher links directly to Stories, People, Photos, Timeline, Places, and Research.
-- **Person quick actions expose an explicit compact-flow contract** and receive contextual accessible labels without changing the underlying actions or data.
-- **Tree is canvas-first**: its mobile control surface is an explicit toolbar, the graph is keyboard-focusable, and the canvas is exposed as a labelled interactive region.
-- All mobile-only structural changes continue to restore cleanly above the 720px breakpoint.
+- Make **More** a concise command center rather than a grid of equivalent destinations.
+- Reduce duplicate mobile chrome and give each route one clear hierarchy.
+- Make **Person** navigation compact and sticky without hiding content behind stacked bars.
+- Make **Tree** controls thumb-friendly and canvas-first.
+- Preserve the existing navigation, route, genealogy, evidence, privacy, and search contracts.
 
-## Interaction contract
+## Phase 7 evolution
 
-1. Bottom dock remains the primary phone navigation.
-2. Home / Families / Tree / People stay first-class dock destinations.
-3. More contains grouped secondary destinations and Search as a prominent command.
-4. Person quick actions remain subordinate to the person identity header.
-5. Tree controls remain outside the graph interaction surface so pan/zoom gestures are not intercepted.
-6. Mobile route history is bounded and transient; it is never persisted to storage.
-7. Reduced-motion behavior continues to avoid animation-dependent state.
+Phase 7 builds on that contract with context-aware behavior rather than adding more permanent chrome.
 
-## Validation coverage
+1. **Route-aware More**
+   - More keeps Search and grouped archive destinations.
+   - A Current Context section changes by route so Person, Tree, Media, Stories, Timeline, Places, and Research expose relevant next destinations.
+   - The navigation shell remains the sole owner of dock order and primary navigation.
+2. **One Person section controller**
+   - The app-style Person section tabs are the primary phone sub-navigation.
+   - The legacy Person navigation is suppressed only while the phone controller exists.
+   - Desktop restoration is explicit and reversible.
+3. **Tree focus mode**
+   - A Focus control is added to the existing mobile tree toolbar.
+   - Focus mode temporarily removes nonessential graph summary/tool chrome while preserving the graph and the exit control.
+   - Escape exits focus mode.
+   - Focus state is transient and is never written to browser storage.
+4. **Continuity without transient-state persistence**
+   - Existing recent-person and last-tree continuity remains owned by `mobile-experience.js`.
+   - Search handoff, open sheets, route trail, and Tree focus remain transient runtime state.
+5. **Accessibility**
+   - More remains a labelled modal sheet with focus handoff and return.
+   - Person has one labelled section controller.
+   - Tree is an explicitly labelled interactive region with toolbar controls and a keyboard exit path.
 
-`test-mobile-shell-v22.mjs` now locks the route trail, modal focus contract, expanded compact discovery destinations, contextual person-action accessibility, and the tree toolbar/canvas semantics. Existing Mobile Shell ownership tests remain intact.
+## Mobile hierarchy
 
-## Next evolution targets
+The intended phone hierarchy is:
 
-- collapse duplicate Person sub-navigation into one sticky section controller
-- convert More from a generic grid into route-aware commands and recently used destinations
-- persist useful mobile context such as last viewed person and tree focus without persisting transient UI state
-- add viewport-level visual regression snapshots for Home, People, Person, Families, Tree, and More at compact and large-phone widths
-- further reduce legacy mobile CSS override depth after Phase 6 behavior is verified
+**Global:** dedicated header → route content → bottom dock.
+
+**Home:** editorial hero → search → primary launcher → relationship preview → compact Discover destinations.
+
+**Person:** identity cover → quick actions → one Person section controller → profile content.
+
+**Tree:** compact tree toolbar → graph canvas, with optional Focus mode.
+
+**More:** Search → Current Context → Discover → Research → recent people when available.
+
+## Restoration contract
+
+Every phone-only structural change must restore above the 720px breakpoint. No mobile phase may permanently move, hide, rename, or mutate canonical content when the viewport returns to desktop width.
 
 ## Data safety
 
-This phase is presentation and navigation only. It does not mutate genealogy records, relationships, evidence states, source metadata, privacy flags, or canonical graph data.
+These phases are presentation and navigation only. They do not mutate genealogy records, relationships, evidence states, source metadata, privacy flags, or canonical graph data.
+
+## Next validation gates
+
+Before merge:
+
+- run the permanent Mobile Shell v22 contract tests;
+- run the full production build;
+- execute phone interaction tests at small, standard, and large phone widths;
+- verify More open/close/focus behavior;
+- verify Person legacy navigation restoration at desktop width;
+- verify Tree Focus enter/exit/Escape behavior;
+- verify no horizontal overflow and no dock interception of Tree gestures;
+- verify reduced-motion behavior remains non-animated;
+- require the PR head used for validation to be the exact head merged.
