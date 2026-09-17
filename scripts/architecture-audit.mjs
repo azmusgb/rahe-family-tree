@@ -69,11 +69,11 @@ if (unexpected.length) {
   process.exit(1);
 }
 
-// v23.2 ratchet: the certified v23 baseline had 62 flat runtime files. The first
-// domain extraction retired seven compatibility facades; flat runtime sprawl may
-// never grow back above 55 while the remaining modules move into feature/domain
-// packages.
-const FLAT_RUNTIME_MAX = 55;
+// v23.2 ratchet: the certified v23 baseline had 62 flat runtime files. Domain
+// extraction first retired seven compatibility facades and now the obsolete
+// runtime entry shim; flat runtime sprawl may never grow back while remaining
+// modules move into feature/domain packages.
+const FLAT_RUNTIME_MAX = 54;
 if (flatRuntimeFiles > FLAT_RUNTIME_MAX) {
   console.error(`Architecture audit failed: src/runtime contains ${flatRuntimeFiles} flat JS files; maximum is ${FLAT_RUNTIME_MAX}.`);
   process.exit(1);
