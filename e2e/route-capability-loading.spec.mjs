@@ -110,6 +110,6 @@ test.describe('v20.2 route-level capability loading',()=>{
     await open(page,'dashboard');
     const state=await snapshot(page,'dashboard');
     expect(state.loaded).toEqual(expect.arrayContaining(['mobile-home-polish','family-narrative','experience-elevation-v17-4','unified-family-experience']));
-    await expect(page.locator('.v21-launcher-heading p')).toHaveText('Choose a path into the archive and start exploring.');
+    await expect(page.locator('.v21-mobile-launcher:not(.v22-mobile-discover) .v21-launcher-heading p')).toHaveText('Choose a path into the archive and start exploring.');
   });
 });
