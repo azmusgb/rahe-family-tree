@@ -1,4 +1,5 @@
 const MOBILE_QUERY='(max-width: 720px)';
+const MOBILE_HOME_COLLAPSED_SURFACES=['.v17-home-story','.v17-featured-people','.v17-home-media','.v17-research-door'];
 let pendingPeopleSearchValue='';
 let pendingPeopleSearchFocus=false;
 let scheduled=false;
@@ -130,21 +131,53 @@ function restoreMovedNode(key,node){
   if(marker?.parentNode&&node){marker.parentNode.insertBefore(node,marker.nextSibling);marker.remove();}
 }
 
+function setMobileHomePreviewState(home,collapsed){
+  for(const selector of MOBILE_HOME_COLLAPSED_SURFACES){
+    const node=home.querySelector(selector);
+    if(!node)continue;
+    if(collapsed){
+      if(node.dataset.v22MobileCollapsed!=='true')node.dataset.v22MobileCollapsed='true';
+      if(!node.hidden)node.hidden=true;
+    }else if(node.dataset.v22MobileCollapsed==='true'){
+      node.hidden=false;
+      delete node.dataset.v22MobileCollapsed;
+    }
+  }
+}
+
+function composeHomeDiscover(home,anchor){
+  let discover=home.querySelector('.v22-mobile-discover');
+  if(!discover){
+    discover=document.createElement('section');
+    discover.className='v21-mobile-launcher v22-mobile-discover';
+    discover.setAttribute('aria-labelledby','v22-discover-title');
+    discover.innerHTML='<div class="v21-launcher-heading"><span>DISCOVER MORE</span><h2 id="v22-discover-title">Keep exploring</h2><p>Jump straight to the part of the archive you want instead of scrolling through every preview.</p></div><nav class="v17-primary-actions" aria-label="More family destinations"><a class="action" href="#stories">Stories</a><a class="action" href="#people">People</a><a class="action" href="#media">Photos</a><a class="action" href="#research">Research</a></nav>';
+  }
+  if(anchor?.parentNode&&anchor.nextElementSibling!==discover)anchor.insertAdjacentElement('afterend',discover);
+  return discover;
+}
+
+function restoreHomeComposition(home,actions){
+  const launcher=home.querySelector('.v21-mobile-launcher:not(.v22-mobile-discover)');
+  if(launcher){restoreMovedNode('home-actions',actions);launcher.remove();}
+  home.querySelector('.v22-mobile-discover')?.remove();
+  home.querySelector('.mobile-search[data-v21-mobile-search="home"]')?.remove();
+  setMobileHomePreviewState(home,false);
+}
+
 function composeHome(){
   const home=document.querySelector('[data-v17-native="home"]');
   if(!home)return;
   const actions=home.querySelector('.v17-primary-actions');
   if(!isMobile()){
-    const launcher=home.querySelector('.v21-mobile-launcher');
-    if(launcher){restoreMovedNode('home-actions',actions);launcher.remove();}
-    home.querySelector('.mobile-search')?.remove();
+    restoreHomeComposition(home,actions);
     return;
   }
   const hero=home.querySelector('.v17-home-hero');
   if(!hero||!actions)return;
   const search=composeHomeSearch(home,hero);
   ensureReturnMarker(actions,'home-actions');
-  let launcher=home.querySelector('.v21-mobile-launcher');
+  let launcher=home.querySelector('.v21-mobile-launcher:not(.v22-mobile-discover)');
   if(!launcher){
     launcher=document.createElement('section');
     launcher.className='v21-mobile-launcher';
@@ -155,7 +188,11 @@ function composeHome(){
   if(search.nextElementSibling!==launcher)search.insertAdjacentElement('afterend',launcher);
 
   const surfaceMap=[['.v17-home-tree','connections'],['.v17-home-story','stories'],['.v17-featured-people','people'],['.v17-home-media','media'],['.v17-research-door','research']];
-  surfaceMap.forEach(([selector,value])=>{const node=home.querySelector(selector);if(node)node.dataset.v21Surface=value;});
+  surfaceMap.forEach(([selector,value])=>{const node=home.querySelector(selector);if(node&&node.dataset.v21Surface!==value)node.dataset.v21Surface=value;});
+
+  const treePreview=home.querySelector('.v17-home-tree');
+  setMobileHomePreviewState(home,true);
+  composeHomeDiscover(home,treePreview||launcher);
 }
 
 function composePeople(){
@@ -214,15 +251,26 @@ function composeTree(){
 
 function composeMore(){
   if(!isMobile())return;
-  const panel=document.querySelector('#family-mobile-dock details > div');
-  if(!panel||panel.querySelector('.v21-more-discover'))return;
+  const details=document.querySelector('#family-mobile-dock details.mobile-more');
+  const panel=details?.querySelector(':scope > div');
+  if(!panel)return;
+  const heading=panel.querySelector('.mobile-more-head strong');
+  if(heading){
+    if(!heading.id)heading.id='mobile-more-title';
+    panel.setAttribute('aria-labelledby',heading.id);
+  }
+  if(panel.querySelector('.v21-more-discover'))return;
   const photos=panel.querySelector('a[href="#media"]');
   const stories=panel.querySelector('a[href="#stories"]');
   const timeline=panel.querySelector('a[href="#timeline"]');
   const places=panel.querySelector('a[href="#migration"]');
   const research=panel.querySelector('a[href="#research"]');
   const search=panel.querySelector('[data-dock-search]');
-  if(search){search.removeAttribute('data-dock-search');search.dataset.mobileUiSearch='true';}
+  if(search){
+    search.removeAttribute('data-dock-search');
+    search.dataset.mobileUiSearch='true';
+    search.setAttribute('aria-label','Search the family archive');
+  }
   const discover=document.createElement('section');
   discover.className='v21-more-discover';
   discover.innerHTML='<span>DISCOVER</span><div></div>';
