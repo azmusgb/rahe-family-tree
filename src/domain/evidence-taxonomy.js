@@ -1,0 +1,20 @@
+export const CLAIM_STATES=Object.freeze([
+  'SUPPORTED',
+  'PROVISIONAL',
+  'UNRESOLVED',
+  'REJECTED'
+]);
+
+export const EVIDENCE_PROVENANCE=Object.freeze([
+  'ORIGINAL / CERTIFIED',
+  'GOVERNMENT / CUSTODIAN DERIVED',
+  'CONTEMPORARY DERIVATIVE',
+  'LATER FAMILY CERTIFICATE',
+  'COMPILED GENEALOGY / SHARED PROFILE',
+  'FAMILY-SUPPLIED IDENTITY / CONTEXT',
+  'USER-GENERATED NARRATIVE'
+]);
+
+export function isClaimState(value){
+  return CLAIM_STATES.includes(String(value??'').trim().toUpperCase());
+}
