@@ -14,6 +14,7 @@ import './native-family-v17-controller.js';
 import './performance-contracts.js';
 import './tree-controller.js';
 import './mobile-ui-ownership.js';
+import './mobile-route-state.js';
 import './mobile-experience.js';
 import './mobile-ui-shell.js';
 import './mobile-ui-transient.js';
