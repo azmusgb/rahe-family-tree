@@ -14,6 +14,7 @@ import './native-family-v17-controller.js';
 import './tree-controller.js';
 import './mobile-experience.js';
 import './mobile-ui-shell.js';
+import './mobile-ui-phase7.js';
 
 // Presentation-only startup capabilities that still apply broadly. Route-bound
 // presentation modules are registered in route-capabilities.js and load only
