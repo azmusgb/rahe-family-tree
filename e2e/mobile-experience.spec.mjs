@@ -11,16 +11,59 @@ test.describe('mobile family experience',()=>{
   test('More navigation opens as an accessible bottom sheet and closes cleanly',async({page})=>{
     await family(page,'people');
     const more=page.locator('#family-mobile-dock .mobile-more');
+    const summary=more.locator('summary');
     const panel=more.locator(':scope > div');
     await expect(panel).toHaveAttribute('role','dialog');
     await expect(panel).toHaveAttribute('aria-modal','true');
-    await more.locator('summary').click();
+    await summary.click();
     await expect(more).toHaveAttribute('open','');
     await expect(page.locator('body')).toHaveClass(/mobile-sheet-open/);
     await expect(page.locator('.mobile-more-backdrop')).toBeVisible();
+    await expect.poll(()=>page.evaluate(()=>{
+      const panel=document.querySelector('#family-mobile-dock details.mobile-more > div');
+      return Boolean(panel?.contains(document.activeElement));
+    })).toBe(true);
     await more.locator('[data-mobile-more-close]').click();
     await expect(more).not.toHaveAttribute('open','');
     await expect(page.locator('body')).not.toHaveClass(/mobile-sheet-open/);
+    await expect(summary).toBeFocused();
+  });
+
+  test('More keeps keyboard focus contained and Escape restores the trigger',async({page})=>{
+    await family(page,'people');
+    const more=page.locator('#family-mobile-dock .mobile-more');
+    const summary=more.locator('summary');
+    const panel=more.locator(':scope > div');
+    await summary.click();
+    await expect(more).toHaveAttribute('open','');
+
+    await page.locator('#content').evaluate(node=>{
+      node.setAttribute('tabindex','-1');
+      node.focus();
+    });
+    await page.keyboard.press('Tab');
+    await expect.poll(()=>page.evaluate(()=>{
+      const panel=document.querySelector('#family-mobile-dock details.mobile-more > div');
+      return Boolean(panel?.contains(document.activeElement));
+    })).toBe(true);
+
+    await page.keyboard.press('Escape');
+    await expect(more).not.toHaveAttribute('open','');
+    await expect(panel).not.toBeVisible();
+    await expect(summary).toBeFocused();
+  });
+
+  test('More backdrop dismisses the sheet without leaking modal state',async({page})=>{
+    await family(page,'people');
+    const more=page.locator('#family-mobile-dock .mobile-more');
+    const summary=more.locator('summary');
+    await summary.click();
+    await expect(page.locator('body')).toHaveAttribute('data-mobile-modal-open','more');
+    await page.locator('.mobile-more-backdrop').click({position:{x:4,y:4}});
+    await expect(more).not.toHaveAttribute('open','');
+    await expect(page.locator('body')).not.toHaveAttribute('data-mobile-modal-open','more');
+    await expect(page.locator('body')).not.toHaveClass(/mobile-sheet-open/);
+    await expect(summary).toBeFocused();
   });
 
   test('More navigation adapts to the active family context',async({page})=>{
