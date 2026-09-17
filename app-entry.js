@@ -1,8 +1,7 @@
 // Single browser entry point for the Family History Archive application.
-// Runtime implementation details live behind stable domain boundaries so
-// historical version-layer files can be retired incrementally without changing
-// the public browser entry or production bundle contract.
-import './src/runtime/index.js';
+// Runtime implementation details live behind stable domain boundaries; the
+// canonical composition root is src/app/runtime.js.
+import './src/app/runtime.js';
 
 const APP_VERSION='20.0.0';
 const syncAppVersion=()=>{
