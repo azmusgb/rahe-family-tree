@@ -41,8 +41,12 @@ test('mobile people search handoff uses transient runtime state',()=>{
   assert.match(mobile,/let pendingPeopleSearchValue=''/);
   assert.match(mobile,/let pendingPeopleSearchFocus=false/);
   assert.match(mobile,/function consumePeopleSearchRequest\(\)/);
+  assert.match(mobile,/if\(!request\.focus\)pendingPeopleSearchFocus=false/);
   assert.match(mobile,/function focusPeopleSearch\(input\)/);
-  assert.match(mobile,/requestAnimationFrame\(\(\)=>\{if\(input\.isConnected\)input\.focus\(\{preventScroll:false\}\);\}\)/);
+  assert.match(mobile,/input\.focus\(\{preventScroll:false\}\)/);
+  assert.match(mobile,/if\(!input\.isConnected\|\|routeKey\(\)!=='people'\|\|!isMobile\(\)\)return/);
+  assert.match(mobile,/if\(document\.activeElement!==input\)input\.focus\(\{preventScroll:false\}\)/);
+  assert.match(mobile,/if\(document\.activeElement===input\)pendingPeopleSearchFocus=false/);
 });
 
 test('mobile home collapses secondary previews into one compact discovery launcher',()=>{
@@ -86,12 +90,14 @@ test('mobile back navigation follows an internal route trail before route fallba
   assert.match(mobile,/event\.target\.closest\('\[data-mobile-smart-back\]'\)/);
 });
 
-test('More sheet manages modal focus and returns focus to its trigger',()=>{
-  assert.match(mobile,/function syncMoreModalState\(details\)/);
-  assert.match(mobile,/document\.body\.dataset\.mobileModalOpen='more'/);
-  assert.match(mobile,/target\?\.focus\(\{preventScroll:true\}\)/);
-  assert.match(mobile,/moreReturnFocus\?\.focus\?\.\(\{preventScroll:true\}\)/);
-  assert.match(mobile,/details\.matches\('#family-mobile-dock details\.mobile-more'\)/);
+test('More modal interaction has one transient owner',()=>{
+  assert.doesNotMatch(mobile,/syncMoreModalState|moreReturnFocus/);
+  assert.match(transient,/function focusMorePanel\(details\)/);
+  assert.match(transient,/function focusableIn\(element\)/);
+  assert.match(transient,/function cancelPendingFocus\(\)/);
+  assert.match(transient,/document\.body\.dataset\.mobileModalOpen='more'/);
+  assert.match(transient,/returnFocus\.focus\(\{preventScroll:true\}\)/);
+  assert.match(transient,/document\.addEventListener\('toggle'/);
 });
 
 test('person and tree mobile surfaces expose explicit interaction semantics',()=>{
@@ -151,15 +157,18 @@ test('phase 8 retires legacy More modal ownership and persistent last-route stat
   assert.match(legacyMobile,/lastTree/);
 });
 
-test('phase 8 transient controller owns backdrop, keyboard trap, escape, and focus return',()=>{
+test('phase 8 transient controller owns backdrop, keyboard trap, escape, focus entry, and focus return',()=>{
   assert.match(transient,/function ensureBackdrop\(\)/);
   assert.match(transient,/function closeMore\(\{restoreFocus=true\}=\{\}\)/);
   assert.match(transient,/function openMore\(details\)/);
+  assert.match(transient,/function focusMorePanel\(details\)/);
   assert.match(transient,/function trapFocus\(event\)/);
   assert.match(transient,/event\.key==='Escape'/);
   assert.match(transient,/event\.key!=='Tab'/);
+  assert.match(transient,/!panel\.contains\(document\.activeElement\)/);
   assert.match(transient,/mobile-sheet-open/);
   assert.match(transient,/mobileModalOpen='more'/);
   assert.match(transient,/returnFocus\.focus\(\{preventScroll:true\}\)/);
+  assert.match(transient,/backdrop\.setAttribute\('aria-hidden','true'\)/);
   assert.doesNotMatch(transient,/localStorage|sessionStorage/);
 });
