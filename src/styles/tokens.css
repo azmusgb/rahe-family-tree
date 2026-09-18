@@ -83,6 +83,19 @@
   --mobile-nav-height:72px;
   --tap-target:48px;
 
+  /* Stacking order. Preserve current effective shell ordering while removing
+   * magic numbers from component styles; values can be rationalized centrally. */
+  --z-content:1;
+  --z-sticky:40;
+  --z-context:70;
+  --z-header:90;
+  --z-nav-popover:120;
+  --z-mobile-context:2147482400;
+  --z-mobile-header:2147482500;
+  --z-mobile-dock:2147483000;
+  --z-mobile-popover:2147483005;
+  --z-skip-link:2147483010;
+
   /* Family spacing scale. */
   
   --family-space-2:8px;
