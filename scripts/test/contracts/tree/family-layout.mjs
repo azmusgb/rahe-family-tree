@@ -5,8 +5,8 @@ import{readFile}from'node:fs/promises';
 const read=path=>readFile(new URL(`../${path}`,import.meta.url),'utf8');
 
 test('v19.2 readable layout is presentation-only and loaded after navigation',async()=>{
-  const controller=await read('src/runtime/tree-controller.js');
-  const runtime=await read('src/runtime/family-graph-layout.js');
+  const controller=await read('src/features/tree/controller.js');
+  const runtime=await read('src/features/tree/layout.js');
   assert.match(controller,/family-graph-navigation\.js'[\s\S]*family-graph-layout\.js'/);
   assert.match(runtime,/relativeGenerations/);
   assert.match(runtime,/family-lineage-rail/);
@@ -16,14 +16,14 @@ test('v19.2 readable layout is presentation-only and loaded after navigation',as
 });
 
 test('v19.2 asserted couple context never promotes derivative spouse leads',async()=>{
-  const runtime=await read('src/runtime/family-graph-layout.js');
+  const runtime=await read('src/features/tree/layout.js');
   assert.match(runtime,/COUPLE_TYPES=new Set\(\['spouse'\]\)/);
   assert.match(runtime,/family-lineage-spouse/);
   assert.doesNotMatch(runtime,/COUPLE_TYPES=new Set\([^\n]*spouse-lead/);
 });
 
 test('v19.2 generation metadata comes from people and preserves advanced SVG labels',async()=>{
-  const runtime=await read('src/runtime/family-graph-layout.js');
+  const runtime=await read('src/features/tree/layout.js');
   const css=await read('src/styles/experience.css');
   assert.match(runtime,/nearest\?\.generations\.add\(offset\)/);
   assert.match(runtime,/dataset\.familyGenerations=offsets\.join/);

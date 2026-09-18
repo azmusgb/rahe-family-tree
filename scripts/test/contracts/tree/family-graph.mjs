@@ -5,8 +5,8 @@ import{readFile}from'node:fs/promises';
 const read=path=>readFile(new URL(`../${path}`,import.meta.url),'utf8');
 
 test('v19 Family Graph is additive and read-only',async()=>{
-  const controller=await read('src/runtime/tree-controller.js');
-  const runtime=await read('src/runtime/family-graph-v19.js');
+  const controller=await read('src/features/tree/controller.js');
+  const runtime=await read('src/features/tree/family-graph.js');
   assert.match(controller,/import '\.\/family-graph-v19\.js';/);
   assert.match(runtime,/activeRelationships/);
   assert.match(runtime,/STRUCTURAL_TYPES/);
@@ -19,7 +19,7 @@ test('v19 Family Graph is additive and read-only',async()=>{
 });
 
 test('v19 preserves rendered evidence-state semantics instead of inventing relationship authority',async()=>{
-  const runtime=await read('src/runtime/family-graph-v19.js');
+  const runtime=await read('src/features/tree/family-graph.js');
   assert.match(runtime,/REJECTED/);
   assert.match(runtime,/state-supported/);
   assert.match(runtime,/state-provisional/);
@@ -30,7 +30,7 @@ test('v19 preserves rendered evidence-state semantics instead of inventing relat
 });
 
 test('v19 mobile person preview protects living detail and uses the authoritative tree router',async()=>{
-  const runtime=await read('src/runtime/family-graph-v19.js');
+  const runtime=await read('src/features/tree/family-graph.js');
   const experience=await read('src/runtime/experience-core.js');
   const css=await read('src/styles/experience.css');
   assert.match(runtime,/Living · private details protected/);
@@ -47,7 +47,7 @@ test('v19 mobile person preview protects living detail and uses the authoritativ
 });
 
 test('v19 derives implicit graph focus from the rendered focused node',async()=>{
-  const runtime=await read('src/runtime/family-graph-v19.js');
+  const runtime=await read('src/features/tree/family-graph.js');
   assert.match(runtime,/graph-node\.focused\[data-person\]/);
   assert.match(runtime,/renderedFocusId\(\)/);
 });

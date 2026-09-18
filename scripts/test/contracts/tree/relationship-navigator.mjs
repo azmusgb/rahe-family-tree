@@ -4,7 +4,7 @@ import{readFile}from'node:fs/promises';
 const read=path=>readFile(new URL(`../${path}`,import.meta.url),'utf8');
 
 test('v19.3 relationship targets come from the explicit connected family graph',async()=>{
-  const runtime=await read('src/runtime/family-graph-navigation.js');
+  const runtime=await read('src/features/tree/navigation.js');
   assert.match(runtime,/connectedComponent/);
   assert.match(runtime,/usableRelationships/);
   assert.match(runtime,/FAMILY_TYPES=new Set\(\['parent-child','direct-line-succession','spouse'\]\)/);
@@ -13,7 +13,7 @@ test('v19.3 relationship targets come from the explicit connected family graph',
 });
 
 test('v19.3 reveals selected connected targets outside the current rendered scope',async()=>{
-  const runtime=await read('src/runtime/family-graph-navigation.js');
+  const runtime=await read('src/features/tree/navigation.js');
   assert.match(runtime,/function revealRelationshipTarget\(target\)/);
   assert.match(runtime,/if\(renderedIds\(\)\.has\(target\)\)\{replaceState\(\{pathTo:target\}\)/);
   assert.match(runtime,/searchParams\.set\('scope','connected'\)/);
@@ -24,7 +24,7 @@ test('v19.3 reveals selected connected targets outside the current rendered scop
 });
 
 test('v19.3 navigation remains presentation-only and privacy-neutral',async()=>{
-  const runtime=await read('src/runtime/family-graph-navigation.js');
+  const runtime=await read('src/features/tree/navigation.js');
   assert.doesNotMatch(runtime,/model\./);
   assert.doesNotMatch(runtime,/\.state\s*=/);
   assert.doesNotMatch(runtime,/living\s*=/);

@@ -4,7 +4,7 @@ import{readFile}from'node:fs/promises';
 const read=path=>readFile(new URL(`../${path}`,import.meta.url),'utf8');
 
 test('v19.4 narrates the existing evidence-qualified relationship path without new genealogy inference',async()=>{
-  const runtime=await read('src/runtime/relationship-path-comprehension.js');
+  const runtime=await read('src/features/tree/relationship-path.js');
   assert.match(runtime,/findRelationshipPath/);
   assert.match(runtime,/includeContext:true,maxHops:32/);
   assert.match(runtime,/relationship-path-card/);
@@ -16,7 +16,7 @@ test('v19.4 narrates the existing evidence-qualified relationship path without n
 });
 
 test('v19.4 visually distinguishes path endpoints and controlling evidence states',async()=>{
-  const runtime=await read('src/runtime/relationship-path-comprehension.js');
+  const runtime=await read('src/features/tree/relationship-path.js');
   const css=await read('src/styles/experience.css');
   assert.match(runtime,/tree-path-start/);
   assert.match(runtime,/tree-path-middle/);
@@ -28,7 +28,7 @@ test('v19.4 visually distinguishes path endpoints and controlling evidence state
 });
 
 test('v19.4 path narration is privacy-minimal responsive and accessible',async()=>{
-  const runtime=await read('src/runtime/relationship-path-comprehension.js');
+  const runtime=await read('src/features/tree/relationship-path.js');
   const css=await read('src/styles/experience.css');
   assert.match(runtime,/aria-label/);
   assert.match(runtime,/aria-live/);

@@ -9,7 +9,7 @@ const atLeast=(version,major,minor)=>{const[a,b]=version.split('.').map(Number);
 test('v17.6 stabilization remains wired through the consolidated tree controller in later releases',()=>{
   const version=releaseOf(read('app-entry.js'),/APP_VERSION='(\d+\.\d+\.\d+)'/);
   assert.ok(atLeast(version,17,6));
-  const experience=read('src/runtime/experience.js'),controller=read('src/runtime/tree-controller.js'),runtime=read('src/runtime/v17-6-stability.js');
+  const experience=read('src/runtime/experience.js'),controller=read('src/features/tree/controller.js'),runtime=read('src/features/tree/stability.js');
   assert.match(experience,/tree-controller\.js/);
   assert.match(controller,/v17-6-stability\.js/);
   assert.match(runtime,/family\.archive\.treeState\.v17\.6/);

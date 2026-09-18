@@ -4,7 +4,7 @@ import{readFile}from'node:fs/promises';
 const read=path=>readFile(new URL(`../${path}`,import.meta.url),'utf8');
 
 test('Family Graph navigation is URL-backed and presentation only',async()=>{
-  const runtime=await read('src/runtime/family-graph-navigation.js');
+  const runtime=await read('src/features/tree/navigation.js');
   assert.match(runtime,/searchParams\.set\('focus'/);
   assert.match(runtime,/searchParams\.set\('scope'/);
   assert.match(runtime,/searchParams\.set\('pathTo'/);
@@ -14,7 +14,7 @@ test('Family Graph navigation is URL-backed and presentation only',async()=>{
 });
 
 test('Family Graph navigation exposes the requested family scopes and relationship finder',async()=>{
-  const runtime=await read('src/runtime/family-graph-navigation.js');
+  const runtime=await read('src/features/tree/navigation.js');
   for(const label of['Family','Ancestors','Descendants','Direct line','Connected'])assert.match(runtime,new RegExp(label));
   assert.match(runtime,/Find relationship/);
   assert.match(runtime,/Tree tools/);
@@ -22,12 +22,12 @@ test('Family Graph navigation exposes the requested family scopes and relationsh
 });
 
 test('choosing a focal person exits legacy full-tree scope',async()=>{
-  const runtime=await read('src/runtime/family-graph-navigation.js');
+  const runtime=await read('src/features/tree/navigation.js');
   assert.match(runtime,/state\.scope==='all'\?'connected':state\.scope/);
 });
 
 test('Legacy tree controls are consolidated rather than duplicated',async()=>{
-  const runtime=await read('src/runtime/family-graph-navigation.js');
+  const runtime=await read('src/features/tree/navigation.js');
   const css=await read('src/styles/experience.css');
   assert.match(runtime,/tree-advanced-primary/);
   assert.match(runtime,/tree-recent-trail/);
@@ -37,7 +37,7 @@ test('Legacy tree controls are consolidated rather than duplicated',async()=>{
 });
 
 test('navigation composition remains accessible and mobile safe',async()=>{
-  const runtime=await read('src/runtime/family-graph-navigation.js');
+  const runtime=await read('src/features/tree/navigation.js');
   const css=await read('src/styles/experience.css');
   assert.match(runtime,/aria-label="Choose focal person"/);
   assert.match(runtime,/role="group" aria-label="Tree scope"/);
