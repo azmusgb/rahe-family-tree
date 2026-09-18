@@ -14,8 +14,6 @@
 
 /* Hidden is a state, not a suggestion. No route/layout module may visually revive
  * an element that the DOM explicitly marks hidden. */
-[hidden]{display:none!important}
-
 /* Keyboard focus is a global product contract. Keep the focus ring visible across
  * links, buttons, native details, form controls, and programmatic focus targets. */
 :where(a,button,summary,input,select,textarea,[tabindex]):focus-visible{
