@@ -70,7 +70,7 @@ function rememberCurrentContext(){
   }
   const person=document.querySelector('.v17-person[data-person-id]');
   if(route==='person'&&person){
-    const item={id:person.dataset.personId,name:safeText(person.querySelector('.person-header h2')?.textContent)||'Family member',branch:safeText(person.querySelector('.person-header .eyebrow')?.textContent).replace(/\s+FAMILY$/i,''),dates:safeText(person.querySelector('.v17-person-dates')?.textContent),savedAt:Date.now()};
+    const item={id:person.dataset.personId,name:safeText(person.querySelector('.person-header h2')?.textContent)||'Family member',branch:safeText(person.querySelector('.person-header .eyebrow')?.textContent).replace(/\s+FAMILY$/i,''),dates:safeText(person.querySelector('.person-dates')?.textContent),savedAt:Date.now()};
     updateState(state=>{state.recentPeople=rememberById(state.recentPeople,item,MAX_RECENT_PEOPLE);return state;});
   }
   const branch=document.querySelector('.v175-branch[data-v17-native^="branch:"]');
@@ -161,7 +161,7 @@ function enhancePerson(){
     story.className='v20-person-story';
     story.dataset.v20PersonPanel='story';
     story.setAttribute('aria-label','Profile story');
-    const name=safeText(header.querySelector('h2')?.textContent),dates=safeText(header.querySelector('.v17-person-dates')?.textContent),context=safeText(header.querySelector('.v17-person-context')?.textContent);
+    const name=safeText(header.querySelector('h2')?.textContent),dates=safeText(header.querySelector('.person-dates')?.textContent),context=safeText(header.querySelector('.person-context')?.textContent);
     story.innerHTML=`<span>PROFILE</span><h2>${escapeHtml(name)}</h2>${dates?`<p class="v20-story-dates">${escapeHtml(dates)}</p>`:''}${context?`<p>${escapeHtml(context)}</p>`:''}<p>This profile brings together family relationships, chronology, photographs, and source-controlled evidence from the archive.</p>`;
     header.insertAdjacentElement('afterend',story);
   }
