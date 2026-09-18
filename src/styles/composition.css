@@ -216,7 +216,6 @@ button,input,select,textarea{border-radius:var(--family-radius-control)}
 .site-breadcrumb a{font-weight:720;text-decoration:none}
 
 .topbar-actions button,.site-tools>summary,.site-header-actions button{
-  min-height:38px;
   border-color:color-mix(in srgb,var(--line-strong) 78%,transparent);
   border-radius:11px;
   background:var(--nav-surface);
