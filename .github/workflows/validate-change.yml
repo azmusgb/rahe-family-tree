@@ -29,6 +29,15 @@ jobs:
         run: git diff --exit-code -- package.json package-lock.json
       - name: Verify CSS forensic cleanup safety
         run: node scripts/css-forensics.mjs --self-test
+      - name: Audit CSS usage across HTML and runtime sources
+        run: npm run css:audit
+      - name: Upload CSS usage audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: css-usage-audit-${{ github.event.pull_request.number || github.run_id }}
+          path: artifacts/css-usage-audit.*
+          if-no-files-found: error
+          retention-days: 14
       - name: Run canonical and experience regression suite
         run: npm test
       - name: Run permanent architecture, tree, navigation, privacy, and research gates
