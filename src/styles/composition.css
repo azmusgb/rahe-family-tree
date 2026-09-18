@@ -383,7 +383,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
    ========================================================================== */
 /* Final Person composition. Presentation-only. */
 
-.v17-page-intro h2,.person-header h2,.v17-section-heading h2,.media-library-title h2{
+.v17-page-intro h2,.person-header h2,.media-library-title h2{
   color:var(--green);
   letter-spacing:-.045em;
 }
