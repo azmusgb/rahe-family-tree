@@ -296,6 +296,26 @@ const deadCandidates=selectorRows.filter(r=>{
   return true;
 });
 const highSpecificity=selectorRows.filter(r=>{const [a,b]=r.specificity.split(',').map(Number);return a>=2||b>=6;}).sort((x,y)=>{const a=x.specificity.split(',').map(Number),b=y.specificity.split(',').map(Number);return b[0]-a[0]||b[1]-a[1];});
+const legacyVersionedClassMap=new Map();
+for(const row of selectorRows){
+  for(const className of row.classes.filter(x=>/^v\d{2,}(?:-|$)/i.test(x))){
+    const item=legacyVersionedClassMap.get(className)||{className,cssFiles:new Set(),referenceFiles:new Set(),selectors:new Set()};
+    item.cssFiles.add(row.file);
+    for(const ref of row.referenceFiles)item.referenceFiles.add(ref);
+    item.selectors.add(row.selector);
+    legacyVersionedClassMap.set(className,item);
+  }
+}
+const legacyVersionedClasses=[...legacyVersionedClassMap.values()]
+  .map(item=>({
+    className:item.className,
+    cssFiles:[...item.cssFiles].sort(),
+    referenceFiles:[...item.referenceFiles].sort(),
+    selectors:[...item.selectors].sort()
+  }))
+  .sort((a,b)=>b.referenceFiles.length-a.referenceFiles.length||b.selectors.length-a.selectors.length||a.className.localeCompare(b.className));
+const liveLegacyVersionedClasses=legacyVersionedClasses.filter(item=>item.referenceFiles.length>0);
+const cssOnlyLegacyVersionedClasses=legacyVersionedClasses.filter(item=>item.referenceFiles.length===0);
 
 const jsHtmlClassTokens=[...usage.classRefs.keys()].sort();
 const dynamicClassPrefixes=[...usage.dynamicClassPrefixRefs.keys()].sort();
@@ -335,6 +355,9 @@ const totals={
   highSpecificitySelectors:highSpecificity.length,
   importantDeclarations:Object.values(cssStats).reduce((n,x)=>n+x.important,0),
   legacyClassArms:Object.values(cssStats).reduce((n,x)=>n+x.legacyClasses,0),
+  legacyVersionedClassTokens:legacyVersionedClasses.length,
+  liveLegacyVersionedClassTokens:liveLegacyVersionedClasses.length,
+  cssOnlyLegacyVersionedClassTokens:cssOnlyLegacyVersionedClasses.length,
   unstyledRuntimeOrMarkupClasses:unstyledClasses.length,
   undefinedCustomProperties:undefinedCustomProperties.length,
   unsafeUndefinedCustomProperties:unsafeUndefinedCustomProperties.length,
@@ -357,6 +380,7 @@ const report={
   duplicateSelectors:duplicateSelectors.slice(0,500),
   deadSelectorCandidates:deadCandidates.slice(0,1000),
   highSpecificitySelectors:highSpecificity.slice(0,500),
+  legacyVersionedClasses,
   unstyledClasses:unstyledClasses.slice(0,1000),
   unstyledIds:unstyledIds.slice(0,500),
   dynamicClassPrefixes,
@@ -396,6 +420,12 @@ function md(){
     '## Release-numbered CSS filenames',
     '',
     ...(releaseNumberedCss.length?releaseNumberedCss.map(f=>`- \`${f}\``):['None.']),
+    '',
+    '## Legacy release-numbered class inventory',
+    '',
+    `Unique release-numbered CSS class tokens: ${legacyVersionedClasses.length}; referenced by HTML/runtime: ${liveLegacyVersionedClasses.length}; CSS-only: ${cssOnlyLegacyVersionedClasses.length}.`,
+    '',
+    ...legacyVersionedClasses.slice(0,200).map(item=>`- \`.${item.className}\` — CSS: ${item.cssFiles.join(', ')}; refs: ${item.referenceFiles.length?item.referenceFiles.join(', '):'none'}; selector arms: ${item.selectors.length}`),
     '',
     '## Highest-specificity selectors',
     '',
@@ -438,7 +468,7 @@ if(args.has('--write')){
   fs.writeFileSync(path.join(reportDir,'css-usage-audit.json'),JSON.stringify(report,null,2));
   fs.writeFileSync(path.join(reportDir,'css-usage-audit.md'),md());
 }
-console.log(JSON.stringify({totals,orphanCss,unusedCustomProperties,topDead:deadCandidates.slice(0,25),topDuplicates:duplicateSelectors.slice(0,20),topOwnershipDuplicates:ownershipDuplicateSelectors.slice(0,25),topPrintOverlaps:printSelectorOverlaps.slice(0,20),topResponsiveOverlaps:responsiveSelectorOverlaps.slice(0,20),topSelectorOwnerViolations},null,2));
+console.log(JSON.stringify({totals,orphanCss,unusedCustomProperties,topDead:deadCandidates.slice(0,25),topDuplicates:duplicateSelectors.slice(0,20),topOwnershipDuplicates:ownershipDuplicateSelectors.slice(0,25),topPrintOverlaps:printSelectorOverlaps.slice(0,20),topResponsiveOverlaps:responsiveSelectorOverlaps.slice(0,20),topSelectorOwnerViolations,topLegacyVersionedClasses:legacyVersionedClasses.slice(0,50)},null,2));
 
 if(args.has('--strict')){
   let failed=false;
