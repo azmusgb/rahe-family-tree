@@ -318,7 +318,7 @@ border-radius:20px;
 #family-mobile-dock>a[data-dock-route="tree"][aria-current="page"],#family-mobile-dock>a[data-dock-route="tree"].active{background:#245346;color:#fff}
 }
 @media (max-width:720px){
-#family-mobile-dock .mobile-more>div,#family-mobile-dock .mobile-more>div{left:8px;right:8px;bottom:calc(82px + env(safe-area-inset-bottom,0px));grid-template-columns:1fr 1fr;gap:8px;padding:14px;border-radius:26px;background:#fffdf8;box-shadow:0 28px 80px rgba(12,39,31,.3)}
+#family-mobile-dock .mobile-more>div{left:8px;right:8px;bottom:calc(82px + env(safe-area-inset-bottom,0px));grid-template-columns:1fr 1fr;gap:8px;padding:14px;border-radius:26px;background:#fffdf8;box-shadow:0 28px 80px rgba(12,39,31,.3)}
 }
 @media (max-width:720px){
 #family-mobile-dock .mobile-more>div>a,#family-mobile-dock .mobile-more>div>button,#family-mobile-dock .mobile-more>div>a,#family-mobile-dock .mobile-more>div>button{min-height:58px;border-radius:16px;background:#eef1eb;font-size:13px;color:#21473b}
