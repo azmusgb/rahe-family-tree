@@ -8,9 +8,9 @@
 
 .topbar button:hover,.filters button:hover,.graph-toolbar button:hover{background:#edf2ee}
 
-.graph-shell{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.graph-shell{background:#fff;border:1px solid var(--line);overflow:hidden}
 
-.graph-toolbar{display:flex;align-items:center;gap:7px;padding:10px;border-bottom:1px solid var(--line)}
+.graph-toolbar{display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--line)}
 
 .graph-toolbar span{margin-left:auto;font-size:10px;color:var(--muted)}
 
@@ -22,7 +22,7 @@
 
 .edge.spouse{stroke-width:3}
 
-.edge.identity-bridge{stroke:#71548d;stroke-width:3;stroke-dasharray:10 8}
+.edge.identity-bridge{stroke-width:3;}
 
 .edge.state-provisional,.edge.state-unresolved{stroke-dasharray:8 7}
 
@@ -30,15 +30,15 @@
 
 .graph-node{cursor:pointer}
 
-.graph-node rect{fill:white;stroke:#789585;stroke-width:2}
+.graph-node rect{stroke-width:2}
 
-.graph-node.state-provisional rect{stroke:#bd8b2d;stroke-dasharray:6 4}
+.graph-node.state-provisional rect{stroke-dasharray:6 4}
 
-.graph-node.state-unresolved rect{stroke:#72558c;stroke-dasharray:6 4}
+.graph-node.state-unresolved rect{}
 
 .node-name{font:600 13px Georgia,serif;fill:#21352f}
 
-.relationship-row{grid-template-columns:120px minmax(160px,1fr) 20px minmax(160px,1fr) minmax(220px,1.3fr) auto;align-items:center;border-top:1px solid var(--line)}
+.relationship-row{border-top:1px solid var(--line)}
 
 .relationship-row>span{font-size:9px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
 
@@ -80,7 +80,7 @@
 
 .tree-focusbar{display:grid;grid-template-columns:minmax(220px,1fr) auto;gap:10px;align-items:end;margin:0 0 12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}
 
-.tree-focusbar label{display:grid;gap:5px;font-size:9px;color:var(--muted)}
+.tree-focusbar label{display:grid;gap:5px;color:var(--muted)}
 
 .tree-focusbar select{width:100%;padding:9px;border:1px solid var(--line);border-radius:7px;background:#fbfcfa}
 
@@ -103,7 +103,7 @@
 
 .tree-focusbar{display:grid;grid-template-columns:minmax(260px,1fr) auto;gap:12px;align-items:end;margin:0 0 14px;padding:14px;background:linear-gradient(180deg,#f8fbfa,#fff);border:1px solid var(--line);border-radius:14px}
 
-.tree-focusbar label{display:grid;gap:6px;font-size:9px;color:var(--muted)}
+.tree-focusbar label{display:grid;gap:6px;color:var(--muted)}
 
 .tree-focusbar select{width:100%;border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px;color:var(--ink)}
 
@@ -115,9 +115,9 @@
 
 .tree-depth{grid-column:1/-1;align-items:center}
 
-.tree-depth>span{font-size:9px;color:var(--muted);font-weight:700;margin-right:2px}
+.tree-depth>span{color:var(--muted);font-weight:700;margin-right:2px}
 
-.graph-node rect{filter:drop-shadow(0 3px 8px rgba(20,45,38,.08))}
+.graph-node rect{}
 
 .graph-node .node-avatar{fill:#eef4f1;stroke:#cadbd4;stroke-width:1.5}
 
@@ -129,7 +129,7 @@
 
 .graph-node .node-state{font-size:7.5px;font-weight:700;letter-spacing:.25px}
 
-.edge.identity-bridge{stroke-dasharray:3 7;stroke-width:3}
+.edge.identity-bridge{stroke-width:3}
 
 .edge.spouse-lead,.edge.sibling-context,.edge.baptism-sponsor{stroke-dasharray:6 5}
 
@@ -143,7 +143,7 @@
 
 @media(max-width:720px){.graph-shell{display:none}}
 
-.tree-focusbar label,.tree-depth>span{font-size:11px}
+.tree-focusbar label,.tree-depth>span{}
 
 .tree-mode-buttons button,.tree-depth button{font-size:12px;padding:9px 13px}
 
@@ -163,11 +163,11 @@
 
 .tree-focusbar{border:0;box-shadow:0 8px 26px rgba(31,52,45,.05);padding:16px}
 
-.graph-shell{border:0;box-shadow:0 10px 32px rgba(31,52,45,.06)}
+.graph-shell{border:0;}
 
-.graph-scroll{background:linear-gradient(#fbfcfa,#fbfcfa),radial-gradient(circle at 1px 1px,#dfe5df 1px,transparent 0);background-size:auto,28px 28px}
+.graph-scroll{background:linear-gradient(#fbfcfa,#fbfcfa),radial-gradient(circle at 1px 1px,#dfe5df 1px,transparent 0);}
 
-.graph-node rect{rx:16;filter:drop-shadow(0 6px 12px rgba(20,45,38,.09))}
+.graph-node rect{rx:16;}
 
 .graph-node.focused rect{filter:drop-shadow(0 8px 18px rgba(23,63,53,.2))}
 
@@ -192,7 +192,7 @@
 
 .graph-node:focus{outline:none}
 
-.graph-node:focus rect{stroke-width:4;filter:drop-shadow(0 0 0 rgba(0,0,0,0)) drop-shadow(0 8px 18px rgba(23,63,53,.22))}
+.graph-node:focus rect{stroke-width:4;}
 
 .graph-node .node-name{paint-order:stroke;stroke:#fff;stroke-width:.35px}
 
@@ -424,7 +424,8 @@ body[data-page-architecture="15.5"][data-route="tree"] .graph-scroll{min-height:
 
 :where(h1,h2,h3,.dashboard-hero h2,.family-overview-card h1,.tree-person-summary h2){color:var(--text)}
 
-.action,.button,.filters button,.focus-actions button,.tree-person-actions .action{border-radius:9px;font-weight:700}
+.button,.filters button,.focus-actions button,.tree-person-actions .action{border-radius:9px;font-weight:700}
+.action{font-weight:700}
 
 body[data-route="tree"] .tree-person-summary,body[data-route="tree"] .tree-controls,body[data-route="tree"] .graph-shell{background:var(--surface);border-color:var(--line);border-radius:var(--radius-md)}
 

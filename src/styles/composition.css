@@ -36,7 +36,7 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
 .route-shell{
   border:0;
   background:transparent;
-  box-shadow:none;
+  box-shadow:var(--shadow-sm);
 }
 .page-heading{
   max-width:1120px;
@@ -49,7 +49,7 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
   font-family:var(--family-font-display);
   font-size:clamp(2.35rem,4.2vw,4.25rem);
   line-height:.98;
-  letter-spacing:-.038em;
+  letter-spacing:-.025em;
   color:var(--green);
   text-wrap:balance;
 }
@@ -61,10 +61,10 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
 }
 .eyebrow{
   margin-bottom:10px;
-  color:#8b682f;
-  font-size:.68rem;
-  font-weight:800;
-  letter-spacing:.14em;
+  
+  
+  
+  
 }
 .version{
   background:rgba(255,253,248,.66);
@@ -72,7 +72,19 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
   color:var(--muted);
 }
 
-.filters,#filters{
+.filters{
+  gap:12px;
+  padding:10px;
+  border:1px solid var(--line);
+  
+  border-radius:16px;
+  
+  
+  box-shadow:none;
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+}
+#filters{
   gap:12px;
   padding:10px;
   border:1px solid var(--line);
@@ -84,7 +96,13 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
   -webkit-backdrop-filter:blur(12px);
   backdrop-filter:blur(12px);
 }
-.filters label,#filters label{
+.filters label{
+  
+  font-size:.66rem;
+  font-weight:760;
+  letter-spacing:.06em;
+}
+#filters label{
   color:var(--muted-strong);
   font-size:.66rem;
   font-weight:760;
@@ -107,7 +125,7 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
   background:#fff;
   box-shadow:0 0 0 4px rgba(18,63,52,.07);
 }
-#status{color:var(--muted);font-size:.76rem}
+#status{font-size:.76rem}
 
 /* Shared cards and sections */
 :where(.person-card,.source-card,.claim-card,.queue-card,.dossier-section,.family-overview-card,.v17-person-card>button,.v17-relative,.v17-family-summary,.tree-context,.v174-profile-snapshot,.graph-panel,.media-library-card,.dashboard-person){
@@ -365,7 +383,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 }
 
 @media(max-width:720px){
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero){min-height:auto}
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero){}
   body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero)::after,
   body[data-experience="family"][data-route="dashboard"] .dashboard-hero::before{inset:auto -38% -28% 35%;width:88%}
 }
@@ -536,34 +554,6 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   .person-header{gap:16px;padding-block:10px 24px}
   .person-header h2{font-size:clamp(2.45rem,13vw,4rem)}
   .v17-person-nav{top:7px;margin-inline:-2px}
-
-  /* Existing dock rules use high-specificity !important declarations; these are the only deliberate overrides here. */
-  #family-mobile-dock:not([hidden]){
-    left:10px!important;
-    right:10px!important;
-    bottom:calc(9px + env(safe-area-inset-bottom,0px))!important;
-    gap:4px!important;
-    padding:6px!important;
-    border:1px solid rgba(18,63,52,.16)!important;
-    border-radius:20px!important;
-    background:rgba(255,253,248,.94)!important;
-    box-shadow:0 18px 50px rgba(18,42,33,.18)!important;
-    -webkit-backdrop-filter:blur(22px) saturate(125%)!important;
-    backdrop-filter:blur(22px) saturate(125%)!important;
-  }
-  #family-mobile-dock>a,
-  #family-mobile-dock>button,
-  #family-mobile-dock>.mobile-more>summary{
-    min-height:50px!important;
-    border-radius:14px!important;
-    color:var(--muted-strong)!important;
-    font-size:10.5px!important;
-    font-weight:760!important;
-  }
-  #family-mobile-dock>a[aria-current="page"],#family-mobile-dock>a.active{
-    background:var(--green)!important;
-    color:#fff!important;
-  }
 }
 
 @media(max-width:430px){
@@ -573,9 +563,7 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
 }
 
 
-
-@media(prefers-reduced-transparency:reduce){
-  .topbar,.filters,#filters,#family-mobile-dock:not([hidden]){
+@media(prefers-reduced-transparency:reduce){.topbar,.filters,#filters{
     -webkit-backdrop-filter:none!important;
     backdrop-filter:none!important;
     background:var(--paper)!important;
