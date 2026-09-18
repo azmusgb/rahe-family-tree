@@ -4,7 +4,7 @@ async function family(page,hash='dashboard'){
   await page.goto(`/#${hash}`);
   const route=hash.split('/')[0];
   if(route==='tree'){
-    await page.waitForSelector('[data-v17-native="tree"]');
+    await page.waitForSelector('[data-ui-native="tree"]');
     return;
   }
   await page.waitForSelector('#family-mobile-dock:not([hidden])');
@@ -92,7 +92,7 @@ test.describe('mobile family experience',()=>{
 
   test('People keeps every matching person reachable while search stays sticky',async({page})=>{
     await family(page,'people');
-    await page.waitForSelector('.v17-person-card,.v159-person-card,.person-card');
+    await page.waitForSelector('.ui-family-person-card,.ui-directory-person-card,.person-card');
     const william=page.locator('button[data-person="P-WILLIAM-JOHN-RAHE-III"]');
     await expect(william).toHaveCount(1);
     await expect(william).toBeVisible();
@@ -102,13 +102,13 @@ test.describe('mobile family experience',()=>{
 
   test('Person uses one primary section navigator on phones',async({page})=>{
     await family(page,'person/P-WILLIAM-JOHN-RAHE-III');
-    const person=page.locator('[data-v17-native="person"]');
+    const person=page.locator('[data-ui-native="person"]');
     await expect(person).toHaveAttribute('data-v22-person-flow','compact');
-    const tabs=person.locator('.v20-person-tabs');
+    const tabs=person.locator('.ui-person-tabs');
     await expect(tabs).toBeVisible();
     await expect(tabs).toHaveAttribute('data-v22-primary-person-nav','true');
     await expect(tabs).toHaveAttribute('aria-label','Person sections');
-    await expect(person.locator('.v17-person-nav')).toBeHidden();
+    await expect(person.locator('.ui-person-nav')).toBeHidden();
   });
 
   test('Tree prioritizes the graph surface and keeps compact controls touchable',async({page})=>{
@@ -118,7 +118,7 @@ test.describe('mobile family experience',()=>{
     await expect(graph).toBeVisible();
     const box=await graph.boundingBox();
     expect(box?.height||0).toBeGreaterThan(400);
-    const toolbar=page.locator('.v161-tree-toolbar');
+    const toolbar=page.locator('.ui-tree-toolbar');
     await expect(toolbar).toBeVisible();
     const buttons=toolbar.locator('button');
     for(let i=0;i<await buttons.count();i++){

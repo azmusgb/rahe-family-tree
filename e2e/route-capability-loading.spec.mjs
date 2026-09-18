@@ -27,7 +27,7 @@ test.describe('v20.2 route-level capability loading',()=>{
   test('Stories loads its route capability without pulling in research or Person capabilities',async({page})=>{
     await open(page,'dashboard');
     await page.evaluate(()=>{location.hash='#stories';});
-    await page.waitForSelector('.v16-stories');
+    await page.waitForSelector('.ui-stories');
     await page.waitForFunction(()=>document.body.dataset.routeCapabilityState==='ready');
     const state=await snapshot(page,'stories');
     expect(state.loaded).toContain('stories-runtime');
@@ -52,7 +52,7 @@ test.describe('v20.2 route-level capability loading',()=>{
 
   test('cold Stories deep link loads only the Stories route capability',async({page})=>{
     await open(page,'stories');
-    await expect(page.locator('.v16-stories')).toBeVisible();
+    await expect(page.locator('.ui-stories')).toBeVisible();
     const state=await snapshot(page,'stories');
     expect(state.loaded).toContain('stories-runtime');
     expect(state.loaded).not.toContain('record-ingestion');
@@ -65,9 +65,9 @@ test.describe('v20.2 route-level capability loading',()=>{
 
   test('cold Person deep link route-loads biography narrative and elevation enhancements without Home and Tree unification',async({page})=>{
     await open(page,`person/${HAZEL}`);
-    await expect(page.locator(`[data-v17-native="person"][data-person-id="${HAZEL}"]`)).toBeVisible();
+    await expect(page.locator(`[data-ui-native="person"][data-person-id="${HAZEL}"]`)).toBeVisible();
     await expect(page.locator('#v17-story')).toBeVisible();
-    await expect(page.locator('.v174-profile-snapshot')).toBeVisible();
+    await expect(page.locator('.ui-profile-snapshot')).toBeVisible();
     const state=await snapshot(page,'person');
     expect(state.loaded).toEqual(expect.arrayContaining(['person-experience-v17-3','family-narrative','experience-elevation-v17-4']));
     expect(state.loaded).not.toContain('stories-runtime');
@@ -79,7 +79,7 @@ test.describe('v20.2 route-level capability loading',()=>{
 
   test('cold Media deep link route-loads family narrative quick filters without unrelated Family enhancers',async({page})=>{
     await open(page,'media');
-    await expect(page.locator('.v162-media-quick')).toBeVisible();
+    await expect(page.locator('.ui-media-quick')).toBeVisible();
     const state=await snapshot(page,'media');
     expect(state.loaded).toContain('family-narrative');
     expect(state.loaded).not.toContain('stories-runtime');
@@ -94,7 +94,7 @@ test.describe('v20.2 route-level capability loading',()=>{
   test('cold Tree deep link route-loads elevated and unified Tree presentation',async({page})=>{
     await open(page,'tree');
     await expect(page.locator('.tree-context')).toBeVisible();
-    await expect(page.locator('.v172-tree-branches')).toBeVisible();
+    await expect(page.locator('.ui-tree-branches')).toBeVisible();
     const state=await snapshot(page,'tree');
     expect(state.loaded).toEqual(expect.arrayContaining(['experience-elevation-v17-4','unified-family-experience']));
     expect(state.loaded).not.toContain('stories-runtime');
@@ -110,6 +110,6 @@ test.describe('v20.2 route-level capability loading',()=>{
     await open(page,'dashboard');
     const state=await snapshot(page,'dashboard');
     expect(state.loaded).toEqual(expect.arrayContaining(['mobile-home-polish','family-narrative','experience-elevation-v17-4','unified-family-experience']));
-    await expect(page.locator('.v21-mobile-launcher:not(.v22-mobile-discover) .v21-launcher-heading p')).toHaveText('Choose a path into the archive and start exploring.');
+    await expect(page.locator('.ui-mobile-launcher:not(.v22-mobile-discover) .ui-launcher-heading p')).toHaveText('Choose a path into the archive and start exploring.');
   });
 });

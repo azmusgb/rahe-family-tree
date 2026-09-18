@@ -28,7 +28,7 @@ test('research automation remains advisory after route transitions',async({page}
   await page.goto('/#intelligence');
   await expect(page.getByRole('heading',{name:'Prioritized research gaps'})).toBeVisible();
   await page.goto('/#people');
-  await expect(page.locator('[data-v17-native="people"]')).toBeVisible();
+  await expect(page.locator('[data-ui-native="people"]')).toBeVisible();
   await page.goto('/#intelligence');
   await expect(page.getByRole('heading',{name:'Prioritized research gaps'})).toBeVisible();
   await expect(page.getByText(/never increases evidence strength or changes a claim/i)).toBeVisible();

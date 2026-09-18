@@ -11,7 +11,7 @@ test.beforeEach(async({page})=>{await mockApis(page);});
 test('one route lifecycle commits once and keeps the Family nav DOM persistent',async({page},testInfo)=>{
   test.skip(testInfo.project.name!=='desktop-chromium','desktop persistent-shell contract');
   await page.goto('/#dashboard');
-  await expect(page.locator('.v17-home-hero')).toBeVisible();
+  await expect(page.locator('.ui-family-home-hero')).toBeVisible();
   await page.evaluate(()=>{
     window.__routeCommits=[];
     window.addEventListener('family-route-committed',event=>window.__routeCommits.push(event.detail));
@@ -21,7 +21,7 @@ test('one route lifecycle commits once and keeps the Family nav DOM persistent',
 
   await page.locator('#nav a[href="#families"]').click();
   await expect(page).toHaveURL(/#families$/);
-  await expect(page.locator('.v175-family-grid')).toBeVisible();
+  await expect(page.locator('.ui-family-grid')).toBeVisible();
   await expect(page.locator('#nav a[href="#dashboard"]')).toHaveAttribute('data-persistence-probe','same-node');
   await expect(page.locator('#nav a[href="#families"]')).toHaveAttribute('aria-current','page');
   await expect(page.locator('body')).toHaveAttribute('data-navigation-shell-route','families');
@@ -38,7 +38,7 @@ test('rapid Family navigation settles on the latest route without stale active s
     location.hash='people';
   });
   await expect(page).toHaveURL(/#people$/);
-  await expect(page.locator('[data-v17-native="people"]')).toBeVisible();
+  await expect(page.locator('[data-ui-native="people"]')).toBeVisible();
   await expect(page.locator('#nav a[href="#people"]')).toHaveAttribute('aria-current','page');
   await expect(page.locator('#nav a[href="#families"]')).not.toHaveAttribute('aria-current','page');
   await expect(page.locator('body')).toHaveAttribute('data-navigation-shell-route','people');
@@ -54,7 +54,7 @@ test('browser Back restores route and shell state together',async({page},testInf
   await expect(page).toHaveURL(/#people$/);
   await page.goBack();
   await expect(page).toHaveURL(/#families$/);
-  await expect(page.locator('.v175-family-grid')).toBeVisible();
+  await expect(page.locator('.ui-family-grid')).toBeVisible();
   await expect(page.locator('#nav a[href="#families"]')).toHaveAttribute('aria-current','page');
   await expect(page.locator('body')).toHaveAttribute('data-navigation-shell-route','families');
 });

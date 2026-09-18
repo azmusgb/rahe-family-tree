@@ -17,13 +17,13 @@ test.beforeEach(async({page})=>{await mockApis(page);});
 
 test('historical Person opens as a biography-first family profile',async({page},testInfo)=>{
   await page.goto(`/#person/${HAZEL}`);
-  const profile=page.locator(`[data-v17-native="person"][data-person-id="${HAZEL}"]`);
+  const profile=page.locator(`[data-ui-native="person"][data-person-id="${HAZEL}"]`);
   await expect(profile).toBeVisible();
   await expect(profile.locator('.person-header')).toBeVisible();
   const mobile=testInfo.project.name==='mobile-chromium';
   const storyControl=mobile
-    ? profile.locator('.v20-person-tabs [data-person-tab="story"]')
-    : profile.locator('.v17-person-nav a[href="#v17-story"]');
+    ? profile.locator('.ui-person-tabs [data-person-tab="story"]')
+    : profile.locator('.ui-person-nav a[href="#v17-story"]');
   await expect(storyControl).toHaveText('Story');
   const story=profile.locator('#v17-story');
   await expect(story).toBeVisible();
@@ -37,8 +37,8 @@ test('historical Person opens as a biography-first family profile',async({page},
 
 test('research detail is progressive disclosure while Research Center access remains visible',async({page})=>{
   await page.goto(`/#person/${HAZEL}`);
-  const profile=page.locator(`[data-v17-native="person"][data-person-id="${HAZEL}"]`);
-  const details=profile.locator('.v173-research-details');
+  const profile=page.locator(`[data-ui-native="person"][data-person-id="${HAZEL}"]`);
+  const details=profile.locator('.ui-research-details');
   const researchLink=profile.getByRole('link',{name:/Open Research Center/});
   await expect(details).toBeVisible();
   await expect(details).not.toHaveAttribute('open','');
@@ -52,15 +52,15 @@ test('research detail is progressive disclosure while Research Center access rem
 
 test('living Person keeps biography framing while suppressing private chronology, places, and media',async({page})=>{
   await page.goto(`/#person/${LIVING}`);
-  const profile=page.locator(`[data-v17-native="person"][data-person-id="${LIVING}"]`);
+  const profile=page.locator(`[data-ui-native="person"][data-person-id="${LIVING}"]`);
   await expect(profile).toBeVisible();
   const story=profile.locator('#v17-story');
   await expect(story.getByRole('heading',{name:'Part of the living family'})).toBeVisible();
-  await expect(story.locator('.v173-story-moment')).toHaveCount(0);
+  await expect(story.locator('.ui-person-story-moment')).toHaveCount(0);
   await expect(profile.getByText('Detailed chronology and location records are protected for living family members.')).toBeVisible();
   await expect(profile.getByText('Living-person media remains private in the public family archive.')).toBeVisible();
-  await expect(profile.locator('.v17-person-places')).toHaveCount(0);
-  await expect(profile.locator('[data-v17-person-gallery]')).toHaveCount(0);
+  await expect(profile.locator('.ui-person-places')).toHaveCount(0);
+  await expect(profile.locator('[data-ui-person-gallery]')).toHaveCount(0);
 });
 
 test('v17.3 Person contract remains active under the current Family release',async({page})=>{

@@ -24,15 +24,15 @@ test.beforeEach(async({page},testInfo)=>{
 
 test('People is a compact mobile family directory with readable rows and no overflow',async({page})=>{
   await page.goto('/#people');
-  const people=page.locator('[data-v17-native="people"]');
+  const people=page.locator('[data-ui-native="people"]');
   await expect(people).toBeVisible();
-  const cards=people.locator('.v17-person-card');
+  const cards=people.locator('.ui-family-person-card');
   expect(await cards.count()).toBeGreaterThan(12);
 
   const firstButton=cards.first().locator('button[data-person]');
   await expect(firstButton).toBeVisible();
   await expectMinTarget(firstButton);
-  await expectMinTarget(people.locator('.v17-branch-chip').first());
+  await expectMinTarget(people.locator('.ui-branch-chip').first());
 
   await cards.first().scrollIntoViewIfNeeded();
   const visibleRows=await cards.evaluateAll(nodes=>nodes.filter(node=>{
@@ -41,7 +41,7 @@ test('People is a compact mobile family directory with readable rows and no over
   }).length);
   expect(visibleRows,'ordinary phone viewport should expose at least four useful directory entries').toBeGreaterThanOrEqual(4);
 
-  const minimumText=await cards.first().locator('.v17-person-card-copy > small,.v17-person-card-copy > b,.v17-person-card-copy > em,.v17-person-card-copy > p').evaluateAll(nodes=>Math.min(...nodes.map(node=>parseFloat(getComputedStyle(node).fontSize))));
+  const minimumText=await cards.first().locator('.ui-person-card-copy > small,.ui-person-card-copy > b,.ui-person-card-copy > em,.ui-person-card-copy > p').evaluateAll(nodes=>Math.min(...nodes.map(node=>parseFloat(getComputedStyle(node).fontSize))));
   expect(minimumText,'ordinary Family directory text should not fall below 11px').toBeGreaterThanOrEqual(11);
 
   const cardsInsideViewport=await cards.evaluateAll(nodes=>nodes.slice(0,8).every(node=>{
@@ -60,7 +60,7 @@ test('Photos opens content-first with quick type choices and advanced filters di
   await expect(page.locator('.media-page-hero')).toHaveCount(0);
   await expect(page.locator('.media-library-metrics')).toBeHidden();
 
-  const quick=page.locator('.v162-media-quick');
+  const quick=page.locator('.ui-media-quick');
   await expect(quick).toBeVisible();
   for(const label of['All','Photos','Documents']){
     const button=quick.getByRole('button',{name:label,exact:true});
