@@ -17,25 +17,25 @@ function countPersonSources(id){
   return ids.size;
 }
 function profileRelationCard(label,items){
-  return`<section class="v153-relation-group"><div class="v153-relation-title"><span>${esc(label)}</span><b>${items.length}</b></div><div class="v153-relation-people">${items.length?items.slice(0,5).map(person=>`<button type="button" data-person="${esc(person.id)}" class="v153-relation-person"><span class="v153-mini-avatar" aria-hidden="true">${esc(initials(person.name))}</span><span><b>${esc(person.name)}</b><small>${esc(person.dates||cleanBranch(person.branch))}</small></span></button>`).join(''):'<span class="v153-none">No structured relationship in the current model</span>'}</div></section>`;
+  return`<section class="person-relation-group"><div class="person-relation-title"><span>${esc(label)}</span><b>${items.length}</b></div><div class="person-relation-people">${items.length?items.slice(0,5).map(person=>`<button type="button" data-person="${esc(person.id)}" class="person-relation-person"><span class="person-mini-avatar" aria-hidden="true">${esc(initials(person.name))}</span><span><b>${esc(person.name)}</b><small>${esc(person.dates||cleanBranch(person.branch))}</small></span></button>`).join(''):'<span class="person-relation-empty">No structured relationship in the current model</span>'}</div></section>`;
 }
 function installProfileStory(content,person,relations){
-  if(content.querySelector('.v153-life-story'))return;
+  if(content.querySelector('.person-life-summary'))return;
   const timeline=content.querySelector('[id$="-timeline"]');
   const overview=content.querySelector('.family-overview-card');
   if(!overview)return;
   const eventCount=countPersonEvents(person.id),sourceCount=countPersonSources(person.id);
   const familyCount=uniqueById([...relations.parents,...relations.spouses,...relations.children,...relations.siblings]).length;
   const story=document.createElement('section');
-  story.className='v153-life-story';
-  story.innerHTML=`<div class="v153-section-heading"><div><p class="eyebrow">LIFE & FAMILY</p><h2>Family record at a glance</h2></div><button type="button" class="text-link" data-focus-tree="${esc(person.id)}" data-scope="family">View in tree ↗</button></div><div class="v153-story-grid"><article class="v153-story-lead"><span class="v153-story-avatar" aria-hidden="true">${esc(initials(person.name))}</span><div><h3>${esc(person.name)}</h3><p>${esc(person.role||'Family member')}</p><small>${esc(person.dates||'Dates protected or not recorded in the public family view')}</small></div></article><article><b>${familyCount}</b><span>structured close-family connections</span></article><article><b>${eventCount}</b><span>timeline records linked to this person</span></article><article><b>${sourceCount}</b><span>registered sources linked through this person’s claims and relationships</span></article></div></section>`;
+  story.className='person-life-summary';
+  story.innerHTML=`<div class="v153-section-heading"><div><p class="eyebrow">LIFE & FAMILY</p><h2>Family record at a glance</h2></div><button type="button" class="text-link" data-focus-tree="${esc(person.id)}" data-scope="family">View in tree ↗</button></div><div class="person-story-grid"><article class="person-story-lead"><span class="person-story-avatar" aria-hidden="true">${esc(initials(person.name))}</span><div><h3>${esc(person.name)}</h3><p>${esc(person.role||'Family member')}</p><small>${esc(person.dates||'Dates protected or not recorded in the public family view')}</small></div></article><article><b>${familyCount}</b><span>structured close-family connections</span></article><article><b>${eventCount}</b><span>timeline records linked to this person</span></article><article><b>${sourceCount}</b><span>registered sources linked through this person’s claims and relationships</span></article></div></section>`;
   if(timeline)timeline.insertAdjacentElement('beforebegin',story);else overview.insertAdjacentElement('afterend',story);
 }
 function installProfileFamilyNetwork(content,person,relations){
-  let network=content.querySelector('.v153-family-network');
+  let network=content.querySelector('.person-family-network');
   if(network)return;
-  network=document.createElement('section');network.className='v153-family-network';
-  network.innerHTML=`<div class="v153-section-heading"><div><p class="eyebrow">IMMEDIATE FAMILY</p><h2>Family connections</h2></div><button type="button" class="text-link" data-focus-tree="${esc(person.id)}" data-scope="family">Open family view in tree ↗</button></div><div class="v153-relation-grid">${profileRelationCard('Parents',relations.parents)}${profileRelationCard('Spouse',relations.spouses)}${profileRelationCard('Children',relations.children)}${profileRelationCard('Siblings',relations.siblings)}</div>`;
+  network=document.createElement('section');network.className='person-family-network';
+  network.innerHTML=`<div class="v153-section-heading"><div><p class="eyebrow">IMMEDIATE FAMILY</p><h2>Family connections</h2></div><button type="button" class="text-link" data-focus-tree="${esc(person.id)}" data-scope="family">Open family view in tree ↗</button></div><div class="person-relation-grid">${profileRelationCard('Parents',relations.parents)}${profileRelationCard('Spouse',relations.spouses)}${profileRelationCard('Children',relations.children)}${profileRelationCard('Siblings',relations.siblings)}</div>`;
   const overview=content.querySelector('.family-overview-card');
   overview?.insertAdjacentElement('afterend',network);
 }
@@ -55,8 +55,8 @@ function polishProfile(){
   if(overview){
     overview.classList.add('v153-profile-overview');
     const headline=overview.querySelector('.profile-headline');
-    if(headline&&!headline.querySelector('.v153-profile-identity')){
-      const identity=document.createElement('div');identity.className='v153-profile-identity';identity.innerHTML=`<span>${esc(cleanBranch(person.branch))}</span><span>${person.living?'Living details protected':'Historical family record'}</span>`;headline.append(identity);
+    if(headline&&!headline.querySelector('.person-profile-identity')){
+      const identity=document.createElement('div');identity.className='person-profile-identity';identity.innerHTML=`<span>${esc(cleanBranch(person.branch))}</span><span>${person.living?'Living details protected':'Historical family record'}</span>`;headline.append(identity);
     }
     const actions=overview.querySelector('.profile-actions');
     if(actions&&!actions.querySelector('.v153-media-action')){const link=document.createElement('a');link.href='#media';link.className='action v153-media-action';link.textContent='Browse media';actions.append(link);}
@@ -66,8 +66,8 @@ function polishProfile(){
   installProfileNavigation(content,person);
   installProfileFamilyNetwork(content,person,relations);
   installProfileStory(content,person,relations);
-  content.querySelectorAll('.research-detail-section').forEach(section=>section.classList.add('v153-research-detail'));
-  const hero=content.querySelector('.person-source-summary');if(hero)hero.classList.add('v153-source-record');
+  content.querySelectorAll('.research-detail-section').forEach(section=>section.classList.add('person-research-detail'));
+  const hero=content.querySelector('.person-source-summary');if(hero)hero.classList.add('person-source-record');
 }
 
 function focalPerson(){const select=document.querySelector('[data-tree-person]');return personById(select?.value||'')||null;}
