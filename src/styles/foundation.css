@@ -51,8 +51,6 @@ a{text-underline-offset:3px}
 
 .sequence-list code{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:#edf1ed}
 
-.node-id{font-size:7px}
-
 .back{display:inline-block;margin-bottom:8px;font-size:11px}
 
 .detail-columns{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
@@ -305,8 +303,6 @@ th{background:#edf2ed}
 
 .editor-card .private-actions{justify-content:flex-end}
 
-.editor-form .check{display:flex;align-items:center;gap:8px}
-
 .danger{border-color:#c89d9d!important;color:#8b3535!important}
 
 .restore-list{display:flex;gap:8px;flex-wrap:wrap}
@@ -473,10 +469,6 @@ body[data-experience="family"] .edition:after{content:'Research integrity\A Evid
 
 body[data-experience="family"] #status{font-size:12px;margin-bottom:18px}
 
-.family-section{margin:32px 0}
-
-.family-section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:14px}
-
 .family-card-avatar{grid-row:1/6;width:56px;height:56px;font-size:16px}
 
 .family-overview-card{border-radius:18px!important}
@@ -573,11 +565,7 @@ body[data-experience="family"]{}
 
 .v128-meta{display:block;margin-top:-2px;color:var(--green)!important;font-weight:650}
 
-.v129-memory-actions,.v129-recent{display:flex;gap:7px;flex-wrap:wrap}
-
-.v129-recent{grid-column:1/-1;align-items:center}
-
-.v129-recent>span{font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.v129-memory-actions{display:flex;gap:7px;flex-wrap:wrap}
 
 .generation-lane line{stroke:currentColor;stroke-opacity:.08;stroke-width:1}
 
@@ -670,8 +658,6 @@ body[data-experience="family"]{}
 .family-search .empty.compact{grid-column:1/-1;border:1px dashed var(--line);border-radius:12px;padding:18px}
 
 .family-search .empty.compact p{margin:.25rem 0 .8rem}
-
-.recent-person a{text-decoration:none;color:inherit}
 
 .search-keyboard-hint{font-size:.72rem;color:var(--muted);margin:-5px 0 12px;text-align:right}
 
@@ -1139,8 +1125,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 
 .editor-card .action{padding:6px 9px;font-size:9px}
 
-.editor-form .check input{width:auto}
-
 .page-heading .version{white-space:nowrap}
 
 @media(max-width:900px){.editor-toolbar .private-actions{margin-top:12px}}
@@ -1258,9 +1242,7 @@ body[data-experience="family"] .notice.control{border-color:#d9e2dd;background:#
 
 .featured-choice input{width:auto!important}
 
-.v129-memory-actions button,.v129-recent button{border:1px solid var(--line);background:transparent;border-radius:999px;padding:6px 10px;cursor:pointer}
-
-@media(max-width:760px){.v129-recent button{flex:0 0 auto}}
+.v129-memory-actions button{border:1px solid var(--line);background:transparent;border-radius:999px;padding:6px 10px;cursor:pointer}
 
 .ri-filters{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
 

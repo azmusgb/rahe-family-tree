@@ -349,11 +349,11 @@ if(args.has('--strict')){
   let failed=false;
   const budgets={
     cssBytes:511775,
-    duplicateSelectorsAcrossFiles:469,
-    deadSelectorCandidates:112,
+    duplicateSelectorsAcrossFiles:444,
+    deadSelectorCandidates:48,
     highSpecificitySelectors:117,
     importantDeclarations:1145,
-    legacyClassArms:1925,
+    legacyClassArms:1919,
     unstyledRuntimeOrMarkupClasses:135,
     unusedCustomProperties:0,
     inlineStyleAttributes:5,
