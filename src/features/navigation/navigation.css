@@ -14,7 +14,7 @@
 /* Migrated live selectors from retired release CSS.
  * These rules remain below the semantic ownership boundary and are now
  * maintained by this module; obsolete selector arms were removed during migration. */
-.skip{z-index:100;background:#fff;padding:12px 16px;border-radius:6px;box-shadow:var(--shadow)}
+.skip{z-index:var(--z-skip-link);background:#fff;padding:12px 16px;border-radius:6px;box-shadow:var(--shadow)}
 
 .skip:focus{top:16px}
 
@@ -175,7 +175,7 @@ body[data-experience="family"] .topbar-more summary{min-height:40px}
 .nav-popover{position:absolute;
     top:calc(100% + 10px);
     right:0;
-    z-index:120;
+    z-index:var(--z-nav-popover);
     width:248px;
     display:grid;
     gap:3px;
