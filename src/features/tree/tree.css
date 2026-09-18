@@ -424,7 +424,7 @@ body[data-page-architecture="15.5"][data-route="tree"] .graph-scroll{min-height:
 
 :where(h1,h2,h3,.dashboard-hero h2,.family-overview-card h1,.tree-person-summary h2){color:var(--text)}
 
-.button,.filters button,.focus-actions button,.tree-person-actions .action{border-radius:9px;font-weight:700}
+.filters button,.focus-actions button,.tree-person-actions .action{border-radius:9px;font-weight:700}
 .action{font-weight:700}
 
 body[data-route="tree"] .tree-person-summary,body[data-route="tree"] .tree-controls,body[data-route="tree"] .graph-shell{background:var(--surface);border-color:var(--line);border-radius:var(--radius-md)}
@@ -539,7 +539,6 @@ body[data-route="tree"][data-nav-context="family"] .v161-tree-tool-actions butto
 /* Family-facing node typography has a readable floor while evidence remains encoded by line/border style. */
 body[data-route="tree"][data-nav-context="family"] :where(.node-branch,.node-state){font-size:10px}
 body[data-route="tree"][data-nav-context="family"] .node-name{font-family:var(--family-font-display);font-size:13px}
-body[data-route="tree"][data-nav-context="family"] .node-id{font-size:8px;opacity:.7}
 
 /* ==========================================================================
    Source: unified-family.css
