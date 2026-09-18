@@ -52,7 +52,7 @@ function apply(){
   const toggle=document.querySelector('.experience-toggle');
   if(toggle){toggle.dataset.experienceMode=currentMode==='family'?'research':'family';toggle.textContent=currentMode==='family'?'Research mode':'Family view';}
   const filters=document.getElementById('filters');if(filters)filters.classList.toggle('family-compact',currentMode==='family'&&familyRoutes.has(key));
-  const version=document.querySelector('.version');if(version)version.textContent=currentMode==='family'?'FAMILY VIEW · v14.0':'RESEARCH MODE · v14.0';
+  const version=document.querySelector('.version'),release=document.documentElement.dataset.uiRelease||'20.0.0';if(version)version.textContent=`${currentMode==='family'?'FAMILY VIEW':'RESEARCH MODE'} · v${release}`;
   enhancePeopleCards();enhancePerson();
 }
 
