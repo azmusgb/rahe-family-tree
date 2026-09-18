@@ -17,7 +17,7 @@
   body.mobile-sheet-open{overflow:hidden;overscroll-behavior:none}
   .mobile-more-backdrop[hidden]{display:none}
 
-  body[data-route="people"] :where(.workspace,.main,#content,.route-shell,.v17-people,.v17-people-grid,.people-grid),body[data-route="tree"] :where(.workspace,.main,#content,.route-shell,.v17-tree,.graph-shell,.tree-graph-shell){
+  body[data-route="people"] :where(.workspace,.main,#content,.route-shell,.ui-people-view,.ui-people-grid,.people-grid),body[data-route="tree"] :where(.workspace,.main,#content,.route-shell,.ui-tree-view,.graph-shell,.tree-graph-shell){
     min-width:0;
     max-width:100%;
     box-sizing:border-box;
@@ -110,7 +110,7 @@
     min-width:0;
     overflow-x:hidden;
   }
-  body[data-route="tree"] #content.mobile-tree-surface .v161-tree-toolbar{
+  body[data-route="tree"] #content.mobile-tree-surface .ui-tree-toolbar{
     position:sticky;
     top:0;
     z-index:24;
@@ -137,10 +137,10 @@
     border-radius:16px;
     overflow:hidden;
   }
-  body[data-route="tree"] #content.mobile-tree-surface [data-v161-secondary]:not(.v161-show-tree-secondary [data-v161-secondary]){
+  body[data-route="tree"] #content.mobile-tree-surface [data-v161-secondary]:not(.ui-show-tree-secondary [data-v161-secondary]){
     display:none;
   }
-  body[data-route="tree"] #content.mobile-tree-surface .tree-focusbar[data-v161-tree-controls]{
+  body[data-route="tree"] #content.mobile-tree-surface .tree-focusbar[data-ui-tree-focused-controls]{
     width:100%;
     max-width:100%;
     min-width:0;
@@ -148,15 +148,15 @@
     margin:0;
     padding:8px;
   }
-  body[data-route="tree"] #content.mobile-tree-surface .v161-tree-tool-actions{
+  body[data-route="tree"] #content.mobile-tree-surface .ui-tree-tool-actions{
     max-width:100%;
     min-width:0;
   }
-  body[data-route="tree"] #content.mobile-tree-surface .v161-tree-tool-actions button{
+  body[data-route="tree"] #content.mobile-tree-surface .ui-tree-tool-actions button{
     min-height:44px;
   }
 
-  :where(#family-mobile-dock,.mobile-more-backdrop,.v161-tree-toolbar) :focus-visible{
+  :where(#family-mobile-dock,.mobile-more-backdrop,.ui-tree-toolbar) :focus-visible{
     outline:3px solid #d4a34d;
     outline-offset:2px;
   }
@@ -244,7 +244,7 @@ body[data-family-graph="v19"] .family-graph-summary{display:flex;align-items:cen
    ========================================================================== */
 /* Family Graph preview and Tree workspace rules belong to the route experience. These were previously late mobile overrides and remain last inside the experience owner. */
 @media (max-width:720px){
-body[data-route="tree"] #content.mobile-tree-surface .v161-tree-toolbar{top:58px;border-radius:16px;background:rgba(247,243,234,.94)}
+body[data-route="tree"] #content.mobile-tree-surface .ui-tree-toolbar{top:58px;border-radius:16px;background:rgba(247,243,234,.94)}
 }
 @media (max-width:720px){
 body[data-route="tree"] #content.mobile-tree-surface{min-height:calc(100dvh - var(--app-header) - var(--app-context) - 88px)}

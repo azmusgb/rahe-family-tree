@@ -12,21 +12,21 @@
   }
 
   /* Home header stays compact and consistent across Safari toolbar states. */
-  body[data-route="dashboard"].v21-actual-mobile-ui{
+  body[data-route="dashboard"].ui-actual-mobile-ui{
     --actual-header-h:60px;
   }
-  body[data-route="dashboard"].v21-actual-mobile-ui #mobile-app-header{
+  body[data-route="dashboard"].ui-actual-mobile-ui #mobile-app-header{
     min-height:calc(60px + env(safe-area-inset-top,0px));
     padding:calc(6px + env(safe-area-inset-top,0px)) 12px 6px;
     gap:9px;
   }
-  body[data-route="dashboard"].v21-actual-mobile-ui .mobile-app-mark,body[data-route="dashboard"].v21-actual-mobile-ui .mobile-app-search{
+  body[data-route="dashboard"].ui-actual-mobile-ui .mobile-app-mark,body[data-route="dashboard"].ui-actual-mobile-ui .mobile-app-search{
     width:42px;height:42px;min-width:42px;border-radius:13px;
   }
-  body[data-route="dashboard"].v21-actual-mobile-ui .mobile-app-heading strong{font-size:19px}
+  body[data-route="dashboard"].ui-actual-mobile-ui .mobile-app-heading strong{font-size:19px}
 
   /* Hero is editorial, not viewport-filling. Never let browser chrome + hero + dock consume the screen. */
-  body[data-route="dashboard"].v21-actual-mobile-ui [data-v17-native="home"]>.v17-home-hero,body[data-route="dashboard"].v20-mobile-app [data-v17-native="home"]>.v17-home-hero{
+  body[data-route="dashboard"].ui-actual-mobile-ui [data-ui-native="home"]>.ui-family-home-hero,body[data-route="dashboard"].ui-mobile-app [data-ui-native="home"]>.ui-family-home-hero{
     min-height:0!important;
     height:auto!important;
     display:block!important;
@@ -34,70 +34,70 @@
     border-radius:0 0 28px 28px!important;
     box-shadow:0 12px 32px rgba(16,47,40,.08)!important;
   }
-  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero::before,body[data-route="dashboard"].v20-mobile-app .v17-home-hero::before{
+  body[data-route="dashboard"].ui-actual-mobile-ui .ui-family-home-hero::before,body[data-route="dashboard"].ui-mobile-app .ui-family-home-hero::before{
     top:52px!important;
     right:-12px!important;
     font-size:clamp(72px,24vw,104px)!important;
     opacity:.72;
   }
-  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero::after,body[data-route="dashboard"].v20-mobile-app .v17-home-hero::after{
+  body[data-route="dashboard"].ui-actual-mobile-ui .ui-family-home-hero::after,body[data-route="dashboard"].ui-mobile-app .ui-family-home-hero::after{
     width:170px!important;height:170px!important;right:-68px!important;bottom:74px!important;
   }
-  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero .eyebrow,body[data-route="dashboard"].v20-mobile-app .v17-home-hero .eyebrow{
+  body[data-route="dashboard"].ui-actual-mobile-ui .ui-family-home-hero .eyebrow,body[data-route="dashboard"].ui-mobile-app .ui-family-home-hero .eyebrow{
     font-size:9px!important;letter-spacing:.17em!important;margin:0 0 7px!important;
   }
-  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero h1,body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero h2,body[data-route="dashboard"].v20-mobile-app .v17-home-hero h1,body[data-route="dashboard"].v20-mobile-app .v17-home-hero h2{
+  body[data-route="dashboard"].ui-actual-mobile-ui .ui-family-home-hero h1,body[data-route="dashboard"].ui-actual-mobile-ui .ui-family-home-hero h2,body[data-route="dashboard"].ui-mobile-app .ui-family-home-hero h1,body[data-route="dashboard"].ui-mobile-app .ui-family-home-hero h2{
     max-width:8.6ch!important;
     margin:6px 0 13px!important;
     font-size:clamp(44px,12vw,58px)!important;
     line-height:.9!important;
     letter-spacing:-.052em!important;
   }
-  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero>div>p:not(.eyebrow),body[data-route="dashboard"].v20-mobile-app .v17-home-hero>div>p:not(.eyebrow){
+  body[data-route="dashboard"].ui-actual-mobile-ui .ui-family-home-hero>div>p:not(.eyebrow),body[data-route="dashboard"].ui-mobile-app .ui-family-home-hero>div>p:not(.eyebrow){
     max-width:34ch!important;
     margin:0!important;
     font-size:14.5px!important;
     line-height:1.48!important;
   }
-  body[data-route="dashboard"] .v17-home-hero .v17-home-metrics{
+  body[data-route="dashboard"] .ui-family-home-hero .ui-home-metrics{
     margin-top:20px!important;
     padding-top:13px!important;
   }
-  body[data-route="dashboard"] .v17-home-metrics b{font-size:25px!important}
-  body[data-route="dashboard"] .v17-home-metrics small{font-size:9px!important;line-height:1.15!important}
+  body[data-route="dashboard"] .ui-home-metrics b{font-size:25px!important}
+  body[data-route="dashboard"] .ui-home-metrics small{font-size:9px!important;line-height:1.15!important}
 
   /* Search and launcher should feel like one compact onboarding block. */
-  body[data-route="dashboard"].v21-actual-mobile-ui .mobile-search{margin:12px 14px 10px}
-  body[data-route="dashboard"].v21-actual-mobile-ui .mobile-search label>span{margin-bottom:6px}
-  body[data-route="dashboard"].v21-actual-mobile-ui .mobile-search label>div{padding:4px;border-radius:18px}
-  body[data-route="dashboard"].v21-actual-mobile-ui .mobile-search input{height:44px}
-  body[data-route="dashboard"].v21-actual-mobile-ui .mobile-search button{min-height:44px;min-width:68px}
-  body[data-route="dashboard"].v21-actual-mobile-ui .v21-mobile-launcher{
+  body[data-route="dashboard"].ui-actual-mobile-ui .mobile-search{margin:12px 14px 10px}
+  body[data-route="dashboard"].ui-actual-mobile-ui .mobile-search label>span{margin-bottom:6px}
+  body[data-route="dashboard"].ui-actual-mobile-ui .mobile-search label>div{padding:4px;border-radius:18px}
+  body[data-route="dashboard"].ui-actual-mobile-ui .mobile-search input{height:44px}
+  body[data-route="dashboard"].ui-actual-mobile-ui .mobile-search button{min-height:44px;min-width:68px}
+  body[data-route="dashboard"].ui-actual-mobile-ui .ui-mobile-launcher{
     margin:0 14px 18px;padding:16px;border-radius:22px;box-shadow:0 8px 22px rgba(18,47,39,.06);
   }
-  body[data-route="dashboard"].v21-actual-mobile-ui .v21-launcher-heading h2{font-size:27px;margin:4px 0 5px}
-  body[data-route="dashboard"].v21-actual-mobile-ui .v21-launcher-heading p{font-size:12px;line-height:1.4}
-  body[data-route="dashboard"].v21-actual-mobile-ui .v21-mobile-launcher .v17-primary-actions{gap:8px;margin-top:14px}
-  body[data-route="dashboard"].v21-actual-mobile-ui .v21-mobile-launcher .v17-primary-actions .action{min-height:52px;border-radius:15px}
-  body[data-route="dashboard"].v21-actual-mobile-ui .v21-mobile-launcher .v17-primary-actions .action.primary{min-height:60px;padding:0 16px}
+  body[data-route="dashboard"].ui-actual-mobile-ui .ui-launcher-heading h2{font-size:27px;margin:4px 0 5px}
+  body[data-route="dashboard"].ui-actual-mobile-ui .ui-launcher-heading p{font-size:12px;line-height:1.4}
+  body[data-route="dashboard"].ui-actual-mobile-ui .ui-mobile-launcher .ui-primary-actions{gap:8px;margin-top:14px}
+  body[data-route="dashboard"].ui-actual-mobile-ui .ui-mobile-launcher .ui-primary-actions .action{min-height:52px;border-radius:15px}
+  body[data-route="dashboard"].ui-actual-mobile-ui .ui-mobile-launcher .ui-primary-actions .action.primary{min-height:60px;padding:0 16px}
 
   /* Chapters are intentionally denser: more family content before the first long scroll. */
-  body[data-route="dashboard"].v20-mobile-app #content :where(.v17-home-tree,.v17-home-story,.v17-featured-people,.v17-home-media,.v17-research-door),body[data-route="dashboard"].v21-actual-mobile-ui #content :where(.v17-home-tree,.v17-home-story,.v17-featured-people,.v17-home-media,.v17-research-door){
+  body[data-route="dashboard"].ui-mobile-app #content :where(.ui-home-tree,.ui-home-story,.ui-featured-people,.ui-home-media,.ui-research-door),body[data-route="dashboard"].ui-actual-mobile-ui #content :where(.ui-home-tree,.ui-home-story,.ui-featured-people,.ui-home-media,.ui-research-door){
     padding:28px 16px!important;
   }
-  body[data-route="dashboard"] .v17-section-head{margin-bottom:14px!important}
-  body[data-route="dashboard"] .v17-section-head h2{font-size:31px!important;line-height:.96!important}
-  body[data-route="dashboard"] .v17-section-head>div>p:not(.eyebrow){font-size:12.5px!important;line-height:1.42!important}
-  body[data-route="dashboard"] .v17-section-head>a{margin-top:7px!important;min-height:36px;align-items:center}
+  body[data-route="dashboard"] .ui-section-head{margin-bottom:14px!important}
+  body[data-route="dashboard"] .ui-section-head h2{font-size:31px!important;line-height:.96!important}
+  body[data-route="dashboard"] .ui-section-head>div>p:not(.eyebrow){font-size:12.5px!important;line-height:1.42!important}
+  body[data-route="dashboard"] .ui-section-head>a{margin-top:7px!important;min-height:36px;align-items:center}
 
   /* Relationship preview is the centerpiece, not a tiny card floating in empty space. */
-  body[data-route="dashboard"] .v17-home-tree-canvas{
+  body[data-route="dashboard"] .ui-family-home-tree-canvas{
     min-height:0!important;
     margin:12px 0 0!important;
     padding:16px 10px!important;
     border-radius:20px!important;
   }
-  body[data-experience="family"][data-route="dashboard"].v20-mobile-app .v17-home-tree-row{
+  body[data-experience="family"][data-route="dashboard"].ui-mobile-app .ui-home-tree-row{
     display:flex!important;
     flex-wrap:wrap!important;
     justify-content:center!important;
@@ -106,34 +106,34 @@
     grid-auto-columns:initial!important;
     overflow:visible!important;
   }
-  body[data-experience="family"][data-route="dashboard"].v20-mobile-app .v17-home-tree-row .v17-relative{
+  body[data-experience="family"][data-route="dashboard"].ui-mobile-app .ui-home-tree-row .ui-relative{
     flex:1 1 132px!important;
     width:auto!important;
     max-width:190px!important;
     min-height:68px!important;
     padding:8px!important;
   }
-  body[data-route="dashboard"] .v17-home-tree-row .v17-avatar.small{width:40px!important;height:40px!important}
-  body[data-route="dashboard"] .v17-home-tree-canvas>i{height:15px!important;min-height:15px!important}
+  body[data-route="dashboard"] .ui-home-tree-row .ui-avatar.small{width:40px!important;height:40px!important}
+  body[data-route="dashboard"] .ui-family-home-tree-canvas>i{height:15px!important;min-height:15px!important}
 
   /* Story cards read as editorial history, not database records. */
-  body[data-route="dashboard"] .v17-story-moments{grid-auto-columns:min(84vw,330px)!important;gap:10px!important}
-  body[data-route="dashboard"] .v17-story-moment{
+  body[data-route="dashboard"] .ui-family-story-moments{grid-auto-columns:min(84vw,330px)!important;gap:10px!important}
+  body[data-route="dashboard"] .ui-family-story-moment{
     min-height:210px!important;
     padding:18px!important;
     border-radius:22px!important;
     box-shadow:0 8px 24px rgba(18,47,39,.06)!important;
   }
-  body[data-route="dashboard"] .v17-story-moment time{font-size:25px!important}
-  body[data-route="dashboard"] .v17-story-moment h3{font-size:18px!important;line-height:1.18!important;margin:6px 0 8px!important}
-  body[data-route="dashboard"] .v17-story-moment p,body[data-route="dashboard"] .v17-story-moment small{font-size:11.5px!important;line-height:1.35!important}
+  body[data-route="dashboard"] .ui-family-story-moment time{font-size:25px!important}
+  body[data-route="dashboard"] .ui-family-story-moment h3{font-size:18px!important;line-height:1.18!important;margin:6px 0 8px!important}
+  body[data-route="dashboard"] .ui-family-story-moment p,body[data-route="dashboard"] .ui-family-story-moment small{font-size:11.5px!important;line-height:1.35!important}
 
   /* People discovery favors identity and relationship over dense metadata. */
-  body[data-route="dashboard"] .v17-home-people-grid{grid-auto-columns:min(78vw,300px)!important;gap:10px!important}
-  body[data-route="dashboard"] .v17-home-person{min-height:150px!important;border-radius:22px!important;box-shadow:0 8px 24px rgba(18,47,39,.06)!important}
-  body[data-route="dashboard"] .v17-home-person>button{min-height:150px!important;padding:16px!important}
-  body[data-route="dashboard"] .v17-home-person em{font-size:11px!important;line-height:1.25!important}
-  body[data-route="dashboard"] .v17-home-person p{font-size:11.5px!important;line-height:1.32!important}
+  body[data-route="dashboard"] .ui-home-people-grid{grid-auto-columns:min(78vw,300px)!important;gap:10px!important}
+  body[data-route="dashboard"] .ui-family-home-person{min-height:150px!important;border-radius:22px!important;box-shadow:0 8px 24px rgba(18,47,39,.06)!important}
+  body[data-route="dashboard"] .ui-family-home-person>button{min-height:150px!important;padding:16px!important}
+  body[data-route="dashboard"] .ui-family-home-person em{font-size:11px!important;line-height:1.25!important}
+  body[data-route="dashboard"] .ui-family-home-person p{font-size:11.5px!important;line-height:1.32!important}
 
   /* Dock is navigation, not a second hero. Keep the center Tree affordance slightly raised only. */
   #family-mobile-dock:not([hidden]){
@@ -153,7 +153,7 @@
     font-size:9.5px!important;
   }
   #family-mobile-dock>a::before,#family-mobile-dock>details>summary::before{width:19px!important;height:19px!important}
-  body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"]{
+  body.ui-mobile-app #family-mobile-dock>a[data-dock-route="tree"]{
     box-sizing:border-box!important;
     place-self:center stretch!important;
     width:auto!important;
@@ -171,8 +171,8 @@
     color:var(--actual-forest,#123f34)!important;
     box-shadow:none!important;
   }
-  body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"]::before{width:20px!important;height:20px!important;color:inherit!important}
-  body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"][aria-current="page"],body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"].active{
+  body.ui-mobile-app #family-mobile-dock>a[data-dock-route="tree"]::before{width:20px!important;height:20px!important;color:inherit!important}
+  body.ui-mobile-app #family-mobile-dock>a[data-dock-route="tree"][aria-current="page"],body.ui-mobile-app #family-mobile-dock>a[data-dock-route="tree"].active{
     background:var(--actual-forest,#123f34)!important;
     color:#fff!important;
   }
@@ -187,8 +187,8 @@
 }
 
 @media (max-width:430px){
-  body[data-route="dashboard"].v21-actual-mobile-ui [data-v17-native="home"]>.v17-home-hero,body[data-route="dashboard"].v20-mobile-app [data-v17-native="home"]>.v17-home-hero{padding:30px 16px 22px!important}
-  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero h1,body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero h2,body[data-route="dashboard"].v20-mobile-app .v17-home-hero h1,body[data-route="dashboard"].v20-mobile-app .v17-home-hero h2{font-size:clamp(42px,11.7vw,52px)!important}
+  body[data-route="dashboard"].ui-actual-mobile-ui [data-ui-native="home"]>.ui-family-home-hero,body[data-route="dashboard"].ui-mobile-app [data-ui-native="home"]>.ui-family-home-hero{padding:30px 16px 22px!important}
+  body[data-route="dashboard"].ui-actual-mobile-ui .ui-family-home-hero h1,body[data-route="dashboard"].ui-actual-mobile-ui .ui-family-home-hero h2,body[data-route="dashboard"].ui-mobile-app .ui-family-home-hero h1,body[data-route="dashboard"].ui-mobile-app .ui-family-home-hero h2{font-size:clamp(42px,11.7vw,52px)!important}
   #family-mobile-dock:not([hidden]){left:5px!important;right:5px!important}
 }
 
@@ -202,35 +202,35 @@
 @media(max-width:720px){
   /* The directory is a utility destination: keep identity and search context, but
    * spend the first viewport on people rather than a desktop-style introduction. */
-  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro{
+  body[data-route="people"].ui-actual-mobile-ui .ui-page-intro{
     padding:8px 14px 6px!important;
     border-radius:0 0 18px 18px!important;
   }
-  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro .eyebrow,body[data-route="people"].v21-actual-mobile-ui .v17-page-intro p:not(.eyebrow){
+  body[data-route="people"].ui-actual-mobile-ui .ui-page-intro .eyebrow,body[data-route="people"].ui-actual-mobile-ui .ui-page-intro p:not(.eyebrow){
     display:none!important;
   }
-  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro h2{
+  body[data-route="people"].ui-actual-mobile-ui .ui-page-intro h2{
     margin:0!important;
     font-size:29px!important;
     line-height:1!important;
   }
-  body[data-route="people"].v21-actual-mobile-ui .mobile-search{
+  body[data-route="people"].ui-actual-mobile-ui .mobile-search{
     padding:4px 10px!important;
   }
-  body[data-route="people"].v21-actual-mobile-ui .mobile-search label>span{
+  body[data-route="people"].ui-actual-mobile-ui .mobile-search label>span{
     margin-bottom:2px!important;
   }
-  body[data-route="people"].v21-actual-mobile-ui .v17-branch-browser[data-v21-people-branches="true"]{
+  body[data-route="people"].ui-actual-mobile-ui .ui-family-branch-browser[data-v21-people-branches="true"]{
     padding:2px 10px!important;
   }
-  body[data-route="people"].v21-actual-mobile-ui .v17-people-grid{
+  body[data-route="people"].ui-actual-mobile-ui .ui-people-grid{
     gap:3px!important;
     margin-top:1px!important;
   }
-  body[data-route="people"].v21-actual-mobile-ui .v17-person-card{
+  body[data-route="people"].ui-actual-mobile-ui .ui-family-person-card{
     min-height:0!important;
   }
-  body[data-route="people"].v21-actual-mobile-ui .v17-person-card>button{
+  body[data-route="people"].ui-actual-mobile-ui .ui-family-person-card>button{
     height:auto!important;
     min-height:54px!important;
     padding:5px 10px!important;
@@ -241,24 +241,24 @@
   /* mobile-immersive previously added a second chevron as ::after. The native card
    * already has its own arrow element; the pseudo-element became a fourth grid item,
    * wrapped onto a new row, and doubled every directory card's height. */
-  body[data-route="people"].v21-actual-mobile-ui .v17-person-card>button::after{
+  body[data-route="people"].ui-actual-mobile-ui .ui-family-person-card>button::after{
     content:none!important;
     display:none!important;
   }
-  body[data-route="people"].v21-actual-mobile-ui .v17-person-card .v17-avatar{
+  body[data-route="people"].ui-actual-mobile-ui .ui-family-person-card .ui-avatar{
     width:36px!important;
     height:36px!important;
     border-radius:10px!important;
   }
-  body[data-route="people"].v21-actual-mobile-ui .v17-person-card-copy{
+  body[data-route="people"].ui-actual-mobile-ui .ui-person-card-copy{
     gap:1px!important;
   }
-  body[data-route="people"].v21-actual-mobile-ui .v17-person-card-copy>small,body[data-route="people"].v21-actual-mobile-ui .v17-person-card-copy>em{
+  body[data-route="people"].ui-actual-mobile-ui .ui-person-card-copy>small,body[data-route="people"].ui-actual-mobile-ui .ui-person-card-copy>em{
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
   }
-  body[data-route="people"].v21-actual-mobile-ui .v17-person-card-copy>p{
+  body[data-route="people"].ui-actual-mobile-ui .ui-person-card-copy>p{
     display:none!important;
   }
 }

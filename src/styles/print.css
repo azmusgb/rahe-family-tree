@@ -3,7 +3,7 @@
   @page{margin:12mm}
   html,body{background:#fff!important;color:#000!important}
   body{font-size:10.5pt;padding-bottom:0!important}
-  #mobile-app-header,.mobile-app-header,.site-header,.sidebar,.topbar,#family-mobile-dock,.filters,#filters,.local-nav,.graph-toolbar,.page-actions,.skip,.site-footer,.footer,.tree-advanced-nav,.tree-focus-breadcrumb,.tree-recent-trail,.tree-recent-history,.tree-context-nav,.tree-mobile-hint,.v129-tree-memory,.v1291-mobile-hint{display:none!important}
+  #mobile-app-header,.mobile-app-header,.site-header,.sidebar,.topbar,#family-mobile-dock,.filters,#filters,.local-nav,.graph-toolbar,.page-actions,.skip,.site-footer,.footer,.tree-advanced-nav,.tree-focus-breadcrumb,.tree-recent-trail,.tree-recent-history,.tree-context-nav,.tree-mobile-hint,.ui-tree-memory,.ui-mobile-hint{display:none!important}
   .shell,.workspace,.main,.route-shell{display:block!important;width:auto!important;min-width:0!important;max-width:none!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;background:#fff!important}
   a{color:inherit!important;text-decoration:none!important}
   .graph-shell,.graph-scroll{overflow:visible!important;border:0!important;box-shadow:none!important;background:#fff!important}
@@ -24,7 +24,7 @@
 .route-shell{display:block;border:0;box-shadow:none;padding:0}
 
 /* navigation.css */
-.v1291-breadcrumb,.v1291-mobile-hint{display:none!important}
+.ui-breadcrumb,.ui-mobile-hint{display:none!important}
 .route-shell .filters,.topbar,.sidebar{display:none!important}
 .page-actions,.tree-context-nav,.tree-recent-history,.tree-mobile-hint{display:none!important}
 
@@ -45,25 +45,25 @@
 .edge.identity-bridge{stroke-dasharray:6 4!important}
 .graph-node{filter:none!important}
 .graph-node rect{filter:none!important}
-.v153-profile-nav,.v154-tree-help,.v154-tree-actions{display:none!important}
-.v153-family-network,.v153-life-story,.v154-tree-person{box-shadow:none;break-inside:avoid}
+.ui-profile-nav,.ui-tree-help,.ui-tree-actions{display:none!important}
+.ui-family-network,.ui-life-story,.ui-tree-person-node{box-shadow:none;break-inside:avoid}
 
 /* tree-advanced.css */
-.tree-advanced-nav,.tree-focus-breadcrumb,.tree-recent-trail,.tree-path-tools,.tree-advanced-export,.graph-toolbar,.legend,.v129-tree-memory,.v1291-breadcrumb,.v1291-mobile-hint{display:none!important}.graph-shell,.graph-scroll{overflow:visible!important;border:0!important;box-shadow:none!important;background:#fff!important}#family-graph{width:100%!important;height:auto!important;max-width:none!important}.tree-path-segment{stroke-width:4!important}
+.tree-advanced-nav,.tree-focus-breadcrumb,.tree-recent-trail,.tree-path-tools,.tree-advanced-export,.graph-toolbar,.legend,.ui-tree-memory,.ui-breadcrumb,.ui-mobile-hint{display:none!important}.graph-shell,.graph-scroll{overflow:visible!important;border:0!important;box-shadow:none!important;background:#fff!important}#family-graph{width:100%!important;height:auto!important;max-width:none!important}.tree-path-segment{stroke-width:4!important}
 
 /* media.css */
-.graph-node .v128-svg-photo{display:none!important}
+.graph-node .ui-svg-photo{display:none!important}
 .graph-node .node-initials.photo-hidden{display:block!important}
 
 /* research.css */
 .person-card,.claim-card,.source-card,.task-card,.panel,.timeline-item>div{break-inside:avoid}
 
 /* mobile-family.css */
-.v129-tree-memory,.tree-focusbar,.graph-toolbar,.legend,.mobile-family-list,.relationship-index{display:none!important}
+.ui-tree-memory,.tree-focusbar,.graph-toolbar,.legend,.mobile-family-list,.relationship-index{display:none!important}
 .family-mobile-dock,.dashboard-paths,.media-viewer{display:none!important}
 .family-mobile-dock,.mobile-family-nav,.dashboard-paths,.media-viewer{display:none!important}
 #family-mobile-dock{display:none!important}
-.v155-desktop-actions,.v155-mobile-actions,#family-mobile-dock{display:none!important}
+.ui-desktop-actions,.ui-mobile-actions,#family-mobile-dock{display:none!important}
 
 /* responsive.css */
 .main{max-width:none;padding:0}
@@ -76,35 +76,35 @@ a{color:#000;text-decoration:none}
 .ri-card,.ri-row,.ri-hero>div,.ri-method{break-inside:avoid;box-shadow:none!important}
 .family-search{display:none}
 body{padding-bottom:0}
-.v155-desktop-actions,.v155-mobile-actions{display:none!important}
+.ui-desktop-actions,.ui-mobile-actions{display:none!important}
 body{background:#fff!important}
-.v162-journey-head>a,.v162-branch-actions,.v162-media-quick,.v17-person-nav,.v17-primary-actions,.v17-section-head>a,.v17-research-door .action,.v17-person-research .action{display:none!important}
-  body[data-v158-context="family"] :where(.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card,.v17-story-moment,.v17-person-card>button,.v17-relative){box-shadow:none!important}
+.ui-journey-head>a,.ui-family-branch-actions,.ui-media-quick,.ui-person-nav,.ui-primary-actions,.ui-section-head>a,.ui-research-door .action,.ui-person-research .action{display:none!important}
+  body[data-v158-context="family"] :where(.ui-moment,.ui-branch-context,.ui-family-path,.media-library-card,.ui-family-story-moment,.ui-family-person-card>button,.ui-relative){box-shadow:none!important}
 
 /* home-editorial.css */
-.v17-home-hero h2,
-  .v17-home-hero .v17-home-metrics,
-  .v17-home-hero .v17-home-metrics b,
-  .v17-home-hero .v17-home-metrics strong,
-  .v17-home-hero .v17-home-metrics span,
-  .v17-home-hero .v17-home-metrics small{
+.ui-family-home-hero h2,
+  .ui-family-home-hero .ui-home-metrics,
+  .ui-family-home-hero .ui-home-metrics b,
+  .ui-family-home-hero .ui-home-metrics strong,
+  .ui-family-home-hero .ui-home-metrics span,
+  .ui-family-home-hero .ui-home-metrics small{
     color:#000;
   }
 
 /* branches.css */
-.v175-branch-actions,.v175-branch-back{display:none!important}.v175-family-card,.v175-branch-person>button{box-shadow:none!important}
+.ui-branch-card-actions,.ui-branch-back{display:none!important}.ui-family-card,.ui-branch-person>button{box-shadow:none!important}
 
 /* archive-shell.css */
 .site-header,.topbar,.family-mobile-dock,.site-footer{display:none!important}
 
 /* redesign.css */
 body{background:#fff}
-  .v17-home-hero,.family-home-hero,.dashboard-hero{
+  .ui-family-home-hero,.family-home-hero,.dashboard-hero{
     min-height:0;
     background:#fff!important;
     color:#000;
     border:1px solid #bbb;
     box-shadow:none;
   }
-  .v17-home-hero h1,.v17-home-hero p:not(.eyebrow),.family-home-copy h2,.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy h2,.dashboard-hero-copy>p:not(.eyebrow){color:#000}
+  .ui-family-home-hero h1,.ui-family-home-hero p:not(.eyebrow),.family-home-copy h2,.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy h2,.dashboard-hero-copy>p:not(.eyebrow){color:#000}
 }
