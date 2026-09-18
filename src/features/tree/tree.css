@@ -8,9 +8,9 @@
 
 .topbar button:hover,.filters button:hover,.graph-toolbar button:hover{background:#edf2ee}
 
-.graph-shell{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.graph-shell{background:#fff;border:1px solid var(--line);overflow:hidden}
 
-.graph-toolbar{display:flex;align-items:center;gap:7px;padding:10px;border-bottom:1px solid var(--line)}
+.graph-toolbar{display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--line)}
 
 .graph-toolbar span{margin-left:auto;font-size:10px;color:var(--muted)}
 
@@ -22,7 +22,7 @@
 
 .edge.spouse{stroke-width:3}
 
-.edge.identity-bridge{stroke:#71548d;stroke-width:3;stroke-dasharray:10 8}
+.edge.identity-bridge{stroke-width:3;}
 
 .edge.state-provisional,.edge.state-unresolved{stroke-dasharray:8 7}
 
@@ -30,11 +30,11 @@
 
 .graph-node{cursor:pointer}
 
-.graph-node rect{fill:white;stroke:#789585;stroke-width:2}
+.graph-node rect{stroke-width:2}
 
-.graph-node.state-provisional rect{stroke:#bd8b2d;stroke-dasharray:6 4}
+.graph-node.state-provisional rect{stroke-dasharray:6 4}
 
-.graph-node.state-unresolved rect{stroke:#72558c;stroke-dasharray:6 4}
+.graph-node.state-unresolved rect{}
 
 .node-name{font:600 13px Georgia,serif;fill:#21352f}
 
@@ -117,7 +117,7 @@
 
 .tree-depth>span{font-size:9px;color:var(--muted);font-weight:700;margin-right:2px}
 
-.graph-node rect{filter:drop-shadow(0 3px 8px rgba(20,45,38,.08))}
+.graph-node rect{}
 
 .graph-node .node-avatar{fill:#eef4f1;stroke:#cadbd4;stroke-width:1.5}
 
@@ -129,7 +129,7 @@
 
 .graph-node .node-state{font-size:7.5px;font-weight:700;letter-spacing:.25px}
 
-.edge.identity-bridge{stroke-dasharray:3 7;stroke-width:3}
+.edge.identity-bridge{stroke-width:3}
 
 .edge.spouse-lead,.edge.sibling-context,.edge.baptism-sponsor{stroke-dasharray:6 5}
 
@@ -165,9 +165,9 @@
 
 .graph-shell{border:0;box-shadow:0 10px 32px rgba(31,52,45,.06)}
 
-.graph-scroll{background:linear-gradient(#fbfcfa,#fbfcfa),radial-gradient(circle at 1px 1px,#dfe5df 1px,transparent 0);background-size:auto,28px 28px}
+.graph-scroll{background:linear-gradient(#fbfcfa,#fbfcfa),radial-gradient(circle at 1px 1px,#dfe5df 1px,transparent 0);}
 
-.graph-node rect{rx:16;filter:drop-shadow(0 6px 12px rgba(20,45,38,.09))}
+.graph-node rect{rx:16;}
 
 .graph-node.focused rect{filter:drop-shadow(0 8px 18px rgba(23,63,53,.2))}
 
@@ -192,7 +192,7 @@
 
 .graph-node:focus{outline:none}
 
-.graph-node:focus rect{stroke-width:4;filter:drop-shadow(0 0 0 rgba(0,0,0,0)) drop-shadow(0 8px 18px rgba(23,63,53,.22))}
+.graph-node:focus rect{stroke-width:4;}
 
 .graph-node .node-name{paint-order:stroke;stroke:#fff;stroke-width:.35px}
 
