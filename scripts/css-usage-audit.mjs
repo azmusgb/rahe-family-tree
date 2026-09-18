@@ -76,6 +76,42 @@ function extractRuleHeaders(css){
   }
   return headers;
 }
+function extractBaseRuleHeaders(css){
+  const src=stripComments(css);
+  const headers=[];
+  let quote='',escaped=false,paren=0,bracket=0,start=0;
+  const stack=[];
+  for(let i=0;i<src.length;i++){
+    const c=src[i];
+    if(quote){
+      if(escaped){escaped=false;continue;}
+      if(c==='\\'){escaped=true;continue;}
+      if(c===quote)quote='';
+      continue;
+    }
+    if(c==='"'||c==="'"){quote=c;continue;}
+    if(c==='('){paren++;continue;}
+    if(c===')'){paren=Math.max(0,paren-1);continue;}
+    if(c==='['){bracket++;continue;}
+    if(c===']'){bracket=Math.max(0,bracket-1);continue;}
+    if(paren||bracket)continue;
+    if(c==='{'){
+      const header=src.slice(start,i).trim();
+      const parent=stack.at(-1)||'';
+      const isAt=header.startsWith('@');
+      const isKeyframeStep=/^(?:from|to|\d+(?:\.\d+)?%)(?:\s*,\s*(?:from|to|\d+(?:\.\d+)?%))*$/.test(header);
+      if(header&&!parent&&!isAt&&!isKeyframeStep&&!/^[-\w]+\s*:/.test(header))headers.push(header);
+      stack.push(isAt?header:parent);
+      start=i+1;
+    }else if(c==='}'){
+      stack.pop();
+      start=i+1;
+    }else if(c===';'&&stack.length===0){
+      start=i+1;
+    }
+  }
+  return headers;
+}
 function splitSelectors(header){
   const out=[];let start=0,quote='',escaped=false,paren=0,bracket=0;
   for(let i=0;i<=header.length;i++){
@@ -146,6 +182,7 @@ const orphanCss=repoCss.filter(f=>!activeSet.has(f));
 const usage=collectUsage(usageFiles);
 const selectorRows=[];
 const selectorFiles=new Map();
+const baseSelectorFiles=new Map();
 const cssStats={};
 const cssClasses=new Set(),cssIds=new Set(),cssAttrs=new Set();
 const customDefined=new Map(),customUsed=new Map();
@@ -153,6 +190,11 @@ const addVar=(map,key,file)=>{const set=map.get(key)||new Set();set.add(file);ma
 
 for(const file of activeCss){
   const css=read(file),headers=extractRuleHeaders(css),selectors=headers.flatMap(splitSelectors);
+  for(const selector of extractBaseRuleHeaders(css).flatMap(splitSelectors)){
+    const baseFiles=baseSelectorFiles.get(selector)||new Set();
+    baseFiles.add(file);
+    baseSelectorFiles.set(selector,baseFiles);
+  }
   const stats={
     bytes:Buffer.byteLength(css),
     selectors:selectors.length,
@@ -241,7 +283,7 @@ const canonicalSelectorOwners=new Map(Object.entries({
   '.action':'src/styles/foundation.css'
 }));
 const topSelectorOwnerViolations=[...canonicalSelectorOwners].flatMap(([selector,owner])=>{
-  const files=[...(selectorFiles.get(selector)||[])].filter(file=>canonicalOwnerFiles.has(file));
+  const files=[...(baseSelectorFiles.get(selector)||[])].filter(file=>canonicalOwnerFiles.has(file));
   const foreign=files.filter(file=>file!==owner);
   return foreign.length?[{selector,owner,foreignOwners:foreign.sort()}]:[];
 });
