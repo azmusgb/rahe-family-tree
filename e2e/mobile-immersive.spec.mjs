@@ -78,8 +78,8 @@ test.describe('actual mobile family application',()=>{
     const header=page.locator('.person-header');
     await expect(header).toBeVisible();
     await expect(page.locator('.v21-person-quick-actions')).toBeVisible();
-    expect(await header.locator('.v17-person-actions').count()).toBe(0);
-    await expect(page.locator('.v21-person-quick-actions .v17-person-actions')).toBeVisible();
+    expect(await header.locator('.person-actions').count()).toBe(0);
+    await expect(page.locator('.v21-person-quick-actions .person-actions')).toBeVisible();
     await expect(page.locator('.v20-person-tabs')).toBeVisible();
     await expect(page.locator('#v17-family')).toBeVisible();
     await expect(page.locator('#v17-life')).toBeVisible();
