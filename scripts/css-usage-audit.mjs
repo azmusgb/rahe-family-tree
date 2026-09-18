@@ -355,7 +355,7 @@ if(args.has('--strict')){
     importantDeclarations:1145,
     legacyClassArms:1925,
     unstyledRuntimeOrMarkupClasses:135,
-    unusedCustomProperties:23,
+    unusedCustomProperties:0,
     inlineStyleAttributes:5,
     stylePropertyWrites:9,
     styleBlocks:3
