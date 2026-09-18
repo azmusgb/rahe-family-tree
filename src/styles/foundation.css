@@ -17,7 +17,7 @@ body{margin:0;color:var(--ink)}
 
 a{text-underline-offset:3px}
 
-.edition{margin-top:auto;border-top:1px solid #41645a;padding-top:16px;color:#bdd0c7;font-size:11px;line-height:1.55}
+.edition{margin-top:auto;border-top:1px solid #41645a;padding-top:16px;color:#bdd0c7;line-height:1.55}
 
 .edition b{display:block;color:#fff}
 
@@ -419,7 +419,7 @@ th{background:#edf2ed}
 
 .profile-status-grid span{display:grid;gap:2px;border:1px solid var(--line);border-radius:8px;padding:7px 9px;background:#fafcfb}
 
-.profile-status-grid small{font-size:7px;color:var(--muted);text-transform:uppercase;letter-spacing:.45px}
+.profile-status-grid small{color:var(--muted);text-transform:uppercase;letter-spacing:.45px}
 
 .profile-status-grid b{font-size:9px}
 
@@ -503,7 +503,7 @@ body[data-experience="family"] #status{font-size:12px;margin-bottom:18px}
 
 .main{max-width:1360px}
 
-.family-overview-card{background:linear-gradient(180deg,#fff,#fcfdfb);box-shadow:0 14px 36px rgba(31,52,45,.06);padding:26px!important}
+.family-overview-card{background:linear-gradient(180deg,#fff,#fcfdfb);padding:26px!important}
 
 .family-profile-kicker{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:-4px 0 18px;padding-bottom:12px;border-bottom:1px solid rgba(33,53,47,.1)}
 
@@ -895,7 +895,6 @@ body[data-route="person"] .profile-headline h2{font-size:clamp(38px,5vw,68px);li
   z-index:auto!important;
   transform:none!important;
   overflow:visible!important;
-  background:var(--surface)!important;
   backdrop-filter:none!important;
   scroll-margin-block:16px calc(var(--mobile-nav-height,64px) + 24px);}
 
@@ -907,19 +906,19 @@ body[data-v158-context="family"] .footer a{white-space:nowrap;font-weight:750}
 
 body[data-route="tree"][data-v158-context="family"] #content.v161-tree>[data-v161-secondary]{display:none!important}
 
-body[data-route="people"][data-v158-context="family"] .v159-card-media{width:52px!important;height:52px!important;min-width:52px!important;border-radius:14px!important}
+body[data-route="people"][data-v158-context="family"] .v159-card-media{width:52px!important;height:52px!important;min-width:52px!important;}
 
 body[data-route="people"][data-v158-context="family"] .v159-card-copy{gap:2px!important;min-width:0}
 
-body[data-route="people"][data-v158-context="family"] .v159-card-copy strong{font-size:17px!important;line-height:1.05}
+body[data-route="people"][data-v158-context="family"] .v159-card-copy strong{line-height:1.05}
 
-body[data-route="people"][data-v158-context="family"] .v159-card-dates{font-size:11px!important}
+body[data-route="people"][data-v158-context="family"] .v159-card-dates{}
 
-body[data-route="people"][data-v158-context="family"] .v159-card-context{display:block!important;font-size:11px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body[data-route="people"][data-v158-context="family"] .v159-card-context{display:block!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 body[data-route="people"][data-v158-context="family"] .v159-card-relations{display:flex!important;gap:6px;margin-top:4px;overflow:hidden}
 
-body[data-route="people"][data-v158-context="family"] .v159-card-relations small{padding:3px 6px!important;border-radius:999px;background:var(--brand-soft);white-space:nowrap;font-size:9px!important}
+body[data-route="people"][data-v158-context="family"] .v159-card-relations small{padding:3px 6px!important;border-radius:999px;white-space:nowrap;}
 
 body[data-route="people"][data-v158-context="family"] .v159-card-arrow{font-size:16px}
 
@@ -953,7 +952,7 @@ body[data-route="people"][data-v158-context="family"] .v159-card-arrow{font-size
 
 .v162-places a{padding:7px 10px;color:var(--green);font-size:11px;font-weight:700}
 
-.v162-family-path{display:grid;gap:10px;margin:12px 0 18px;padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.v162-family-path{display:grid;gap:10px;margin:12px 0 18px;padding:16px;}
 
 .v162-family-path-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
 
@@ -967,7 +966,7 @@ body[data-route="people"][data-v158-context="family"] .v159-card-arrow{font-size
 
 .v162-family-path-group>div{display:flex;gap:6px;flex-wrap:wrap}
 
-.v162-family-path-group a{padding:6px 9px;border-radius:999px;background:var(--brand-soft);color:var(--green);font-size:11px;font-weight:700}
+.v162-family-path-group a{padding:6px 9px;color:var(--green);font-size:11px;font-weight:700}
 
 /* Family base — typography, controls, focus and shared interaction. */
 ::selection{}
@@ -1005,8 +1004,8 @@ body[data-v158-context="family"] .eyebrow{
   letter-spacing:.13em!important;
 }
 body[data-v158-context="family"] :where(p,li,dd){text-wrap:pretty}
-body[data-v158-context="family"] :where(.v157-person-copy,.v159-card-context,.v159-card-dates,.v157-media-card small,.v157-tree-person small,.v159-card-relations small){font-size:max(var(--family-text-meta),12px)!important}
-body[data-v158-context="family"] :where(.dashboard-section p,.v159-life-copy p,.v157-research-center p){font-size:var(--family-text-body);line-height:1.62}
+body[data-v158-context="family"] :where(.v157-person-copy,.v159-card-context,.v159-card-dates,.v157-media-card small,.v157-tree-person small,.v159-card-relations small){}
+body[data-v158-context="family"] :where(.dashboard-section p,.v159-life-copy p,.v157-research-center p){}
 
 /* v17 native Family archive primitives. These classes are purpose-built route
  * markup and do not depend on the legacy dashboard/person enhancement DOM. */
