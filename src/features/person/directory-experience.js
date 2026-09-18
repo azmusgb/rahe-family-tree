@@ -123,8 +123,8 @@ async function hydratePortraits(content){
     const item=map.get(button.dataset.person),media=button.querySelector('.v159-card-media');if(!item||!media||media.querySelector('img'))return;
     const img=document.createElement('img');img.src=`/api/media?file=${encodeURIComponent(item.id)}`;img.alt='';img.loading='lazy';img.decoding='async';media.prepend(img);media.querySelector('span')?.setAttribute('hidden','');
   });
-  content.querySelectorAll('.v153-relation-person[data-person]').forEach(button=>{
-    const item=map.get(button.dataset.person),avatar=button.querySelector('.v153-mini-avatar');if(!item||!avatar||avatar.dataset.photoLoaded)return;
+  content.querySelectorAll('.person-relation-person[data-person]').forEach(button=>{
+    const item=map.get(button.dataset.person),avatar=button.querySelector('.person-mini-avatar');if(!item||!avatar||avatar.dataset.photoLoaded)return;
     avatar.textContent='';avatar.style.backgroundImage=`url("/api/media?file=${encodeURIComponent(item.id)}")`;avatar.style.backgroundSize='cover';avatar.style.backgroundPosition='center';avatar.dataset.photoLoaded='true';
   });
 }
