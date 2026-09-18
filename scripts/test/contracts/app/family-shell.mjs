@@ -8,16 +8,16 @@ const appRuntime=fs.readFileSync('src/app/runtime.js','utf8');
 const baseControls=fs.readFileSync('src/runtime/base-controls.js','utf8');
 const experience=fs.readFileSync('src/runtime/experience.js','utf8');
 const routeCapabilities=fs.readFileSync('src/runtime/route-capabilities.js','utf8');
-const treeController=fs.readFileSync('src/runtime/tree-controller.js','utf8');
+const treeController=fs.readFileSync('src/features/tree/controller.js','utf8');
 const runtime=fs.readFileSync('src/runtime/experience-core.js','utf8');
-const navShell=fs.readFileSync('src/runtime/navigation-shell.js','utf8');
+const navShell=fs.readFileSync('src/features/navigation/shell.js','utf8');
 const navModel=fs.readFileSync('src/runtime/navigation-model.js','utf8');
-const nativeController=fs.readFileSync('src/runtime/native-family-v17-controller.js','utf8');
+const nativeController=fs.readFileSync('src/features/family/controller.js','utf8');
 const nativeRuntime=fs.readFileSync('src/runtime/native-family-v17.js','utf8');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const css=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const navCss=css;
-const mainRuntime=fs.readFileSync('v11.js','utf8');
+const mainRuntime=fs.readFileSync('src/app/router.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 const retirement=JSON.parse(fs.readFileSync('public/css-retirement-report.json','utf8'));
@@ -27,7 +27,7 @@ function atLeast(version,major,minor){const [a,b]=version.split('.').map(Number)
 
 test('mobile family navigation remains a persistent touch shell under the current release',()=>{const version=releaseOf(index,/data-ui-release="(\d+\.\d+\.\d+)"/);assert.ok(atLeast(version,17,5));assert.match(index,/id="family-mobile-dock"/);assert.match(index,/href="#dashboard"[^>]*data-dock-route="dashboard"/);assert.match(index,/href="#tree"[^>]*data-dock-route="tree"/);assert.match(index,/href="#families"[^>]*data-dock-route="families"/);assert.match(index,/href="#people"[^>]*data-dock-route="people"/);assert.match(index,/mobile-more/);assert.match(index,/data-dock-search/);assert.match(index,/<a href="#media">Photos<\/a>/);assert.match(index,new RegExp(`app\\.bundle\\.js\\?v=${version.replaceAll('.','\\.')}`));assert.doesNotMatch(entry,/v15-runtime\.js/);assert.match(entry,/src\/app\/runtime\.js/);});
 
-test('browser bootstrap delegates historical layers through canonical app and feature domains',()=>{assert.match(entry,/import '\.\/src\/app\/runtime\.js'/);assert.doesNotMatch(entry,/src\/runtime\/index\.js/);assert.doesNotMatch(entry,/^import '\.\/v\d/m);const expected=['../../v11.js','../runtime/base-controls.js','../../media.js','../../deployment.js','../features/family/index.js','../features/media/index.js','../features/tree/index.js','../features/search/index.js','../../media-page-v13-5.js','../runtime/experience.js'];const actual=[...appRuntime.matchAll(/import ['"]([^'"]+\.js)['"]/g)].map(match=>match[1]);assert.deepEqual(actual,expected);});
+test('browser bootstrap delegates historical layers through canonical app and feature domains',()=>{assert.match(entry,/import '\.\/src\/app\/runtime\.js'/);assert.doesNotMatch(entry,/src\/runtime\/index\.js/);assert.doesNotMatch(entry,/^import '\.\/v\d/m);const expected=['../../src/app/router.js','../runtime/base-controls.js','../../media.js','../../deployment.js','../features/family/index.js','../features/media/index.js','../features/tree/index.js','../features/search/index.js','../../src/features/media/page.js','../runtime/experience.js'];const actual=[...appRuntime.matchAll(/import ['"]([^'"]+\.js)['"]/g)].map(match=>match[1]);assert.deepEqual(actual,expected);});
 
 test('bootstrap ownership preserves branch-neutral recent-person controls',()=>{assert.match(appRuntime,/import '\.\.\/\.\.\/v11\.js'/);assert.match(appRuntime,/import '\.\.\/runtime\/base-controls\.js'/);assert.match(baseControls,/family\.archive\.recentPeople\.v2/);assert.match(baseControls,/rahe\.family\.recent-people\.v1/);assert.match(baseControls,/data-tree-depth/);assert.match(baseControls,/data-tree-person/);assert.equal(fs.existsSync('v12-3-controls.js'),false);});
 
