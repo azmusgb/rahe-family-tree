@@ -232,15 +232,6 @@ body[data-experience="family"] .topbar-more summary{min-height:40px}
     -webkit-backdrop-filter:blur(16px) saturate(1.04);
     backdrop-filter:blur(16px) saturate(1.04);}
 .topbar-actions{gap:7px}
-.topbar-actions button,.topbar-actions summary{
-    min-height:38px;
-    border:1px solid var(--line);
-    border-radius:11px;
-    background:var(--surface);
-    color:var(--green);
-    font-weight:720;
-}
-.topbar-actions button:hover,.topbar-actions summary:hover{background:var(--brand-soft);border-color:var(--family-border-interactive)}
 .topbar button{padding:7px 11px;font-size:11px}
 }
 
