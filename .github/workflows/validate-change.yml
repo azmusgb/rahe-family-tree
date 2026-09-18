@@ -33,23 +33,23 @@ jobs:
         run: npm test
       - name: Run v17.5-v19 family shell, canonical platform, consolidated tree, research intelligence, Family Graph, navigation, layout, relationship navigator, and path comprehension gates
         run: |
-          node --test scripts/test-v17-5.mjs scripts/test-v17-6.mjs scripts/test-v18.mjs scripts/test-v18-5.mjs scripts/test-tree-advanced.mjs scripts/test-research-automation.mjs scripts/test-v19-family-graph.mjs scripts/test-v19-1-family-navigation.mjs scripts/test-v19-2-family-layout.mjs scripts/test-v19-3-relationship-navigator.mjs scripts/test-v19-4-relationship-path.mjs
-          node --check src/runtime/family-branches-v17-5.js
-          node --check src/runtime/navigation-shell.js
-          node --check src/runtime/native-family-v17-controller.js
-          node --check src/runtime/tree-controller.js
-          node --check src/runtime/v17-6-stability.js
-          node --check src/runtime/tree-advanced.js
-          node --check src/runtime/family-graph-v19.js
-          node --check src/runtime/family-graph-navigation.js
-          node --check src/runtime/family-graph-layout.js
-          node --check src/runtime/relationship-path-comprehension.js
+          node --test scripts/test/contracts/family/branch-shell.mjs scripts/test/contracts/tree/stability.mjs scripts/test/contracts/platform/canonical-platform.mjs scripts/test/contracts/tree/consolidated-tree.mjs scripts/test-tree-advanced.mjs scripts/test-research-automation.mjs scripts/test/contracts/tree/family-graph.mjs scripts/test/contracts/tree/family-navigation.mjs scripts/test/contracts/tree/family-layout.mjs scripts/test/contracts/tree/relationship-navigator.mjs scripts/test/contracts/tree/relationship-path.mjs
+          node --check src/features/family/branches.js
+          node --check src/features/navigation/shell.js
+          node --check src/features/family/controller.js
+          node --check src/features/tree/controller.js
+          node --check src/features/tree/stability.js
+          node --check src/features/tree/advanced.js
+          node --check src/features/tree/family-graph.js
+          node --check src/features/tree/navigation.js
+          node --check src/features/tree/layout.js
+          node --check src/features/tree/relationship-path.js
           node --check canonical-graph-engine.js
-          node --check platform-v13-ui.js
-          node --check platform-v13-runtime.js
+          node --check src/platform/genealogy-ui.js
+          node --check src/platform/genealogy-runtime.js
           node --check research-automation.js
           node --check research-intelligence.js
-          node --check v11.js
+          node --check src/app/router.js
       - name: Verify production build
         env:
           GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}

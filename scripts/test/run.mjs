@@ -1,133 +1,14 @@
 import { spawnSync } from 'node:child_process';
+import { readdirSync } from 'node:fs';
 import { buildCanonicalModel } from '../build/pipeline.mjs';
-
-const node = process.execPath;
-
-function run(label, args) {
-  process.stdout.write(`\n[test:${label}] node ${args.join(' ')}\n`);
-  const result = spawnSync(node, args, {
-    cwd: process.cwd(),
-    env: process.env,
-    stdio: 'inherit',
-  });
-  if (result.error) throw result.error;
-  if (result.status !== 0) process.exit(result.status ?? 1);
-}
-
-buildCanonicalModel({ includeUpgrade: true, includeSiteBuild: false });
-
-const contractTests = [
-  'scripts/test.mjs',
-  'scripts/test-v11.mjs',
-  'scripts/test-v11-1.mjs',
-  'scripts/test-v11-2.mjs',
-  'scripts/test-v11-3.mjs',
-  'scripts/test-v11-4.mjs',
-  'scripts/test-v11-5.mjs',
-  'scripts/test-v11-6.mjs',
-  'scripts/test-v12-0.mjs',
-  'scripts/test-v12-1.mjs',
-  'scripts/test-v12-2.mjs',
-  'scripts/test-v12-3.mjs',
-  'scripts/test-v12-4.mjs',
-  'scripts/test-v12-5.mjs',
-  'scripts/test-v12-6.mjs',
-  'scripts/test-v12-6-1.mjs',
-  'scripts/test-v12-6-2.mjs',
-  'scripts/test-v12-7.mjs',
-  'scripts/test-v12-8.mjs',
-  'scripts/test-v12-9.mjs',
-  'scripts/test-v12-9-1.mjs',
-  'scripts/test-v13-0.mjs',
-  'scripts/test-v13-platform.mjs',
-  'scripts/test-v13-5.mjs',
-  'scripts/test-v14.mjs',
-  'scripts/test-v15.mjs',
-  'scripts/test-v15-1.mjs',
-  'scripts/test-v15-family-focus.mjs',
-  'scripts/test-v15-5.mjs',
-  'scripts/test-v15-6.mjs',
-  'scripts/test-v16.mjs',
-  'scripts/test-v16-1.mjs',
-  'scripts/test-v16-2.mjs',
-  'scripts/test-v17-1.mjs',
-  'scripts/test-v17-2.mjs',
-  'scripts/test-v17-3.mjs',
-  'scripts/test-v17-4.mjs',
-  'scripts/test-v20-2-route-loader.mjs',
-  'scripts/test-branch-index.mjs',
-  'scripts/test-canonical-integrity.mjs',
-  'scripts/test-exports.mjs',
-  'scripts/test-record-ingestion.mjs',
-  'scripts/test-v18-6-ui.mjs',
-  'scripts/test-mobile-shell-v22.mjs',
-  'scripts/test-v23-consolidation.mjs',
-  'scripts/test-v23-platform.mjs',
-  'scripts/test-v23-runtime-contracts.mjs',
-];
-
-run('contracts', ['--test', ...contractTests]);
-
-const syntaxFiles = [
-  'app-entry.js',
-  'v11.js',
-  'core.js',
-  'branch-index.js',
-  'graph.js',
-  'dossiers.js',
-  'archive-views.js',
-  'traceability.js',
-  'operations.js',
-  'research-intelligence.js',
-  'research-state.js',
-  'family-editor.js',
-  'family-editor-atomic.js',
-  'shared-sync.js',
-  'family-experience.js',
-  'canonical-graph-engine.js',
-  'platform-v13-ui.js',
-  'platform-v13-runtime.js',
-  'src/runtime/base-controls.js',
-  'media.js',
-  'auth.js',
-  'src/runtime/family-mode.js',
-  'src/runtime/family-profile.js',
-  'src/runtime/family-qa.js',
-  'src/runtime/family-contributions.js',
-  'src/runtime/media-enhancements.js',
-  'src/runtime/tree-engine.js',
-  'src/runtime/tree-polish.js',
-  'src/runtime/search.js',
-  'media-page-v13-5.js',
-  'src/runtime/experience.js',
-  'src/runtime/experience-core.js',
-  'src/runtime/page-architecture.js',
-  'src/runtime/navigation-model.js',
-  'src/runtime/navigation-shell.js',
-  'src/runtime/navigation-runtime.js',
-  'src/runtime/route-capability-loader.js',
-  'src/runtime/stories-view.js',
-  'src/runtime/stories-runtime.js',
-  'src/runtime/mobile-family-density.js',
-  'src/runtime/family-narrative.js',
-  'src/runtime/unified-family-experience.js',
-  'src/runtime/person-experience-v17-3.js',
-  'src/runtime/experience-elevation-v17-4.js',
-  'src/runtime/record-ingestion.js',
-  'src/ingestion/record-ingestion-core.js',
-  'v15-1-runtime.js',
-  'v15-family-focus.js',
-  'scripts/canonical-integrity.mjs',
-  'scripts/enrich-v13-platform.mjs',
-  'scripts/reconcile-v13-platform.mjs',
-  'scripts/build-exports.mjs',
-  'scripts/test-v17-1.mjs',
-  'scripts/test-v17-2.mjs',
-  'scripts/test-v17-3.mjs',
-  'scripts/test-v17-4.mjs',
-  'scripts/build/pipeline.mjs',
-  'scripts/test/run.mjs',
-];
-
-for (const file of syntaxFiles) run('syntax', ['--check', file]);
-run('architecture', ['scripts/architecture-audit.mjs']);
+const node=process.execPath;
+function run(label,args){process.stdout.write(`\n[test:${label}] node ${args.join(' ')}\n`);const result=spawnSync(node,args,{cwd:process.cwd(),env:process.env,stdio:'inherit'});if(result.error)throw result.error;if(result.status!==0)process.exit(result.status??1);}
+const walk=(dir,ext)=>readdirSync(dir,{withFileTypes:true,recursive:true}).filter(e=>e.isFile()&&e.name.endsWith(ext)).map(e=>`${e.parentPath||e.path}/${e.name}`.replaceAll('\\','/')).sort();
+buildCanonicalModel({includeUpgrade:true,includeSiteBuild:false});
+const stableContracts=['scripts/test.mjs','scripts/test-branch-index.mjs','scripts/test-canonical-integrity.mjs','scripts/test-exports.mjs','scripts/test-record-ingestion.mjs','scripts/test-tree-advanced.mjs','scripts/test-research-automation.mjs'];
+const capabilityContracts=walk('scripts/test/contracts','.mjs');
+run('contracts',['--test',...stableContracts,...capabilityContracts]);
+const rootJs=readdirSync('.',{withFileTypes:true}).filter(e=>e.isFile()&&e.name.endsWith('.js')).map(e=>e.name);
+const srcJs=walk('src','.js');
+for(const file of [...rootJs,...srcJs])run('syntax',['--check',file]);
+run('architecture',['scripts/architecture-audit.mjs']);
