@@ -229,15 +229,18 @@ button,input,select,textarea{border-radius:var(--family-radius-control)}
 .site-breadcrumb a{font-weight:720;text-decoration:none}
 
 .topbar-actions button,.site-tools>summary,.site-header-actions button{
-  border-color:#c9c7bc;
+  min-height:38px;
   border-color:color-mix(in srgb,var(--line-strong) 78%,transparent);
-  background:rgba(255,253,248,.72);
+  border-radius:11px;
+  background:var(--nav-surface);
+  color:var(--nav-ink);
+  font-weight:720;
   box-shadow:0 1px 0 rgba(255,255,255,.9);
 }
 .topbar-actions button:hover,.site-tools>summary:hover,.site-header-actions button:hover{
-  border-color:#aeb8ae;
-  border-color:color-mix(in srgb,var(--green) 26%,var(--line));
-  background:#fffdf8;
+  border-color:var(--family-border-interactive);
+  background:var(--nav-bg-soft);
+  color:var(--nav-ink);
 }
 
 .main{
