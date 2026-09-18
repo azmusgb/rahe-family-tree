@@ -54,7 +54,8 @@
 
 .person-portrait{flex:0 0 auto;width:88px;height:88px;font-size:25px}
 
-.edition,.nav-group-label,.tree-focusbar label,.tree-depth>span,.profile-status-grid small,.media-card small,.media-card span{font-size:max(11px,inherit)}
+.edition,.nav-group-label,.tree-focusbar label,.tree-depth>span,.media-card small,.media-card span{font-size:max(11px,inherit)}
+.profile-status-grid small{font-size:10px}
 
 @media(max-width:720px){.person-portrait{width:64px;height:64px;font-size:19px}}
 
@@ -648,7 +649,8 @@ body[data-route="migration"][data-v158-context="family"] :where(.place-card,.mig
 
 .person-card.state-rejected,.claim-card.state-rejected,.relationship-row.state-rejected{border-top-color:#b65348}
 
-.person-open p,.person-open small,.claim-card p,.source-card p,.task-card p{font-size:12px;line-height:1.55;color:var(--muted)}
+.person-open small,.claim-card p,.source-card p,.task-card p{font-size:12px;line-height:1.55;color:var(--muted)}
+.person-open p{line-height:1.55;color:var(--muted)}
 
 .claim-top,.source-top,.task-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 
@@ -658,7 +660,8 @@ body[data-route="migration"][data-v158-context="family"] :where(.place-card,.mig
 
 .sequence-list,.negative-list,.relationship-table{display:grid;gap:9px}
 
-.sequence-list article,.negative-list article,.relationship-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:9px;padding:14px}
+.sequence-list article,.negative-list article{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:9px;padding:14px}
+.relationship-row{display:grid;grid-template-columns:120px minmax(160px,1fr) 20px minmax(160px,1fr) minmax(220px,1.3fr) auto;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:9px;padding:14px}
 
 .sequence-list p,.negative-list p{font-size:11px;line-height:1.55;color:var(--muted)}
 
@@ -865,11 +868,12 @@ body[data-page-architecture="15.5"][data-route="person"] .person-source-summary 
 
 body[data-page-architecture="15.5"][data-route="person"] .person-source-summary .person-summary{max-width:none;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
 
-.page-heading h1,.dashboard-hero h2,.dashboard-section h2,.family-overview-card h1,.person-hero h1,.person-source-summary h1,.v154-tree-person h2{font-family:Georgia,"Times New Roman",serif!important;font-weight:600!important;letter-spacing:-.025em!important}
+.page-heading h1,.person-hero h1{font-weight:600!important}
+.dashboard-hero h2,.dashboard-section h2,.family-overview-card h1,.person-source-summary h1,.v154-tree-person h2{font-family:Georgia,"Times New Roman",serif!important;font-weight:600!important;letter-spacing:-.025em!important}
 
 :where(.route-shell,.dashboard-section,.family-overview-card,.person-source-summary,.graph-shell,.v154-tree-person,.v154-tree-controls,.media-library,.media-filter-panel,.research-detail-section,.source-card,.claim-card,.task-card,.panel,.card){border-color:var(--line)!important}
 
-.route-shell,.dashboard-section,.family-overview-card,.person-card,.graph-shell,.v154-tree-person,.v154-tree-controls,.media-card,.source-card,.claim-card,.task-card{box-shadow:var(--shadow-sm)!important}
+.dashboard-section,.family-overview-card,.person-card,.graph-shell,.v154-tree-person,.v154-tree-controls,.media-card,.source-card,.claim-card,.task-card{box-shadow:var(--shadow-sm)!important}
 
 body[data-route="person"] .person-source-summary{background:var(--surface-soft)!important;border-color:var(--line)!important;box-shadow:none!important}
 
