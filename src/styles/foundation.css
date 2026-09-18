@@ -965,14 +965,14 @@ body[data-v158-context="family"] :where(a,button,.action,[role="button"]):focus-
 body[data-v158-context="family"] :where(.action,button,.person-card,.v157-person-card,.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card){
   transition:border-color var(--family-motion-fast) ease,background-color var(--family-motion-fast) ease,color var(--family-motion-fast) ease,box-shadow var(--family-motion-normal) ease,transform var(--family-motion-normal) ease;
 }
-body[data-v158-context="family"] :where(.action,.button,.filters button,.focus-actions button,.v154-tree-actions .action){
+body[data-v158-context="family"] :where(.action,.filters button,.focus-actions button,.v154-tree-actions .action){
   min-height:42px;
   border-radius:var(--family-radius-control)!important;
   border-color:var(--line-strong)!important;
   box-shadow:none;
   font-size:max(var(--family-text-meta),12px);
 }
-body[data-v158-context="family"] :where(.action,.button,.filters button,.focus-actions button,.v154-tree-actions .action):active{transform:translateY(1px)}
+body[data-v158-context="family"] :where(.action,.filters button,.focus-actions button,.v154-tree-actions .action):active{transform:translateY(1px)}
 body[data-v158-context="family"] :where(input,select,textarea){
   min-height:44px;
   border-radius:var(--family-radius-control)!important;
