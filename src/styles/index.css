@@ -1,15 +1,16 @@
-/* Family design-system composition root.
- *
- * Eight live stylesheets. The bundle order preserves the previous cascade while
- * eliminating release-era, compatibility, and micro-layer stylesheet sprawl.
- * New CSS belongs in the owning consolidated file; do not add version-numbered
- * stylesheets or one-off override files.
- */
+/* Canonical style composition root. Imports preserve the certified cascade order while ownership is feature-scoped. */
 @import './tokens.css';
-@import './core.css';
+@import './foundation.css';
+@import '../features/navigation/navigation.css';
+@import '../features/person/person.css';
+@import '../features/tree/tree.css';
+@import '../features/research/research.css';
+@import '../features/family/family-responsive.css';
 @import './composition.css';
 @import './experience.css';
 @import './home-responsive.css';
 @import './interaction.css';
-@import './mobile.css';
+@import '../features/navigation/mobile-foundation.css';
+@import '../features/navigation/mobile-shell.css';
+@import '../features/navigation/mobile-directory.css';
 @import './print.css';
