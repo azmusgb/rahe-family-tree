@@ -9,20 +9,20 @@ const stability=read('src/features/tree/stability.js');
 const treeEngine=read('src/features/tree/engine.js');
 const composition=read('src/features/tree/index.js');
 const experience=read('src/app/experience.js');
-const styles=read('src/styles/core.css');
+const styles=read('src/features/tree/tree.css');
 const printStyles=read('src/styles/print.css');
 const interactionStyles=read('src/styles/interaction.css');
 const styleRoot=read('src/styles/index.css');
 
 test('advanced tree remains additive behind one deterministic controller without changing the stable tree boundary',()=>{
   const imports=[...composition.matchAll(/import ['\"]([^'\"]+\.js)['\"]/g)].map(match=>match[1]);
-  assert.deepEqual(imports,['../../runtime/tree-engine.js','../../runtime/tree-polish.js']);
+  assert.deepEqual(imports,['./engine.js','./polish.js']);
   assert.match(experience,/import '\.\/tree-controller\.js';/);
   assert.doesNotMatch(experience,/void import\('\.\/tree-controller\.js'\)/);
   assert.doesNotMatch(experience,/void import\('\.\/tree-advanced\.js'\)/);
   assert.doesNotMatch(experience,/void import\('\.\/v17-6-stability\.js'\)/);
-  assert.match(controller,/import '\.\/v17-6-stability\.js';\s*import '\.\/tree-advanced\.js';/);
-  assert.match(styleRoot,/@import '\.\/core\.css';/);assert.ok(styles.indexOf('Source: tree.css')<styles.indexOf('Source: unified-family.css')&&styles.indexOf('Source: unified-family.css')<styles.indexOf('Source: tree-advanced.css'));
+  assert.match(controller,/import '\.\/stability\.js';\s*import '\.\/advanced\.js';/);
+  assert.match(styleRoot,/@import '\.\.\/features\/tree\/tree\.css';/);assert.ok(styles.indexOf('Source: tree.css')<styles.indexOf('Source: unified-family.css')&&styles.indexOf('Source: unified-family.css')<styles.indexOf('Source: tree-advanced.css'));
 });
 
 test('advanced tree keeps genealogy read-only and uses canonical graph helpers',()=>{
