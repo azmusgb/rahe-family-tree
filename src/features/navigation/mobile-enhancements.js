@@ -30,7 +30,7 @@ function syncContextualMore(){
   let section=existing;
   if(!section){
     section=document.createElement('section');
-    section.className='v21-more-research v22-context-actions';
+    section.className='ui-more-research v22-context-actions';
     section.dataset.v22ContextActions='true';
     section.innerHTML='<span>CURRENT CONTEXT</span><div></div>';
   }
@@ -49,10 +49,10 @@ function syncContextualMore(){
 }
 
 function syncPersonNavigation(){
-  const root=document.querySelector('[data-v17-native="person"]');
+  const root=document.querySelector('[data-ui-native="person"]');
   if(!root)return;
-  const legacy=root.querySelector('.v17-person-nav');
-  const tabs=root.querySelector('.v20-person-tabs');
+  const legacy=root.querySelector('.ui-person-nav');
+  const tabs=root.querySelector('.ui-person-tabs');
   if(!isMobile()||routeKey()!=='person'){
     if(legacy?.dataset.v22Suppressed==='true'){
       legacy.hidden=false;
@@ -79,10 +79,10 @@ function syncPersonNavigation(){
 function setTreeFocus(enabled,{moveFocus=true}={}){
   const content=document.getElementById('content');
   if(!content)return;
-  const bar=content.querySelector('.v21-tree-mode-bar');
+  const bar=content.querySelector('.ui-tree-mode-bar');
   const button=bar?.querySelector('[data-v22-tree-focus]');
   const graph=content.querySelector('.graph-shell,.tree-graph-shell');
-  const focusables=['.family-graph-summary','.tree-context','.family-graph-tools','.v161-tree-toolbar'];
+  const focusables=['.family-graph-summary','.tree-context','.family-graph-tools','.ui-tree-toolbar'];
 
   if(enabled&&isMobile()&&routeKey()==='tree'){
     content.dataset.v22TreeFocus='true';
@@ -111,7 +111,7 @@ function syncTreeFocusControl(){
     setTreeFocus(false,{moveFocus:false});
     return;
   }
-  const bar=content.querySelector('.v21-tree-mode-bar');
+  const bar=content.querySelector('.ui-tree-mode-bar');
   const actions=bar?.querySelector(':scope > div:last-child');
   if(!bar||!actions)return;
   let button=actions.querySelector('[data-v22-tree-focus]');

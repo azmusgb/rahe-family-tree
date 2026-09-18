@@ -1,5 +1,5 @@
 const MOBILE_QUERY='(max-width: 720px)';
-const MOBILE_HOME_COLLAPSED_SURFACES=['.v17-home-story','.v17-featured-people','.v17-home-media','.v17-research-door'];
+const MOBILE_HOME_COLLAPSED_SURFACES=['.ui-home-story','.ui-featured-people','.ui-home-media','.ui-research-door'];
 const MOBILE_ROUTE_TRAIL_LIMIT=12;
 let pendingPeopleSearchValue='';
 let pendingPeopleSearchFocus=false;
@@ -16,7 +16,7 @@ const safeText=value=>String(value||'').replace(/\s+/g,' ').trim();
 function routeTitle(){
   const route=routeKey();
   if(route==='person')return safeText(document.querySelector('.person-header h2')?.textContent)||'Person';
-  if(route==='branch')return safeText(document.querySelector('.v175-branch-hero h1')?.textContent)||'Family';
+  if(route==='branch')return safeText(document.querySelector('.ui-branch-hero h1')?.textContent)||'Family';
   return titleMap[route]||'Family History';
 }
 
@@ -69,12 +69,12 @@ function syncDedicatedHeader(){
     siteHeader.setAttribute('aria-hidden',String(mobileViewport));
   }
   if(!mobileViewport){
-    document.body.classList.remove('v21-actual-mobile-ui');
+    document.body.classList.remove('ui-actual-mobile-ui');
     delete document.body.dataset.mobileHeaderOwner;
     return;
   }
   document.body.dataset.mobileHeaderOwner='dedicated';
-  document.body.classList.add('v21-actual-mobile-ui');
+  document.body.classList.add('ui-actual-mobile-ui');
   const nextTitle=routeTitle();
   const title=header.querySelector('[data-mobile-app-title]');
   if(title&&title.textContent!==nextTitle)title.textContent=nextTitle;
@@ -188,16 +188,16 @@ function composeHomeDiscover(home,anchor){
   let discover=home.querySelector('.v22-mobile-discover');
   if(!discover){
     discover=document.createElement('section');
-    discover.className='v21-mobile-launcher v22-mobile-discover';
+    discover.className='ui-mobile-launcher v22-mobile-discover';
     discover.setAttribute('aria-labelledby','v22-discover-title');
-    discover.innerHTML='<div class="v21-launcher-heading"><span>DISCOVER MORE</span><h2 id="v22-discover-title">Keep exploring</h2><p>Jump straight to the part of the archive you want instead of scrolling through every preview.</p></div><nav class="v17-primary-actions" aria-label="More family destinations"><a class="action" href="#stories">Stories</a><a class="action" href="#people">People</a><a class="action" href="#media">Photos</a><a class="action" href="#timeline">Timeline</a><a class="action" href="#migration">Places</a><a class="action" href="#research">Research</a></nav>';
+    discover.innerHTML='<div class="ui-launcher-heading"><span>DISCOVER MORE</span><h2 id="v22-discover-title">Keep exploring</h2><p>Jump straight to the part of the archive you want instead of scrolling through every preview.</p></div><nav class="ui-primary-actions" aria-label="More family destinations"><a class="action" href="#stories">Stories</a><a class="action" href="#people">People</a><a class="action" href="#media">Photos</a><a class="action" href="#timeline">Timeline</a><a class="action" href="#migration">Places</a><a class="action" href="#research">Research</a></nav>';
   }
   if(anchor?.parentNode&&anchor.nextElementSibling!==discover)anchor.insertAdjacentElement('afterend',discover);
   return discover;
 }
 
 function restoreHomeComposition(home,actions){
-  const launcher=home.querySelector('.v21-mobile-launcher:not(.v22-mobile-discover)');
+  const launcher=home.querySelector('.ui-mobile-launcher:not(.v22-mobile-discover)');
   if(launcher){restoreMovedNode('home-actions',actions);launcher.remove();}
   home.querySelector('.v22-mobile-discover')?.remove();
   home.querySelector('.mobile-search[data-v21-mobile-search="home"]')?.remove();
@@ -205,51 +205,51 @@ function restoreHomeComposition(home,actions){
 }
 
 function composeHome(){
-  const home=document.querySelector('[data-v17-native="home"]');
+  const home=document.querySelector('[data-ui-native="home"]');
   if(!home)return;
-  const actions=home.querySelector('.v17-primary-actions');
+  const actions=home.querySelector('.ui-primary-actions');
   if(!isMobile()){
     restoreHomeComposition(home,actions);
     return;
   }
-  const hero=home.querySelector('.v17-home-hero');
+  const hero=home.querySelector('.ui-family-home-hero');
   if(!hero||!actions)return;
   const search=composeHomeSearch(home,hero);
   ensureReturnMarker(actions,'home-actions');
-  let launcher=home.querySelector('.v21-mobile-launcher:not(.v22-mobile-discover)');
+  let launcher=home.querySelector('.ui-mobile-launcher:not(.v22-mobile-discover)');
   if(!launcher){
     launcher=document.createElement('section');
-    launcher.className='v21-mobile-launcher';
+    launcher.className='ui-mobile-launcher';
     launcher.setAttribute('aria-labelledby','v21-start-title');
-    launcher.innerHTML='<div class="v21-launcher-heading"><span>START HERE</span><h2 id="v21-start-title">Explore your family</h2><p>Move through the archive the way you would in an app—not a stacked website.</p></div>';
+    launcher.innerHTML='<div class="ui-launcher-heading"><span>START HERE</span><h2 id="v21-start-title">Explore your family</h2><p>Move through the archive the way you would in an app—not a stacked website.</p></div>';
   }
   if(actions.parentNode!==launcher)launcher.append(actions);
   if(search.nextElementSibling!==launcher)search.insertAdjacentElement('afterend',launcher);
 
-  const surfaceMap=[['.v17-home-tree','connections'],['.v17-home-story','stories'],['.v17-featured-people','people'],['.v17-home-media','media'],['.v17-research-door','research']];
+  const surfaceMap=[['.ui-home-tree','connections'],['.ui-home-story','stories'],['.ui-featured-people','people'],['.ui-home-media','media'],['.ui-research-door','research']];
   surfaceMap.forEach(([selector,value])=>{const node=home.querySelector(selector);if(node&&node.dataset.v21Surface!==value)node.dataset.v21Surface=value;});
 
-  const treePreview=home.querySelector('.v17-home-tree');
+  const treePreview=home.querySelector('.ui-home-tree');
   setMobileHomePreviewState(home,true);
   composeHomeDiscover(home,treePreview||launcher);
 }
 
 function composePeople(){
-  const root=document.querySelector('[data-v17-native="people"]');
+  const root=document.querySelector('[data-ui-native="people"]');
   if(!root)return;
   if(!isMobile()){root.querySelector('.mobile-search')?.remove();return;}
-  const intro=root.querySelector('.v17-page-intro');
+  const intro=root.querySelector('.ui-page-intro');
   if(intro)composePeopleSearch(root,intro);
-  const branches=root.querySelector('.v17-branch-browser');
+  const branches=root.querySelector('.ui-family-branch-browser');
   if(branches)branches.dataset.v21PeopleBranches='true';
 }
 
 function composePerson(){
-  const root=document.querySelector('[data-v17-native="person"]');
+  const root=document.querySelector('[data-ui-native="person"]');
   if(!root)return;
-  const actions=root.querySelector('.v17-person-actions');
+  const actions=root.querySelector('.ui-person-actions');
   if(!isMobile()){
-    const quick=root.querySelector('.v21-person-quick-actions');
+    const quick=root.querySelector('.ui-person-quick-actions');
     if(quick){restoreMovedNode('person-actions',actions);quick.remove();}
     delete root.dataset.v22PersonFlow;
     return;
@@ -257,10 +257,10 @@ function composePerson(){
   const header=root.querySelector('.person-header');
   if(!header||!actions)return;
   ensureReturnMarker(actions,'person-actions');
-  let quick=root.querySelector('.v21-person-quick-actions');
+  let quick=root.querySelector('.ui-person-quick-actions');
   if(!quick){
     quick=document.createElement('nav');
-    quick.className='v21-person-quick-actions';
+    quick.className='ui-person-quick-actions';
     quick.setAttribute('aria-label','Person quick actions');
     quick.innerHTML='<span>EXPLORE THIS PERSON</span>';
   }
@@ -281,17 +281,17 @@ function composeTree(){
   const content=document.getElementById('content');
   if(!content)return;
   if(!isMobile()||routeKey()!=='tree'){
-    content.querySelector('.v21-tree-mode-bar')?.remove();
+    content.querySelector('.ui-tree-mode-bar')?.remove();
     delete content.dataset.v21TreeApp;
     delete content.dataset.v22TreeCanvas;
     return;
   }
   const graph=content.querySelector('.graph-shell,.tree-graph-shell');
   if(!graph)return;
-  let bar=content.querySelector('.v21-tree-mode-bar');
+  let bar=content.querySelector('.ui-tree-mode-bar');
   if(!bar){
     bar=document.createElement('div');
-    bar.className='v21-tree-mode-bar';
+    bar.className='ui-tree-mode-bar';
     bar.setAttribute('role','toolbar');
     bar.setAttribute('aria-label','Family tree controls');
     bar.innerHTML='<div><span>EXPLORE</span><strong>Family Tree</strong></div><div><button type="button" data-v21-tree-center aria-label="Center and fit family tree">Center</button><button type="button" data-v21-tree-tools aria-label="Open family tree tools">Tools</button></div>';
@@ -316,7 +316,7 @@ function composeMore(){
   }
   panel.setAttribute('role','dialog');
   panel.setAttribute('aria-modal','true');
-  if(panel.querySelector('.v21-more-discover'))return;
+  if(panel.querySelector('.ui-more-discover'))return;
   const photos=panel.querySelector('a[href="#media"]');
   const stories=panel.querySelector('a[href="#stories"]');
   const timeline=panel.querySelector('a[href="#timeline"]');
@@ -329,11 +329,11 @@ function composeMore(){
     search.setAttribute('aria-label','Search the family archive');
   }
   const discover=document.createElement('section');
-  discover.className='v21-more-discover';
+  discover.className='ui-more-discover';
   discover.innerHTML='<span>DISCOVER</span><div></div>';
   [photos,stories,timeline,places].filter(Boolean).forEach(node=>discover.querySelector('div').append(node));
   const researchGroup=document.createElement('section');
-  researchGroup.className='v21-more-research';
+  researchGroup.className='ui-more-research';
   researchGroup.innerHTML='<span>RESEARCH</span><div></div>';
   if(research)researchGroup.querySelector('div').append(research);
   const head=panel.querySelector('.mobile-more-head');

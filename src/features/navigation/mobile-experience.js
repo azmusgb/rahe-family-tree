@@ -31,7 +31,7 @@ function rememberById(list,item,max){return[item,...list.filter(existing=>existi
 function routeTitle(){
   const route=routeKey();
   if(route==='person')return safeText(document.querySelector('.person-header h2')?.textContent)||'Person';
-  if(route==='branch')return safeText(document.querySelector('.v175-branch-hero h1')?.textContent)||decodeURIComponent(routeDetail()||'Family');
+  if(route==='branch')return safeText(document.querySelector('.ui-branch-hero h1')?.textContent)||decodeURIComponent(routeDetail()||'Family');
   const titles={tree:'Family Tree',people:'People',families:'Families',media:'Photos & Documents',stories:'Stories',timeline:'Timeline',migration:'Places',research:'Research Center',evidence:'Evidence',sources:'Sources',intelligence:'Research'};
   return titles[route]||safeText(document.getElementById('title')?.textContent)||'Family History';
 }
@@ -43,17 +43,17 @@ function backTarget(){
   return{href:'#dashboard',label:'Home'};
 }
 function contextualHeader(){
-  let bar=document.querySelector('.v20-context-bar');
+  let bar=document.querySelector('.ui-context-bar');
   if(!bar){
     bar=document.createElement('nav');
-    bar.className='v20-context-bar';
+    bar.className='ui-context-bar';
     bar.setAttribute('aria-label','Current family location');
     document.querySelector('.site-header')?.insertAdjacentElement('afterend',bar);
   }
   if(!isMobile()||routeKey()==='dashboard'){bar.hidden=true;return;}
   const back=backTarget();
   bar.hidden=false;
-  bar.innerHTML=`<a href="${back.href}" class="v20-context-back" aria-label="Back to ${escapeHtml(back.label)}"><span aria-hidden="true">‹</span>${escapeHtml(back.label)}</a><strong>${escapeHtml(routeTitle())}</strong><button type="button" data-global-search aria-label="Search family archive">Search</button>`;
+  bar.innerHTML=`<a href="${back.href}" class="ui-context-back" aria-label="Back to ${escapeHtml(back.label)}"><span aria-hidden="true">‹</span>${escapeHtml(back.label)}</a><strong>${escapeHtml(routeTitle())}</strong><button type="button" data-global-search aria-label="Search family archive">Search</button>`;
 }
 
 function rememberCurrentContext(){
@@ -68,39 +68,39 @@ function rememberCurrentContext(){
       return state;
     });
   }
-  const person=document.querySelector('.v17-person[data-person-id]');
+  const person=document.querySelector('.ui-person[data-person-id]');
   if(route==='person'&&person){
-    const item={id:person.dataset.personId,name:safeText(person.querySelector('.person-header h2')?.textContent)||'Family member',branch:safeText(person.querySelector('.person-header .eyebrow')?.textContent).replace(/\s+FAMILY$/i,''),dates:safeText(person.querySelector('.v17-person-dates')?.textContent),savedAt:Date.now()};
+    const item={id:person.dataset.personId,name:safeText(person.querySelector('.person-header h2')?.textContent)||'Family member',branch:safeText(person.querySelector('.person-header .eyebrow')?.textContent).replace(/\s+FAMILY$/i,''),dates:safeText(person.querySelector('.ui-person-dates')?.textContent),savedAt:Date.now()};
     updateState(state=>{state.recentPeople=rememberById(state.recentPeople,item,MAX_RECENT_PEOPLE);return state;});
   }
-  const branch=document.querySelector('.v175-branch[data-v17-native^="branch:"]');
+  const branch=document.querySelector('.ui-branch[data-ui-native^="branch:"]');
   if(route==='branch'&&branch){
-    const name=safeText(branch.querySelector('.v175-branch-hero h1')?.textContent).replace(/\s+family$/i,'')||decodeURIComponent(routeDetail()||'Family');
+    const name=safeText(branch.querySelector('.ui-branch-hero h1')?.textContent).replace(/\s+family$/i,'')||decodeURIComponent(routeDetail()||'Family');
     const item={id:name,name,savedAt:Date.now()};
     updateState(state=>{state.recentFamilies=rememberById(state.recentFamilies,item,MAX_RECENT_FAMILIES);return state;});
   }
 }
 
 function recentPersonCard(person){
-  return`<a href="#person/${encodeURIComponent(person.id)}" class="v20-recent-person"><span aria-hidden="true">${escapeHtml(person.name.split(/\s+/).filter(Boolean).map(part=>part[0]).slice(0,2).join('').toUpperCase())}</span><b>${escapeHtml(person.name)}</b><small>${escapeHtml([person.branch,person.dates].filter(Boolean).join(' · '))}</small></a>`;
+  return`<a href="#person/${encodeURIComponent(person.id)}" class="ui-recent-person"><span aria-hidden="true">${escapeHtml(person.name.split(/\s+/).filter(Boolean).map(part=>part[0]).slice(0,2).join('').toUpperCase())}</span><b>${escapeHtml(person.name)}</b><small>${escapeHtml([person.branch,person.dates].filter(Boolean).join(' · '))}</small></a>`;
 }
 function injectRecentRail(root,where='afterbegin'){
-  if(!root||root.querySelector('.v20-recent-rail'))return;
+  if(!root||root.querySelector('.ui-recent-rail'))return;
   const recent=readState().recentPeople;
   if(!recent.length)return;
   const section=document.createElement('section');
-  section.className='v20-recent-rail';
+  section.className='ui-recent-rail';
   section.setAttribute('aria-label','Recently viewed family members');
-  section.innerHTML=`<div class="v20-section-title"><div><span>Continue exploring</span><h2>Recently viewed</h2></div><a href="#people">All people</a></div><div class="v20-recent-scroller">${recent.slice(0,6).map(recentPersonCard).join('')}</div>`;
+  section.innerHTML=`<div class="ui-section-title"><div><span>Continue exploring</span><h2>Recently viewed</h2></div><a href="#people">All people</a></div><div class="ui-recent-scroller">${recent.slice(0,6).map(recentPersonCard).join('')}</div>`;
   if(where==='afterhero'){
-    const anchor=root.querySelector('.v20-continue-card')||root.querySelector('.v17-home-hero');
+    const anchor=root.querySelector('.ui-continue-card')||root.querySelector('.ui-family-home-hero');
     anchor?.insertAdjacentElement('afterend',section);
   }else root.insertAdjacentElement(where,section);
 }
 function injectContinueCard(){
-  const home=document.querySelector('[data-v17-native="home"]');
+  const home=document.querySelector('[data-ui-native="home"]');
   if(!home)return;
-  home.querySelector('.v20-continue-card')?.remove();
+  home.querySelector('.ui-continue-card')?.remove();
   const state=readState(),person=state.recentPeople[0],tree=state.lastTree;
   if(!person&&!tree)return;
   const personTime=Number(person?.savedAt||0),treeTime=Number(tree?.savedAt||0),useTree=Boolean(tree&&(!person||treeTime>personTime));
@@ -108,27 +108,27 @@ function injectContinueCard(){
   const title=useTree?'Your family tree':person.name;
   const detail=useTree?'Return to your previous tree view':[person.branch,person.dates].filter(Boolean).join(' · ');
   const card=document.createElement('section');
-  card.className='v20-continue-card';
+  card.className='ui-continue-card';
   card.setAttribute('aria-label','Continue family exploration');
   card.innerHTML=`<div><span>CONTINUE EXPLORING</span><h2>${escapeHtml(title)}</h2><p>${escapeHtml(detail)}</p></div><a href="${href}">Resume <span aria-hidden="true">→</span></a>`;
-  home.querySelector('.v17-home-hero')?.insertAdjacentElement('afterend',card);
+  home.querySelector('.ui-family-home-hero')?.insertAdjacentElement('afterend',card);
 }
 function enhanceHome(){
-  const home=document.querySelector('[data-v17-native="home"]');
+  const home=document.querySelector('[data-ui-native="home"]');
   if(!home||!isMobile())return;
   injectContinueCard();
   injectRecentRail(home,'afterhero');
-  home.querySelector('.v17-home-tree')?.setAttribute('data-mobile-chapter','tree');
-  home.querySelector('.v17-home-story')?.setAttribute('data-mobile-chapter','story');
-  home.querySelector('.v17-featured-people')?.setAttribute('data-mobile-chapter','people');
-  home.querySelector('.v17-home-media')?.setAttribute('data-mobile-chapter','media');
-  home.querySelector('.v17-research-door')?.setAttribute('data-mobile-chapter','research');
+  home.querySelector('.ui-home-tree')?.setAttribute('data-mobile-chapter','tree');
+  home.querySelector('.ui-home-story')?.setAttribute('data-mobile-chapter','story');
+  home.querySelector('.ui-featured-people')?.setAttribute('data-mobile-chapter','people');
+  home.querySelector('.ui-home-media')?.setAttribute('data-mobile-chapter','media');
+  home.querySelector('.ui-research-door')?.setAttribute('data-mobile-chapter','research');
 }
 
 function activatePersonSection(root,target,{scroll=false}={}){
   root.dataset.v20ActiveTab=target;
   root.querySelectorAll('[data-v20-person-panel]').forEach(panel=>{panel.hidden=false;});
-  root.querySelectorAll('.v20-person-tabs button').forEach(button=>{
+  root.querySelectorAll('.ui-person-tabs button').forEach(button=>{
     const active=button.dataset.personTab===target;
     button.setAttribute('aria-pressed',String(active));
     button.tabIndex=active?0:-1;
@@ -138,9 +138,9 @@ function activatePersonSection(root,target,{scroll=false}={}){
   if(panel)panel.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
 }
 function cleanupPersonMobile(root){
-  root.querySelector('.v17-person-nav')?.removeAttribute('aria-hidden');
-  root.querySelector('.v20-person-tabs')?.remove();
-  root.querySelector('.v20-person-story')?.remove();
+  root.querySelector('.ui-person-nav')?.removeAttribute('aria-hidden');
+  root.querySelector('.ui-person-tabs')?.remove();
+  root.querySelector('.ui-mobile-person-story')?.remove();
   root.querySelectorAll('[data-v20-person-panel]').forEach(panel=>{
     panel.hidden=false;
     delete panel.dataset.v20PersonPanel;
@@ -149,20 +149,20 @@ function cleanupPersonMobile(root){
   delete root.dataset.v20ActiveTab;
 }
 function enhancePerson(){
-  const root=document.querySelector('[data-v17-native="person"]');
+  const root=document.querySelector('[data-ui-native="person"]');
   if(!root)return;
   root.querySelectorAll('[data-v20-person-panel]').forEach(panel=>{panel.hidden=false;});
   if(!isMobile()){cleanupPersonMobile(root);return;}
   const header=root.querySelector('.person-header'),family=root.querySelector('#v17-family'),life=root.querySelector('#v17-life'),photos=root.querySelector('#v17-photos'),research=root.querySelector('#v17-research');
   if(!header||!family||!life||!photos||!research)return;
-  let story=root.querySelector('.v20-person-story');
+  let story=root.querySelector('.ui-mobile-person-story');
   if(!story){
     story=document.createElement('section');
-    story.className='v20-person-story';
+    story.className='ui-mobile-person-story';
     story.dataset.v20PersonPanel='story';
     story.setAttribute('aria-label','Profile story');
-    const name=safeText(header.querySelector('h2')?.textContent),dates=safeText(header.querySelector('.v17-person-dates')?.textContent),context=safeText(header.querySelector('.v17-person-context')?.textContent);
-    story.innerHTML=`<span>PROFILE</span><h2>${escapeHtml(name)}</h2>${dates?`<p class="v20-story-dates">${escapeHtml(dates)}</p>`:''}${context?`<p>${escapeHtml(context)}</p>`:''}<p>This profile brings together family relationships, chronology, photographs, and source-controlled evidence from the archive.</p>`;
+    const name=safeText(header.querySelector('h2')?.textContent),dates=safeText(header.querySelector('.ui-person-dates')?.textContent),context=safeText(header.querySelector('.ui-person-context')?.textContent);
+    story.innerHTML=`<span>PROFILE</span><h2>${escapeHtml(name)}</h2>${dates?`<p class="ui-story-dates">${escapeHtml(dates)}</p>`:''}${context?`<p>${escapeHtml(context)}</p>`:''}<p>This profile brings together family relationships, chronology, photographs, and source-controlled evidence from the archive.</p>`;
     header.insertAdjacentElement('afterend',story);
   }
   family.dataset.v20PersonPanel='family';family.setAttribute('aria-label','Family');
@@ -170,10 +170,10 @@ function enhancePerson(){
   photos.dataset.v20PersonPanel='photos';photos.setAttribute('aria-label','Photos');
   research.dataset.v20PersonPanel='evidence';research.setAttribute('aria-label','Evidence');
   [story,family,life,photos,research].forEach(panel=>{panel.hidden=false;});
-  let tabs=root.querySelector('.v20-person-tabs');
+  let tabs=root.querySelector('.ui-person-tabs');
   if(!tabs){
     tabs=document.createElement('nav');
-    tabs.className='v20-person-tabs';
+    tabs.className='ui-person-tabs';
     tabs.setAttribute('aria-label','Person profile sections');
     tabs.innerHTML=['story:Story','family:Family','timeline:Timeline','photos:Photos','evidence:Evidence'].map((entry,index)=>{const[target,label]=entry.split(':');return`<button type="button" data-person-tab="${target}" aria-pressed="${index===0?'true':'false'}" tabindex="${index===0?'0':'-1'}">${label}</button>`;}).join('');
     story.insertAdjacentElement('beforebegin',tabs);
@@ -193,27 +193,27 @@ function enhancePerson(){
       activatePersonSection(root,buttons[next].dataset.personTab,{scroll:true});
     });
   }
-  root.querySelector('.v17-person-nav')?.setAttribute('aria-hidden','true');
+  root.querySelector('.ui-person-nav')?.setAttribute('aria-hidden','true');
   activatePersonSection(root,root.dataset.v20ActiveTab||'story',{scroll:false});
 }
 
 function enhancePeople(){
-  const root=document.querySelector('[data-v17-native="people"]');
+  const root=document.querySelector('[data-ui-native="people"]');
   if(!root||!isMobile())return;
   injectRecentRail(root,'afterbegin');
-  root.querySelector('.v17-people-grid')?.setAttribute('role','list');
-  root.querySelectorAll('.v17-person-card').forEach(card=>card.setAttribute('role','listitem'));
+  root.querySelector('.ui-people-grid')?.setAttribute('role','list');
+  root.querySelectorAll('.ui-family-person-card').forEach(card=>card.setAttribute('role','listitem'));
 }
 function enhanceFamilies(){
-  const root=document.querySelector('[data-v17-native="families"]');
+  const root=document.querySelector('[data-ui-native="families"]');
   if(!root||!isMobile())return;
-  root.querySelector('.v175-family-grid')?.setAttribute('data-mobile-family-browser','true');
+  root.querySelector('.ui-family-grid')?.setAttribute('data-mobile-family-browser','true');
 }
 function enhanceBranch(){
-  const root=document.querySelector('[data-v17-native^="branch:"]');
+  const root=document.querySelector('[data-ui-native^="branch:"]');
   if(!root||!isMobile())return;
-  root.querySelector('.v175-branch-people')?.setAttribute('data-mobile-rail','people');
-  root.querySelector('.v175-branch-timeline')?.setAttribute('data-mobile-timeline','true');
+  root.querySelector('.ui-branch-people')?.setAttribute('data-mobile-rail','people');
+  root.querySelector('.ui-branch-timeline')?.setAttribute('data-mobile-timeline','true');
 }
 
 function compactTreeSurface(){
@@ -226,7 +226,7 @@ function compactTreeSurface(){
 }
 function classifyRoute(){
   document.body.dataset.mobileRoute=routeKey();
-  document.body.classList.toggle('v20-mobile-app',isMobile());
+  document.body.classList.toggle('ui-mobile-app',isMobile());
 }
 function apply(){
   classifyRoute();
