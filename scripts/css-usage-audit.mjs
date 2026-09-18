@@ -134,6 +134,8 @@ function collectUsage(files){
       for(const x of q.matchAll(attrRe))add(attrRefs,x[1],rp);
     }
     for(const m of src.matchAll(/\b(data-[\w-]+|aria-[\w-]+)\b/g))add(attrRefs,m[1],rp);
+    for(const m of src.matchAll(/\.dataset\.([a-zA-Z][\w]*)/g)){const kebab=m[1].replace(/[A-Z]/g,ch=>'-'+ch.toLowerCase());add(attrRefs,'data-'+kebab,rp);}
+    for(const m of src.matchAll(/setAttribute\s*\(\s*["'\`]((?:data|aria)-[\w-]+)["'\`]/g))add(attrRefs,m[1],rp);
   }
   return{classRefs,idRefs,attrRefs};
 }
@@ -204,7 +206,13 @@ const jsHtmlIdTokens=[...usage.idRefs.keys()].sort();
 const jsHtmlAttrTokens=[...usage.attrRefs.keys()].sort();
 const unstyledClasses=jsHtmlClassTokens.filter(x=>!cssClasses.has(x));
 const unstyledIds=jsHtmlIdTokens.filter(x=>!cssIds.has(x));
+const usageCorpus=usageFiles.map(file=>fs.readFileSync(file,'utf8')).join('\n');
+const dynamicCustomProperties=new Set([...usageCorpus.matchAll(/--[\w-]+/g)].map(m=>m[0]));
 const undefinedCustomProperties=[...customUsed.keys()].filter(x=>!customDefined.has(x)).sort();
+const fallbackOnlyCustomProperties=undefinedCustomProperties.filter(name=>activeCss.some(file=>new RegExp('var\\\\(\\\\s*'+name.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\\\const undefinedCustomProperties=[...customUsed.keys()].filter(x=>!customDefined.has(x)).sort();
+const unusedCustomProperties=[...customDefined.keys()].filter(x=>!customUsed.has(x)).sort();')+'\\\\s*,').test(read(file))));
+const dynamicDefinedCustomProperties=undefinedCustomProperties.filter(name=>dynamicCustomProperties.has(name));
+const unsafeUndefinedCustomProperties=undefinedCustomProperties.filter(name=>!fallbackOnlyCustomProperties.includes(name)&&!dynamicDefinedCustomProperties.includes(name));
 const unusedCustomProperties=[...customDefined.keys()].filter(x=>!customUsed.has(x)).sort();
 
 let inlineStyleAttributes=0,stylePropertyWrites=0,styleBlocks=0;
@@ -228,6 +236,9 @@ const totals={
   legacyClassArms:Object.values(cssStats).reduce((n,x)=>n+x.legacyClasses,0),
   unstyledRuntimeOrMarkupClasses:unstyledClasses.length,
   undefinedCustomProperties:undefinedCustomProperties.length,
+  unsafeUndefinedCustomProperties:unsafeUndefinedCustomProperties.length,
+  fallbackOnlyCustomProperties:fallbackOnlyCustomProperties.length,
+  dynamicDefinedCustomProperties:dynamicDefinedCustomProperties.length,
   unusedCustomProperties:unusedCustomProperties.length,
   inlineStyleAttributes,
   stylePropertyWrites,
@@ -247,6 +258,9 @@ const report={
   unstyledClasses:unstyledClasses.slice(0,1000),
   unstyledIds:unstyledIds.slice(0,500),
   undefinedCustomProperties,
+  unsafeUndefinedCustomProperties,
+  fallbackOnlyCustomProperties,
+  dynamicDefinedCustomProperties,
   unusedCustomProperties,
   notes:[
     'Dead selector candidates are conservative static-analysis candidates, not automatic deletion instructions.',
@@ -294,9 +308,11 @@ function md(){
     '',
     '## Custom properties',
     '',
-    `Undefined uses: ${undefinedCustomProperties.length}; unused definitions: ${unusedCustomProperties.length}.`,
+    `Undefined in CSS: ${undefinedCustomProperties.length}; unsafe undefined: ${unsafeUndefinedCustomProperties.length}; fallback-only: ${fallbackOnlyCustomProperties.length}; dynamically defined: ${dynamicDefinedCustomProperties.length}; unused definitions: ${unusedCustomProperties.length}.`,
     '',
-    ...undefinedCustomProperties.slice(0,100).map(x=>`- undefined: \`${x}\``),
+    ...unsafeUndefinedCustomProperties.slice(0,100).map(x=>`- unsafe undefined: \`${x}\``),
+    ...fallbackOnlyCustomProperties.slice(0,100).map(x=>`- fallback-only: \`${x}\``),
+    ...dynamicDefinedCustomProperties.slice(0,100).map(x=>`- dynamically defined: \`${x}\``),
     ...unusedCustomProperties.slice(0,100).map(x=>`- unused definition: \`${x}\``),
     '',
     '## Inline-style pressure',
@@ -320,6 +336,6 @@ console.log(JSON.stringify({totals,orphanCss,topDead:deadCandidates.slice(0,25),
 if(args.has('--strict')){
   let failed=false;
   if(orphanCss.length){console.error(`CSS usage audit failed: ${orphanCss.length} orphan CSS file(s): ${orphanCss.join(', ')}`);failed=true;}
-  if(undefinedCustomProperties.length){console.error(`CSS usage audit failed: undefined custom properties: ${undefinedCustomProperties.join(', ')}`);failed=true;}
+  if(unsafeUndefinedCustomProperties.length){console.error(`CSS usage audit failed: unsafe undefined custom properties: ${unsafeUndefinedCustomProperties.join(', ')}`);failed=true;}
   if(failed)process.exit(1);
 }
