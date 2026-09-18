@@ -1,3 +1,13 @@
+
+/* v24.7A canonical ownership — earlier-cascade declarations. */
+/* migrated from src/styles/foundation.css */
+.edition{margin-top:auto;border-top:1px solid #41645a;padding-top:16px;color:#bdd0c7;line-height:1.55}
+/* migrated from src/styles/foundation.css */
+.edition{opacity:.88}
+/* migrated from src/styles/foundation.css */
+.v162-journey-head>a{white-space:nowrap;font-weight:750;color:var(--green)}
+/* migrated from src/styles/foundation.css */
+.v162-places{display:flex;align-items:center;flex-wrap:wrap;padding-top:2px}
 /* ==========================================================================
    Source: navigation.css
    ========================================================================== */
@@ -670,7 +680,6 @@ body[data-route="dashboard"][data-v158-context="family"] .v161-research-band h2{
 
 /* Native v17 Home. */
 .v17-home{max-width:var(--family-page-home);margin:0 auto}
-.v17-home-hero{position:relative;overflow:hidden;padding:clamp(34px,5vw,68px);}
 .v17-home-hero::after{position:absolute;right:clamp(16px,5vw,72px);bottom:-.18em;font:600 clamp(9rem,19vw,17rem)/1 var(--family-font-display);color:rgba(23,63,53,.035);pointer-events:none}
 .v17-home-hero>div{position:relative;z-index:1;}
 .v17-home-hero h2{font:600 var(--family-text-display)/.96 var(--family-font-display);text-wrap:balance}
@@ -734,3 +743,7 @@ body[data-route="dashboard"][data-v158-context="family"] .v161-research-band h2{
 /* Archive identity uses a neutral family-history monogram. */
 .v17-home-hero::after{}
 
+
+/* v24.7A canonical ownership — later-cascade declarations. */
+/* migrated from src/features/research/research.css */
+.edition{font-size:max(11px,inherit)}
