@@ -1,2 +1,2 @@
-// Permanent Search feature boundary.
-import '../../runtime/search.js';
+// Search feature composition boundary.
+import './runtime.js';
