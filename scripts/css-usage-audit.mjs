@@ -107,37 +107,33 @@ function specificity(s){
 }
 
 function collectUsage(files){
-  const classRefs=new Map(),idRefs=new Map(),attrRefs=new Map();
+  const classRefs=new Map(),idRefs=new Map(),attrRefs=new Map(),dynamicClassPrefixRefs=new Map();
   const add=(map,key,file)=>{if(!key)return;const set=map.get(key)||new Set();set.add(file);map.set(key,set);};
-  const classPatterns=[
-    /\bclass(?:Name)?\s*=\s*["'\`]([^"'\`]+)["'\`]/g,
-    /\.class(?:Name)?\s*=\s*["'\`]([^"'\`]+)["'\`]/g,
-    /classList\.(?:add|remove|toggle|contains|replace)\s*\(([^)]*)\)/g
-  ];
+  const addClassValue=(raw,file)=>{
+    for(const m of raw.matchAll(/([_a-zA-Z][_a-zA-Z0-9-]*-?)\$\{/g)) add(dynamicClassPrefixRefs,m[1],file);
+    const staticOnly=raw.replace(/\$\{[\s\S]*?\}/g,' ');
+    for(const token of staticOnly.match(/[_a-zA-Z][_a-zA-Z0-9-]*/g)||[]) add(classRefs,token,file);
+  };
   for(const file of files){
     const src=fs.readFileSync(file,'utf8'),rp=rel(file);
-    for(const re of classPatterns){
-      for(const m of src.matchAll(re)){
-        const value=m[1];
-        for(const token of value.match(/[_a-zA-Z][_a-zA-Z0-9-]*/g)||[]){
-          if(['true','false','class','className'].includes(token))continue;
-          add(classRefs,token,rp);
-        }
-      }
+    for(const m of src.matchAll(/\bclass(?:Name)?\s*=\s*["'`]([^"'`]+)["'`]/g)) addClassValue(m[1],rp);
+    for(const m of src.matchAll(/\.class(?:Name)?\s*=\s*["'`]([^"'`]+)["'`]/g)) addClassValue(m[1],rp);
+    for(const m of src.matchAll(/classList\.(?:add|remove|toggle|contains|replace)\s*\(([^)]*)\)/g)){
+      for(const literal of m[1].matchAll(/["'`]([^"'`]+)["'`]/g)) addClassValue(literal[1],rp);
     }
-    for(const m of src.matchAll(/getElementById\s*\(\s*["'\`]([^"'\`]+)["'\`]\s*\)/g))add(idRefs,m[1],rp);
-    for(const m of src.matchAll(/\bid\s*=\s*["'\`]([^"'\`]+)["'\`]/g))add(idRefs,m[1],rp);
-    for(const m of src.matchAll(/(?:querySelector(?:All)?|matches|closest)\s*\(\s*["'\`]([^"'\`]+)["'\`]/g)){
+    for(const m of src.matchAll(/getElementById\s*\(\s*["'`]([^"'`]+)["'`]\s*\)/g)) add(idRefs,m[1],rp);
+    for(const m of src.matchAll(/\bid\s*=\s*["'`]([^"'`]+)["'`]/g)) add(idRefs,m[1],rp);
+    for(const m of src.matchAll(/(?:querySelector(?:All)?|matches|closest)\s*\(\s*["'`]([^"'`]+)["'`]/g)){
       const q=m[1];
-      for(const x of q.matchAll(classRe))add(classRefs,x[1],rp);
-      for(const x of q.matchAll(idRe))add(idRefs,x[1],rp);
-      for(const x of q.matchAll(attrRe))add(attrRefs,x[1],rp);
+      for(const x of q.matchAll(classRe)) add(classRefs,x[1],rp);
+      for(const x of q.matchAll(idRe)) add(idRefs,x[1],rp);
+      for(const x of q.matchAll(attrRe)) add(attrRefs,x[1],rp);
     }
-    for(const m of src.matchAll(/\b(data-[\w-]+|aria-[\w-]+)\b/g))add(attrRefs,m[1],rp);
+    for(const m of src.matchAll(/\b(data-[\w-]+|aria-[\w-]+)\b/g)) add(attrRefs,m[1],rp);
     for(const m of src.matchAll(/\.dataset\.([a-zA-Z][\w]*)/g)){const kebab=m[1].replace(/[A-Z]/g,ch=>'-'+ch.toLowerCase());add(attrRefs,'data-'+kebab,rp);}
-    for(const m of src.matchAll(/setAttribute\s*\(\s*["'\`]((?:data|aria)-[\w-]+)["'\`]/g))add(attrRefs,m[1],rp);
+    for(const m of src.matchAll(/setAttribute\s*\(\s*["'`]((?:data|aria)-[\w-]+)["'`]/g)) add(attrRefs,m[1],rp);
   }
-  return{classRefs,idRefs,attrRefs};
+  return{classRefs,idRefs,attrRefs,dynamicClassPrefixRefs};
 }
 
 const allFiles=walk();
@@ -175,12 +171,12 @@ for(const file of activeCss){
     for(const x of t.ids)cssIds.add(x);
     for(const x of t.attrs)cssAttrs.add(x);
     const refs=new Set();
-    for(const x of t.classes)for(const f of usage.classRefs.get(x)||[])refs.add(f);
+    for(const x of t.classes){for(const f of usage.classRefs.get(x)||[])refs.add(f);for(const [prefix,files] of usage.dynamicClassPrefixRefs){if(x.startsWith(prefix))for(const f of files)refs.add(f);}}
     for(const x of t.ids)for(const f of usage.idRefs.get(x)||[])refs.add(f);
     for(const x of t.attrs)for(const f of usage.attrRefs.get(x)||[])refs.add(f);
     const concrete=t.classes.length+t.ids.length+t.attrs.length;
     const unresolvedTokens=[
-      ...t.classes.filter(x=>!usage.classRefs.has(x)).map(x=>'.'+x),
+      ...t.classes.filter(x=>!usage.classRefs.has(x)&&![...usage.dynamicClassPrefixRefs.keys()].some(prefix=>x.startsWith(prefix))).map(x=>'.'+x),
       ...t.ids.filter(x=>!usage.idRefs.has(x)).map(x=>'#'+x),
       ...t.attrs.filter(x=>!usage.attrRefs.has(x)).map(x=>'['+x+']')
     ];
@@ -202,6 +198,7 @@ const deadCandidates=selectorRows.filter(r=>{
 const highSpecificity=selectorRows.filter(r=>{const [a,b]=r.specificity.split(',').map(Number);return a>=2||b>=6;}).sort((x,y)=>{const a=x.specificity.split(',').map(Number),b=y.specificity.split(',').map(Number);return b[0]-a[0]||b[1]-a[1];});
 
 const jsHtmlClassTokens=[...usage.classRefs.keys()].sort();
+const dynamicClassPrefixes=[...usage.dynamicClassPrefixRefs.keys()].sort();
 const jsHtmlIdTokens=[...usage.idRefs.keys()].sort();
 const jsHtmlAttrTokens=[...usage.attrRefs.keys()].sort();
 const unstyledClasses=jsHtmlClassTokens.filter(x=>!cssClasses.has(x));
@@ -256,6 +253,7 @@ const report={
   highSpecificitySelectors:highSpecificity.slice(0,500),
   unstyledClasses:unstyledClasses.slice(0,1000),
   unstyledIds:unstyledIds.slice(0,500),
+  dynamicClassPrefixes,
   undefinedCustomProperties,
   unsafeUndefinedCustomProperties,
   fallbackOnlyCustomProperties,
@@ -265,7 +263,7 @@ const report={
     'Dead selector candidates are conservative static-analysis candidates, not automatic deletion instructions.',
     'A selector is not marked dead when any concrete class/id/data-attribute token is referenced by HTML or JavaScript.',
     'Pseudo-state selectors are excluded from dead-candidate classification.',
-    'Class usage scanning includes HTML class attributes, template strings, className assignments, classList operations, and selector APIs.'
+    'Class usage scanning includes HTML class attributes, template strings, className assignments, classList string literals, selector APIs, and dynamic class prefixes such as state-* or priority-*.'
   ]
 };
 
