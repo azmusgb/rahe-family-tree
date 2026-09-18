@@ -96,7 +96,7 @@ body[data-experience="family"]{}
 @media (max-width:720px){
   :root{--mobile-gutter:16px;--mobile-radius:22px;--mobile-dock-h:72px}
   html{scroll-padding-top:70px}
-  body[data-experience="family"]{padding:0 0 calc(104px + env(safe-area-inset-bottom,0px));background:#f3efe5;color:#183028}
+  body[data-experience="family"]{padding:0 0 calc(104px + env(safe-area-inset-bottom,0px));background:var(--bg)!important;color:#183028}
 
   /* Mobile chrome: quiet, compact, content-first. */
   body[data-experience="family"] .shell{display:block;min-height:100dvh}
