@@ -56,9 +56,7 @@
  * list-card styling must not collapse their six-column desktop structure. */
 .relationship-row{
   display:grid;
-  grid-template-columns:120px minmax(160px,1fr) 20px minmax(160px,1fr) minmax(220px,1.3fr) auto;
   gap:12px;
-  align-items:center;
   background:#fff;
   border:1px solid var(--line);
   border-radius:9px;
