@@ -17,10 +17,10 @@ const styleRoot=read('src/styles/index.css');
 test('advanced tree remains additive behind one deterministic controller without changing the stable tree boundary',()=>{
   const imports=[...composition.matchAll(/import ['\"]([^'\"]+\.js)['\"]/g)].map(match=>match[1]);
   assert.deepEqual(imports,['./engine.js','./polish.js']);
-  assert.match(experience,/import '\.\/tree-controller\.js';/);
-  assert.doesNotMatch(experience,/void import\('\.\/tree-controller\.js'\)/);
-  assert.doesNotMatch(experience,/void import\('\.\/tree-advanced\.js'\)/);
-  assert.doesNotMatch(experience,/void import\('\.\/v17-6-stability\.js'\)/);
+  assert.match(experience,/import '\.\.\/features\/tree\/controller\.js';/);
+  assert.doesNotMatch(experience,/void import\('\.\.\/features\/tree\/controller\.js'\)/);
+  assert.doesNotMatch(experience,/void import\('\.\.\/features\/tree\/advanced\.js'\)/);
+  assert.doesNotMatch(experience,/void import\('\.\.\/features\/tree\/stability\.js'\)/);
   assert.match(controller,/import '\.\/stability\.js';\s*import '\.\/advanced\.js';/);
   assert.match(styleRoot,/@import '\.\.\/features\/tree\/tree\.css';/);assert.ok(styles.indexOf('Source: tree.css')<styles.indexOf('Source: unified-family.css')&&styles.indexOf('Source: unified-family.css')<styles.indexOf('Source: tree-advanced.css'));
 });
