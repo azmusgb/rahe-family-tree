@@ -417,9 +417,7 @@ th{background:#edf2ed}
 
 .profile-status-grid{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 
-.profile-status-grid span{display:grid;gap:2px;border:1px solid var(--line);border-radius:8px;padding:7px 9px;background:#fafcfb}
-
-.profile-status-grid small{color:var(--muted);text-transform:uppercase;letter-spacing:.45px}
+.profile-status-grid span{display:grid;gap:2px;border:1px solid var(--line);border-radius:8px;padding:7px 9px;background:#fafcfb}.profile-status-grid small{color:var(--muted);text-transform:uppercase;letter-spacing:.45px}
 
 .profile-status-grid b{font-size:9px}
 
@@ -484,8 +482,6 @@ body[data-experience="family"] #status{font-size:12px;margin-bottom:18px}
 .family-overview-card{border-radius:18px!important}
 
 .profile-headline h2{font-size:32px!important}
-
-.profile-status-grid small{font-size:10px!important}
 
 .profile-status-grid b{font-size:12px!important}
 
@@ -1479,7 +1475,6 @@ body[data-route="tree"][data-v158-context="family"] .route-shell #status{display
 
 
 @media(max-width:720px){
-body[data-v158-context="family"] .page-heading{padding-top:14px}
 .v1510-profile-tabs>button,.v1510-profile-tabs>a{width:100%;min-height:42px!important;font-size:12px!important;padding-inline:10px!important}
 }
 
