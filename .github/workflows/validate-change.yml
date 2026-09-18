@@ -33,7 +33,7 @@ jobs:
         run: npm test
       - name: Run v17.5-v19 family shell, canonical platform, consolidated tree, research intelligence, Family Graph, navigation, layout, relationship navigator, and path comprehension gates
         run: |
-          node --test scripts/test/contracts/family/branch-shell.mjs scripts/test/contracts/tree/stability.mjs scripts/test/contracts/platform/canonical-platform.mjs scripts/test/contracts/tree/consolidated-tree.mjs scripts/test-tree-advanced.mjs scripts/test-research-automation.mjs scripts/test/contracts/tree/family-graph.mjs scripts/test/contracts/tree/family-navigation.mjs scripts/test/contracts/tree/family-layout.mjs scripts/test/contracts/tree/relationship-navigator.mjs scripts/test/contracts/tree/relationship-path.mjs
+          node --test scripts/contract-family-branch-shell.mjs scripts/contract-tree-stability.mjs scripts/contract-platform-canonical-platform.mjs scripts/contract-tree-consolidated-tree.mjs scripts/test-tree-advanced.mjs scripts/test-research-automation.mjs scripts/contract-tree-family-graph.mjs scripts/contract-tree-family-navigation.mjs scripts/contract-tree-family-layout.mjs scripts/contract-tree-relationship-navigator.mjs scripts/contract-tree-relationship-path.mjs
           node --check src/features/family/branches.js
           node --check src/features/navigation/shell.js
           node --check src/features/family/controller.js
