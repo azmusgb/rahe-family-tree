@@ -298,7 +298,7 @@ const deadCandidates=selectorRows.filter(r=>{
 const highSpecificity=selectorRows.filter(r=>{const [a,b]=r.specificity.split(',').map(Number);return a>=2||b>=6;}).sort((x,y)=>{const a=x.specificity.split(',').map(Number),b=y.specificity.split(',').map(Number);return b[0]-a[0]||b[1]-a[1];});
 const legacyVersionedClassMap=new Map();
 for(const row of selectorRows){
-  for(const className of row.classes.filter(x=>/^v\\d{2,}(?:-|$)/i.test(x))){
+  for(const className of row.classes.filter(x=>/^v\d{2,}(?:-|$)/i.test(x))){
     const item=legacyVersionedClassMap.get(className)||{className,cssFiles:new Set(),referenceFiles:new Set(),selectors:new Set()};
     item.cssFiles.add(row.file);
     for(const ref of row.referenceFiles)item.referenceFiles.add(ref);
