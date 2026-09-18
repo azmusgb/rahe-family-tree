@@ -36,7 +36,7 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
 .route-shell{
   border:0;
   background:transparent;
-  box-shadow:none;
+  box-shadow:var(--shadow-sm);
 }
 .page-heading{
   max-width:1120px;
@@ -49,7 +49,7 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
   font-family:var(--family-font-display);
   font-size:clamp(2.35rem,4.2vw,4.25rem);
   line-height:.98;
-  letter-spacing:-.038em;
+  letter-spacing:-.025em;
   color:var(--green);
   text-wrap:balance;
 }
@@ -61,10 +61,10 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
 }
 .eyebrow{
   margin-bottom:10px;
-  color:#8b682f;
-  font-size:.68rem;
-  font-weight:800;
-  letter-spacing:.14em;
+  
+  
+  
+  
 }
 .version{
   background:rgba(255,253,248,.66);
@@ -72,7 +72,19 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
   color:var(--muted);
 }
 
-.filters,#filters{
+.filters{
+  gap:12px;
+  padding:10px;
+  border:1px solid var(--line);
+  
+  border-radius:16px;
+  
+  
+  box-shadow:none;
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+}
+#filters{
   gap:12px;
   padding:10px;
   border:1px solid var(--line);
@@ -84,7 +96,13 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
   -webkit-backdrop-filter:blur(12px);
   backdrop-filter:blur(12px);
 }
-.filters label,#filters label{
+.filters label{
+  
+  font-size:.66rem;
+  font-weight:760;
+  letter-spacing:.06em;
+}
+#filters label{
   color:var(--muted-strong);
   font-size:.66rem;
   font-weight:760;
@@ -107,7 +125,7 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
   background:#fff;
   box-shadow:0 0 0 4px rgba(18,63,52,.07);
 }
-#status{color:var(--muted);font-size:.76rem}
+#status{font-size:.76rem}
 
 /* Shared cards and sections */
 :where(.person-card,.source-card,.claim-card,.queue-card,.dossier-section,.family-overview-card,.v17-person-card>button,.v17-relative,.v17-family-summary,.tree-context,.v174-profile-snapshot,.graph-panel,.media-library-card,.dashboard-person){
@@ -365,7 +383,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 }
 
 @media(max-width:720px){
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero){min-height:auto}
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero){}
   body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero)::after,
   body[data-experience="family"][data-route="dashboard"] .dashboard-hero::before{inset:auto -38% -28% 35%;width:88%}
 }
