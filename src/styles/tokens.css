@@ -27,12 +27,12 @@
   --line:#ddd9ce;
   --line-strong:#c9c7bc;
   --focus:#b7832f;
-  --danger:#873630;
+  
 
   /* Family semantic palette. */
   --family-bg:#f4f1e9;
   --family-surface:#fffdf8;
-  --family-surface-soft:#f7f4ed;
+  
   --family-surface-paper:#fff;
   --family-surface-accent:color-mix(in srgb,var(--brand-soft) 78%,#fff);
   --family-surface-canvas:color-mix(in srgb,var(--bg) 82%,#fff);
@@ -41,7 +41,7 @@
   --family-green-2:#1d5747;
   --family-muted:#53625b;
   --family-line:#ddd9ce;
-  --family-accent:#805817;
+  
   --family-border-hairline:color-mix(in srgb,var(--line) 84%,transparent);
   --family-border-interactive:color-mix(in srgb,var(--green) 22%,var(--line));
 
@@ -69,7 +69,7 @@
 
   /* Layout widths. */
   --content-max:1320px;
-  --layout-gap:24px;
+  
   --family-page-home:1240px;
   --family-page-people:1280px;
   --family-page-person:1120px;
@@ -84,24 +84,24 @@
   --tap-target:48px;
 
   /* Family spacing scale. */
-  --family-space-1:4px;
+  
   --family-space-2:8px;
-  --family-space-3:12px;
+  
   --family-space-4:16px;
   --family-space-5:24px;
-  --family-space-6:32px;
+  
   --family-space-7:48px;
-  --family-space-8:64px;
+  
 
   /* Migrated spacing tokens preserve their historical independent values. */
-  --space-1:4px;
-  --space-2:8px;
+  
+  
   --space-3:12px;
   --space-4:16px;
   --space-5:24px;
   --space-6:32px;
   --space-7:48px;
-  --space-8:64px;
+  
 
   /* Radius. */
   --radius-sm:8px;
@@ -137,9 +137,9 @@
   --v16-page-max:1440px;
   --v16-copy-max:760px;
   --v16-radius:18px;
-  --v16-radius-sm:12px;
+  
   --v16-section-gap:clamp(28px,4vw,56px);
-  --v16-text-sm:13px;
+  
   --v16-text-meta:12px;
 }
 
