@@ -343,7 +343,7 @@ if(args.has('--write')){
   fs.writeFileSync(path.join(reportDir,'css-usage-audit.json'),JSON.stringify(report,null,2));
   fs.writeFileSync(path.join(reportDir,'css-usage-audit.md'),md());
 }
-console.log(JSON.stringify({totals,orphanCss,topDead:deadCandidates.slice(0,25),topDuplicates:duplicateSelectors.slice(0,20)},null,2));
+console.log(JSON.stringify({totals,orphanCss,unusedCustomProperties,topDead:deadCandidates.slice(0,25),topDuplicates:duplicateSelectors.slice(0,20)},null,2));
 
 if(args.has('--strict')){
   let failed=false;
