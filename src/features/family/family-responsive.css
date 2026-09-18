@@ -340,7 +340,6 @@ body[data-experience="family"] .main{padding-inline:12px}
 }
 
 @media(max-width:720px){
-body[data-experience="family"]{padding-bottom:calc(var(--mobile-nav-height) + 18px + env(safe-area-inset-bottom,0px))}
 body[data-experience="family"] .footer{padding-bottom:calc(var(--mobile-nav-height) + 34px + env(safe-area-inset-bottom,0px))}
 body[data-experience="family"] #search{font-size:16px;min-height:50px}
 body[data-experience="family"] .main{padding-bottom:calc(var(--mobile-nav-height) + 42px)}
@@ -352,7 +351,6 @@ body[data-experience="family"] .main{padding-bottom:calc(var(--mobile-nav-height
     border:0;
     padding:0;
     max-width:155px;
-    color:#aac0b7;
     font-size:8px;
     line-height:1.35;}
 .edition b{font-size:8px;letter-spacing:.08em}
@@ -408,7 +406,7 @@ body[data-page-architecture="15.5"] .main{padding-top:12px}
 }
 
 
-@media (max-width:720px){body{background:var(--bg)!important}}
+@media (max-width:720px){body[data-experience="family"]{background:var(--bg)!important}}
 
 
 @media (min-width:721px){
@@ -632,7 +630,8 @@ body:has(.mobile-more[open])::before{content:"";position:fixed;inset:0;backgroun
 
 .person-card,.claim-card,.source-card,.task-card,.branch-card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 
-.person-open h3,.claim-card h3,.source-card h3,.task-card h3,.branch-card h3{font:20px/1.3 Georgia,serif;margin:8px 0}
+.claim-card h3,.source-card h3,.task-card h3,.branch-card h3{font:20px/1.3 Georgia,serif;margin:8px 0}
+.person-open h3{font:20px/1.3 Georgia,serif}
 
 .claim-card,.source-card,.task-card,.branch-card{padding:17px}
 
@@ -896,7 +895,7 @@ body[data-nav-context="family"] .site-footer-bottom{display:flex;justify-content
 @media(max-width:720px){
   body[data-experience="family"] .site-header.sidebar{position:sticky;top:0;width:100%;height:58px;min-height:58px;align-items:center;justify-content:space-between;border:0;border-radius:0;}
   body[data-experience="family"] .site-header .brand{display:flex}.site-header .brand .monogram{width:36px;height:36px}.site-header .brand>span:last-child{display:grid;font-size:11px}.site-header .brand small{font-size:7px}
-  body[data-experience="family"] .site-header #nav,body[data-experience="family"] .site-header .edition{display:none}
+  body[data-experience="family"] .site-header #nav{display:none}
   body[data-experience="family"] .site-header-actions{}.site-header-actions button{min-height:38px;padding-inline:10px}.site-header-actions button span:first-child{font-size:18px;line-height:1}.site-header-actions button span:last-child{display:none}
   body[data-experience="family"] .topbar{}
   body[data-experience="family"] .main{padding-inline:12px;padding-top:12px}
