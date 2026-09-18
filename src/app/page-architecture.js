@@ -21,21 +21,21 @@ function modeButton(){return`<button type="button" data-ui-command="toggle-exper
 function installActionMenus(){
   const original=document.querySelector('.topbar-actions');
   if(!original)return;
-  original.classList.add('page-actions-source','v155-original-actions');
+  original.classList.add('page-actions-source','ui-original-actions');
 
   const menus=document.querySelector('.nav-menus');
   if(menus&&!menus.querySelector('.page-actions--desktop')){
     const details=document.createElement('details');
-    details.className='nav-menu page-actions page-actions--desktop v155-desktop-actions';
-    details.innerHTML=`<summary>Actions</summary><div class="nav-popover page-actions-menu v155-actions-popover">${modeButton()}${commandButton('share','Share view')}${commandButton('export','Export view')}${commandButton('print','Print')}</div>`;
+    details.className='nav-menu page-actions page-actions--desktop ui-desktop-actions';
+    details.innerHTML=`<summary>Actions</summary><div class="nav-popover page-actions-menu ui-actions-popover">${modeButton()}${commandButton('share','Share view')}${commandButton('export','Export view')}${commandButton('print','Print')}</div>`;
     menus.append(details);
   }
 
   const topbar=document.querySelector('.topbar');
   if(topbar&&!topbar.querySelector('.page-actions--mobile')){
     const details=document.createElement('details');
-    details.className='page-actions page-actions--mobile v155-mobile-actions';
-    details.innerHTML=`<summary aria-label="Page actions">•••</summary><div class="page-actions-menu v155-mobile-actions-menu">${modeButton()}${commandButton('share','Share')}${commandButton('export','Export')}${commandButton('print','Print')}</div>`;
+    details.className='page-actions page-actions--mobile ui-mobile-actions';
+    details.innerHTML=`<summary aria-label="Page actions">•••</summary><div class="page-actions-menu ui-mobile-actions-menu">${modeButton()}${commandButton('share','Share')}${commandButton('export','Export')}${commandButton('print','Print')}</div>`;
     topbar.append(details);
   }
 }
