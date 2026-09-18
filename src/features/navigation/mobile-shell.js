@@ -247,7 +247,7 @@ function composePeople(){
 function composePerson(){
   const root=document.querySelector('[data-v17-native="person"]');
   if(!root)return;
-  const actions=root.querySelector('.v17-person-actions');
+  const actions=root.querySelector('.person-actions');
   if(!isMobile()){
     const quick=root.querySelector('.v21-person-quick-actions');
     if(quick){restoreMovedNode('person-actions',actions);quick.remove();}
