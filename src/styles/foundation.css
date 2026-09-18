@@ -681,7 +681,7 @@ html{font-size:16px;}
 
 body{font-size:15px;line-height:1.55}
 
-body[data-experience="family"]{--muted:var(--family-muted);--line:var(--family-line);--cream:var(--family-bg);--paper:var(--family-surface);--green:var(--family-green);--green2:var(--family-green-2);--ink:var(--family-ink)}
+body[data-experience="family"]{--muted:var(--family-muted);--line:var(--family-line);--paper:var(--family-surface);--green:var(--family-green);--green2:var(--family-green-2);--ink:var(--family-ink)}
 
 body[data-experience="family"] .eyebrow{font-size:11px;letter-spacing:1.35px;color:#5d6964;font-weight:760}
 
