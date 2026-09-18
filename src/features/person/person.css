@@ -180,14 +180,6 @@ body[data-route="people"][data-v158-context="family"] .v159-card-relations small
 .v17-person-card{min-width:0}.v17-person-card>button{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:start;width:100%;height:100%;min-height:148px;padding:15px;border:1px solid var(--family-border-hairline);text-align:left;color:var(--ink);cursor:pointer;}.v17-person-card-copy{display:grid;gap:3px;min-width:0}.v17-person-card-copy>small{font-size:10px;font-weight:820;letter-spacing:.08em;text-transform:uppercase;color:var(--green)}.v17-person-card-copy>b{font:600 18px/1.12 var(--family-font-display);letter-spacing:-.02em}.v17-person-card-copy>em{font-style:normal;font-size:12px;font-weight:650;color:var(--muted-strong)}.v17-person-card-copy>p{margin:7px 0 0;color:var(--muted);font-size:12px;line-height:1.35}.v17-person-card>button>i{align-self:center;font-style:normal;color:#80948a}
 .v17-directory-foot{margin:0;padding-top:4px;color:var(--muted);font-size:12px;text-align:center}
 @media(hover:hover) and (pointer:fine){.v17-person-card>button:hover{transform:translateY(-2px);border-color:var(--family-border-interactive);box-shadow:var(--family-shadow-card-hover)}}
-
-/* ==========================================================================
-   Source: person.css
-   ========================================================================== */
-/* Migrated live selectors from retired release CSS.
- * These rules remain below the semantic ownership boundary and are now
- * maintained by this module; obsolete selector arms were removed during migration. */
-.page-heading h1{font:44px/1.05 Georgia,serif}
 .person-hero h1{font:44px/1.05 Georgia,serif;letter-spacing:-.025em;margin:0 0 12px}
 .detail-hero h1{font:44px/1.05 Georgia,serif;letter-spacing:-1.1px;margin:0 0 12px}
 
@@ -454,3 +446,25 @@ body[data-route="dashboard"] .history-highlight-grid article{min-height:160px}
 .v16-story-card::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,color-mix(in srgb,var(--green) 22%,transparent),transparent 60%);opacity:0;transition:opacity var(--family-motion-fast) ease}
 @media(hover:hover) and (pointer:fine){.v16-story-card:hover::after{opacity:1}}
 
+
+/* v24.7A canonical ownership — later-cascade declarations. */
+/* migrated from src/features/research/research.css */
+.person-card{min-width:0}
+/* migrated from src/features/research/research.css */
+.person-card{border-color:rgba(33,53,47,.1)}
+/* migrated from src/features/research/research.css */
+.person-card{box-shadow:var(--shadow-sm)!important}
+/* migrated from src/features/family/family-responsive.css */
+.person-card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+/* migrated from src/features/family/family-responsive.css */
+.person-card{overflow:hidden}
+/* migrated from src/styles/composition.css */
+.v17-person-nav{top:56px;
+  padding:8px;
+  border:1px solid var(--line);
+  border-color:color-mix(in srgb,var(--line) 88%,transparent);
+  border-radius:16px;
+  background:rgba(248,245,237,.88);
+  box-shadow:0 8px 24px rgba(25,40,32,.04);}
+/* migrated from src/styles/composition.css */
+.v17-person-nav{top:48px;margin-inline:0;padding:7px 0;border:0;border-bottom:1px solid var(--family-border-hairline);border-radius:0;box-shadow:none}
