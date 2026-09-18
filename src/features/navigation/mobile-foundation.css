@@ -12,81 +12,25 @@
 html{width:100%;max-width:100%;overflow-x:hidden}
 }
 @media(max-width:720px){
-#family-mobile-dock .mobile-more>div>a{
-    min-height:50px;
-    width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
-    padding:0 16px;
-    border:0;
-    border-radius:12px;
-    background:transparent;
-    color:var(--text);
-    text-decoration:none;
-    font:700 16px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  }
 }
 @media(max-width:720px){
-#family-mobile-dock .mobile-more>div>button{
-    min-height:50px;
-    width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
-    padding:0 16px;
-    border:0;
-    border-radius:12px;
-    background:transparent;
-    color:var(--text);
-    text-decoration:none;
-    font:700 16px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  }
 }
 @media(max-width:720px){
-#family-mobile-dock{padding-bottom:max(8px,env(safe-area-inset-bottom,0px))}
 }
 @media (min-width:721px){
 body[data-experience="family"] .site-header-actions button{min-height:42px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.12);border-radius:11px;background:rgba(255,255,255,.055);color:#e5eeea;padding:0 12px;font-size:11px;font-weight:700;text-decoration:none;cursor:pointer;touch-action:manipulation}
 }
 @media (max-width:720px){
-#family-mobile-dock>details>summary{pointer-events:auto}
 }
 @media (max-width:720px){
-#family-mobile-dock .mobile-more>div{position:absolute;left:0;right:0;bottom:calc(100% + 10px);z-index:4;display:grid;grid-template-columns:repeat(2,1fr);gap:6px;padding:12px;border:1px solid rgba(23,63,53,.12);border-radius:22px;background:rgba(255,253,248,.98);box-shadow:0 18px 50px rgba(12,39,31,.22);backdrop-filter:blur(22px)}
 }
 /* ==========================================================================
    Ownership migration: experience -> mobile shell
    ========================================================================== */
 /* Mobile More sheet geometry belongs to the mobile shell. Inserted before later mobile layers so established mobile overrides retain precedence. */
 @media(max-width:720px){
-#family-mobile-dock .mobile-more>div{
-    position:fixed;
-    left:max(10px,env(safe-area-inset-left,0px));
-    right:max(10px,env(safe-area-inset-right,0px));
-    bottom:calc(78px + env(safe-area-inset-bottom,0px));
-    z-index:2147483005;
-    display:grid;
-    grid-template-columns:1fr;
-    gap:4px;
-    max-height:min(68dvh,620px);
-    overflow:auto;
-    overscroll-behavior:contain;
-    padding:10px 10px max(12px,env(safe-area-inset-bottom,0px));
-    border:1px solid var(--line);
-    border-radius:22px;
-    background:var(--surface,#fff);
-    box-shadow:0 24px 72px rgba(13,35,28,.28);
-    transform-origin:bottom center;
-  }
 }
 @media(max-width:430px){
-#family-mobile-dock .mobile-more>div{
-    left:7px;
-    right:7px;
-    bottom:calc(72px + env(safe-area-inset-bottom,0px));
-    border-radius:20px;
-  }
 }
 /* ==========================================================================
    Ownership migration: interaction -> mobile
@@ -122,40 +66,28 @@ body[data-experience="family"] .site-header-actions button{
 body[data-experience="family"]{padding-bottom:96px}
 }
 @media (max-width:720px){
-#family-mobile-dock:not([hidden]){position:fixed;left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));z-index:100;min-height:68px;padding:7px 8px;display:grid;grid-template-columns:1fr 1.16fr 1fr 1fr 1fr;align-items:center;border:1px solid rgba(23,63,53,.14);border-radius:24px;background:rgba(250,247,239,.94);backdrop-filter:blur(22px) saturate(1.15);box-shadow:0 18px 50px rgba(12,39,31,.22),0 2px 8px rgba(12,39,31,.08);isolation:isolate}
 }
 @media (max-width:720px){
-#family-mobile-dock>a,#family-mobile-dock>details>summary{position:relative;z-index:2;min-width:0;min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:0;border-radius:16px;background:transparent;color:#53645d;text-decoration:none;font-size:10px;font-weight:760;list-style:none;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none}
 }
 @media (max-width:720px){
-#family-mobile-dock>a::before,#family-mobile-dock>details>summary::before{font-family:system-ui;font-size:18px;line-height:1;color:#29483e;pointer-events:none}
 }
 @media (max-width:720px){
-#family-mobile-dock>a[data-dock-route="dashboard"]::before{content:'⌂'}
 }
 @media (max-width:720px){
-#family-mobile-dock>a[data-dock-route="tree"]::before{content:'⌘'}
 }
 @media (max-width:720px){
-#family-mobile-dock>a[data-dock-route="families"]::before{content:'♧'}
 }
 @media (max-width:720px){
-#family-mobile-dock>a[data-dock-route="people"]::before{content:'◉'}
 }
 @media (max-width:720px){
-#family-mobile-dock>details>summary::before{content:'•••';letter-spacing:1px}
 }
 @media (max-width:720px){
-#family-mobile-dock>a[aria-current="page"],#family-mobile-dock>a.active{background:#e8eee9;color:#173f35}
 }
 @media (max-width:720px){
-#family-mobile-dock>a[data-dock-route="tree"]{min-height:60px;margin-top:-18px;border:5px solid #f8f4ea;border-radius:20px;background:#173f35;color:#fff;box-shadow:0 10px 24px rgba(16,54,43,.28)}
 }
 @media (max-width:720px){
-#family-mobile-dock>a[data-dock-route="tree"]::before{color:#fff;font-size:21px}
 }
 @media (max-width:720px){
-#family-mobile-dock>a[data-dock-route="tree"][aria-current="page"],#family-mobile-dock>a[data-dock-route="tree"].active{background:#214f42;color:#fff}
 }
 /* ==========================================================================
    Source: mobile-v20.css
@@ -242,25 +174,6 @@ body[data-experience="family"]{padding-bottom:96px}
   body[data-experience="family"] .site-footer-bottom{display:block;margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12);font-size:10px;color:rgba(255,255,255,.55)}
   body[data-experience="family"] .site-footer-bottom span:last-child{display:none}
 
-  /* New dock: Home / Families / Tree / People / More. */
-  #family-mobile-dock:not([hidden]){left:10px;right:10px;bottom:max(8px,env(safe-area-inset-bottom,0px));z-index:2147483000;min-height:70px;padding:6px;grid-template-columns:repeat(5,1fr);border:1px solid rgba(23,63,53,.12);border-radius:24px;background:rgba(255,253,248,.96);-webkit-backdrop-filter:blur(24px) saturate(1.12);backdrop-filter:blur(24px) saturate(1.12);box-shadow:0 18px 50px rgba(12,39,31,.22)}
-  #family-mobile-dock>a,#family-mobile-dock>details>summary{min-height:56px;gap:5px;border-radius:17px;font-size:9px;font-weight:780;letter-spacing:.01em;color:#637069;touch-action:manipulation}
-  #family-mobile-dock>a::before,#family-mobile-dock>details>summary::before{font-size:0;width:21px;height:21px;background:currentColor;mask-position:center;mask-repeat:no-repeat;mask-size:contain;-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:contain;content:''}
-  #family-mobile-dock>a[data-dock-route="dashboard"]::before{mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 11.2 12 4l9 7.2V21h-6v-6H9v6H3z'/%3E%3C/svg%3E");-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 11.2 12 4l9 7.2V21h-6v-6H9v6H3z'/%3E%3C/svg%3E")}
-  #family-mobile-dock>a[data-dock-route="families"]::before{mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8ZM4 20c0-4 3.6-6.5 8-6.5S20 16 20 20v1H4z'/%3E%3C/svg%3E");-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8ZM4 20c0-4 3.6-6.5 8-6.5S20 16 20 20v1H4z'/%3E%3C/svg%3E")}
-  #family-mobile-dock>a[data-dock-route="tree"]::before{mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11 3h2v5h5v2h-5v4h4v7h-2v-5H9v5H7v-7h4v-4H6V8h5z'/%3E%3C/svg%3E");-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11 3h2v5h5v2h-5v4h4v7h-2v-5H9v5H7v-7h4v-4H6V8h5z'/%3E%3C/svg%3E")}
-  #family-mobile-dock>a[data-dock-route="people"]::before{mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8-1a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM1 21v-2c0-3.8 3.1-6 7-6s7 2.2 7 6v2zm14-7c4.5.2 8 2.2 8 5.5V21h-6v-2c0-2-.7-3.7-2-5Z'/%3E%3C/svg%3E");-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8-1a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM1 21v-2c0-3.8 3.1-6 7-6s7 2.2 7 6v2zm14-7c4.5.2 8 2.2 8 5.5V21h-6v-2c0-2-.7-3.7-2-5Z'/%3E%3C/svg%3E")}
-  #family-mobile-dock>details>summary::before{mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='5' cy='12' r='2'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3Ccircle cx='19' cy='12' r='2'/%3E%3C/svg%3E");-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='5' cy='12' r='2'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3Ccircle cx='19' cy='12' r='2'/%3E%3C/svg%3E")}
-  #family-mobile-dock>a[aria-current="page"],#family-mobile-dock>a.active{background:#e9eee9;color:#173f35}
-  #family-mobile-dock>a[data-dock-route="tree"]{min-height:62px;margin:-18px 2px 0;border:5px solid #f3efe5;border-radius:22px;background:#173f35;color:#fff;box-shadow:0 11px 25px rgba(16,54,43,.3)}
-  #family-mobile-dock>a[data-dock-route="tree"]::before{width:24px;height:24px;color:#fff}
-  #family-mobile-dock>a[data-dock-route="tree"][aria-current="page"],#family-mobile-dock>a[data-dock-route="tree"].active{background:#245346;color:#fff}
-
-  /* More is a real explorer sheet. */
-  #family-mobile-dock .mobile-more>div,#family-mobile-dock .mobile-more>div{left:8px;right:8px;bottom:calc(82px + env(safe-area-inset-bottom,0px));grid-template-columns:1fr 1fr;gap:8px;padding:14px;border-radius:26px;background:#fffdf8;box-shadow:0 28px 80px rgba(12,39,31,.3)}
-  #family-mobile-dock .mobile-more>div>a,#family-mobile-dock .mobile-more>div>button,#family-mobile-dock .mobile-more>div>a,#family-mobile-dock .mobile-more>div>button{min-height:58px;border-radius:16px;background:#eef1eb;font-size:13px;color:#21473b}
-  #family-mobile-dock :where(.mobile-more)>div [data-dock-search]{grid-column:1/-1;background:#173f35;color:#fff}
-
   :where(a,button,summary,input,select){-webkit-tap-highlight-color:transparent}
   :where(a,button,summary){touch-action:manipulation}
 }
@@ -268,7 +181,6 @@ body[data-experience="family"]{padding-bottom:96px}
 @media(max-width:390px){
   :root{--mobile-gutter:13px}
   body[data-route="dashboard"] .v17-home-hero h1{font-size:50px}
-  #family-mobile-dock:not([hidden]){left:7px;right:7px}
 }
 
 @media(prefers-reduced-motion:reduce){@media(max-width:720px){}}
@@ -291,13 +203,6 @@ body[data-experience="family"]{padding-bottom:96px}
   .v20-context-bar strong{overflow:hidden;text-align:center;text-overflow:ellipsis;white-space:nowrap;font-family:var(--family-font-display);font-size:17px;color:var(--app-ink)}
   .v20-context-bar>a,.v20-context-bar>button{min-height:40px;border:0;border-radius:13px;background:transparent;color:var(--app-green);font-size:12px;font-weight:760}
   .v20-context-back{display:flex;align-items:center;gap:3px;text-decoration:none}.v20-context-back span{font-size:30px;font-weight:350;line-height:0}
-
-  #family-mobile-dock>a[data-dock-route="dashboard"]{grid-column:1;grid-row:1}
-  #family-mobile-dock>a[data-dock-route="families"]{grid-column:2;grid-row:1}
-  #family-mobile-dock>a[data-dock-route="tree"]{grid-column:3;grid-row:1;transform:translateY(-3px)}
-  #family-mobile-dock>a[data-dock-route="people"]{grid-column:4;grid-row:1}
-  #family-mobile-dock>details{grid-column:5;grid-row:1}
-  #family-mobile-dock .mobile-more>div{max-height:min(72dvh,620px);overflow:auto;overscroll-behavior:contain}
   .v20-more-recent{grid-column:1/-1;padding:12px 2px 2px;border-top:1px solid var(--app-border)}
   .v20-more-recent>span{display:block;margin:0 4px 8px;font-size:10px;font-weight:850;letter-spacing:.12em;color:var(--app-muted);text-transform:uppercase}
   .v20-more-recent>div{display:grid;grid-template-columns:1fr 1fr;gap:7px}
@@ -364,7 +269,7 @@ body[data-experience="family"]{padding-bottom:96px}
 }
 
 @media (min-width:721px) and (max-width:1023px){body[data-experience="family"]{--tablet-gutter:24px}body[data-experience="family"] .main{padding-inline:var(--tablet-gutter)}body[data-experience="family"] :where(.v17-people-grid,.v175-family-grid){grid-template-columns:repeat(2,minmax(0,1fr))}body[data-experience="family"] :where(button,a,summary){touch-action:manipulation}}
-@media (prefers-reduced-motion:reduce){.v20-context-bar,#family-mobile-dock{transition:none!important;animation:none!important}}
+@media (prefers-reduced-motion:reduce){.v20-context-bar{transition:none!important;animation:none!important}}
 
 /* ==========================================================================
    Source: mobile-contract-bridge.css
