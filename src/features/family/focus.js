@@ -1,8 +1,6 @@
 import{personById,model,esc,allPedigreeRelationships}from'../../../core.js';
 import{relationSets}from'../../../family-experience.js';
 
-const UI_RELEASE='15.4';
-const STALE_RELOAD_KEY='rahe.family.uiReload.v15';
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const routeId=()=>location.hash.slice(1).split('/')[1]||'';
 const isFamilyMode=()=>document.body.dataset.experience!=='research';
@@ -112,9 +110,8 @@ function polishHome(){
 }
 
 function syncRelease(){
-  document.documentElement.dataset.uiRelease=UI_RELEASE;
-  const version=document.querySelector('.version');if(version)setText(version,`${isFamilyMode()?'FAMILY VIEW':'RESEARCH MODE'} · v${UI_RELEASE}`);
-  try{sessionStorage.setItem(STALE_RELOAD_KEY,UI_RELEASE);}catch{}
+  const release=document.documentElement.dataset.uiRelease||'20.0.0';
+  const version=document.querySelector('.version');if(version)setText(version,`${isFamilyMode()?'FAMILY VIEW':'RESEARCH MODE'} · v${release}`);
 }
 let queued=false;
 function apply(){queued=false;syncRelease();polishHome();polishProfile();installTreeOverview();}
