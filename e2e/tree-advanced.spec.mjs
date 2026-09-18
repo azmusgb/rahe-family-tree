@@ -119,5 +119,5 @@ test('recent focus trail has one owner and follows tree navigation history',asyn
   const tools=await openTreeTools(page);
   await expect(tools.locator('.tree-recent-trail')).toBeVisible();
   await expect(tools.locator('.tree-recent-trail')).toContainText('Hazel');
-  await expect(page.locator('[data-v129-recent]')).toHaveCount(0);
+  await expect(page.locator('[data-ui-recent]')).toHaveCount(0);
 });

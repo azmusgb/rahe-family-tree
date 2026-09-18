@@ -43,7 +43,7 @@ test('component-first anchor ranking rewards useful reachable family coverage',(
 
 test('tree navigation includes components, breadcrumbs, one recents owner, collapse, compact mode, and path highlighting',()=>{
   for(const token of['data-tree-component','tree-focus-breadcrumb','tree-recent-trail','data-tree-collapse-focus','data-tree-expand-all','data-tree-compact-toggle','data-tree-path-target','tree-relationship-path-overlay'])assert.ok(runtime.includes(token),`missing ${token}`);
-  assert.doesNotMatch(treeEngine,/data-v129-recent/);
+  assert.doesNotMatch(treeEngine,/data-ui-recent/);
   assert.doesNotMatch(stability,/data-v176-export-svg|data-v176-print-tree|data-v176-copy-link/);
 });
 

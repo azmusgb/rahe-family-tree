@@ -21,16 +21,16 @@ test.beforeEach(async({page})=>{await mockApis(page);});
 
 test('Home stays compact while dedicated Tree retains branch navigation',async({page})=>{
   await page.goto('/#dashboard');
-  const home=page.locator('[data-v17-native="home"]');
-  await expect(home.locator('.v172-home-branches')).toHaveCount(0);
-  await expect(home.locator('.v174-discovery')).toHaveCount(0);
-  await expect(home.locator('.v17-home-tree')).toBeVisible();
-  await expect(home.locator('.v17-featured-people .v17-home-person')).toHaveCount(3);
+  const home=page.locator('[data-ui-native="home"]');
+  await expect(home.locator('.ui-home-branch-preview')).toHaveCount(0);
+  await expect(home.locator('.ui-discovery')).toHaveCount(0);
+  await expect(home.locator('.ui-home-tree')).toBeVisible();
+  await expect(home.locator('.ui-featured-people .ui-family-home-person')).toHaveCount(3);
 });
 
 test('plain Tree opens the connected family network and offers branch shortcuts',async({page})=>{
   await page.goto('/#tree');
-  const branchNav=page.locator('.v172-tree-branches');
+  const branchNav=page.locator('.ui-tree-branches');
   await expect(branchNav).toBeVisible();
   await expect(page.locator('.tree-mode-buttons [data-tree-scope="connected"]')).toHaveClass(/active/);
   const branchButtons=branchNav.locator('[data-v172-tree-branch]');
@@ -43,7 +43,7 @@ test('plain Tree opens the connected family network and offers branch shortcuts'
   await expect.poll(()=>new URL(page.url()).searchParams.get('scope')).toBe('family');
   await expect.poll(()=>new URL(page.url()).searchParams.get('depth')).toBe('3');
   await expect(page.locator('[data-tree-person]')).toHaveValue(focus);
-  await expect(page.locator('.v172-tree-branches')).toBeVisible();
+  await expect(page.locator('.ui-tree-branches')).toBeVisible();
 });
 
 test('public tree portraits never render for living people even if media metadata is wrong',async({page})=>{
@@ -60,6 +60,6 @@ test('public tree portraits never render for living people even if media metadat
   const hazel=page.locator(`.graph-node[data-person="${HAZEL}"]`),living=page.locator(`.graph-node[data-person="${LIVING}"]`);
   await expect(hazel).toBeVisible();
   await expect(living).toBeVisible();
-  await expect(hazel.locator('.v172-node-photo')).toHaveCount(1);
-  await expect(living.locator('.v172-node-photo')).toHaveCount(0);
+  await expect(hazel.locator('.ui-node-photo')).toHaveCount(1);
+  await expect(living.locator('.ui-node-photo')).toHaveCount(0);
 });

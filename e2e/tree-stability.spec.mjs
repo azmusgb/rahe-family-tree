@@ -27,7 +27,7 @@ test('v17.6 state runtime mounts and consolidated tree tools survive repeated na
   await expect(page.locator('[data-tree-export-pdf]')).toHaveCount(1);
   await expect(page.locator('[data-v176-tools]')).toHaveCount(0);
   await page.goto('/#people');
-  await expect(page.locator('[data-v17-native="people"]')).toBeVisible();
+  await expect(page.locator('[data-ui-native="people"]')).toBeVisible();
   await page.goto(`/?focus=${HAZEL}&scope=ancestors#tree`);
   await expect(page.locator('[data-tree-advanced-export]')).toHaveCount(1);
   await expect(page.locator('[data-tree-copy-link]')).toHaveCount(1);
@@ -44,7 +44,7 @@ test('tree state survives leaving, history, and a later bare tree entry',async({
   await page.goBack();
   await expect(page).toHaveURL(/focus=P-HAZEL-EMMA-BERG-DENNEWITZ/);
   await expect(page).toHaveURL(/scope=descendants/);
-  await expect(page.locator('[data-v17-native="tree"]')).toBeVisible();
+  await expect(page.locator('[data-ui-native="tree"]')).toBeVisible();
   await page.goto('/#tree');
   await expect(page).toHaveURL(/focus=P-HAZEL-EMMA-BERG-DENNEWITZ/);
   await expect(page).toHaveURL(/scope=descendants/);
