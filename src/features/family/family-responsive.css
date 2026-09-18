@@ -406,7 +406,6 @@ body[data-page-architecture="15.5"] .main{padding-top:12px}
 }
 
 
-@media (max-width:720px){body[data-experience="family"]{background:var(--bg)!important}}
 
 
 @media (min-width:721px){
