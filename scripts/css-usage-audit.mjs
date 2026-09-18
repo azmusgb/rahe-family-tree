@@ -197,6 +197,11 @@ for(const [file,stats] of Object.entries(cssStats)){
 
 const releaseNumberedCss=repoCss.filter(file=>/(?:^|[-_.])v\d+(?:[-_.]\d+)*/i.test(path.basename(file)));
 const duplicateSelectors=[...selectorFiles].filter(([,files])=>files.size>1).map(([selector,files])=>({selector,files:[...files].sort()})).sort((a,b)=>b.files.length-a.files.length||a.selector.localeCompare(b.selector));
+const ownershipDuplicateSelectors=duplicateSelectors
+  .map(row=>({...row,files:row.files.filter(file=>!file.endsWith('/print.css')&&!file.endsWith('print.css'))}))
+  .filter(row=>row.files.length>1);
+const printSelectorOverlaps=duplicateSelectors
+  .filter(row=>row.files.some(file=>file.endsWith('/print.css')||file.endsWith('print.css')));
 const deadCandidates=selectorRows.filter(r=>{
   const tokenCount=r.classes.length+r.ids.length+r.attrs.length;
   if(tokenCount===0)return false;
@@ -237,6 +242,8 @@ const totals={
   cssBytes:Object.values(cssStats).reduce((n,x)=>n+x.bytes,0),
   selectors:selectorRows.length,
   duplicateSelectorsAcrossFiles:duplicateSelectors.length,
+  ownershipDuplicateSelectorsAcrossFiles:ownershipDuplicateSelectors.length,
+  printSelectorOverlaps:printSelectorOverlaps.length,
   deadSelectorCandidates:deadCandidates.length,
   highSpecificitySelectors:highSpecificity.length,
   importantDeclarations:Object.values(cssStats).reduce((n,x)=>n+x.important,0),
@@ -344,13 +351,14 @@ if(args.has('--write')){
   fs.writeFileSync(path.join(reportDir,'css-usage-audit.json'),JSON.stringify(report,null,2));
   fs.writeFileSync(path.join(reportDir,'css-usage-audit.md'),md());
 }
-console.log(JSON.stringify({totals,orphanCss,unusedCustomProperties,topDead:deadCandidates.slice(0,25),topDuplicates:duplicateSelectors.slice(0,20)},null,2));
+console.log(JSON.stringify({totals,orphanCss,unusedCustomProperties,topDead:deadCandidates.slice(0,25),topDuplicates:duplicateSelectors.slice(0,20),topOwnershipDuplicates:ownershipDuplicateSelectors.slice(0,25),topPrintOverlaps:printSelectorOverlaps.slice(0,20)},null,2));
 
 if(args.has('--strict')){
   let failed=false;
   const budgets={
     cssBytes:511775,
     duplicateSelectorsAcrossFiles:440,
+    ownershipDuplicateSelectorsAcrossFiles:386,
     deadSelectorCandidates:0,
     highSpecificitySelectors:108,
     importantDeclarations:1145,
