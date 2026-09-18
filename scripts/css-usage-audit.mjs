@@ -445,8 +445,8 @@ if(args.has('--strict')){
   const budgets={
     cssBytes:511775,
     duplicateSelectorsAcrossFiles:440,
-    ownershipDuplicateSelectorsAcrossFiles:386,
-    topSelectorOwnerViolations:15,
+    ownershipDuplicateSelectorsAcrossFiles:182,
+    topSelectorOwnerViolations:0,
     deadSelectorCandidates:0,
     highSpecificitySelectors:108,
     importantDeclarations:1145,
