@@ -536,34 +536,6 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   .person-header{gap:16px;padding-block:10px 24px}
   .person-header h2{font-size:clamp(2.45rem,13vw,4rem)}
   .v17-person-nav{top:7px;margin-inline:-2px}
-
-  /* Existing dock rules use high-specificity !important declarations; these are the only deliberate overrides here. */
-  #family-mobile-dock:not([hidden]){
-    left:10px!important;
-    right:10px!important;
-    bottom:calc(9px + env(safe-area-inset-bottom,0px))!important;
-    gap:4px!important;
-    padding:6px!important;
-    border:1px solid rgba(18,63,52,.16)!important;
-    border-radius:20px!important;
-    background:rgba(255,253,248,.94)!important;
-    box-shadow:0 18px 50px rgba(18,42,33,.18)!important;
-    -webkit-backdrop-filter:blur(22px) saturate(125%)!important;
-    backdrop-filter:blur(22px) saturate(125%)!important;
-  }
-  #family-mobile-dock>a,
-  #family-mobile-dock>button,
-  #family-mobile-dock>.mobile-more>summary{
-    min-height:50px!important;
-    border-radius:14px!important;
-    color:var(--muted-strong)!important;
-    font-size:10.5px!important;
-    font-weight:760!important;
-  }
-  #family-mobile-dock>a[aria-current="page"],#family-mobile-dock>a.active{
-    background:var(--green)!important;
-    color:#fff!important;
-  }
 }
 
 @media(max-width:430px){
@@ -573,9 +545,7 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
 }
 
 
-
-@media(prefers-reduced-transparency:reduce){
-  .topbar,.filters,#filters,#family-mobile-dock:not([hidden]){
+@media(prefers-reduced-transparency:reduce){.topbar,.filters,#filters{
     -webkit-backdrop-filter:none!important;
     backdrop-filter:none!important;
     background:var(--paper)!important;
