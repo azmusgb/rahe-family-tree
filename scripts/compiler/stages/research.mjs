@@ -1,3 +1,2 @@
 import { runScripts } from '../run-stage.mjs';
-
-runScripts('research', ['scripts/enrich-v13-0.mjs']);
+runScripts('research',['scripts/compiler/transforms/research/research-intelligence.mjs']);

@@ -1,17 +1,3 @@
 import { runScripts } from '../run-stage.mjs';
-
 runScripts('family', [
-  'scripts/enrich-v11-5.mjs',
-  'scripts/enrich-v11-6.mjs',
-  'scripts/enrich-v12-0.mjs',
-  'scripts/enrich-v12-1.mjs',
-  'scripts/enrich-v12-2.mjs',
-  'scripts/enrich-v12-3.mjs',
-  'scripts/enrich-v12-4.mjs',
-  'scripts/enrich-v12-5.mjs',
-  'scripts/enrich-v12-6.mjs',
-  'scripts/enrich-v12-6-1.mjs',
-  'scripts/enrich-v12-6-2.mjs',
-  'scripts/enrich-v12-7.mjs',
-  'scripts/enrich-v12-8.mjs',
-]);
+'scripts/compiler/transforms/family/family-supplement.mjs','scripts/compiler/transforms/family/editor-overlay.mjs','scripts/compiler/transforms/family/editor-foundation.mjs','scripts/compiler/transforms/family/shared-revisions.mjs','scripts/compiler/transforms/family/family-experience.mjs','scripts/compiler/transforms/family/family-navigation.mjs','scripts/compiler/transforms/family/family-profiles.mjs','scripts/compiler/transforms/family/family-workflows.mjs','scripts/compiler/transforms/family/family-redesign.mjs','scripts/compiler/transforms/family/family-polish.mjs','scripts/compiler/transforms/family/responsive-accessibility.mjs','scripts/compiler/transforms/family/contribution-experience.mjs','scripts/compiler/transforms/family/media-experience.mjs']);
