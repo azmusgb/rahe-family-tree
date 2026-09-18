@@ -13,13 +13,13 @@ const livingChronologyPrivacy='Detailed chronology and location records are prot
 const livingMediaPrivacy='Living-person media remains private in the public family archive.';
 
 function publicSafeLivingPersonMarkup(markup){
-  const life=`<section id="v17-life" class="v17-person-section"><div class="v17-section-head"><div><p class="eyebrow">LIFE</p><h2>Living family member</h2><p>Details protected in the public family archive.</p></div></div><p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p></section>`;
-  const photos=`<section id="v17-photos" class="v17-person-section"><div class="v17-section-head"><div><p class="eyebrow">PHOTOS & DOCUMENTS</p><h2>Family archive</h2></div></div><p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p></section>`;
-  return String(markup||'').replace(/\sdata-v17-person-photo="[^"]*"/g,'').replace(/<section id="v17-life"[\s\S]*?<\/section>/,life).replace(/<section id="v17-photos"[\s\S]*?<\/section>/,photos);
+  const life=`<section id="v17-life" class="ui-person-section"><div class="ui-section-head"><div><p class="eyebrow">LIFE</p><h2>Living family member</h2><p>Details protected in the public family archive.</p></div></div><p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p></section>`;
+  const photos=`<section id="v17-photos" class="ui-person-section"><div class="ui-section-head"><div><p class="eyebrow">PHOTOS & DOCUMENTS</p><h2>Family archive</h2></div></div><p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p></section>`;
+  return String(markup||'').replace(/\sdata-ui-person-photo="[^"]*"/g,'').replace(/<section id="v17-life"[\s\S]*?<\/section>/,life).replace(/<section id="v17-photos"[\s\S]*?<\/section>/,photos);
 }
 function nativeMarkup(route){
   if(route==='dashboard')return renderEditorialHome();
-  if(route==='tree')return`<div class="v17-native v17-tree" data-v17-native="tree">${renderTree()}</div>`;
+  if(route==='tree')return`<div class="ui-native ui-tree-view" data-ui-native="tree">${renderTree()}</div>`;
   if(route==='people')return renderNativePeople();
   if(route==='families')return renderFamiliesIndex();
   if(route==='branch')return renderFamilyBranch(routeBranchName());
@@ -27,23 +27,23 @@ function nativeMarkup(route){
   return'';
 }
 function enforcePublicPrivacy(route,content){
-  if(route==='people'){const summary=content.querySelector('.v17-branch-summary>div:first-child>p:not(.eyebrow)');if(summary&&summary.textContent.includes(' · '))summary.textContent=summary.textContent.split(' · ')[0];return;}
+  if(route==='people'){const summary=content.querySelector('.ui-branch-summary>div:first-child>p:not(.eyebrow)');if(summary&&summary.textContent.includes(' · '))summary.textContent=summary.textContent.split(' · ')[0];return;}
   if(route!=='person')return;
-  const root=content.querySelector('.v17-person[data-person-id]'),person=personById(root?.dataset.personId||'');if(!person?.living)return;
-  content.querySelector('.v17-person-places')?.remove();
-  const life=content.querySelector('#v17-life'),timeline=life?.querySelector('.v17-life-timeline');if(timeline)timeline.outerHTML=`<p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p>`;if(life&&!life.querySelector('.v17-living-chronology'))life.insertAdjacentHTML('beforeend',`<p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p>`);
-  content.querySelectorAll('[data-v17-person-photo]').forEach(host=>host.removeAttribute('data-v17-person-photo'));
-  const photos=content.querySelector('#v17-photos'),gallery=photos?.querySelector('[data-v17-person-gallery]');if(gallery){gallery.removeAttribute('data-v17-person-gallery');gallery.innerHTML=`<p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p>`;}if(photos&&!photos.querySelector('.v17-living-media'))photos.insertAdjacentHTML('beforeend',`<p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p>`);
+  const root=content.querySelector('.ui-person[data-person-id]'),person=personById(root?.dataset.personId||'');if(!person?.living)return;
+  content.querySelector('.ui-person-places')?.remove();
+  const life=content.querySelector('#v17-life'),timeline=life?.querySelector('.ui-life-timeline');if(timeline)timeline.outerHTML=`<p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p>`;if(life&&!life.querySelector('.v17-living-chronology'))life.insertAdjacentHTML('beforeend',`<p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p>`);
+  content.querySelectorAll('[data-ui-person-photo]').forEach(host=>host.removeAttribute('data-ui-person-photo'));
+  const photos=content.querySelector('#v17-photos'),gallery=photos?.querySelector('[data-ui-person-gallery]');if(gallery){gallery.removeAttribute('data-ui-person-gallery');gallery.innerHTML=`<p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p>`;}if(photos&&!photos.querySelector('.v17-living-media'))photos.insertAdjacentHTML('beforeend',`<p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p>`);
 }
 function announceNative(route){window.dispatchEvent(new CustomEvent('family-native-rendered',{detail:{route}}));}
 function apply(){
   if(!isFamily()){delete document.body.dataset.familyNative;return false;}const route=routeKey();document.body.dataset.familyNative='v17';if(!nativeRoutes.has(route)||!model)return false;
-  const content=document.getElementById('content');if(!content)return false;const current=content.querySelector('[data-v17-native]');if(current?.dataset.v17Native===nativeMarker(route)){enforcePublicPrivacy(route,content);hydrateNativeFamily();return true;}
-  content.classList.remove('v157-home','v159-people','v159-profile','v161-home','v161-people');content.classList.add('v17-content');content.innerHTML=nativeMarkup(route);enforcePublicPrivacy(route,content);hydrateNativeFamily();announceNative(route);return true;
+  const content=document.getElementById('content');if(!content)return false;const current=content.querySelector('[data-ui-native]');if(current?.dataset.v17Native===nativeMarker(route)){enforcePublicPrivacy(route,content);hydrateNativeFamily();return true;}
+  content.classList.remove('v157-home','v159-people','v159-profile','ui-home-focused','ui-people-focused');content.classList.add('ui-content');content.innerHTML=nativeMarkup(route);enforcePublicPrivacy(route,content);hydrateNativeFamily();announceNative(route);return true;
 }
 let queued=false;function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;try{apply();}catch(error){console.error('[native-family] render failed',error);}});}
-let contentObserver=null;function observeContent(){const content=document.getElementById('content');if(!content||contentObserver)return;contentObserver=new MutationObserver(()=>{const route=routeKey();if(!isFamily()||!nativeRoutes.has(route))return;const native=content.querySelector('[data-v17-native]');if(native?.dataset.v17Native!==nativeMarker(route))schedule();});contentObserver.observe(content,{childList:true,subtree:false});}
-document.addEventListener('click',event=>{const local=event.target.closest?.('.v17-person-nav a[href^="#"]');if(local){event.preventDefault();document.querySelector(local.getAttribute('href'))?.scrollIntoView({behavior:'smooth',block:'start'});}});
+let contentObserver=null;function observeContent(){const content=document.getElementById('content');if(!content||contentObserver)return;contentObserver=new MutationObserver(()=>{const route=routeKey();if(!isFamily()||!nativeRoutes.has(route))return;const native=content.querySelector('[data-ui-native]');if(native?.dataset.v17Native!==nativeMarker(route))schedule();});contentObserver.observe(content,{childList:true,subtree:false});}
+document.addEventListener('click',event=>{const local=event.target.closest?.('.ui-person-nav a[href^="#"]');if(local){event.preventDefault();document.querySelector(local.getAttribute('href'))?.scrollIntoView({behavior:'smooth',block:'start'});}});
 // The shared lifecycle gives the shell immediate intent/commit state, while
 // hashchange remains the compatibility trigger for route content. The marker
 // check above makes these duplicate-safe and prevents competing DOM writes.

@@ -27,9 +27,9 @@ function syncHome(){
   const routeShell=document.querySelector('.route-shell');
   if(routeShell&&routeShell.hidden!==home)routeShell.hidden=home;
   if(!home)return;
-  document.querySelectorAll('.v17-home-hero .eyebrow').forEach(element=>setText(element,'FAMILY HISTORY'));
-  document.querySelectorAll('.v17-home-hero h1,.v17-home-hero h2').forEach(element=>setText(element,'Our family, connected.'));
-  const heroCopy=document.querySelector('.v17-home-hero p:not(.eyebrow)');
+  document.querySelectorAll('.ui-family-home-hero .eyebrow').forEach(element=>setText(element,'FAMILY HISTORY'));
+  document.querySelectorAll('.ui-family-home-hero h1,.ui-family-home-hero h2').forEach(element=>setText(element,'Our family, connected.'));
+  const heroCopy=document.querySelector('.ui-family-home-hero p:not(.eyebrow)');
   setText(heroCopy,'Explore every documented family branch together—people, relationships, photographs, places, stories, and the evidence behind them.');
   const legacyTitle=document.querySelector('.dashboard-hero h2');
   if(legacyTitle)setText(legacyTitle,'Discover the people, places, and stories that connect our family history.');

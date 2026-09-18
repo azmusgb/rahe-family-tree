@@ -6,7 +6,7 @@ const compactLimit=()=>matchMedia('(max-width:720px)').matches?6:12;
 
 function installPeopleDisclosure(content){
   const grid=content.querySelector('.people-grid');if(!grid)return;
-  const cards=[...grid.querySelectorAll('.v159-person-card')];
+  const cards=[...grid.querySelectorAll('.ui-directory-person-card')];
   const limit=compactLimit();
   cards.forEach((card,index)=>card.hidden=index>=limit);
   content.querySelector('.v1510-people-more')?.remove();
@@ -19,7 +19,7 @@ function installPeopleDisclosure(content){
 function expandPeople(event){
   const trigger=event.target.closest?.('[data-v1510-people-more]');if(!trigger)return false;
   const content=document.querySelector('#content'),grid=content?.querySelector('.people-grid');if(!grid)return true;
-  const cards=[...grid.querySelectorAll('.v159-person-card')],hidden=cards.filter(card=>card.hidden),step=compactLimit();
+  const cards=[...grid.querySelectorAll('.ui-directory-person-card')],hidden=cards.filter(card=>card.hidden),step=compactLimit();
   hidden.slice(0,step).forEach(card=>card.hidden=false);
   const left=cards.filter(card=>card.hidden).length,footer=content.querySelector('.v1510-people-more');
   if(!left)footer?.remove();else if(footer)footer.querySelector('span').innerHTML=`Showing <b>${cards.length-left}</b> of <b>${cards.length}</b> people`;
@@ -27,15 +27,15 @@ function expandPeople(event){
 }
 
 function profileTabs(content){
-  const overview=content.querySelector('.v159-person-overview');if(!overview||content.querySelector('.v1510-profile-tabs'))return;
+  const overview=content.querySelector('.ui-person-overview');if(!overview||content.querySelector('.ui-profile-tabs'))return;
   const person=personById(location.hash.split('/')[1]);
   const family=overview.querySelector('.profile-family-grid');
   const media=overview.querySelector('.profile-media');
   const technical=overview.querySelector('.technical-details');
-  const life=overview.querySelector('.v159-life-summary');
+  const life=overview.querySelector('.ui-life-summary');
   const dossierPanels=[...content.querySelectorAll(':scope > .panel')];
   const timeline=dossierPanels.find(panel=>/-timeline$/.test(panel.id||''));
-  const tabs=document.createElement('nav');tabs.className='v1510-profile-tabs';tabs.setAttribute('aria-label','Person profile sections');
+  const tabs=document.createElement('nav');tabs.className='ui-profile-tabs';tabs.setAttribute('aria-label','Person profile sections');
   tabs.innerHTML='<button type="button" data-v1510-profile-tab="overview" aria-current="page">Overview</button><button type="button" data-v1510-profile-tab="family">Family</button><button type="button" data-v1510-profile-tab="timeline">Timeline</button><button type="button" data-v1510-profile-tab="photos">Photos</button><a href="#research">Research Center</a>';
   overview.insertAdjacentElement('afterend',tabs);
   if(life)life.dataset.v1510Panel='overview';
@@ -66,7 +66,7 @@ function compactHome(content){
   const secondary=[branches,history,recent].filter(Boolean);if(!secondary.length||content.querySelector('.v1510-home-more'))return;
   const more=document.createElement('details');more.className='v1510-home-more';
   more.innerHTML='<summary>Explore more family history <span>Branches · stories · recently viewed</span></summary><div class="v1510-home-more-slot"></div>';
-  const research=content.querySelector('.v157-research-center');
+  const research=content.querySelector('.ui-research-center');
   (research||content.lastElementChild)?.insertAdjacentElement(research?'beforebegin':'afterend',more);
   const slot=more.querySelector('.v1510-home-more-slot');secondary.forEach(section=>slot.appendChild(section));
 }
