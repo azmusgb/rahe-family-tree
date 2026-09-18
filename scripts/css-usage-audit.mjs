@@ -480,7 +480,7 @@ if(args.has('--strict')){
     deadSelectorCandidates:0,
     highSpecificitySelectors:108,
     importantDeclarations:1145,
-    legacyClassArms:1886,
+    legacyClassArms:1878,
     liveLegacyVersionedClassTokens:220,
     unstyledRuntimeOrMarkupClasses:135,
     unusedCustomProperties:0,
