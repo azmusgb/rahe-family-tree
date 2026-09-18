@@ -541,13 +541,13 @@ body[data-experience="family"]{}
 
 .v128-library{margin:34px 0 18px}
 
-.v128-doc{font-size:18px;font-weight:800;letter-spacing:1px;color:var(--green)}
+.media-document-badge{font-size:18px;font-weight:800;letter-spacing:1px;color:var(--green)}
 
-.v128-edit-link{justify-self:start;margin-top:4px}
+.media-edit-link{justify-self:start;margin-top:4px}
 
 .featured-choice{display:flex!important;align-items:center;gap:9px;padding:10px 12px;border-radius:12px;background:#f2f6f3}
 
-.v128-meta{display:block;margin-top:-2px;color:var(--green)!important;font-weight:650}
+.media-meta{display:block;margin-top:-2px;color:var(--green)!important;font-weight:650}
 
 .v129-memory-actions{display:flex;gap:7px;flex-wrap:wrap}
 
