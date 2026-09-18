@@ -94,6 +94,23 @@
   --z-mobile-popover:2147483005;
   --z-skip-link:2147483010;
 
+  /* Navigation palette. Shared by desktop and mobile shell chrome so active,
+   * hover, focus, and elevated surfaces read as one system. */
+  --nav-bg:#123f34;
+  --nav-bg-deep:#0d3028;
+  --nav-bg-soft:#e8eee9;
+  --nav-surface:#fffdf8;
+  --nav-surface-muted:#f3eee3;
+  --nav-text:#f7fbf8;
+  --nav-text-muted:#c8d6d1;
+  --nav-ink:#173f35;
+  --nav-accent:#d7b45a;
+  --nav-border:rgba(255,255,255,.12);
+  --nav-border-light:rgba(23,63,53,.14);
+  --nav-hover:rgba(255,255,255,.10);
+  --nav-active-bg:#f3ead3;
+  --nav-active-ink:#123f34;
+
   /* Family spacing scale. */
   
   --family-space-2:8px;
