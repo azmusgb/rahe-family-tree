@@ -478,7 +478,7 @@ body[data-experience="family"][data-route="dashboard"] .page-heading{display:non
 
 .dashboard-recent{animation:family-reveal .22s ease-out}
 
-.dashboard-recent-strip{grid-template-columns:repeat(4,minmax(0,1fr))}
+.dashboard-recent-strip{grid-template-columns:repeat(3,minmax(0,1fr))}
 
 @media(max-width:980px){.dashboard-paths{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
@@ -711,7 +711,6 @@ body[data-route="dashboard"][data-v158-context="family"] #content.v161-home .das
 
 body[data-route="dashboard"][data-v158-context="family"] #content.v161-home .v157-person-copy span:first-child{display:none}
 
-@media(max-width:720px){body[data-route="dashboard"] .route-shell .page-heading,body[data-route="dashboard"] .route-shell #status{display:none!important}}
 
 @media(max-width:720px){body[data-route="dashboard"] #content.v161-home .v157-hero{padding:20px 14px!important;margin-top:4px!important}}
 
