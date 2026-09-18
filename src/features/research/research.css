@@ -982,15 +982,15 @@ body[data-v158-context="research"] .site-footer-bottom{
 /* Migrated live selectors from retired release CSS.
  * These rules remain below the semantic ownership boundary and are now
  * maintained by this module; obsolete selector arms were removed during migration. */
-.v128-drop-zone{border:2px dashed rgba(23,63,53,.2)!important;border-radius:16px!important;padding:18px!important;background:#f7faf8;cursor:pointer;transition:.2s}
+.media-drop-zone{border:2px dashed rgba(23,63,53,.2)!important;border-radius:16px!important;padding:18px!important;background:#f7faf8;cursor:pointer;transition:.2s}
 
-.v128-drop-zone.dragging{border-color:var(--green)!important;background:#edf5f0}
+.media-drop-zone.dragging{border-color:var(--green)!important;background:#edf5f0}
 
-.v128-drop-zone .drop-title{display:block;font-size:14px;font-weight:800;color:var(--green);margin-bottom:3px}
+.media-drop-zone .drop-title{display:block;font-size:14px;font-weight:800;color:var(--green);margin-bottom:3px}
 
-.v128-drop-zone>small{font-size:11px;color:var(--muted)}
+.media-drop-zone>small{font-size:11px;color:var(--muted)}
 
-.v128-drop-zone input{margin-top:10px}
+.media-drop-zone input{margin-top:10px}
 
 .v153-profile .v153-source-record{opacity:.84}
 
