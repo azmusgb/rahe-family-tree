@@ -201,6 +201,7 @@ const deadCandidates=selectorRows.filter(r=>{
   const tokenCount=r.classes.length+r.ids.length+r.attrs.length;
   if(tokenCount===0)return false;
   if(r.referenceFiles.length)return false;
+  if(r.selector.trim()==='[hidden]')return false; // semantic platform state toggled via the hidden IDL property
   if(/:(?:hover|focus|focus-visible|active|visited|checked|disabled|enabled|open|target|empty|first|last|nth|not|is|where|has)/.test(r.selector))return false;
   return true;
 });
