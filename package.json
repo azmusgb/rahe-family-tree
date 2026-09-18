@@ -24,6 +24,7 @@
     "architecture:audit": "node scripts/architecture-audit.mjs",
     "build": "node scripts/build/pipeline.mjs --site",
     "dev": "netlify dev",
-    "css:audit": "node scripts/css-usage-audit.mjs --write --strict"
+    "css:audit": "node scripts/css-usage-audit.mjs --write --strict && node scripts/css-cascade-conflict-audit.mjs --write --strict",
+    "css:cascade-audit": "node scripts/css-cascade-conflict-audit.mjs --write"
   }
 }
