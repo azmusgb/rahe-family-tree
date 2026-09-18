@@ -718,9 +718,9 @@ body[data-experience="family"][data-route="person"] #content.v153-profile{max-wi
 
 .v153-profile .profile-headline>p{font-size:14px;color:var(--muted,#6e7a74);margin:0}
 
-.v153-profile-identity{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.person-profile-identity{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
 
-.v153-profile-identity span{display:inline-flex;align-items:center;min-height:28px;padding:5px 9px;border-radius:999px;background:#e8efeb;color:#36564b;font-size:10px;font-weight:750}
+.person-profile-identity span{display:inline-flex;align-items:center;min-height:28px;padding:5px 9px;border-radius:999px;background:#e8efeb;color:#36564b;font-size:10px;font-weight:750}
 
 .v153-profile .profile-status-grid{margin-top:18px}
 
@@ -736,29 +736,29 @@ body[data-experience="family"][data-route="person"] #content.v153-profile{max-wi
 
 .v153-section-heading>a,.v153-section-heading>.text-link{font-size:11px;font-weight:760;color:var(--green,#173f35);text-decoration:none}
 
-.v153-relation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.person-relation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 
-.v153-relation-group{min-width:0;padding:16px;border-radius:16px;background:#f6f7f3;border:1px solid rgba(23,63,53,.07)}
+.person-relation-group{min-width:0;padding:16px;border-radius:16px;background:#f6f7f3;border:1px solid rgba(23,63,53,.07)}
 
-.v153-relation-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;color:#586c64;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.person-relation-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;color:#586c64;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 
-.v153-relation-title b{display:grid;place-items:center;width:24px;height:24px;border-radius:999px;background:#e3ebe6;color:#315247;font-size:10px}
+.person-relation-title b{display:grid;place-items:center;width:24px;height:24px;border-radius:999px;background:#e3ebe6;color:#315247;font-size:10px}
 
-.v153-relation-people{display:grid;gap:8px}
+.person-relation-people{display:grid;gap:8px}
 
-.v153-relation-person{width:100%;display:grid;grid-template-columns:38px minmax(0,1fr);gap:10px;align-items:center;text-align:left;border:0;background:#fff;border-radius:12px;padding:8px;cursor:pointer;color:inherit;box-shadow:inset 0 0 0 1px rgba(23,63,53,.07)}
+.person-relation-person{width:100%;display:grid;grid-template-columns:38px minmax(0,1fr);gap:10px;align-items:center;text-align:left;border:0;background:#fff;border-radius:12px;padding:8px;cursor:pointer;color:inherit;box-shadow:inset 0 0 0 1px rgba(23,63,53,.07)}
 
-.v153-relation-person:hover,.v153-relation-person:focus-visible{box-shadow:inset 0 0 0 1px #8fa99e;background:#fcfdfb;outline:none}
+.person-relation-person:hover,.person-relation-person:focus-visible{box-shadow:inset 0 0 0 1px #8fa99e;background:#fcfdfb;outline:none}
 
-.v153-relation-person span:last-child{min-width:0;display:grid;gap:2px}
+.person-relation-person span:last-child{min-width:0;display:grid;gap:2px}
 
-.v153-relation-person b{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.person-relation-person b{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-.v153-relation-person small{font-size:9px;color:var(--muted,#6e7a74);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.person-relation-person small{font-size:9px;color:var(--muted,#6e7a74);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-.v153-mini-avatar{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:var(--green,#173f35);color:#fff;font-size:11px;font-weight:800}
+.person-mini-avatar{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:var(--green,#173f35);color:#fff;font-size:11px;font-weight:800}
 
-.v153-none{font-size:10px;line-height:1.45;color:var(--muted,#6e7a74);padding:5px}
+.person-relation-empty{font-size:10px;line-height:1.45;color:var(--muted,#6e7a74);padding:5px}
 
 body[data-experience="family"][data-route="tree"] #content.v154-tree{max-width:none}
 

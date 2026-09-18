@@ -46,7 +46,7 @@
 .graph-node{filter:none!important}
 .graph-node rect{filter:none!important}
 .v153-profile-nav,.v154-tree-help,.v154-tree-actions{display:none!important}
-.v153-family-network,.v153-life-story,.v154-tree-person{box-shadow:none;break-inside:avoid}
+.person-family-network,.person-life-summary,.v154-tree-person{box-shadow:none;break-inside:avoid}
 
 /* tree-advanced.css */
 .tree-advanced-nav,.tree-focus-breadcrumb,.tree-recent-trail,.tree-path-tools,.tree-advanced-export,.graph-toolbar,.legend,.v129-tree-memory,.v1291-breadcrumb,.v1291-mobile-hint{display:none!important}.graph-shell,.graph-scroll{overflow:visible!important;border:0!important;box-shadow:none!important;background:#fff!important}#family-graph{width:100%!important;height:auto!important;max-width:none!important}.tree-path-segment{stroke-width:4!important}
