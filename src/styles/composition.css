@@ -110,18 +110,18 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
 #status{color:var(--muted);font-size:.76rem}
 
 /* Shared cards and sections */
-:where(.person-card,.source-card,.claim-card,.queue-card,.dossier-section,.family-overview-card,.v17-person-card>button,.v17-relative,.v17-family-summary,.tree-context,.v174-profile-snapshot,.graph-panel,.media-library-card,.dashboard-person){
+:where(.person-card,.source-card,.claim-card,.queue-card,.dossier-section,.family-overview-card,.ui-family-person-card>button,.ui-relative,.ui-family-summary,.tree-context,.ui-profile-snapshot,.graph-panel,.media-library-card,.dashboard-person){
   border-color:var(--line);
   background:rgba(255,253,248,.92);
   box-shadow:var(--family-shadow-card);
 }
-:where(.person-card,.source-card,.v17-person-card>button,.v17-relative,.media-library-card,.dashboard-person){
+:where(.person-card,.source-card,.ui-family-person-card>button,.ui-relative,.media-library-card,.dashboard-person){
   transition:
     transform var(--family-motion-normal,220ms) ease,
     border-color var(--family-motion-normal,220ms) ease,
     box-shadow var(--family-motion-normal,220ms) ease;
 }
-:where(.person-card,.source-card,.v17-person-card>button,.v17-relative,.media-library-card,.dashboard-person):where(:hover,:focus-within){
+:where(.person-card,.source-card,.ui-family-person-card>button,.ui-relative,.media-library-card,.dashboard-person):where(:hover,:focus-within){
   transform:translateY(-2px);
   border-color:#b9c3b8;
   border-color:color-mix(in srgb,var(--green) 24%,var(--line));
@@ -138,13 +138,13 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
    -------------------------------------------------------------------------- */
 
 /* Flatten generic surfaces. Cards should identify objects, not every section. */
-:where(.panel,.family-overview-card,.v17-family-summary,.v174-profile-snapshot,.graph-panel,.dossier-section){
+:where(.panel,.family-overview-card,.ui-family-summary,.ui-profile-snapshot,.graph-panel,.dossier-section){
   box-shadow:none;
 }
-:where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.v17-person-card>button,.v17-relative){
+:where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.ui-family-person-card>button,.ui-relative){
   box-shadow:var(--family-shadow-card);
 }
-:where(.person-card,.source-card,.v17-person-card>button,.v17-relative,.media-library-card,.dashboard-person):where(:hover,:focus-within){
+:where(.person-card,.source-card,.ui-family-person-card>button,.ui-relative,.media-library-card,.dashboard-person):where(:hover,:focus-within){
   transform:none;
   box-shadow:var(--family-shadow-card-hover);
 }
@@ -153,7 +153,7 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
 :where(.action,button,input,select,textarea,.local-nav a,.local-nav button){
   border-radius:var(--family-radius-control);
 }
-:where(.action,.filters button,.focus-actions button,.v154-tree-actions .action){
+:where(.action,.filters button,.focus-actions button,.ui-tree-actions .action){
   min-height:42px;
 }
 
@@ -182,7 +182,7 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
 }
 
-#nav a,.nav-menu>summary,.v158-research-entry{
+#nav a,.nav-menu>summary,.ui-research-entry{
   border-radius:12px;
   transition:
     background var(--family-motion-fast,140ms) ease,
@@ -239,7 +239,7 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
 /* Final Home composition. Presentation-only. */
 
 /* Home */
-.v17-home-hero,.family-home-hero,.dashboard-hero{
+.ui-family-home-hero,.family-home-hero,.dashboard-hero{
   position:relative;
   isolation:isolate;
   overflow:hidden;
@@ -250,8 +250,8 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
     linear-gradient(135deg,#123f34 0%,#1f5848 54%,#816329 145%);
   box-shadow:0 18px 48px rgba(18,45,36,.12);
 }
-.v17-home-hero,.dashboard-hero{min-height:clamp(350px,46vh,520px)}
-.v17-home-hero::after,.family-home-hero::after,.dashboard-hero::before{
+.ui-family-home-hero,.dashboard-hero{min-height:clamp(350px,46vh,520px)}
+.ui-family-home-hero::after,.family-home-hero::after,.dashboard-hero::before{
   content:"";
   position:absolute;
   inset:auto -8% -45% 42%;
@@ -263,9 +263,9 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
   z-index:-1;
   pointer-events:none;
 }
-.v17-home-hero>div{max-width:780px}
-.v17-home-hero .eyebrow,.family-home-copy .eyebrow,.dashboard-hero-copy .eyebrow{color:#dcc28e}
-.v17-home-hero h1,.family-home-copy h2,.dashboard-hero-copy h2{
+.ui-family-home-hero>div{max-width:780px}
+.ui-family-home-hero .eyebrow,.family-home-copy .eyebrow,.dashboard-hero-copy .eyebrow{color:#dcc28e}
+.ui-family-home-hero h1,.family-home-copy h2,.dashboard-hero-copy h2{
   margin:8px 0 20px;
   color:#fffdf8;
   font-family:var(--family-font-display);
@@ -275,16 +275,16 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
   letter-spacing:-.045em;
   text-wrap:balance;
 }
-.v17-home-hero h1{max-width:10ch}
+.ui-family-home-hero h1{max-width:10ch}
 .family-home-copy h2,.dashboard-hero-copy h2{max-width:12ch}
-.v17-home-hero p:not(.eyebrow),.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy>p:not(.eyebrow){
+.ui-family-home-hero p:not(.eyebrow),.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy>p:not(.eyebrow){
   max-width:59ch;
   color:rgba(255,255,255,.80);
   font-size:clamp(1rem,1.7vw,1.18rem);
   line-height:1.7;
 }
-.v17-primary-actions,.family-home-actions,.dashboard-hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
-.v17-primary-actions .action,.family-home-actions a,.dashboard-hero-actions .action{
+.ui-primary-actions,.family-home-actions,.dashboard-hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.ui-primary-actions .action,.family-home-actions a,.dashboard-hero-actions .action{
   min-height:48px;
   display:inline-flex;
   align-items:center;
@@ -302,14 +302,14 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
     transform var(--family-motion-fast,140ms) ease,
     background var(--family-motion-fast,140ms) ease;
 }
-.v17-primary-actions .action.primary,.dashboard-hero-actions .action.primary{background:#fff8e9;color:#123f34;border-color:#fff8e9}
-.v17-primary-actions .action:hover,.family-home-actions a:hover,.dashboard-hero-actions .action:hover{transform:translateY(-1px);background:rgba(255,255,255,.15)}
-.v17-primary-actions .action.primary:hover,.dashboard-hero-actions .action.primary:hover{background:#fff;color:#123f34}
+.ui-primary-actions .action.primary,.dashboard-hero-actions .action.primary{background:#fff8e9;color:#123f34;border-color:#fff8e9}
+.ui-primary-actions .action:hover,.family-home-actions a:hover,.dashboard-hero-actions .action:hover{transform:translateY(-1px);background:rgba(255,255,255,.15)}
+.ui-primary-actions .action.primary:hover,.dashboard-hero-actions .action.primary:hover{background:#fff;color:#123f34}
 
-.v174-discovery{padding-block:clamp(32px,4vw,54px)}
-.v174-discovery-head h2{font-size:clamp(2rem,3.5vw,3rem)}
-.v174-discovery-grid{gap:14px}
-.v174-discovery-grid>button{
+.ui-discovery{padding-block:clamp(32px,4vw,54px)}
+.ui-discovery-head h2{font-size:clamp(2rem,3.5vw,3rem)}
+.ui-discovery-grid{gap:14px}
+.ui-discovery-grid>button{
   min-height:112px;
   padding:18px;
   border-color:var(--line);
@@ -317,56 +317,56 @@ button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
   background:rgba(255,253,248,.88);
   box-shadow:none;
 }
-.v174-discovery-avatar{width:54px;height:54px;border-radius:18px;background:linear-gradient(145deg,#17483c,#0f332a)}
-.v174-discovery-grid b{font-size:1.08rem}
+.ui-discovery-avatar{width:54px;height:54px;border-radius:18px;background:linear-gradient(145deg,#17483c,#0f332a)}
+.ui-discovery-grid b{font-size:1.08rem}
 
 /* 2026-09-15 focused polish pass: keep the current editorial direction while
  * tightening hierarchy, contrast, and compositional balance. */
-body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero){
+body[data-experience="family"][data-route="dashboard"] :is(.ui-family-home-hero,.family-home-hero,.dashboard-hero){
   min-height:clamp(330px,40vh,455px);
   background:
     radial-gradient(circle at 80% 16%,rgba(219,190,134,.26),transparent 15rem),
     radial-gradient(circle at 84% 76%,rgba(255,255,255,.055),transparent 20rem),
     linear-gradient(135deg,#123f34 0%,#1f5848 56%,#6f5b2d 150%);
 }
-body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero)::after,
+body[data-experience="family"][data-route="dashboard"] :is(.ui-family-home-hero,.family-home-hero,.dashboard-hero)::after,
 body[data-experience="family"][data-route="dashboard"] .dashboard-hero::before{
   inset:auto -4% -50% 47%;
   width:55%;
   border-color:rgba(255,255,255,.19);
   box-shadow:0 0 0 50px rgba(255,255,255,.038),0 0 0 102px rgba(255,255,255,.022),0 0 70px rgba(227,207,166,.06);
 }
-body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero .eyebrow,.family-home-copy .eyebrow,.dashboard-hero-copy .eyebrow){
+body[data-experience="family"][data-route="dashboard"] :is(.ui-family-home-hero .eyebrow,.family-home-copy .eyebrow,.dashboard-hero-copy .eyebrow){
   color:#efd8aa;
   font-weight:800;
   letter-spacing:.14em;
   text-shadow:0 1px 0 rgba(0,0,0,.12);
 }
-body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero p:not(.eyebrow),.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy>p:not(.eyebrow)){
+body[data-experience="family"][data-route="dashboard"] :is(.ui-family-home-hero p:not(.eyebrow),.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy>p:not(.eyebrow)){
   color:rgba(255,255,255,.90);
   max-width:56ch;
   line-height:1.62;
 }
-body[data-experience="family"][data-route="dashboard"] :is(.v17-primary-actions,.family-home-actions,.dashboard-hero-actions){margin-top:24px}
-body[data-experience="family"][data-route="dashboard"] :is(.v17-primary-actions .action,.family-home-actions a,.dashboard-hero-actions .action){
+body[data-experience="family"][data-route="dashboard"] :is(.ui-primary-actions,.family-home-actions,.dashboard-hero-actions){margin-top:24px}
+body[data-experience="family"][data-route="dashboard"] :is(.ui-primary-actions .action,.family-home-actions a,.dashboard-hero-actions .action){
   border-color:rgba(255,255,255,.38);
   background:rgba(255,255,255,.10);
 }
-body[data-experience="family"][data-route="dashboard"] :is(.v17-primary-actions .action.primary,.dashboard-hero-actions .action.primary){
+body[data-experience="family"][data-route="dashboard"] :is(.ui-primary-actions .action.primary,.dashboard-hero-actions .action.primary){
   background:#fff8e9;
   color:#123f34;
   border-color:#fff8e9;
   box-shadow:0 8px 24px rgba(6,28,22,.16);
 }
-body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,.family-home-stat small,.dashboard-hero-stat small,.dashboard-stat small){
+body[data-experience="family"][data-route="dashboard"] :is(.ui-home-stat small,.family-home-stat small,.dashboard-hero-stat small,.dashboard-stat small){
   color:rgba(255,255,255,.78);
   font-weight:700;
   letter-spacing:.08em;
 }
 
 @media(max-width:720px){
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero){min-height:auto}
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero)::after,
+  body[data-experience="family"][data-route="dashboard"] :is(.ui-family-home-hero,.family-home-hero,.dashboard-hero){min-height:auto}
+  body[data-experience="family"][data-route="dashboard"] :is(.ui-family-home-hero,.family-home-hero,.dashboard-hero)::after,
   body[data-experience="family"][data-route="dashboard"] .dashboard-hero::before{inset:auto -38% -28% 35%;width:88%}
 }
 
@@ -375,7 +375,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
    ========================================================================== */
 /* Final Person composition. Presentation-only. */
 
-.v17-page-intro h2,.person-header h2,.v17-section-heading h2,.media-library-title h2{
+.ui-page-intro h2,.person-header h2,.ui-family-section-heading h2,.media-library-title h2{
   color:var(--green);
   letter-spacing:-.045em;
 }
@@ -384,7 +384,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
   padding-block:24px 36px;
 }
 .person-header h2{font-size:clamp(3rem,6.5vw,5.8rem)}
-.v17-person-nav{
+.ui-person-nav{
   top:56px;
   padding:8px;
   border:1px solid var(--line);
@@ -393,16 +393,16 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
   background:rgba(248,245,237,.88);
   box-shadow:0 8px 24px rgba(25,40,32,.04);
 }
-.v17-person-nav a.is-active{background:var(--green);box-shadow:none}
+.ui-person-nav a.is-active{background:var(--green);box-shadow:none}
 
 /* Person: biography first, less application chrome. */
 .person-header{gap:24px;padding-block:18px 28px}
 .person-header h2{font-size:clamp(2.7rem,5.2vw,4.8rem);line-height:.98}
-.v17-person-nav{top:48px;margin-inline:0;padding:7px 0;border:0;border-bottom:1px solid var(--family-border-hairline);border-radius:0;box-shadow:none}
-.v17-person-nav a{padding:8px 10px}
-.v17-person-section{padding:clamp(24px,4vw,46px) 0}
-.v17-life-event>div{background:transparent;border:0;border-radius:0;padding:0}
-.v17-family-groups{gap:14px}
+.ui-person-nav{top:48px;margin-inline:0;padding:7px 0;border:0;border-bottom:1px solid var(--family-border-hairline);border-radius:0;box-shadow:none}
+.ui-person-nav a{padding:8px 10px}
+.ui-person-section{padding:clamp(24px,4vw,46px) 0}
+.ui-life-event>div{background:transparent;border:0;border-radius:0;padding:0}
+.ui-family-groups{gap:14px}
 
 /* ==========================================================================
    Source: people-composition.css
@@ -410,30 +410,30 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 /* Final People-directory composition. Presentation-only. */
 
 /* People directory */
-.v17-people-grid{gap:12px}
-.v17-person-card>button{
+.ui-people-grid{gap:12px}
+.ui-family-person-card>button{
   border-radius:17px;
   background:#fffdf8;
 }
-.v17-person-card .v17-avatar{
+.ui-family-person-card .ui-avatar{
   border-radius:16px;
   background:linear-gradient(145deg,#17483c,#102f27);
 }
-.v17-branch-chip{
+.ui-branch-chip{
   border-color:var(--line);
   background:#fffdf8;
 }
-.v17-branch-chip.active,.v17-branch-chip[aria-current="true"]{
+.ui-branch-chip.active,.ui-branch-chip[aria-current="true"]{
   border-color:var(--green);
   background:var(--green);
   color:#fff;
 }
 
 /* People: compact directory cards with less chrome. */
-.v17-people-grid{gap:10px}
-.v17-person-card>button{border-radius:14px;box-shadow:none}
-.v17-person-card>button:hover,.v17-person-card>button:focus-visible{box-shadow:var(--family-shadow-card)}
-.v17-branch-chip{box-shadow:none}
+.ui-people-grid{gap:10px}
+.ui-family-person-card>button{border-radius:14px;box-shadow:none}
+.ui-family-person-card>button:hover,.ui-family-person-card>button:focus-visible{box-shadow:var(--family-shadow-card)}
+.ui-branch-chip{box-shadow:none}
 
 /* ==========================================================================
    Source: tree-composition.css
@@ -446,7 +446,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
   border-radius:20px;
   background:linear-gradient(135deg,#fffdf8,#f2f4ee);
 }
-.v154-graph-shell,.graph-shell,.graph-panel{
+.ui-graph-shell,.graph-shell,.graph-panel{
   overflow:hidden;
   border-radius:24px;
 }
@@ -485,15 +485,15 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 
 /* Tree: controls first, canvas second; remove decorative noise. */
 .tree-context{padding:16px 18px;border-radius:16px;background:var(--surface-soft);box-shadow:none}
-.v154-graph-shell,.graph-shell,.graph-panel{border-radius:18px}
+.ui-graph-shell,.graph-shell,.graph-panel{border-radius:18px}
 .graph-toolbar{padding:10px 12px}
 .graph-scroll{background-color:#faf9f5;background-image:none}
 .graph-node rect{filter:drop-shadow(0 3px 6px rgba(18,63,52,.055))}
 .graph-node:hover rect,.graph-node:focus rect{filter:drop-shadow(0 6px 12px rgba(18,63,52,.09))}
 body[data-route="tree"][data-v158-context="family"] .graph-shell{box-shadow:none!important}
 body[data-route="tree"][data-v158-context="family"] .graph-scroll{background:#faf9f5!important;background-image:none!important}
-body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar,
-body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{background:transparent!important}
+body[data-route="tree"][data-v158-context="family"] .ui-tree-toolbar,
+body[data-route="tree"][data-v158-context="family"] .ui-tree-controls{background:transparent!important}
 
 /* ==========================================================================
    Source: responsive-composition.css
@@ -517,25 +517,25 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   .page-heading>div>p:last-child,.page-heading>p:last-child{font-size:.9rem;line-height:1.55}
   .filters,#filters{padding:8px;border-radius:15px}
 
-  .v17-home-hero,.family-home-hero,.dashboard-hero{
+  .ui-family-home-hero,.family-home-hero,.dashboard-hero{
     min-height:clamp(460px,70vh,500px);
     padding:26px 22px;
     border-radius:24px;
   }
-  .v17-home-hero h1,.family-home-copy h2,.dashboard-hero-copy h2{
+  .ui-family-home-hero h1,.family-home-copy h2,.dashboard-hero-copy h2{
     font-size:clamp(3rem,15vw,4.9rem);
     max-width:9ch;
     line-height:.92;
   }
-  .v17-home-hero p:not(.eyebrow),.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy>p:not(.eyebrow){font-size:.96rem}
-  .v17-primary-actions{display:grid;grid-template-columns:1fr 1fr}
-  .v17-primary-actions .action:first-child{grid-column:1/-1}
-  .v174-discovery{padding-block:34px}
-  .v174-discovery-grid{gap:9px}
-  .v174-discovery-grid>button{min-height:104px;padding:14px}
+  .ui-family-home-hero p:not(.eyebrow),.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy>p:not(.eyebrow){font-size:.96rem}
+  .ui-primary-actions{display:grid;grid-template-columns:1fr 1fr}
+  .ui-primary-actions .action:first-child{grid-column:1/-1}
+  .ui-discovery{padding-block:34px}
+  .ui-discovery-grid{gap:9px}
+  .ui-discovery-grid>button{min-height:104px;padding:14px}
   .person-header{gap:16px;padding-block:10px 24px}
   .person-header h2{font-size:clamp(2.45rem,13vw,4rem)}
-  .v17-person-nav{top:7px;margin-inline:-2px}
+  .ui-person-nav{top:7px;margin-inline:-2px}
 
   /* Existing dock rules use high-specificity !important declarations; these are the only deliberate overrides here. */
   #family-mobile-dock:not([hidden]){
@@ -567,9 +567,9 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
 }
 
 @media(max-width:430px){
-  .v17-primary-actions{grid-template-columns:1fr}
-  .v17-primary-actions .action:first-child{grid-column:auto}
-  .v17-home-hero,.family-home-hero,.dashboard-hero{min-height:460px;padding:24px 20px}
+  .ui-primary-actions{grid-template-columns:1fr}
+  .ui-primary-actions .action:first-child{grid-column:auto}
+  .ui-family-home-hero,.family-home-hero,.dashboard-hero{min-height:460px;padding:24px 20px}
 }
 
 
@@ -600,21 +600,21 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   .filters,#filters{padding:7px;border-radius:14px}
   .filters input,.filters select,#filters input,#filters select{min-height:46px;font-size:16px}
 
-  .v17-home-hero,.family-home-hero,.dashboard-hero{min-height:380px;padding:24px 20px;border-radius:20px}
-  .v17-home-hero h1,.family-home-copy h2,.dashboard-hero-copy h2{font-size:clamp(2.7rem,13vw,4rem);line-height:.94}
-  .v174-discovery{padding-block:28px}
+  .ui-family-home-hero,.family-home-hero,.dashboard-hero{min-height:380px;padding:24px 20px;border-radius:20px}
+  .ui-family-home-hero h1,.family-home-copy h2,.dashboard-hero-copy h2{font-size:clamp(2.7rem,13vw,4rem);line-height:.94}
+  .ui-discovery{padding-block:28px}
 
   .person-header{grid-template-columns:72px minmax(0,1fr);gap:14px;padding-block:8px 22px}
   .person-header h2{font-size:clamp(2.2rem,10vw,3.1rem);letter-spacing:-.04em}
-  .v17-person-nav{position:sticky;top:0;margin:0 -14px 10px;padding:7px 14px;background:rgba(244,241,233,.96)}
-  .v17-person-section{padding:26px 0}
-  .v17-family-groups{grid-template-columns:1fr}
-  .v17-life-timeline::before{left:66px}
-  .v17-life-event{grid-template-columns:52px minmax(0,1fr);gap:24px;padding:14px 0}
-  .v17-life-event::before{left:62px}
+  .ui-person-nav{position:sticky;top:0;margin:0 -14px 10px;padding:7px 14px;background:rgba(244,241,233,.96)}
+  .ui-person-section{padding:26px 0}
+  .ui-family-groups{grid-template-columns:1fr}
+  .ui-life-timeline::before{left:66px}
+  .ui-life-event{grid-template-columns:52px minmax(0,1fr);gap:24px;padding:14px 0}
+  .ui-life-event::before{left:62px}
 
   /* Replace the 2-column profile tab matrix with a predictable swipe row. */
-  body[data-route="person"] .v1510-profile-tabs{
+  body[data-route="person"] .ui-profile-tabs{
     display:flex!important;
     gap:6px!important;
     margin:10px -14px 14px!important;
@@ -623,25 +623,25 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
     white-space:nowrap!important;
     scrollbar-width:none;
   }
-  body[data-route="person"] .v1510-profile-tabs::-webkit-scrollbar{display:none}
-  body[data-route="person"] .v1510-profile-tabs>button,
-  body[data-route="person"] .v1510-profile-tabs>a{width:auto!important;min-height:42px!important;flex:0 0 auto!important}
-  body[data-route="person"] .v1510-profile-tabs>a{grid-column:auto!important}
+  body[data-route="person"] .ui-profile-tabs::-webkit-scrollbar{display:none}
+  body[data-route="person"] .ui-profile-tabs>button,
+  body[data-route="person"] .ui-profile-tabs>a{width:auto!important;min-height:42px!important;flex:0 0 auto!important}
+  body[data-route="person"] .ui-profile-tabs>a{grid-column:auto!important}
 
   /* Keep utility/history content stacked instead of creating more swipe rails. */
   .tree-context-nav,.tree-recent-history{overflow:visible;flex-wrap:wrap}
-  .v162-family-path-group>div{flex-wrap:wrap;overflow:visible}
-  .v162-places{flex-wrap:wrap;overflow:visible}
+  .ui-family-path-group>div{flex-wrap:wrap;overflow:visible}
+  .ui-places{flex-wrap:wrap;overflow:visible}
 
   body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:60dvh!important;border-radius:14px!important}
   body[data-route="tree"][data-v158-context="family"] .graph-stage,
   body[data-route="tree"][data-v158-context="family"] .graph-scroll{min-height:56dvh!important}
 
-  :where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.v17-person-card>button,.v17-relative){box-shadow:none}
+  :where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.ui-family-person-card>button,.ui-relative){box-shadow:none}
 }
 
 @media(max-width:430px){
-  .v17-home-hero,.family-home-hero,.dashboard-hero{min-height:350px;padding:22px 18px}
-  .v17-primary-actions{grid-template-columns:1fr}
-  .v17-primary-actions .action:first-child{grid-column:auto}
+  .ui-family-home-hero,.family-home-hero,.dashboard-hero{min-height:350px;padding:22px 18px}
+  .ui-primary-actions{grid-template-columns:1fr}
+  .ui-primary-actions .action:first-child{grid-column:auto}
 }
