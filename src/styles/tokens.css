@@ -85,8 +85,6 @@
 
   /* Stacking order. Preserve current effective shell ordering while removing
    * magic numbers from component styles; values can be rationalized centrally. */
-  --z-content:1;
-  --z-sticky:40;
   --z-context:70;
   --z-header:90;
   --z-nav-popover:120;
