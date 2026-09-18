@@ -894,14 +894,14 @@ body[data-nav-context="family"] .site-footer-bottom{display:flex;justify-content
 }
 
 @media(max-width:720px){
-  body[data-experience="family"] .site-header.sidebar{display:flex;position:sticky;top:0;z-index:500;width:100%;height:58px;min-height:58px;align-items:center;justify-content:space-between;padding:8px 12px;border:0;border-bottom:1px solid rgba(255,255,255,.1);border-radius:0;background:#173f35}
+  body[data-experience="family"] .site-header.sidebar{position:sticky;top:0;width:100%;height:58px;min-height:58px;align-items:center;justify-content:space-between;border:0;border-radius:0;}
   body[data-experience="family"] .site-header .brand{display:flex}.site-header .brand .monogram{width:36px;height:36px}.site-header .brand>span:last-child{display:grid;font-size:11px}.site-header .brand small{font-size:7px}
   body[data-experience="family"] .site-header #nav,body[data-experience="family"] .site-header .edition{display:none}
-  body[data-experience="family"] .site-header-actions{display:flex}.site-header-actions button{min-height:38px;padding-inline:10px}.site-header-actions button span:first-child{font-size:18px;line-height:1}.site-header-actions button span:last-child{display:none}
-  body[data-experience="family"] .topbar{display:none}
+  body[data-experience="family"] .site-header-actions{}.site-header-actions button{min-height:38px;padding-inline:10px}.site-header-actions button span:first-child{font-size:18px;line-height:1}.site-header-actions button span:last-child{display:none}
+  body[data-experience="family"] .topbar{}
   body[data-experience="family"] .main{padding-inline:12px;padding-top:12px}
   body[data-route="dashboard"][data-experience="family"] .main{padding-top:12px}
-  body[data-experience="family"] .site-footer{margin-bottom:78px;padding:28px 18px 16px}.site-footer-grid{grid-template-columns:1fr 1fr;gap:24px 18px}.site-footer-brand{grid-column:1/-1}.site-footer-grid nav:last-child{grid-column:auto}.site-footer-bottom{display:grid;gap:6px;margin-top:24px}
+  body[data-experience="family"] .site-footer{margin-bottom:78px;}.site-footer-grid{grid-template-columns:1fr 1fr;gap:24px 18px}.site-footer-brand{grid-column:1/-1}.site-footer-grid nav:last-child{grid-column:auto}.site-footer-bottom{display:grid;gap:6px;margin-top:24px}
 }
 
 @media(max-width:430px){body[data-experience="family"] .site-footer-grid{grid-template-columns:1fr}.site-footer-grid nav:last-child{grid-column:auto}}
