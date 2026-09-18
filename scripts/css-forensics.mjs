@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const root=process.cwd();
 const stylesDir=path.join(root,'src','styles');
-const liveFiles=['tokens.css','core.css','composition.css','experience.css','home-responsive.css','interaction.css','mobile.css','print.css'];
+const liveFiles=['tokens.css','foundation.css','../features/navigation/navigation.css','../features/person/person.css','../features/tree/tree.css','../features/research/research.css','../features/family/family-responsive.css','composition.css','experience.css','home-responsive.css','interaction.css','../features/navigation/mobile-foundation.css','../features/navigation/mobile-shell.css','../features/navigation/mobile-directory.css','print.css'];
 const args=new Set(process.argv.slice(2));
 
 function scanTopLevelRules(css){
@@ -228,9 +228,9 @@ function runSelfTest(){
 }
 
 if(args.has('--self-test'))runSelfTest();
-if(args.has('--fix-core'))fixBundle('core.css');
+if(args.has('--fix-core'))fixBundle('foundation.css');
 if(args.has('--fix-composition'))fixBundle('composition.css');
-if(args.has('--assert-core-clean'))assertBundleClean('core.css');
+if(args.has('--assert-core-clean'))assertBundleClean('foundation.css');
 if(args.has('--assert-composition-clean'))assertBundleClean('composition.css');
 
 const report={generatedAt:new Date().toISOString(),files:{}};
