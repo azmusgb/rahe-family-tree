@@ -356,10 +356,10 @@ body.v20-mobile-app{
 --immersive-paper:#fffaf0;
 --immersive-ink:#102f28;
 --immersive-green:#123f34;
---immersive-green-2:#24584a;
+
 --immersive-gold:#c9ad68;
 --immersive-line:rgba(16,47,40,.12);
---immersive-radius:28px;
+
 background:var(--immersive-bg);
 }
 body.v20-mobile-app .site-header.sidebar{
@@ -625,11 +625,11 @@ body.v21-actual-mobile-ui{
 --actual-sage:#e7efe9;
 --actual-label:#735f35;
 --actual-line:#ddd9ce;
---actual-brass:#c9ad68;
+
 --actual-shadow-soft:0 7px 22px rgba(18,47,39,.06);
 --actual-shadow-card:0 12px 30px rgba(18,47,39,.08);
---actual-cream:var(--actual-canvas);
---actual-green:var(--actual-forest);
+
+
 background:var(--actual-canvas);
 color:var(--actual-ink);
 }
