@@ -21,22 +21,22 @@ function editorialMoment(raw){
 
 function polishHome(){
   if(!isMobileHome())return;
-  const root=document.querySelector('[data-v17-native="home"]');
+  const root=document.querySelector('[data-ui-native="home"]');
   if(!root)return;
 
-  const launcher=root.querySelector('.v21-launcher-heading p');
+  const launcher=root.querySelector('.ui-launcher-heading p');
   if(launcher)launcher.textContent='Choose a path into the archive and start exploring.';
 
-  const storyHead=root.querySelector('.v17-home-story .v17-section-head h2');
+  const storyHead=root.querySelector('.ui-home-story .ui-section-head h2');
   if(storyHead)storyHead.textContent='One moment from the family story.';
-  const storyIntro=root.querySelector('.v17-home-story .v17-section-head div>p:not(.eyebrow)');
+  const storyIntro=root.querySelector('.ui-home-story .ui-section-head div>p:not(.eyebrow)');
   if(storyIntro)storyIntro.textContent='A source-backed glimpse from the family archive.';
 
-  root.querySelectorAll('.v17-story-moment h3').forEach(heading=>{
+  root.querySelectorAll('.ui-family-story-moment h3').forEach(heading=>{
     const next=editorialMoment(heading.textContent);
     if(next&&heading.textContent!==next)heading.textContent=next;
   });
-  root.querySelectorAll('.v17-story-moment').forEach(card=>{
+  root.querySelectorAll('.ui-family-story-moment').forEach(card=>{
     card.querySelectorAll('h3,p,small').forEach(node=>{
       if(/\b(?:SUPPORTED|PROVISIONAL|UNRESOLVED|REJECTED)\b/i.test(node.textContent||'')){
         node.textContent=(node.textContent||'').replace(/\s*[|·/]?\s*\b(?:SUPPORTED|PROVISIONAL|UNRESOLVED|REJECTED)\b.*$/i,'').trim();

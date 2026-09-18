@@ -58,12 +58,12 @@ function syncBranchBrowser(){
 }
 
 function peopleHeader(content){
-  if(content.querySelector('.v159-people-header')){const branches=branchCounts();ensureBranchOptions(branches);syncBranchBrowser();return;}
+  if(content.querySelector('.ui-people-header')){const branches=branchCounts();ensureBranchOptions(branches);syncBranchBrowser();return;}
   const grid=content.querySelector('.people-grid');if(!grid)return;
   const people=displayPeople(),historical=people.filter(p=>!p.living).length,living=people.length-historical,branches=branchCounts();
   ensureBranchOptions(branches);
-  const header=document.createElement('section');header.className='v159-people-header';
-  header.innerHTML=`<div class="v159-people-heading"><div><p class="eyebrow">FAMILY DIRECTORY</p><h2>Meet the people in the family</h2><p>Browse relatives as people first — with family context, places, relationships, and photographs where available.</p></div><div class="v159-people-totals" aria-label="People directory summary"><span><b>${people.length}</b><small>people</small></span><span><b>${branches.length}</b><small>branches</small></span><span><b>${historical}</b><small>historical</small></span>${living?`<span><b>${living}</b><small>living protected</small></span>`:''}</div></div><div class="v159-branch-browser" aria-label="Browse people by branch"><span>Browse by branch</span><button type="button" data-v159-branch="">All</button>${branches.slice(0,8).map(([branch,count])=>`<button type="button" data-v159-branch="${esc(branch)}">${esc(branch)} <small>${count}</small></button>`).join('')}</div>`;
+  const header=document.createElement('section');header.className='ui-people-header';
+  header.innerHTML=`<div class="ui-people-heading"><div><p class="eyebrow">FAMILY DIRECTORY</p><h2>Meet the people in the family</h2><p>Browse relatives as people first — with family context, places, relationships, and photographs where available.</p></div><div class="ui-people-totals" aria-label="People directory summary"><span><b>${people.length}</b><small>people</small></span><span><b>${branches.length}</b><small>branches</small></span><span><b>${historical}</b><small>historical</small></span>${living?`<span><b>${living}</b><small>living protected</small></span>`:''}</div></div><div class="ui-people-branch-browser" aria-label="Browse people by branch"><span>Browse by branch</span><button type="button" data-v159-branch="">All</button>${branches.slice(0,8).map(([branch,count])=>`<button type="button" data-v159-branch="${esc(branch)}">${esc(branch)} <small>${count}</small></button>`).join('')}</div>`;
   const inventory=content.querySelector('.notice');
   (inventory||grid).insertAdjacentElement(inventory?'afterend':'beforebegin',header);syncBranchBrowser();
 }
@@ -71,21 +71,21 @@ function peopleHeader(content){
 function enrichPersonCards(content){
   content.querySelectorAll('.person-card .person-open[data-person]').forEach(button=>{
     const person=personById(button.dataset.person);if(!person)return;
-    const article=button.closest('.person-card');article?.classList.add('v159-person-card');
+    const article=button.closest('.person-card');article?.classList.add('ui-directory-person-card');
     const family=directFamily(person),places=personPlaces(person,1),branch=cleanBranch(person.branch);
-    button.innerHTML=`<span class="v159-card-media" aria-hidden="true"><span>${esc(initials(person.name))}</span></span><span class="v159-card-copy"><span class="v159-card-branch">${esc(branch)}</span><strong>${esc(person.name.replace(/\s*\/.*$/,''))}</strong><span class="v159-card-dates">${esc(publicDates(person))}</span><span class="v159-card-context">${esc(personContext(person)||branch)}</span><span class="v159-card-relations">${family.parents.length?`<small>${family.parents.length} parent${family.parents.length===1?'':'s'}</small>`:''}${family.spouses.length?`<small>${family.spouses.length} spouse${family.spouses.length===1?'':'s'}</small>`:''}${family.children.length?`<small>${family.children.length} child${family.children.length===1?'':'ren'}</small>`:''}${!family.parents.length&&!family.spouses.length&&!family.children.length?'<small>Family connections being documented</small>':''}</span></span><span class="v159-card-arrow" aria-hidden="true">→</span>`;
+    button.innerHTML=`<span class="ui-card-media" aria-hidden="true"><span>${esc(initials(person.name))}</span></span><span class="ui-card-copy"><span class="ui-card-branch">${esc(branch)}</span><strong>${esc(person.name.replace(/\s*\/.*$/,''))}</strong><span class="ui-card-dates">${esc(publicDates(person))}</span><span class="ui-card-context">${esc(personContext(person)||branch)}</span><span class="ui-card-relations">${family.parents.length?`<small>${family.parents.length} parent${family.parents.length===1?'':'s'}</small>`:''}${family.spouses.length?`<small>${family.spouses.length} spouse${family.spouses.length===1?'':'s'}</small>`:''}${family.children.length?`<small>${family.children.length} child${family.children.length===1?'':'ren'}</small>`:''}${!family.parents.length&&!family.spouses.length&&!family.children.length?'<small>Family connections being documented</small>':''}</span></span><span class="ui-card-arrow" aria-hidden="true">→</span>`;
     if(places.length)article?.setAttribute('data-place',places[0]);
   });
 }
 
 function installLifeSummary(content,person){
-  const overview=content.querySelector('.family-overview-card');if(!overview||overview.querySelector('.v159-life-summary'))return;
-  overview.classList.add('v159-person-overview');
+  const overview=content.querySelector('.family-overview-card');if(!overview||overview.querySelector('.ui-life-summary'))return;
+  overview.classList.add('ui-person-overview');
   const family=directFamily(person),places=personPlaces(person,3),events=normalizedEvents().filter(e=>(e.personIds||[]).includes(person.id));
   const years=events.map(e=>Number(e.year)).filter(Number.isFinite).sort((a,b)=>a-b);
   const firstYear=years[0],lastYear=years.at(-1);
-  const summary=document.createElement('section');summary.className='v159-life-summary';
-  summary.innerHTML=`<div class="v159-life-copy"><p class="eyebrow">LIFE AT A GLANCE</p><h3>${esc(person.name.replace(/\s*\/.*$/,''))}</h3><p>${esc(personContext(person)||`${cleanBranch(person.branch)} family member`)}. ${person.living?'Public family view protects living-person birth and location details.':'Explore the relationships, places, chronology, photographs, and records connected to this person.'}</p></div><div class="v159-life-facts"><span><b>${esc(lifeYears(person))}</b><small>life record</small></span><span><b>${family.parents.length+family.spouses.length+family.children.length}</b><small>immediate family links</small></span><span><b>${events.length}</b><small>timeline records</small></span>${!person.living&&places.length?`<span><b>${esc(places[0])}</b><small>key place</small></span>`:''}</div>${!person.living&&places.length>1?`<div class="v159-place-trail"><span>Places in the record</span>${places.map(place=>`<b>${esc(place)}</b>`).join('<i aria-hidden="true">→</i>')}</div>`:''}`;
+  const summary=document.createElement('section');summary.className='ui-life-summary';
+  summary.innerHTML=`<div class="ui-life-copy"><p class="eyebrow">LIFE AT A GLANCE</p><h3>${esc(person.name.replace(/\s*\/.*$/,''))}</h3><p>${esc(personContext(person)||`${cleanBranch(person.branch)} family member`)}. ${person.living?'Public family view protects living-person birth and location details.':'Explore the relationships, places, chronology, photographs, and records connected to this person.'}</p></div><div class="ui-life-facts"><span><b>${esc(lifeYears(person))}</b><small>life record</small></span><span><b>${family.parents.length+family.spouses.length+family.children.length}</b><small>immediate family links</small></span><span><b>${events.length}</b><small>timeline records</small></span>${!person.living&&places.length?`<span><b>${esc(places[0])}</b><small>key place</small></span>`:''}</div>${!person.living&&places.length>1?`<div class="v159-place-trail"><span>Places in the record</span>${places.map(place=>`<b>${esc(place)}</b>`).join('<i aria-hidden="true">→</i>')}</div>`:''}`;
   const familyGrid=overview.querySelector('.profile-family-grid');
   (familyGrid||overview.querySelector('.profile-media'))?.insertAdjacentElement('beforebegin',summary);
 }
@@ -94,16 +94,16 @@ function polishProfile(content,person){
   if(!person)return;
   content.classList.add('v159-profile');
   const overview=content.querySelector('.family-overview-card');if(!overview)return;
-  overview.classList.add('v159-person-overview');
+  overview.classList.add('ui-person-overview');
   const headline=overview.querySelector('.profile-headline');
-  if(headline&&!headline.querySelector('.v159-profile-context')){
-    const context=document.createElement('p');context.className='v159-profile-context';context.textContent=personContext(person)||`${cleanBranch(person.branch)} family member`;headline.appendChild(context);
+  if(headline&&!headline.querySelector('.ui-profile-context')){
+    const context=document.createElement('p');context.className='ui-profile-context';context.textContent=personContext(person)||`${cleanBranch(person.branch)} family member`;headline.appendChild(context);
   }
   const actions=overview.querySelector('.profile-actions');
   if(actions&&!actions.querySelector('[data-v159-photos]')){
     const photos=document.createElement('a');photos.className='action';photos.href='#media';photos.dataset.v159Photos='';photos.textContent='Browse family photos';actions.appendChild(photos);
   }
-  overview.querySelectorAll('.profile-family-block').forEach(block=>block.classList.add('v159-family-block'));
+  overview.querySelectorAll('.profile-family-block').forEach(block=>block.classList.add('ui-family-block'));
   installLifeSummary(content,person);
 }
 
@@ -119,12 +119,12 @@ function portraitMap(media){
 }
 async function hydratePortraits(content){
   const map=portraitMap(await publicMedia());
-  content.querySelectorAll('.v159-person-card .person-open[data-person]').forEach(button=>{
-    const item=map.get(button.dataset.person),media=button.querySelector('.v159-card-media');if(!item||!media||media.querySelector('img'))return;
+  content.querySelectorAll('.ui-directory-person-card .person-open[data-person]').forEach(button=>{
+    const item=map.get(button.dataset.person),media=button.querySelector('.ui-card-media');if(!item||!media||media.querySelector('img'))return;
     const img=document.createElement('img');img.src=`/api/media?file=${encodeURIComponent(item.id)}`;img.alt='';img.loading='lazy';img.decoding='async';media.prepend(img);media.querySelector('span')?.setAttribute('hidden','');
   });
-  content.querySelectorAll('.v153-relation-person[data-person]').forEach(button=>{
-    const item=map.get(button.dataset.person),avatar=button.querySelector('.v153-mini-avatar');if(!item||!avatar||avatar.dataset.photoLoaded)return;
+  content.querySelectorAll('.ui-relation-person[data-person]').forEach(button=>{
+    const item=map.get(button.dataset.person),avatar=button.querySelector('.ui-mini-avatar');if(!item||!avatar||avatar.dataset.photoLoaded)return;
     avatar.textContent='';avatar.style.backgroundImage=`url("/api/media?file=${encodeURIComponent(item.id)}")`;avatar.style.backgroundSize='cover';avatar.style.backgroundPosition='center';avatar.dataset.photoLoaded='true';
   });
 }
