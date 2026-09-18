@@ -61,8 +61,7 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
   }
   body[data-experience="family"][data-route="dashboard"] #content{max-width:100%}
 
-  /* Hero: compact editorial cover rather than a tall generic banner. */
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero){
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.dashboard-hero){
     display:block;
     min-height:0!important;
     margin:0 0 18px;
@@ -75,13 +74,12 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
       linear-gradient(145deg,#0f3a30 0%,#174b3d 66%,#285d4d 100%);
     box-shadow:0 18px 42px rgba(20,45,37,.15);
   }
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero)::before,
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero)::after{opacity:.55}
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero>div,.family-home-copy,.dashboard-hero-copy){max-width:none}
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero .eyebrow,.family-home-copy .eyebrow,.dashboard-hero-copy .eyebrow){
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.dashboard-hero)::before,body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.dashboard-hero)::after{opacity:.55}
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero>div,.dashboard-hero-copy){max-width:none}
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero .eyebrow,.dashboard-hero-copy .eyebrow){
     margin:0 0 12px;color:#e0c58d;font-size:9px;font-weight:800;letter-spacing:.18em;
   }
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero h1,.v17-home-hero h2,.family-home-copy h2,.dashboard-hero-copy h2){
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero h1,.v17-home-hero h2,.dashboard-hero-copy h2){
     max-width:8.4ch!important;
     margin:0 0 16px;
     color:#fffdf8;
@@ -92,18 +90,17 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
     letter-spacing:-.055em;
     text-wrap:balance;
   }
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero>div>p:not(.eyebrow),.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy>p:not(.eyebrow)){
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero>div>p:not(.eyebrow),.dashboard-hero-copy>p:not(.eyebrow)){
     max-width:31ch;margin:0;color:rgba(255,255,255,.82);font-size:14px!important;line-height:1.52;
   }
 
-  /* Clear primary journey: one dominant action, two quieter choices. */
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-primary-actions,.family-home-actions,.dashboard-hero-actions){
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-primary-actions,.dashboard-hero-actions){
     display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px;margin:22px 0 0!important;
   }
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-primary-actions .action,.family-home-actions a,.dashboard-hero-actions .action){
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-primary-actions .action,.dashboard-hero-actions .action){
     width:100%;min-height:46px;padding:0 12px;border-radius:12px;font-size:12px;font-weight:780;
   }
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-primary-actions,.family-home-actions,.dashboard-hero-actions)>:first-child{
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-primary-actions,.dashboard-hero-actions)>:first-child{
     grid-column:1/-1!important;min-height:50px;background:#fff9eb!important;color:#123f34!important;border-color:#fff9eb!important;
   }
 
@@ -120,13 +117,12 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
   body[data-experience="family"][data-route="dashboard"] :is(.v17-home-metrics,.dashboard-family-metrics) :is(b,strong){font:600 1.55rem/1 var(--family-font-display);color:#fffdf8}
   body[data-experience="family"][data-route="dashboard"] :is(.v17-home-metrics,.dashboard-family-metrics) :is(span,small){font-size:8px;line-height:1.25;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.68)}
 
-  /* Secondary hero/anchor cards should not make the mobile cover twice as tall. */
-  body[data-experience="family"][data-route="dashboard"] :is(.family-home-anchor,.dashboard-hero-card){
+  body[data-experience="family"][data-route="dashboard"] :is(.dashboard-hero-card){
     width:100%;min-height:0;margin:18px 0 0;padding:16px;border-radius:15px;transform:none;
     background:rgba(255,255,255,.09);color:#fff;border:1px solid rgba(255,255,255,.14);box-shadow:none;text-align:left;justify-items:start;
   }
-  body[data-experience="family"][data-route="dashboard"] :is(.family-home-anchor,.dashboard-hero-card) :is(b,strong,a){color:#fff}
-  body[data-experience="family"][data-route="dashboard"] :is(.family-home-anchor,.dashboard-hero-card) :is(small,span){color:rgba(255,255,255,.7)}
+  body[data-experience="family"][data-route="dashboard"] :is(.dashboard-hero-card) :is(b,strong,a){color:#fff}
+  body[data-experience="family"][data-route="dashboard"] :is(.dashboard-hero-card) :is(small,span){color:rgba(255,255,255,.7)}
 
   /* Fast paths read like a compact magazine index. */
   body[data-experience="family"][data-route="dashboard"] .dashboard-paths{
@@ -173,8 +169,8 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
 
 @media(max-width:430px){
   body[data-experience="family"][data-route="dashboard"]{--home-edge:12px;--home-gap:34px}
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.family-home-hero,.dashboard-hero){padding:27px 19px 20px;border-radius:23px}
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero h1,.v17-home-hero h2,.family-home-copy h2,.dashboard-hero-copy h2){font-size:clamp(3.15rem,16vw,4.35rem)!important}
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.dashboard-hero){padding:27px 19px 20px;border-radius:23px}
+  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero h1,.v17-home-hero h2,.dashboard-hero-copy h2){font-size:clamp(3.15rem,16vw,4.35rem)!important}
   body[data-experience="family"][data-route="dashboard"] .dashboard-paths{grid-template-columns:1fr 1fr!important}
   body[data-experience="family"][data-route="dashboard"] .dashboard-paths a{min-height:78px;padding:12px}
   body[data-experience="family"][data-route="dashboard"] :is(.v17-story-moments,.v17-home-people-grid,.v17-home-tree-row,.dashboard-people-grid,.dashboard-story-grid){grid-auto-columns:82vw}

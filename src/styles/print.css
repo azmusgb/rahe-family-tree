@@ -99,12 +99,12 @@ body{background:#fff!important}
 
 /* redesign.css */
 body{background:#fff}
-  .v17-home-hero,.family-home-hero,.dashboard-hero{
+  .v17-home-hero,.dashboard-hero{
     min-height:0;
     background:#fff!important;
     color:#000;
     border:1px solid #bbb;
     box-shadow:none;
   }
-  .v17-home-hero h1,.v17-home-hero p:not(.eyebrow),.family-home-copy h2,.family-home-copy>p:not(.eyebrow),.dashboard-hero-copy h2,.dashboard-hero-copy>p:not(.eyebrow){color:#000}
+  .v17-home-hero h1,.v17-home-hero p:not(.eyebrow),.dashboard-hero-copy h2,.dashboard-hero-copy>p:not(.eyebrow){color:#000}
 }
