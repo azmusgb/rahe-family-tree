@@ -38,7 +38,7 @@
 
 .node-name{font:600 13px Georgia,serif;fill:#21352f}
 
-.relationship-row{grid-template-columns:120px minmax(160px,1fr) 20px minmax(160px,1fr) minmax(220px,1.3fr) auto;align-items:center;border-top:1px solid var(--line)}
+.relationship-row{border-top:1px solid var(--line)}
 
 .relationship-row>span{font-size:9px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
 
@@ -80,7 +80,7 @@
 
 .tree-focusbar{display:grid;grid-template-columns:minmax(220px,1fr) auto;gap:10px;align-items:end;margin:0 0 12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}
 
-.tree-focusbar label{display:grid;gap:5px;font-size:9px;color:var(--muted)}
+.tree-focusbar label{display:grid;gap:5px;color:var(--muted)}
 
 .tree-focusbar select{width:100%;padding:9px;border:1px solid var(--line);border-radius:7px;background:#fbfcfa}
 
@@ -103,7 +103,7 @@
 
 .tree-focusbar{display:grid;grid-template-columns:minmax(260px,1fr) auto;gap:12px;align-items:end;margin:0 0 14px;padding:14px;background:linear-gradient(180deg,#f8fbfa,#fff);border:1px solid var(--line);border-radius:14px}
 
-.tree-focusbar label{display:grid;gap:6px;font-size:9px;color:var(--muted)}
+.tree-focusbar label{display:grid;gap:6px;color:var(--muted)}
 
 .tree-focusbar select{width:100%;border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px;color:var(--ink)}
 
@@ -115,7 +115,7 @@
 
 .tree-depth{grid-column:1/-1;align-items:center}
 
-.tree-depth>span{font-size:9px;color:var(--muted);font-weight:700;margin-right:2px}
+.tree-depth>span{color:var(--muted);font-weight:700;margin-right:2px}
 
 .graph-node rect{}
 
@@ -143,7 +143,7 @@
 
 @media(max-width:720px){.graph-shell{display:none}}
 
-.tree-focusbar label,.tree-depth>span{font-size:11px}
+.tree-focusbar label,.tree-depth>span{}
 
 .tree-mode-buttons button,.tree-depth button{font-size:12px;padding:9px 13px}
 
@@ -163,7 +163,7 @@
 
 .tree-focusbar{border:0;box-shadow:0 8px 26px rgba(31,52,45,.05);padding:16px}
 
-.graph-shell{border:0;box-shadow:0 10px 32px rgba(31,52,45,.06)}
+.graph-shell{border:0;}
 
 .graph-scroll{background:linear-gradient(#fbfcfa,#fbfcfa),radial-gradient(circle at 1px 1px,#dfe5df 1px,transparent 0);}
 
