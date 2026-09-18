@@ -280,7 +280,7 @@ body[data-experience="family"]{padding-bottom:96px}
  * Presentation only: genealogy, evidence, source, privacy, and relationship state stay read-only.
  */
 @media (max-width:720px){
-  :root{--app-bg:#f3efe5;--app-paper:#fffdf8;--app-ink:#17352c;--app-muted:#66736d;--app-green:#173f35;--app-green-2:#245347;--app-gold:#c9b37b;--app-border:rgba(23,63,53,.12);--app-shadow:0 18px 50px rgba(12,39,31,.13);--app-header:58px;--app-context:48px}
+  :root{--app-bg:#f3efe5;--app-paper:#fffdf8;--app-ink:#17352c;--app-muted:#66736d;--app-green:#173f35;--app-border:rgba(23,63,53,.12);--app-shadow:0 18px 50px rgba(12,39,31,.13);--app-header:58px;--app-context:48px}
   body.ui-mobile-app{background:var(--app-bg);overflow-x:hidden}
   body.ui-mobile-app :where(a,button,summary,input,select){-webkit-tap-highlight-color:transparent}
   body.ui-mobile-app :where(a,button,summary){touch-action:manipulation}
