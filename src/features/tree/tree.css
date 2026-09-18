@@ -1,3 +1,4 @@
+/* ==========================================================================
    Source: tree.css
    ========================================================================== */
 /* Migrated live selectors from retired release CSS.
@@ -591,4 +592,3 @@ body[data-route="tree"][data-v158-context="family"] .node-initials.v172-has-phot
 body.tree-compact .graph-shell .legend{display:none}body.tree-compact #family-graph .node-state,body.tree-compact #family-graph .node-branch{display:none}body.tree-compact .graph-toolbar{gap:5px}body.tree-compact .graph-toolbar button{min-height:32px;padding:5px 8px}body.tree-compact .tree-advanced-nav{padding:10px 12px;gap:8px}body.tree-compact .tree-recent-trail{display:none}
 @media(max-width:760px){.tree-advanced-nav{border-radius:12px;margin-bottom:10px}.tree-advanced-primary{display:grid;align-items:stretch}.tree-advanced-primary label{min-width:0}.tree-advanced-actions{display:grid;grid-template-columns:1fr 1fr}.tree-advanced-actions button:last-child{grid-column:1/-1}.tree-focus-breadcrumb{font-size:.76rem}.tree-path-tools{width:100%}.tree-path-tools label{width:100%;display:grid;grid-template-columns:auto 1fr}.tree-path-tools select{max-width:none;width:100%}.tree-advanced-export{width:100%}.tree-advanced-export button{flex:1}.tree-path-summary{font-size:.76rem}.graph-scroll{overscroll-behavior:contain;scroll-snap-type:x proximity}.graph-node{scroll-snap-align:center}}
 
-/* ==========================================================================

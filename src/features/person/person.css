@@ -1,3 +1,4 @@
+/* ==========================================================================
    Source: people.css
    ========================================================================== */
 /* Migrated live selectors from retired release CSS.
@@ -496,4 +497,3 @@ body[data-route="dashboard"] .history-highlight-grid article{min-height:160px}
 .v16-story-card::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,color-mix(in srgb,var(--green) 22%,transparent),transparent 60%);opacity:0;transition:opacity var(--family-motion-fast) ease}
 @media(hover:hover) and (pointer:fine){.v16-story-card:hover::after{opacity:1}}
 
-/* ==========================================================================
