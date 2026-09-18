@@ -193,7 +193,7 @@ body[data-experience="family"]{}
  */
 @media (max-width:720px){
   :root{--app-bg:#f3efe5;--app-paper:#fffdf8;--app-ink:#17352c;--app-muted:#66736d;--app-green:#173f35;--app-green-2:#245347;--app-gold:#c9b37b;--app-border:rgba(23,63,53,.12);--app-shadow:0 18px 50px rgba(12,39,31,.13);--app-header:58px;--app-context:48px}
-  body.v20-mobile-app{background:var(--app-bg);overflow-x:hidden}
+  body.v20-mobile-app{overflow-x:hidden}
   body.v20-mobile-app :where(a,button,summary,input,select){-webkit-tap-highlight-color:transparent}
   body.v20-mobile-app :where(a,button,summary){touch-action:manipulation}
   body.v20-mobile-app :where(button,a,summary):focus-visible{outline:3px solid rgba(31,101,82,.45);outline-offset:3px}
