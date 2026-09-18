@@ -187,6 +187,15 @@ for(const file of activeCss){
   cssStats[file]=stats;
 }
 
+for(const [file,stats] of Object.entries(cssStats)){
+  const rows=selectorRows.filter(row=>row.file===file);
+  stats.referencedSelectors=rows.filter(row=>row.referenceFiles.length>0).length;
+  stats.unreferencedSelectors=rows.filter(row=>row.referenceFiles.length===0).length;
+  stats.markupReferencedSelectors=rows.filter(row=>row.referenceFiles.some(ref=>/\.html?$/.test(ref))).length;
+  stats.runtimeReferencedSelectors=rows.filter(row=>row.referenceFiles.some(ref=>/\.m?js$/.test(ref))).length;
+}
+
+const releaseNumberedCss=repoCss.filter(file=>/(?:^|[-_.])v\d+(?:[-_.]\d+)*/i.test(path.basename(file)));
 const duplicateSelectors=[...selectorFiles].filter(([,files])=>files.size>1).map(([selector,files])=>({selector,files:[...files].sort()})).sort((a,b)=>b.files.length-a.files.length||a.selector.localeCompare(b.selector));
 const deadCandidates=selectorRows.filter(r=>{
   const tokenCount=r.classes.length+r.ids.length+r.attrs.length;
@@ -223,6 +232,7 @@ const totals={
   activeCssFiles:activeCss.length,
   repositoryCssFiles:repoCss.length,
   orphanCssFiles:orphanCss.length,
+  releaseNumberedCssFiles:releaseNumberedCss.length,
   cssBytes:Object.values(cssStats).reduce((n,x)=>n+x.bytes,0),
   selectors:selectorRows.length,
   duplicateSelectorsAcrossFiles:duplicateSelectors.length,
@@ -246,6 +256,7 @@ const report={
   entryCss,
   activeCss,
   orphanCss,
+  releaseNumberedCss,
   totals,
   files:cssStats,
   duplicateSelectors:duplicateSelectors.slice(0,500),
@@ -281,11 +292,15 @@ function md(){
     '',
     '## Active CSS import closure',
     '',
-    ...activeCss.map(f=>`- \`${f}\` — ${cssStats[f]?.bytes??0} bytes, ${cssStats[f]?.selectors??0} selectors, ${cssStats[f]?.important??0} !important, ${cssStats[f]?.legacyClasses??0} legacy class arms`),
+    ...activeCss.map(f=>`- \`${f}\` — ${cssStats[f]?.bytes??0} bytes, ${cssStats[f]?.selectors??0} selectors, ${cssStats[f]?.referencedSelectors??0} referenced, ${cssStats[f]?.unreferencedSelectors??0} unreferenced, ${cssStats[f]?.important??0} !important, ${cssStats[f]?.legacyClasses??0} legacy class arms`),
     '',
     '## Orphan CSS files',
     '',
     ...(orphanCss.length?orphanCss.map(f=>`- \`${f}\``):['None.']),
+    '',
+    '## Release-numbered CSS filenames',
+    '',
+    ...(releaseNumberedCss.length?releaseNumberedCss.map(f=>`- \`${f}\``):['None.']),
     '',
     '## Highest-specificity selectors',
     '',
@@ -332,7 +347,22 @@ console.log(JSON.stringify({totals,orphanCss,topDead:deadCandidates.slice(0,25),
 
 if(args.has('--strict')){
   let failed=false;
+  const budgets={
+    cssBytes:511775,
+    duplicateSelectorsAcrossFiles:469,
+    deadSelectorCandidates:112,
+    highSpecificitySelectors:117,
+    importantDeclarations:1145,
+    legacyClassArms:1925,
+    unstyledRuntimeOrMarkupClasses:135,
+    unusedCustomProperties:23,
+    inlineStyleAttributes:5,
+    stylePropertyWrites:9,
+    styleBlocks:3
+  };
   if(orphanCss.length){console.error(`CSS usage audit failed: ${orphanCss.length} orphan CSS file(s): ${orphanCss.join(', ')}`);failed=true;}
+  if(releaseNumberedCss.length){console.error(`CSS usage audit failed: release-numbered CSS filenames are prohibited: ${releaseNumberedCss.join(', ')}`);failed=true;}
   if(unsafeUndefinedCustomProperties.length){console.error(`CSS usage audit failed: unsafe undefined custom properties: ${unsafeUndefinedCustomProperties.join(', ')}`);failed=true;}
+  for(const [metric,limit] of Object.entries(budgets)){if((totals[metric]??0)>limit){console.error(`CSS usage audit failed: ${metric}=${totals[metric]} exceeds budget ${limit}`);failed=true;}}
   if(failed)process.exit(1);
 }
