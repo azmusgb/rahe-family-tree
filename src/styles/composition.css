@@ -1,30 +1,33 @@
-/* Consolidated stylesheet.
- * Source sections are kept in the previous cascade order so this refactor changes
- * ownership and file count without intentionally changing visual precedence.
- */
 
-/* ==========================================================================
-   Source: base-composition.css
-   ========================================================================== */
-/* Final shared composition for global archive surfaces. Presentation-only. */
+/* v24.7A canonical ownership — earlier-cascade declarations. */
+/* migrated from src/styles/foundation.css */
+.main{max-width:1480px;margin:auto;padding:34px 38px 72px;min-height:80vh}
+/* migrated from src/styles/foundation.css */
+.main{max-width:1360px}
+/* migrated from src/styles/foundation.css */
+.main{}
+/* migrated from src/styles/foundation.css */
+.main{max-width:var(--content-max);}
+/* migrated from src/styles/foundation.css */
+.main{width:min(100%,var(--content-max));margin:0 auto;color:var(--text)}
+/* migrated from src/styles/foundation.css */
+.v17-primary-actions{display:flex;flex-wrap:wrap;}
+/* migrated from src/styles/foundation.css */
+.filters{display:grid;grid-template-columns:minmax(280px,1fr) 190px 170px auto;align-items:end;border:1px solid var(--line);margin:24px 0 12px;}
+/* migrated from src/styles/foundation.css */
+.filters{border-color:var(--line)!important;background:rgba(255,255,255,.92)!important}
+/* migrated from src/features/navigation/navigation.css */
+.v17-home-hero{position:relative;overflow:hidden;padding:clamp(34px,5vw,68px);}
+/* migrated from src/features/person/person.css */
+.page-heading h1{font:44px/1.05 Georgia,serif}
+/* migrated from src/features/research/research.css */
+.page-heading h1{font-weight:600!important}
 
-/* Editorial archive visual refresh.
- * Presentation-only: genealogy, evidence semantics, privacy rules, and routing remain unchanged.
- * This final composition layer consumes the authoritative tokens from tokens.css and does not redefine them.
- */
-
-html{background:var(--bg)}
-body{
-  background:
-    radial-gradient(circle at 82% -8%,rgba(168,118,43,.10),transparent 28rem),
-    linear-gradient(180deg,#f8f5ed 0,var(--bg) 34rem);
-  color:var(--ink);
-}
 
 ::selection{background:#dce9e1;color:#123f34}
 a{color:var(--green);text-decoration-thickness:1px}
 button,input,select,textarea{font-family:var(--family-font-ui)}
-button,.action,input,select,textarea{border-radius:var(--family-radius-control)}
+button,input,select,textarea{border-radius:var(--family-radius-control)}
 
 :where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{
   outline:3px solid #cba15c;
@@ -392,21 +395,11 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
   padding-block:24px 36px;
 }
 .person-header h2{font-size:clamp(3rem,6.5vw,5.8rem)}
-.v17-person-nav{
-  top:56px;
-  padding:8px;
-  border:1px solid var(--line);
-  border-color:color-mix(in srgb,var(--line) 88%,transparent);
-  border-radius:16px;
-  background:rgba(248,245,237,.88);
-  box-shadow:0 8px 24px rgba(25,40,32,.04);
-}
 .v17-person-nav a.is-active{background:var(--green);box-shadow:none}
 
 /* Person: biography first, less application chrome. */
 .person-header{gap:24px;padding-block:18px 28px}
 .person-header h2{font-size:clamp(2.7rem,5.2vw,4.8rem);line-height:.98}
-.v17-person-nav{top:48px;margin-inline:0;padding:7px 0;border:0;border-bottom:1px solid var(--family-border-hairline);border-radius:0;box-shadow:none}
 .v17-person-nav a{padding:8px 10px}
 .v17-person-section{padding:clamp(24px,4vw,46px) 0}
 .v17-life-event>div{background:transparent;border:0;border-radius:0;padding:0}
@@ -454,7 +447,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
   border-radius:20px;
   background:linear-gradient(135deg,#fffdf8,#f2f4ee);
 }
-.v154-graph-shell,.graph-shell,.graph-panel{
+.v154-graph-shell,.graph-panel{
   overflow:hidden;
   border-radius:24px;
 }
@@ -493,7 +486,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 
 /* Tree: controls first, canvas second; remove decorative noise. */
 .tree-context{padding:16px 18px;border-radius:16px;background:var(--surface-soft);box-shadow:none}
-.v154-graph-shell,.graph-shell,.graph-panel{border-radius:18px}
+.v154-graph-shell,.graph-panel{border-radius:18px}
 .graph-toolbar{padding:10px 12px}
 .graph-scroll{background-color:#faf9f5;background-image:none}
 .graph-node rect{filter:drop-shadow(0 3px 6px rgba(18,63,52,.055))}

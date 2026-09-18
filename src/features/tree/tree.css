@@ -58,8 +58,6 @@
 .graph-scroll{max-height:65vh}
 }
 
-
-
 .focus-actions button,.graph-toolbar [data-clear-focus]{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 9px;font-size:10px}
 
 .edge.sibling-context,.edge.baptism-sponsor,.edge.spouse-lead{stroke:#627384;stroke-width:2;stroke-dasharray:2 7}
@@ -238,8 +236,6 @@
 .graph-node .node-collapse circle{r:13}
 }
 
-
-
 @media(max-width:760px){
 .graph-scroll{scroll-snap-type:x proximity}
 .graph-node{scroll-snap-align:center}
@@ -247,8 +243,6 @@
 .graph-toolbar{position:sticky;left:0;z-index:3;background:var(--surface,white);padding-block:7px}
 .tree-focusbar{top:0;z-index:5}
 }
-
-
 
 .hero-tree-mark{width:72px;height:72px;border-radius:22px;display:grid;place-items:center;font-family:Georgia,serif;font-size:2.2rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18)}
 
@@ -373,8 +367,6 @@ body[data-route="tree"] .graph-scroll{max-height:calc(100vh - 310px);min-height:
 .tree-person-actions{grid-template-columns:1fr}
 }
 
-
-
 .relationship-finder{display:grid;grid-template-columns:minmax(220px,1fr) auto minmax(220px,1fr) auto;gap:14px;align-items:end;padding:18px;margin:0 0 22px;border:1px solid var(--line,#d8ddd9);border-radius:18px;background:var(--panel,#fff)}
 
 .relationship-finder label{display:grid;gap:6px;font-weight:700}
@@ -425,7 +417,6 @@ body[data-page-architecture="15.5"][data-route="tree"] .graph-scroll{min-height:
 :where(h1,h2,h3,.dashboard-hero h2,.family-overview-card h1,.tree-person-summary h2){color:var(--text)}
 
 .filters button,.focus-actions button,.tree-person-actions .action{border-radius:9px;font-weight:700}
-.action{font-weight:700}
 
 body[data-route="tree"] .tree-person-summary,body[data-route="tree"] .tree-controls,body[data-route="tree"] .graph-shell{background:var(--surface);border-color:var(--line);border-radius:var(--radius-md)}
 
@@ -442,8 +433,6 @@ body[data-route="tree"] .tree-person-relations span{background:var(--surface-sof
 body[data-nav-context="family"] .v157-tree-preview{box-shadow:none}
 
 body[data-route="tree"][data-nav-context="family"] .graph-shell{min-height:calc(100dvh - 190px);border-radius:var(--v16-radius);box-shadow:none}
-
-
 
 @media(max-width:720px){
 body[data-route="tree"][data-nav-context="family"] .graph-shell{min-height:calc(100dvh - 150px);border-radius:12px}
@@ -592,3 +581,12 @@ body[data-route="tree"][data-v158-context="family"] .node-initials.v172-has-phot
 body.tree-compact .graph-shell .legend{display:none}body.tree-compact #family-graph .node-state,body.tree-compact #family-graph .node-branch{display:none}body.tree-compact .graph-toolbar{gap:5px}body.tree-compact .graph-toolbar button{min-height:32px;padding:5px 8px}body.tree-compact .tree-advanced-nav{padding:10px 12px;gap:8px}body.tree-compact .tree-recent-trail{display:none}
 @media(max-width:760px){.tree-advanced-nav{border-radius:12px;margin-bottom:10px}.tree-advanced-primary{display:grid;align-items:stretch}.tree-advanced-primary label{min-width:0}.tree-advanced-actions{display:grid;grid-template-columns:1fr 1fr}.tree-advanced-actions button:last-child{grid-column:1/-1}.tree-focus-breadcrumb{font-size:.76rem}.tree-path-tools{width:100%}.tree-path-tools label{width:100%;display:grid;grid-template-columns:auto 1fr}.tree-path-tools select{max-width:none;width:100%}.tree-advanced-export{width:100%}.tree-advanced-export button{flex:1}.tree-path-summary{font-size:.76rem}.graph-scroll{overscroll-behavior:contain;scroll-snap-type:x proximity}.graph-node{scroll-snap-align:center}}
 
+
+/* v24.7A canonical ownership — later-cascade declarations. */
+/* migrated from src/features/research/research.css */
+.graph-shell{box-shadow:var(--shadow-sm)!important}
+/* migrated from src/styles/composition.css */
+.graph-shell{overflow:hidden;
+  border-radius:24px;}
+/* migrated from src/styles/composition.css */
+.graph-shell{border-radius:18px}

@@ -76,6 +76,42 @@ function extractRuleHeaders(css){
   }
   return headers;
 }
+function extractBaseRuleHeaders(css){
+  const src=stripComments(css);
+  const headers=[];
+  let quote='',escaped=false,paren=0,bracket=0,start=0;
+  const stack=[];
+  for(let i=0;i<src.length;i++){
+    const c=src[i];
+    if(quote){
+      if(escaped){escaped=false;continue;}
+      if(c==='\\'){escaped=true;continue;}
+      if(c===quote)quote='';
+      continue;
+    }
+    if(c==='"'||c==="'"){quote=c;continue;}
+    if(c==='('){paren++;continue;}
+    if(c===')'){paren=Math.max(0,paren-1);continue;}
+    if(c==='['){bracket++;continue;}
+    if(c===']'){bracket=Math.max(0,bracket-1);continue;}
+    if(paren||bracket)continue;
+    if(c==='{'){
+      const header=src.slice(start,i).trim();
+      const parent=stack.at(-1)||'';
+      const isAt=header.startsWith('@');
+      const isKeyframeStep=/^(?:from|to|\d+(?:\.\d+)?%)(?:\s*,\s*(?:from|to|\d+(?:\.\d+)?%))*$/.test(header);
+      if(header&&!parent&&!isAt&&!isKeyframeStep&&!/^[-\w]+\s*:/.test(header))headers.push(header);
+      stack.push(isAt?header:parent);
+      start=i+1;
+    }else if(c==='}'){
+      stack.pop();
+      start=i+1;
+    }else if(c===';'&&stack.length===0){
+      start=i+1;
+    }
+  }
+  return headers;
+}
 function splitSelectors(header){
   const out=[];let start=0,quote='',escaped=false,paren=0,bracket=0;
   for(let i=0;i<=header.length;i++){
@@ -146,6 +182,7 @@ const orphanCss=repoCss.filter(f=>!activeSet.has(f));
 const usage=collectUsage(usageFiles);
 const selectorRows=[];
 const selectorFiles=new Map();
+const baseSelectorFiles=new Map();
 const cssStats={};
 const cssClasses=new Set(),cssIds=new Set(),cssAttrs=new Set();
 const customDefined=new Map(),customUsed=new Map();
@@ -153,6 +190,11 @@ const addVar=(map,key,file)=>{const set=map.get(key)||new Set();set.add(file);ma
 
 for(const file of activeCss){
   const css=read(file),headers=extractRuleHeaders(css),selectors=headers.flatMap(splitSelectors);
+  for(const selector of extractBaseRuleHeaders(css).flatMap(splitSelectors)){
+    const baseFiles=baseSelectorFiles.get(selector)||new Set();
+    baseFiles.add(file);
+    baseSelectorFiles.set(selector,baseFiles);
+  }
   const stats={
     bytes:Buffer.byteLength(css),
     selectors:selectors.length,
@@ -197,11 +239,54 @@ for(const [file,stats] of Object.entries(cssStats)){
 
 const releaseNumberedCss=repoCss.filter(file=>/(?:^|[-_.])v\d+(?:[-_.]\d+)*/i.test(path.basename(file)));
 const duplicateSelectors=[...selectorFiles].filter(([,files])=>files.size>1).map(([selector,files])=>({selector,files:[...files].sort()})).sort((a,b)=>b.files.length-a.files.length||a.selector.localeCompare(b.selector));
+const responsiveOwnershipFiles=new Set([
+  'src/features/family/family-responsive.css',
+  'src/styles/home-responsive.css'
+]);
+const canonicalOwnerFiles=new Set([
+  'src/styles/tokens.css',
+  'src/styles/foundation.css',
+  'src/styles/composition.css',
+  'src/styles/experience.css',
+  'src/styles/interaction.css',
+  'src/features/navigation/navigation.css',
+  'src/features/navigation/mobile-foundation.css',
+  'src/features/navigation/mobile-shell.css',
+  'src/features/navigation/mobile-directory.css',
+  'src/features/person/person.css',
+  'src/features/tree/tree.css',
+  'src/features/research/research.css'
+]);
 const ownershipDuplicateSelectors=duplicateSelectors
-  .map(row=>({...row,files:row.files.filter(file=>!file.endsWith('/print.css')&&!file.endsWith('print.css'))}))
+  .map(row=>({...row,files:row.files.filter(file=>!file.endsWith('/print.css')&&!file.endsWith('print.css')&&!responsiveOwnershipFiles.has(file))}))
   .filter(row=>row.files.length>1);
 const printSelectorOverlaps=duplicateSelectors
   .filter(row=>row.files.some(file=>file.endsWith('/print.css')||file.endsWith('print.css')));
+const responsiveSelectorOverlaps=duplicateSelectors
+  .filter(row=>row.files.some(file=>responsiveOwnershipFiles.has(file)));
+
+const canonicalSelectorOwners=new Map(Object.entries({
+  'body':'src/styles/foundation.css',
+  'html':'src/styles/foundation.css',
+  ':root':'src/styles/tokens.css',
+  '.edition':'src/features/navigation/navigation.css',
+  '.filters':'src/styles/composition.css',
+  '.graph-shell':'src/features/tree/tree.css',
+  '.main':'src/styles/composition.css',
+  '.page-heading h1':'src/styles/composition.css',
+  '.person-card':'src/features/person/person.css',
+  '.v162-journey-head>a':'src/features/navigation/navigation.css',
+  '.v162-places':'src/features/navigation/navigation.css',
+  '.v17-home-hero':'src/styles/composition.css',
+  '.v17-person-nav':'src/features/person/person.css',
+  '.v17-primary-actions':'src/styles/composition.css',
+  '.action':'src/styles/foundation.css'
+}));
+const topSelectorOwnerViolations=[...canonicalSelectorOwners].flatMap(([selector,owner])=>{
+  const files=[...(baseSelectorFiles.get(selector)||[])].filter(file=>canonicalOwnerFiles.has(file));
+  const foreign=files.filter(file=>file!==owner);
+  return foreign.length?[{selector,owner,foreignOwners:foreign.sort()}]:[];
+});
 const deadCandidates=selectorRows.filter(r=>{
   const tokenCount=r.classes.length+r.ids.length+r.attrs.length;
   if(tokenCount===0)return false;
@@ -244,6 +329,8 @@ const totals={
   duplicateSelectorsAcrossFiles:duplicateSelectors.length,
   ownershipDuplicateSelectorsAcrossFiles:ownershipDuplicateSelectors.length,
   printSelectorOverlaps:printSelectorOverlaps.length,
+  responsiveSelectorOverlaps:responsiveSelectorOverlaps.length,
+  topSelectorOwnerViolations:topSelectorOwnerViolations.length,
   deadSelectorCandidates:deadCandidates.length,
   highSpecificitySelectors:highSpecificity.length,
   importantDeclarations:Object.values(cssStats).reduce((n,x)=>n+x.important,0),
@@ -351,14 +438,15 @@ if(args.has('--write')){
   fs.writeFileSync(path.join(reportDir,'css-usage-audit.json'),JSON.stringify(report,null,2));
   fs.writeFileSync(path.join(reportDir,'css-usage-audit.md'),md());
 }
-console.log(JSON.stringify({totals,orphanCss,unusedCustomProperties,topDead:deadCandidates.slice(0,25),topDuplicates:duplicateSelectors.slice(0,20),topOwnershipDuplicates:ownershipDuplicateSelectors.slice(0,25),topPrintOverlaps:printSelectorOverlaps.slice(0,20)},null,2));
+console.log(JSON.stringify({totals,orphanCss,unusedCustomProperties,topDead:deadCandidates.slice(0,25),topDuplicates:duplicateSelectors.slice(0,20),topOwnershipDuplicates:ownershipDuplicateSelectors.slice(0,25),topPrintOverlaps:printSelectorOverlaps.slice(0,20),topResponsiveOverlaps:responsiveSelectorOverlaps.slice(0,20),topSelectorOwnerViolations},null,2));
 
 if(args.has('--strict')){
   let failed=false;
   const budgets={
     cssBytes:511775,
     duplicateSelectorsAcrossFiles:440,
-    ownershipDuplicateSelectorsAcrossFiles:386,
+    ownershipDuplicateSelectorsAcrossFiles:182,
+    topSelectorOwnerViolations:0,
     deadSelectorCandidates:0,
     highSpecificitySelectors:108,
     importantDeclarations:1145,
