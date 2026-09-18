@@ -2,7 +2,7 @@ import test from'node:test';
 import assert from'node:assert/strict';
 import fs from'node:fs';
 
-const runtime=fs.readFileSync('src/runtime/page-architecture.js','utf8');
+const runtime=fs.readFileSync('src/app/page-architecture.js','utf8');
 const css=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 

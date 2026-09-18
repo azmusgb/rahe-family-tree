@@ -4,7 +4,7 @@ import fs from'node:fs';
 
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
-const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const experience=fs.readFileSync('src/app/experience.js','utf8');
 const navShell=fs.readFileSync('src/features/navigation/shell.js','utf8');
 const css=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');

@@ -2,10 +2,10 @@ import test from'node:test';
 import assert from'node:assert/strict';
 import fs from'node:fs';
 
-const nav=fs.readFileSync('src/runtime/navigation-model.js','utf8');
+const nav=fs.readFileSync('src/features/navigation/model.js','utf8');
 const phase7=fs.readFileSync('src/runtime/mobile-ui-phase7.js','utf8');
 const routeState=fs.readFileSync('src/runtime/mobile-route-state.js','utf8');
-const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const experience=fs.readFileSync('src/app/experience.js','utf8');
 
 test('v23 navigation model owns contextual peer metadata',()=>{
   assert.match(nav,/export const navigationPeers=Object\.freeze/);

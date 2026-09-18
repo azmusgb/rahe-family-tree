@@ -2,12 +2,12 @@ import test from'node:test';
 import assert from'node:assert/strict';
 import fs from'node:fs';
 
-const nav=fs.readFileSync('src/runtime/navigation-model.js','utf8');
-const shell=fs.readFileSync('src/runtime/navigation-shell.js','utf8');
+const nav=fs.readFileSync('src/features/navigation/model.js','utf8');
+const shell=fs.readFileSync('src/features/navigation/shell.js','utf8');
 const stories=fs.readFileSync('src/runtime/stories-view.js','utf8');
 const storiesRuntime=fs.readFileSync('src/runtime/stories-runtime.js','utf8');
-const routeCapabilities=fs.readFileSync('src/runtime/route-capabilities.js','utf8');
-const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const routeCapabilities=fs.readFileSync('src/app/route-capabilities.js','utf8');
+const experience=fs.readFileSync('src/app/experience.js','utf8');
 const styles=fs.readFileSync('src/styles/index.css','utf8');
 const v16=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const build=fs.readFileSync('scripts/build.mjs','utf8');

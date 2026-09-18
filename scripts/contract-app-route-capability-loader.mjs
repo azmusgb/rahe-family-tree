@@ -1,12 +1,12 @@
 import test from'node:test';
 import assert from'node:assert/strict';
 import fs from'node:fs';
-import{createRouteCapabilityLoader}from'../src/runtime/route-capability-loader.js';
+import{createRouteCapabilityLoader}from'../src/app/route-capability-loader.js';
 
-const loaderSource=fs.readFileSync('src/runtime/route-capability-loader.js','utf8');
-const capabilities=fs.readFileSync('src/runtime/route-capabilities.js','utf8');
-const navigationRuntime=fs.readFileSync('src/runtime/navigation-runtime.js','utf8');
-const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const loaderSource=fs.readFileSync('src/app/route-capability-loader.js','utf8');
+const capabilities=fs.readFileSync('src/app/route-capabilities.js','utf8');
+const navigationRuntime=fs.readFileSync('src/features/navigation/runtime.js','utf8');
+const experience=fs.readFileSync('src/app/experience.js','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
 test('route capability loader only loads capabilities matched to the committed route and deduplicates loads',async()=>{

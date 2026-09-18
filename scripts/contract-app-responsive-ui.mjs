@@ -13,8 +13,8 @@ const cssSource=(bundle,source)=>{
 };
 
 test('18.6 page actions use the shared UI command layer',async()=>{
-  const runtime=await read('src/runtime/page-architecture.js');
-  const commands=await read('src/runtime/ui-commands.js');
+  const runtime=await read('src/app/page-architecture.js');
+  const commands=await read('src/app/ui-commands.js');
   assert.match(runtime,/data-ui-command/);
   assert.match(runtime,/page-actions--desktop/);
   assert.match(runtime,/page-actions--mobile/);
@@ -23,7 +23,7 @@ test('18.6 page actions use the shared UI command layer',async()=>{
 });
 
 test('18.6 tree context avoids duplicate advanced navigation',async()=>{
-  const runtime=await read('src/runtime/tree-polish.js');
+  const runtime=await read('src/features/tree/polish.js');
   assert.match(runtime,/tree-advanced-nav/);
   assert.match(runtime,/tree-context-fallback/);
   assert.match(runtime,/tree-recent-history--fallback/);
@@ -84,7 +84,7 @@ test('18.8 retires catch-all and micro-layer CSS into consolidated owners',async
 test('18.9 archive shell uses semantic selectors without specificity escalation',async()=>{
   const core=await read('src/styles/core.css');
   const shell=cssSource(core,'archive-shell.css');
-  const runtime=await read('src/runtime/navigation-shell.js');
+  const runtime=await read('src/features/navigation/shell.js');
   assert.doesNotMatch(shell,/!important/);
   assert.doesNotMatch(shell,/data-v158-context|\.v151-(?:primary-nav|nav-menus|nav-menu|nav-popover)|\.v158-research-entry/);
   assert.match(shell,/data-nav-context/);
@@ -120,8 +120,8 @@ test('18.11 tree CSS uses semantic context without specificity escalation',async
 test('18.12 tree styling uses semantic classes while runtime retains compatibility aliases',async()=>{
   const core=await read('src/styles/core.css');
   const css=cssSource(core,'tree.css');
-  const engine=await read('src/runtime/tree-engine.js');
-  const polish=await read('src/runtime/tree-polish.js');
+  const engine=await read('src/features/tree/engine.js');
+  const polish=await read('src/features/tree/polish.js');
   for(const legacy of [
     'v129-tree-memory','v129-memory-actions','v1291-breadcrumb',
     'v1291-couple-child','v1291-spouse','v1291-mobile-hint',
@@ -148,8 +148,8 @@ test('18.12 tree styling uses semantic classes while runtime retains compatibili
 test('18.13 tree CSS does not depend on release-number state markers',async()=>{
   const core=await read('src/styles/core.css');
   const css=cssSource(core,'tree.css');
-  const engine=await read('src/runtime/tree-engine.js');
-  const polish=await read('src/runtime/tree-polish.js');
+  const engine=await read('src/features/tree/engine.js');
+  const polish=await read('src/features/tree/polish.js');
   assert.doesNotMatch(css,/data-tree-(?:release|polish-release)/);
   assert.match(engine,/dataset\.treeEngine='active'/);
   assert.match(polish,/dataset\.treePolish='active'/);

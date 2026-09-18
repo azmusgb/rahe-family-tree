@@ -6,7 +6,7 @@ const css=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.
 const styles=fs.readFileSync('src/styles/index.css','utf8');
 const index=fs.readFileSync('index.html','utf8');
 const entry=fs.readFileSync('app-entry.js','utf8');
-const experience=fs.readFileSync('src/runtime/experience-core.js','utf8');
+const experience=fs.readFileSync('src/app/experience-core.js','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
