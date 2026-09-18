@@ -459,7 +459,7 @@ body[data-experience="family"] .main{padding-bottom:calc(var(--mobile-nav-height
 }
 
 @media (min-width:721px){
-.edition{flex:0 0 auto;
+.site-header .edition{flex:0 0 auto;
     margin:0;
     border:0;
     padding:0;
@@ -467,10 +467,10 @@ body[data-experience="family"] .main{padding-bottom:calc(var(--mobile-nav-height
     color:#aac0b7;
     font-size:8px;
     line-height:1.35;}
-.edition b{font-size:8px;letter-spacing:.08em}
+.site-header .edition b{font-size:8px;letter-spacing:.08em}
 }
 
-@media (min-width:721px) and (max-width:1180px){.edition{display:none}}
+@media (min-width:721px) and (max-width:1180px){.site-header .edition{display:none}}
 
 @media (max-width:720px){
 .main{padding:18px 14px calc(var(--mobile-nav-height) + 44px)}
