@@ -8,7 +8,6 @@
 
 .mini-person span,.mini-person small{font-size:10px;color:var(--muted)}
 
-.person-card{border-top:4px solid #779584}
 
 .person-open{display:block;width:100%;height:100%;border:0;background:transparent;text-align:left;padding:18px}
 
@@ -190,7 +189,7 @@ body[data-route="people"][data-v158-context="family"] .ui-card-relations small{b
 /* Migrated live selectors from retired release CSS.
  * These rules remain below the semantic ownership boundary and are now
  * maintained by this module; obsolete selector arms were removed during migration. */
-.page-heading h1,.person-hero h1,.detail-hero h1{font:44px/1.05 Georgia,serif;letter-spacing:-1.1px;margin:0 0 12px}
+.person-hero h1,.detail-hero h1{font:44px/1.05 Georgia,serif;letter-spacing:-1.1px;margin:0 0 12px}
 
 .person-hero,.detail-hero{display:flex;justify-content:space-between;gap:24px;background:#fff;border:1px solid var(--line);border-top:5px solid #7a9686;border-radius:12px;padding:24px;margin:12px 0 18px}
 
