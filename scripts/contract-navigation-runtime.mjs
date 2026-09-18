@@ -9,7 +9,7 @@ const nativeController=fs.readFileSync('src/runtime/native-family-v17-controller
 const styles=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
-const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const experience=fs.readFileSync('src/app/experience.js','utf8');
 const routeCapabilities=fs.readFileSync('src/runtime/route-capabilities.js','utf8');
 const tokens=fs.readFileSync('src/styles/tokens.css','utf8');
 const baseStyles=fs.readFileSync('src/styles/core.css','utf8');

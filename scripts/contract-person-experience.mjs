@@ -3,10 +3,10 @@ import assert from'node:assert/strict';
 import fs from'node:fs';
 
 const entry=fs.readFileSync('app-entry.js','utf8');
-const experience=fs.readFileSync('src/runtime/experience-core.js','utf8');
-const experienceRoot=fs.readFileSync('src/runtime/experience.js','utf8');
+const experience=fs.readFileSync('src/app/experience-core.js','utf8');
+const experienceRoot=fs.readFileSync('src/app/experience.js','utf8');
 const routeCapabilities=fs.readFileSync('src/runtime/route-capabilities.js','utf8');
-const personRuntime=fs.readFileSync('src/runtime/person-experience-v17-3.js','utf8');
+const personRuntime=fs.readFileSync('src/features/person/experience.js','utf8');
 const personCss=fs.readFileSync('src/styles/core.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));

@@ -2,12 +2,12 @@ import test from'node:test';
 import assert from'node:assert/strict';
 import fs from'node:fs';
 
-const runtime=fs.readFileSync('src/runtime/mobile-family-density.js','utf8');
+const runtime=fs.readFileSync('src/features/navigation/mobile-family-density.js','utf8');
 const platform=fs.readFileSync('src/platform/genealogy-runtime.js','utf8');
 const styles=fs.readdirSync('src/styles').filter(f=>f.endsWith('.css')&&f!=='index.css').sort().map(f=>fs.readFileSync('src/styles/'+f,'utf8')).join('\n');
 const styleRoot=fs.readFileSync('src/styles/index.css','utf8');
 const build=fs.readFileSync('scripts/build.mjs','utf8');
-const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const experience=fs.readFileSync('src/app/experience.js','utf8');
 const model=JSON.parse(fs.readFileSync('public/research-model.json','utf8'));
 
 test('family tree diagnostics move out of the family presentation',()=>{

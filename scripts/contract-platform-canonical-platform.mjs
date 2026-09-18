@@ -7,7 +7,7 @@ const json=path=>JSON.parse(read(path));
 const entry=read('app-entry.js');
 const build=read('scripts/build.mjs');
 const shell=read('index.html');
-const experience=read('src/runtime/experience-core.js');
+const experience=read('src/app/experience-core.js');
 const platformUi=read('src/platform/genealogy-ui.js');
 const platformRuntime=read('src/platform/genealogy-runtime.js');
 const graphEngine=read('canonical-graph-engine.js');

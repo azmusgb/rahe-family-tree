@@ -2,14 +2,14 @@ import test from'node:test';
 import assert from'node:assert/strict';
 import fs from'node:fs';
 
-const nav=fs.readFileSync('src/runtime/navigation-shell.js','utf8');
-const navModel=fs.readFileSync('src/runtime/navigation-model.js','utf8');
-const mobile=fs.readFileSync('src/runtime/mobile-ui-shell.js','utf8');
-const evolution=fs.readFileSync('src/runtime/mobile-ui-phase7.js','utf8');
-const ownership=fs.readFileSync('src/runtime/mobile-ui-ownership.js','utf8');
-const transient=fs.readFileSync('src/runtime/mobile-ui-transient.js','utf8');
+const nav=fs.readFileSync('src/features/navigation/shell.js','utf8');
+const navModel=fs.readFileSync('src/features/navigation/model.js','utf8');
+const mobile=fs.readFileSync('src/features/navigation/mobile-shell.js','utf8');
+const evolution=fs.readFileSync('src/features/navigation/mobile-enhancements.js','utf8');
+const ownership=fs.readFileSync('src/features/navigation/mobile-ownership.js','utf8');
+const transient=fs.readFileSync('src/features/navigation/mobile-transient.js','utf8');
 const legacyMobile=fs.readFileSync('src/runtime/mobile-experience.js','utf8');
-const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const experience=fs.readFileSync('src/app/experience.js','utf8');
 
 test('navigation shell owns final family mobile dock order',()=>{
   const home=nav.indexOf('data-dock-route="dashboard"');
