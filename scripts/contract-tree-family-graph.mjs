@@ -31,7 +31,7 @@ test('v19 preserves rendered evidence-state semantics instead of inventing relat
 
 test('v19 mobile person preview protects living detail and uses the authoritative tree router',async()=>{
   const runtime=await read('src/features/tree/family-graph.js');
-  const experience=await read('src/runtime/experience-core.js');
+  const experience=await read('src/app/experience-core.js');
   const css=await read('src/styles/experience.css');
   assert.match(runtime,/Living · private details protected/);
   assert.match(runtime,/data-family-preview-focus/);

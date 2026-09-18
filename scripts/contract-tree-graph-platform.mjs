@@ -62,7 +62,7 @@ test('v19 URL state is persistent and bounded',()=>{
 
 test('v19 release boundary is wired without retiring canonical evidence ownership',()=>{
   const read=path=>fs.readFileSync(new URL(`../${path}`,import.meta.url),'utf8');
-  const controller=read('src/runtime/tree-controller.js'),entry=read('app-entry.js'),build=read('scripts/build.mjs');
+  const controller=read('src/features/tree/controller.js'),entry=read('app-entry.js'),build=read('scripts/build.mjs');
   assert.match(controller,/\.\.\/tree\/index\.js/);
   assert.match(entry,/APP_VERSION='19\.0\.0'/);
   assert.match(build,/const appVersion='19\.0\.0'/);

@@ -3,8 +3,8 @@ import assert from'node:assert/strict';
 import fs from'node:fs';
 
 const nav=fs.readFileSync('src/runtime/navigation-model.js','utf8');
-const perf=fs.readFileSync('src/runtime/performance-contracts.js','utf8');
-const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const perf=fs.readFileSync('src/platform/performance/contracts.js','utf8');
+const experience=fs.readFileSync('src/app/experience.js','utf8');
 
 test('v23 navigation model owns contextual relationships and detail identity',()=>{
   assert.match(nav,/export const navigationPeers=Object\.freeze/);

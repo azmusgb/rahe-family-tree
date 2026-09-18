@@ -3,12 +3,12 @@ import assert from'node:assert/strict';
 import{readFileSync}from'node:fs';
 
 const read=path=>readFileSync(new URL(`../${path}`,import.meta.url),'utf8');
-const runtime=read('src/runtime/tree-advanced.js');
-const controller=read('src/runtime/tree-controller.js');
-const stability=read('src/runtime/v17-6-stability.js');
-const treeEngine=read('src/runtime/tree-engine.js');
+const runtime=read('src/features/tree/advanced.js');
+const controller=read('src/features/tree/controller.js');
+const stability=read('src/features/tree/stability.js');
+const treeEngine=read('src/features/tree/engine.js');
 const composition=read('src/features/tree/index.js');
-const experience=read('src/runtime/experience.js');
+const experience=read('src/app/experience.js');
 const styles=read('src/styles/core.css');
 const printStyles=read('src/styles/print.css');
 const interactionStyles=read('src/styles/interaction.css');

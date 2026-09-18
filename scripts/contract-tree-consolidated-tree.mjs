@@ -13,7 +13,7 @@ const result=buildResearchAutomation({model,people,relationships});
 const build=read('scripts/build.mjs');
 const shell=read('index.html');
 const entry=read('app-entry.js');
-const experience=read('src/runtime/experience-core.js');
+const experience=read('src/app/experience-core.js');
 const router=read('src/app/router.js');
 const intelligence=read('research-intelligence.js');
 
