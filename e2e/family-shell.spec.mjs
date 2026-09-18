@@ -12,7 +12,7 @@ test.beforeEach(async({page})=>{await mockApis(page);});
 
 test('Home begins with the hero and has no inline search bar above it',async({page},testInfo)=>{
   await page.goto('/#dashboard');
-  await expect(page.locator('.v17-home-hero')).toBeVisible();
+  await expect(page.locator('.ui-family-home-hero')).toBeVisible();
   await expect(page.locator('#filters')).toBeHidden();
   if(testInfo.project.name==='mobile-chromium'){
     await expect(page.locator('#mobile-app-header')).toBeVisible();
@@ -33,20 +33,20 @@ test('Families is a first-class navigation destination with branch pages',async(
   // route without racing Playwright's pointer-action stability checks.
   await families.evaluate(link=>link.click());
   await expect(page).toHaveURL(/#families$/);
-  const grid=page.locator('.v175-family-grid');
+  const grid=page.locator('.ui-family-grid');
   await expect(grid).toBeVisible();
-  const first=grid.locator('.v175-family-card').first();
+  const first=grid.locator('.ui-family-card').first();
   const name=(await first.locator('h2').textContent())?.trim();
   await first.click();
   await expect(page).toHaveURL(/#branch\//);
-  await expect(page.locator('.v175-branch-hero h1')).toContainText(name||'family');
-  await expect(page.locator('.v175-branch-actions')).toBeVisible();
+  await expect(page.locator('.ui-branch-hero h1')).toContainText(name||'family');
+  await expect(page.locator('.ui-branch-card-actions')).toBeVisible();
 });
 
 test('Home delegates branch browsing to the Families destination',async({page},testInfo)=>{
   test.skip(testInfo.project.name!=='desktop-chromium','desktop Home navigation contract');
   await page.goto('/#dashboard');
-  await expect(page.locator('.v172-home-branches,.v172-branch-card')).toHaveCount(0);
+  await expect(page.locator('.ui-home-branch-preview,.ui-branch-card')).toHaveCount(0);
   await expect(page.locator('#nav').getByRole('link',{name:'Families',exact:true})).toBeVisible();
 });
 
@@ -82,5 +82,5 @@ test('mobile navigation promotes Families and global Search leaves Home clean',a
   await expect(dock.getByRole('link',{name:'Families'})).toBeVisible();
   await page.locator('#mobile-app-header [data-global-search]').click();
   await expect(page).toHaveURL(/#people$/);
-  await expect(page.locator('[data-v17-native="people"] .mobile-search input')).toBeFocused();
+  await expect(page.locator('[data-ui-native="people"] .mobile-search input')).toBeFocused();
 });

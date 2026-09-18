@@ -4,7 +4,7 @@ async function openMobile(page,route='dashboard'){
   await page.goto(`/#${route}`);
   const routeKey=route.split('/')[0];
   if(routeKey==='tree'){
-    await page.waitForSelector('[data-v17-native="tree"]');
+    await page.waitForSelector('[data-ui-native="tree"]');
     return;
   }
   await page.waitForSelector('#family-mobile-dock:not([hidden])');
@@ -28,7 +28,7 @@ test.describe('mobile v20 app experience',()=>{
     const buildInfo=await page.evaluate(async()=>fetch('/build-info.json').then(response=>response.json()));
     expect(buildInfo.appVersion).toBe('20.0.0');
     expect(buildInfo.experience).toBe('20.0.0');
-    expect(buildInfo.releaseTrain).toBe('v20-mobile-app');
+    expect(buildInfo.releaseTrain).toBe('ui-mobile-app');
   });
 
   test('dock reads visually as Home, Families, Tree, People, More with Tree centered',async({page})=>{
@@ -43,8 +43,8 @@ test.describe('mobile v20 app experience',()=>{
 
   test('Home keeps hero, search, and dock in a bounded phone composition',async({page})=>{
     await openMobile(page,'dashboard');
-    await expect(page.locator('.v17-home-hero h2')).toHaveText('Our family, connected.');
-    const hero=await page.locator('[data-v17-native="home"] > .v17-home-hero').boundingBox();
+    await expect(page.locator('.ui-family-home-hero h2')).toHaveText('Our family, connected.');
+    const hero=await page.locator('[data-ui-native="home"] > .ui-family-home-hero').boundingBox();
     const search=await page.locator('.mobile-search[data-v21-mobile-search="home"]').boundingBox();
     const launcher=await page.getByRole('region',{name:'Explore your family'}).boundingBox();
     const dock=await page.locator('#family-mobile-dock').boundingBox();
@@ -60,11 +60,11 @@ test.describe('mobile v20 app experience',()=>{
 
   test('Home keeps source-backed story content available behind compact mobile discovery',async({page})=>{
     await openMobile(page,'dashboard');
-    const story=page.locator('.v17-home-story');
-    await expect(story.locator('.v17-section-head h2')).toHaveText('One moment from the family story.');
+    const story=page.locator('.ui-home-story');
+    await expect(story.locator('.ui-section-head h2')).toHaveText('One moment from the family story.');
     await expect(story).toBeHidden();
     await expect(story).toHaveAttribute('data-v22-mobile-collapsed','true');
-    const first=story.locator('.v17-story-moment').first();
+    const first=story.locator('.ui-family-story-moment').first();
     await expect(first).toHaveCount(1);
     const text=await first.textContent();
     expect(text||'').not.toMatch(/\[birth detail withheld\]|\bSUPPORTED\b|\|/i);
@@ -75,20 +75,20 @@ test.describe('mobile v20 app experience',()=>{
     await openMobile(page,'dashboard');
     await page.evaluate(({key})=>localStorage.setItem(key,JSON.stringify({recentPeople:[{id:'P-WILLIAM-JOHN-RAHE-III',name:'William John Rahe III',branch:'Rahe',dates:'Family member'}],recentFamilies:[],lastTree:{focus:'P-WILLIAM-JOHN-RAHE-III',scope:'family',depth:'3',href:'/?focus=P-WILLIAM-JOHN-RAHE-III&scope=family&depth=3#tree'},lastRoute:'person'})),{key:stateKey});
     await page.reload();
-    await expect(page.locator('.v20-continue-card')).toBeVisible();
-    await expect(page.locator('.v20-continue-card')).toContainText('William John Rahe III');
-    const order=await page.evaluate(()=>{const hero=document.querySelector('[data-v17-native="home"] .v17-home-hero'),card=document.querySelector('.v20-continue-card');return Boolean(hero&&card&&(hero.compareDocumentPosition(card)&Node.DOCUMENT_POSITION_FOLLOWING));});
+    await expect(page.locator('.ui-continue-card')).toBeVisible();
+    await expect(page.locator('.ui-continue-card')).toContainText('William John Rahe III');
+    const order=await page.evaluate(()=>{const hero=document.querySelector('[data-ui-native="home"] .ui-family-home-hero'),card=document.querySelector('.ui-continue-card');return Boolean(hero&&card&&(hero.compareDocumentPosition(card)&Node.DOCUMENT_POSITION_FOLLOWING));});
     expect(order).toBe(true);
   });
 
   test('Person becomes a contextual profile with keyboard-operable section navigation while canonical content stays visible',async({page})=>{
     await openMobile(page,'person/P-WILLIAM-JOHN-RAHE-III');
-    await page.waitForSelector('[data-v17-native="person"]');
-    await expect(page.locator('.v20-context-bar')).toBeVisible();
-    await expect(page.locator('.v20-context-bar')).toContainText('William');
-    const tabs=page.locator('.v20-person-tabs');await expect(tabs).toBeVisible();
+    await page.waitForSelector('[data-ui-native="person"]');
+    await expect(page.locator('.ui-context-bar')).toBeVisible();
+    await expect(page.locator('.ui-context-bar')).toContainText('William');
+    const tabs=page.locator('.ui-person-tabs');await expect(tabs).toBeVisible();
     await expect(tabs.locator('[data-person-tab="story"]')).toHaveAttribute('aria-pressed','true');
-    await expect(page.locator('.v20-person-story')).toBeVisible();
+    await expect(page.locator('.ui-mobile-person-story')).toBeVisible();
     await expect(page.locator('#v17-family')).toBeVisible();
     await expect(page.locator('#v17-life')).toBeVisible();
     await expect(page.locator('#v17-photos')).toBeVisible();
@@ -103,13 +103,13 @@ test.describe('mobile v20 app experience',()=>{
 
   test('People and Families use app discovery surfaces without hiding canonical entries',async({page})=>{
     await openMobile(page,'people');
-    await page.waitForSelector('.v17-person-card');
-    await expect(page.locator('.v17-people-grid')).toBeVisible();
+    await page.waitForSelector('.ui-family-person-card');
+    await expect(page.locator('.ui-people-grid')).toBeVisible();
     await expect(page.locator('button[data-person="P-WILLIAM-JOHN-RAHE-III"]')).toHaveCount(1);
     await page.locator('#family-mobile-dock [data-dock-route="families"]').click();
     await expect(page).toHaveURL(/#families$/);
-    await expect(page.locator('.v175-family-grid')).toBeVisible();
-    expect(await page.locator('.v175-family-card').count()).toBeGreaterThan(1);
+    await expect(page.locator('.ui-family-grid')).toBeVisible();
+    expect(await page.locator('.ui-family-card').count()).toBeGreaterThan(1);
   });
 
   test('Tree behaves as a full-screen workspace',async({page})=>{
@@ -137,7 +137,7 @@ test.describe('mobile v20 app experience',()=>{
     await expect(page.locator('#mobile-app-header [data-mobile-app-title]')).toHaveText('Home');
 
     await openMobile(page,'person/P-WILLIAM-JOHN-RAHE-III');
-    await page.waitForSelector('[data-v17-native="person"]');
+    await page.waitForSelector('[data-ui-native="person"]');
     await expect(page.locator('#mobile-app-header')).toBeVisible();
     await expect(page.locator('.site-header.sidebar')).toBeHidden();
     await expect(page.locator('#mobile-app-header [data-mobile-app-back]')).toHaveAttribute('href','#people');

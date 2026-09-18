@@ -15,24 +15,24 @@ test.beforeEach(async({page})=>{await mockApis(page);});
 
 test('Home keeps the compact editorial discovery instead of the legacy continuation rail',async({page})=>{
   await page.goto('/#dashboard');
-  const home=page.locator('[data-v17-native="home"]');
+  const home=page.locator('[data-ui-native="home"]');
   await expect(home.locator('.home-editorial-discovery')).toBeVisible();
-  await expect(home.locator('.v174-discovery')).toHaveCount(0);
-  await expect(home.locator('.v17-featured-people .v17-home-person')).toHaveCount(3);
+  await expect(home.locator('.ui-discovery')).toHaveCount(0);
+  await expect(home.locator('.ui-featured-people .ui-family-home-person')).toHaveCount(3);
 });
 
 test('historical Person shows elevated summary and active navigation',async({page})=>{
   await page.goto(`/#person/${HAZEL}`);
-  const snapshot=page.locator('.v174-profile-snapshot');
+  const snapshot=page.locator('.ui-profile-snapshot');
   await expect(snapshot).toBeVisible();
   await expect(snapshot.getByText(/close family connection/)).toBeVisible();
   await expect(snapshot.getByText(/linked life record/)).toBeVisible();
-  await expect(page.locator('.v17-person-nav a.is-active')).toHaveCount(1);
+  await expect(page.locator('.ui-person-nav a.is-active')).toHaveCount(1);
 });
 
 test('living Person keeps chronology and place summary private',async({page})=>{
   await page.goto(`/#person/${LIVING}`);
-  const snapshot=page.locator('.v174-profile-snapshot');
+  const snapshot=page.locator('.ui-profile-snapshot');
   await expect(snapshot).toBeVisible();
   await expect(snapshot.getByText('Protected')).toHaveCount(2);
   await expect(snapshot.getByText('private chronology')).toBeVisible();
@@ -47,7 +47,7 @@ test('Tree context switcher changes scope using the existing tree engine',async(
   await expect(context.getByRole('button',{name:'Family'})).toHaveAttribute('aria-pressed','true');
   await context.getByRole('button',{name:'Ancestors'}).evaluate(button=>button.click());
   await expect(page).toHaveURL(/scope=ancestors/);
-  await expect(page.locator('.v174-tree-scope button.active')).toHaveText('Ancestors');
+  await expect(page.locator('.ui-tree-scope button.active')).toHaveText('Ancestors');
 });
 
 test('v17.4+ shell contract remains visible in the current release',async({page})=>{

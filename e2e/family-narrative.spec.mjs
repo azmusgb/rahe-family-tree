@@ -14,11 +14,11 @@ test.beforeEach(async({page})=>{
 
 test('home keeps the native archive story canonical while v22 compacts phone previews',async({page})=>{
   await page.goto('/#dashboard');
-  const home=page.locator('[data-v17-native="home"]');
+  const home=page.locator('[data-ui-native="home"]');
   await expect(home).toBeVisible();
   await expect(home.getByRole('heading',{name:'Our family, connected.'})).toBeVisible();
-  await expect(home.locator('.v17-home-tree')).toBeVisible();
-  const story=home.locator('.v17-home-story');
+  await expect(home.locator('.ui-home-tree')).toBeVisible();
+  const story=home.locator('.ui-home-story');
   const isPhone=await page.evaluate(()=>matchMedia('(max-width: 720px)').matches);
   if(isPhone){
     await expect(story).toBeHidden();
@@ -28,24 +28,24 @@ test('home keeps the native archive story canonical while v22 compacts phone pre
     await expect(story).toBeVisible();
     await expect(story.getByRole('heading',{name:'One moment from the family story.'})).toBeVisible();
   }
-  await expect(story.locator('.v17-story-moment')).toHaveCount(1);
-  await expect(home.locator('.v17-featured-people .v17-home-person')).toHaveCount(3);
-  await expect(home.locator('.v172-home-branches,.v174-discovery')).toHaveCount(0);
+  await expect(story.locator('.ui-family-story-moment')).toHaveCount(1);
+  await expect(home.locator('.ui-featured-people .ui-family-home-person')).toHaveCount(3);
+  await expect(home.locator('.ui-home-branch-preview,.ui-discovery')).toHaveCount(0);
   await expect(page.locator('.v157-home')).toHaveCount(0);
 });
 
 test('people branch selection rerenders a native human branch summary',async({page})=>{
   await page.goto('/#people');
-  const directory=page.locator('[data-v17-native="people"]');
+  const directory=page.locator('[data-ui-native="people"]');
   await expect(directory).toBeVisible();
-  const browser=directory.locator('.v17-branch-browser');
+  const browser=directory.locator('.ui-family-branch-browser');
   const branchButton=browser.locator('[data-branch]').filter({hasNotText:'All'}).first();
   await expect(branchButton).toBeVisible();
   const branchName=await branchButton.getAttribute('data-branch');
   expect(branchName).toBeTruthy();
   await branchButton.click();
   await expect(page.locator('#branch')).toHaveValue(branchName);
-  const context=page.locator('.v17-branch-summary');
+  const context=page.locator('.ui-branch-summary');
   await expect(context).toBeVisible();
   await expect(context.locator('.eyebrow')).toHaveText(`${branchName.toUpperCase()} FAMILY`);
   await expect(context.getByRole('link',{name:'Stories'})).toBeVisible();
@@ -53,10 +53,10 @@ test('people branch selection rerenders a native human branch summary',async({pa
 
 test('historical person uses native biography and clean focused-tree navigation',async({page})=>{
   await page.goto('/#people');
-  const result=page.locator('.v17-person-card button[data-person]').filter({hasText:/Hazel.*Berg/i}).first();
+  const result=page.locator('.ui-family-person-card button[data-person]').filter({hasText:/Hazel.*Berg/i}).first();
   await expect(result).toBeVisible();
   await result.click();
-  const profile=page.locator('[data-v17-native="person"]');
+  const profile=page.locator('[data-ui-native="person"]');
   await expect(profile).toBeVisible();
   await expect(profile.locator('.person-header')).toBeVisible();
   await expect(profile.getByRole('heading',{name:'Immediate family'})).toBeVisible();
@@ -72,29 +72,29 @@ test('historical person uses native biography and clean focused-tree navigation'
 
 test('living person biography suppresses public chronology location and media',async({page})=>{
   await page.goto('/#people');
-  const result=page.locator('.v17-person-card button[data-person]').filter({hasText:/William John Rahe III/i}).first();
+  const result=page.locator('.ui-family-person-card button[data-person]').filter({hasText:/William John Rahe III/i}).first();
   await expect(result).toBeVisible();
   await result.click();
-  const profile=page.locator('[data-v17-native="person"]');
+  const profile=page.locator('[data-ui-native="person"]');
   await expect(profile).toBeVisible();
   await expect(profile.getByText('Detailed chronology and location records are protected for living family members.')).toBeVisible();
   await expect(profile.getByText('Living-person media remains private in the public family archive.')).toBeVisible();
-  await expect(profile.locator('.v17-person-places')).toHaveCount(0);
-  await expect(profile.locator('[data-v17-person-gallery]')).toHaveCount(0);
+  await expect(profile.locator('.ui-person-places')).toHaveCount(0);
+  await expect(profile.locator('[data-ui-person-gallery]')).toHaveCount(0);
 });
 
 test('tree is wrapped by the native v17 Family shell while preserving graph controls',async({page})=>{
   await page.goto('/#tree');
-  const tree=page.locator('[data-v17-native="tree"]');
+  const tree=page.locator('[data-ui-native="tree"]');
   await expect(tree).toBeVisible();
   await expect(tree.locator('.graph-shell')).toBeVisible();
   await expect(tree.locator('.graph-node[data-person]').first()).toBeVisible();
-  await expect(page.locator('.v161-tree-toolbar')).toBeVisible();
+  await expect(page.locator('.ui-tree-toolbar')).toBeVisible();
 });
 
 test('photos quick filters stay synchronized with clear filters',async({page})=>{
   await page.goto('/#media');
-  const quick=page.locator('.v162-media-quick');
+  const quick=page.locator('.ui-media-quick');
   await expect(quick).toBeVisible();
   await quick.getByRole('button',{name:'Photos',exact:true}).click();
   await expect(page.locator('#media-type')).toHaveValue('photo');

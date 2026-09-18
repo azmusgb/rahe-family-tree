@@ -11,8 +11,8 @@ test.beforeEach(async({page})=>{await mockApis(page);});
 test('family tree keeps graph diagnostics out of the foreground and relationship finding on demand',async({page})=>{
   await page.goto('/#tree');
   await expect(page.locator('[data-platform-v13="tree-engine-2"]')).toHaveCount(0);
-  await expect(page.locator('[data-v17-native="tree"]')).toBeVisible();
-  await expect(page.locator('.v161-tree-toolbar')).toBeVisible();
+  await expect(page.locator('[data-ui-native="tree"]')).toBeVisible();
+  await expect(page.locator('.ui-tree-toolbar')).toBeVisible();
   await expect(page.locator('.graph-shell')).toBeVisible();
   await page.getByRole('button',{name:'Relationship',exact:true}).click();
   let dialog=page.locator('#relationship-dialog');
@@ -41,15 +41,15 @@ test('evidence workbench exposes canonical graph integrity provenance and diff',
 
 test('family person profile keeps platform provenance out of the foreground but exposes Research Center',async({page})=>{
   await page.goto('/#people');
-  const result=page.locator('.v17-person-card button[data-person]').filter({hasText:/Hazel.*Berg/i}).first();
+  const result=page.locator('.ui-family-person-card button[data-person]').filter({hasText:/Hazel.*Berg/i}).first();
   await expect(result).toBeVisible();
   await result.click();
-  const profile=page.locator('[data-v17-native="person"]');
+  const profile=page.locator('[data-ui-native="person"]');
   await expect(profile).toBeVisible();
   await expect(profile.locator('[data-platform-v13="person-graph-context"]')).toHaveCount(0);
-  const research=profile.locator('.v17-person-research');
+  const research=profile.locator('.ui-person-research');
   await expect(research).toBeVisible();
-  const details=research.locator('.v173-research-details');
+  const details=research.locator('.ui-research-details');
   const cta=research.getByRole('link',{name:/Open Research Center/});
   await expect(details).toBeVisible();
   await expect(details).not.toHaveAttribute('open','');
