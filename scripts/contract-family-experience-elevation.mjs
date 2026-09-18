@@ -3,10 +3,10 @@ import assert from'node:assert/strict';
 import fs from'node:fs';
 
 const entry=fs.readFileSync('app-entry.js','utf8');
-const core=fs.readFileSync('src/runtime/experience-core.js','utf8');
-const experience=fs.readFileSync('src/runtime/experience.js','utf8');
+const core=fs.readFileSync('src/app/experience-core.js','utf8');
+const experience=fs.readFileSync('src/app/experience.js','utf8');
 const capabilities=fs.readFileSync('src/runtime/route-capabilities.js','utf8');
-const elevation=fs.readFileSync('src/runtime/experience-elevation-v17-4.js','utf8');
+const elevation=fs.readFileSync('src/features/family/experience-elevation.js','utf8');
 const cssRoot=fs.readFileSync('src/styles/index.css','utf8');
 const css=fs.readFileSync('src/styles/core.css','utf8');
 const shell=fs.readFileSync('index.html','utf8');
