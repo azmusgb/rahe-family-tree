@@ -463,7 +463,7 @@ th{background:#edf2ed}
 
 .deployment-fingerprint{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem}
 
-body[data-experience="family"]{--family-card-radius:18px}
+body[data-experience="family"]{}
 
 .experience-toggle{border-color:#9cb6aa!important;background:#edf4f0!important;color:var(--green)!important;font-weight:750}
 
@@ -519,7 +519,7 @@ body[data-experience="family"][data-route="person"] .family-overview-card{margin
 
 .family-chip:hover{background:#eef4ef!important}
 
-body[data-experience="family"]{--tap:44px}
+body[data-experience="family"]{}
 
 .main{}
 
