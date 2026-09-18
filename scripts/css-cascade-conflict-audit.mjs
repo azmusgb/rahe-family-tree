@@ -185,7 +185,7 @@ if(args.has('--write')){
 console.log(JSON.stringify({totals,topPairs:Object.entries(report.pairCounts).slice(0,20)},null,2));
 
 if(args.has('--strict')){
-  const budget=333;
+  const budget=33;
   if(totals.sameContextCrossFileConflicts>budget){
     console.error(`CSS cascade conflict audit failed: ${totals.sameContextCrossFileConflicts} conflicts exceed budget ${budget}`);
     process.exit(1);
