@@ -54,7 +54,7 @@
 
 .person-portrait{flex:0 0 auto;width:88px;height:88px;font-size:25px}
 
-.edition,.nav-group-label,.tree-focusbar label,.tree-depth>span,.media-card small,.media-card span{font-size:max(11px,inherit)}
+.nav-group-label,.tree-focusbar label,.tree-depth>span,.media-card small,.media-card span{font-size:max(11px,inherit)}
 .profile-status-grid small{font-size:10px}
 
 @media(max-width:720px){.person-portrait{width:64px;height:64px;font-size:19px}}
@@ -157,7 +157,7 @@
 
 .media-editor-actions{display:flex;justify-content:flex-end;gap:10px;align-items:center;margin-top:18px}
 
-.person-media-section,.person-card,.media-grid,.media-card,.media-body{min-width:0}
+.person-media-section,.media-grid,.media-card,.media-body{min-width:0}
 
 .person-card h3,.person-card p,.media-card h3,.media-card p,.media-card small{overflow-wrap:anywhere}
 
@@ -200,10 +200,6 @@
 body[data-tree-polish-release="12.9.1"] .graph-node .v128-svg-photo{width:44px;height:44px}
 
 @media(max-width:760px){body[data-tree-polish-release="12.9.1"] .graph-node .v128-svg-photo{width:48px;height:48px}}
-
-
-
-
 
 .media-page{display:grid;gap:28px}
 
@@ -326,10 +322,6 @@ body[data-tree-polish-release="12.9.1"] .graph-node .v128-svg-photo{width:44px;h
 @media(max-width:620px){.media-route #filters>button[type="reset"]{width:100%}}
 
 @media(max-width:620px){.media-library-preview{aspect-ratio:16/11}}
-
-
-
-
 
 :where(.dashboard-hero-copy h2,.media-page-hero h2,.page-heading h1,.section-title h2){text-wrap:balance}
 
@@ -669,8 +661,6 @@ body[data-route="migration"][data-v158-context="family"] :where(.place-card,.mig
 
 @media(max-width:720px){.audit-grid,.gate-grid{grid-template-columns:1fr}}
 
-
-
 .task-workflow label,.intake-form label,.intake-card label{display:grid;gap:6px;font-size:10px;color:var(--muted);margin-bottom:12px}
 
 .task-workflow select,.task-workflow textarea,.intake-form input,.intake-form select,.intake-form textarea,.intake-card select{width:100%;border:1px solid var(--line);border-radius:7px;background:#fbfcfa;color:var(--ink);padding:9px}
@@ -695,7 +685,7 @@ body[data-experience="family"] .research-detail-section{opacity:.88}
 
 @media(max-width:720px){}
 
-.panel,.notice,.person-card{border-color:rgba(33,53,47,.1)}
+.panel,.notice{border-color:rgba(33,53,47,.1)}
 
 body[data-experience="family"] .research-detail-section{display:none}
 
@@ -860,12 +850,12 @@ body[data-page-architecture="15.5"][data-route="person"] .person-source-summary 
 
 body[data-page-architecture="15.5"][data-route="person"] .person-source-summary .person-summary{max-width:none;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
 
-.page-heading h1,.person-hero h1{font-weight:600!important}
+.person-hero h1{font-weight:600!important}
 .dashboard-hero h2,.dashboard-section h2,.family-overview-card h1,.person-source-summary h1,.v154-tree-person h2{font-family:Georgia,"Times New Roman",serif!important;font-weight:600!important;letter-spacing:-.025em!important}
 
 :where(.route-shell,.dashboard-section,.family-overview-card,.person-source-summary,.graph-shell,.v154-tree-person,.v154-tree-controls,.media-library,.media-filter-panel,.research-detail-section,.source-card,.claim-card,.task-card,.panel,.card){border-color:var(--line)!important}
 
-.dashboard-section,.family-overview-card,.person-card,.graph-shell,.v154-tree-person,.v154-tree-controls,.media-card,.source-card,.claim-card,.task-card{box-shadow:var(--shadow-sm)!important}
+.dashboard-section,.family-overview-card,.v154-tree-person,.v154-tree-controls,.media-card,.source-card,.claim-card,.task-card{box-shadow:var(--shadow-sm)!important}
 
 body[data-route="person"] .person-source-summary{background:var(--surface-soft)!important;border-color:var(--line)!important;box-shadow:none!important}
 
@@ -914,8 +904,6 @@ body[data-v158-context="family"] :where(.dashboard-section p,.v159-life-copy p,.
 body[data-v158-context="research"] .route-shell{border-bottom:1px solid var(--line)}
 
 body[data-v158-context="research"] .page-heading h1{font-size:clamp(32px,4vw,52px)}
-
-
 
 body[data-route="dashboard"][data-v158-context="family"] #content.v161-home .v161-research-band{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:16px;padding:18px 0!important;border:0!important;border-top:1px solid var(--line)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
 
