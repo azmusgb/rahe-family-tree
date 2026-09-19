@@ -588,7 +588,7 @@ background:#f4e6bd!important;color:var(--immersive-green)!important;box-shadow:0
 }
 body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"]::before{color:var(--immersive-green)}
 body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"] span{font-weight:900}
-body.v20-mobile-app #family-mobile-dock .mobile-more>div,body.v20-mobile-app #family-mobile-dock .mobile-more>div{
+body.v20-mobile-app #family-mobile-dock .mobile-more>div{
 left:0!important;right:0!important;bottom:0!important;max-height:82svh!important;
 padding:18px 14px calc(96px + env(safe-area-inset-bottom,0px))!important;
 border-radius:32px 32px 0 0!important;background:var(--immersive-paper)!important;
@@ -882,4 +882,51 @@ box-shadow:0 24px 64px rgba(12,39,31,.24)!important;
 }
 @media (max-width:430px){
 #family-mobile-dock:not([hidden]){left:5px!important;right:5px!important}
+}
+@media (max-width:720px){
+#family-mobile-dock>details[open]>summary{
+background:var(--nav-active-bg);
+border-color:rgba(18,63,52,.12);
+color:var(--nav-active-ink);
+box-shadow:none;
+}
+#family-mobile-dock>a:active,
+#family-mobile-dock>details>summary:active{
+transform:scale(.97);
+background:var(--nav-bg-soft);
+color:var(--nav-ink);
+}
+#family-mobile-dock :where(a,button,summary):focus-visible,
+.mobile-app-mark:focus-visible,
+.mobile-app-back:focus-visible,
+.mobile-app-search:focus-visible{
+outline:3px solid var(--nav-accent);
+outline-offset:2px;
+}
+}
+@media (hover:hover) and (pointer:fine) and (max-width:720px){
+#family-mobile-dock>a:hover,
+#family-mobile-dock>details>summary:hover{
+background:var(--nav-bg-soft)!important;
+color:var(--nav-ink)!important;
+}
+#family-mobile-dock>a[aria-current="page"]:hover,
+#family-mobile-dock>a.active:hover,
+#family-mobile-dock>details[open]>summary:hover{
+background:var(--nav-active-bg)!important;
+color:var(--nav-active-ink)!important;
+}
+}
+@media (max-width:720px) and (prefers-reduced-transparency:reduce){
+body.v21-actual-mobile-ui #mobile-app-header{
+-webkit-backdrop-filter:none;
+backdrop-filter:none;
+background:var(--nav-bg);
+}
+#family-mobile-dock:not([hidden]),
+#family-mobile-dock .mobile-more>div{
+-webkit-backdrop-filter:none!important;
+backdrop-filter:none!important;
+background:var(--nav-surface)!important;
+}
 }
