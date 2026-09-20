@@ -17,9 +17,10 @@ test('same-route navigation closes transient disclosures after activation',()=>{
   assert.match(shell,/target\.hash===location\.hash\)setTimeout\(\(\)=>closeTransientNavigation\(\),0\);/);
 });
 
-test('same-document route clicks yield before expensive hashchange work begins',()=>{
+test('same-document route clicks commit URL before expensive hashchange work begins',()=>{
   assert.match(runtime,/function deferHashNavigation\(link,event\)/);
-  assert.match(runtime,/event\.preventDefault\(\);[\s\S]*setTimeout\(\(\)=>\{[\s\S]*location\.hash=targetHash;[\s\S]*\},0\);/);
+  assert.match(runtime,/event\.preventDefault\(\);[\s\S]*history\.pushState\(history\.state,'',url\);[\s\S]*setTimeout\(\(\)=>\{[\s\S]*new HashChangeEvent\('hashchange'/);
+  assert.doesNotMatch(runtime,/if\(location\.hash!==targetHash\)location\.hash=targetHash/);
   assert.match(runtime,/markIntent\(link\);\s*deferHashNavigation\(link,event\);/);
 });
 
