@@ -11,6 +11,16 @@ const files = [
   'src/features/navigation/mobile-directory.css',
 ];
 
+// v25.2 certified selector-overlap ceiling. Selector reuse can be legitimate when
+// modules own different properties or responsive contexts, but the debt must only
+// move downward. Raising this number requires an explicit reviewed baseline change.
+const selectorOverlapBaseline = 28;
+const pairOverlapBaseline = Object.freeze({
+  'src/features/navigation/mobile-foundation.css <-> src/styles/home-responsive.css': 13,
+  'src/features/navigation/mobile-shell.css <-> src/styles/home-responsive.css': 13,
+  'src/features/navigation/mobile-foundation.css <-> src/features/navigation/mobile-shell.css': 2,
+});
+
 function normalizeWhitespace(value) {
   return value.replace(/\s+/g, ' ').trim();
 }
@@ -293,6 +303,10 @@ for (const overlap of overlaps) {
 
 const report = {
   files,
+  baseline: {
+    maxCrossFileSelectorOverlaps: selectorOverlapBaseline,
+    maxPairOverlaps: pairOverlapBaseline,
+  },
   totals: {
     selectorArms: allRules.length,
     crossFileSelectorOverlaps: overlaps.length,
@@ -306,10 +320,38 @@ const report = {
 const outPath = path.join(root, 'docs', 'css-mobile-ownership-report.json');
 fs.writeFileSync(outPath, `${JSON.stringify(report, null, 2)}\n`);
 
-if (process.argv.includes('--assert-clean') && propertyOwnershipConflicts.length > 0) {
-  console.error(`Mobile CSS ownership audit failed: ${propertyOwnershipConflicts.length} cross-file selector/property/context ownership conflict(s).`);
-  console.error(JSON.stringify(propertyOwnershipConflicts, null, 2));
-  process.exitCode = 1;
+if (process.argv.includes('--assert-clean')) {
+  let failed = false;
+
+  if (propertyOwnershipConflicts.length > 0) {
+    failed = true;
+    console.error(`Mobile CSS ownership audit failed: ${propertyOwnershipConflicts.length} cross-file selector/property/context ownership conflict(s).`);
+    console.error(JSON.stringify(propertyOwnershipConflicts, null, 2));
+  }
+
+  if (overlaps.length > selectorOverlapBaseline) {
+    failed = true;
+    console.error(`Mobile CSS selector-overlap ratchet failed: ${overlaps.length} overlaps exceeds certified baseline ${selectorOverlapBaseline}.`);
+    console.error('Reduce the overlap count, or change the baseline explicitly in a reviewed ownership-baseline change.');
+  }
+
+  for (const [pair, count] of Object.entries(pairCounts)) {
+    const allowed = pairOverlapBaseline[pair];
+    if (allowed === undefined) {
+      failed = true;
+      console.error(`Mobile CSS pair-overlap ratchet failed: new cross-file ownership pair "${pair}" has ${count} overlap(s).`);
+      continue;
+    }
+    if (count > allowed) {
+      failed = true;
+      console.error(`Mobile CSS pair-overlap ratchet failed: "${pair}" has ${count} overlaps, exceeding certified baseline ${allowed}.`);
+    }
+  }
+
+  if (failed) {
+    console.error('Ownership debt may move downward only. Any baseline increase requires an explicit reviewed ownership-baseline change.');
+    process.exitCode = 1;
+  }
 }
 
 console.log(JSON.stringify(report.totals));
