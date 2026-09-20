@@ -251,6 +251,32 @@ for (const [selector, rules] of bySelector) {
 
 overlaps.sort((a, b) => a.selector.localeCompare(b.selector));
 
+// Selector reuse across modules is legitimate when each module owns different
+// properties or responsive contexts. Ownership debt exists only when the same
+// selector + at-rule context + property is declared by more than one file.
+function declarationProperties(body) {
+  return [...body.matchAll(/(?:^|;)\\s*([a-zA-Z-][a-zA-Z0-9-]*)\\s*:/g)].map((match) => match[1].toLowerCase());
+}
+
+const propertyOwners = new Map();
+for (const rule of allRules) {
+  const context = rule.ancestry.map(normalizeWhitespace).join(' || ') || 'base';
+  for (const property of new Set(declarationProperties(rule.body))) {
+    const key = `${rule.selector}@@${context}@@${property}`;
+    const owners = propertyOwners.get(key) ?? new Set();
+    owners.add(rule.file);
+    propertyOwners.set(key, owners);
+  }
+}
+
+const propertyOwnershipConflicts = [...propertyOwners.entries()]
+  .filter(([, owners]) => owners.size > 1)
+  .map(([key, owners]) => {
+    const [selector, context, property] = key.split('@@');
+    return { selector, context, property, files: [...owners].sort() };
+  })
+  .sort((a, b) => a.selector.localeCompare(b.selector) || a.property.localeCompare(b.property));
+
 const pairCounts = {};
 for (const overlap of overlaps) {
   for (let i = 0; i < overlap.files.length; i += 1) {
@@ -266,17 +292,19 @@ const report = {
   totals: {
     selectorArms: allRules.length,
     crossFileSelectorOverlaps: overlaps.length,
+    crossFilePropertyOwnershipConflicts: propertyOwnershipConflicts.length,
   },
   pairCounts,
   overlaps,
+  propertyOwnershipConflicts,
 };
 
 const outPath = path.join(root, 'docs', 'css-mobile-ownership-report.json');
 fs.writeFileSync(outPath, `${JSON.stringify(report, null, 2)}\n`);
 
-if (process.argv.includes('--assert-clean') && overlaps.length > 0) {
-  console.error(`Mobile CSS ownership audit failed: ${overlaps.length} cross-file selector overlap(s).`);
-  console.error(JSON.stringify(pairCounts, null, 2));
+if (process.argv.includes('--assert-clean') && propertyOwnershipConflicts.length > 0) {
+  console.error(`Mobile CSS ownership audit failed: ${propertyOwnershipConflicts.length} cross-file selector/property/context ownership conflict(s).`);
+  console.error(JSON.stringify(propertyOwnershipConflicts, null, 2));
   process.exitCode = 1;
 }
 
