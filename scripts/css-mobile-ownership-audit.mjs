@@ -2,8 +2,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const stylesDir = path.join(root, 'src', 'styles');
-const files = ['experience.css', 'home-responsive.css', 'interaction.css', 'mobile.css'];
+const files = [
+  'src/styles/experience.css',
+  'src/styles/home-responsive.css',
+  'src/styles/interaction.css',
+  'src/features/navigation/mobile-foundation.css',
+  'src/features/navigation/mobile-shell.css',
+  'src/features/navigation/mobile-directory.css',
+];
 
 function normalizeWhitespace(value) {
   return value.replace(/\s+/g, ' ').trim();
@@ -221,7 +227,7 @@ function parseBlocks(css, file, start = 0, end = css.length, ancestry = []) {
 }
 
 const allRules = files.flatMap((file) => {
-  const css = fs.readFileSync(path.join(stylesDir, file), 'utf8');
+  const css = fs.readFileSync(path.join(root, file), 'utf8');
   return parseBlocks(css, file);
 });
 
