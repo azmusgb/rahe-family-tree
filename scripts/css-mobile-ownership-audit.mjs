@@ -15,6 +15,10 @@ function normalizeWhitespace(value) {
   return value.replace(/\s+/g, ' ').trim();
 }
 
+function normalizeAtRuleContext(value) {
+  return normalizeWhitespace(value).replace(/\s*([():,])\s*/g, '$1');
+}
+
 function stripComments(value) {
   return value.replace(/\/\*[\s\S]*?\*\//g, ' ');
 }
@@ -255,12 +259,12 @@ overlaps.sort((a, b) => a.selector.localeCompare(b.selector));
 // properties or responsive contexts. Ownership debt exists only when the same
 // selector + at-rule context + property is declared by more than one file.
 function declarationProperties(body) {
-  return [...body.matchAll(/(?:^|;)\\s*([a-zA-Z-][a-zA-Z0-9-]*)\\s*:/g)].map((match) => match[1].toLowerCase());
+  return [...body.matchAll(/(?:^|;)\s*([a-zA-Z-][a-zA-Z0-9-]*)\s*:/g)].map((match) => match[1].toLowerCase());
 }
 
 const propertyOwners = new Map();
 for (const rule of allRules) {
-  const context = rule.ancestry.map(normalizeWhitespace).join(' || ') || 'base';
+  const context = rule.ancestry.map(normalizeAtRuleContext).join(' || ') || 'base';
   for (const property of new Set(declarationProperties(rule.body))) {
     const key = `${rule.selector}@@${context}@@${property}`;
     const owners = propertyOwners.get(key) ?? new Set();

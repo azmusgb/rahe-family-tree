@@ -38,6 +38,8 @@
   #family-mobile-dock .mobile-more{
     position:static;
     min-width:0;
+    margin:0;
+    z-index:3;
   }
   #family-mobile-dock .mobile-more>summary{
     min-height:46px;
@@ -56,8 +58,6 @@
     background:var(--brand-soft);
     color:var(--green);
   }
-  
-  #family-mobile-dock .mobile-more:not([open])>div{display:none}
   
   #family-mobile-dock .mobile-more>div>a:active,#family-mobile-dock .mobile-more>div>button:active{background:var(--brand-soft)}
   .mobile-more-head{
