@@ -209,8 +209,6 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
   
   
   
-  #family-mobile-dock .mobile-more{position:static;margin:0;z-index:3}
-  #family-mobile-dock .mobile-more>summary::-webkit-details-marker{display:none}
   
   #family-mobile-dock .mobile-more:not([open])>div{display:none;pointer-events:none}
   #family-mobile-dock .mobile-more[open]>div{pointer-events:auto}
