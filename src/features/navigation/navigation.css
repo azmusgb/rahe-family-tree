@@ -223,6 +223,12 @@ body[data-experience="family"] .topbar-more summary{min-height:40px}
     color:var(--nav-ink);
 }
 .nav-popover a small{font-size:10px;font-weight:540;line-height:1.35;color:var(--muted)}
+.primary-nav a:focus-visible,.nav-menu summary:focus-visible,.nav-popover a:focus-visible{
+    outline:3px solid var(--nav-accent);
+    outline-offset:2px;
+}
+.nav-menu[open]>summary::after{transform:rotate(180deg)}
+.nav-menu summary::after{transition:transform var(--family-motion-fast,140ms) ease}
 .topbar{top:var(--app-masthead-height);
     height:var(--app-utility-height);
     padding:0 28px;
@@ -238,6 +244,17 @@ body[data-experience="family"] .topbar-more summary{min-height:40px}
 @media (min-width:721px) and (max-width:1180px){
 .sidebar{padding:0 16px;gap:14px}
 .primary-nav a,.nav-menu summary{padding:0 8px;font-size:11px}
+}
+@media (min-width:721px) and (prefers-reduced-transparency:reduce){
+.sidebar{background:var(--nav-bg)}
+.topbar{
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+    background:var(--nav-surface);
+}
+}
+@media (prefers-reduced-motion:reduce){
+.nav-menu summary::after{transition:none}
 }
 
 @media (max-width:720px){
