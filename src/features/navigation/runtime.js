@@ -32,17 +32,23 @@ function deferHashNavigation(link,event){
   const route=routeFromHref(link.href);if(!APP_ROUTES.has(route))return false;
   const url=new URL(link.href,location.href),targetHash=url.hash;
   if(!targetHash||targetHash===location.hash)return false;
-  // A native same-document hash navigation can run hashchange listeners before
-  // the initiating click task yields. Tree rendering is intentionally rich and
-  // can make that physical click appear stuck for seconds. Preserve the normal
-  // history/hash semantics, but commit the hash in the next task so pointer
-  // activation and pressed-state feedback finish immediately.
+  // Do not hand the physical click to native fragment navigation. Playwright
+  // and real browsers can keep the activation pending while synchronous
+  // hashchange listeners render the Tree route. Commit the history entry in
+  // one later task, then dispatch route work in a second task. The URL/history
+  // state is therefore observable before expensive route rendering begins.
   event.preventDefault();
   pendingHashNavigation=targetHash;
   setTimeout(()=>{
     if(pendingHashNavigation!==targetHash)return;
-    pendingHashNavigation='';
-    if(location.hash!==targetHash)location.hash=targetHash;
+    const oldURL=location.href;
+    history.pushState(history.state,'',url);
+    const newURL=location.href;
+    setTimeout(()=>{
+      if(pendingHashNavigation!==targetHash||location.hash!==targetHash)return;
+      pendingHashNavigation='';
+      window.dispatchEvent(new HashChangeEvent('hashchange',{oldURL,newURL}));
+    },0);
   },0);
   return true;
 }
