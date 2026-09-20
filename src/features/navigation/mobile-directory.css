@@ -5,6 +5,21 @@
  * Keep every row touch-safe while making the directory behave like a compact
  * mobile browser instead of a stack of desktop-sized profile cards.
  */
+/* People-route presentation migrated from mobile-shell.css.
+ * Keep route-specific directory styling in the directory owner while preserving
+ * the former shell-before-directory cascade order.
+ */
+@media (max-width:720px){
+  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro{background:var(--actual-canvas)!important;color:var(--actual-ink)!important;
+border-bottom:1px solid var(--actual-line);}
+  body[data-route="people"].v21-actual-mobile-ui .v17-page-intro h2{margin-bottom:6px!important}
+  body[data-route="people"].v21-actual-mobile-ui .mobile-search{position:sticky;top:calc(var(--actual-header-h) + var(--actual-context-h) + env(safe-area-inset-top,0px));z-index:80;
+margin:0;background:rgba(243,238,227,.96);
+-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);}
+  body[data-route="people"].v21-actual-mobile-ui .v17-branch-browser[data-v21-people-branches="true"]{scroll-padding-inline:10px}
+  body[data-route="people"].v21-actual-mobile-ui .v17-people-grid{background:var(--actual-paper)!important;border-color:var(--actual-line)!important;box-shadow:var(--actual-shadow-soft)!important}
+}
+
 @media(max-width:720px){
   /* The directory is a utility destination: keep identity and search context, but
    * spend the first viewport on people rather than a desktop-style introduction. */
