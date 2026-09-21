@@ -816,8 +816,7 @@ body[data-route="dashboard"][data-v158-context="family"] .v161-research-band h2{
 .edition{font-size:max(11px,inherit)}
 
 .brand{letter-spacing:.075em;font-family:var(--family-font-display)}
-.brand .monogram{border-radius:16px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
-.topbar-actions button{border-color:color-mix(in srgb,var(--line-strong) 78%,transparent);border-radius:11px;background:var(--nav-surface);color:var(--nav-ink);font-weight:720;box-shadow:0 1px 0 rgba(255,255,255,.9)}
-.topbar-actions button:hover{border-color:var(--family-border-interactive);background:var(--nav-bg-soft);color:var(--nav-ink)}
-@media(prefers-reduced-transparency:reduce){.topbar{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:var(--paper)!important}}
+.brand .monogram,.site-footer-brand .monogram{border-radius:16px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.topbar-actions button,.site-tools>summary,.site-header-actions button{border-color:color-mix(in srgb,var(--line-strong) 78%,transparent);border-radius:11px;background:var(--nav-surface);color:var(--nav-ink);font-weight:720;box-shadow:0 1px 0 rgba(255,255,255,.9)}
+.topbar-actions button:hover,.site-tools>summary:hover,.site-header-actions button:hover{border-color:var(--family-border-interactive);background:var(--nav-bg-soft);color:var(--nav-ink)}
 @media(max-width:720px){.tree-context-nav,.tree-recent-history{overflow:visible;flex-wrap:wrap}.v162-places{flex-wrap:wrap;overflow:visible}}
