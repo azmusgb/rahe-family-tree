@@ -182,9 +182,9 @@
 .graph-toolbar{padding:8px}
 }
 
-.tree-focusbar select{min-height:42px;font-size:13px}
+.tree-focusbar select{min-height:var(--control-min);font-size:13px}
 
-.tree-mode-buttons button,.tree-depth button,.graph-toolbar button{min-height:42px}
+.tree-mode-buttons button,.tree-depth button,.graph-toolbar button{min-height:var(--control-min)}
 
 .graph-scroll{scrollbar-gutter:stable both-edges;overscroll-behavior:contain}
 
@@ -258,7 +258,7 @@ body[data-experience="family"] .graph-shell{border:0;border-radius:var(--radius-
 
 body[data-experience="family"] .graph-scroll{background:linear-gradient(#fbfcfa,#fbfcfa),radial-gradient(circle at 1px 1px,#dfe5df 1px,transparent 0);background-size:auto,28px 28px;overscroll-behavior:contain;scrollbar-gutter:stable both-edges}
 
-body[data-experience="family"] .graph-toolbar button,body[data-experience="family"] .tree-mode-buttons button,body[data-experience="family"] .tree-depth button{min-height:42px;border-radius:var(--radius-sm)}
+body[data-experience="family"] .graph-toolbar button,body[data-experience="family"] .tree-mode-buttons button,body[data-experience="family"] .tree-depth button{min-height:var(--control-min);border-radius:var(--radius-sm)}
 
 body[data-experience="family"] .graph-node .node-name{font-size:14px;font-weight:700}
 
