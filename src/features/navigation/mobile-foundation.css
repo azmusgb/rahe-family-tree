@@ -204,6 +204,5 @@ body[data-experience="family"] .site-header-actions button{
   body[data-route="branch"] .branch-people{grid-auto-columns:72vw}
   body[data-route="person"] .person-header{min-height:0;padding:28px 16px 22px}
   body[data-route="person"] .person-actions{margin-top:16px}
-  body[data-route="person"] .person-section{padding:22px 0;gap:14px}
   body[data-route="tree"] #content.mobile-tree-surface :where(.graph-shell,.tree-graph-shell){min-height:calc(100dvh - 184px)}
 }
