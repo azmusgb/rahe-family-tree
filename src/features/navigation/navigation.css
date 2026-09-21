@@ -145,7 +145,7 @@ body[data-experience="family"] .topbar-actions button,body[data-experience="fami
 
 body[data-experience="family"] .topbar-menu{border-radius:var(--radius-md);box-shadow:var(--shadow-md)}
 
-@media(max-width:768px){
+@media(max-width:720px){
 body[data-experience="family"] .sidebar{display:none}
 body[data-experience="family"] .topbar{height:56px;padding:0 14px;z-index:60}
 body[data-experience="family"] .topbar>span{display:none}
@@ -159,11 +159,11 @@ body[data-experience="family"] .topbar-more summary{min-height:40px}
     z-index:var(--z-header);
     height:var(--app-masthead-height);
     width:100%;
-    padding:0 24px;
+    padding:0 clamp(16px,2vw,32px);
     display:flex;
     flex-direction:row;
     align-items:center;
-    gap:24px;
+    gap:clamp(14px,1.7vw,28px);
     overflow:visible;
     background:linear-gradient(180deg,var(--nav-bg) 0%,var(--nav-bg-deep) 100%);
     border-bottom:1px solid var(--nav-border);
@@ -265,8 +265,10 @@ body[data-experience="family"] .topbar-more summary{min-height:40px}
 }
 
 @media (min-width:721px) and (max-width:1180px){
-.sidebar{padding:0 16px;gap:14px}
-.primary-nav a,.nav-menu summary{padding:0 8px;font-size:11px}
+.sidebar{padding-inline:12px;gap:10px}
+.brand>span:last-child{display:none}
+.sidebar #nav{gap:10px}
+.primary-nav a,.nav-menu summary{padding-inline:7px;font-size:10.5px}
 }
 @media (min-width:721px) and (prefers-reduced-transparency:reduce){
 .sidebar{background:var(--nav-bg)}
