@@ -143,14 +143,14 @@ function renderC001SourceInspector(s){
   const tasks=['RQ-001','RQ-002','RQ-003'].map(taskById).filter(Boolean);
   const scan=s.imageUrl||s.scanUrl||s.assetUrl||'';
   return `<a class="back" href="#sources">← Sources</a>
-  <section class="source-inspector" data-source-inspector="C001" data-source-id="${esc(s.id)}"><div class="sr-only" data-source-announcer aria-live="polite" aria-atomic="true"></div>
-    <header class="source-inspector-head">
+  <section class="source-inspector" data-source-inspector="C001" data-source-id="${esc(s.id)}">
+    <header class="detail-hero">
       <div><p class="eyebrow">SOURCE · ${esc(s.id)} · PRIMARY-DERIVED</p><h1>${esc(s.name)}</h1><p>1918 baptismal event · 1965 parish extract · original register not yet inspected</p></div>
       <span class="badge supported">SOURCE WEIGHT · VERY HIGH</span>
     </header>
     <div class="source-inspector-layout">
-      <div class="source-inspector-main">
-        <section class="panel source-inspector-viewer" aria-labelledby="source-viewer-title">
+      <div data-source-inspector-main>
+        <section class="panel" aria-labelledby="source-viewer-title">
           <div class="section-title"><div><p class="eyebrow">ARTIFACT VIEW</p><h2 id="source-viewer-title">C001 inspection surface</h2></div><span>${scan?'Scan attached':'Scan asset not ingested'}</span></div>
           <div class="source-inspector-toolbar" role="toolbar" aria-label="Document viewer controls">
             <button type="button" data-source-viewer-action="zoom-in" aria-label="Zoom in">+</button><button type="button" data-source-viewer-action="zoom-out" aria-label="Zoom out">−</button><button type="button" data-source-viewer-action="reset">Reset</button><button type="button" data-source-viewer-action="rotate">Rotate</button>
@@ -183,18 +183,18 @@ function renderC001SourceInspector(s){
           <strong data-active-field-label>${esc(c001Fields[0].label)}</strong><p data-active-field-value>${esc(c001Fields[0].value)}</p>
           <small><b>Directly supports:</b> <span data-active-field-supports>${esc(c001Fields[0].supports)}</span><br><b>Does not establish:</b> <span data-active-field-notsupports>${esc(c001Fields[0].notSupports)}</span></small>
         </section>
-        <div id="source-panel-summary" role="tabpanel" aria-labelledby="source-tab-summary" class="source-inspector-tabpanel">
+        <div id="source-panel-summary" role="tabpanel" aria-labelledby="source-tab-summary">
           ${claim1?`<article class="claim-card state-supported"><div class="claim-top"><code>${esc(claim1.id)}</code>${stateBadges(claim1.state)}</div><h3>${esc(claim1.claim)}</h3><p><b>Next action:</b> ${esc(claim1.nextAction)}</p></article>`:''}
           ${claim2?`<article class="claim-card state-unresolved"><div class="claim-top"><code>${esc(claim2.id)}</code>${stateBadges(claim2.state)}</div><h3>${esc(claim2.claim)}</h3><p>C001 does not establish this identity bridge or the mechanism of the name transition.</p></article>`:''}
           <div class="section-title"><h3>Top 3 critical targets</h3><a href="#research">Full queue ↗</a></div><div class="stack">${tasks.map(taskCard).join('')}</div>
         </div>
-        <div id="source-panel-claims" role="tabpanel" aria-labelledby="source-tab-claims" class="source-inspector-tabpanel" hidden>
+        <div id="source-panel-claims" role="tabpanel" aria-labelledby="source-tab-claims" hidden>
           <div class="claim-grid">${claims.map(claimCard).join('')||'<div class="empty compact">No linked claims.</div>'}</div>
         </div>
-        <div id="source-panel-provenance" role="tabpanel" aria-labelledby="source-tab-provenance" class="source-inspector-tabpanel" hidden>
+        <div id="source-panel-provenance" role="tabpanel" aria-labelledby="source-tab-provenance" hidden>
           <dl class="facts"><dt>Source class</dt><dd>${esc(s.class)}</dd><dt>Custody</dt><dd>Family-held St. Anne parish extract.</dd><dt>Original register</dt><dd>Not yet directly inspected; C013 remains the repository target.</dd><dt>Canonical register row</dt><dd>${esc(s.location.section)} · row ${esc(s.location.row)}</dd><dt>Search variants</dt><dd>DeVine · DeVeine · Devine · Deveine</dd></dl>${deepLink(s.location,'Open canonical source row ↗')}
         </div>
-        <div id="source-panel-fields" role="tabpanel" aria-labelledby="source-tab-fields" class="source-inspector-tabpanel" hidden><div class="stack">${c001FieldButtons()}</div></div>
+        <div id="source-panel-fields" role="tabpanel" aria-labelledby="source-tab-fields" hidden><div class="stack">${c001FieldButtons()}</div></div>
       </aside>
     </div>
     <button type="button" class="source-inspector-mobile-open action primary" data-source-inspector-open aria-expanded="false" aria-controls="source-inspector-panel-mobile">Inspect evidence</button>
