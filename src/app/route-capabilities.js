@@ -16,6 +16,12 @@ registerRouteCapability({
 });
 
 registerRouteCapability({
+  name:'source-inspector',
+  routes:['source'],
+  load:()=>import('../features/research/source-inspector.js')
+});
+
+registerRouteCapability({
   name:'person-experience-v17-3',
   routes:['person'],
   load:()=>import('../features/person/experience.js')

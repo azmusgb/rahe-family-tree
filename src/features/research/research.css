@@ -1,9 +1,5 @@
-/* ==========================================================================
-   Source: media.css
-   ========================================================================== */
-/* Migrated live selectors from retired release CSS.
- * These rules remain below the semantic ownership boundary and are now
- * maintained by this module; obsolete selector arms were removed during migration. */
+
+
 .media-empty{display:flex;align-items:center;gap:12px;background:#fafcfb;border:1px dashed var(--line);border-radius:10px;padding:12px}
 
 .media-empty p{margin:3px 0 0;color:var(--muted);font-size:9px;line-height:1.5}
@@ -553,7 +549,7 @@ body[data-route="media"][data-v158-context="family"] .media-library-grid>.empty{
 
 @media(max-width:720px){.v162-media-quick button{min-height:36px;padding-inline:12px}}
 
-/* Photos & documents — image-first family collection. */
+
 body[data-route="media"][data-v158-context="family"] .route-shell{padding-bottom:4px}
 .v162-media-quick{gap:8px;padding:3px 1px 5px}
 .v162-media-quick button{
@@ -581,17 +577,13 @@ body[data-route="media"][data-v158-context="family"] .media-library-title{margin
 body[data-route="media"][data-v158-context="family"] .media-library-title h2{font-family:var(--family-font-display);font-size:var(--family-text-section)}
 @media(hover:hover) and (pointer:fine){body[data-route="media"][data-v158-context="family"] .media-library-card:hover .media-library-preview img{transform:scale(1.02)}}
 
-/* ==========================================================================
-   Source: explore.css
-   ========================================================================== */
-/* Migrated live selectors from retired release CSS.
- * These rules remain below the semantic ownership boundary and are now
- * maintained by this module; obsolete selector arms were removed during migration. */
+
+
 .family-context-grid,.place-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
 
 .family-context-grid article,.place-grid article{padding:14px;border:1px solid var(--line,#d8ddd9);border-radius:14px;background:rgba(255,255,255,.7)}
 
-/* Explore — Timeline and Places get distinct editorial grammar. */
+
 body[data-route="timeline"][data-v158-context="family"] #content>.panel,
 body[data-route="migration"][data-v158-context="family"] #content>.panel{
   border:0!important;border-top:1px solid var(--family-border-hairline)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding-inline:0!important;
@@ -609,18 +601,14 @@ body[data-route="timeline"][data-v158-context="family"] .timeline-item>div{
 body[data-route="timeline"][data-v158-context="family"] .timeline-item h3{font-family:var(--family-font-display);font-size:1.3rem;line-height:1.2}
 body[data-route="timeline"][data-v158-context="family"] .timeline-top>span{font-size:11px!important}
 
-/* Places favors the geographic visual pane when one is present, while supporting legacy class names. */
+
 body[data-route="migration"][data-v158-context="family"] :where(.migration-map,.map-panel,.map-card,.geo-map){
   min-height:min(62vh,660px);border:1px solid var(--family-border-hairline)!important;border-radius:var(--family-radius-panel)!important;overflow:hidden;box-shadow:var(--family-shadow-card)!important;background:var(--family-surface-canvas)!important;
 }
 body[data-route="migration"][data-v158-context="family"] :where(.place-card,.migration-card){border:1px solid var(--family-border-hairline)!important;border-radius:var(--family-radius-card)!important;box-shadow:var(--family-shadow-card)!important}
 
-/* ==========================================================================
-   Source: research.css
-   ========================================================================== */
-/* Migrated live selectors from retired release CSS.
- * These rules remain below the semantic ownership boundary and are now
- * maintained by this module; obsolete selector arms were removed during migration. */
+
+
 .audit{padding:5px 8px;border-radius:999px;font-size:9px}
 
 .audit.pass{background:#e6f1e7;color:#2e6940}
@@ -917,7 +905,7 @@ body[data-route="dashboard"][data-v158-context="family"] #content.v161-home .v16
 
 @media(max-width:720px){body[data-route="dashboard"] #content.v161-home .v161-research-band .action{justify-self:start;min-height:40px!important}}
 
-/* Research — intentionally denser than Family mode, but aligned to the same token system. */
+
 body[data-v158-context="research"] .route-shell{border-bottom:1px solid var(--family-border-hairline)}
 body[data-v158-context="research"] .page-heading h1{font-family:var(--family-font-display);font-size:clamp(2rem,4vw,3.25rem);letter-spacing:-.03em}
 body[data-v158-context="research"] .edition{font-size:11px}
@@ -928,10 +916,7 @@ body[data-v158-context="research"] :where(.claim-card,.source-card,.task-card,.p
 }
 body[data-v158-context="research"] :where(.claim-card,.source-card,.task-card) h3{font-family:var(--family-font-ui)!important}
 
-/* v17.5 keeps the shared multi-column footer readable when navigation switches
- * into the denser Research context. The Family footer rules are context-scoped,
- * so Research needs its own explicit layout instead of falling back to the
- * legacy flex footer. */
+
 body[data-v158-context="research"] .site-footer{
   display:block!important;
   margin-top:clamp(36px,6vw,80px)!important;
@@ -976,12 +961,8 @@ body[data-v158-context="research"] .site-footer-bottom{
 }
 @media(max-width:520px){body[data-v158-context="research"] .site-footer-grid{grid-template-columns:1fr!important}}
 
-/* ==========================================================================
-   Source: record-ingestion.css
-   ========================================================================== */
-/* Migrated live selectors from retired release CSS.
- * These rules remain below the semantic ownership boundary and are now
- * maintained by this module; obsolete selector arms were removed during migration. */
+
+
 .media-drop-zone{border:2px dashed rgba(23,63,53,.2)!important;border-radius:16px!important;padding:18px!important;background:#f7faf8;cursor:pointer;transition:.2s}
 
 .media-drop-zone.dragging{border-color:var(--green)!important;background:#edf5f0}
@@ -996,3 +977,5 @@ body[data-v158-context="research"] .site-footer-bottom{
 
 .record-ingestion{display:grid;gap:1rem;margin-bottom:1.25rem}.ingest-form{display:grid;gap:.9rem}.ingest-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}.ingest-form label,.ingest-note{display:grid;gap:.35rem;font-weight:650}.ingest-form input,.ingest-form select,.ingest-form textarea,.ingest-note textarea{width:100%;min-width:0}.ingest-form textarea,.ingest-note textarea{resize:vertical}.ingest-form-actions,.ingest-actions,.ingest-result-head,.ingest-candidate>div{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}.ingest-result-head{justify-content:space-between}.ingest-results{display:grid;gap:1rem;border-top:1px solid var(--line,#d9d4ca);padding-top:1rem}.ingest-metrics{display:flex;gap:.55rem;flex-wrap:wrap}.ingest-metrics span{display:inline-flex;gap:.3rem;align-items:center;padding:.45rem .65rem;border:1px solid var(--line,#d9d4ca);border-radius:999px}.ingest-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}.ingest-columns>article,.ingest-review-block,.ingest-history>div{border:1px solid var(--line,#d9d4ca);border-radius:14px;padding:1rem;background:var(--surface,#fff)}.ingest-candidate,.ingest-flag,.ingest-history article{display:grid;gap:.35rem;padding:.8rem 0;border-top:1px solid var(--line,#d9d4ca)}.ingest-candidate:first-child,.ingest-flag:first-child,.ingest-history article:first-child{border-top:0}.ingest-candidate>div{justify-content:space-between}.ingest-candidate span{font-size:.78rem;font-weight:700}.ingest-flag small,.ingest-candidate small{color:var(--muted,#69645d)}.ingest-history summary{cursor:pointer;font-weight:700}.ingest-history article{grid-template-columns:auto 1fr auto;align-items:center}.ingest-history article p{grid-column:1/-1;margin:0}.record-ingestion button:focus-visible,.record-ingestion input:focus-visible,.record-ingestion textarea:focus-visible,.record-ingestion select:focus-visible{outline:3px solid currentColor;outline-offset:2px}@media(max-width:760px){.ingest-grid,.ingest-columns{grid-template-columns:1fr}.ingest-history article{grid-template-columns:1fr}.ingest-history article p{grid-column:auto}}
 
+
+.source-inspector{display:grid;gap:14px}.source-inspector-layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;align-items:start}.source-inspector-toolbar,.source-inspector-fields,.source-inspector-tabs{display:flex;gap:6px;flex-wrap:wrap}.source-inspector-toolbar button,.source-inspector-tabs button,.source-inspector-field{padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-weight:700}.source-inspector-viewport{height:min(56vh,540px);margin:10px 0;overflow:hidden;display:grid;place-items:center;border:1px solid var(--line);border-radius:12px;background:#e9ece9;touch-action:none}.source-inspector-stage{transform-origin:center}.source-inspector-stage img{display:block;max-width:none;width:min(680px,75vw)}.source-inspector-placeholder{padding:30px;text-align:center;color:var(--muted)}.source-inspector-field[aria-pressed="true"],.source-inspector-tabs button[aria-selected="true"]{border-color:var(--green);background:var(--brand-soft);color:var(--green)}.source-inspector-panel{position:sticky;top:72px;max-height:calc(100vh - 92px);overflow:auto}.source-inspector-tabs,.source-inspector-linkage{margin-bottom:10px}.source-inspector-mobile-open,.source-inspector-close,.source-inspector-backdrop{display:none}@media(max-width:900px){.source-inspector-modal-open{overflow:hidden}.source-inspector-layout{display:block}.source-inspector-panel{position:fixed;z-index:220;left:10px;right:10px;bottom:10px;top:auto;max-height:82dvh;transform:translateY(115%);transition:transform .2s ease;border-radius:18px;box-shadow:0 24px 70px rgba(10,28,22,.28)}.source-inspector-panel.is-open{transform:none}.source-inspector-close{display:inline-flex}.source-inspector-mobile-open{display:inline-flex;position:fixed;z-index:190;right:14px;bottom:calc(92px + env(safe-area-inset-bottom))}.source-inspector-backdrop:not([hidden]){display:block;position:fixed;inset:0;z-index:210;border:0;background:rgba(10,25,20,.5)}.source-inspector-viewport{height:48dvh}.source-inspector-stage img{width:min(620px,92vw)}}
