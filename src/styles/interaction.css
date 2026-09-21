@@ -1,21 +1,4 @@
-/* Consolidated stylesheet.
- * Source sections are kept in the previous cascade order so this refactor changes
- * ownership and file count without intentionally changing visual precedence.
- */
-
-/* ==========================================================================
-   Source: interaction-contracts.css
-   ========================================================================== */
-/* Cross-module interaction contracts.
- *
- * This semantic layer is intentionally late in the cascade. It owns presentation
- * contracts shared by multiple route modules where source-order is part of behavior.
- */
-
-/* Hidden is a state, not a suggestion. No route/layout module may visually revive
- * an element that the DOM explicitly marks hidden. */
-/* Keyboard focus is a global product contract. Keep the focus ring visible across
- * links, buttons, native details, form controls, and programmatic focus targets. */
+/* Late interaction contracts: focus, disclosure, motion, and shared state. */
 :where(a,button,summary,input,select,textarea,[tabindex]):focus-visible{
   outline:var(--family-focus-width) solid color-mix(in srgb,var(--green,#123f34) 74%,#fff);
   outline-offset:var(--family-focus-offset);
@@ -27,10 +10,6 @@
   box-shadow:0 8px 30px rgba(0,0,0,.18)
 }
 
-/* Navigation popovers intentionally suppress the native disclosure marker because
- * their visual affordances are supplied by the shell. Leave ordinary details/
- * summary controls untouched so Archive, Research, Tree, and content disclosures
- * retain their native marker and semantics. */
 :where(.nav-menu,.site-tools,.mobile-more)>summary{
   cursor:pointer;
   list-style:none;
@@ -41,17 +20,11 @@
 :where(.nav-menu,.site-tools,.mobile-more)>summary::marker{content:''}
 :where(.nav-popover,.site-tools>div,.mobile-more>div){isolation:isolate}
 
-/* Keep controls within their grid/flex tracks and prevent long search placeholders
- * or select options from forcing horizontal overflow. */
 .filters>*{min-width:0}
 .filters :where(input,select){width:100%;min-width:0}
 
-/* Native hidden state must win over layout modules that assign display:grid to
- * the route filter form. Route-specific exceptions can opt back in below. */
 .filters[hidden]{display:none!important}
 
-/* Relationship rows belong to the tree/evidence interaction model. Research
- * list-card styling must not collapse their six-column desktop structure. */
 .relationship-row{
   display:grid;
   gap:12px;
@@ -75,17 +48,12 @@
   .relationship-row>b{display:none}
   .relationship-row small,.relationship-row .deep-link{grid-column:auto}
 
-  /* The fixed mobile dock owns the bottom safe-area. Give routed content enough
-   * breathing room even if an older route module forgets to add its own offset. */
   
   body.v21-actual-mobile-ui[data-route="tree"]{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
   
   #family-mobile-dock :where(a,summary,button){touch-action:manipulation}
 }
 
-/* Media browsing intentionally keeps the contextual archive search visible.
- * The generic media-browse shell hides route filters; Family mode is the
- * explicit exception and must win after all route modules are composed. */
 body[data-v158-context="family"][data-route="media"] .route-shell .filters{
   display:block!important;
   margin-top:10px!important;
@@ -100,13 +68,8 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
   min-height:var(--family-control-min)!important;
 }
 
-/* The routed tree is repeatedly reconstructed as scope/focus changes. Avoid
- * restarting entrance motion on the context controller itself: a moving
- * controller is not a stable pointer target and can also create resize churn
- * while the tree persistence controller is restoring state. */
 .tree-context{animation:none!important}
 
-/* Reduced-motion is a cross-route accessibility contract. */
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 
@@ -146,10 +109,6 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
     }
 }
 
-/* ==========================================================================
-   Source: family-explorer-navigation.css
-   ========================================================================== */
-/* Family Explorer navigation — spatial, genealogy-first navigation. */
 @media (min-width:721px){
   
   body[data-experience="family"] .brand{gap:10px;min-width:max-content;color:#fff;text-decoration:none}
