@@ -193,7 +193,7 @@ body[data-experience="family"] .site-header-actions button{
 
 @media(max-width:720px){
   body[data-route="people"] .people-intro{padding:18px 14px 10px}
-  body[data-route="people"] .people-grid{margin:0 10px;border-radius:20px}
+  .people-directory .people-grid{margin:0 10px;border-radius:20px}
   body[data-route="people"] .directory-person-card>button{min-height:72px;padding:9px 11px;grid-template-columns:46px minmax(0,1fr) 18px}
   body[data-route="people"] .directory-person-card .v17-avatar{width:44px;height:44px}
   body[data-route="families"] .families-hero{padding:30px 14px 22px}
