@@ -11,14 +11,11 @@ const files = [
   'src/features/navigation/mobile-directory.css',
 ];
 
-// v25.2 certified selector-overlap ceiling. Selector reuse can be legitimate when
-// modules own different properties or responsive contexts, but the debt must only
-// move downward. Raising this number requires an explicit reviewed baseline change.
-const selectorOverlapBaseline = 28;
+// Certified selector-overlap ceiling. Cross-module selector ownership is now zero;
+// future changes must preserve that boundary unless an explicit reviewed baseline
+// change documents why shared ownership is necessary.
+const selectorOverlapBaseline = 0;
 const pairOverlapBaseline = Object.freeze({
-  'src/features/navigation/mobile-foundation.css <-> src/styles/home-responsive.css': 13,
-  'src/features/navigation/mobile-shell.css <-> src/styles/home-responsive.css': 13,
-  'src/features/navigation/mobile-foundation.css <-> src/features/navigation/mobile-shell.css': 2,
 });
 
 function normalizeWhitespace(value) {
