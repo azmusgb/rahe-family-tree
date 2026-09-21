@@ -86,9 +86,11 @@ test.describe('v26.2 phone refinement',()=>{
     await more.locator('summary').click();
     await expect.poll(()=>page.locator('#main').evaluate(node=>node.inert)).toBe(true);
     await expect.poll(()=>page.locator('#mobile-app-header').evaluate(node=>node.inert)).toBe(true);
-    await more.locator('[data-mobile-more-close]').click();
+    await page.keyboard.press('Escape');
+    await expect(more).not.toHaveAttribute('open','');
     await expect.poll(()=>page.locator('#main').evaluate(node=>node.inert)).toBe(false);
     await expect.poll(()=>page.locator('#mobile-app-header').evaluate(node=>node.inert)).toBe(false);
+    await expect(more.locator('summary')).toBeFocused();
     await more.locator('summary').click();
     await more.getByRole('link',{name:'Photos'}).click();
     await expect(page).toHaveURL(/#media$/);
