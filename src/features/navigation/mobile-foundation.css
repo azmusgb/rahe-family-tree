@@ -193,4 +193,20 @@ body[data-experience="family"] .site-header-actions button{
     pointer-events:auto!important;
   }
 }
-
+/* v26.6 mobile route density refinement. */
+@media(max-width:720px){
+  body[data-route="people"] .people-intro{padding:18px 14px 10px}
+  body[data-route="people"] .people-grid{margin:0 10px;border-radius:20px}
+  body[data-route="people"] .directory-person-card>button{min-height:72px;padding:9px 11px;grid-template-columns:46px minmax(0,1fr) 18px}
+  body[data-route="people"] .directory-person-card .v17-avatar{width:44px;height:44px}
+  body[data-route="families"] .families-hero{padding:30px 14px 22px}
+  body[data-route="families"] .family-grid{grid-auto-columns:80vw;gap:10px;padding:18px 14px 26px}
+  body[data-route="families"] .family-card{min-height:260px;padding:20px;border-radius:24px}
+  body[data-route="branch"] .branch-hero{padding:28px 14px 24px}
+  body[data-route="branch"] .branch-section{padding:24px 14px}
+  body[data-route="branch"] .branch-people{grid-auto-columns:72vw}
+  body[data-route="person"] .person-header{min-height:0;padding:28px 16px 22px}
+  body[data-route="person"] .person-actions{margin-top:16px}
+  body[data-route="person"] .person-section{padding:22px 0;gap:14px}
+  body[data-route="tree"] #content.mobile-tree-surface :where(.graph-shell,.tree-graph-shell){min-height:calc(100dvh - 184px)}
+}
