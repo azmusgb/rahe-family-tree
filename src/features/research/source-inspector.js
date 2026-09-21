@@ -63,7 +63,7 @@ function init(){
   if(!image){controls.forEach(b=>b.disabled=true);return;}
   const state={scale:1,x:0,y:0,rotation:0,drag:false,startX:0,startY:0,pointers:new Map()};
   const clamp=()=>{const limX=viewport.clientWidth*.85,limY=viewport.clientHeight*.85;state.x=Math.max(-limX,Math.min(limX,state.x));state.y=Math.max(-limY,Math.min(limY,state.y));};
-  const render=()=>{clamp();stage.style.transform=`translate3d(${state.x}px,${state.y}px,0) scale(${state.scale}) rotate(${state.rotation}deg)`;};
+  const render=()=>{clamp();stage.setAttribute('style',`transform:translate3d(${state.x}px,${state.y}px,0) scale(${state.scale}) rotate(${state.rotation}deg)`);};
   const zoomAt=(factor,clientX=viewport.getBoundingClientRect().left+viewport.clientWidth/2,clientY=viewport.getBoundingClientRect().top+viewport.clientHeight/2)=>{
     const rect=viewport.getBoundingClientRect(),px=clientX-rect.left-viewport.clientWidth/2,py=clientY-rect.top-viewport.clientHeight/2,old=state.scale,next=Math.max(.6,Math.min(4,old*factor));
     if(next===old)return;state.x=px-(px-state.x)*(next/old);state.y=py-(py-state.y)*(next/old);state.scale=next;render();
