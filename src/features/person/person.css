@@ -452,3 +452,5 @@ body[data-route="dashboard"] .history-highlight-grid article{min-height:160px}
   background:rgba(248,245,237,.88);
   box-shadow:0 8px 24px rgba(25,40,32,.04);}
 .person-nav{top:var(--app-masthead-height);margin-inline:0;padding:7px 0;border:0;border-bottom:1px solid var(--family-border-hairline);border-radius:0;box-shadow:none;background:color-mix(in srgb,var(--bg) 94%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.person-profile,.people-directory{min-width:0}
+@media(max-width:720px){.person-section{padding:22px 0;gap:14px}}
