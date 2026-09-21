@@ -437,7 +437,7 @@ body:has(.mobile-more[open])::before{content:"";position:fixed;inset:0;backgroun
 .v162-moment{flex:0 0 min(78vw,260px);scroll-snap-align:start;padding:14px}
 .v162-moment time{font-size:24px;margin-bottom:10px}
 .v162-moment h3{font-size:16px}
-.v162-places{overflow-x:auto;scrollbar-width:none}
+.v162-places{overflow:visible}
 .v162-places>span{flex:0 0 auto}
 .v162-places a{flex:0 0 auto}
 .v162-family-path{margin:8px 0 14px;padding:12px;gap:8px}
