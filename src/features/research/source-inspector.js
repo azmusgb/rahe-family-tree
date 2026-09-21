@@ -39,14 +39,14 @@ function init(){
   const inertTargets=()=>[document.querySelector('.site-header'),document.querySelector('.topbar'),root.querySelector('.source-inspector-main'),document.querySelector('#family-mobile-dock')].filter(Boolean);
   const setInert=value=>inertTargets().forEach(el=>{el.inert=value;});
   const syncMode=()=>{
-    if(!mq.matches){panel.removeAttribute('role');panel.removeAttribute('aria-modal');panel.setAttribute('aria-hidden','false');backdrop.hidden=true;setInert(false);open.setAttribute('aria-expanded','false');}
+    if(!mq.matches){panel.removeAttribute('role');panel.removeAttribute('aria-modal');panel.setAttribute('aria-hidden','false');backdrop.hidden=true;document.body.style.overflow='';setInert(false);open.setAttribute('aria-expanded','false');}
     else if(!panel.classList.contains('is-open'))panel.setAttribute('aria-hidden','true');
   };
   const openPanel=()=>{
-    if(!mq.matches)return;previousFocus=document.activeElement;panel.classList.add('is-open');panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-hidden','false');backdrop.hidden=false;open.setAttribute('aria-expanded','true');setInert(true);panel.querySelector('h2')?.setAttribute('tabindex','-1');panel.querySelector('h2')?.focus({preventScroll:true});
+    if(!mq.matches)return;previousFocus=document.activeElement;panel.classList.add('is-open');panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-hidden','false');backdrop.hidden=false;open.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';setInert(true);panel.querySelector('h2')?.setAttribute('tabindex','-1');panel.querySelector('h2')?.focus({preventScroll:true});
   };
   const closePanel=()=>{
-    if(!mq.matches)return;panel.classList.remove('is-open');panel.removeAttribute('aria-modal');panel.setAttribute('aria-hidden','true');backdrop.hidden=true;open.setAttribute('aria-expanded','false');setInert(false);previousFocus?.focus?.({preventScroll:true});
+    if(!mq.matches)return;panel.classList.remove('is-open');panel.removeAttribute('aria-modal');panel.setAttribute('aria-hidden','true');backdrop.hidden=true;open.setAttribute('aria-expanded','false');document.body.style.overflow='';setInert(false);previousFocus?.focus?.({preventScroll:true});
   };
   open.addEventListener('click',openPanel);close.addEventListener('click',closePanel);backdrop.addEventListener('click',closePanel);
   panel.addEventListener('keydown',event=>{
