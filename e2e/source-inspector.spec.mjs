@@ -22,6 +22,16 @@ test.describe('C001 source evidence inspector',()=>{
     await expect(root).toContainText('Scan asset not ingested');
   });
 
+  test('keeps C001 source-to-assertion and relationship traceability visible',async({page})=>{
+    await openC001(page);
+    const matrix=page.locator('[data-platform-v13="source-evidence-matrix"]');
+    await expect(matrix).toBeVisible();
+    await expect(matrix.getByRole('heading',{name:'What this source is actually being used for'})).toBeVisible();
+    await expect(matrix.locator('.section-title span')).toContainText('4 relationships');
+    await expect(matrix.locator('.matrix-relations article')).toHaveCount(4);
+    await expect(matrix).toContainText('identity-bridge');
+  });
+
   test('field selection updates one linkage state engine',async({page})=>{
     await openC001(page);
     const parent=page.locator('[data-source-field="parents"]').first();
@@ -45,6 +55,44 @@ test.describe('C001 source evidence inspector',()=>{
     await page.keyboard.press('Escape');
     await expect(open).toHaveAttribute('aria-expanded','false');
     await expect(open).toBeFocused();
+  });
+
+  test('route changes clear mobile inert state even when the inspector is open',async({page})=>{
+    await openC001(page,390,844);
+    const open=page.locator('[data-source-inspector-open]');
+    await open.click();
+    await expect(open).toHaveAttribute('aria-expanded','true');
+    expect(await page.locator('.site-header').evaluate(el=>el.inert)).toBe(true);
+    expect(await page.locator('.topbar').evaluate(el=>el.inert)).toBe(true);
+
+    await page.locator('#source-panel-summary').getByRole('link',{name:/Full queue/}).click();
+    await expect(page).toHaveURL(/#research/);
+    await page.waitForFunction(()=>document.body.dataset.routeCapabilityState==='ready');
+    await expect.poll(()=>page.locator('.site-header').evaluate(el=>el.inert)).toBe(false);
+    await expect.poll(()=>page.locator('.topbar').evaluate(el=>el.inert)).toBe(false);
+    await expect.poll(()=>page.locator('#family-mobile-dock').evaluate(el=>el.inert)).toBe(false);
+    await expect(page.locator('body')).not.toHaveClass(/source-inspector-modal-open/);
+  });
+
+  test('desktop breakpoint fully resets an open mobile inspector before returning to mobile',async({page})=>{
+    await openC001(page,390,844);
+    const open=page.locator('[data-source-inspector-open]');
+    const panel=page.locator('[data-source-inspector-panel]');
+    const backdrop=page.locator('[data-source-inspector-backdrop]');
+    await open.click();
+    await expect(panel).toHaveClass(/is-open/);
+
+    await page.setViewportSize({width:1280,height:900});
+    await expect(panel).not.toHaveClass(/is-open/);
+    await expect(panel).toHaveAttribute('aria-hidden','false');
+    await expect(open).toHaveAttribute('aria-expanded','false');
+    await expect(backdrop).toBeHidden();
+
+    await page.setViewportSize({width:390,height:844});
+    await expect(panel).not.toHaveClass(/is-open/);
+    await expect(panel).toHaveAttribute('aria-hidden','true');
+    await expect(open).toHaveAttribute('aria-expanded','false');
+    await expect(backdrop).toBeHidden();
   });
 
   test('tabs support arrow, Home, and End keyboard navigation',async({page})=>{
