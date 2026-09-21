@@ -34,7 +34,7 @@
 
 .graph-node.state-provisional rect{stroke-dasharray:6 4}
 
-.graph-node.state-unresolved rect{}
+
 
 .node-name{font:600 13px Georgia,serif;fill:#21352f}
 
@@ -115,7 +115,7 @@
 
 .tree-depth>span{color:var(--muted);font-weight:700;margin-right:2px}
 
-.graph-node rect{}
+
 
 .graph-node .node-avatar{fill:#eef4f1;stroke:#cadbd4;stroke-width:1.5}
 
@@ -141,7 +141,7 @@
 
 @media(max-width:720px){.graph-shell{display:none}}
 
-.tree-focusbar label,.tree-depth>span{}
+
 
 .tree-mode-buttons button,.tree-depth button{font-size:12px;padding:9px 13px}
 
