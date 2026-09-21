@@ -272,7 +272,7 @@ const ownershipPairBaseline=Object.freeze({
   'src/styles/composition.css <-> src/styles/foundation.css':10,
   'src/features/navigation/navigation.css <-> src/styles/foundation.css':1,
   'src/features/navigation/navigation.css <-> src/styles/composition.css':8,
-  'src/features/person/person.css <-> src/styles/composition.css':14,
+  'src/features/person/person.css <-> src/styles/composition.css':6,
   'src/features/person/person.css <-> src/styles/foundation.css':12,
   'src/features/research/research.css <-> src/styles/foundation.css':9,
   'src/features/tree/tree.css <-> src/styles/composition.css':9,
@@ -509,16 +509,16 @@ console.log(JSON.stringify({totals,orphanCss,unusedCustomProperties,topDead:dead
 if(args.has('--strict')){
   let failed=false;
   const budgets={
-    // v25.4 certified production ceilings. These are downward-only debt ratchets;
+    // v26.1 certified candidate ceilings. These are downward-only debt ratchets;
     // raising one requires an explicit reviewed baseline change.
-    cssBytes:493922,
-    duplicateSelectorsAcrossFiles:371,
-    ownershipDuplicateSelectorsAcrossFiles:102,
+    cssBytes:493616,
+    duplicateSelectorsAcrossFiles:369,
+    ownershipDuplicateSelectorsAcrossFiles:94,
     topSelectorOwnerViolations:0,
     deadSelectorCandidates:0,
     highSpecificitySelectors:107,
     importantDeclarations:1143,
-    legacyClassArms:1782,
+    legacyClassArms:1775,
     liveLegacyVersionedClassTokens:201,
     unstyledRuntimeOrMarkupClasses:135,
     unusedCustomProperties:0,
