@@ -140,7 +140,7 @@ test.describe('v26.2 tablet and desktop refinement',()=>{
       await expect(page.locator('#mobile-app-header')).toBeHidden();
       const shell=await page.locator('.site-header.sidebar').evaluate(node=>({scroll:node.scrollWidth,client:node.clientWidth}));
       expect(shell.scroll).toBeLessThanOrEqual(shell.client+1);
-      const heights=await page.locator('.primary-nav a,.nav-menu>summary,.v158-research-entry,.site-header-actions button').evaluateAll(nodes=>nodes.filter(node=>node.getClientRects().length).map(node=>node.getBoundingClientRect().height));
+      const heights=await page.locator('.primary-nav a,.nav-menu>summary,.site-tools>summary,.v158-research-entry,.site-header-actions button').evaluateAll(nodes=>nodes.filter(node=>node.getClientRects().length).map(node=>node.getBoundingClientRect().height));
       expect(Math.min(...heights)).toBeGreaterThanOrEqual(44);
       expect(await overflow(page)).toBeLessThanOrEqual(1);
 
