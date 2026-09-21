@@ -19,6 +19,7 @@ test.describe('C001 source evidence inspector',()=>{
     await expect(root).not.toContainText('CL-EXT-');
     await expect(root).not.toContainText('Folio 148');
     await expect(root).not.toContainText('SHA-256');
+    await expect(root).toContainText('Scan asset not ingested');
   });
 
   test('field selection updates one linkage state engine',async({page})=>{
