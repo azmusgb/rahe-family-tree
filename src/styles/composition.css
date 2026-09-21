@@ -335,7 +335,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
    ========================================================================== */
 /* Final Person composition. Presentation-only. */
 
-.v17-page-intro h2,.person-header h2,.media-library-title h2{
+.person-header h2,.media-library-title h2{
   color:var(--green);
   letter-spacing:-.045em;
 }
@@ -349,10 +349,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 /* Person: biography first, less application chrome. */
 .person-header{gap:24px;padding-block:18px 28px}
 .person-header h2{font-size:clamp(2.7rem,5.2vw,4.8rem);line-height:.98}
-.v17-person-nav a{padding:8px 10px}
-.v17-person-section{padding:clamp(24px,4vw,46px) 0}
 .v17-life-event>div{background:transparent;border:0;border-radius:0;padding:0}
-.v17-family-groups{gap:14px}
 
 /* ==========================================================================
    Source: people-composition.css
@@ -369,21 +366,11 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
   border-radius:16px;
   background:linear-gradient(145deg,#17483c,#102f27);
 }
-.v17-branch-chip{
-  border-color:var(--line);
-  background:#fffdf8;
-}
-.v17-branch-chip.active,.v17-branch-chip[aria-current="true"]{
-  border-color:var(--green);
-  background:var(--green);
-  color:#fff;
-}
 
 /* People: compact directory cards with less chrome. */
 .v17-people-grid{gap:10px}
 .v17-person-card>button{border-radius:14px;box-shadow:none}
 .v17-person-card>button:hover,.v17-person-card>button:focus-visible{box-shadow:var(--family-shadow-card)}
-.v17-branch-chip{box-shadow:none}
 
 /* ==========================================================================
    Source: tree-composition.css
@@ -526,11 +513,6 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   .person-header{grid-template-columns:72px minmax(0,1fr);gap:14px;padding-block:8px 22px}
   .person-header h2{font-size:clamp(2.2rem,10vw,3.1rem);letter-spacing:-.04em}
   .v17-person-nav{position:sticky;top:0;margin:0 -14px 10px;padding:7px 14px;background:rgba(244,241,233,.96)}
-  .v17-person-section{padding:26px 0}
-  .v17-family-groups{grid-template-columns:1fr}
-  .v17-life-timeline::before{left:66px}
-  .v17-life-event{grid-template-columns:52px minmax(0,1fr);gap:24px;padding:14px 0}
-  .v17-life-event::before{left:62px}
 
   /* Replace the 2-column profile tab matrix with a predictable swipe row. */
   body[data-route="person"] .v1510-profile-tabs{
