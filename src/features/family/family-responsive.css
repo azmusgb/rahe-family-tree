@@ -856,3 +856,20 @@ body[data-nav-context="family"] .site-footer-bottom{display:flex;justify-content
 }
 
 @media(max-width:430px){body[data-experience="family"] .site-footer-grid{grid-template-columns:1fr}.site-footer-grid nav:last-child{grid-column:auto}}
+/* v26.6 families/branch composition refinement. */
+@media(min-width:1181px){
+  .families-hero,.branch-hero{padding-block:32px}
+  .family-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .family-card{min-height:260px;padding:22px}
+  .branch-actions{gap:8px}
+  .branch-section{padding-block:30px}
+  .branch-people{gap:10px}
+}
+@media(min-width:721px) and (max-width:1180px){
+  .family-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .family-card{min-height:240px}
+  .branch-hero{padding:28px 24px}
+  .branch-actions{flex-wrap:wrap}
+  .branch-section{padding-block:26px}
+  .place-grid,.connected-grid,.question-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
