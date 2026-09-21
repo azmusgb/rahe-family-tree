@@ -1,6 +1,4 @@
-/* Migrated live selectors from retired release CSS.
- * These rules remain below the semantic ownership boundary and are now
- * maintained by this module; obsolete selector arms were removed during migration. */
+
 .mobile-family-list{display:none}
 
 @media(max-width:720px){
@@ -44,9 +42,6 @@ body[data-media-release="12.8"] .person-card .person-open,body[data-media-releas
 
 .v154-graph-shell .mobile-family-list{margin-top:20px}
 
-/* Mobile Family — compact directory/media composition and safe-area discipline.
- * Keep Family mode human and browseable on phones; research density belongs in Research mode.
- */
 @media(max-width:720px){
   body[data-v158-context="family"]{overflow-x:clip}
   body[data-v158-context="family"] .workspace,
@@ -54,7 +49,6 @@ body[data-media-release="12.8"] .person-card .person-open,body[data-media-releas
   body[data-v158-context="family"] .route-shell,
   body[data-v158-context="family"] #content{min-width:0;max-width:100%}
 
-  /* People becomes a family directory rather than a stack of dossier cards. */
   body[data-route="people"][data-v158-context="family"] .route-shell{
     display:block!important;
     margin:0 0 4px!important;
@@ -115,7 +109,6 @@ body[data-media-release="12.8"] .person-card .person-open,body[data-media-releas
   body[data-route="people"][data-v158-context="family"] .v17-person-card>button>i{font-size:16px}
   body[data-route="people"][data-v158-context="family"] .v17-directory-foot{padding-top:2px;font-size:11px}
 
-  /* Photos opens directly into search, quick type choices, and content. */
   body[data-route="media"][data-v158-context="family"] .media-page-hero,
   body[data-route="media"][data-v158-context="family"] .media-library-metrics{display:none!important}
   body[data-route="media"][data-v158-context="family"] .v162-media-quick{order:-2;display:flex;gap:6px;margin:0;padding:2px 0 4px}
@@ -137,17 +130,12 @@ body[data-media-release="12.8"] .person-card .person-open,body[data-media-releas
   body[data-route="media"][data-v158-context="family"] .media-library-grid{gap:10px}
   body[data-route="media"][data-v158-context="family"] .media-library-grid>.empty{min-height:112px!important;padding:20px 14px!important;border-radius:var(--family-radius-card)!important}
 
-  /* Keep fixed navigation clear of page content and the device safe area. */
   body[data-v158-context="family"] .main{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
   body[data-v158-context="family"] .footer{margin-bottom:calc(70px + env(safe-area-inset-bottom));padding-inline:12px;font-size:12px;line-height:1.4}
 
-  /* Long family labels must truncate instead of widening the viewport. */
   body[data-v158-context="family"] :where(.v17-person-card-copy,.v17-relative>span,.media-library-body,.media-linked-people){min-width:0;max-width:100%}
 }
 
-/* Migrated live selectors from retired release CSS.
- * These rules remain below the semantic ownership boundary and are now
- * maintained by this module; obsolete selector arms were removed during migration. */
 @media(max-width:1180px){
 .bridge-pair{grid-template-columns:1fr}
 .bridge-state{padding:8px}
@@ -437,7 +425,6 @@ body:has(.mobile-more[open])::before{content:"";position:fixed;inset:0;backgroun
 .v162-family-path-head a{font-size:10px}
 }
 
-/* Responsive — deliberate recomposition, not desktop stacking. */
 @media(max-width:1050px){
   .v17-home-people-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .home-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -478,7 +465,6 @@ body:has(.mobile-more[open])::before{content:"";position:fixed;inset:0;backgroun
   .v16-stories-hero{padding-top:24px}.v16-stories-hero h2{font-size:var(--family-text-display)!important}.v16-story-chapter{grid-template-columns:1fr;gap:10px}.v16-story-chapter-heading{position:static}.v16-story-card{grid-template-columns:58px minmax(0,1fr);gap:12px;padding:16px 0}.v16-story-year{font-size:1.3rem}
   body[data-route="timeline"][data-v158-context="family"] .timeline-list{margin-left:14px}body[data-route="timeline"][data-v158-context="family"] .timeline-item{grid-template-columns:54px minmax(0,1fr);gap:12px;padding-left:14px}
 
-  /* Native archive recomposition. */
   .v17-native{gap:28px}
   .v17-section-head{align-items:flex-start}.v17-section-head>a{font-size:12px}.v17-home-hero::after{right:-8px;font-size:8rem}.v17-home-hero h2{font-size:clamp(2.65rem,13vw,3.45rem)}.v17-home-hero>div>p:not(.eyebrow){font-size:15px;line-height:1.5}.v17-primary-actions{display:grid;grid-template-columns:1fr 1fr}.v17-primary-actions .action:first-child{grid-column:1/-1}.v17-home-metrics{overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;margin-top:20px;padding-top:15px}.v17-home-metrics::-webkit-scrollbar{display:none}.v17-home-metrics span{flex:0 0 auto;min-width:96px;padding-inline:16px;scroll-snap-align:start}.v17-home-metrics b{font-size:23px}.v17-home-metrics small{font-size:10px}
   .v17-home-tree-canvas{margin-inline:-2px;padding:16px 8px}.v17-home-tree-row{justify-content:flex-start;width:100%;scroll-snap-type:x proximity}.v17-home-tree-row .v17-relative{width:172px;flex-basis:172px;scroll-snap-align:center}.v17-home-tree-canvas>i{height:16px}
@@ -496,14 +482,6 @@ body:has(.mobile-more[open])::before{content:"";position:fixed;inset:0;backgroun
   body[data-v158-context="family"] :where(.v159-person-card .person-open,.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card,.v17-person-card>button,.v17-story-moment,.v17-relative){border-width:2px!important}
 }
 
-/* Editorial Home refinements.
- *
- * Home-only presentation belongs beside the semantic Home module instead of in a
- * repository-wide post-cascade fix layer. These rules are presentation-only and
- * do not alter genealogy, evidence state, privacy, routing, or runtime behavior.
- */
-
-/* The native Family renderer emits an h2 plus metrics inside the v17 hero. */
 .v17-home-hero h2{
   margin:8px 0 20px;
   max-width:10ch;
@@ -535,18 +513,10 @@ body:has(.mobile-more[open])::before{content:"";position:fixed;inset:0;backgroun
   }
 }
 
-/* Migrated live selectors from retired release CSS.
- * These rules remain below the semantic ownership boundary and are now
- * maintained by this module; obsolete selector arms were removed during migration. */
 .elevated-search .search-hit:focus-visible{outline:3px solid #d59e3b;outline-offset:2px}
 
 .elevated-search .search-hit{scroll-margin-block:90px}
 
-/* v17.4 — elevated family experience.
- * Presentation only: canonical genealogy, evidence states, source IDs,
- * relationship semantics, rejected edges, and privacy rules are untouched. */
-
-/* Home discovery rail */
 .v174-discovery{display:grid;gap:18px;padding:clamp(24px,4vw,42px) 0;border-bottom:1px solid var(--family-border-hairline)}
 .v174-discovery-head{display:flex;align-items:end;justify-content:space-between;gap:24px}
 .v174-discovery-head h2{max-width:16ch;margin:4px 0 7px;font:600 var(--family-text-section)/1.04 var(--family-font-display);letter-spacing:-.035em;color:var(--green);text-wrap:balance}
@@ -560,7 +530,6 @@ body:has(.mobile-more[open])::before{content:"";position:fixed;inset:0;backgroun
 .v174-discovery-avatar img{width:100%;height:100%;object-fit:cover}
 .v174-discovery-grid>button>span:nth-child(2){display:grid;gap:2px;min-width:0}.v174-discovery-grid small{font-size:9px;font-weight:820;letter-spacing:.08em;text-transform:uppercase;color:var(--green)}.v174-discovery-grid b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:600 16px/1.15 var(--family-font-display)}.v174-discovery-grid em{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;font-style:normal;color:var(--muted)}.v174-discovery-grid i{font-style:normal;color:#85998f}
 
-/* Person snapshot and active section navigation */
 .v174-profile-snapshot{display:grid;grid-template-columns:minmax(180px,1.2fr) repeat(3,minmax(120px,.65fr));gap:0;margin:18px 0 2px;border:1px solid var(--family-border-hairline);border-radius:var(--family-radius-card);background:linear-gradient(180deg,#fff,#fafcf9);box-shadow:var(--family-shadow-card);overflow:hidden}
 .v174-profile-snapshot>div{min-height:96px;padding:16px 18px;display:grid;align-content:center;gap:4px}
 .v174-profile-snapshot>div+div{border-left:1px solid var(--family-border-hairline)}
@@ -570,20 +539,15 @@ body:has(.mobile-more[open])::before{content:"";position:fixed;inset:0;backgroun
 .v17-person-nav a.is-active{background:var(--green);color:#fff;}
 .v17-person-nav a.is-active:hover{background:var(--green);color:#fff}
 
-/* Tree context switcher */
 .tree-context{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;margin:0 0 12px;border:1px solid var(--family-border-hairline);}
 .v174-tree-context-copy{min-width:0}.v174-tree-context-copy>b{display:block;margin-top:2px;font:600 19px/1.2 var(--family-font-display);color:var(--green);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.v174-tree-context-copy p{max-width:72ch;margin:4px 0 0;color:var(--muted-strong);font-size:11px;line-height:1.45}
 .v174-tree-scope{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.v174-tree-scope button{appearance:none;min-height:var(--control-min);padding:0 11px;border:1px solid var(--family-border-hairline);border-radius:999px;background:#fff;color:var(--muted-strong);font:inherit;font-size:11px;font-weight:760;cursor:pointer}.v174-tree-scope button:hover,.v174-tree-scope button:focus-visible{border-color:var(--family-border-interactive);background:var(--brand-soft);outline:none}.v174-tree-scope button.active{border-color:var(--green);background:var(--green);color:#fff}
 
-/* Small motion cues without forcing animation on reduced-motion users. */
 @media(prefers-reduced-motion:no-preference){.v17-person-section,.v173-person-story,.v174-discovery,.tree-context{animation:v174-rise .28s ease both}@keyframes v174-rise{from{opacity:.01;transform:translateY(6px)}to{opacity:1;transform:none}}}
 
 @media(max-width:980px){.v174-discovery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.v174-profile-snapshot{grid-template-columns:repeat(2,minmax(0,1fr))}.v174-profile-snapshot>div+div{border-left:0}.v174-profile-snapshot>div:nth-child(even){border-left:1px solid var(--family-border-hairline)}.v174-profile-snapshot>div:nth-child(n+3){border-top:1px solid var(--family-border-hairline)}.tree-context{grid-template-columns:1fr}.v174-tree-scope{justify-content:flex-start}}
 @media(max-width:640px){.v174-discovery-head{display:grid}.v174-discovery-head>a{width:max-content}.v174-discovery-grid{grid-template-columns:1fr}.v174-profile-snapshot{grid-template-columns:1fr}.v174-profile-snapshot>div,.v174-profile-snapshot>div:nth-child(even){border-left:0}.v174-profile-snapshot>div+div{border-top:1px solid var(--family-border-hairline)}.v174-profile-snapshot>div{min-height:78px}.tree-context{padding:14px}.v174-tree-context-copy>b{white-space:normal}.v174-tree-scope{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.v174-tree-scope button{width:100%}}
 
-/* Migrated live selectors from retired release CSS.
- * These rules remain below the semantic ownership boundary and are now
- * maintained by this module; obsolete selector arms were removed during migration. */
 .people-grid,.claim-grid,.source-grid,.task-grid,.branch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
 
 .claim-card,.source-card,.task-card,.branch-card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
@@ -727,7 +691,6 @@ body[data-route="people"][data-v158-context="family"] .v159-card-branch{font-siz
 
 @media(max-width:720px){.v162-branch-actions a{flex:1;text-align:center}}
 
-/* Family branch destinations — public-safe narrative pages built from canonical data. */
 .v175-families,.v175-branch{gap:clamp(30px,4.5vw,62px)}
 .families-hero,.branch-hero{display:grid;grid-template-columns:minmax(0,1.25fr) auto;gap:28px;align-items:end;padding:clamp(28px,4vw,48px);border:1px solid color-mix(in srgb,var(--green) 11%,var(--line));border-radius:var(--family-radius-panel);background:linear-gradient(145deg,#eef3ef 0%,#f9faf7 62%,#fff 100%);box-shadow:var(--family-shadow-card)}
 .families-hero h1,.branch-hero h1{max-width:15ch;margin:4px 0 10px;font:600 clamp(2.75rem,5.6vw,5.35rem)/.94 var(--family-font-display);letter-spacing:-.055em;color:var(--green);text-wrap:balance}
@@ -751,9 +714,6 @@ body[data-route="people"][data-v158-context="family"] .v159-card-branch{font-siz
 @media(max-width:1050px){.family-grid,.branch-people{grid-template-columns:repeat(2,minmax(0,1fr))}.place-grid,.connected-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.branch-hero{grid-template-columns:1fr}.branch-metrics{min-width:0;max-width:520px}}
 @media(max-width:720px){.v175-families,.v175-branch{gap:28px}.families-hero,.branch-hero{grid-template-columns:1fr;padding:22px 18px;border-radius:var(--family-radius-card)}.families-hero h1,.branch-hero h1{font-size:clamp(2.6rem,13vw,3.5rem)}.family-grid,.branch-people,.place-grid,.connected-grid,.question-grid{grid-template-columns:1fr}.family-card{min-height:150px}.v175-branch-back{margin-bottom:-18px}.branch-metrics{display:flex;overflow-x:auto;scroll-snap-type:x proximity}.branch-metrics span{flex:0 0 112px;scroll-snap-align:start}.branch-actions{display:grid;grid-template-columns:1fr}.branch-actions .action{justify-content:center}.branch-timeline::before{left:58px}.v175-branch-event{grid-template-columns:44px minmax(0,1fr);gap:28px}.v175-branch-event::before{left:54px}.v175-open-questions{padding:16px}}
 
-/* Migrated live selectors from retired release CSS.
- * These rules remain below the semantic ownership boundary and are now
- * maintained by this module; obsolete selector arms were removed during migration. */
 .archive-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
 
 .archive-actions a{font-size:10px;padding:8px 10px;background:#fff;border:1px solid var(--line);border-radius:6px;text-decoration:none}
@@ -762,7 +722,6 @@ body[data-experience="family"] .nav-group[data-nav-group="research"],body[data-e
 
 body[data-experience="family"] .nav-group[data-nav-group="research"],body[data-experience="family"] .nav-group[data-nav-group="archive"],body[data-experience="family"] .nav-group[data-nav-group="contribute"]{display:none}
 
-/* Family archive shell — semantic header, navigation, footer, and route framing. */
 body[data-nav-context="family"] .shell{display:block;grid-template-columns:none;min-height:100vh}
 body[data-nav-context="family"] .workspace{min-width:0;width:100%;margin:0}
 body[data-nav-context="family"] .site-header.sidebar{
@@ -856,7 +815,7 @@ body[data-nav-context="family"] .site-footer-bottom{display:flex;justify-content
 }
 
 @media(max-width:430px){body[data-experience="family"] .site-footer-grid{grid-template-columns:1fr}.site-footer-grid nav:last-child{grid-column:auto}}
-/* v26.6 families/branch composition refinement. */
+
 @media(min-width:1181px){
   .families-hero,.branch-hero{padding-block:32px}
   .family-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
