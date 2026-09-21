@@ -528,6 +528,7 @@ body[data-route="tree"][data-nav-context="family"] .v161-tree-tool-actions butto
 body[data-route="tree"][data-nav-context="family"] :where(.node-branch,.node-state){font-size:10px}
 body[data-route="tree"][data-nav-context="family"] .node-name{font-family:var(--family-font-display);font-size:13px}
 
+/* Source: unified-family.css */
 .v172-home-branches{display:grid;gap:16px;padding-block:clamp(18px,3vw,32px);border-top:1px solid var(--family-border-hairline)}
 .v172-branch-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
 .v172-branch-card{display:grid;gap:4px;min-height:112px;padding:15px 16px;border:1px solid var(--family-border-hairline);border-radius:var(--family-radius-card);background:linear-gradient(180deg,#fff,color-mix(in srgb,var(--family-surface-accent) 52%,#fff));box-shadow:var(--family-shadow-card);color:var(--ink);text-decoration:none}
