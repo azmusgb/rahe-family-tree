@@ -525,6 +525,17 @@ body[data-route="tree"][data-nav-context="family"] .legend{border-bottom-color:v
 body[data-route="tree"][data-nav-context="family"] .v161-tree-tool-actions button{border-radius:var(--family-radius-control);font-size:12px}
 body[data-route="tree"][data-nav-context="family"] .v161-tree-tool-actions button:hover{border-color:var(--family-border-interactive);background:var(--brand-soft)}
 
+@media(min-width:721px) and (max-width:1024px){
+body[data-route="tree"][data-nav-context="family"] .graph-shell{min-height:calc(100dvh - 156px)}
+body[data-route="tree"][data-nav-context="family"] .graph-stage,body[data-route="tree"][data-nav-context="family"] .graph-scroll{min-height:calc(100dvh - 226px)}
+body[data-route="tree"][data-nav-context="family"] .v161-tree-toolbar{gap:8px;padding:8px 10px}
+body[data-route="tree"][data-nav-context="family"] .v161-tree-tool-actions button{min-height:44px}
+}
+@media(min-width:1280px){
+body[data-route="tree"][data-nav-context="family"] .graph-shell{min-height:calc(100dvh - 176px)}
+body[data-route="tree"][data-nav-context="family"] .graph-stage{min-height:calc(100dvh - 246px)}
+}
+
 /* Family-facing node typography has a readable floor while evidence remains encoded by line/border style. */
 body[data-route="tree"][data-nav-context="family"] :where(.node-branch,.node-state){font-size:10px}
 body[data-route="tree"][data-nav-context="family"] .node-name{font-family:var(--family-font-display);font-size:13px}
