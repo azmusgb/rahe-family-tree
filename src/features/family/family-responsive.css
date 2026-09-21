@@ -383,11 +383,11 @@ body[data-page-architecture="15.5"] .main{padding-top:24px}
 body[data-page-architecture="15.5"]{--app-utility-height:40px}
 .v155-desktop-actions{display:none!important}
 .v155-mobile-actions{position:relative;margin-left:auto}
-.v155-mobile-actions summary{list-style:none;display:grid;place-items:center;width:38px;height:32px;border-radius:9px;
+.v155-mobile-actions summary{list-style:none;display:grid;place-items:center;width:44px;height:44px;border-radius:9px;
     color:var(--green,#173f35);font-weight:800;cursor:pointer}
 .v155-mobile-actions summary::-webkit-details-marker{display:none}
 .v155-mobile-actions[open] summary{background:#edf3ef}
-.v155-mobile-actions-menu{position:absolute;right:0;top:36px;z-index:200;width:150px;padding:7px;
+.v155-mobile-actions-menu{position:absolute;right:0;top:48px;z-index:200;width:150px;padding:7px;
     display:grid;gap:3px;border:1px solid rgba(23,63,53,.12);border-radius:13px;
     background:#fff;box-shadow:0 18px 42px rgba(12,32,26,.20)}
 body[data-page-architecture="15.5"] .main{padding-top:12px}
@@ -834,7 +834,7 @@ body[data-nav-context="family"] .site-breadcrumb{display:flex;align-items:center
 body[data-nav-context="family"] .site-breadcrumb a{color:var(--muted-strong);text-decoration:none}.site-breadcrumb b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--green)}
 body[data-nav-context="family"] .topbar-actions{display:flex;align-items:center;gap:5px}
 body[data-nav-context="family"] .topbar-actions>button,
-body[data-nav-context="family"] .site-tools>summary{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:0 10px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--muted-strong);font-size:10px;font-weight:760;cursor:pointer;list-style:none}
+body[data-nav-context="family"] .site-tools>summary{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 10px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--muted-strong);font-size:10px;font-weight:760;cursor:pointer;list-style:none}
 body[data-nav-context="family"] .topbar-actions>button:hover,
 body[data-nav-context="family"] .site-tools>summary:hover{border-color:var(--family-border-hairline);background:#fff;color:var(--green)}
 body[data-nav-context="family"] .site-tools{position:relative}.site-tools>summary::-webkit-details-marker{display:none}
