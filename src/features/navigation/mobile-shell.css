@@ -639,7 +639,6 @@ border:0;border-bottom:1px solid var(--actual-line);background:var(--actual-sage
 -webkit-backdrop-filter:none;backdrop-filter:none;
 }
 body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar strong,body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar>a,body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar>button{color:var(--actual-forest)}
-body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar strong{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar>a,body.v21-actual-mobile-ui:not([data-route="dashboard"]):not([data-route="tree"]) .v20-context-bar>button{min-height:36px;background:transparent}
 body[data-route="dashboard"].v21-actual-mobile-ui #main>.route-shell{display:none!important}
 body[data-route="people"].v21-actual-mobile-ui #main>.route-shell{display:none!important;position:sticky!important}
@@ -720,7 +719,6 @@ body[data-route="families"].v21-actual-mobile-ui .v175-family-card{background:va
 body[data-route="families"].v21-actual-mobile-ui .v175-family-card:nth-child(3n+1){background:var(--actual-sage)!important}
 body[data-route="families"].v21-actual-mobile-ui .v175-family-card:nth-child(3n+2){background:var(--actual-paper)!important}
 body[data-route="person"].v21-actual-mobile-ui #content{background:var(--actual-canvas)!important}
-body[data-route="person"].v21-actual-mobile-ui{scroll-padding-top:calc(var(--actual-header-h) + var(--actual-context-h) + 58px + env(safe-area-inset-top,0px))}
 body[data-route="person"].v21-actual-mobile-ui .person-header{
 background:linear-gradient(155deg,var(--actual-paper),#edf2ec)!important;color:var(--actual-ink)!important;box-shadow:none!important;
 border-bottom:1px solid var(--actual-line)!important;
@@ -843,8 +841,6 @@ box-shadow:0 24px 64px rgba(12,39,31,.24)!important;
 }
 @media (max-width:430px){
 #family-mobile-dock:not([hidden]){left:5px!important;right:5px!important}
-body[data-route="person"].v20-mobile-app .person-header{min-height:300px;padding:28px 14px 22px}
-body[data-route="person"].v21-actual-mobile-ui .v21-person-quick-actions{margin-inline:10px}
 }
 @media (max-width:720px){
 #family-mobile-dock>details[open]>summary{
