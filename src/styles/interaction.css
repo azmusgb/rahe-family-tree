@@ -1,4 +1,4 @@
-/* Late interaction contracts: focus, disclosure, motion, and shared state. */
+
 :where(a,button,summary,input,select,textarea,[tabindex]):focus-visible{
   outline:var(--family-focus-width) solid color-mix(in srgb,var(--green,#123f34) 74%,#fff);
   outline-offset:var(--family-focus-offset);
@@ -19,7 +19,7 @@
 :where(.nav-menu,.site-tools,.mobile-more)>summary::-webkit-details-marker{display:none}
 :where(.nav-menu,.site-tools,.mobile-more)>summary::marker{content:''}
 :where(.nav-popover,.site-tools>div,.mobile-more>div){isolation:isolate}
-/* v26.5 interaction-state contract: state styling is centralized here. */
+
 :where(button,input,select,textarea):disabled,:where([aria-disabled="true"]){opacity:.55;cursor:not-allowed;filter:saturate(.65)}
 :where(button,summary,[role="button"]):active:not(:disabled):not([aria-disabled="true"]){box-shadow:inset 0 0 0 1px color-mix(in srgb,currentColor 24%,transparent)}
 :where(button,[role="button"])[aria-pressed="true"]{box-shadow:inset 0 0 0 1px color-mix(in srgb,currentColor 32%,transparent)}
@@ -55,7 +55,7 @@
   .relationship-row small,.relationship-row .deep-link{grid-column:auto}
 
   body.v21-actual-mobile-ui[data-route="tree"]{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
-  
+
   #family-mobile-dock :where(a,summary,button){touch-action:manipulation}
 }
 
@@ -97,7 +97,7 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
 }
 
 @media (min-width:721px){
-  
+
   body[data-experience="family"] .brand{gap:10px;min-width:max-content;color:#fff;text-decoration:none}
   body[data-experience="family"] .brand .monogram{width:38px;height:38px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.24);border-radius:50%;background:rgba(255,255,255,.08);font-family:var(--family-font-display);font-size:21px;box-shadow:inset 0 0 0 4px rgba(255,255,255,.025)}
   body[data-experience="family"] .brand>span:last-child{display:grid;font-size:12px;line-height:1.05;letter-spacing:.13em}
@@ -118,8 +118,6 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
   body[data-experience="family"] .nav-popover a b{font-family:var(--family-font-display);font-size:14px}
   body[data-experience="family"] .nav-popover a small{font-size:10px;line-height:1.4}
 
-  /* Keep primary destinations visually dominant. Secondary navigation remains
-   * available but sits one level back until hover/focus. */
   body[data-experience="family"] .nav-menus{gap:2px;margin-left:10px}
   body[data-experience="family"] .nav-menu>summary,body[data-experience="family"] .v158-research-entry{
     min-height:var(--control-min);
@@ -137,19 +135,10 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
 
 }
 
-/* Mobile explorer dock: the Tree is the spatial center of the product. */
 @media (max-width:720px){
 
-  
-  
   #family-mobile-dock>a>span{pointer-events:auto}
 
-  
-
-  
-
-  
-  
   #family-mobile-dock .mobile-more:not([open])>div{display:none;pointer-events:none}
   #family-mobile-dock .mobile-more[open]>div{pointer-events:auto}
   #family-mobile-dock .mobile-more>div :where(a,button){min-height:50px;display:flex;align-items:center;padding:0 13px;border:0;border-radius:13px;background:#eef2ed;color:#24463b;text-decoration:none;font:inherit;font-size:12px;font-weight:700;text-align:left;touch-action:manipulation}
