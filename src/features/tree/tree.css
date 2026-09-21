@@ -1,9 +1,6 @@
 /* ==========================================================================
    Source: tree.css
    ========================================================================== */
-/* Migrated live selectors from retired release CSS.
- * These rules remain below the semantic ownership boundary and are now
- * maintained by this module; obsolete selector arms were removed during migration. */
 .topbar button,.filters button,.graph-toolbar button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:8px 11px}
 
 .topbar button:hover,.filters button:hover,.graph-toolbar button:hover{background:#edf2ee}
