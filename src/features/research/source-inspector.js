@@ -7,7 +7,7 @@ function init(){
   if(!root||root===boundRoot)return;boundRoot=root;
   const panel=root.querySelector('[data-source-inspector-panel]'),open=root.querySelector('[data-source-inspector-open]'),close=root.querySelector('[data-source-inspector-close]'),backdrop=root.querySelector('[data-source-inspector-backdrop]');
   panel.id='source-inspector-panel-mobile';
-  const fields=[...root.querySelectorAll('[data-source-field]')],announcer=root.querySelector('[data-source-announcer]');
+  const fields=[...root.querySelectorAll('[data-source-field]')];
   const setField=button=>{
     const key=button.dataset.sourceField;
     fields.forEach(el=>el.setAttribute('aria-pressed',el.dataset.sourceField===key?'true':'false'));
@@ -15,7 +15,6 @@ function init(){
     root.querySelectorAll('[data-active-field-value]').forEach(el=>el.textContent=button.dataset.fieldValue||'');
     root.querySelectorAll('[data-active-field-supports]').forEach(el=>el.textContent=button.dataset.fieldSupports||'');
     root.querySelectorAll('[data-active-field-notsupports]').forEach(el=>el.textContent=button.dataset.fieldNotsupports||'');
-    if(announcer)announcer.textContent=`${button.textContent.trim()} selected. ${button.dataset.fieldValue||''}`;
   };
   fields.forEach(button=>button.addEventListener('click',()=>setField(button)));
   if(fields[0])setField(fields[0]);
@@ -36,17 +35,17 @@ function init(){
     });
   });
 
-  const inertTargets=()=>[document.querySelector('.site-header'),document.querySelector('.topbar'),root.querySelector('.source-inspector-main'),document.querySelector('#family-mobile-dock')].filter(Boolean);
+  const inertTargets=()=>[document.querySelector('.site-header'),document.querySelector('.topbar'),root.querySelector('[data-source-inspector-main]'),document.querySelector('#family-mobile-dock')].filter(Boolean);
   const setInert=value=>inertTargets().forEach(el=>{el.inert=value;});
   const syncMode=()=>{
-    if(!mq.matches){panel.removeAttribute('role');panel.removeAttribute('aria-modal');panel.setAttribute('aria-hidden','false');backdrop.hidden=true;document.body.style.overflow='';setInert(false);open.setAttribute('aria-expanded','false');}
+    if(!mq.matches){panel.removeAttribute('role');panel.removeAttribute('aria-modal');panel.setAttribute('aria-hidden','false');backdrop.hidden=true;document.body.classList.remove('source-inspector-modal-open');setInert(false);open.setAttribute('aria-expanded','false');}
     else if(!panel.classList.contains('is-open'))panel.setAttribute('aria-hidden','true');
   };
   const openPanel=()=>{
-    if(!mq.matches)return;previousFocus=document.activeElement;panel.classList.add('is-open');panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-hidden','false');backdrop.hidden=false;open.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';setInert(true);panel.querySelector('h2')?.setAttribute('tabindex','-1');panel.querySelector('h2')?.focus({preventScroll:true});
+    if(!mq.matches)return;previousFocus=document.activeElement;panel.classList.add('is-open');panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-hidden','false');backdrop.hidden=false;open.setAttribute('aria-expanded','true');document.body.classList.add('source-inspector-modal-open');setInert(true);panel.querySelector('h2')?.setAttribute('tabindex','-1');panel.querySelector('h2')?.focus({preventScroll:true});
   };
   const closePanel=()=>{
-    if(!mq.matches)return;panel.classList.remove('is-open');panel.removeAttribute('aria-modal');panel.setAttribute('aria-hidden','true');backdrop.hidden=true;open.setAttribute('aria-expanded','false');document.body.style.overflow='';setInert(false);previousFocus?.focus?.({preventScroll:true});
+    if(!mq.matches)return;panel.classList.remove('is-open');panel.removeAttribute('aria-modal');panel.setAttribute('aria-hidden','true');backdrop.hidden=true;open.setAttribute('aria-expanded','false');document.body.classList.remove('source-inspector-modal-open');setInert(false);previousFocus?.focus?.({preventScroll:true});
   };
   open.addEventListener('click',openPanel);close.addEventListener('click',closePanel);backdrop.addEventListener('click',closePanel);
   panel.addEventListener('keydown',event=>{
