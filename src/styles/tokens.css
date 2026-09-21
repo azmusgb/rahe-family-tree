@@ -82,6 +82,10 @@
   --app-utility-height:52px;
   --mobile-nav-height:72px;
   --tap-target:48px;
+  --control-min:44px;
+  --family-sticky-clearance:64px;
+  --family-focus-width:3px;
+  --family-focus-offset:3px;
 
   /* Stacking order. Preserve current effective shell ordering while removing
    * magic numbers from component styles; values can be rationalized centrally. */

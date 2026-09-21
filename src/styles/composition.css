@@ -159,7 +159,7 @@
   border-radius:var(--family-radius-control);
 }
 :where(.action,.filters button,.focus-actions button,.v154-tree-actions .action){
-  min-height:42px;
+  min-height:var(--control-min);
 }
 
 /* ==========================================================================
@@ -526,7 +526,7 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   }
   body[data-route="person"] .v1510-profile-tabs::-webkit-scrollbar{display:none}
   body[data-route="person"] .v1510-profile-tabs>button,
-  body[data-route="person"] .v1510-profile-tabs>a{width:auto!important;min-height:42px!important;flex:0 0 auto!important}
+  body[data-route="person"] .v1510-profile-tabs>a{width:auto!important;min-height:var(--control-min)!important;flex:0 0 auto!important}
   body[data-route="person"] .v1510-profile-tabs>a{grid-column:auto!important}
 
   /* Keep utility/history content stacked instead of creating more swipe rails. */

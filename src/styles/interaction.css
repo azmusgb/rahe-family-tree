@@ -1,24 +1,7 @@
-/* Consolidated stylesheet.
- * Source sections are kept in the previous cascade order so this refactor changes
- * ownership and file count without intentionally changing visual precedence.
- */
-
-/* ==========================================================================
-   Source: interaction-contracts.css
-   ========================================================================== */
-/* Cross-module interaction contracts.
- *
- * This semantic layer is intentionally late in the cascade. It owns presentation
- * contracts shared by multiple route modules where source-order is part of behavior.
- */
-
-/* Hidden is a state, not a suggestion. No route/layout module may visually revive
- * an element that the DOM explicitly marks hidden. */
-/* Keyboard focus is a global product contract. Keep the focus ring visible across
- * links, buttons, native details, form controls, and programmatic focus targets. */
+/* Late interaction contracts: focus, disclosure, motion, and shared state. */
 :where(a,button,summary,input,select,textarea,[tabindex]):focus-visible{
-  outline:3px solid color-mix(in srgb,var(--green,#123f34) 74%,#fff);
-  outline-offset:3px;
+  outline:var(--family-focus-width) solid color-mix(in srgb,var(--green,#123f34) 74%,#fff);
+  outline-offset:var(--family-focus-offset);
 }
 .skip{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
 .skip:focus-visible{
@@ -27,31 +10,21 @@
   box-shadow:0 8px 30px rgba(0,0,0,.18)
 }
 
-/* Navigation popovers intentionally suppress the native disclosure marker because
- * their visual affordances are supplied by the shell. Leave ordinary details/
- * summary controls untouched so Archive, Research, Tree, and content disclosures
- * retain their native marker and semantics. */
 :where(.nav-menu,.site-tools,.mobile-more)>summary{
   cursor:pointer;
   list-style:none;
   touch-action:manipulation;
-  min-height:44px;
+  min-height:var(--control-min);
 }
 :where(.nav-menu,.site-tools,.mobile-more)>summary::-webkit-details-marker{display:none}
 :where(.nav-menu,.site-tools,.mobile-more)>summary::marker{content:''}
 :where(.nav-popover,.site-tools>div,.mobile-more>div){isolation:isolate}
 
-/* Keep controls within their grid/flex tracks and prevent long search placeholders
- * or select options from forcing horizontal overflow. */
 .filters>*{min-width:0}
 .filters :where(input,select){width:100%;min-width:0}
 
-/* Native hidden state must win over layout modules that assign display:grid to
- * the route filter form. Route-specific exceptions can opt back in below. */
 .filters[hidden]{display:none!important}
 
-/* Relationship rows belong to the tree/evidence interaction model. Research
- * list-card styling must not collapse their six-column desktop structure. */
 .relationship-row{
   display:grid;
   gap:12px;
@@ -75,17 +48,12 @@
   .relationship-row>b{display:none}
   .relationship-row small,.relationship-row .deep-link{grid-column:auto}
 
-  /* The fixed mobile dock owns the bottom safe-area. Give routed content enough
-   * breathing room even if an older route module forgets to add its own offset. */
   
   body.v21-actual-mobile-ui[data-route="tree"]{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
   
   #family-mobile-dock :where(a,summary,button){touch-action:manipulation}
 }
 
-/* Media browsing intentionally keeps the contextual archive search visible.
- * The generic media-browse shell hides route filters; Family mode is the
- * explicit exception and must win after all route modules are composed. */
 body[data-v158-context="family"][data-route="media"] .route-shell .filters{
   display:block!important;
   margin-top:10px!important;
@@ -97,16 +65,11 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
   display:block!important;
 }
 body[data-v158-context="family"][data-route="media"] .route-shell .filters .search input{
-  min-height:44px!important;
+  min-height:var(--control-min)!important;
 }
 
-/* The routed tree is repeatedly reconstructed as scope/focus changes. Avoid
- * restarting entrance motion on the context controller itself: a moving
- * controller is not a stable pointer target and can also create resize churn
- * while the tree persistence controller is restoring state. */
 .tree-context{animation:none!important}
 
-/* Reduced-motion is a cross-route accessibility contract. */
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 
@@ -146,10 +109,6 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
     }
 }
 
-/* ==========================================================================
-   Source: family-explorer-navigation.css
-   ========================================================================== */
-/* Family Explorer navigation — spatial, genealogy-first navigation. */
 @media (min-width:721px){
   
   body[data-experience="family"] .brand{gap:10px;min-width:max-content;color:#fff;text-decoration:none}
@@ -157,13 +116,13 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
   body[data-experience="family"] .brand>span:last-child{display:grid;font-size:12px;line-height:1.05;letter-spacing:.13em}
   body[data-experience="family"] .brand small{margin-top:4px;font-size:8px;letter-spacing:.19em;opacity:.62}
   body[data-experience="family"] .primary-nav{display:flex;align-items:center;gap:5px;padding:5px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(4,22,17,.18);box-shadow:inset 0 1px rgba(255,255,255,.04)}
-  body[data-experience="family"] .primary-nav a{position:relative;min-height:44px;display:flex;align-items:center;padding:0 13px;border-radius:11px;color:#d1ded9;font-size:12px;font-weight:700;text-decoration:none;transition:.18s ease;touch-action:manipulation}
+  body[data-experience="family"] .primary-nav a{position:relative;min-height:var(--control-min);display:flex;align-items:center;padding:0 13px;border-radius:11px;color:#d1ded9;font-size:12px;font-weight:700;text-decoration:none;transition:.18s ease;touch-action:manipulation}
   body[data-experience="family"] .primary-nav a:hover{background:rgba(255,255,255,.09);color:#fff;transform:translateY(-1px)}
   body[data-experience="family"] .primary-nav a[aria-current="page"],body[data-experience="family"] .primary-nav a.active{background:#f6f1e6;color:#173f35;box-shadow:0 7px 18px rgba(5,24,19,.18)}
   body[data-experience="family"] .primary-nav a[data-nav-key="tree"]{padding-inline:17px;font-family:var(--family-font-display);font-size:14px}
   body[data-experience="family"] .primary-nav a[data-nav-key="tree"]::before{content:'⌘';margin-right:7px;font-family:system-ui;font-size:12px;opacity:.68}
   body[data-experience="family"] .nav-menus{display:flex;align-items:center;gap:6px;margin-left:auto}
-  body[data-experience="family"] .nav-menu>summary,body[data-experience="family"] .v158-research-entry{min-height:44px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.12);border-radius:11px;background:rgba(255,255,255,.055);color:#e5eeea;padding:0 12px;font-size:11px;font-weight:700;text-decoration:none;cursor:pointer;touch-action:manipulation}
+  body[data-experience="family"] .nav-menu>summary,body[data-experience="family"] .v158-research-entry{min-height:var(--control-min);display:flex;align-items:center;border:1px solid rgba(255,255,255,.12);border-radius:11px;background:rgba(255,255,255,.055);color:#e5eeea;padding:0 12px;font-size:11px;font-weight:700;text-decoration:none;cursor:pointer;touch-action:manipulation}
   body[data-experience="family"] .nav-menu>summary:hover,body[data-experience="family"] .v158-research-entry:hover,body[data-experience="family"] .site-header-actions button:hover{background:rgba(255,255,255,.12);color:#fff}
   
   
@@ -177,7 +136,7 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters .sear
    * available but sits one level back until hover/focus. */
   body[data-experience="family"] .nav-menus{gap:2px;margin-left:10px}
   body[data-experience="family"] .nav-menu>summary,body[data-experience="family"] .v158-research-entry{
-    min-height:44px;
+    min-height:var(--control-min);
     padding-inline:10px;
     border-color:transparent;
     background:transparent;
