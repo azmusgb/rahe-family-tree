@@ -1,10 +1,13 @@
 const mq=matchMedia('(max-width:900px)');
-let boundRoot=null,previousFocus=null;
+let boundRoot=null,previousFocus=null,boundCleanup=null;
 const focusable='button:not([disabled]),[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
 function init(){
   const root=document.querySelector('[data-source-inspector="C001"]');
-  if(!root||root===boundRoot)return;boundRoot=root;
+  if(root===boundRoot)return;
+  boundCleanup?.();boundCleanup=null;boundRoot=null;
+  if(!root)return;
+  boundRoot=root;
   const panel=root.querySelector('[data-source-inspector-panel]'),open=root.querySelector('[data-source-inspector-open]'),close=root.querySelector('[data-source-inspector-close]'),backdrop=root.querySelector('[data-source-inspector-backdrop]');
   panel.id='source-inspector-panel-mobile';
   const fields=[...root.querySelectorAll('[data-source-field]')];
@@ -38,7 +41,7 @@ function init(){
   const inertTargets=()=>[document.querySelector('.site-header'),document.querySelector('.topbar'),root.querySelector('[data-source-inspector-main]'),document.querySelector('#family-mobile-dock')].filter(Boolean);
   const setInert=value=>inertTargets().forEach(el=>{el.inert=value;});
   const syncMode=()=>{
-    if(!mq.matches){panel.removeAttribute('role');panel.removeAttribute('aria-modal');panel.setAttribute('aria-hidden','false');backdrop.hidden=true;document.body.classList.remove('source-inspector-modal-open');setInert(false);open.setAttribute('aria-expanded','false');}
+    if(!mq.matches){panel.classList.remove('is-open');panel.removeAttribute('role');panel.removeAttribute('aria-modal');panel.setAttribute('aria-hidden','false');backdrop.hidden=true;document.body.classList.remove('source-inspector-modal-open');setInert(false);open.setAttribute('aria-expanded','false');previousFocus=null;}
     else if(!panel.classList.contains('is-open'))panel.setAttribute('aria-hidden','true');
   };
   const openPanel=()=>{
@@ -56,7 +59,11 @@ function init(){
     if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
     else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
   });
-  mq.addEventListener?.('change',syncMode);syncMode();
+  mq.addEventListener?.('change',syncMode);
+  boundCleanup=()=>{
+    panel.classList.remove('is-open');panel.removeAttribute('role');panel.removeAttribute('aria-modal');backdrop.hidden=true;open.setAttribute('aria-expanded','false');document.body.classList.remove('source-inspector-modal-open');setInert(false);mq.removeEventListener?.('change',syncMode);previousFocus=null;boundRoot=null;
+  };
+  syncMode();
 
   const viewport=root.querySelector('[data-source-viewport]'),stage=root.querySelector('[data-source-stage]'),image=root.querySelector('[data-source-artifact-image]');
   const controls=[...root.querySelectorAll('[data-source-viewer-action]')];
