@@ -807,14 +807,14 @@ body[data-nav-context="family"] .site-header .brand>span:last-child{display:grid
 body[data-nav-context="family"] .site-header .brand small{font:700 8px/1.1 var(--family-font-ui);letter-spacing:.16em;color:rgba(255,255,255,.64)}
 body[data-nav-context="family"] .site-header #nav{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;margin:0}
 body[data-nav-context="family"] .site-header .primary-nav{display:flex;align-items:center;justify-content:center;gap:3px;min-width:0;margin:0}
-body[data-nav-context="family"] .site-header .primary-nav a{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 13px;border-radius:12px;color:rgba(255,255,255,.78);font-size:12px;font-weight:760;text-decoration:none;white-space:nowrap}
+body[data-nav-context="family"] .site-header .primary-nav a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 13px;border-radius:12px;color:rgba(255,255,255,.78);font-size:12px;font-weight:760;text-decoration:none;white-space:nowrap}
 body[data-nav-context="family"] .site-header .primary-nav a:hover{background:rgba(255,255,255,.08);color:#fff}
 body[data-nav-context="family"] .site-header .primary-nav a.active,
 body[data-nav-context="family"] .site-header .primary-nav a[aria-current="page"]{background:#fff;color:var(--green);box-shadow:0 7px 18px rgba(0,0,0,.11)}
 body[data-nav-context="family"] .site-header .nav-menus{display:flex;align-items:center;gap:5px;margin:0}
 body[data-nav-context="family"] .site-header .nav-menu{position:relative}
 body[data-nav-context="family"] .site-header .nav-menu summary,
-body[data-nav-context="family"] .site-header .research-entry{display:inline-flex;align-items:center;min-height:40px;padding:0 11px;border:0;border-radius:11px;background:transparent;color:rgba(255,255,255,.7);font-size:11px;font-weight:760;text-decoration:none;cursor:pointer;list-style:none}
+body[data-nav-context="family"] .site-header .research-entry{display:inline-flex;align-items:center;min-height:44px;padding:0 11px;border:0;border-radius:11px;background:transparent;color:rgba(255,255,255,.7);font-size:11px;font-weight:760;text-decoration:none;cursor:pointer;list-style:none}
 body[data-nav-context="family"] .site-header .nav-menu summary::-webkit-details-marker{display:none}
 body[data-nav-context="family"] .site-header .nav-menu summary::after{content:'⌄';margin-left:6px;font-size:10px;color:rgba(255,255,255,.55)}
 body[data-nav-context="family"] .site-header .nav-menu[open] summary,
@@ -825,7 +825,7 @@ body[data-nav-context="family"] .site-header .nav-popover a:hover{background:var
 body[data-nav-context="family"] .site-header .nav-popover b{font:600 14px/1.15 var(--family-font-display);color:var(--green)}
 body[data-nav-context="family"] .site-header .nav-popover small{font-size:10px;line-height:1.4;color:var(--muted-strong)}
 body[data-nav-context="family"] .site-header-actions{display:flex;align-items:center;justify-content:flex-end}
-body[data-nav-context="family"] .site-header-actions button{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 12px;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:rgba(255,255,255,.07);color:#fff;font-size:11px;font-weight:760;cursor:pointer}
+body[data-nav-context="family"] .site-header-actions button{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:rgba(255,255,255,.07);color:#fff;font-size:11px;font-weight:760;cursor:pointer}
 body[data-nav-context="family"] .site-header-actions button:hover{background:rgba(255,255,255,.13)}
 body[data-nav-context="family"] .site-header .edition{display:none}
 
