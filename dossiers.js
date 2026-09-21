@@ -137,31 +137,31 @@ const c001Fields=[
   {key:'sponsors',label:'[4] Baptism sponsors',value:'David Fleming + Cecilia Fleming',supports:'C001 · sponsor attestation',notSupports:'CL-FER-003 · sponsor-to-sibling identity hypothesis'},
   {key:'attestation',label:'[5] 1965 extract',value:'Family-held parish extract issued 9 Sep 1965 from 1918 register',supports:'C001 · primary-derived source classification',notSupports:'Original 1918 register direct inspection'}
 ];
-const c001FieldButtons=()=>c001Fields.map((f,i)=>\`<button type="button" class="source-inspector-field" data-source-field="\${esc(f.key)}" data-field-value="\${esc(f.value)}" data-field-supports="\${esc(f.supports)}" data-field-notsupports="\${esc(f.notSupports)}" aria-pressed="\${i===0?'true':'false'}"><code>\${esc(f.label.split(' ')[0])}</code><span>\${esc(f.label.replace(/^\\[\\d+\\]\\s*/,''))}</span></button>\`).join('');
+const c001FieldButtons=()=>c001Fields.map((f,i)=>`<button type="button" class="source-inspector-field" data-source-field="${esc(f.key)}" data-field-value="${esc(f.value)}" data-field-supports="${esc(f.supports)}" data-field-notsupports="${esc(f.notSupports)}" aria-pressed="${i===0?'true':'false'}"><code>${esc(f.label.split(' ')[0])}</code><span>${esc(f.label.split(' ').slice(1).join(' '))}</span></button>`).join('');
 function renderC001SourceInspector(s){
   const claims=s.claimIds.map(claimById).filter(Boolean),claim1=claimById('CL-DV-001'),claim2=claimById('CL-DV-002');
   const tasks=['RQ-001','RQ-002','RQ-003'].map(taskById).filter(Boolean);
   const scan=s.imageUrl||s.scanUrl||s.assetUrl||'';
-  return \`<a class="back" href="#sources">← Sources</a>
-  <section class="source-inspector" data-source-inspector="C001" data-source-id="\${esc(s.id)}">
+  return `<a class="back" href="#sources">← Sources</a>
+  <section class="source-inspector" data-source-inspector="C001" data-source-id="${esc(s.id)}"><div class="sr-only" data-source-announcer aria-live="polite" aria-atomic="true"></div>
     <header class="source-inspector-head">
-      <div><p class="eyebrow">SOURCE · \${esc(s.id)} · PRIMARY-DERIVED</p><h1>\${esc(s.name)}</h1><p>1918 baptismal event · 1965 parish extract · original register not yet inspected</p></div>
+      <div><p class="eyebrow">SOURCE · ${esc(s.id)} · PRIMARY-DERIVED</p><h1>${esc(s.name)}</h1><p>1918 baptismal event · 1965 parish extract · original register not yet inspected</p></div>
       <span class="badge supported">SOURCE WEIGHT · VERY HIGH</span>
     </header>
     <div class="source-inspector-layout">
       <div class="source-inspector-main">
         <section class="panel source-inspector-viewer" aria-labelledby="source-viewer-title">
-          <div class="section-title"><div><p class="eyebrow">ARTIFACT VIEW</p><h2 id="source-viewer-title">C001 inspection surface</h2></div><span>\${scan?'Scan attached':'Scan asset not ingested'}</span></div>
+          <div class="section-title"><div><p class="eyebrow">ARTIFACT VIEW</p><h2 id="source-viewer-title">C001 inspection surface</h2></div><span>${scan?'Scan attached':'Scan asset not ingested'}</span></div>
           <div class="source-inspector-toolbar" role="toolbar" aria-label="Document viewer controls">
             <button type="button" data-source-viewer-action="zoom-in" aria-label="Zoom in">+</button><button type="button" data-source-viewer-action="zoom-out" aria-label="Zoom out">−</button><button type="button" data-source-viewer-action="reset">Reset</button><button type="button" data-source-viewer-action="rotate">Rotate</button>
           </div>
-          <div class="source-inspector-viewport" data-source-viewport tabindex="0" aria-describedby="source-viewer-help" data-has-image="\${scan?'true':'false'}">
+          <div class="source-inspector-viewport" data-source-viewport tabindex="0" aria-describedby="source-viewer-help" data-has-image="${scan?'true':'false'}">
             <div class="source-inspector-stage" data-source-stage>
-              \${scan?\`<img data-source-artifact-image src="\${esc(scan)}" alt="Family-held St. Anne Church baptismal extract associated with the 1918 baptism record" draggable="false">\`:\`<div class="source-inspector-placeholder"><b>Family-held artifact image not yet ingested into the web archive.</b><span>The structured C001 extraction remains available below; add a verified scan asset before enabling optical inspection.</span></div>\`}
+              ${scan?`<img data-source-artifact-image src="${esc(scan)}" alt="Family-held St. Anne Church baptismal extract associated with the 1918 baptism record" draggable="false">`:`<div class="source-inspector-placeholder"><b>Family-held artifact image not yet ingested into the web archive.</b><span>The structured C001 extraction remains available below; add a verified scan asset before enabling optical inspection.</span></div>`}
             </div>
           </div>
           <p id="source-viewer-help" class="muted">When a scan is attached: drag or use arrow keys to pan; +/− zoom; 0 resets; R rotates.</p>
-          <div class="source-inspector-fields" aria-label="Structured C001 fields">\${c001FieldButtons()}</div>
+          <div class="source-inspector-fields" aria-label="Structured C001 fields">${c001FieldButtons()}</div>
         </section>
         <section class="panel">
           <div class="section-title"><div><p class="eyebrow">SOURCE BOUNDARY</p><h2>What C001 establishes</h2></div></div>
@@ -180,31 +180,31 @@ function renderC001SourceInspector(s){
           <button type="button" role="tab" id="source-tab-fields" aria-controls="source-panel-fields" aria-selected="false" tabindex="-1">Fields</button>
         </div>
         <section class="notice control source-inspector-linkage" aria-live="polite">
-          <strong data-active-field-label>\${esc(c001Fields[0].label)}</strong><p data-active-field-value>\${esc(c001Fields[0].value)}</p>
-          <small><b>Directly supports:</b> <span data-active-field-supports>\${esc(c001Fields[0].supports)}</span><br><b>Does not establish:</b> <span data-active-field-notsupports>\${esc(c001Fields[0].notSupports)}</span></small>
+          <strong data-active-field-label>${esc(c001Fields[0].label)}</strong><p data-active-field-value>${esc(c001Fields[0].value)}</p>
+          <small><b>Directly supports:</b> <span data-active-field-supports>${esc(c001Fields[0].supports)}</span><br><b>Does not establish:</b> <span data-active-field-notsupports>${esc(c001Fields[0].notSupports)}</span></small>
         </section>
         <div id="source-panel-summary" role="tabpanel" aria-labelledby="source-tab-summary" class="source-inspector-tabpanel">
-          \${claim1?\`<article class="claim-card state-supported"><div class="claim-top"><code>\${esc(claim1.id)}</code>\${stateBadges(claim1.state)}</div><h3>\${esc(claim1.claim)}</h3><p><b>Next action:</b> \${esc(claim1.nextAction)}</p></article>\`:''}
-          \${claim2?\`<article class="claim-card state-unresolved"><div class="claim-top"><code>\${esc(claim2.id)}</code>\${stateBadges(claim2.state)}</div><h3>\${esc(claim2.claim)}</h3><p>C001 does not establish this identity bridge or the mechanism of the name transition.</p></article>\`:''}
-          <div class="section-title"><h3>Top 3 critical targets</h3><a href="#research">Full queue ↗</a></div><div class="stack">\${tasks.map(taskCard).join('')}</div>
+          ${claim1?`<article class="claim-card state-supported"><div class="claim-top"><code>${esc(claim1.id)}</code>${stateBadges(claim1.state)}</div><h3>${esc(claim1.claim)}</h3><p><b>Next action:</b> ${esc(claim1.nextAction)}</p></article>`:''}
+          ${claim2?`<article class="claim-card state-unresolved"><div class="claim-top"><code>${esc(claim2.id)}</code>${stateBadges(claim2.state)}</div><h3>${esc(claim2.claim)}</h3><p>C001 does not establish this identity bridge or the mechanism of the name transition.</p></article>`:''}
+          <div class="section-title"><h3>Top 3 critical targets</h3><a href="#research">Full queue ↗</a></div><div class="stack">${tasks.map(taskCard).join('')}</div>
         </div>
         <div id="source-panel-claims" role="tabpanel" aria-labelledby="source-tab-claims" class="source-inspector-tabpanel" hidden>
-          <div class="claim-grid">\${claims.map(claimCard).join('')||'<div class="empty compact">No linked claims.</div>'}</div>
+          <div class="claim-grid">${claims.map(claimCard).join('')||'<div class="empty compact">No linked claims.</div>'}</div>
         </div>
         <div id="source-panel-provenance" role="tabpanel" aria-labelledby="source-tab-provenance" class="source-inspector-tabpanel" hidden>
-          <dl class="facts"><dt>Source class</dt><dd>\${esc(s.class)}</dd><dt>Custody</dt><dd>Family-held St. Anne parish extract.</dd><dt>Original register</dt><dd>Not yet directly inspected; C013 remains the repository target.</dd><dt>Canonical register row</dt><dd>\${esc(s.location.section)} · row \${esc(s.location.row)}</dd><dt>Search variants</dt><dd>DeVine · DeVeine · Devine · Deveine</dd></dl>\${deepLink(s.location,'Open canonical source row ↗')}
+          <dl class="facts"><dt>Source class</dt><dd>${esc(s.class)}</dd><dt>Custody</dt><dd>Family-held St. Anne parish extract.</dd><dt>Original register</dt><dd>Not yet directly inspected; C013 remains the repository target.</dd><dt>Canonical register row</dt><dd>${esc(s.location.section)} · row ${esc(s.location.row)}</dd><dt>Search variants</dt><dd>DeVine · DeVeine · Devine · Deveine</dd></dl>${deepLink(s.location,'Open canonical source row ↗')}
         </div>
-        <div id="source-panel-fields" role="tabpanel" aria-labelledby="source-tab-fields" class="source-inspector-tabpanel" hidden><div class="stack">\${c001FieldButtons()}</div></div>
+        <div id="source-panel-fields" role="tabpanel" aria-labelledby="source-tab-fields" class="source-inspector-tabpanel" hidden><div class="stack">${c001FieldButtons()}</div></div>
       </aside>
     </div>
     <button type="button" class="source-inspector-mobile-open action primary" data-source-inspector-open aria-expanded="false" aria-controls="source-inspector-panel-mobile">Inspect evidence</button>
     <button type="button" class="source-inspector-backdrop" data-source-inspector-backdrop aria-label="Close evidence inspector" hidden></button>
-  </section>\`;
+  </section>`;
 }
 export function renderSource(id){
   const s=sourceById(id);if(!s)return'<div class="empty">Source not found.</div>';
   if(s.id==='C001')return renderC001SourceInspector(s);
   const claims=s.claimIds.map(claimById).filter(Boolean),rels=s.relationshipIds.map(id=>model.relationships.find(r=>r.id===id)).filter(Boolean);
-  return\`<a class="back" href="#sources">← Sources</a><header class="detail-hero"><p class="eyebrow">SOURCE · \${esc(s.id)}</p><h1>\${esc(s.name)}</h1><p>\${esc(s.weight)}</p></header><section class="panel"><dl class="facts"><dt>Class / type</dt><dd>\${esc(s.class)}</dd><dt>Key use / caution</dt><dd>\${esc(s.use)}</dd><dt>Weight / control</dt><dd>\${esc(s.weight)}</dd><dt>Legacy ID(s)</dt><dd>\${esc(s.legacyIds||'—')}</dd><dt>Register location</dt><dd>\${esc(s.location.section)} · row \${esc(s.location.row)}</dd></dl>\${deepLink(s.location,'Open source register row ↗')}</section><section><div class="section-title"><h2>Claims using this source</h2><span>\${claims.length}</span></div><div class="claim-grid">\${claims.map(claimCard).join('')||'<div class="empty compact">No explicit claim-register use.</div>'}</div></section><section><div class="section-title"><h2>Relationships linked through claim/source basis</h2><span>\${rels.length}</span></div><div class="relationship-table">\${rels.map(relationshipRow).join('')||'<div class="empty compact">No structured relationship link.</div>'}</div></section>\`;
+  return`<a class="back" href="#sources">← Sources</a><header class="detail-hero"><p class="eyebrow">SOURCE · ${esc(s.id)}</p><h1>${esc(s.name)}</h1><p>${esc(s.weight)}</p></header><section class="panel"><dl class="facts"><dt>Class / type</dt><dd>${esc(s.class)}</dd><dt>Key use / caution</dt><dd>${esc(s.use)}</dd><dt>Weight / control</dt><dd>${esc(s.weight)}</dd><dt>Legacy ID(s)</dt><dd>${esc(s.legacyIds||'—')}</dd><dt>Register location</dt><dd>${esc(s.location.section)} · row ${esc(s.location.row)}</dd></dl>${deepLink(s.location,'Open source register row ↗')}</section><section><div class="section-title"><h2>Claims using this source</h2><span>${claims.length}</span></div><div class="claim-grid">${claims.map(claimCard).join('')||'<div class="empty compact">No explicit claim-register use.</div>'}</div></section><section><div class="section-title"><h2>Relationships linked through claim/source basis</h2><span>${rels.length}</span></div><div class="relationship-table">${rels.map(relationshipRow).join('')||'<div class="empty compact">No structured relationship link.</div>'}</div></section>`;
 }
 export function renderTask(id){const t=taskById(id);if(!t)return'<div class="empty">Research task not found.</div>';const people=t.peopleIds.map(personById).filter(Boolean);return`<a class="back" href="#research">← Research Queue</a><header class="detail-hero priority-${t.state.toLowerCase()}"><p class="eyebrow">RESEARCH TASK · ${esc(t.id)} · ${esc(t.priority)}</p><h1>${esc(t.record)}</h1><p>${esc(t.branch)}</p></header><section class="panel"><h2>Controlled question / payoff</h2><p>${esc(t.payoff)}</p>${deepLink(t.sourceLocation,'Open canonical queue row ↗')}</section><section><div class="section-title"><h2>Named people</h2><span>${people.length}</span></div><div class="people-grid">${people.map(personCard).join('')||'<div class="empty compact">No deterministic person-name match.</div>'}</div></section>`;}
