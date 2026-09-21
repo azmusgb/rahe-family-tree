@@ -1,6 +1,7 @@
 const MOBILE_QUERY='(max-width: 720px)';
 let returnFocus=null;
 let focusFrame=0;
+const inertSnapshot=new Map();
 
 const isMobile=()=>window.matchMedia(MOBILE_QUERY).matches;
 const moreMenu=()=>document.querySelector('#family-mobile-dock details.mobile-more');
@@ -35,6 +36,31 @@ function cancelPendingFocus(){
   focusFrame=0;
 }
 
+function modalBackgroundTargets(){
+  return[
+    document.querySelector('#main'),
+    document.querySelector('#mobile-app-header'),
+    document.querySelector('.site-header'),
+    document.querySelector('.topbar'),
+    document.querySelector('.site-footer')
+  ].filter(Boolean);
+}
+
+function setModalBackgroundInert(value){
+  if(value){
+    if(inertSnapshot.size)return;
+    for(const element of modalBackgroundTargets()){
+      inertSnapshot.set(element,Boolean(element.inert));
+      element.inert=true;
+    }
+    return;
+  }
+  for(const [element,wasInert] of inertSnapshot){
+    if(element.isConnected)element.inert=wasInert;
+  }
+  inertSnapshot.clear();
+}
+
 function focusMorePanel(details){
   cancelPendingFocus();
   focusFrame=requestAnimationFrame(()=>{
@@ -57,6 +83,7 @@ function closeMore({restoreFocus=true}={}){
   if(backdrop)backdrop.hidden=true;
   document.body.classList.remove('mobile-sheet-open');
   delete document.body.dataset.mobileModalOpen;
+  setModalBackgroundInert(false);
   if(restoreFocus&&returnFocus?.isConnected)returnFocus.focus({preventScroll:true});
   returnFocus=null;
 }
@@ -71,6 +98,7 @@ function openMore(details){
   panel?.setAttribute('aria-modal','true');
   document.body.dataset.mobileModalOpen='more';
   document.body.classList.add('mobile-sheet-open');
+  setModalBackgroundInert(true);
   ensureBackdrop().hidden=false;
   focusMorePanel(details);
 }
