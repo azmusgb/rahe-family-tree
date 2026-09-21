@@ -511,14 +511,14 @@ if(args.has('--strict')){
   const budgets={
     // v25.4 certified production ceilings. These are downward-only debt ratchets;
     // raising one requires an explicit reviewed baseline change.
-    cssBytes:493971,
+    cssBytes:493922,
     duplicateSelectorsAcrossFiles:371,
     ownershipDuplicateSelectorsAcrossFiles:102,
     topSelectorOwnerViolations:0,
     deadSelectorCandidates:0,
     highSpecificitySelectors:107,
     importantDeclarations:1143,
-    legacyClassArms:1783,
+    legacyClassArms:1782,
     liveLegacyVersionedClassTokens:201,
     unstyledRuntimeOrMarkupClasses:135,
     unusedCustomProperties:0,
