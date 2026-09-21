@@ -323,7 +323,7 @@ body[data-nav-context="family"] .topbar{border-bottom-color:color-mix(in srgb,va
 body[data-nav-context="family"] .brand{font-family:var(--family-font-display);letter-spacing:.08em}
 body[data-nav-context="family"] .edition{font-size:12px;line-height:1.45}
 body[data-nav-context="family"] .topbar{border-bottom-color:var(--family-border-hairline);box-shadow:none}
-body[data-nav-context="family"] .topbar-actions{}
+
 body[data-nav-context="family"] .primary-nav a,
 body[data-nav-context="family"] .nav-menu summary{
   border-radius:var(--family-radius-control);
@@ -397,7 +397,7 @@ body[data-experience="family"][data-route="dashboard"] .page-heading{display:non
 
 .dashboard-hero-copy{display:flex;flex-direction:column;justify-content:center;min-width:0}
 
-.dashboard-hero-copy h2{}
+
 
 .dashboard-hero-copy>p:not(.eyebrow){line-height:1.7;margin:0 0 1.25rem}
 
@@ -477,7 +477,7 @@ body[data-experience="family"][data-route="dashboard"] .filters.family-compact{m
 
 .dashboard-hero{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(250px,.72fr);gap:var(--space-5);align-items:stretch;padding:clamp(24px,4vw,42px);color:#fff;margin:0 0 var(--space-6)}
 
-.dashboard-hero-copy .eyebrow{}
+
 
 .dashboard-hero-copy h2{font:clamp(2.35rem,5vw,4.45rem)/.98 Georgia,serif;letter-spacing:-.045em;text-wrap:balance}
 
@@ -487,11 +487,11 @@ body[data-experience="family"][data-route="dashboard"] .filters.family-compact{m
 
 .dashboard-hero-actions .action{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-color:rgba(255,255,255,.38);color:#fff}
 
-.dashboard-hero-actions .action.primary{}
 
-.dashboard-hero-actions .action:hover{}
 
-.dashboard-hero-actions .action.primary:hover{}
+
+
+
 
 .dashboard-family-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding-top:18px;border-top:1px solid rgba(255,255,255,.18)}
 
@@ -789,7 +789,7 @@ body[data-route="dashboard"][data-v158-context="family"] .v161-research-band h2{
 @media (max-width:900px) and (min-width:721px){.brand small{display:none}}
 
 /* Archive identity uses a neutral family-history monogram. */
-.v17-home-hero::after{}
+
 
 
 /* v24.7A canonical ownership — later-cascade declarations. */

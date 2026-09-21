@@ -453,7 +453,7 @@ th{background:#edf2ed}
 
 .deployment-fingerprint{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem}
 
-body[data-experience="family"]{}
+
 
 .experience-toggle{border-color:#9cb6aa!important;background:#edf4f0!important;color:var(--green)!important;font-weight:750}
 
@@ -501,7 +501,7 @@ body[data-experience="family"][data-route="person"] .family-overview-card{margin
 
 .family-chip:hover{background:#eef4ef!important}
 
-body[data-experience="family"]{}
+
 
 .long-label{font-size:.92em!important;line-height:1.2!important}
 
@@ -878,7 +878,7 @@ body[data-route="people"][data-v158-context="family"] .v159-card-copy{gap:2px!im
 
 body[data-route="people"][data-v158-context="family"] .v159-card-copy strong{line-height:1.05}
 
-body[data-route="people"][data-v158-context="family"] .v159-card-dates{}
+
 
 body[data-route="people"][data-v158-context="family"] .v159-card-context{display:block!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
@@ -931,7 +931,7 @@ body[data-route="people"][data-v158-context="family"] .v159-card-arrow{font-size
 .v162-family-path-group a{padding:6px 9px;color:var(--green);font-size:11px;font-weight:700}
 
 /* Family base — typography, controls, focus and shared interaction. */
-::selection{}
+
 
 body[data-v158-context="family"]{
   background:radial-gradient(circle at 12% 0%,rgba(36,88,72,.035),transparent 25rem),var(--bg);
@@ -966,8 +966,8 @@ body[data-v158-context="family"] .eyebrow{
   letter-spacing:.13em!important;
 }
 body[data-v158-context="family"] :where(p,li,dd){text-wrap:pretty}
-body[data-v158-context="family"] :where(.v157-person-copy,.v159-card-context,.v159-card-dates,.v157-media-card small,.v157-tree-person small,.v159-card-relations small){}
-body[data-v158-context="family"] :where(.dashboard-section p,.v159-life-copy p,.v157-research-center p){}
+
+
 
 /* v17 native Family archive primitives. These classes are purpose-built route
  * markup and do not depend on the legacy dashboard/person enhancement DOM. */
@@ -1050,11 +1050,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 
 .badge{display:inline-block;padding:4px 6px;border-radius:4px;background:#e6f0e8;color:#356445;font:bold 8px system-ui;letter-spacing:.45px;margin:2px 3px 2px 0}
 
-.badge.provisional{}
 
-.badge.unresolved{}
 
-.badge.rejected{}
+
+
+
 
 .badge.derivative{background:var(--bluebg);color:var(--blue)}
 
@@ -1172,7 +1172,7 @@ body[data-experience="family"] .notice.control{border-color:#d9e2dd;background:#
 .legend{padding:9px 10px}
 }
 
-.page-heading{}
+
 
 .page-heading p{max-width:760px}
 
@@ -1364,7 +1364,7 @@ body[data-page-architecture="15.5"][data-page-layout="browse"] .route-shell .fil
 body[data-page-architecture="15.5"][data-page-layout="browse"] .route-shell .filters label:has(#state){display:none}
 }
 
-button,input,select,textarea{}
+
 
 :where(input,select,textarea){border-color:var(--line-strong)!important;background:#fff!important;color:var(--text)!important;border-radius:9px!important}
 
