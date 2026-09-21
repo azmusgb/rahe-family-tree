@@ -473,14 +473,16 @@ console.log(JSON.stringify({totals,orphanCss,unusedCustomProperties,topDead:dead
 if(args.has('--strict')){
   let failed=false;
   const budgets={
-    cssBytes:511775,
-    duplicateSelectorsAcrossFiles:440,
-    ownershipDuplicateSelectorsAcrossFiles:182,
+    // v25.4 certified production ceilings. These are downward-only debt ratchets;
+    // raising one requires an explicit reviewed baseline change.
+    cssBytes:495086,
+    duplicateSelectorsAcrossFiles:399,
+    ownershipDuplicateSelectorsAcrossFiles:141,
     topSelectorOwnerViolations:0,
     deadSelectorCandidates:0,
     highSpecificitySelectors:108,
-    importantDeclarations:1145,
-    legacyClassArms:1816,
+    importantDeclarations:1143,
+    legacyClassArms:1793,
     liveLegacyVersionedClassTokens:201,
     unstyledRuntimeOrMarkupClasses:135,
     unusedCustomProperties:0,
