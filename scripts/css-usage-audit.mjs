@@ -260,6 +260,40 @@ const canonicalOwnerFiles=new Set([
 const ownershipDuplicateSelectors=duplicateSelectors
   .map(row=>({...row,files:row.files.filter(file=>!file.endsWith('/print.css')&&!file.endsWith('print.css')&&!responsiveOwnershipFiles.has(file))}))
   .filter(row=>row.files.length>1);
+
+const ownershipPairCounts={};
+for(const row of ownershipDuplicateSelectors){
+  for(let i=0;i<row.files.length;i++)for(let j=i+1;j<row.files.length;j++){
+    const pair=`${row.files[i]} <-> ${row.files[j]}`;
+    ownershipPairCounts[pair]=(ownershipPairCounts[pair]||0)+1;
+  }
+}
+const ownershipPairBaseline=Object.freeze({
+  'src/styles/composition.css <-> src/styles/foundation.css':17,
+  'src/features/navigation/navigation.css <-> src/styles/foundation.css':14,
+  'src/features/navigation/navigation.css <-> src/styles/composition.css':14,
+  'src/features/person/person.css <-> src/styles/composition.css':14,
+  'src/features/person/person.css <-> src/styles/foundation.css':12,
+  'src/features/research/research.css <-> src/styles/foundation.css':9,
+  'src/features/tree/tree.css <-> src/styles/composition.css':9,
+  'src/styles/foundation.css <-> src/styles/interaction.css':8,
+  'src/features/tree/tree.css <-> src/styles/interaction.css':6,
+  'src/features/navigation/mobile-foundation.css <-> src/styles/foundation.css':5,
+  'src/features/navigation/navigation.css <-> src/features/research/research.css':4,
+  'src/features/research/research.css <-> src/features/tree/tree.css':3,
+  'src/features/research/research.css <-> src/styles/interaction.css':3,
+  'src/features/person/person.css <-> src/features/research/research.css':3,
+  'src/features/tree/tree.css <-> src/styles/foundation.css':2,
+  'src/styles/composition.css <-> src/styles/interaction.css':2,
+  'src/features/navigation/navigation.css <-> src/styles/interaction.css':2,
+  'src/features/navigation/mobile-foundation.css <-> src/styles/tokens.css':1,
+  'src/styles/composition.css <-> src/styles/experience.css':1,
+  'src/styles/experience.css <-> src/styles/foundation.css':1,
+  'src/features/research/research.css <-> src/styles/composition.css':1,
+  'src/features/navigation/mobile-foundation.css <-> src/features/navigation/navigation.css':1,
+  'src/features/navigation/navigation.css <-> src/features/tree/tree.css':1,
+  'src/features/person/person.css <-> src/features/tree/tree.css':1,
+});
 const printSelectorOverlaps=duplicateSelectors
   .filter(row=>row.files.some(file=>file.endsWith('/print.css')||file.endsWith('print.css')));
 const responsiveSelectorOverlaps=duplicateSelectors
@@ -377,6 +411,8 @@ const report={
   releaseNumberedCss,
   totals,
   files:cssStats,
+  ownershipPairBaseline,
+  ownershipPairCounts:Object.fromEntries(Object.entries(ownershipPairCounts).sort((a,b)=>b[1]-a[1])),
   duplicateSelectors:duplicateSelectors.slice(0,500),
   deadSelectorCandidates:deadCandidates.slice(0,1000),
   highSpecificitySelectors:highSpecificity.slice(0,500),
@@ -494,5 +530,15 @@ if(args.has('--strict')){
   if(releaseNumberedCss.length){console.error(`CSS usage audit failed: release-numbered CSS filenames are prohibited: ${releaseNumberedCss.join(', ')}`);failed=true;}
   if(unsafeUndefinedCustomProperties.length){console.error(`CSS usage audit failed: unsafe undefined custom properties: ${unsafeUndefinedCustomProperties.join(', ')}`);failed=true;}
   for(const [metric,limit] of Object.entries(budgets)){if((totals[metric]??0)>limit){console.error(`CSS usage audit failed: ${metric}=${totals[metric]} exceeds budget ${limit}`);failed=true;}}
+  for(const [pair,count] of Object.entries(ownershipPairCounts)){
+    const limit=ownershipPairBaseline[pair];
+    if(limit===undefined){
+      console.error(`CSS usage audit failed: new canonical ownership pair "${pair}" has ${count} duplicate selector(s)`);
+      failed=true;
+    }else if(count>limit){
+      console.error(`CSS usage audit failed: canonical ownership pair "${pair}" has ${count} duplicate selector(s), exceeding budget ${limit}`);
+      failed=true;
+    }
+  }
   if(failed)process.exit(1);
 }
