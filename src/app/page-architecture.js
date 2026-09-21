@@ -4,7 +4,7 @@ const RELEASE='15.5';
 const routeKey=()=>location.hash.slice(1).split('/')[0]||'dashboard';
 const familyMinimal=new Set(['dashboard','person','tree']);
 const familyBrowse=new Set(['people','media','stories','timeline','migration']);
-const researchRoutes=new Set(['evidence','sources','research','archive','intelligence','conflicts','intake','identity']);
+const researchRoutes=new Set(['evidence','sources','source','research','archive','intelligence','conflicts','intake','identity']);
 
 function classifyRoute(route){
   if(familyMinimal.has(route))return'minimal';
