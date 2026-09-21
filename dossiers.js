@@ -146,7 +146,7 @@ function renderC001SourceInspector(s){
   <section class="source-inspector" data-source-inspector="C001" data-source-id="${esc(s.id)}">
     <header class="detail-hero">
       <div><p class="eyebrow">SOURCE · ${esc(s.id)} · PRIMARY-DERIVED</p><h1>${esc(s.name)}</h1><p>1918 baptismal event · 1965 parish extract · original register not yet inspected</p></div>
-      <span class="badge supported">SOURCE WEIGHT · VERY HIGH</span>
+      <span class="badge">SOURCE WEIGHT · VERY HIGH</span>
     </header>
     <div class="source-inspector-layout">
       <div data-source-inspector-main>
