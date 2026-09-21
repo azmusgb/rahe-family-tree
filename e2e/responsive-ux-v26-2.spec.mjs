@@ -64,6 +64,10 @@ test.describe('v26.2 phone refinement',()=>{
     expect(metrics.doc).toBeLessThanOrEqual(metrics.viewport+1);
     const heights=await tabs.locator('button').evaluateAll(nodes=>nodes.map(node=>node.getBoundingClientRect().height));
     expect(Math.min(...heights)).toBeGreaterThanOrEqual(44);
+    const contextTargets=page.locator('.v20-context-bar>a,.v20-context-bar>button');
+    const contextHeights=await contextTargets.evaluateAll(nodes=>nodes.filter(node=>node.getClientRects().length).map(node=>node.getBoundingClientRect().height));
+    expect(contextHeights.length).toBeGreaterThan(0);
+    expect(Math.min(...contextHeights)).toBeGreaterThanOrEqual(44);
   });
 
   test('Tree prioritizes canvas and compact controls remain touch-safe',async({page})=>{
@@ -118,7 +122,10 @@ test.describe('v26.2 phone refinement',()=>{
     expect((await page.locator('#family-mobile-dock').boundingBox())?.height||0).toBeGreaterThanOrEqual(60);
     const tree=page.locator('#family-mobile-dock [data-dock-route="tree"]');
     await tree.focus();
-    expect(await tree.evaluate(node=>getComputedStyle(node).outlineStyle)).not.toBe('none');
+    const focus=await tree.evaluate(node=>({style:getComputedStyle(node).outlineStyle,width:parseFloat(getComputedStyle(node).outlineWidth),offset:parseFloat(getComputedStyle(node).outlineOffset)}));
+    expect(focus.style).not.toBe('none');
+    expect(focus.width).toBeGreaterThanOrEqual(3);
+    expect(focus.offset).toBeGreaterThanOrEqual(3);
   });
 });
 
@@ -150,6 +157,9 @@ test.describe('v26.2 tablet and desktop refinement',()=>{
       });
       expect(collision.top).toBeGreaterThanOrEqual(collision.mastHeight-2);
       expect(collision.researchScrollMargin).toBeGreaterThanOrEqual(collision.mastHeight+40);
+      const localNavHeights=await page.locator('.v17-person-nav a').evaluateAll(nodes=>nodes.filter(node=>node.getClientRects().length).map(node=>node.getBoundingClientRect().height));
+      expect(localNavHeights.length).toBeGreaterThan(0);
+      expect(Math.min(...localNavHeights)).toBeGreaterThanOrEqual(44);
 
       await open(page,'tree');
       expect((await page.locator('.graph-shell,.tree-graph-shell').first().boundingBox())?.height||0).toBeGreaterThan(540);
