@@ -221,6 +221,50 @@ test.describe('v26.2 tablet and desktop refinement',()=>{
     expect(rect?.width||0).toBeLessThanOrEqual(720);
   });
 
+  test('v26.5 interaction states and utility popover stay coherent at zoom',async({page})=>{
+    await page.setViewportSize({width:720,height:900});
+    await page.addStyleTag({content:':root{font-size:200%!important}'});
+    await open(page,'people');
+    expect(await overflow(page)).toBeLessThanOrEqual(1);
+
+    const tools=page.locator('.site-tools');
+    if(await tools.isVisible()){
+      const summary=tools.locator('summary');
+      await summary.click();
+      await expect(tools).toHaveAttribute('open','');
+      const state=await summary.evaluate(node=>{
+        const style=getComputedStyle(node);
+        return{background:style.backgroundColor,border:style.borderColor,color:style.color};
+      });
+      expect(state.background).not.toBe('rgba(0, 0, 0, 0)');
+      const menu=tools.locator(':scope>div');
+      await expect(menu).toBeVisible();
+      const geometry=await menu.evaluate(node=>{
+        const r=node.getBoundingClientRect();
+        return{left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,viewport:innerWidth};
+      });
+      expect(geometry.left).toBeGreaterThanOrEqual(-1);
+      expect(geometry.right).toBeLessThanOrEqual(geometry.viewport+1);
+      expect(geometry.width).toBeLessThanOrEqual(geometry.viewport-20);
+      await menu.getByRole('button',{name:'Export view'}).focus();
+      const focus=await menu.getByRole('button',{name:'Export view'}).evaluate(node=>getComputedStyle(node).outlineStyle);
+      expect(focus).not.toBe('none');
+    }
+
+    const disabled=await page.evaluate(()=>{
+      const button=document.createElement('button');
+      button.disabled=true;
+      button.textContent='Disabled contract probe';
+      document.querySelector('#main')?.append(button);
+      const style=getComputedStyle(button);
+      const result={opacity:parseFloat(style.opacity),cursor:style.cursor};
+      button.remove();
+      return result;
+    });
+    expect(disabled.opacity).toBeLessThan(1);
+    expect(disabled.cursor).toBe('not-allowed');
+  });
+
   test('skip link and desktop focus ring stay keyboard-visible',async({page})=>{
     await page.setViewportSize({width:1440,height:900});
     await open(page,'dashboard');
