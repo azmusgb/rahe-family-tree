@@ -315,7 +315,7 @@ body[data-experience="family"] .topbar-more summary{min-height:var(--control-min
 body[data-page-architecture="15.5"][data-route="person"] .v153-profile-nav{top:calc(var(--app-masthead-height) + 8px);margin-top:12px}
 
 @media (max-width:720px){
-body[data-page-architecture="15.5"] .topbar{display:flex;height:40px;padding:0 12px;justify-content:space-between}
+body[data-page-architecture="15.5"] .topbar{display:flex;height:48px;padding:0 12px;justify-content:space-between}
 body[data-page-architecture="15.5"] .topbar>span{max-width:70vw;font-size:10px}
 body[data-page-architecture="15.5"][data-route="person"] .v153-profile-nav{top:48px}
 }

@@ -96,5 +96,5 @@ test('mobile commandbar remains touch-first without horizontal page overflow',as
   expect(overflow).toBeLessThanOrEqual(2);
   const direct=bar.getByRole('button',{name:'Direct line',exact:true});
   await expect(direct).toBeVisible();
-  expect((await direct.boundingBox())?.height||0).toBeGreaterThanOrEqual(40);
+  expect((await direct.boundingBox())?.height||0).toBeGreaterThanOrEqual(44);
 });
