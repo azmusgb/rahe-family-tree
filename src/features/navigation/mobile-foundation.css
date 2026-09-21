@@ -92,7 +92,7 @@ body[data-experience="family"] .site-header-actions button{
 
   body[data-route="tree"] .route-shell{padding-bottom:6px}
   body[data-route="tree"] #content{padding:0 8px 18px}
-  
+
   body[data-route="tree"] #content.mobile-tree-surface :where(.graph-shell,.tree-graph-shell){min-height:calc(100dvh - 214px);border-radius:20px;background:#fbf9f3}
 
   body[data-experience="family"] .site-footer{margin:24px 0 0;padding:26px var(--mobile-gutter) calc(120px + env(safe-area-inset-bottom,0px));padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))!important;background:#173f35;color:#dfe8e3}
@@ -129,9 +129,8 @@ body[data-experience="family"] .site-header-actions button{
   body[data-route="dashboard"] .v17-home-hero h2{max-width:7.8ch;margin:10px 0 16px;font-size:clamp(48px,14.5vw,70px);line-height:.9;letter-spacing:-.055em;color:#fff}
   body[data-route="dashboard"] .v17-home-hero>div>p:not(.eyebrow){max-width:31ch;margin:0;color:rgba(255,255,255,.76);font-size:16px;line-height:1.55}
   body[data-route="dashboard"] .v17-home-hero .v17-primary-actions{margin-top:26px}
-  
+
   body[data-route="dashboard"] .v17-home-metrics span{display:block;padding:0 8px;border-right:1px solid rgba(255,255,255,.12)}body[data-route="dashboard"] .v17-home-metrics span:first-child{padding-left:0}body[data-route="dashboard"] .v17-home-metrics span:last-child{border-right:0}
-  
 
   .v20-continue-card{margin:-18px 14px 18px;position:relative;z-index:4;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;padding:18px;border:1px solid rgba(23,63,53,.1);border-radius:24px;background:var(--app-paper);box-shadow:var(--app-shadow)}
   .v20-continue-card span,.v20-recent-rail .v20-section-title span{font-size:9px;font-weight:850;letter-spacing:.14em;color:#718078}.v20-continue-card h2{margin:4px 0 3px;font-size:22px;line-height:1;color:var(--app-ink)}.v20-continue-card p{margin:0;color:var(--app-muted);font-size:11px}
@@ -142,10 +141,9 @@ body[data-experience="family"] .site-header-actions button{
   .v20-recent-person{scroll-snap-align:start;min-width:0;padding:15px;border:1px solid var(--app-border);border-radius:20px;background:var(--app-paper);box-shadow:0 7px 20px rgba(12,39,31,.06);color:var(--app-ink);text-decoration:none}.v20-recent-person>span{width:42px;height:42px;display:grid;place-items:center;margin-bottom:12px;border-radius:50%;background:#dfe9e3;color:var(--app-green);font-family:var(--family-font-display);font-size:16px}.v20-recent-person b,.v20-recent-person small{display:block}.v20-recent-person b{font-size:14px;line-height:1.1}.v20-recent-person small{margin-top:5px;color:var(--app-muted);font-size:9px;line-height:1.3}
 
   body[data-route="dashboard"] :where(.v17-home-tree,.v17-home-story,.v17-featured-people,.v17-home-media,.v17-research-door){padding:34px 16px!important}
-  
+
   body[data-route="dashboard"] .v17-home-tree{background:#ebe8df}
-  
-  
+
   body[data-route="dashboard"] .v17-place-strip{display:flex;overflow-x:auto;gap:8px;scrollbar-width:none}
   body[data-route="dashboard"] .v17-research-door{margin:0!important;border-radius:0!important;background:#173f35!important;color:#fff}body[data-route="dashboard"] .v17-research-door :where(h2,p,.eyebrow){color:inherit}
 
@@ -184,7 +182,6 @@ body[data-experience="family"] .site-header-actions button{
 @media (min-width:721px) and (max-width:1023px){body[data-experience="family"]{--tablet-gutter:24px}body[data-experience="family"] .main{padding-inline:var(--tablet-gutter)}body[data-experience="family"] :where(.people-grid,.family-grid){grid-template-columns:repeat(2,minmax(0,1fr))}body[data-experience="family"] :where(button,a,summary){touch-action:manipulation}}
 @media (prefers-reduced-motion:reduce){.v20-context-bar{transition:none!important;animation:none!important}}
 
-/* Preserve the established Person navigation contract while mobile v20 layers app-style section controls above it. */
 @media (max-width:720px){
   body[data-route="person"][data-experience="family"] .person-nav[aria-hidden="true"]{
     display:flex!important;
@@ -193,7 +190,7 @@ body[data-experience="family"] .site-header-actions button{
     pointer-events:auto!important;
   }
 }
-/* v26.6 mobile route density refinement. */
+
 @media(max-width:720px){
   body[data-route="people"] .people-intro{padding:18px 14px 10px}
   body[data-route="people"] .people-grid{margin:0 10px;border-radius:20px}
