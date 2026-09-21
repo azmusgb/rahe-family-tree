@@ -455,7 +455,6 @@ th{background:#edf2ed}
 
 
 
-.experience-toggle{border-color:#9cb6aa!important;background:#edf4f0!important;color:var(--green)!important;font-weight:750}
 
 body[data-experience="family"] .edition{font-size:0}
 
@@ -888,31 +887,6 @@ body[data-route="people"][data-v158-context="family"] .v159-card-relations small
 
 body[data-route="people"][data-v158-context="family"] .v159-card-arrow{font-size:16px}
 
-.v162-family-journey{display:grid;gap:20px;}
-
-.v162-journey-head{display:flex;align-items:end;justify-content:space-between;gap:20px}
-
-.v162-journey-head h2{margin:2px 0 6px;font:600 clamp(30px,4vw,46px)/1 Georgia,"Times New Roman",serif;letter-spacing:-.025em}
-
-.v162-journey-head p{margin:0;color:var(--muted);max-width:620px}
-
-.v162-moments{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));}
-
-.v162-moment{min-width:0;}
-
-.v162-moment time{display:block;font:600 28px/1 Georgia,"Times New Roman",serif;color:var(--green)}
-
-.v162-moment span{display:block;margin-bottom:4px;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
-
-.v162-moment h3{margin:0 0 8px;font:600 17px/1.14 Georgia,"Times New Roman",serif;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
-
-.v162-moment p,.v162-moment small{margin:0;line-height:1.4}
-
-.v162-moment small{display:block;margin-top:5px}
-
-.v162-places>span{margin-right:2px;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
-
-.v162-places a{padding:7px 10px;color:var(--green);font-size:11px;font-weight:700}
 
 .v162-family-path{display:grid;gap:10px;margin:12px 0 18px;padding:16px;}
 
@@ -1336,11 +1310,6 @@ body[data-experience="family"] .section-title{align-items:flex-start;flex-direct
 
 @media(max-width:560px){.platform-actions .action{width:100%;text-align:center}}
 
-@media (min-width:721px){
-.v155-actions-popover button{width:100%;min-height:38px;border:0;border-radius:9px;background:transparent;text-align:left;padding:9px 12px;font:inherit;
-    font-size:11px;font-weight:720;cursor:pointer}
-.v155-actions-popover button:hover,.v155-actions-popover button:focus-visible{outline:none}
-}
 
 body[data-page-architecture="15.5"][data-page-layout="minimal"] .route-shell{display:block!important;margin:0 0 12px;padding:8px 10px;border-radius:14px;
   background:transparent;border-color:rgba(23,63,53,.07);box-shadow:none}
