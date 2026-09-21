@@ -530,3 +530,6 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
 }
 :where(.badge,.chip){border-radius:var(--family-radius-chip)}
 :where(.card,.panel,.source-card,.claim-card,.queue-card,.dossier-section){border-radius:var(--family-radius-card)}
+.family-home{max-width:var(--family-page-home);margin:0 auto}
+.family-home-hero{position:relative;overflow:hidden}
+.family-primary-actions{display:flex;flex-wrap:wrap}
