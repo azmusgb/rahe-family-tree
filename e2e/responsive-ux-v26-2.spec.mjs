@@ -141,9 +141,15 @@ test.describe('v26.2 tablet and desktop refinement',()=>{
       const collision=await page.evaluate(()=>{
         const mast=document.querySelector('.site-header.sidebar')?.getBoundingClientRect();
         const nav=document.querySelector('.v17-person-nav');
-        return{top:parseFloat(getComputedStyle(nav).top),mastHeight:mast?.height||0};
+        const research=document.querySelector('.v17-person-research');
+        return{
+          top:parseFloat(getComputedStyle(nav).top),
+          mastHeight:mast?.height||0,
+          researchScrollMargin:research?parseFloat(getComputedStyle(research).scrollMarginTop):0
+        };
       });
       expect(collision.top).toBeGreaterThanOrEqual(collision.mastHeight-2);
+      expect(collision.researchScrollMargin).toBeGreaterThanOrEqual(collision.mastHeight+40);
 
       await open(page,'tree');
       expect((await page.locator('.graph-shell,.tree-graph-shell').first().boundingBox())?.height||0).toBeGreaterThan(540);
