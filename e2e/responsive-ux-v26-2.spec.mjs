@@ -142,6 +142,19 @@ test.describe('v26.2 tablet and desktop refinement',()=>{
       expect(shell.scroll).toBeLessThanOrEqual(shell.client+1);
       const heights=await page.locator('.primary-nav a,.nav-menu>summary,.site-tools>summary,.v158-research-entry,.site-header-actions button').evaluateAll(nodes=>nodes.filter(node=>node.getClientRects().length).map(node=>node.getBoundingClientRect().height));
       expect(Math.min(...heights)).toBeGreaterThanOrEqual(44);
+      const utility=page.locator('.topbar');
+      if(await utility.isVisible()){
+        const geometry=await utility.evaluate(node=>{
+          const bar=node.getBoundingClientRect();
+          const targets=[...node.querySelectorAll('button,summary,a')].filter(target=>target.getClientRects().length).map(target=>target.getBoundingClientRect());
+          return{
+            height:bar.height,
+            containsTargets:targets.every(target=>target.top>=bar.top-1&&target.bottom<=bar.bottom+1)
+          };
+        });
+        expect(geometry.height).toBeGreaterThanOrEqual(58);
+        expect(geometry.containsTargets).toBe(true);
+      }
       expect(await overflow(page)).toBeLessThanOrEqual(1);
 
       await open(page,`person/${PERSON}`);
