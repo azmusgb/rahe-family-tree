@@ -13,7 +13,7 @@ html{width:100%;max-width:100%;overflow-x:hidden}
 }
 
 @media (min-width:721px){
-body[data-experience="family"] .site-header-actions button{min-height:42px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.12);border-radius:11px;background:rgba(255,255,255,.055);color:#e5eeea;padding:0 12px;font-size:11px;font-weight:700;text-decoration:none;cursor:pointer;touch-action:manipulation}
+body[data-experience="family"] .site-header-actions button{min-height:44px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.12);border-radius:11px;background:rgba(255,255,255,.055);color:#e5eeea;padding:0 12px;font-size:11px;font-weight:700;text-decoration:none;cursor:pointer;touch-action:manipulation}
 }
 
 /* ==========================================================================
@@ -79,7 +79,7 @@ body[data-experience="family"] .site-header-actions button{
   body[data-experience="family"] .site-header .brand small{display:block;margin-top:3px;font-size:7px;letter-spacing:.18em;opacity:.6}
   body[data-experience="family"] .site-header>nav,body[data-experience="family"] .site-header .edition{display:none!important}
   body[data-experience="family"] .site-header-actions{display:flex!important;margin:0}
-  body[data-experience="family"] .site-header-actions button{width:42px;height:42px;min-height:42px;padding:0;display:grid;place-items:center;border:1px solid rgba(23,63,53,.11);border-radius:50%;background:#fffdf8;color:#173f35;box-shadow:0 3px 12px rgba(18,47,39,.06)}
+  body[data-experience="family"] .site-header-actions button{width:44px;height:44px;min-height:44px;padding:0;display:grid;place-items:center;border:1px solid rgba(23,63,53,.11);border-radius:50%;background:#fffdf8;color:#173f35;box-shadow:0 3px 12px rgba(18,47,39,.06)}
   body[data-experience="family"] .site-header-actions button span:last-child{display:none}
   body[data-experience="family"] .site-header-actions button span:first-child{font-size:21px;line-height:1}
   body[data-experience="family"] .workspace{display:block;width:100%;min-width:0}
