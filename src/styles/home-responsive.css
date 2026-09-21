@@ -189,9 +189,43 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
  * Presentation-only; canonical genealogy, evidence and privacy are unchanged.
  */
 @media (max-width:720px){
-  body[data-experience="family"]{
-    padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))!important;
+  /* Home route presentation lives here, not in the mobile shell. */
+  body[data-route="dashboard"].v20-mobile-app [data-v17-native="home"]>.v17-home-hero{
+    position:relative;isolation:isolate;align-items:flex-end;margin:0;
+    overflow:hidden;
+    background:
+    radial-gradient(circle at 79% 22%,rgba(201,173,104,.30) 0 8%,transparent 8.5%),
+    radial-gradient(circle at 83% 29%,rgba(18,63,52,.10) 0 16%,transparent 16.5%),
+    linear-gradient(148deg,#fffaf0 0%,#f0e8d8 68%,#e5dac4 100%);
+    color:var(--immersive-ink);
   }
+  body[data-route="dashboard"].v20-mobile-app .v17-home-hero::before{
+    content:'ARCHIVE';position:absolute;z-index:-1;
+    font-family:var(--family-font-display);font-weight:700;
+    letter-spacing:-.08em;color:rgba(18,63,52,.055);writing-mode:vertical-rl;transform:rotate(180deg);
+  }
+  body[data-route="dashboard"].v20-mobile-app .v17-home-hero::after{
+    content:'';position:absolute;z-index:-1;
+    border:1px solid rgba(18,63,52,.13);border-radius:50%;
+    box-shadow:-42px 35px 0 -41px var(--immersive-green),-84px 70px 0 -83px var(--immersive-gold);
+  }
+  body[data-route="dashboard"].v20-mobile-app .v17-home-hero .eyebrow{color:#8d7235}
+  body[data-route="dashboard"].v20-mobile-app .v17-home-hero h1,body[data-route="dashboard"].v20-mobile-app .v17-home-hero h2{color:var(--immersive-green)}
+  body[data-route="dashboard"].v20-mobile-app .v17-home-hero>div>p:not(.eyebrow){color:#52645d}
+  body[data-route="dashboard"].v20-mobile-app #content :where(.v17-home-tree,.v17-home-story,.v17-featured-people,.v17-home-media,.v17-research-door){
+    margin:0!important;border:0!important;border-radius:0!important;
+  }
+
+  body[data-route="dashboard"].v21-actual-mobile-ui [data-v17-native="home"]>.v17-home-hero{
+    background:
+    radial-gradient(circle at 80% 20%,rgba(201,173,104,.22) 0 8%,transparent 8.5%),
+    radial-gradient(circle at 84% 29%,rgba(18,63,52,.07) 0 16%,transparent 16.5%),
+    linear-gradient(148deg,var(--actual-paper) 0%,#f0e8d8 70%,#e6dcc8 100%);
+    color:var(--actual-ink);
+  }
+  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero .eyebrow{color:var(--actual-label)!important}
+  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero h1,body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero h2{color:var(--actual-forest)!important}
+  body[data-route="dashboard"].v21-actual-mobile-ui .v17-home-hero>div>p:not(.eyebrow){color:var(--actual-muted)!important}
 
   /* Home header stays compact and consistent across Safari toolbar states. */
   body[data-route="dashboard"].v21-actual-mobile-ui{
@@ -242,11 +276,14 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
     line-height:1.48!important;
   }
   body[data-route="dashboard"] .v17-home-hero .v17-home-metrics{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
     margin-top:20px!important;
     padding-top:13px!important;
+    border-top:1px solid rgba(255,255,255,.14);
   }
-  body[data-route="dashboard"] .v17-home-metrics b{font-size:25px!important}
-  body[data-route="dashboard"] .v17-home-metrics small{font-size:9px!important;line-height:1.15!important}
+  body[data-route="dashboard"] .v17-home-metrics b{display:block;color:#fff;font-family:var(--family-font-display);font-size:25px!important}
+  body[data-route="dashboard"] .v17-home-metrics small{display:block;margin-top:2px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.08em;font-size:9px!important;line-height:1.15!important}
 
   /* Search and launcher should feel like one compact onboarding block. */
   body[data-route="dashboard"].v21-actual-mobile-ui .mobile-search{margin:12px 14px 10px}
@@ -267,10 +304,10 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
   body[data-route="dashboard"].v20-mobile-app #content :where(.v17-home-tree,.v17-home-story,.v17-featured-people,.v17-home-media,.v17-research-door),body[data-route="dashboard"].v21-actual-mobile-ui #content :where(.v17-home-tree,.v17-home-story,.v17-featured-people,.v17-home-media,.v17-research-door){
     padding:28px 16px!important;
   }
-  body[data-route="dashboard"] .v17-section-head{margin-bottom:14px!important}
+  body[data-route="dashboard"] .v17-section-head{display:block;margin-bottom:14px!important}
   body[data-route="dashboard"] .v17-section-head h2{font-size:31px!important;line-height:.96!important}
   body[data-route="dashboard"] .v17-section-head>div>p:not(.eyebrow){font-size:12.5px!important;line-height:1.42!important}
-  body[data-route="dashboard"] .v17-section-head>a{margin-top:7px!important;min-height:36px;align-items:center}
+  body[data-route="dashboard"] .v17-section-head>a{display:inline-flex;margin-top:7px!important;min-height:36px;align-items:center;font-size:11px;font-weight:780}
 
   /* Relationship preview is the centerpiece, not a tiny card floating in empty space. */
   body[data-route="dashboard"] .v17-home-tree-canvas{
@@ -278,6 +315,9 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
     margin:12px 0 0!important;
     padding:16px 10px!important;
     border-radius:20px!important;
+    background:var(--app-paper);
+    box-shadow:0 8px 28px rgba(12,39,31,.07);
+    overflow-x:auto;
   }
   body[data-experience="family"][data-route="dashboard"].v20-mobile-app .v17-home-tree-row{
     display:flex!important;
@@ -299,29 +339,27 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
   body[data-route="dashboard"] .v17-home-tree-canvas>i{height:15px!important;min-height:15px!important}
 
   /* Story cards read as editorial history, not database records. */
-  body[data-route="dashboard"] .v17-story-moments{grid-auto-columns:min(84vw,330px)!important;gap:10px!important}
+  body[data-route="dashboard"] .v17-story-moments{display:grid;grid-auto-flow:column;grid-auto-columns:min(84vw,330px)!important;gap:10px!important;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;scrollbar-width:none}
   body[data-route="dashboard"] .v17-story-moment{
     min-height:210px!important;
     padding:18px!important;
     border-radius:22px!important;
     box-shadow:0 8px 24px rgba(18,47,39,.06)!important;
+    scroll-snap-align:start;
   }
   body[data-route="dashboard"] .v17-story-moment time{font-size:25px!important}
   body[data-route="dashboard"] .v17-story-moment h3{font-size:18px!important;line-height:1.18!important;margin:6px 0 8px!important}
   body[data-route="dashboard"] .v17-story-moment p,body[data-route="dashboard"] .v17-story-moment small{font-size:11.5px!important;line-height:1.35!important}
 
   /* People discovery favors identity and relationship over dense metadata. */
-  body[data-route="dashboard"] .v17-home-people-grid{grid-auto-columns:min(78vw,300px)!important;gap:10px!important}
-  body[data-route="dashboard"] .v17-home-person{min-height:150px!important;border-radius:22px!important;box-shadow:0 8px 24px rgba(18,47,39,.06)!important}
+  body[data-route="dashboard"] .v17-home-people-grid{display:grid;grid-auto-flow:column;grid-auto-columns:min(78vw,300px)!important;gap:10px!important;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory;scrollbar-width:none}
+  body[data-route="dashboard"] .v17-home-person{min-height:150px!important;border-radius:22px!important;box-shadow:0 8px 24px rgba(18,47,39,.06)!important;scroll-snap-align:start}
   body[data-route="dashboard"] .v17-home-person>button{min-height:150px!important;padding:16px!important}
   body[data-route="dashboard"] .v17-home-person em{font-size:11px!important;line-height:1.25!important}
   body[data-route="dashboard"] .v17-home-person p{font-size:11.5px!important;line-height:1.32!important}
 
   /* Footer leaves only the space actually required by the compact dock. */
-  body[data-experience="family"] .site-footer{
-    padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))!important;
   }
-}
 
 @media (max-width:430px){
   body[data-route="dashboard"].v21-actual-mobile-ui [data-v17-native="home"]>.v17-home-hero,body[data-route="dashboard"].v20-mobile-app [data-v17-native="home"]>.v17-home-hero{padding:30px 16px 22px!important}
