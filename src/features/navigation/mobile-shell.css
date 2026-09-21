@@ -862,5 +862,4 @@ background:var(--nav-surface)!important;
   .mobile-search{margin:10px 12px 12px}
   .mobile-search label>div{border-radius:17px}
   .mobile-search input,.mobile-search button{min-height:var(--tap-target);height:var(--tap-target)}
-  .source-inspector-panel{left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));max-height:78dvh;border-radius:22px}
 }
