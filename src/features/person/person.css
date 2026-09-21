@@ -467,15 +467,4 @@ body[data-route="dashboard"] .history-highlight-grid article{min-height:160px}
   background:rgba(248,245,237,.88);
   box-shadow:0 8px 24px rgba(25,40,32,.04);}
 /* migrated from src/styles/composition.css */
-.v17-person-nav{top:48px;margin-inline:0;padding:7px 0;border:0;border-bottom:1px solid var(--family-border-hairline);border-radius:0;box-shadow:none}
-@media(min-width:721px){
-.v17-person-nav{top:var(--app-masthead-height);background:color-mix(in srgb,var(--bg) 94%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-.v17-person-section,.v173-person-story{scroll-margin-top:calc(var(--app-masthead-height) + 64px)}
-}
-@media(min-width:721px) and (max-width:1024px){
-.person-header{grid-template-columns:96px minmax(0,1fr);gap:18px}
-.person-header .v17-avatar.hero{width:96px;height:112px}
-.person-header h2{font-size:clamp(2.6rem,6vw,4.25rem)}
-.v17-person-nav{margin-inline:-4px;padding-inline:4px}
-.v17-person-nav a{min-height:44px;display:inline-flex;align-items:center}
-}
+.v17-person-nav{top:var(--app-masthead-height);margin-inline:0;padding:7px 0;border:0;border-bottom:1px solid var(--family-border-hairline);border-radius:0;box-shadow:none;background:color-mix(in srgb,var(--bg) 94%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
