@@ -22,7 +22,7 @@ const overflow=page=>page.evaluate(()=>document.documentElement.scrollWidth-docu
 test.beforeEach(async({page})=>{await mockApis(page);});
 
 test.describe('v26.2 phone refinement',()=>{
-  test.skip(({browserName},testInfo)=>testInfo.project.name!=='mobile-chromium','phone-only responsive contract');
+  test.skip(({isMobile})=>!isMobile,'phone-only responsive contract');
 
   for(const width of[375,390,430]){
     test(`People is dense, touch-safe, and contained at ${width}px`,async({page})=>{
@@ -123,7 +123,7 @@ test.describe('v26.2 phone refinement',()=>{
 });
 
 test.describe('v26.2 tablet and desktop refinement',()=>{
-  test.skip(({browserName},testInfo)=>testInfo.project.name!=='desktop-chromium','desktop/tablet contract');
+  test.skip(({isMobile})=>Boolean(isMobile),'desktop/tablet contract');
 
   for(const width of[768,1024]){
     test(`tablet shell and core routes remain usable at ${width}px`,async({page})=>{
