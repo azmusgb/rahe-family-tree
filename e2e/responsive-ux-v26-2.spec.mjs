@@ -163,6 +163,9 @@ test.describe('v26.2 tablet and desktop refinement',()=>{
 
       await open(page,'tree');
       expect((await page.locator('.graph-shell,.tree-graph-shell').first().boundingBox())?.height||0).toBeGreaterThan(540);
+      const treeControlHeights=await page.locator('.tree-controls button,.tree-controls select,.v161-tree-tool-actions button,.graph-toolbar button,.tree-advanced-actions button,.tree-path-tools button,.tree-path-tools select').evaluateAll(nodes=>nodes.filter(node=>node.getClientRects().length).map(node=>node.getBoundingClientRect().height));
+      expect(treeControlHeights.length).toBeGreaterThan(0);
+      expect(Math.min(...treeControlHeights)).toBeGreaterThanOrEqual(44);
       expect(await overflow(page)).toBeLessThanOrEqual(1);
     });
   }
