@@ -25,9 +25,6 @@
 
 
 ::selection{background:#dce9e1;color:#123f34}
-a{color:var(--green);text-decoration-thickness:1px}
-button,input,select,textarea{font-family:var(--family-font-ui)}
-button,input,select,textarea{border-radius:var(--family-radius-control)}
 
 :where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{
   outline:3px solid #cba15c;
@@ -61,18 +58,6 @@ button,input,select,textarea{border-radius:var(--family-radius-control)}
   color:var(--muted-strong);
   font-size:.96rem;
   line-height:1.62;
-}
-.eyebrow{
-  margin-bottom:10px;
-  
-  
-  
-  
-}
-.version{
-  background:rgba(255,253,248,.66);
-  border-color:var(--line);
-  color:var(--muted);
 }
 
 .filters{
@@ -128,7 +113,6 @@ button,input,select,textarea{border-radius:var(--family-radius-control)}
   background:#fff;
   box-shadow:0 0 0 4px rgba(18,63,52,.07);
 }
-#status{font-size:.76rem}
 
 /* Shared cards and sections */
 :where(.person-card,.source-card,.claim-card,.queue-card,.dossier-section,.family-overview-card,.v17-person-card>button,.v17-relative,.v17-family-summary,.tree-context,.v174-profile-snapshot,.graph-panel,.media-library-card,.dashboard-person){
