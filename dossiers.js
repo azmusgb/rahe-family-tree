@@ -184,7 +184,7 @@ function renderC001SourceInspector(s){
           <small><b>Directly supports:</b> <span data-active-field-supports>${esc(c001Fields[0].supports)}</span><br><b>Does not establish:</b> <span data-active-field-notsupports>${esc(c001Fields[0].notSupports)}</span></small>
         </section>
         <div id="source-panel-summary" role="tabpanel" aria-labelledby="source-tab-summary">
-          ${claim1?`<article class="claim-card state-supported"><div class="claim-top"><code>${esc(claim1.id)}</code>${stateBadges(claim1.state)}</div><h3>${esc(claim1.claim)}</h3><p><b>Next action:</b> ${esc(claim1.nextAction)}</p></article>`:''}
+          ${claim1?`<article class="claim-card"><div class="claim-top"><code>${esc(claim1.id)}</code>${stateBadges(claim1.state)}</div><h3>${esc(claim1.claim)}</h3><p><b>Next action:</b> ${esc(claim1.nextAction)}</p></article>`:''}
           ${claim2?`<article class="claim-card state-unresolved"><div class="claim-top"><code>${esc(claim2.id)}</code>${stateBadges(claim2.state)}</div><h3>${esc(claim2.claim)}</h3><p>C001 does not establish this identity bridge or the mechanism of the name transition.</p></article>`:''}
           <div class="section-title"><h3>Top 3 critical targets</h3><a href="#research">Full queue ↗</a></div><div class="stack">${tasks.map(taskCard).join('')}</div>
         </div>
