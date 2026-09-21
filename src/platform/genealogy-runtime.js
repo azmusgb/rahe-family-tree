@@ -33,7 +33,7 @@ export function enhancePlatformRoute(){
   if(route==='timeline')append(content,'timeline-geography-households',renderGeographyHouseholds());
   if(route==='families')append(content,'family-households',renderGeographyHouseholds());
   if(route==='person'&&id){const hero=content.querySelector('.person-hero');addAfter(hero,'person-graph-context',renderPersonPlatformPanel(id));}
-  if(route==='source'&&id&&id!=='C001')append(content,'source-evidence-matrix',renderSourceEvidenceMatrix(id));
+  if(route==='source'&&id)append(content,'source-evidence-matrix',renderSourceEvidenceMatrix(id));
 }
 
 if(!installed){
