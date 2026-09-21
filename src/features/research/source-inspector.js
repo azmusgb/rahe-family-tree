@@ -7,7 +7,7 @@ function init(){
   if(!root||root===boundRoot)return;boundRoot=root;
   const panel=root.querySelector('[data-source-inspector-panel]'),open=root.querySelector('[data-source-inspector-open]'),close=root.querySelector('[data-source-inspector-close]'),backdrop=root.querySelector('[data-source-inspector-backdrop]');
   panel.id='source-inspector-panel-mobile';
-  const fields=[...root.querySelectorAll('[data-source-field]')],announcer=document.querySelector('#status');
+  const fields=[...root.querySelectorAll('[data-source-field]')],announcer=root.querySelector('[data-source-announcer]');
   const setField=button=>{
     const key=button.dataset.sourceField;
     fields.forEach(el=>el.setAttribute('aria-pressed',el.dataset.sourceField===key?'true':'false'));
