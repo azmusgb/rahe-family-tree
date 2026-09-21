@@ -43,7 +43,7 @@ body[data-experience="family"] .site-header-actions{margin-left:auto}
 }
 @media (min-width:721px){
 body[data-experience="family"] .site-header-actions button{
-    min-height:40px;
+    min-height:44px;
     padding-inline:13px;
     border-color:rgba(255,255,255,.20);
     background:rgba(255,255,255,.065);
