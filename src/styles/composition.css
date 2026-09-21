@@ -514,3 +514,20 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   .v17-primary-actions{grid-template-columns:1fr}
   .v17-primary-actions .action:first-child{grid-column:auto}
 }
+/* v26.6 composition refinement: route rhythm, desktop/tablet density, shared surfaces. */
+@media(min-width:1181px){
+  .main{padding:30px 32px 64px}
+  .page-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:20px;max-width:none;margin-bottom:22px}
+  .page-heading h1{font-size:clamp(2.35rem,3.55vw,3.9rem)}
+  .page-heading>div>p:last-child,.page-heading>p:last-child{max-width:58ch;line-height:1.55}
+  .topbar{min-height:var(--app-utility-height)}
+  .topbar-actions{gap:7px}
+}
+@media(min-width:721px) and (max-width:1180px){
+  .main{padding:24px 22px 58px}
+  .page-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:14px;margin-bottom:18px}
+  .page-heading h1{font-size:clamp(2.15rem,4.8vw,3.25rem)}
+  .page-heading>div>p:last-child,.page-heading>p:last-child{max-width:54ch;line-height:1.52}
+}
+:where(.badge,.chip){border-radius:var(--family-radius-chip)}
+:where(.card,.panel,.source-card,.claim-card,.queue-card,.dossier-section){border-radius:var(--family-radius-card)}
