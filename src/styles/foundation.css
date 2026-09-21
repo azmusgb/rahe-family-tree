@@ -1369,7 +1369,7 @@ body[data-v158-context="family"][data-route="media"] .route-shell .filters>label
 
 body[data-v158-context="family"][data-route="media"] .route-shell .filters .search{display:block!important}
 
-body[data-v158-context="family"][data-route="media"] .route-shell .filters .search input{min-height:var(--family-control-min)!important}
+body[data-v158-context="family"][data-route="media"] .route-shell .filters .search input{min-height:var(--control-min)!important}
 
 @media (max-width:720px){
 .mobile-more a,.mobile-more button{display:block;width:100%;min-height:40px;padding:10px;border:0;border-radius:8px;background:transparent;color:var(--text);text-align:left;text-decoration:none;font:inherit;font-size:12px;font-weight:700}
