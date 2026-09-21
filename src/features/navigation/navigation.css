@@ -179,7 +179,7 @@ body[data-experience="family"] .topbar-more summary{min-height:40px}
 .primary-nav{display:flex;align-items:center;gap:4px;min-width:0}
 .primary-nav a,.nav-menu summary{
     position:relative;
-    min-height:var(--family-control-min);
+    min-height:var(--control-min);
     display:flex;
     align-items:center;
     justify-content:center;
