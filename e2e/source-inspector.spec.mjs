@@ -27,8 +27,8 @@ test.describe('C001 source evidence inspector',()=>{
     const matrix=page.locator('[data-platform-v13="source-evidence-matrix"]');
     await expect(matrix).toBeVisible();
     await expect(matrix.getByRole('heading',{name:'What this source is actually being used for'})).toBeVisible();
-    await expect(matrix.locator('.section-title span')).toContainText('4 relationships');
-    await expect(matrix.locator('.matrix-relations article')).toHaveCount(4);
+    await expect(matrix.locator('.section-title span')).toContainText('5 relationships');
+    await expect(matrix.locator('.matrix-relations article')).toHaveCount(5);
     await expect(matrix).toContainText('identity-bridge');
   });
 
