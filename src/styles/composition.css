@@ -520,7 +520,6 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   .page-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:20px;max-width:none;margin-bottom:22px}
   .page-heading h1{font-size:clamp(2.35rem,3.55vw,3.9rem)}
   .page-heading>div>p:last-child,.page-heading>p:last-child{max-width:58ch;line-height:1.55}
-  .topbar{min-height:var(--app-utility-height)}
   .topbar-actions{gap:7px}
 }
 @media(min-width:721px) and (max-width:1180px){
