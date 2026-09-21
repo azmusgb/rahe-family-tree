@@ -479,19 +479,19 @@ body[data-route="tree"][data-nav-context="family"] .tree-person-relations b{font
 body[data-route="tree"][data-nav-context="family"] .tree-person-relations small{font-size:7px}
 body[data-route="tree"][data-nav-context="family"] .tree-person-actions{grid-column:1/-1;display:flex;margin-top:0}
 body[data-route="tree"][data-nav-context="family"] .tree-person-actions button[data-tree-scope]{display:none}
-body[data-route="tree"][data-nav-context="family"] .tree-person-actions .action{min-height:34px;width:auto;padding:0 10px;font-size:9px}
+body[data-route="tree"][data-nav-context="family"] .tree-person-actions .action{min-height:44px;width:auto;padding:0 10px;font-size:10px}
 body[data-route="tree"][data-nav-context="family"] [data-v161-tree-controls]{margin:0 0 6px;padding:8px;border-radius:12px}
 body[data-route="tree"][data-nav-context="family"] [data-v161-tree-controls] label{font-size:9px}
-body[data-route="tree"][data-nav-context="family"] [data-v161-tree-controls] select{min-height:36px}
-body[data-route="tree"][data-nav-context="family"] [data-v161-tree-controls] button{min-height:34px;padding-inline:9px}
+body[data-route="tree"][data-nav-context="family"] [data-v161-tree-controls] select{min-height:44px}
+body[data-route="tree"][data-nav-context="family"] [data-v161-tree-controls] button{min-height:44px;padding-inline:10px}
 body[data-route="tree"][data-nav-context="family"] .v161-tree-toolbar{margin:4px 0 6px;padding:8px 10px}
 body[data-route="tree"][data-nav-context="family"] .v161-tree-focus{display:none}
-body[data-route="tree"][data-nav-context="family"] .v161-tree-tool-actions{width:100%;display:grid;grid-template-columns:64px minmax(0,1fr) 64px}
+body[data-route="tree"][data-nav-context="family"] .v161-tree-tool-actions{width:100%;display:grid;grid-template-columns:72px minmax(0,1fr) 72px}
 body[data-route="tree"][data-nav-context="family"] .v161-tree-tool-actions button{width:100%}
-body[data-route="tree"][data-nav-context="family"] .graph-shell{min-height:62dvh;border-radius:14px}
-body[data-route="tree"][data-nav-context="family"] .graph-stage,body[data-route="tree"][data-nav-context="family"] .graph-scroll{min-height:58dvh}
+body[data-route="tree"][data-nav-context="family"] .graph-shell{min-height:max(500px,calc(100svh - 172px));border-radius:14px}
+body[data-route="tree"][data-nav-context="family"] .graph-stage,body[data-route="tree"][data-nav-context="family"] .graph-scroll{min-height:max(456px,calc(100svh - 222px))}
 body[data-route="tree"][data-nav-context="family"] .graph-toolbar{padding:6px;gap:4px}
-body[data-route="tree"][data-nav-context="family"] .graph-toolbar button{min-height:34px;min-width:34px}
+body[data-route="tree"][data-nav-context="family"] .graph-toolbar button{min-height:44px;min-width:44px}
 body[data-route="tree"][data-nav-context="family"] .tree-help{font-size:11px}
 }
 
