@@ -1,28 +1,15 @@
 
 /* v24.7A canonical ownership — earlier-cascade declarations. */
-/* migrated from src/styles/foundation.css */
 .main{max-width:1480px;margin:auto;padding:34px 38px 72px;min-height:80vh}
-/* migrated from src/styles/foundation.css */
 .main{max-width:1360px}
-/* migrated from src/styles/foundation.css */
-
-/* migrated from src/styles/foundation.css */
 .main{max-width:var(--content-max);}
-/* migrated from src/styles/foundation.css */
 .main{width:min(100%,var(--content-max));margin:0 auto;color:var(--text)}
-/* migrated from src/styles/foundation.css */
 .v17-primary-actions{display:flex;flex-wrap:wrap;}
-/* migrated from src/styles/foundation.css */
 .filters{display:grid;grid-template-columns:minmax(280px,1fr) 190px 170px auto;align-items:end;border:1px solid var(--line);margin:24px 0 12px;}
-/* migrated from src/styles/foundation.css */
 .filters{border-color:var(--line)!important;background:rgba(255,255,255,.92)!important}
-/* migrated from src/features/navigation/navigation.css */
 .v17-home-hero{position:relative;overflow:hidden;padding:clamp(34px,5vw,68px);}
-/* migrated from src/features/person/person.css */
 .page-heading h1{font:44px/1.05 Georgia,serif}
-/* migrated from src/features/research/research.css */
 .page-heading h1{font-weight:600!important}
-
 
 ::selection{background:#dce9e1;color:#123f34}
 
@@ -115,18 +102,18 @@
 }
 
 /* Shared cards and sections */
-:where(.person-card,.source-card,.claim-card,.queue-card,.dossier-section,.family-overview-card,.v17-person-card>button,.v17-relative,.v17-family-summary,.tree-context,.v174-profile-snapshot,.graph-panel,.media-library-card,.dashboard-person){
+:where(.person-card,.source-card,.claim-card,.queue-card,.dossier-section,.family-overview-card,.directory-person-card>button,.v17-relative,.v17-family-summary,.tree-context,.v174-profile-snapshot,.graph-panel,.media-library-card,.dashboard-person){
   border-color:var(--line);
   background:rgba(255,253,248,.92);
   box-shadow:var(--family-shadow-card);
 }
-:where(.person-card,.source-card,.v17-person-card>button,.v17-relative,.media-library-card,.dashboard-person){
+:where(.person-card,.source-card,.directory-person-card>button,.v17-relative,.media-library-card,.dashboard-person){
   transition:
     transform var(--family-motion-normal,220ms) ease,
     border-color var(--family-motion-normal,220ms) ease,
     box-shadow var(--family-motion-normal,220ms) ease;
 }
-:where(.person-card,.source-card,.v17-person-card>button,.v17-relative,.media-library-card,.dashboard-person):where(:hover,:focus-within){
+:where(.person-card,.source-card,.directory-person-card>button,.v17-relative,.media-library-card,.dashboard-person):where(:hover,:focus-within){
   transform:translateY(-2px);
   border-color:#b9c3b8;
   border-color:color-mix(in srgb,var(--green) 24%,var(--line));
@@ -146,10 +133,10 @@
 :where(.panel,.family-overview-card,.v17-family-summary,.v174-profile-snapshot,.graph-panel,.dossier-section){
   box-shadow:none;
 }
-:where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.v17-person-card>button,.v17-relative){
+:where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.directory-person-card>button,.v17-relative){
   box-shadow:var(--family-shadow-card);
 }
-:where(.person-card,.source-card,.v17-person-card>button,.v17-relative,.media-library-card,.dashboard-person):where(:hover,:focus-within){
+:where(.person-card,.source-card,.directory-person-card>button,.v17-relative,.media-library-card,.dashboard-person):where(:hover,:focus-within){
   transform:none;
   box-shadow:var(--family-shadow-card-hover);
 }
@@ -162,9 +149,6 @@
   min-height:var(--control-min);
 }
 
-/* ==========================================================================
-   Source: shell-composition.css
-   ========================================================================== */
 /* Final shell composition for masthead, workspace, and footer. Presentation-only. */
 
 /* App shell */
@@ -187,7 +171,6 @@
 .workspace{background:transparent}
 .site-breadcrumb{color:var(--muted)}
 .site-breadcrumb a{font-weight:720;text-decoration:none}
-
 
 .main{
   width:min(100%,var(--content-max));
@@ -326,13 +309,9 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 }
 
 @media(max-width:720px){
-  body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.dashboard-hero){}
   body[data-experience="family"][data-route="dashboard"] :is(.v17-home-hero,.dashboard-hero)::after,body[data-experience="family"][data-route="dashboard"] .dashboard-hero::before{inset:auto -38% -28% 35%;width:88%}
 }
 
-/* ==========================================================================
-   Source: person-composition.css
-   ========================================================================== */
 /* Final Person composition. Presentation-only. */
 
 .person-header h2,.media-library-title h2{
@@ -344,37 +323,29 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
   padding-block:24px 36px;
 }
 .person-header h2{font-size:clamp(3rem,6.5vw,5.8rem)}
-.v17-person-nav a.is-active{background:var(--green);box-shadow:none}
+.person-nav a.is-active{background:var(--green);box-shadow:none}
 
 /* Person: biography first, less application chrome. */
 .person-header{gap:24px;padding-block:18px 28px}
 .person-header h2{font-size:clamp(2.7rem,5.2vw,4.8rem);line-height:.98}
 .v17-life-event>div{background:transparent;border:0;border-radius:0;padding:0}
 
-/* ==========================================================================
-   Source: people-composition.css
-   ========================================================================== */
 /* Final People-directory composition. Presentation-only. */
 
 /* People directory */
-.v17-people-grid{gap:12px}
-.v17-person-card>button{
+.directory-person-card>button{
   border-radius:17px;
   background:#fffdf8;
 }
-.v17-person-card .v17-avatar{
+.directory-person-card .v17-avatar{
   border-radius:16px;
   background:linear-gradient(145deg,#17483c,#102f27);
 }
 
 /* People: compact directory cards with less chrome. */
-.v17-people-grid{gap:10px}
-.v17-person-card>button{border-radius:14px;box-shadow:none}
-.v17-person-card>button:hover,.v17-person-card>button:focus-visible{box-shadow:var(--family-shadow-card)}
+.directory-person-card>button{border-radius:14px;box-shadow:none}
+.directory-person-card>button:hover,.directory-person-card>button:focus-visible{box-shadow:var(--family-shadow-card)}
 
-/* ==========================================================================
-   Source: tree-composition.css
-   ========================================================================== */
 /* Final Tree composition. Evidence-state semantics remain authoritative. */
 
 /* Tree: editorial workspace without flattening canonical state distinctions. */
@@ -432,9 +403,6 @@ body[data-route="tree"][data-v158-context="family"] .graph-scroll{background:#fa
 body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar,
 body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{background:transparent!important}
 
-/* ==========================================================================
-   Source: responsive-composition.css
-   ========================================================================== */
 /* Final responsive composition for cross-route layout safeguards. Presentation-only. */
 
 /* Mobile */
@@ -472,7 +440,7 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   .v174-discovery-grid>button{min-height:104px;padding:14px}
   .person-header{gap:16px;padding-block:10px 24px}
   .person-header h2{font-size:clamp(2.45rem,13vw,4rem)}
-  .v17-person-nav{top:7px;margin-inline:-2px}
+  .person-nav{top:7px;margin-inline:-2px}
 }
 
 @media(max-width:430px){
@@ -512,7 +480,7 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
 
   .person-header{grid-template-columns:72px minmax(0,1fr);gap:14px;padding-block:8px 22px}
   .person-header h2{font-size:clamp(2.2rem,10vw,3.1rem);letter-spacing:-.04em}
-  .v17-person-nav{position:sticky;top:0;margin:0 -14px 10px;padding:7px 14px;background:rgba(244,241,233,.96)}
+  .person-nav{position:sticky;top:0;margin:0 -14px 10px;padding:7px 14px;background:rgba(244,241,233,.96)}
 
   /* Replace the 2-column profile tab matrix with a predictable swipe row. */
   body[data-route="person"] .v1510-profile-tabs{
@@ -536,7 +504,7 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   body[data-route="tree"][data-v158-context="family"] .graph-stage,
   body[data-route="tree"][data-v158-context="family"] .graph-scroll{min-height:56dvh!important}
 
-  :where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.v17-person-card>button,.v17-relative){box-shadow:none}
+  :where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.directory-person-card>button,.v17-relative){box-shadow:none}
 }
 
 @media(max-width:430px){
@@ -544,3 +512,21 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   .v17-primary-actions{grid-template-columns:1fr}
   .v17-primary-actions .action:first-child{grid-column:auto}
 }
+/* v26.6 composition refinement: route rhythm, desktop/tablet density, shared surfaces. */
+@media(min-width:1181px){
+  .main{padding:30px 32px 64px}
+  .page-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:20px;max-width:none;margin-bottom:22px}
+  .page-heading h1{font-size:clamp(2.35rem,3.55vw,3.9rem)}
+  .page-heading>div>p:last-child,.page-heading>p:last-child{max-width:58ch;line-height:1.55}
+}
+@media(min-width:721px) and (max-width:1180px){
+  .main{padding:24px 22px 58px}
+  .page-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:14px;margin-bottom:18px}
+  .page-heading h1{font-size:clamp(2.15rem,4.8vw,3.25rem)}
+  .page-heading>div>p:last-child,.page-heading>p:last-child{max-width:54ch;line-height:1.52}
+}
+:where(.badge,.chip){border-radius:var(--family-radius-chip)}
+:where(.card,.panel,.source-card,.claim-card,.queue-card,.dossier-section){border-radius:var(--family-radius-card)}
+.family-home{max-width:var(--family-page-home);margin:0 auto}
+.family-home-hero{position:relative;overflow:hidden}
+.family-primary-actions{display:flex;flex-wrap:wrap}

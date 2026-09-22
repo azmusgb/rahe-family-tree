@@ -31,8 +31,6 @@
 
 .graph-node.state-provisional rect{stroke-dasharray:6 4}
 
-
-
 .node-name{font:600 13px Georgia,serif;fill:#21352f}
 
 .relationship-row{border-top:1px solid var(--line)}
@@ -112,8 +110,6 @@
 
 .tree-depth>span{color:var(--muted);font-weight:700;margin-right:2px}
 
-
-
 .graph-node .node-avatar{fill:#eef4f1;stroke:#cadbd4;stroke-width:1.5}
 
 .graph-node.focused .node-avatar{fill:#dfeee8}
@@ -137,8 +133,6 @@
 @media(max-width:860px){.tree-mode-buttons{justify-content:flex-start}}
 
 @media(max-width:720px){.graph-shell{display:none}}
-
-
 
 .tree-mode-buttons button,.tree-depth button{font-size:12px;padding:9px 13px}
 
@@ -574,12 +568,23 @@ body[data-route="tree"][data-v158-context="family"] .node-initials.v172-has-phot
 body.tree-compact .graph-shell .legend{display:none}body.tree-compact #family-graph .node-state,body.tree-compact #family-graph .node-branch{display:none}body.tree-compact .graph-toolbar{gap:5px}body.tree-compact .graph-toolbar button{min-height:var(--control-min);padding:5px 8px}body.tree-compact .tree-advanced-nav{padding:10px 12px;gap:8px}body.tree-compact .tree-recent-trail{display:none}
 @media(max-width:760px){.tree-advanced-nav{border-radius:12px;margin-bottom:10px}.tree-advanced-primary{display:grid;align-items:stretch}.tree-advanced-primary label{min-width:0}.tree-advanced-actions{display:grid;grid-template-columns:1fr 1fr}.tree-advanced-actions button:last-child{grid-column:1/-1}.tree-focus-breadcrumb{font-size:.76rem}.tree-path-tools{width:100%}.tree-path-tools label{width:100%;display:grid;grid-template-columns:auto 1fr}.tree-path-tools select{max-width:none;width:100%}.tree-advanced-export{width:100%}.tree-advanced-export button{flex:1}.tree-path-summary{font-size:.76rem}.graph-scroll{overscroll-behavior:contain;scroll-snap-type:x proximity}.graph-node{scroll-snap-align:center}}
 
-
 /* v24.7A canonical ownership — later-cascade declarations. */
-/* migrated from src/features/research/research.css */
 .graph-shell{box-shadow:var(--shadow-sm)!important}
-/* migrated from src/styles/composition.css */
 .graph-shell{overflow:hidden;
   border-radius:24px;}
-/* migrated from src/styles/composition.css */
 .graph-shell{border-radius:18px}
+/* v26.6 Tree workspace refinement. */
+@media(min-width:1181px){
+  body[data-route="tree"] .tree-context{padding:12px 14px;margin-bottom:8px}
+  body[data-route="tree"] .tree-controls{margin-bottom:8px;padding:9px 10px}
+  body[data-route="tree"] .graph-shell{min-height:calc(100dvh - 176px)}
+  body[data-route="tree"] .graph-scroll,body[data-route="tree"] .graph-stage{min-height:calc(100dvh - 230px)}
+  body[data-route="tree"] .graph-toolbar{padding:6px 8px;gap:5px}
+}
+@media(min-width:721px) and (max-width:1180px){
+  body[data-route="tree"] .tree-context{padding:12px 14px}
+  body[data-route="tree"] .tree-controls{display:flex;gap:8px;overflow-x:auto;flex-wrap:nowrap;padding:9px 10px}
+  body[data-route="tree"] .tree-controls>*{flex:0 0 auto}
+  body[data-route="tree"] .graph-shell{min-height:calc(100dvh - 188px)}
+  body[data-route="tree"] .graph-scroll,body[data-route="tree"] .graph-stage{min-height:calc(100dvh - 245px)}
+}
