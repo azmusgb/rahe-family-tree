@@ -38,8 +38,8 @@ test.describe('v26.6 desktop visual composition',()=>{
         expect(await noOverflow(page),`${route} should not overflow horizontally`).toBe(true);
         const box=await page.locator('#main').boundingBox();
         expect(box).not.toBeNull();
-        expect(box.left).toBeGreaterThanOrEqual(-1);
-        expect(box.right).toBeLessThanOrEqual(width+1);
+        expect(box.x).toBeGreaterThanOrEqual(-1);
+        expect(box.x+box.width).toBeLessThanOrEqual(width+1);
       }
     });
   }
