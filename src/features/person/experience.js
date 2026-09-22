@@ -58,7 +58,7 @@ function addStoryNav(root){
 function enhance(){
   if(!isFamily())return;
   const id=routePersonId();if(!id)return;
-  const root=document.querySelector(`.v17-person[data-person-id="${cssEscape(id)}"]`),person=personById(id);
+  const root=document.querySelector(`.person-profile[data-person-id="${cssEscape(id)}"]`),person=personById(id);
   if(!root||!person||root.dataset.v173Person==='ready')return;
   root.dataset.v173Person='ready';
   const nav=addStoryNav(root),story=document.createElement('div');story.innerHTML=storyMarkup(person);const section=story.firstElementChild;
