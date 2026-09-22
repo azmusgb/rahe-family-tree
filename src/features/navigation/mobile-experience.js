@@ -31,7 +31,7 @@ function rememberById(list,item,max){return[item,...list.filter(existing=>existi
 function routeTitle(){
   const route=routeKey();
   if(route==='person')return safeText(document.querySelector('.person-header h2')?.textContent)||'Person';
-  if(route==='branch')return safeText(document.querySelector('.v175-branch-hero h1')?.textContent)||decodeURIComponent(routeDetail()||'Family');
+  if(route==='branch')return safeText(document.querySelector('.branch-hero h1')?.textContent)||decodeURIComponent(routeDetail()||'Family');
   const titles={tree:'Family Tree',people:'People',families:'Families',media:'Photos & Documents',stories:'Stories',timeline:'Timeline',migration:'Places',research:'Research Center',evidence:'Evidence',sources:'Sources',intelligence:'Research'};
   return titles[route]||safeText(document.getElementById('title')?.textContent)||'Family History';
 }
@@ -73,9 +73,9 @@ function rememberCurrentContext(){
     const item={id:person.dataset.personId,name:safeText(person.querySelector('.person-header h2')?.textContent)||'Family member',branch:safeText(person.querySelector('.person-header .eyebrow')?.textContent).replace(/\s+FAMILY$/i,''),dates:safeText(person.querySelector('.person-dates')?.textContent),savedAt:Date.now()};
     updateState(state=>{state.recentPeople=rememberById(state.recentPeople,item,MAX_RECENT_PEOPLE);return state;});
   }
-  const branch=document.querySelector('.v175-branch[data-v17-native^="branch:"]');
+  const branch=document.querySelector('.branch-view[data-v17-native^="branch:"]');
   if(route==='branch'&&branch){
-    const name=safeText(branch.querySelector('.v175-branch-hero h1')?.textContent).replace(/\s+family$/i,'')||decodeURIComponent(routeDetail()||'Family');
+    const name=safeText(branch.querySelector('.branch-hero h1')?.textContent).replace(/\s+family$/i,'')||decodeURIComponent(routeDetail()||'Family');
     const item={id:name,name,savedAt:Date.now()};
     updateState(state=>{state.recentFamilies=rememberById(state.recentFamilies,item,MAX_RECENT_FAMILIES);return state;});
   }
@@ -93,7 +93,7 @@ function injectRecentRail(root,where='afterbegin'){
   section.setAttribute('aria-label','Recently viewed family members');
   section.innerHTML=`<div class="v20-section-title"><div><span>Continue exploring</span><h2>Recently viewed</h2></div><a href="#people">All people</a></div><div class="v20-recent-scroller">${recent.slice(0,6).map(recentPersonCard).join('')}</div>`;
   if(where==='afterhero'){
-    const anchor=root.querySelector('.v20-continue-card')||root.querySelector('.v17-home-hero');
+    const anchor=root.querySelector('.v20-continue-card')||root.querySelector('.family-home-hero');
     anchor?.insertAdjacentElement('afterend',section);
   }else root.insertAdjacentElement(where,section);
 }
@@ -111,7 +111,7 @@ function injectContinueCard(){
   card.className='v20-continue-card';
   card.setAttribute('aria-label','Continue family exploration');
   card.innerHTML=`<div><span>CONTINUE EXPLORING</span><h2>${escapeHtml(title)}</h2><p>${escapeHtml(detail)}</p></div><a href="${href}">Resume <span aria-hidden="true">→</span></a>`;
-  home.querySelector('.v17-home-hero')?.insertAdjacentElement('afterend',card);
+  home.querySelector('.family-home-hero')?.insertAdjacentElement('afterend',card);
 }
 function enhanceHome(){
   const home=document.querySelector('[data-v17-native="home"]');
@@ -138,7 +138,7 @@ function activatePersonSection(root,target,{scroll=false}={}){
   if(panel)panel.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
 }
 function cleanupPersonMobile(root){
-  root.querySelector('.v17-person-nav')?.removeAttribute('aria-hidden');
+  root.querySelector('.person-nav')?.removeAttribute('aria-hidden');
   root.querySelector('.v20-person-tabs')?.remove();
   root.querySelector('.v20-person-story')?.remove();
   root.querySelectorAll('[data-v20-person-panel]').forEach(panel=>{
@@ -193,7 +193,7 @@ function enhancePerson(){
       activatePersonSection(root,buttons[next].dataset.personTab,{scroll:true});
     });
   }
-  root.querySelector('.v17-person-nav')?.setAttribute('aria-hidden','true');
+  root.querySelector('.person-nav')?.setAttribute('aria-hidden','true');
   activatePersonSection(root,root.dataset.v20ActiveTab||'story',{scroll:false});
 }
 
@@ -201,19 +201,19 @@ function enhancePeople(){
   const root=document.querySelector('[data-v17-native="people"]');
   if(!root||!isMobile())return;
   injectRecentRail(root,'afterbegin');
-  root.querySelector('.v17-people-grid')?.setAttribute('role','list');
-  root.querySelectorAll('.v17-person-card').forEach(card=>card.setAttribute('role','listitem'));
+  root.querySelector('.people-grid')?.setAttribute('role','list');
+  root.querySelectorAll('.directory-person-card').forEach(card=>card.setAttribute('role','listitem'));
 }
 function enhanceFamilies(){
   const root=document.querySelector('[data-v17-native="families"]');
   if(!root||!isMobile())return;
-  root.querySelector('.v175-family-grid')?.setAttribute('data-mobile-family-browser','true');
+  root.querySelector('.family-grid')?.setAttribute('data-mobile-family-browser','true');
 }
 function enhanceBranch(){
   const root=document.querySelector('[data-v17-native^="branch:"]');
   if(!root||!isMobile())return;
-  root.querySelector('.v175-branch-people')?.setAttribute('data-mobile-rail','people');
-  root.querySelector('.v175-branch-timeline')?.setAttribute('data-mobile-timeline','true');
+  root.querySelector('.branch-people')?.setAttribute('data-mobile-rail','people');
+  root.querySelector('.branch-timeline')?.setAttribute('data-mobile-timeline','true');
 }
 
 function compactTreeSurface(){
