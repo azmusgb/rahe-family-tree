@@ -172,11 +172,11 @@ test.describe('v26.6 mobile visual composition',()=>{
     await openButton.click();
     const panel=page.locator('[data-source-inspector-panel]');
     await expect(panel).toHaveAttribute('aria-modal','true');
-    const rect=await panel.boundingBox();
-    expect(rect).not.toBeNull();
+    const rect=await panel.evaluate(node=>{const r=node.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height,viewportWidth:innerWidth,viewportHeight:innerHeight};});
     expect(rect.x).toBeGreaterThanOrEqual(0);
-    expect(rect.x+rect.width).toBeLessThanOrEqual(390);
-    expect(rect.y+rect.height).toBeLessThanOrEqual(844);
+    expect(rect.x+rect.width).toBeLessThanOrEqual(rect.viewportWidth);
+    expect(rect.y).toBeGreaterThanOrEqual(0);
+    expect(rect.y+rect.height).toBeLessThanOrEqual(rect.viewportHeight);
     const targets=await visibleRects(panel.locator('button,[href],input,select'));
     expect(targets.length).toBeGreaterThan(0);
     expect(Math.min(...targets.map(r=>r.height))).toBeGreaterThanOrEqual(44);
