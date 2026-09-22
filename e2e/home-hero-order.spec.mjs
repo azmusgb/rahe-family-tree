@@ -8,7 +8,7 @@ async function mockApis(page) {
 
 async function expectHeroBeforeSearch(page) {
   const result = await page.evaluate(() => {
-    const hero = document.querySelector('[data-v17-native="home"] .v17-home-hero, #content .v17-home-hero');
+    const hero = document.querySelector('[data-v17-native="home"] .family-home-hero, #content .family-home-hero');
     const search = document.querySelector('.route-shell');
     if (!hero || !search) return { ok: false, hero: Boolean(hero), search: Boolean(search) };
     return {
