@@ -4,7 +4,7 @@ const setText=(root,selector,value)=>{const node=root.querySelector(selector);if
 const keepFirst=(root,selector,count=1)=>{[...root.querySelectorAll(selector)].slice(count).forEach(node=>node.remove());};
 
 function normalizeCompactHome(root){
-  if(!root?.matches?.('.v17-home.home-editorial-layout'))return;
+  if(!root?.matches?.('.family-home.home-editorial-layout'))return;
   root.querySelectorAll('.v172-home-branches,.v174-discovery').forEach(node=>node.remove());
   const tree=root.querySelector('.v17-home-tree');
   if(tree){tree.classList.add('home-editorial-lead');setText(tree,'.eyebrow','EXPLORE THE FAMILY');setText(tree,'h2','See how the family connects.');tree.querySelector('.v17-section-head>div>p:not(.eyebrow)')?.remove();}
@@ -19,23 +19,23 @@ function normalizeCompactHome(root){
 let compactQueued=false;
 function scheduleCompactHome(){
   if(compactQueued)return;compactQueued=true;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{compactQueued=false;normalizeCompactHome(document.querySelector('#content .v17-home.home-editorial-layout'));}));
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{compactQueued=false;normalizeCompactHome(document.querySelector('#content .family-home.home-editorial-layout'));}));
 }
 
 export function renderEditorialHome(){
   const template=document.createElement('template');
   template.innerHTML=renderNativeHome();
-  const root=template.content.querySelector('.v17-home');
+  const root=template.content.querySelector('.family-home');
   if(!root)return renderNativeHome();
   root.classList.add('home-editorial-layout');
 
-  const hero=root.querySelector('.v17-home-hero');
+  const hero=root.querySelector('.family-home-hero');
   if(hero){
     hero.classList.add('home-editorial-cover');
     setText(hero,'.eyebrow','FAMILY HISTORY ARCHIVE');
     setText(hero,'h2','Our family, connected.');
     setText(hero,'p:not(.eyebrow)','Explore the people, relationships, photographs and stories that connect generations of our family.');
-    hero.querySelector('.v17-primary-actions a[href="#media"]')?.remove();
+    hero.querySelector('.family-primary-actions a[href="#media"]')?.remove();
   }
 
   normalizeCompactHome(root);
