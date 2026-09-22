@@ -182,6 +182,6 @@ test.describe('v26.6 mobile visual composition',()=>{
     const targets=await visibleRects(panel.locator('button,[href],input,select'));
     expect(targets.length).toBeGreaterThan(0);
     expect(Math.min(...targets.map(r=>r.height))).toBeGreaterThanOrEqual(44);
-    expect(await page.locator('#main').evaluate(node=>node.inert)).toBe(true);
+    expect(await page.locator('.site-header').evaluate(node=>node.inert)).toBe(true);
   });
 });
