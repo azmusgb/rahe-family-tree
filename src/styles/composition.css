@@ -333,7 +333,6 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 /* Final People-directory composition. Presentation-only. */
 
 /* People directory */
-.people-grid{gap:12px}
 .directory-person-card>button{
   border-radius:17px;
   background:#fffdf8;
@@ -344,7 +343,6 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 }
 
 /* People: compact directory cards with less chrome. */
-.people-grid{gap:10px}
 .directory-person-card>button{border-radius:14px;box-shadow:none}
 .directory-person-card>button:hover,.directory-person-card>button:focus-visible{box-shadow:var(--family-shadow-card)}
 
