@@ -28,7 +28,7 @@ test('mobile app navigation owns Home Families Tree People and More',async({page
   await expect(page.locator('[data-v17-native="tree"]')).toBeVisible();
   await clickDockRoute(dock,'Families');
   await expect(page).toHaveURL(/#families$/);
-  await expect(page.locator('.v175-family-grid')).toBeVisible();
+  await expect(page.locator('.family-grid')).toBeVisible();
   await clickDockRoute(dock,'People');
   await expect(page).toHaveURL(/#people$/);
   await expect(page.locator('[data-v17-native="people"]')).toBeVisible();
