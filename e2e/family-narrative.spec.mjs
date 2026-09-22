@@ -53,7 +53,7 @@ test('people branch selection rerenders a native human branch summary',async({pa
 
 test('historical person uses native biography and clean focused-tree navigation',async({page})=>{
   await page.goto('/#people');
-  const result=page.locator('.v17-person-card button[data-person]').filter({hasText:/Hazel.*Berg/i}).first();
+  const result=page.locator('.directory-person-card button[data-person]').filter({hasText:/Hazel.*Berg/i}).first();
   await expect(result).toBeVisible();
   await result.click();
   const profile=page.locator('[data-v17-native="person"]');
@@ -72,7 +72,7 @@ test('historical person uses native biography and clean focused-tree navigation'
 
 test('living person biography suppresses public chronology location and media',async({page})=>{
   await page.goto('/#people');
-  const result=page.locator('.v17-person-card button[data-person]').filter({hasText:/William John Rahe III/i}).first();
+  const result=page.locator('.directory-person-card button[data-person]').filter({hasText:/William John Rahe III/i}).first();
   await expect(result).toBeVisible();
   await result.click();
   const profile=page.locator('[data-v17-native="person"]');

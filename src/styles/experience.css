@@ -17,7 +17,7 @@
   body.mobile-sheet-open{overflow:hidden;overscroll-behavior:none}
   .mobile-more-backdrop[hidden]{display:none}
 
-  body[data-route="people"] :where(.workspace,.main,#content,.route-shell,.v17-people,.v17-people-grid,.people-grid),body[data-route="tree"] :where(.workspace,.main,#content,.route-shell,.v17-tree,.graph-shell,.tree-graph-shell){
+  body[data-route="people"] :where(.workspace,.main,#content,.route-shell,.people-directory,.people-grid,.people-grid),body[data-route="tree"] :where(.workspace,.main,#content,.route-shell,.v17-tree,.graph-shell,.tree-graph-shell){
     min-width:0;
     max-width:100%;
     box-sizing:border-box;

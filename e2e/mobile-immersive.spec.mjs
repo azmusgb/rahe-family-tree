@@ -13,21 +13,21 @@ test.describe('actual mobile family application',()=>{
     await open(page,'dashboard');
     await expect(page.locator('#mobile-app-header')).toBeVisible();
     await expect(page.locator('.site-header.sidebar')).toBeHidden();
-    const hero=page.locator('[data-v17-native="home"] .v17-home-hero');
+    const hero=page.locator('[data-v17-native="home"] .family-home-hero');
     await expect(hero).toBeVisible();
     const geometry=await hero.boundingBox();
     expect(geometry?.height||0).toBeGreaterThan(300);
     expect(geometry?.height||0).toBeLessThan(560);
     const structure=await page.evaluate(()=>{
       const home=document.querySelector('[data-v17-native="home"]');
-      const hero=home?.querySelector('.v17-home-hero');
+      const hero=home?.querySelector('.family-home-hero');
       const search=home?.querySelector('.mobile-search[data-v21-mobile-search="home"]');
       const launcher=home?.querySelector('.v21-mobile-launcher');
       return{
         searchInsideHome:Boolean(search&&search.parentElement===home),
         heroBeforeSearch:Boolean(hero&&search&&(hero.compareDocumentPosition(search)&Node.DOCUMENT_POSITION_FOLLOWING)),
         searchBeforeLauncher:Boolean(search&&launcher&&(search.compareDocumentPosition(launcher)&Node.DOCUMENT_POSITION_FOLLOWING)),
-        primaryInLauncher:Boolean(launcher?.querySelector('.v17-primary-actions .action.primary')),
+        primaryInLauncher:Boolean(launcher?.querySelector('.family-primary-actions .action.primary')),
         stableRouteShellOutsideContent:Boolean(document.querySelector('#main > .route-shell'))
       };
     });
@@ -51,7 +51,7 @@ test.describe('actual mobile family application',()=>{
     await input.press('Enter');
     await page.waitForURL(/#people/);
     await expect(page.locator('[data-v17-native="people"] .mobile-search input')).toHaveValue('William');
-    await expect(page.locator('[data-v17-native="people"] .v17-people-grid button[data-person="P-WILLIAM-JOHN-RAHE-III"]')).toBeVisible();
+    await expect(page.locator('[data-v17-native="people"] .people-grid button[data-person="P-WILLIAM-JOHN-RAHE-III"]')).toBeVisible();
   });
 
   test('People owns its search UI inside the actual directory',async({page})=>{
@@ -59,14 +59,14 @@ test.describe('actual mobile family application',()=>{
     const search=page.locator('[data-v17-native="people"] .mobile-search[data-v21-mobile-search="people"]');
     await expect(search).toBeVisible();
     await expect(search.locator('input[type="search"]')).toBeVisible();
-    const rows=page.locator('.v17-person-card');
+    const rows=page.locator('.directory-person-card');
     expect(await rows.count()).toBeGreaterThan(3);
   });
 
   test('Families is a vertical catalogue instead of a horizontal desktop-card rail',async({page})=>{
     await open(page,'families');
-    await page.waitForSelector('.v175-family-card');
-    const cards=page.locator('.v175-family-card');
+    await page.waitForSelector('.family-card');
+    const cards=page.locator('.family-card');
     expect(await cards.count()).toBeGreaterThan(1);
     const first=await cards.nth(0).boundingBox(),second=await cards.nth(1).boundingBox();
     expect(Math.abs((first?.x||0)-(second?.x||0))).toBeLessThan(8);

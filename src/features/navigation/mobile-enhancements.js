@@ -51,7 +51,7 @@ function syncContextualMore(){
 function syncPersonNavigation(){
   const root=document.querySelector('[data-v17-native="person"]');
   if(!root)return;
-  const legacy=root.querySelector('.v17-person-nav');
+  const legacy=root.querySelector('.person-nav');
   const tabs=root.querySelector('.v20-person-tabs');
   if(!isMobile()||routeKey()!=='person'){
     if(legacy?.dataset.v22Suppressed==='true'){

@@ -229,3 +229,12 @@ jobs:
           test "$STATUS" = "200"
           node -e "const x=require('/tmp/media-final-anon.json');if(!x.ok||x.authenticated||(x.media||[]).some(m=>m.visibility!=='public'))process.exit(1)"
           echo "Final production is release $EXPECTED_RELEASE / platform $EXPECTED_PLATFORM at $EXPECTED_SHA with canonical graph integrity and anonymous privacy intact."
+
+      - name: Verify production mobile navigation geometry
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ env.PRODUCTION_URL }}
+        run: |
+          set -euo pipefail
+          npx playwright install --with-deps chromium
+          npx playwright test e2e/production-mobile-nav-v26-7.spec.mjs --config=playwright.production.config.mjs
+          echo "Production mobile navigation QA passed against $PLAYWRIGHT_BASE_URL."

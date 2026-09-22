@@ -52,13 +52,13 @@ function tuneLifeSection(root,person){
   if(intro&&!person.living)intro.textContent='A chronological view of documented moments and places. Qualified events remain visibly qualified.';
 }
 function addStoryNav(root){
-  const nav=root.querySelector('.v17-person-nav');if(!nav||nav.querySelector('[href="#v17-story"]'))return nav;
+  const nav=root.querySelector('.person-nav');if(!nav||nav.querySelector('[href="#v17-story"]'))return nav;
   const link=document.createElement('a');link.href='#v17-story';link.textContent='Story';nav.prepend(link);return nav;
 }
 function enhance(){
   if(!isFamily())return;
   const id=routePersonId();if(!id)return;
-  const root=document.querySelector(`.v17-person[data-person-id="${cssEscape(id)}"]`),person=personById(id);
+  const root=document.querySelector(`.person-profile[data-person-id="${cssEscape(id)}"]`),person=personById(id);
   if(!root||!person||root.dataset.v173Person==='ready')return;
   root.dataset.v173Person='ready';
   const nav=addStoryNav(root),story=document.createElement('div');story.innerHTML=storyMarkup(person);const section=story.firstElementChild;

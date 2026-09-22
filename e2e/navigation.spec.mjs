@@ -15,7 +15,7 @@ async function clickDockRoute(dock,name){
 test('mobile app navigation owns Home Families Tree People and More',async({page},testInfo)=>{
   test.skip(testInfo.project.name!=='mobile-chromium','mobile navigation contract');
   await page.goto('/#dashboard');
-  await expect(page.locator('.v17-home-hero')).toBeVisible();
+  await expect(page.locator('.family-home-hero')).toBeVisible();
   await expect(page.locator('#mobile-app-header')).toBeVisible();
   await expect(page.locator('.site-header.sidebar')).toBeHidden();
   const dock=page.locator('#family-mobile-dock');
@@ -28,7 +28,7 @@ test('mobile app navigation owns Home Families Tree People and More',async({page
   await expect(page.locator('[data-v17-native="tree"]')).toBeVisible();
   await clickDockRoute(dock,'Families');
   await expect(page).toHaveURL(/#families$/);
-  await expect(page.locator('.v175-family-grid')).toBeVisible();
+  await expect(page.locator('.family-grid')).toBeVisible();
   await clickDockRoute(dock,'People');
   await expect(page).toHaveURL(/#people$/);
   await expect(page.locator('[data-v17-native="people"]')).toBeVisible();

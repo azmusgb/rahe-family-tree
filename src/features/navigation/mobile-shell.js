@@ -16,7 +16,7 @@ const safeText=value=>String(value||'').replace(/\s+/g,' ').trim();
 function routeTitle(){
   const route=routeKey();
   if(route==='person')return safeText(document.querySelector('.person-header h2')?.textContent)||'Person';
-  if(route==='branch')return safeText(document.querySelector('.v175-branch-hero h1')?.textContent)||'Family';
+  if(route==='branch')return safeText(document.querySelector('.branch-hero h1')?.textContent)||'Family';
   return titleMap[route]||'Family History';
 }
 
@@ -190,7 +190,7 @@ function composeHomeDiscover(home,anchor){
     discover=document.createElement('section');
     discover.className='v21-mobile-launcher v22-mobile-discover';
     discover.setAttribute('aria-labelledby','v22-discover-title');
-    discover.innerHTML='<div class="v21-launcher-heading"><span>DISCOVER MORE</span><h2 id="v22-discover-title">Keep exploring</h2><p>Jump straight to the part of the archive you want instead of scrolling through every preview.</p></div><nav class="v17-primary-actions" aria-label="More family destinations"><a class="action" href="#stories">Stories</a><a class="action" href="#people">People</a><a class="action" href="#media">Photos</a><a class="action" href="#timeline">Timeline</a><a class="action" href="#migration">Places</a><a class="action" href="#research">Research</a></nav>';
+    discover.innerHTML='<div class="v21-launcher-heading"><span>DISCOVER MORE</span><h2 id="v22-discover-title">Keep exploring</h2><p>Jump straight to the part of the archive you want instead of scrolling through every preview.</p></div><nav class="family-primary-actions" aria-label="More family destinations"><a class="action" href="#stories">Stories</a><a class="action" href="#people">People</a><a class="action" href="#media">Photos</a><a class="action" href="#timeline">Timeline</a><a class="action" href="#migration">Places</a><a class="action" href="#research">Research</a></nav>';
   }
   if(anchor?.parentNode&&anchor.nextElementSibling!==discover)anchor.insertAdjacentElement('afterend',discover);
   return discover;
@@ -207,12 +207,12 @@ function restoreHomeComposition(home,actions){
 function composeHome(){
   const home=document.querySelector('[data-v17-native="home"]');
   if(!home)return;
-  const actions=home.querySelector('.v17-primary-actions');
+  const actions=home.querySelector('.family-primary-actions');
   if(!isMobile()){
     restoreHomeComposition(home,actions);
     return;
   }
-  const hero=home.querySelector('.v17-home-hero');
+  const hero=home.querySelector('.family-home-hero');
   if(!hero||!actions)return;
   const search=composeHomeSearch(home,hero);
   ensureReturnMarker(actions,'home-actions');
