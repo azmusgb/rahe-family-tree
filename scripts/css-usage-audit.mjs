@@ -511,15 +511,15 @@ if(args.has('--strict')){
   const budgets={
     // v26.1 certified candidate ceilings. These are downward-only debt ratchets;
     // raising one requires an explicit reviewed baseline change.
-    cssBytes:486484,
+    cssBytes:484775,
     duplicateSelectorsAcrossFiles:369,
-    ownershipDuplicateSelectorsAcrossFiles:94,
+    ownershipDuplicateSelectorsAcrossFiles:91,
     topSelectorOwnerViolations:0,
     deadSelectorCandidates:0,
     highSpecificitySelectors:107,
-    importantDeclarations:1143,
-    legacyClassArms:1775,
-    liveLegacyVersionedClassTokens:201,
+    importantDeclarations:1134,
+    legacyClassArms:1449,
+    liveLegacyVersionedClassTokens:181,
     unstyledRuntimeOrMarkupClasses:135,
     unusedCustomProperties:0,
     inlineStyleAttributes:5,
@@ -540,6 +540,5 @@ if(args.has('--strict')){
       failed=true;
     }
   }
-  if((totals.unstyledRuntimeOrMarkupClasses??0)>budgets.unstyledRuntimeOrMarkupClasses)console.error('CSS usage audit unstyled classes:',JSON.stringify(unstyledClasses));
   if(failed)process.exit(1);
 }
