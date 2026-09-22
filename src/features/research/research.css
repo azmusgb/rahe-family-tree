@@ -576,9 +576,9 @@ body[data-route="media"][data-v158-context="family"] .media-library-title{margin
 body[data-route="media"][data-v158-context="family"] .media-library-title h2{font-family:var(--family-font-display);font-size:var(--family-text-section)}
 @media(hover:hover) and (pointer:fine){body[data-route="media"][data-v158-context="family"] .media-library-card:hover .media-library-preview img{transform:scale(1.02)}}
 
-.family-context-grid,.place-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.family-context-grid,body[data-route="migration"] .place-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
 
-.family-context-grid article,.place-grid article{padding:14px;border:1px solid var(--line,#d8ddd9);border-radius:14px;background:rgba(255,255,255,.7)}
+.family-context-grid article,body[data-route="migration"] .place-grid article{padding:14px;border:1px solid var(--line,#d8ddd9);border-radius:14px;background:rgba(255,255,255,.7)}
 
 body[data-route="timeline"][data-v158-context="family"] #content>.panel,
 body[data-route="migration"][data-v158-context="family"] #content>.panel{
