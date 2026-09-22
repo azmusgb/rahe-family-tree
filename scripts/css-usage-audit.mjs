@@ -511,7 +511,7 @@ if(args.has('--strict')){
   const budgets={
     // v26.1 certified candidate ceilings. These are downward-only debt ratchets;
     // raising one requires an explicit reviewed baseline change.
-    cssBytes:487042,
+    cssBytes:486484,
     duplicateSelectorsAcrossFiles:369,
     ownershipDuplicateSelectorsAcrossFiles:94,
     topSelectorOwnerViolations:0,
