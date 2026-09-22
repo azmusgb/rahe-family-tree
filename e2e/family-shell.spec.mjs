@@ -12,7 +12,7 @@ test.beforeEach(async({page})=>{await mockApis(page);});
 
 test('Home begins with the hero and has no inline search bar above it',async({page},testInfo)=>{
   await page.goto('/#dashboard');
-  await expect(page.locator('.v17-home-hero')).toBeVisible();
+  await expect(page.locator('.family-home-hero')).toBeVisible();
   await expect(page.locator('#filters')).toBeHidden();
   if(testInfo.project.name==='mobile-chromium'){
     await expect(page.locator('#mobile-app-header')).toBeVisible();
@@ -33,14 +33,14 @@ test('Families is a first-class navigation destination with branch pages',async(
   // route without racing Playwright's pointer-action stability checks.
   await families.evaluate(link=>link.click());
   await expect(page).toHaveURL(/#families$/);
-  const grid=page.locator('.v175-family-grid');
+  const grid=page.locator('.family-grid');
   await expect(grid).toBeVisible();
-  const first=grid.locator('.v175-family-card').first();
+  const first=grid.locator('.family-card').first();
   const name=(await first.locator('h2').textContent())?.trim();
   await first.click();
   await expect(page).toHaveURL(/#branch\//);
-  await expect(page.locator('.v175-branch-hero h1')).toContainText(name||'family');
-  await expect(page.locator('.v175-branch-actions')).toBeVisible();
+  await expect(page.locator('.branch-hero h1')).toContainText(name||'family');
+  await expect(page.locator('.branch-actions')).toBeVisible();
 });
 
 test('Home delegates branch browsing to the Families destination',async({page},testInfo)=>{
