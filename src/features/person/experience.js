@@ -52,7 +52,7 @@ function tuneLifeSection(root,person){
   if(intro&&!person.living)intro.textContent='A chronological view of documented moments and places. Qualified events remain visibly qualified.';
 }
 function addStoryNav(root){
-  const nav=root.querySelector('.v17-person-nav');if(!nav||nav.querySelector('[href="#v17-story"]'))return nav;
+  const nav=root.querySelector('.person-nav');if(!nav||nav.querySelector('[href="#v17-story"]'))return nav;
   const link=document.createElement('a');link.href='#v17-story';link.textContent='Story';nav.prepend(link);return nav;
 }
 function enhance(){
