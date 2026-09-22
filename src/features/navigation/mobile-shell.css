@@ -536,30 +536,6 @@ padding:0 12px 36px!important;background:var(--immersive-bg);
 body.v20-mobile-app:is([data-route="media"],[data-route="stories"],[data-route="timeline"],[data-route="migration"],[data-route="research"],[data-route="evidence"],[data-route="sources"],[data-route="intelligence"]) #content>section,body.v20-mobile-app:is([data-route="media"],[data-route="stories"],[data-route="timeline"],[data-route="migration"],[data-route="research"],[data-route="evidence"],[data-route="sources"],[data-route="intelligence"]) #content>div{
 border-radius:26px;
 }
-body.v20-mobile-app #family-mobile-dock:not([hidden]){
-left:8px!important;right:8px!important;bottom:calc(6px + env(safe-area-inset-bottom,0px))!important;min-height:66px!important;
-padding:5px!important;border:1px solid var(--nav-border-light)!important;border-radius:20px!important;background:rgba(255,253,248,.98)!important;
-box-shadow:0 10px 30px rgba(12,39,31,.16)!important;-webkit-backdrop-filter:blur(22px) saturate(1.06);backdrop-filter:blur(22px) saturate(1.06);
-}
-body.v20-mobile-app #family-mobile-dock>a,body.v20-mobile-app #family-mobile-dock>details>summary{
-min-width:0;min-height:52px;padding:4px 2px;border:1px solid transparent;border-radius:13px;background:transparent;color:var(--muted);font-size:10px;font-weight:800;
-}
-body.v20-mobile-app #family-mobile-dock>a[aria-current="page"],body.v20-mobile-app #family-mobile-dock>a.active{
-background:var(--nav-active-bg);border-color:rgba(18,63,52,.10);color:var(--nav-active-ink);box-shadow:none;
-}
-body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"]{
-width:auto!important;height:auto!important;min-width:0!important;min-height:52px!important;max-width:none!important;max-height:none!important;
-margin:0!important;padding:4px 2px!important;place-self:stretch!important;transform:none!important;border:1px solid transparent!important;border-radius:13px!important;
-background:transparent!important;color:var(--muted)!important;box-shadow:none!important;
-}
-body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"]::before{color:inherit}
-body.v20-mobile-app #family-mobile-dock>a[data-dock-route="tree"] span{font-weight:800}
-body.v20-mobile-app #family-mobile-dock .mobile-more>div{
-left:8px!important;right:8px!important;bottom:calc(78px + env(safe-area-inset-bottom,0px))!important;
-max-height:min(68dvh,620px)!important;padding:14px!important;box-sizing:border-box;overflow:auto;overscroll-behavior:contain;
-border-radius:24px!important;background:var(--nav-surface)!important;
-box-shadow:0 24px 64px rgba(12,39,31,.24)!important;
-}
 body.v20-mobile-app #family-mobile-dock .mobile-more-head{
 grid-column:1/-1;margin:-2px -2px 8px;padding:8px 4px 16px;border-bottom:1px solid var(--immersive-line);
 }
