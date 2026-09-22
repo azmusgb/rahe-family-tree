@@ -20,6 +20,9 @@ async function dockGeometry(page){
   });
 }
 
+test.describe('v26.7 production mobile navigation',()=>{
+  test.skip(({isMobile})=>!isMobile,'mobile-only production navigation contract');
+
 test('production mobile dock stays equal-weight, contained, and route-correct',async({page})=>{
   for(const route of routes){
     await ready(page,route);
@@ -65,4 +68,5 @@ test('production More sheet stays above dock and inside the phone viewport',asyn
   expect(g.bottom).toBeLessThanOrEqual(g.vh+1);
   const targets=await sheet.locator('a,button').evaluateAll(nodes=>nodes.filter(n=>n.getClientRects().length).map(n=>n.getBoundingClientRect().height));
   expect(Math.min(...targets)).toBeGreaterThanOrEqual(44);
+});
 });
