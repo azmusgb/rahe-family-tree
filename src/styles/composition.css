@@ -363,7 +363,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 }
 .graph-node.state-rejected rect{stroke:var(--evidence-rejected)}
 .edge.state-provisional{stroke:var(--evidence-provisional);stroke-dasharray:8 7}
-.edge.state-unresolved,.edge.identity-bridge{stroke:var(--evidence-unresolved);stroke-dasharray:8 7}
+.edge.state-unresolved{stroke:var(--evidence-unresolved);stroke-dasharray:8 7}
 .edge.state-rejected{display:none}
 
 .tree-context{padding:16px 18px;border-radius:16px;background:var(--surface-soft);box-shadow:none}
