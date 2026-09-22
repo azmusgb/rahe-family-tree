@@ -92,7 +92,7 @@ body{background:#fff!important}
   }
 
 /* branches.css */
-.v175-branch-actions,.v175-branch-back{display:none!important}.v175-family-card,.v175-branch-person>button{box-shadow:none!important}
+.branch-actions,.v175-branch-back{display:none!important}.family-card,.branch-person>button{box-shadow:none!important}
 
 /* archive-shell.css */
 .site-header,.topbar,.family-mobile-dock,.site-footer{display:none!important}
