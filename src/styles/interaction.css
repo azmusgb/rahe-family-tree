@@ -3,7 +3,6 @@
 outline:var(--family-focus-width) solid color-mix(in srgb,var(--green,#123f34) 74%,#fff);
 outline-offset:var(--family-focus-offset);
 }
-.skip{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
 .skip:focus-visible{
 left:12px;top:12px;width:auto;height:auto;overflow:visible;z-index:2147483647;
 padding:10px 14px;border-radius:10px;background:#fff;color:#173f35;
