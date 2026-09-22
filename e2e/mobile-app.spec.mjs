@@ -43,8 +43,8 @@ test.describe('mobile v20 app experience',()=>{
 
   test('Home keeps hero, search, and dock in a bounded phone composition',async({page})=>{
     await openMobile(page,'dashboard');
-    await expect(page.locator('.v17-home-hero h2')).toHaveText('Our family, connected.');
-    const hero=await page.locator('[data-v17-native="home"] > .v17-home-hero').boundingBox();
+    await expect(page.locator('.family-home-hero h2')).toHaveText('Our family, connected.');
+    const hero=await page.locator('[data-v17-native="home"] > .family-home-hero').boundingBox();
     const search=await page.locator('.mobile-search[data-v21-mobile-search="home"]').boundingBox();
     const launcher=await page.getByRole('region',{name:'Explore your family'}).boundingBox();
     const dock=await page.locator('#family-mobile-dock').boundingBox();
@@ -77,7 +77,7 @@ test.describe('mobile v20 app experience',()=>{
     await page.reload();
     await expect(page.locator('.v20-continue-card')).toBeVisible();
     await expect(page.locator('.v20-continue-card')).toContainText('William John Rahe III');
-    const order=await page.evaluate(()=>{const hero=document.querySelector('[data-v17-native="home"] .v17-home-hero'),card=document.querySelector('.v20-continue-card');return Boolean(hero&&card&&(hero.compareDocumentPosition(card)&Node.DOCUMENT_POSITION_FOLLOWING));});
+    const order=await page.evaluate(()=>{const hero=document.querySelector('[data-v17-native="home"] .family-home-hero'),card=document.querySelector('.v20-continue-card');return Boolean(hero&&card&&(hero.compareDocumentPosition(card)&Node.DOCUMENT_POSITION_FOLLOWING));});
     expect(order).toBe(true);
   });
 
@@ -103,13 +103,13 @@ test.describe('mobile v20 app experience',()=>{
 
   test('People and Families use app discovery surfaces without hiding canonical entries',async({page})=>{
     await openMobile(page,'people');
-    await page.waitForSelector('.v17-person-card');
-    await expect(page.locator('.v17-people-grid')).toBeVisible();
+    await page.waitForSelector('.directory-person-card');
+    await expect(page.locator('.people-grid')).toBeVisible();
     await expect(page.locator('button[data-person="P-WILLIAM-JOHN-RAHE-III"]')).toHaveCount(1);
     await page.locator('#family-mobile-dock [data-dock-route="families"]').click();
     await expect(page).toHaveURL(/#families$/);
-    await expect(page.locator('.v175-family-grid')).toBeVisible();
-    expect(await page.locator('.v175-family-card').count()).toBeGreaterThan(1);
+    await expect(page.locator('.family-grid')).toBeVisible();
+    expect(await page.locator('.family-card').count()).toBeGreaterThan(1);
   });
 
   test('Tree behaves as a full-screen workspace',async({page})=>{
