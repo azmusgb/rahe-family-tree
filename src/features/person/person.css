@@ -298,8 +298,6 @@ body[data-route="person"][data-v158-context="family"] #content>.panel{border:0!i
 @media(max-width:720px){.person-header .v17-avatar.hero{width:88px;height:88px}.v173-person-story{grid-template-columns:1fr;gap:24px;padding:34px 0}.v173-story-moment{grid-template-columns:88px minmax(0,1fr);gap:16px}.v173-research-body{grid-template-columns:1fr}.v173-research-details>summary{min-height:56px}.v173-research-details>summary em{font-size:11px}.person-section{padding:26px 0}.v17-family-groups{grid-template-columns:1fr}.v17-life-timeline::before{left:66px}.v17-life-event{grid-template-columns:52px minmax(0,1fr);gap:24px;padding:14px 0}.v17-life-event::before{left:62px}}
 @media(max-width:480px){.v173-story-moment{grid-template-columns:1fr;gap:5px}.v173-story-moment time{text-align:left}.person-gallery{grid-template-columns:1fr}}
 
-@media(max-width:900px){}
-
 .history-highlight-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 
 .history-highlight-grid article{padding:20px 22px;border-left:3px solid rgba(23,63,53,.25);background:rgba(23,63,53,.035);border-radius:0 14px 14px 0}
@@ -394,15 +392,11 @@ body[data-route="dashboard"] .history-highlight-grid article{min-height:160px}
 
 @media(max-width:720px){.v16-stories-hero{padding-top:24px}}
 
-@media(max-width:720px){}
-
 @media(max-width:720px){.v16-story-chapter{grid-template-columns:1fr;gap:10px}}
 
 @media(max-width:720px){.v16-story-chapter-heading{position:static}}
 
 @media(max-width:720px){.v16-story-card{grid-template-columns:58px minmax(0,1fr);gap:12px;padding:16px 0}}
-
-@media(max-width:720px){}
 
 .v16-stories{gap:clamp(28px,4vw,52px);padding-bottom:48px}
 .v16-stories-hero{max-width:820px;padding:clamp(30px,5vw,58px) 0 10px}
