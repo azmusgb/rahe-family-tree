@@ -53,7 +53,7 @@ test('route navigation keeps current-page semantics synchronized',async({page},t
 test('mobile app reserves safe-area space and keeps touch targets usable',async({page},testInfo)=>{
   test.skip(testInfo.project.name!=='mobile-chromium','mobile shell contract');
   await page.goto('/#people');
-  await expect(page.locator('body')).toHaveClass(/v21-actual-mobile-ui/);
+  await expect(page.locator('body')).toHaveClass(/mobile-app-ui/);
   const paddingBottom=await page.locator('body').evaluate(el=>parseFloat(getComputedStyle(el).paddingBottom));
   expect(paddingBottom).toBeGreaterThanOrEqual(80);
   const dock=page.locator('#family-mobile-dock');
