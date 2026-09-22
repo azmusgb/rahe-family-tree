@@ -1,3 +1,4 @@
+/* Source: tree.css */
 
 .topbar button,.filters button,.graph-toolbar button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:8px 11px}
 
@@ -484,6 +485,7 @@ body[data-route="tree"][data-nav-context="family"] .graph-toolbar button{min-hei
 body[data-route="tree"][data-nav-context="family"] .tree-help{font-size:11px}
 }
 
+/* Source: unified-family.css */
 body[data-route="tree"][data-nav-context="family"] .route-shell .page-heading{padding-bottom:4px}
 body[data-route="tree"][data-nav-context="family"] .route-shell #status{display:none}
 body[data-route="tree"][data-nav-context="family"] .graph-shell{
@@ -551,6 +553,7 @@ body[data-route="tree"][data-v158-context="family"] .node-initials.v172-has-phot
   body[data-route="tree"][data-v158-context="family"] .tree-focusbar{position:static}
 }
 
+/* Source: tree-advanced.css */
 .tree-advanced-nav{display:grid;gap:10px;margin:0 0 14px;padding:14px 16px;border:1px solid var(--border-soft,#d8d2c6);border-radius:16px;background:var(--surface,#fffdf8);box-shadow:var(--shadow-sm,0 6px 18px rgba(25,40,32,.06))}
 .tree-advanced-primary{display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap}.tree-advanced-primary label{display:grid;gap:5px;min-width:min(360px,100%);font-size:.78rem;color:var(--muted,#66716a);font-weight:700;letter-spacing:.02em}.tree-advanced-primary select,.tree-path-tools select{min-height:var(--control-min);border:1px solid var(--border,#cfc8bb);border-radius:10px;background:var(--surface,#fffdf8);color:var(--text,#192820);padding:7px 34px 7px 10px;font:inherit}.tree-advanced-actions{display:flex;gap:7px;flex-wrap:wrap}.tree-advanced-actions button,.tree-path-tools button,.tree-advanced-export button,.tree-recent-trail button{min-height:var(--control-min);border:1px solid var(--border,#cfc8bb);border-radius:10px;background:var(--surface-soft,#f8f5ee);color:var(--text,#192820);padding:7px 10px;font:inherit;cursor:pointer}.tree-advanced-actions button:hover,.tree-path-tools button:hover,.tree-advanced-export button:hover,.tree-recent-trail button:hover{border-color:var(--family-green,#123f34);background:var(--surface-tint,#edf2ec)}
 .tree-focus-breadcrumb{display:flex;align-items:center;gap:7px;min-width:0;font-size:.82rem;color:var(--muted,#66716a);overflow:auto;white-space:nowrap}.tree-focus-breadcrumb b{color:var(--text,#192820)}.tree-focus-breadcrumb i{font-style:normal;opacity:.55}.tree-recent-trail{display:flex;align-items:center;gap:6px;overflow:auto;padding-top:1px}.tree-recent-trail>span{flex:0 0 auto;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted,#66716a)}.tree-recent-trail button{flex:0 0 auto;min-height:30px;padding:5px 9px;font-size:.78rem}
