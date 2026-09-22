@@ -29,7 +29,7 @@ test.describe('v26.2 phone refinement',()=>{
       await page.setViewportSize({width,height:844});
       await open(page,'people');
       await expect(page.locator('.mobile-search')).toHaveCSS('position','sticky');
-      const rows=page.locator('.v17-person-card>button');
+      const rows=page.locator('.directory-person-card>button');
       await expect(rows.first()).toBeVisible();
       const heights=await rows.evaluateAll(nodes=>nodes.slice(0,6).map(node=>node.getBoundingClientRect().height));
       expect(Math.min(...heights)).toBeGreaterThanOrEqual(44);
@@ -106,12 +106,12 @@ test.describe('v26.2 phone refinement',()=>{
     await page.emulateMedia({reducedMotion:'reduce'});
     await page.setViewportSize({width:390,height:844});
     await open(page,'people');
-    const duration=await page.locator('.v17-person-card>button').first().evaluate(node=>{
+    const duration=await page.locator('.directory-person-card>button').first().evaluate(node=>{
       const values=getComputedStyle(node).transitionDuration.split(',').map(v=>v.trim());
       return Math.max(...values.map(v=>v.endsWith('ms')?parseFloat(v)/1000:parseFloat(v)||0));
     });
     expect(duration).toBeLessThanOrEqual(.001);
-    await expect(page.locator('.v17-person-card').first()).toBeVisible();
+    await expect(page.locator('.directory-person-card').first()).toBeVisible();
   });
 
   test('safe-area reservation and focus ring remain intact',async({page})=>{
@@ -160,7 +160,7 @@ test.describe('v26.2 tablet and desktop refinement',()=>{
       await open(page,`person/${PERSON}`);
       const collision=await page.evaluate(()=>{
         const mast=document.querySelector('.site-header.sidebar')?.getBoundingClientRect();
-        const nav=document.querySelector('.v17-person-nav');
+        const nav=document.querySelector('.person-nav');
         const research=document.querySelector('.v17-person-research');
         return{
           top:parseFloat(getComputedStyle(nav).top),
@@ -170,7 +170,7 @@ test.describe('v26.2 tablet and desktop refinement',()=>{
       });
       expect(collision.top).toBeGreaterThanOrEqual(collision.mastHeight-2);
       expect(collision.researchScrollMargin).toBeGreaterThanOrEqual(collision.mastHeight+40);
-      const localNavHeights=await page.locator('.v17-person-nav a').evaluateAll(nodes=>nodes.filter(node=>node.getClientRects().length).map(node=>node.getBoundingClientRect().height));
+      const localNavHeights=await page.locator('.person-nav a').evaluateAll(nodes=>nodes.filter(node=>node.getClientRects().length).map(node=>node.getBoundingClientRect().height));
       expect(localNavHeights.length).toBeGreaterThan(0);
       expect(Math.min(...localNavHeights)).toBeGreaterThanOrEqual(44);
 
@@ -217,7 +217,7 @@ test.describe('v26.2 tablet and desktop refinement',()=>{
     await expect(page.locator('#mobile-app-header')).toBeVisible();
     await expect(page.locator('.mobile-search')).toBeVisible();
     expect(await overflow(page)).toBeLessThanOrEqual(1);
-    const rect=await page.locator('.v17-person-card>button').first().boundingBox();
+    const rect=await page.locator('.directory-person-card>button').first().boundingBox();
     expect(rect?.width||0).toBeLessThanOrEqual(720);
   });
 
