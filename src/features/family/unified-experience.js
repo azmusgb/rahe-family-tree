@@ -49,7 +49,7 @@ function personCard(person,branch){return`<article class="v17-home-person v172-h
 
 function installHomeBranchIndex(root){
   if(root.querySelector('.v172-home-branches'))return;
-  const hero=root.querySelector('.v17-home-hero'),branches=branchNames(),rels=activeRelationships();if(!hero||!branches.length)return;
+  const hero=root.querySelector('.family-home-hero'),branches=branchNames(),rels=activeRelationships();if(!hero||!branches.length)return;
   const cards=branches.map(branch=>{const members=displayPeople().filter(person=>personBranches(person).includes(branch)),rep=branchRepresentative(branch,rels);return`<a class="v172-branch-card" href="${esc(branchHref(branch))}"><span>${esc(branch)}</span><b>${members.length} ${members.length===1?'person':'people'}</b>${rep?`<small>Start with ${esc(String(rep.name||'').replace(/\s*\/.*$/,'').trim())}</small>`:''}</a>`;}).join('');
   const section=document.createElement('section');section.className='v172-home-branches';section.innerHTML=`<div class="v17-section-head"><div><p class="eyebrow">FAMILY BRANCHES</p><h2>One archive, many connected lines</h2><p>Every documented branch is a peer part of the family history. Open a branch for its people, places, stories, and records.</p></div><a href="#people">Browse all people ↗</a></div><div class="v172-branch-grid">${cards}</div>`;hero.insertAdjacentElement('afterend',section);
 }
