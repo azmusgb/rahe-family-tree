@@ -26,6 +26,7 @@ test.describe('v26.7 production mobile navigation',()=>{
 test('production mobile dock stays equal-weight, contained, and route-correct',async({page})=>{
   for(const route of routes){
     await ready(page,route);
+    await expect(page.locator('body')).toHaveClass(/mobile-app-ui/);
     const dock=page.locator('#family-mobile-dock');
     await expect(dock).toBeVisible();
     const g=await dockGeometry(page);

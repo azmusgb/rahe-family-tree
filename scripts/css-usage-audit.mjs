@@ -511,15 +511,15 @@ if(args.has('--strict')){
   const budgets={
     // v26.8 certified baseline ceilings. These are downward-only debt ratchets;
     // raising one requires an explicit reviewed baseline change.
-    cssBytes:484761,
-    duplicateSelectorsAcrossFiles:355,
-    ownershipDuplicateSelectorsAcrossFiles:91,
+    cssBytes:483763,
+    duplicateSelectorsAcrossFiles:354,
+    ownershipDuplicateSelectorsAcrossFiles:90,
     topSelectorOwnerViolations:0,
     deadSelectorCandidates:0,
     highSpecificitySelectors:107,
     importantDeclarations:1134,
-    legacyClassArms:1447,
-    liveLegacyVersionedClassTokens:179,
+    legacyClassArms:1324,
+    liveLegacyVersionedClassTokens:178,
     unstyledRuntimeOrMarkupClasses:135,
     unusedCustomProperties:0,
     inlineStyleAttributes:5,

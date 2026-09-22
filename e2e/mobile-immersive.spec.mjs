@@ -3,7 +3,7 @@ import{test,expect}from'@playwright/test';
 async function open(page,route='dashboard'){
   await page.goto(`/#${route}`);
   await page.waitForSelector('#family-mobile-dock:not([hidden])');
-  await page.waitForFunction(()=>document.body.classList.contains('v21-actual-mobile-ui'));
+  await page.waitForFunction(()=>document.body.classList.contains('mobile-app-ui'));
 }
 
 test.describe('actual mobile family application',()=>{
