@@ -454,3 +454,5 @@ body[data-route="dashboard"] .history-highlight-grid article{min-height:160px}
 .person-nav{top:var(--app-masthead-height);margin-inline:0;padding:7px 0;border:0;border-bottom:1px solid var(--family-border-hairline);border-radius:0;box-shadow:none;background:color-mix(in srgb,var(--bg) 94%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
 .person-profile,.people-directory{min-width:0}
 @media(max-width:720px){.person-section{padding:22px 0;gap:14px}}
+.person-nav a.is-active,.person-nav a.is-active:hover{background:var(--green);color:#fff;box-shadow:none}
+@media(max-width:720px){.person-nav{position:sticky;top:0;margin:0 -14px 10px;padding:7px 14px;background:rgba(244,241,233,.96)}}
