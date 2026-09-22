@@ -154,9 +154,10 @@ test.describe('v26.6 mobile visual composition',()=>{
     const sheet=more.locator(':scope>div');
     await expect(sheet).toBeVisible();
     const sheetRect=await sheet.boundingBox();
-    expect(sheetRect.left).toBeGreaterThanOrEqual(0);
-    expect(sheetRect.right).toBeLessThanOrEqual(390);
-    expect(sheetRect.bottom).toBeLessThanOrEqual(844);
+    expect(sheetRect).not.toBeNull();
+    expect(sheetRect.x).toBeGreaterThanOrEqual(0);
+    expect(sheetRect.x+sheetRect.width).toBeLessThanOrEqual(390);
+    expect(sheetRect.y+sheetRect.height).toBeLessThanOrEqual(844);
     await page.keyboard.press('Escape');
     await page.locator('#mobile-app-header [data-global-search]').click();
     await expect(page).toHaveURL(/#people$/);
@@ -172,9 +173,10 @@ test.describe('v26.6 mobile visual composition',()=>{
     const panel=page.locator('[data-source-inspector-panel]');
     await expect(panel).toHaveAttribute('aria-modal','true');
     const rect=await panel.boundingBox();
-    expect(rect.left).toBeGreaterThanOrEqual(0);
-    expect(rect.right).toBeLessThanOrEqual(390);
-    expect(rect.bottom).toBeLessThanOrEqual(844);
+    expect(rect).not.toBeNull();
+    expect(rect.x).toBeGreaterThanOrEqual(0);
+    expect(rect.x+rect.width).toBeLessThanOrEqual(390);
+    expect(rect.y+rect.height).toBeLessThanOrEqual(844);
     const targets=await visibleRects(panel.locator('button,[href],input,select'));
     expect(targets.length).toBeGreaterThan(0);
     expect(Math.min(...targets.map(r=>r.height))).toBeGreaterThanOrEqual(44);
