@@ -92,7 +92,7 @@ test.describe('mobile family experience',()=>{
 
   test('People keeps every matching person reachable while search stays sticky',async({page})=>{
     await family(page,'people');
-    await page.waitForSelector('.v17-person-card,.v159-person-card,.person-card');
+    await page.waitForSelector('.directory-person-card,.v159-person-card,.person-card');
     const william=page.locator('button[data-person="P-WILLIAM-JOHN-RAHE-III"]');
     await expect(william).toHaveCount(1);
     await expect(william).toBeVisible();
@@ -108,7 +108,7 @@ test.describe('mobile family experience',()=>{
     await expect(tabs).toBeVisible();
     await expect(tabs).toHaveAttribute('data-v22-primary-person-nav','true');
     await expect(tabs).toHaveAttribute('aria-label','Person sections');
-    await expect(person.locator('.v17-person-nav')).toBeHidden();
+    await expect(person.locator('.person-nav')).toBeHidden();
   });
 
   test('Tree prioritizes the graph surface and keeps compact controls touchable',async({page})=>{
