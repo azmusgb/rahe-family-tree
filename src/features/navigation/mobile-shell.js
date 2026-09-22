@@ -69,12 +69,12 @@ function syncDedicatedHeader(){
     siteHeader.setAttribute('aria-hidden',String(mobileViewport));
   }
   if(!mobileViewport){
-    document.body.classList.remove('v21-actual-mobile-ui');
+    document.body.classList.remove('v21-actual-mobile-ui','mobile-app-ui');
     delete document.body.dataset.mobileHeaderOwner;
     return;
   }
   document.body.dataset.mobileHeaderOwner='dedicated';
-  document.body.classList.add('v21-actual-mobile-ui');
+  document.body.classList.add('v21-actual-mobile-ui','mobile-app-ui');
   const nextTitle=routeTitle();
   const title=header.querySelector('[data-mobile-app-title]');
   if(title&&title.textContent!==nextTitle)title.textContent=nextTitle;
