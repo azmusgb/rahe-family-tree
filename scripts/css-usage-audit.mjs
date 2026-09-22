@@ -540,6 +540,5 @@ if(args.has('--strict')){
       failed=true;
     }
   }
-  if((totals.unstyledRuntimeOrMarkupClasses??0)>budgets.unstyledRuntimeOrMarkupClasses)console.error('CSS usage audit unstyled classes:',JSON.stringify(unstyledClasses));
   if(failed)process.exit(1);
 }
