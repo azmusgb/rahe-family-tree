@@ -68,7 +68,7 @@ function rememberCurrentContext(){
       return state;
     });
   }
-  const person=document.querySelector('.v17-person[data-person-id]');
+  const person=document.querySelector('.person-profile[data-person-id]');
   if(route==='person'&&person){
     const item={id:person.dataset.personId,name:safeText(person.querySelector('.person-header h2')?.textContent)||'Family member',branch:safeText(person.querySelector('.person-header .eyebrow')?.textContent).replace(/\s+FAMILY$/i,''),dates:safeText(person.querySelector('.person-dates')?.textContent),savedAt:Date.now()};
     updateState(state=>{state.recentPeople=rememberById(state.recentPeople,item,MAX_RECENT_PEOPLE);return state;});
