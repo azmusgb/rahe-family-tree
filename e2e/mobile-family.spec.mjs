@@ -26,7 +26,7 @@ test('People is a compact mobile family directory with readable rows and no over
   await page.goto('/#people');
   const people=page.locator('[data-v17-native="people"]');
   await expect(people).toBeVisible();
-  const cards=people.locator('.v17-person-card');
+  const cards=people.locator('.directory-person-card');
   expect(await cards.count()).toBeGreaterThan(12);
 
   const firstButton=cards.first().locator('button[data-person]');
@@ -41,7 +41,7 @@ test('People is a compact mobile family directory with readable rows and no over
   }).length);
   expect(visibleRows,'ordinary phone viewport should expose at least four useful directory entries').toBeGreaterThanOrEqual(4);
 
-  const minimumText=await cards.first().locator('.v17-person-card-copy > small,.v17-person-card-copy > b,.v17-person-card-copy > em,.v17-person-card-copy > p').evaluateAll(nodes=>Math.min(...nodes.map(node=>parseFloat(getComputedStyle(node).fontSize))));
+  const minimumText=await cards.first().locator('.directory-person-card-copy > small,.directory-person-card-copy > b,.directory-person-card-copy > em,.directory-person-card-copy > p').evaluateAll(nodes=>Math.min(...nodes.map(node=>parseFloat(getComputedStyle(node).fontSize))));
   expect(minimumText,'ordinary Family directory text should not fall below 11px').toBeGreaterThanOrEqual(11);
 
   const cardsInsideViewport=await cards.evaluateAll(nodes=>nodes.slice(0,8).every(node=>{
