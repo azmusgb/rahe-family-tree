@@ -27,7 +27,7 @@ test('historical Person shows elevated summary and active navigation',async({pag
   await expect(snapshot).toBeVisible();
   await expect(snapshot.getByText(/close family connection/)).toBeVisible();
   await expect(snapshot.getByText(/linked life record/)).toBeVisible();
-  await expect(page.locator('.v17-person-nav a.is-active')).toHaveCount(1);
+  await expect(page.locator('.person-nav a.is-active')).toHaveCount(1);
 });
 
 test('living Person keeps chronology and place summary private',async({page})=>{
