@@ -134,6 +134,7 @@ test.describe('mobile v20 app experience',()=>{
     await expect(page.locator('#mobile-app-header')).toBeVisible();
     await expect(page.locator('.site-header.sidebar')).toBeHidden();
     await expect(page.locator('body')).toHaveAttribute('data-mobile-header-owner','dedicated');
+    await expect(page.locator('body')).toHaveClass(/mobile-app-ui/);
     await expect(page.locator('#mobile-app-header [data-mobile-app-title]')).toHaveText('Home');
 
     await openMobile(page,'person/P-WILLIAM-JOHN-RAHE-III');
@@ -146,6 +147,7 @@ test.describe('mobile v20 app experience',()=>{
     await expect(page.locator('#mobile-app-header')).toBeHidden();
     await expect(page.locator('.site-header.sidebar')).toBeVisible();
     await expect(page.locator('body')).not.toHaveAttribute('data-mobile-header-owner','dedicated');
+    await expect(page.locator('body')).not.toHaveClass(/mobile-app-ui/);
   });
 
 });
