@@ -172,11 +172,13 @@ test.describe('v26.6 mobile visual composition',()=>{
     await openButton.click();
     const panel=page.locator('[data-source-inspector-panel]');
     await expect(panel).toHaveAttribute('aria-modal','true');
-    const rect=await panel.evaluate(node=>{const r=node.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height,viewportWidth:innerWidth,viewportHeight:innerHeight};});
+    const rect=await panel.evaluate(node=>{const r=node.getBoundingClientRect(),style=getComputedStyle(node),viewportHeight=visualViewport?.height||innerHeight;return{x:r.x,width:r.width,height:r.height,viewportWidth:innerWidth,viewportHeight,position:style.position,bottom:parseFloat(style.bottom),overflowY:style.overflowY};});
     expect(rect.x).toBeGreaterThanOrEqual(0);
     expect(rect.x+rect.width).toBeLessThanOrEqual(rect.viewportWidth);
-    expect(rect.y).toBeGreaterThanOrEqual(0);
-    expect(rect.y+rect.height).toBeLessThanOrEqual(rect.viewportHeight);
+    expect(rect.position).toBe('fixed');
+    expect(rect.bottom).toBeGreaterThanOrEqual(0);
+    expect(rect.height).toBeLessThanOrEqual(rect.viewportHeight-16);
+    expect(['auto','scroll']).toContain(rect.overflowY);
     const targets=await visibleRects(panel.locator('button,[href],input,select'));
     expect(targets.length).toBeGreaterThan(0);
     expect(Math.min(...targets.map(r=>r.height))).toBeGreaterThanOrEqual(44);
