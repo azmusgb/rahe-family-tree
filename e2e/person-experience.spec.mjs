@@ -23,7 +23,7 @@ test('historical Person opens as a biography-first family profile',async({page},
   const mobile=testInfo.project.name==='mobile-chromium';
   const storyControl=mobile
     ? profile.locator('.v20-person-tabs [data-person-tab="story"]')
-    : profile.locator('.v17-person-nav a[href="#v17-story"]');
+    : profile.locator('.person-nav a[href="#v17-story"]');
   await expect(storyControl).toHaveText('Story');
   const story=profile.locator('#v17-story');
   await expect(story).toBeVisible();
