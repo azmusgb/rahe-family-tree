@@ -579,3 +579,4 @@ body.tree-compact .graph-shell .legend{display:none}body.tree-compact #family-gr
   body[data-route="tree"] .graph-shell{min-height:calc(100dvh - 188px)}
   body[data-route="tree"] .graph-scroll,body[data-route="tree"] .graph-stage{min-height:calc(100dvh - 245px)}
 }
+.edge.identity-bridge{stroke:var(--evidence-unresolved);stroke-dasharray:8 7}
