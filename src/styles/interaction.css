@@ -45,7 +45,7 @@ padding:14px;
 .relationship-row{grid-template-columns:1fr;gap:6px}
 .relationship-row>b{display:none}
 .relationship-row small,.relationship-row .deep-link{grid-column:auto}
-body.v21-actual-mobile-ui[data-route="tree"]{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+body.mobile-app-ui[data-route="tree"]{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
 #family-mobile-dock :where(a,summary,button){touch-action:manipulation}
 }
 body[data-v158-context="family"][data-route="media"] .route-shell .filters{
