@@ -29,7 +29,7 @@ function nativeMarkup(route){
 function enforcePublicPrivacy(route,content){
   if(route==='people'){const summary=content.querySelector('.v17-branch-summary>div:first-child>p:not(.eyebrow)');if(summary&&summary.textContent.includes(' · '))summary.textContent=summary.textContent.split(' · ')[0];return;}
   if(route!=='person')return;
-  const root=content.querySelector('.v17-person[data-person-id]'),person=personById(root?.dataset.personId||'');if(!person?.living)return;
+  const root=content.querySelector('.person-profile[data-person-id]'),person=personById(root?.dataset.personId||'');if(!person?.living)return;
   content.querySelector('.person-places')?.remove();
   const life=content.querySelector('#v17-life'),timeline=life?.querySelector('.v17-life-timeline');if(timeline)timeline.outerHTML=`<p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p>`;if(life&&!life.querySelector('.v17-living-chronology'))life.insertAdjacentHTML('beforeend',`<p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p>`);
   content.querySelectorAll('[data-v17-person-photo]').forEach(host=>host.removeAttribute('data-v17-person-photo'));
