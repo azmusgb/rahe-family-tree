@@ -1,5 +1,5 @@
 
-/* v24.7A canonical ownership — earlier-cascade declarations. */
+
 .main{max-width:1480px;margin:auto;padding:34px 38px 72px;min-height:80vh}
 .main{max-width:1360px}
 .main{max-width:var(--content-max);}
@@ -19,7 +19,6 @@
   outline-offset:3px;
 }
 
-/* Route header and search */
 .route-shell{
   border:0;
   background:transparent;
@@ -101,7 +100,6 @@
   box-shadow:0 0 0 4px rgba(18,63,52,.07);
 }
 
-/* Shared cards and sections */
 :where(.person-card,.source-card,.claim-card,.queue-card,.dossier-section,.family-overview-card,.directory-person-card>button,.v17-relative,.v17-family-summary,.tree-context,.v174-profile-snapshot,.graph-panel,.media-library-card,.dashboard-person){
   border-color:var(--line);
   background:rgba(255,253,248,.92);
@@ -120,16 +118,10 @@
   box-shadow:var(--family-shadow-card-hover);
 }
 
-/* Evidence-state UI. Evidence state remains authoritative and visually distinct. */
 .badge.provisional{background:var(--evidence-provisional-soft);color:var(--evidence-provisional)}
 .badge.unresolved{background:var(--evidence-unresolved-soft);color:var(--evidence-unresolved)}
 .badge.rejected{background:var(--evidence-rejected-soft);color:var(--evidence-rejected)}
 
-/* --------------------------------------------------------------------------
-   CSS stabilization pass — calm archive composition
-   -------------------------------------------------------------------------- */
-
-/* Flatten generic surfaces. Cards should identify objects, not every section. */
 :where(.panel,.family-overview-card,.v17-family-summary,.v174-profile-snapshot,.graph-panel,.dossier-section){
   box-shadow:none;
 }
@@ -141,7 +133,6 @@
   box-shadow:var(--family-shadow-card-hover);
 }
 
-/* Controls: one quiet control language across routes. */
 :where(.action,button,input,select,textarea,.local-nav a,.local-nav button){
   border-radius:var(--family-radius-control);
 }
@@ -149,9 +140,6 @@
   min-height:var(--control-min);
 }
 
-/* Final shell composition for masthead, workspace, and footer. Presentation-only. */
-
-/* App shell */
 .site-header.sidebar{
   background:
     radial-gradient(circle at 16% 0,rgba(255,255,255,.08),transparent 15rem),
@@ -177,7 +165,6 @@
   padding-top:clamp(28px,4vw,54px);
 }
 
-/* Footer */
 .site-footer{
   margin-top:clamp(40px,6vw,80px);
   border-top:1px solid var(--line);
@@ -312,8 +299,6 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
   body[data-experience="family"][data-route="dashboard"] :is(.family-home-hero,.dashboard-hero)::after,body[data-experience="family"][data-route="dashboard"] .dashboard-hero::before{inset:auto -38% -28% 35%;width:88%}
 }
 
-/* Final Person composition. Presentation-only. */
-
 .person-header h2,.media-library-title h2{
   color:var(--green);
   letter-spacing:-.045em;
@@ -324,14 +309,10 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 }
 .person-header h2{font-size:clamp(3rem,6.5vw,5.8rem)}
 
-/* Person: biography first, less application chrome. */
 .person-header{gap:24px;padding-block:18px 28px}
 .person-header h2{font-size:clamp(2.7rem,5.2vw,4.8rem);line-height:.98}
 .v17-life-event>div{background:transparent;border:0;border-radius:0;padding:0}
 
-/* Final People-directory composition. Presentation-only. */
-
-/* People directory */
 .directory-person-card>button{
   border-radius:17px;
   background:#fffdf8;
@@ -341,13 +322,9 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
   background:linear-gradient(145deg,#17483c,#102f27);
 }
 
-/* People: compact directory cards with less chrome. */
 .directory-person-card>button{border-radius:14px;box-shadow:none}
 .directory-person-card>button:hover,.directory-person-card>button:focus-visible{box-shadow:var(--family-shadow-card)}
 
-/* Final Tree composition. Evidence-state semantics remain authoritative. */
-
-/* Tree: editorial workspace without flattening canonical state distinctions. */
 .tree-context{
   padding:20px 22px;
   border-radius:20px;
@@ -367,7 +344,6 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
   background-size:24px 24px;
 }
 
-/* Base treatment only. State-specific selectors below always win. */
 .graph-node rect{
   fill:#fffdf8;
   stroke:#b7c3ba;
@@ -390,7 +366,6 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 .edge.state-unresolved,.edge.identity-bridge{stroke:var(--evidence-unresolved);stroke-dasharray:8 7}
 .edge.state-rejected{display:none}
 
-/* Tree: controls first, canvas second; remove decorative noise. */
 .tree-context{padding:16px 18px;border-radius:16px;background:var(--surface-soft);box-shadow:none}
 .v154-graph-shell,.graph-panel{border-radius:18px}
 .graph-toolbar{padding:10px 12px}
@@ -402,9 +377,6 @@ body[data-route="tree"][data-v158-context="family"] .graph-scroll{background:#fa
 body[data-route="tree"][data-v158-context="family"] .v161-tree-toolbar,
 body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{background:transparent!important}
 
-/* Final responsive composition for cross-route layout safeguards. Presentation-only. */
-
-/* Mobile */
 @media(max-width:720px){
   body{
     background:
@@ -454,7 +426,6 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   }
 }
 
-/* Tablet: collapse density before the phone breakpoint. */
 @media(max-width:980px){
   .main{padding-inline:24px}
   .page-heading{gap:16px}
@@ -462,7 +433,6 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   .person-header h2{font-size:clamp(2.5rem,6vw,4rem)}
 }
 
-/* Mobile: vertical reading flow; horizontal rails only where they add real value. */
 @media(max-width:720px){
   .main{padding:14px 14px calc(var(--mobile-nav-height) + 34px)}
   .page-heading{display:block;margin-bottom:18px}
@@ -479,7 +449,7 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   .person-header{grid-template-columns:72px minmax(0,1fr);gap:14px;padding-block:8px 22px}
   .person-header h2{font-size:clamp(2.2rem,10vw,3.1rem);letter-spacing:-.04em}
 
-  /* Replace the 2-column profile tab matrix with a predictable swipe row. */
+  
   body[data-route="person"] .v1510-profile-tabs{
     display:flex!important;
     gap:6px!important;
@@ -494,7 +464,7 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   body[data-route="person"] .v1510-profile-tabs>a{width:auto!important;min-height:var(--control-min)!important;flex:0 0 auto!important}
   body[data-route="person"] .v1510-profile-tabs>a{grid-column:auto!important}
 
-  /* Keep utility/history content stacked instead of creating more swipe rails. */
+  
   .v162-family-path-group>div{flex-wrap:wrap;overflow:visible}
 
   body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:60dvh!important;border-radius:14px!important}
@@ -509,7 +479,7 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   .family-primary-actions{grid-template-columns:1fr}
   .family-primary-actions .action:first-child{grid-column:auto}
 }
-/* v26.6 composition refinement: route rhythm, desktop/tablet density, shared surfaces. */
+
 @media(min-width:1181px){
   .main{padding:30px 32px 64px}
   .page-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:20px;max-width:none;margin-bottom:22px}
