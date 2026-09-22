@@ -323,7 +323,6 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
   padding-block:24px 36px;
 }
 .person-header h2{font-size:clamp(3rem,6.5vw,5.8rem)}
-.person-nav a.is-active{background:var(--green);box-shadow:none}
 
 /* Person: biography first, less application chrome. */
 .person-header{gap:24px;padding-block:18px 28px}
@@ -440,7 +439,6 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   .v174-discovery-grid>button{min-height:104px;padding:14px}
   .person-header{gap:16px;padding-block:10px 24px}
   .person-header h2{font-size:clamp(2.45rem,13vw,4rem)}
-  .person-nav{top:7px;margin-inline:-2px}
 }
 
 @media(max-width:430px){
@@ -480,7 +478,6 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
 
   .person-header{grid-template-columns:72px minmax(0,1fr);gap:14px;padding-block:8px 22px}
   .person-header h2{font-size:clamp(2.2rem,10vw,3.1rem);letter-spacing:-.04em}
-  .person-nav{position:sticky;top:0;margin:0 -14px 10px;padding:7px 14px;background:rgba(244,241,233,.96)}
 
   /* Replace the 2-column profile tab matrix with a predictable swipe row. */
   body[data-route="person"] .v1510-profile-tabs{
