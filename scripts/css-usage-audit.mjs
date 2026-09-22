@@ -509,17 +509,17 @@ console.log(JSON.stringify({totals,orphanCss,unusedCustomProperties,topDead:dead
 if(args.has('--strict')){
   let failed=false;
   const budgets={
-    // v26.1 certified candidate ceilings. These are downward-only debt ratchets;
+    // v26.8 certified baseline ceilings. These are downward-only debt ratchets;
     // raising one requires an explicit reviewed baseline change.
-    cssBytes:484775,
-    duplicateSelectorsAcrossFiles:369,
+    cssBytes:484761,
+    duplicateSelectorsAcrossFiles:355,
     ownershipDuplicateSelectorsAcrossFiles:91,
     topSelectorOwnerViolations:0,
     deadSelectorCandidates:0,
     highSpecificitySelectors:107,
     importantDeclarations:1134,
-    legacyClassArms:1449,
-    liveLegacyVersionedClassTokens:181,
+    legacyClassArms:1447,
+    liveLegacyVersionedClassTokens:179,
     unstyledRuntimeOrMarkupClasses:135,
     unusedCustomProperties:0,
     inlineStyleAttributes:5,
