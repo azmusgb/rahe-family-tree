@@ -1,88 +1,203 @@
-/* Print/export contract for family-facing routes. Keep interactive chrome out of paper/PDF output. */
+/* ==========================================================================
+   Family Archive OS — Print / Export
+   ==========================================================================
+   Canonical paper/PDF contract for family-facing routes.
+
+   Interactive chrome is removed, layout constraints are released, graph output
+   is expanded for paper, and evidence/genealogy presentation remains intact.
+   ========================================================================== */
+
 @media print{
   @page{margin:12mm}
-  html,body{background:#fff!important;color:#000!important}
-  body{font-size:10.5pt;padding-bottom:0!important}
-  #mobile-app-header,.mobile-app-header,.site-header,.sidebar,.topbar,#family-mobile-dock,.filters,#filters,.local-nav,.graph-toolbar,.page-actions,.skip,.site-footer,.footer,.tree-advanced-nav,.tree-focus-breadcrumb,.tree-recent-trail,.tree-recent-history,.tree-context-nav,.tree-mobile-hint,.v129-tree-memory,.v1291-mobile-hint{display:none!important}
-  .shell,.workspace,.main,.route-shell{display:block!important;width:auto!important;min-width:0!important;max-width:none!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;background:#fff!important}
-  a{color:inherit!important;text-decoration:none!important}
-  .graph-shell,.graph-scroll{overflow:visible!important;border:0!important;box-shadow:none!important;background:#fff!important}
-  #family-graph{display:block!important;width:100%!important;height:auto!important;max-width:none!important}
-  .person-card,.source-card,.claim-card,.queue-card,.dossier-section,.media-library-card{box-shadow:none!important;break-inside:avoid}
-}
 
-@media print and (orientation:landscape){
-  body[data-route="tree"]{print-color-adjust:exact;-webkit-print-color-adjust:exact}
-}
+  html,body{
+    background:#fff!important;
+    color:#000!important;
+  }
 
-/* Consolidated print rules migrated from semantic modules. */
-@media print{
-/* shell.css */
-.shell{display:block}
-.page-heading{margin-bottom:18px}
-.ri-filters{display:none}
-.route-shell{display:block;border:0;box-shadow:none;padding:0}
+  body{
+    font-size:10.5pt;
+    padding-bottom:0!important;
+  }
 
-/* navigation.css */
-.v1291-breadcrumb,.v1291-mobile-hint{display:none!important}
-.route-shell .filters,.topbar,.sidebar{display:none!important}
-.page-actions,.tree-context-nav,.tree-recent-history,.tree-mobile-hint{display:none!important}
+  /* Interactive and navigation chrome */
+  #mobile-app-header,
+  .mobile-app-header,
+  .site-header,
+  .sidebar,
+  .topbar,
+  #family-mobile-dock,
+  .family-mobile-dock,
+  .mobile-family-nav,
+  .filters,
+  #filters,
+  .route-shell .filters,
+  .ri-filters,
+  .local-nav,
+  .graph-toolbar,
+  .page-actions,
+  .skip,
+  .site-footer,
+  .footer,
+  .tree-advanced-nav,
+  .tree-focus-breadcrumb,
+  .tree-recent-trail,
+  .tree-recent-history,
+  .tree-context-nav,
+  .tree-mobile-hint,
+  .tree-focusbar,
+  .tree-path-tools,
+  .tree-advanced-export,
+  .legend,
+  .v129-tree-memory,
+  .v1291-breadcrumb,
+  .v1291-mobile-hint,
+  .v153-profile-nav,
+  .v154-tree-help,
+  .v154-tree-actions,
+  .v155-desktop-actions,
+  .v155-mobile-actions,
+  .mobile-family-list,
+  .relationship-index,
+  .dashboard-paths,
+  .media-viewer,
+  .family-search,
+  .v162-journey-head>a,
+  .v162-branch-actions,
+  .v162-media-quick,
+  .person-nav,
+  .family-primary-actions,
+  .v17-section-head>a,
+  .v17-research-door .action,
+  .v17-person-research .action,
+  .branch-actions,
+  .v175-branch-back{
+    display:none!important;
+  }
 
-/* home.css */
-.metrics{grid-template-columns:repeat(3,1fr)}
-.dashboard-family-layout{display:block}
+  /* Release app-shell constraints for paper */
+  .shell,
+  .workspace,
+  .main,
+  .route-shell{
+    display:block!important;
+    width:auto!important;
+    min-width:0!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    box-shadow:none!important;
+    background:#fff!important;
+  }
 
-/* tree.css */
-.sidebar,.topbar,.filters,.local-nav,.graph-toolbar,.skip,.footer{display:none!important}
-.graph-scroll{overflow:visible;max-height:none}
-#family-graph{min-width:0}
-.graph-shell{border:0!important;box-shadow:none!important}
-.graph-scroll{overflow:visible!important}
-.graph-node .node-collapse{display:none}
-#family-graph{width:100%!important;height:auto!important;max-height:none!important}
-.graph-node rect{fill:white!important;stroke:#222!important}
-.edge{stroke:#333!important}
-.edge.identity-bridge{stroke-dasharray:6 4!important}
-.graph-node{filter:none!important}
-.graph-node rect{filter:none!important}
-.v153-profile-nav,.v154-tree-help,.v154-tree-actions{display:none!important}
-.person-family-network,.person-life-summary,.v154-tree-person{box-shadow:none;break-inside:avoid}
+  .page-heading{margin-bottom:18px}
 
-/* tree-advanced.css */
-.tree-advanced-nav,.tree-focus-breadcrumb,.tree-recent-trail,.tree-path-tools,.tree-advanced-export,.graph-toolbar,.legend,.v129-tree-memory,.v1291-breadcrumb,.v1291-mobile-hint{display:none!important}.graph-shell,.graph-scroll{overflow:visible!important;border:0!important;box-shadow:none!important;background:#fff!important}#family-graph{width:100%!important;height:auto!important;max-width:none!important}.tree-path-segment{stroke-width:4!important}
+  a{
+    color:inherit!important;
+    text-decoration:none!important;
+  }
 
-/* media.css */
-.graph-node .v128-svg-photo{display:none!important}
-.graph-node .node-initials.photo-hidden{display:block!important}
+  .metrics{grid-template-columns:repeat(3,1fr)}
+  .dashboard-family-layout{display:block}
 
-/* research.css */
-.person-card,.claim-card,.source-card,.task-card,.panel,.timeline-item>div{break-inside:avoid}
+  /* Tree / graph output */
+  .graph-shell,
+  .graph-scroll{
+    overflow:visible!important;
+    border:0!important;
+    box-shadow:none!important;
+    background:#fff!important;
+  }
 
-/* mobile-family.css */
-.v129-tree-memory,.tree-focusbar,.graph-toolbar,.legend,.mobile-family-list,.relationship-index{display:none!important}
-.family-mobile-dock,.dashboard-paths,.media-viewer{display:none!important}
-.family-mobile-dock,.mobile-family-nav,.dashboard-paths,.media-viewer{display:none!important}
-#family-mobile-dock{display:none!important}
-.v155-desktop-actions,.v155-mobile-actions,#family-mobile-dock{display:none!important}
+  .graph-scroll{max-height:none}
 
-/* responsive.css */
-.main{max-width:none;padding:0}
-.dossier-section{break-inside:avoid}
-.dossier-section>*{display:block!important}
-a{color:#000;text-decoration:none}
-.generation-lane line{stroke-opacity:.16}
-.generation-lane text{opacity:.65}
-.generation-lane text{font-size:10px!important;letter-spacing:.08em!important}
-.ri-card,.ri-row,.ri-hero>div,.ri-method{break-inside:avoid;box-shadow:none!important}
-.family-search{display:none}
-body{padding-bottom:0}
-.v155-desktop-actions,.v155-mobile-actions{display:none!important}
-body{background:#fff!important}
-.v162-journey-head>a,.v162-branch-actions,.v162-media-quick,.person-nav,.family-primary-actions,.v17-section-head>a,.v17-research-door .action,.v17-person-research .action{display:none!important}
-  body[data-v158-context="family"] :where(.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card,.v17-story-moment,.v17-person-card>button,.v17-relative){box-shadow:none!important}
+  #family-graph{
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+    min-width:0;
+    max-width:none!important;
+    max-height:none!important;
+  }
 
-/* home-editorial.css */
-.v17-home-hero h2,
+  .graph-node .node-collapse,
+  .graph-node .v128-svg-photo{
+    display:none!important;
+  }
+
+  .graph-node .node-initials.photo-hidden{display:block!important}
+
+  .graph-node{filter:none!important}
+
+  .graph-node rect{
+    fill:#fff!important;
+    stroke:#222!important;
+    filter:none!important;
+  }
+
+  .edge{stroke:#333!important}
+  .edge.identity-bridge{stroke-dasharray:6 4!important}
+  .tree-path-segment{stroke-width:4!important}
+
+  .generation-lane line{stroke-opacity:.16}
+  .generation-lane text{
+    opacity:.65;
+    font-size:10px!important;
+    letter-spacing:.08em!important;
+  }
+
+  /* Avoid splitting evidence and family records across pages */
+  .person-card,
+  .source-card,
+  .claim-card,
+  .queue-card,
+  .task-card,
+  .panel,
+  .dossier-section,
+  .media-library-card,
+  .timeline-item>div,
+  .person-family-network,
+  .person-life-summary,
+  .v154-tree-person,
+  .ri-card,
+  .ri-row,
+  .ri-hero>div,
+  .ri-method{
+    break-inside:avoid;
+  }
+
+  .person-card,
+  .source-card,
+  .claim-card,
+  .queue-card,
+  .dossier-section,
+  .media-library-card,
+  .person-family-network,
+  .person-life-summary,
+  .v154-tree-person,
+  .ri-card,
+  .ri-row,
+  .ri-hero>div,
+  .ri-method,
+  .family-card,
+  .branch-person>button,
+  body[data-v158-context="family"] :where(
+    .v162-moment,
+    .v162-branch-context,
+    .v162-family-path,
+    .media-library-card,
+    .v17-story-moment,
+    .v17-person-card>button,
+    .v17-relative
+  ){
+    box-shadow:none!important;
+  }
+
+  .dossier-section>*{display:block!important}
+
+  /* Home / dashboard paper treatment */
+  .v17-home-hero h2,
   .v17-home-hero .v17-home-metrics,
   .v17-home-hero .v17-home-metrics b,
   .v17-home-hero .v17-home-metrics strong,
@@ -91,20 +206,26 @@ body{background:#fff!important}
     color:#000;
   }
 
-/* branches.css */
-.branch-actions,.v175-branch-back{display:none!important}.family-card,.branch-person>button{box-shadow:none!important}
-
-/* archive-shell.css */
-.site-header,.topbar,.family-mobile-dock,.site-footer{display:none!important}
-
-/* redesign.css */
-body{background:#fff}
-  .v17-home-hero,.dashboard-hero{
+  .v17-home-hero,
+  .dashboard-hero{
     min-height:0;
     background:#fff!important;
     color:#000;
     border:1px solid #bbb;
     box-shadow:none;
   }
-  .v17-home-hero h1,.v17-home-hero p:not(.eyebrow),.dashboard-hero-copy h2,.dashboard-hero-copy>p:not(.eyebrow){color:#000}
+
+  .v17-home-hero h1,
+  .v17-home-hero p:not(.eyebrow),
+  .dashboard-hero-copy h2,
+  .dashboard-hero-copy>p:not(.eyebrow){
+    color:#000;
+  }
+}
+
+@media print and (orientation:landscape){
+  body[data-route="tree"]{
+    print-color-adjust:exact;
+    -webkit-print-color-adjust:exact;
+  }
 }
