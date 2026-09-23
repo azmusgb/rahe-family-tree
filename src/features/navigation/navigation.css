@@ -487,7 +487,7 @@ body[data-route="dashboard"][data-v158-context="family"] :where(.family-branch-c
 .v162-journey-head h2{max-width:15ch;font-family:var(--family-font-display);text-wrap:balance}
 .v162-journey-head>a{align-items:center;min-height:var(--control-min);padding:0 12px;border:1px solid transparent;border-radius:var(--family-radius-control)}
 .v162-journey-head>a:hover{border-color:var(--line);background:var(--surface)}
-.v162-moments{.v162-moment{position:relative;overflow:hidden;border:1px solid var(--family-border-hairline);border-radius:var(--family-radius-card);background:linear-gradient(180deg,#fff 0%,color-mix(in srgb,var(--surface-soft) 70%,#fff) 100%);box-shadow:var(--family-shadow-card)}
+.v162-moment{position:relative;overflow:hidden;border:1px solid var(--family-border-hairline);border-radius:var(--family-radius-card);background:linear-gradient(180deg,#fff 0%,color-mix(in srgb,var(--surface-soft) 70%,#fff) 100%);box-shadow:var(--family-shadow-card)}
 .v162-moment::before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,var(--green),transparent 68%);opacity:.52}
 .v162-moment time{font-family:var(--family-font-display);letter-spacing:-.035em}.v162-moment h3{font-family:var(--family-font-display);line-height:1.22;text-wrap:pretty}.v162-moment p,.v162-moment small{color:var(--muted-strong);font-size:var(--family-text-meta)}
 .v162-places{gap:7px}.v162-places a{border:1px solid transparent;border-radius:var(--family-radius-chip);background:var(--family-surface-accent)}.v162-places a:hover{border-color:var(--family-border-interactive);background:var(--surface)}
