@@ -583,3 +583,9 @@ body.tree-compact .graph-shell .legend{display:none}body.tree-compact #family-gr
   body[data-route="tree"] .graph-scroll,body[data-route="tree"] .graph-stage{min-height:calc(100dvh - 245px)}
 }
 .edge.identity-bridge{stroke:var(--evidence-unresolved);stroke-dasharray:8 7}
+.graph-toolbar{padding:16px 18px;background:rgba(255,253,248,.9)}
+.graph-scroll{background-color:#f8f6f0;background-image:radial-gradient(rgba(18,63,52,.10) .8px,transparent .8px);background-size:24px 24px}
+.graph-node rect{fill:#fffdf8;stroke:#b7c3ba;filter:drop-shadow(0 7px 11px rgba(18,63,52,.075))}
+.graph-toolbar{padding:10px 12px}
+.graph-scroll{background-color:#faf9f5;background-image:none}
+.graph-node rect{filter:drop-shadow(0 3px 6px rgba(18,63,52,.055))}
