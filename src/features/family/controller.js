@@ -13,8 +13,8 @@ const livingChronologyPrivacy='Detailed chronology and location records are prot
 const livingMediaPrivacy='Living-person media remains private in the public family archive.';
 
 function publicSafeLivingPersonMarkup(markup){
-  const life=`<section id="v17-life" class="person-section"><div class="v17-section-head"><div><p class="eyebrow">LIFE</p><h2>Living family member</h2><p>Details protected in the public family archive.</p></div></div><p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p></section>`;
-  const photos=`<section id="v17-photos" class="person-section"><div class="v17-section-head"><div><p class="eyebrow">PHOTOS & DOCUMENTS</p><h2>Family archive</h2></div></div><p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p></section>`;
+  const life=`<section id="v17-life" class="person-section"><div class="family-section-head"><div><p class="eyebrow">LIFE</p><h2>Living family member</h2><p>Details protected in the public family archive.</p></div></div><p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p></section>`;
+  const photos=`<section id="v17-photos" class="person-section"><div class="family-section-head"><div><p class="eyebrow">PHOTOS & DOCUMENTS</p><h2>Family archive</h2></div></div><p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p></section>`;
   return String(markup||'').replace(/\sdata-v17-person-photo="[^"]*"/g,'').replace(/<section id="v17-life"[\s\S]*?<\/section>/,life).replace(/<section id="v17-photos"[\s\S]*?<\/section>/,photos);
 }
 function nativeMarkup(route){
@@ -31,7 +31,7 @@ function enforcePublicPrivacy(route,content){
   if(route!=='person')return;
   const root=content.querySelector('.person-profile[data-person-id]'),person=personById(root?.dataset.personId||'');if(!person?.living)return;
   content.querySelector('.person-places')?.remove();
-  const life=content.querySelector('#v17-life'),timeline=life?.querySelector('.v17-life-timeline');if(timeline)timeline.outerHTML=`<p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p>`;if(life&&!life.querySelector('.v17-living-chronology'))life.insertAdjacentHTML('beforeend',`<p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p>`);
+  const life=content.querySelector('#v17-life'),timeline=life?.querySelector('.person-life-timeline');if(timeline)timeline.outerHTML=`<p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p>`;if(life&&!life.querySelector('.v17-living-chronology'))life.insertAdjacentHTML('beforeend',`<p class="muted v17-living-privacy v17-living-chronology">${livingChronologyPrivacy}</p>`);
   content.querySelectorAll('[data-v17-person-photo]').forEach(host=>host.removeAttribute('data-v17-person-photo'));
   const photos=content.querySelector('#v17-photos'),gallery=photos?.querySelector('[data-v17-person-gallery]');if(gallery){gallery.removeAttribute('data-v17-person-gallery');gallery.innerHTML=`<p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p>`;}if(photos&&!photos.querySelector('.v17-living-media'))photos.insertAdjacentHTML('beforeend',`<p class="muted v17-living-privacy v17-living-media">${livingMediaPrivacy}</p>`);
 }
