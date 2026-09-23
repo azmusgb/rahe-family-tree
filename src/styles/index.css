@@ -1,4 +1,11 @@
-/* Canonical style composition root. Imports preserve the certified cascade order while ownership is feature-scoped. */
+/* ==========================================================================
+   Family Archive OS — Canonical Style Composition Root
+   ==========================================================================
+   Import order is part of the certified cascade contract.
+   Keep feature ownership scoped to the imported files; do not add presentation
+   rules directly to this composition root.
+   ========================================================================== */
+
 @import './tokens.css';
 @import './foundation.css';
 @import '../features/navigation/navigation.css';
