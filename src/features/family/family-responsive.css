@@ -72,26 +72,26 @@ body[data-media-release="12.8"] .person-card .person-open,body[data-media-releas
   body[data-route="people"][data-v158-context="family"] .route-shell .filters .search{display:block!important;font-size:0}
   body[data-route="people"][data-v158-context="family"] .route-shell .filters .search input{min-height:var(--control-min);font-size:16px}
   body[data-route="people"][data-v158-context="family"] .people-directory{gap:8px!important}
-  body[data-route="people"][data-v158-context="family"] .v17-page-intro{
+  body[data-route="people"][data-v158-context="family"] .people-intro{
     grid-template-columns:minmax(0,1fr) auto!important;
     align-items:end;
     gap:8px!important;
     padding:2px 0 5px!important;
   }
-  body[data-route="people"][data-v158-context="family"] .v17-page-intro .eyebrow,
-  body[data-route="people"][data-v158-context="family"] .v17-page-intro>div>p:not(.eyebrow){display:none}
-  body[data-route="people"][data-v158-context="family"] .v17-page-intro h2{margin:0!important;font-size:24px!important;line-height:1.05!important}
-  body[data-route="people"][data-v158-context="family"] .v17-page-intro>span{opacity:.78;white-space:nowrap}
-  body[data-route="people"][data-v158-context="family"] .v17-page-intro>span b{font-size:20px}
-  body[data-route="people"][data-v158-context="family"] .v17-page-intro>span small{font-size:11px;letter-spacing:.04em;text-transform:none}
-  body[data-route="people"][data-v158-context="family"] .v17-branch-browser{gap:4px;margin-block:0;padding-top:2px;padding-bottom:3px}
-  body[data-route="people"][data-v158-context="family"] .v17-branch-chip{min-width:46px;min-height:46px;box-sizing:border-box;padding:9px 12px;font-size:12px}
-  body[data-route="people"][data-v158-context="family"] .v17-branch-summary{gap:8px;padding:10px 12px}
-  body[data-route="people"][data-v158-context="family"] .v17-branch-summary h3{margin:2px 0 3px;font-size:1.18rem}
-  body[data-route="people"][data-v158-context="family"] .v17-branch-summary p{font-size:12px}
-  body[data-route="people"][data-v158-context="family"] .v17-branch-summary a{min-height:var(--control-min);display:inline-flex;align-items:center;padding:8px 12px}
+  body[data-route="people"][data-v158-context="family"] .people-intro .eyebrow,
+  body[data-route="people"][data-v158-context="family"] .people-intro>div>p:not(.eyebrow){display:none}
+  body[data-route="people"][data-v158-context="family"] .people-intro h2{margin:0!important;font-size:24px!important;line-height:1.05!important}
+  body[data-route="people"][data-v158-context="family"] .people-intro>span{opacity:.78;white-space:nowrap}
+  body[data-route="people"][data-v158-context="family"] .people-intro>span b{font-size:20px}
+  body[data-route="people"][data-v158-context="family"] .people-intro>span small{font-size:11px;letter-spacing:.04em;text-transform:none}
+  body[data-route="people"][data-v158-context="family"] .people-branch-browser{gap:4px;margin-block:0;padding-top:2px;padding-bottom:3px}
+  body[data-route="people"][data-v158-context="family"] .people-branch-chip{min-width:46px;min-height:46px;box-sizing:border-box;padding:9px 12px;font-size:12px}
+  body[data-route="people"][data-v158-context="family"] .people-branch-summary{gap:8px;padding:10px 12px}
+  body[data-route="people"][data-v158-context="family"] .people-branch-summary h3{margin:2px 0 3px;font-size:1.18rem}
+  body[data-route="people"][data-v158-context="family"] .people-branch-summary p{font-size:12px}
+  body[data-route="people"][data-v158-context="family"] .people-branch-summary a{min-height:var(--control-min);display:inline-flex;align-items:center;padding:8px 12px}
   body[data-route="people"][data-v158-context="family"] .people-grid{gap:6px}
-  body[data-route="people"][data-v158-context="family"] .v17-person-card>button{
+  body[data-route="people"][data-v158-context="family"] .directory-person-card>button{
     grid-template-columns:52px minmax(0,1fr) 18px;
     gap:10px;
     align-items:center;
@@ -100,14 +100,14 @@ body[data-media-release="12.8"] .person-card .person-open,body[data-media-releas
     border-radius:12px;
     box-shadow:none;
   }
-  body[data-route="people"][data-v158-context="family"] .v17-person-card .v17-avatar{width:52px;height:60px;border-radius:12px;font-size:14px}
-  body[data-route="people"][data-v158-context="family"] .v17-person-card-copy{gap:1px}
-  body[data-route="people"][data-v158-context="family"] .v17-person-card-copy>small{font-size:11px;line-height:1.2;letter-spacing:.045em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  body[data-route="people"][data-v158-context="family"] .v17-person-card-copy>b{font-size:17px;line-height:1.08;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  body[data-route="people"][data-v158-context="family"] .v17-person-card-copy>em{font-size:12px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  body[data-route="people"][data-v158-context="family"] .v17-person-card-copy>p{margin:2px 0 0;font-size:12px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  body[data-route="people"][data-v158-context="family"] .v17-person-card>button>i{font-size:16px}
-  body[data-route="people"][data-v158-context="family"] .v17-directory-foot{padding-top:2px;font-size:11px}
+  body[data-route="people"][data-v158-context="family"] .directory-person-card .v17-avatar{width:52px;height:60px;border-radius:12px;font-size:14px}
+  body[data-route="people"][data-v158-context="family"] .directory-person-card-copy{gap:1px}
+  body[data-route="people"][data-v158-context="family"] .directory-person-card-copy>small{font-size:11px;line-height:1.2;letter-spacing:.045em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  body[data-route="people"][data-v158-context="family"] .directory-person-card-copy>b{font-size:17px;line-height:1.08;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  body[data-route="people"][data-v158-context="family"] .directory-person-card-copy>em{font-size:12px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  body[data-route="people"][data-v158-context="family"] .directory-person-card-copy>p{margin:2px 0 0;font-size:12px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  body[data-route="people"][data-v158-context="family"] .directory-person-card>button>i{font-size:16px}
+  body[data-route="people"][data-v158-context="family"] .people-directory-foot{padding-top:2px;font-size:11px}
 
   body[data-route="media"][data-v158-context="family"] .media-page-hero,
   body[data-route="media"][data-v158-context="family"] .media-library-metrics{display:none!important}
@@ -133,7 +133,7 @@ body[data-media-release="12.8"] .person-card .person-open,body[data-media-releas
   body[data-v158-context="family"] .main{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
   body[data-v158-context="family"] .footer{margin-bottom:calc(70px + env(safe-area-inset-bottom));padding-inline:12px;font-size:12px;line-height:1.4}
 
-  body[data-v158-context="family"] :where(.v17-person-card-copy,.v17-relative>span,.media-library-body,.media-linked-people){min-width:0;max-width:100%}
+  body[data-v158-context="family"] :where(.directory-person-card-copy,.v17-relative>span,.media-library-body,.media-linked-people){min-width:0;max-width:100%}
 }
 
 @media(max-width:1180px){
@@ -472,14 +472,14 @@ body:has(.mobile-more[open])::before{content:"";position:fixed;inset:0;backgroun
   .v17-home-people-grid{display:flex;overflow-x:auto;gap:10px;scroll-snap-type:x mandatory}.v17-home-person{flex:0 0 86%;scroll-snap-align:start}.v17-home-person button{min-height:128px;padding:14px}.home-gallery-grid{display:flex;overflow-x:auto;gap:10px;scroll-snap-type:x mandatory}.home-gallery-grid a{flex:0 0 78%;scroll-snap-align:start}
   .v17-research-door,.v17-person-research{grid-template-columns:1fr;gap:12px;padding:20px 0}.v17-research-door .action,.v17-person-research .action{width:100%;justify-content:center}
 
-  .v17-page-intro{grid-template-columns:1fr;gap:12px;padding-top:8px}.v17-page-intro h2{font-size:clamp(2.25rem,11vw,2.8rem)}.v17-page-intro>span{display:flex;align-items:baseline;gap:7px;padding:0;border:0}.v17-page-intro>span b{font-size:22px}.v17-page-intro>span small{margin:0}.v17-branch-browser{top:0;margin-inline:-12px;padding-inline:12px}.v17-branch-summary{grid-template-columns:1fr;gap:12px;padding:14px}.v17-branch-summary>div:last-child{justify-content:flex-start}.people-grid{grid-template-columns:1fr;gap:9px}.v17-person-card>button{min-height:124px;padding:13px}.v17-person-card .v17-avatar{width:66px;height:78px}.v17-person-card-copy>b{font-size:18px}
+  .people-intro{grid-template-columns:1fr;gap:12px;padding-top:8px}.people-intro h2{font-size:clamp(2.25rem,11vw,2.8rem)}.people-intro>span{display:flex;align-items:baseline;gap:7px;padding:0;border:0}.people-intro>span b{font-size:22px}.people-intro>span small{margin:0}.people-branch-browser{top:0;margin-inline:-12px;padding-inline:12px}.people-branch-summary{grid-template-columns:1fr;gap:12px;padding:14px}.people-branch-summary>div:last-child{justify-content:flex-start}.people-grid{grid-template-columns:1fr;gap:9px}.directory-person-card>button{min-height:124px;padding:13px}.directory-person-card .v17-avatar{width:66px;height:78px}.directory-person-card-copy>b{font-size:18px}
 
   .v17-back{margin-bottom:8px}.person-header{grid-template-columns:72px minmax(0,1fr);align-items:start;padding:10px 0 22px}.v17-avatar.hero{width:72px;height:84px;border-radius:15px;font-size:17px}.person-header h2{line-height:.98}.person-dates{font-size:14px}.person-context{font-size:13px}.person-actions{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;margin-top:14px}.person-actions .action:first-child{grid-column:1/-1}.person-section{scroll-margin-top:56px}.v17-family-groups{grid-template-columns:1fr}.v17-life-event::before{top:23px;width:8px;height:8px}.v17-life-event time{font-size:12px}.v17-life-event h3{font-size:16px}.person-gallery{grid-template-columns:1fr 1fr}.person-gallery-item b{font-size:12px}
 }
 
 @media(prefers-contrast:more){
   :root{--family-border-hairline:var(--line-strong);--family-border-interactive:var(--green)}
-  body[data-v158-context="family"] :where(.v159-person-card .person-open,.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card,.v17-person-card>button,.v17-story-moment,.v17-relative){border-width:2px!important}
+  body[data-v158-context="family"] :where(.v159-person-card .person-open,.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card,.directory-person-card>button,.v17-story-moment,.v17-relative){border-width:2px!important}
 }
 
 .family-home-hero h2{
