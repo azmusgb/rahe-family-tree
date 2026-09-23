@@ -1,323 +1,182 @@
-/* ==========================================================================
-   Family Archive OS — Design Tokens
-   ==========================================================================
-   Canonical design-system values live here.
-
-   Rules:
-   - New CSS should consume semantic/canonical tokens.
-   - Do not redefine active design-system tokens in downstream stylesheets.
-   - Historical compatibility tokens at the end of this file are temporary.
-   - Remove a compatibility token only after all runtime consumers are gone.
-   ========================================================================== */
-
-:root {
-  color-scheme: light;
-
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
-  color: #182a24;
-  background: #f5f4ef;
-
-  /* ==========================================================================
-     Core palette
-     ========================================================================== */
-
-  --bg: #f4f1e9;
-
-  --paper: #fffdf8;
-
-  --surface: #fffdf8;
-  --surface-soft: #f8f5ee;
-  --surface-tint: #edf2ec;
-
-  --ink: #182a24;
-  --text: #182a24;
-
-  --muted: #53625b;
-  --muted-strong: #3f5048;
-
-  --green: #123f34;
-  --green-2: #1d5747;
-
-  --brand-soft: #e7efe9;
-
-  --line: #ddd9ce;
-  --line-strong: #c9c7bc;
-
-  --focus: #b7832f;
-
-  /* ==========================================================================
-     Family semantic palette
-     ========================================================================== */
-
-  --family-bg: #f4f1e9;
-
-  --family-surface: #fffdf8;
-  --family-surface-paper: #fff;
-
-  --family-surface-accent:
-    color-mix(in srgb, var(--brand-soft) 78%, #fff);
-
-  --family-surface-canvas:
-    color-mix(in srgb, var(--bg) 82%, #fff);
-
-  --family-ink: #182a24;
-
-  --family-green: #123f34;
-  --family-green-2: #1d5747;
-
-  --family-muted: #53625b;
-
-  --family-line: #ddd9ce;
-
-  --family-border-hairline:
-    color-mix(in srgb, var(--line) 84%, transparent);
-
-  --family-border-interactive:
-    color-mix(in srgb, var(--green) 22%, var(--line));
-
-  /* ==========================================================================
-     Evidence states
-
-     These tokens map directly to the canonical evidence model. Keep state
-     meaning independent from individual component implementations.
-     ========================================================================== */
-
-  --evidence-supported: #245645;
-  --evidence-provisional: #805817;
-  --evidence-unresolved: #873630;
-  --evidence-rejected: #5f605b;
-
-  --evidence-supported-soft: #e8f0eb;
-  --evidence-provisional-soft: #f4ead7;
-  --evidence-unresolved-soft: #f4e1de;
-  --evidence-rejected-soft: #ecebe8;
-
-  /* ==========================================================================
-     Typography
-     ========================================================================== */
-
-  --family-font-display:
-    "Iowan Old Style",
-    "Palatino Linotype",
-    Palatino,
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  --family-font-ui:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
-  --family-text-display: clamp(3.25rem, 6vw, 4.75rem);
-  --family-text-page: clamp(2.25rem, 4.2vw, 3.35rem);
-  --family-text-section: clamp(1.75rem, 3vw, 2.35rem);
-
-  --family-text-card: 1.12rem;
-
-  --family-text-body: clamp(.94rem, 1.15vw, 1.06rem);
-
-  --family-text-support: .84rem;
-  --family-text-meta: .75rem;
-  --family-text-eyebrow: .68rem;
-
-  /* ==========================================================================
-     Layout widths
-     ========================================================================== */
-
-  --content-max: 1320px;
-
-  --family-page-home: 1240px;
-  --family-page-people: 1280px;
-  --family-page-person: 1120px;
-  --family-page-stories: 1120px;
-  --family-page-explore: 1240px;
-  --family-page-media: 1440px;
-  --family-page-research: 1360px;
-
-  --family-copy: 720px;
-
-  /* ==========================================================================
-     Application shell geometry
-     ========================================================================== */
-
-  --app-masthead-height: 76px;
-  --app-utility-height: 58px;
-
-  --mobile-nav-height: 72px;
-
-  --tap-target: 48px;
-  --control-min: 44px;
-
-  --family-sticky-clearance: 64px;
-
-  /* ==========================================================================
-     Focus
-     ========================================================================== */
-
-  --family-focus-width: 3px;
-  --family-focus-offset: 3px;
-
-  /* ==========================================================================
-     Stacking order
-
-     Large mobile values intentionally preserve the current certified stacking
-     contract. Rationalize these only as part of a dedicated stacking-context
-     migration.
-     ========================================================================== */
-
-  --z-context: 70;
-  --z-header: 90;
-  --z-nav-popover: 120;
-
-  --z-mobile-context: 2147482400;
-  --z-mobile-header: 2147482500;
-  --z-mobile-dock: 2147483000;
-  --z-mobile-popover: 2147483005;
-  --z-skip-link: 2147483010;
-
-  /* ==========================================================================
-     Navigation
-     ========================================================================== */
-
-  --nav-bg: #123f34;
-  --nav-bg-deep: #0d3028;
-  --nav-bg-soft: #e8eee9;
-
-  --nav-surface: #fffdf8;
-
-  --nav-text: #f7fbf8;
-  --nav-text-muted: #c8d6d1;
-
-  --nav-ink: #173f35;
-
-  --nav-accent: #d7b45a;
-
-  --nav-border: rgba(255, 255, 255, .12);
-  --nav-border-light: rgba(23, 63, 53, .14);
-
-  --nav-hover: rgba(255, 255, 255, .10);
-
-  --nav-active-bg: #f3ead3;
-  --nav-active-ink: #123f34;
-
-  /* ==========================================================================
-     Spacing
-
-     Family spacing is the semantic scale for current Family UI.
-
-     The generic --space-* values remain independent compatibility tokens.
-     They intentionally preserve their historical effective values.
-     ========================================================================== */
-
-  --family-space-2: 8px;
-  --family-space-4: 16px;
-  --family-space-5: 24px;
-  --family-space-7: 48px;
-
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 24px;
-  --space-6: 32px;
-  --space-7: 48px;
-
-  /* ==========================================================================
-     Radius
-     ========================================================================== */
-
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 24px;
-  --radius-pill: 999px;
-
-  --family-radius-panel: 20px;
-  --family-radius-card: 16px;
-  --family-radius-control: 12px;
-  --family-radius-chip: 999px;
-
-  /* ==========================================================================
-     Elevation
-     ========================================================================== */
-
-  --shadow:
-    0 16px 48px rgba(31, 52, 45, .07);
-
-  --shadow-sm:
-    0 1px 1px rgba(25, 40, 32, .03),
-    0 7px 20px rgba(25, 40, 32, .04);
-
-  --shadow-md:
-    0 12px 32px rgba(25, 40, 32, .07);
-
-  --shadow-lg:
-    0 20px 56px rgba(13, 29, 24, .14);
-
-  --family-shadow-card:
-    0 1px 1px rgba(25, 40, 32, .025),
-    0 5px 16px rgba(25, 40, 32, .035);
-
-  --family-shadow-card-hover:
-    0 2px 3px rgba(25, 40, 32, .035),
-    0 10px 26px rgba(25, 40, 32, .065);
-
-  --family-shadow-float:
-    0 28px 80px rgba(18, 42, 33, .16);
-
-  /* ==========================================================================
-     Motion
-     ========================================================================== */
-
-  --family-motion-fast: 140ms;
-  --family-motion-normal: 220ms;
-
-  /* ==========================================================================
-     Compatibility tokens
-
-     These names remain because migrated selectors still reference them.
-
-     Do not use these tokens in new CSS.
-
-     Delete each token only after repository-wide runtime/CSS verification
-     confirms that its final consumer has been migrated.
-     ========================================================================== */
-
-  --green2: #275a4a;
-
-  --gold: #805817;
-  --goldbg: #f8efd9;
-
-  --purple: #594373;
-  --purplebg: #eee9f5;
-
-  --blue: #405c6e;
-  --bluebg: #e8eef2;
-
-  --v16-page-max: 1440px;
-  --v16-copy-max: 760px;
-  --v16-radius: 18px;
-  --v16-section-gap: clamp(28px, 4vw, 56px);
-  --v16-text-meta: 12px;
+/* Family design system — single-source tokens.
+ *
+ * Current editorial values are declared once here. Historical token names that
+ * remain part of the migrated CSS contract are retained with their effective
+ * values, but no later root block redefines the active design system.
+ */
+:root{
+  color-scheme:light;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:#182a24;
+  background:#f5f4ef;
+
+  /* Current editorial palette. Text tokens are deliberately contrast-safe on
+   * the site's paper, soft, tint, and canvas surfaces. */
+  --bg:#f4f1e9;
+  --paper:#fffdf8;
+  --surface:#fffdf8;
+  --surface-soft:#f8f5ee;
+  --surface-tint:#edf2ec;
+  --ink:#182a24;
+  --text:#182a24;
+  --muted:#53625b;
+  --muted-strong:#3f5048;
+  --green:#123f34;
+  --green-2:#1d5747;
+  --brand-soft:#e7efe9;
+  --line:#ddd9ce;
+  --line-strong:#c9c7bc;
+  --focus:#b7832f;
+  
+
+  /* Family semantic palette. */
+  --family-bg:#f4f1e9;
+  --family-surface:#fffdf8;
+  
+  --family-surface-paper:#fff;
+  --family-surface-accent:color-mix(in srgb,var(--brand-soft) 78%,#fff);
+  --family-surface-canvas:color-mix(in srgb,var(--bg) 82%,#fff);
+  --family-ink:#182a24;
+  --family-green:#123f34;
+  --family-green-2:#1d5747;
+  --family-muted:#53625b;
+  --family-line:#ddd9ce;
+  
+  --family-border-hairline:color-mix(in srgb,var(--line) 84%,transparent);
+  --family-border-interactive:color-mix(in srgb,var(--green) 22%,var(--line));
+
+  /* Evidence-state presentation tokens mirror the canonical evidence model. */
+  --evidence-supported:#245645;
+  --evidence-provisional:#805817;
+  --evidence-unresolved:#873630;
+  --evidence-rejected:#5f605b;
+  --evidence-supported-soft:#e8f0eb;
+  --evidence-provisional-soft:#f4ead7;
+  --evidence-unresolved-soft:#f4e1de;
+  --evidence-rejected-soft:#ecebe8;
+
+  /* Typography. */
+  --family-font-display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --family-font-ui:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --family-text-display:clamp(3.25rem,6vw,4.75rem);
+  --family-text-page:clamp(2.25rem,4.2vw,3.35rem);
+  --family-text-section:clamp(1.75rem,3vw,2.35rem);
+  --family-text-card:1.12rem;
+  --family-text-body:clamp(.94rem,1.15vw,1.06rem);
+  --family-text-support:.84rem;
+  --family-text-meta:.75rem;
+  --family-text-eyebrow:.68rem;
+
+  /* Layout widths. */
+  --content-max:1320px;
+  
+  --family-page-home:1240px;
+  --family-page-people:1280px;
+  --family-page-person:1120px;
+  --family-page-stories:1120px;
+  --family-page-explore:1240px;
+  --family-page-media:1440px;
+  --family-page-research:1360px;
+  --family-copy:720px;
+  --app-masthead-height:76px;
+  --app-utility-height:58px;
+  --mobile-nav-height:72px;
+  --tap-target:48px;
+  --control-min:44px;
+  --family-sticky-clearance:64px;
+  --family-focus-width:3px;
+  --family-focus-offset:3px;
+
+  /* Stacking order. Preserve current effective shell ordering while removing
+   * magic numbers from component styles; values can be rationalized centrally. */
+  --z-context:70;
+  --z-header:90;
+  --z-nav-popover:120;
+  --z-mobile-context:2147482400;
+  --z-mobile-header:2147482500;
+  --z-mobile-dock:2147483000;
+  --z-mobile-popover:2147483005;
+  --z-skip-link:2147483010;
+
+  /* Navigation palette. Shared by desktop and mobile shell chrome so active,
+   * hover, focus, and elevated surfaces read as one system. */
+  --nav-bg:#123f34;
+  --nav-bg-deep:#0d3028;
+  --nav-bg-soft:#e8eee9;
+  --nav-surface:#fffdf8;
+  --nav-text:#f7fbf8;
+  --nav-text-muted:#c8d6d1;
+  --nav-ink:#173f35;
+  --nav-accent:#d7b45a;
+  --nav-border:rgba(255,255,255,.12);
+  --nav-border-light:rgba(23,63,53,.14);
+  --nav-hover:rgba(255,255,255,.10);
+  --nav-active-bg:#f3ead3;
+  --nav-active-ink:#123f34;
+
+  /* Family spacing scale. */
+  
+  --family-space-2:8px;
+  
+  --family-space-4:16px;
+  --family-space-5:24px;
+  
+  --family-space-7:48px;
+  
+
+  /* Migrated spacing tokens preserve their historical independent values. */
+  
+  
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:24px;
+  --space-6:32px;
+  --space-7:48px;
+  
+
+  /* Radius. */
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:24px;
+  --radius-pill:999px;
+  --family-radius-panel:20px;
+  --family-radius-card:16px;
+  --family-radius-control:12px;
+  --family-radius-chip:999px;
+
+  /* Elevation. */
+  --shadow:0 16px 48px rgba(31,52,45,.07);
+  --shadow-sm:0 1px 1px rgba(25,40,32,.03),0 7px 20px rgba(25,40,32,.04);
+  --shadow-md:0 12px 32px rgba(25,40,32,.07);
+  --shadow-lg:0 20px 56px rgba(13,29,24,.14);
+  --family-shadow-card:0 1px 1px rgba(25,40,32,.025),0 5px 16px rgba(25,40,32,.035);
+  --family-shadow-card-hover:0 2px 3px rgba(25,40,32,.035),0 10px 26px rgba(25,40,32,.065);
+  --family-shadow-float:0 28px 80px rgba(18,42,33,.16);
+
+  /* Motion. */
+  --family-motion-fast:140ms;
+  --family-motion-normal:220ms;
+
+  /* Historical release tokens still referenced by migrated selectors. */
+  --green2:#275a4a;
+  --gold:#805817;
+  --goldbg:#f8efd9;
+  --purple:#594373;
+  --purplebg:#eee9f5;
+  --blue:#405c6e;
+  --bluebg:#e8eef2;
+  --v16-page-max:1440px;
+  --v16-copy-max:760px;
+  --v16-radius:18px;
+  
+  --v16-section-gap:clamp(28px,4vw,56px);
+  
+  --v16-text-meta:12px;
 }
 
-/* ==========================================================================
-   Mobile shell token overrides
-   ========================================================================== */
-
-@media (max-width: 720px) {
-  :root {
-    --app-masthead-height: 0px;
-    --app-utility-height: 48px;
+@media(max-width:720px){
+  :root{
+    --app-masthead-height:0px;
+    --app-utility-height:48px;
   }
 }
