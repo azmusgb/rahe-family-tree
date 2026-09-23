@@ -280,9 +280,9 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
   body[data-experience="family"][data-route="dashboard"] :is(.family-home-hero,.dashboard-hero)::after,body[data-experience="family"][data-route="dashboard"] .dashboard-hero::before{inset:auto -38% -28% 35%;width:88%}
 }
 .person-header h2,.media-library-title h2{
-  color:var(--green);
   letter-spacing:-.045em;
 }
+.media-library-title h2{color:var(--green)}
 .person-header{
   border-bottom-color:var(--line);
   padding-block:24px 36px;
@@ -311,16 +311,14 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 }
 .graph-node.state-provisional rect{
   stroke:var(--evidence-provisional);
-  stroke-dasharray:6 4;
 }
 .graph-node.state-unresolved rect{
   stroke:var(--evidence-unresolved);
   stroke-dasharray:7 5;
 }
 .graph-node.state-rejected rect{stroke:var(--evidence-rejected)}
-.edge.state-provisional{stroke:var(--evidence-provisional);stroke-dasharray:8 7}
-.edge.state-unresolved{stroke:var(--evidence-unresolved);stroke-dasharray:8 7}
-.edge.state-rejected{display:none}
+.edge.state-provisional{stroke:var(--evidence-provisional)}
+.edge.state-unresolved{stroke:var(--evidence-unresolved)}
 .tree-context{padding:16px 18px;border-radius:16px;background:var(--surface-soft);box-shadow:none}
 .v154-graph-shell,.graph-panel{border-radius:18px}
 .graph-node:hover rect,.graph-node:focus rect{filter:drop-shadow(0 6px 12px rgba(18,63,52,.09))}

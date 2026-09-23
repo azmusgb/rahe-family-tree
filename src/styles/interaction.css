@@ -25,25 +25,10 @@ min-height:var(--control-min);
 .filters>*{min-width:0}
 .filters :where(input,select){width:100%;min-width:0}
 .filters[hidden]{display:none!important}
-.relationship-row{
-display:grid;
-gap:12px;
-background:#fff;
-border:1px solid var(--line);
-border-radius:9px;
-padding:14px;
-}
-@media(max-width:1180px){
-.relationship-row{grid-template-columns:90px 1fr 16px 1fr}
-.relationship-row small,.relationship-row .deep-link{grid-column:2/-1}
-}
 @media(max-width:800px){
 .filters{grid-template-columns:1fr!important}
 }
 @media(max-width:720px){
-.relationship-row{grid-template-columns:1fr;gap:6px}
-.relationship-row>b{display:none}
-.relationship-row small,.relationship-row .deep-link{grid-column:auto}
 body.mobile-app-ui[data-route="tree"]{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
 #family-mobile-dock :where(a,summary,button){touch-action:manipulation}
 }
