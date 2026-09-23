@@ -351,12 +351,12 @@ grid-column:1/-1;min-height:68px;justify-content:space-between;padding:0 20px;
 background:var(--immersive-green);border-color:var(--immersive-green);color:#fff;font-size:14px;
 }
 body[data-route="dashboard"].v20-mobile-app .family-primary-actions .action.primary::after{content:'→';font-size:24px;font-weight:350}
-body[data-route="dashboard"].v20-mobile-app .v17-home-metrics{
+body[data-route="dashboard"].v20-mobile-app .family-home-metrics{
 display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:28px;padding:18px 0 0;border-top:1px solid var(--immersive-line);
 }
-body[data-route="dashboard"].v20-mobile-app .v17-home-metrics span{border-color:var(--immersive-line)!important}
-body[data-route="dashboard"].v20-mobile-app .v17-home-metrics b{color:var(--immersive-green);font-size:29px}
-body[data-route="dashboard"].v20-mobile-app .v17-home-metrics small{color:#728079}
+body[data-route="dashboard"].v20-mobile-app .family-home-metrics span{border-color:var(--immersive-line)!important}
+body[data-route="dashboard"].v20-mobile-app .family-home-metrics b{color:var(--immersive-green);font-size:29px}
+body[data-route="dashboard"].v20-mobile-app .family-home-metrics small{color:#728079}
 body[data-route="dashboard"].v20-mobile-app .v20-continue-card{
 margin:-22px 14px 8px;padding:18px 17px;border:0;border-radius:24px;
 background:var(--immersive-green);color:#fff;box-shadow:0 18px 40px rgba(16,47,40,.24);
@@ -374,17 +374,17 @@ border:0;border-radius:26px;background:#dfe7df;box-shadow:none;
 }
 body[data-route="dashboard"].v20-mobile-app .v20-recent-person:nth-child(even){background:#e9dfca}
 body[data-route="dashboard"].v20-mobile-app .v20-recent-person>span{width:52px;height:52px;margin-bottom:auto;background:var(--immersive-green);color:#fff}
-body[data-route="dashboard"].v20-mobile-app #content :where(.v17-home-tree,.v17-home-media){background:#f9f4e9!important}
-body[data-route="dashboard"].v20-mobile-app #content :where(.v17-home-story,.v17-featured-people){background:var(--immersive-bg)!important}
-body[data-route="dashboard"].v20-mobile-app .v17-section-head h2{font-size:40px;line-height:.92;letter-spacing:-.045em}
-body[data-route="dashboard"].v20-mobile-app .v17-home-tree-canvas{
+body[data-route="dashboard"].v20-mobile-app #content :where(.family-home-tree,.family-home-media){background:#f9f4e9!important}
+body[data-route="dashboard"].v20-mobile-app #content :where(.family-home-story,.family-featured-people){background:var(--immersive-bg)!important}
+body[data-route="dashboard"].v20-mobile-app .family-section-head h2{font-size:40px;line-height:.92;letter-spacing:-.045em}
+body[data-route="dashboard"].v20-mobile-app .family-home-tree-canvas{
 margin:20px -4px 0;padding:24px 12px;border:0;border-radius:28px;background:#fff;box-shadow:0 12px 36px rgba(16,47,40,.08);
 }
-body[data-route="dashboard"].v20-mobile-app .v17-story-moments{grid-auto-columns:86vw;gap:14px}
-body[data-route="dashboard"].v20-mobile-app .v17-story-moment{min-height:330px;border:0;border-radius:30px;box-shadow:0 15px 38px rgba(16,47,40,.10)}
-body[data-route="dashboard"].v20-mobile-app .v17-home-people-grid{grid-auto-columns:78vw;gap:14px}
-body[data-route="dashboard"].v20-mobile-app .v17-home-person{min-height:250px;border:0;border-radius:30px;background:#fff;box-shadow:0 13px 34px rgba(16,47,40,.08)}
-body[data-route="dashboard"].v20-mobile-app .v17-research-door{padding:54px 18px 64px!important;background:var(--immersive-green)!important;color:#fff!important}
+body[data-route="dashboard"].v20-mobile-app .family-story-moments{grid-auto-columns:86vw;gap:14px}
+body[data-route="dashboard"].v20-mobile-app .family-story-moment{min-height:330px;border:0;border-radius:30px;box-shadow:0 15px 38px rgba(16,47,40,.10)}
+body[data-route="dashboard"].v20-mobile-app .family-home-people-grid{grid-auto-columns:78vw;gap:14px}
+body[data-route="dashboard"].v20-mobile-app .family-home-person{min-height:250px;border:0;border-radius:30px;background:#fff;box-shadow:0 13px 34px rgba(16,47,40,.08)}
+body[data-route="dashboard"].v20-mobile-app .family-research-door{padding:54px 18px 64px!important;background:var(--immersive-green)!important;color:#fff!important}
 body.v20-mobile-app:not([data-route="dashboard"]):not([data-route="tree"]) .route-shell{
 top:114px;padding:12px 12px 10px;border:0;background:rgba(239,233,220,.96);
 -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
@@ -597,10 +597,10 @@ body[data-route="dashboard"].mobile-app-ui [data-v21-surface]{position:relative}
 body[data-route="dashboard"].mobile-app-ui [data-v21-surface]::before{
 content:attr(data-v21-surface);display:block;margin-bottom:8px;color:var(--actual-label);font-size:9px;font-weight:900;letter-spacing:.17em;text-transform:uppercase;
 }
-body[data-route="dashboard"].mobile-app-ui #content :where(.v17-home-tree,.v17-home-story,.v17-featured-people,.v17-home-media){background:var(--actual-canvas)!important}
-body[data-route="dashboard"].mobile-app-ui .v17-home-tree-canvas,body[data-route="dashboard"].mobile-app-ui .v17-home-person,body[data-route="dashboard"].mobile-app-ui .v17-story-moment{background:var(--actual-paper)!important;border-color:var(--actual-line)!important}
-body[data-route="dashboard"].mobile-app-ui .v17-research-door{background:var(--actual-forest)!important;color:#fff!important}
-body[data-route="dashboard"].mobile-app-ui .v17-research-door :where(h2,p,.eyebrow,a){color:inherit!important}
+body[data-route="dashboard"].mobile-app-ui #content :where(.family-home-tree,.family-home-story,.family-featured-people,.family-home-media){background:var(--actual-canvas)!important}
+body[data-route="dashboard"].mobile-app-ui .family-home-tree-canvas,body[data-route="dashboard"].mobile-app-ui .family-home-person,body[data-route="dashboard"].mobile-app-ui .family-story-moment{background:var(--actual-paper)!important;border-color:var(--actual-line)!important}
+body[data-route="dashboard"].mobile-app-ui .family-research-door{background:var(--actual-forest)!important;color:#fff!important}
+body[data-route="dashboard"].mobile-app-ui .family-research-door :where(h2,p,.eyebrow,a){color:inherit!important}
 body[data-route="people"].mobile-app-ui #content{background:var(--actual-canvas)!important}
 
 body[data-route="people"].mobile-app-ui .people-intro :where(h1,h2){color:var(--actual-forest)!important}
