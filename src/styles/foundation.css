@@ -994,7 +994,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 
 .workspace{min-width:0}
 
-.page-heading{display:flex;justify-content:space-between;gap:24px;align-items:flex-start}
+.page-heading{display:flex;justify-content:space-between}
 
 .page-heading p:last-child{margin:0;max-width:760px;color:var(--muted);line-height:1.55;font-size:14px}
 
@@ -1205,7 +1205,7 @@ body[data-experience="family"] .notice.control{border-color:#d9e2dd;background:#
 
 .mystery-panel{background:linear-gradient(180deg,rgba(132,92,54,.05),rgba(255,255,255,.98))}
 
-.mystery-panel>p:not(.eyebrow){max-width:60ch;line-height:1.65}
+.mystery-panel>p:not(.eyebrow){max-width:60ch}
 
 @media(max-width:820px){.section-title{align-items:flex-start;flex-wrap:wrap;gap:10px}}
 
@@ -1362,14 +1362,6 @@ body[data-v158-context="family"] .route-shell.v158-context-search .filters{backg
 body[data-v158-context="family"] .route-shell.v158-context-search .filters .search{font-size:10px!important;color:var(--muted)!important}
 
 body[data-v158-context="family"] .route-shell.v158-context-search .filters .search input{margin-top:5px;box-shadow:none!important;border-color:var(--line)!important;background:rgba(255,255,255,.92)!important}
-
-body[data-v158-context="family"][data-route="media"] .route-shell .filters{display:block!important;margin-top:10px!important}
-
-body[data-v158-context="family"][data-route="media"] .route-shell .filters>label:not(.search),body[data-v158-context="family"][data-route="media"] .route-shell .filters>button{display:none!important}
-
-body[data-v158-context="family"][data-route="media"] .route-shell .filters .search{display:block!important}
-
-body[data-v158-context="family"][data-route="media"] .route-shell .filters .search input{min-height:var(--control-min)!important}
 
 @media (max-width:720px){
 .mobile-more a,.mobile-more button{display:block;width:100%;min-height:var(--control-min);padding:10px;border:0;border-radius:8px;background:transparent;color:var(--text);text-align:left;text-decoration:none;font:inherit;font-size:12px;font-weight:700}
