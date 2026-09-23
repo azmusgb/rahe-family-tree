@@ -291,16 +291,11 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 .person-header{gap:24px;padding-block:18px 28px}
 .person-header h2{font-size:clamp(2.7rem,5.2vw,4.8rem);line-height:.98}
 .v17-life-event>div{background:transparent;border:0;border-radius:0;padding:0}
-.directory-person-card>button{
-  border-radius:17px;
-  background:#fffdf8;
-}
 .directory-person-card .v17-avatar{
   border-radius:16px;
   background:linear-gradient(145deg,#17483c,#102f27);
 }
-.directory-person-card>button{border-radius:14px;box-shadow:none}
-.directory-person-card>button:hover,.directory-person-card>button:focus-visible{box-shadow:var(--family-shadow-card)}
+.directory-person-card>button:focus-visible{box-shadow:var(--family-shadow-card)}
 .tree-context{
   padding:20px 22px;
   border-radius:20px;

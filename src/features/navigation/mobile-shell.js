@@ -238,9 +238,9 @@ function composePeople(){
   const root=document.querySelector('[data-v17-native="people"]');
   if(!root)return;
   if(!isMobile()){root.querySelector('.mobile-search')?.remove();return;}
-  const intro=root.querySelector('.v17-page-intro');
+  const intro=root.querySelector('.people-intro');
   if(intro)composePeopleSearch(root,intro);
-  const branches=root.querySelector('.v17-branch-browser');
+  const branches=root.querySelector('.people-branch-browser');
   if(branches)branches.dataset.v21PeopleBranches='true';
 }
 

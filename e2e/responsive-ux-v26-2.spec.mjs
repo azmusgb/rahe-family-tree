@@ -34,7 +34,7 @@ test.describe('v26.2 phone refinement',()=>{
       const heights=await rows.evaluateAll(nodes=>nodes.slice(0,6).map(node=>node.getBoundingClientRect().height));
       expect(Math.min(...heights)).toBeGreaterThanOrEqual(44);
       expect(Math.max(...heights)).toBeLessThanOrEqual(76);
-      const chips=page.locator('.v17-branch-chip');
+      const chips=page.locator('.people-branch-chip');
       if(await chips.count()){
         const chipHeights=await chips.evaluateAll(nodes=>nodes.slice(0,6).map(node=>node.getBoundingClientRect().height));
         expect(Math.min(...chipHeights)).toBeGreaterThanOrEqual(44);

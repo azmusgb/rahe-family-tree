@@ -32,7 +32,7 @@ test('People is a compact mobile family directory with readable rows and no over
   const firstButton=cards.first().locator('button[data-person]');
   await expect(firstButton).toBeVisible();
   await expectMinTarget(firstButton);
-  await expectMinTarget(people.locator('.v17-branch-chip').first());
+  await expectMinTarget(people.locator('.people-branch-chip').first());
 
   await cards.first().scrollIntoViewIfNeeded();
   const visibleRows=await cards.evaluateAll(nodes=>nodes.filter(node=>{

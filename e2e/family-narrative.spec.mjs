@@ -38,14 +38,14 @@ test('people branch selection rerenders a native human branch summary',async({pa
   await page.goto('/#people');
   const directory=page.locator('[data-v17-native="people"]');
   await expect(directory).toBeVisible();
-  const browser=directory.locator('.v17-branch-browser');
+  const browser=directory.locator('.people-branch-browser');
   const branchButton=browser.locator('[data-branch]').filter({hasNotText:'All'}).first();
   await expect(branchButton).toBeVisible();
   const branchName=await branchButton.getAttribute('data-branch');
   expect(branchName).toBeTruthy();
   await branchButton.click();
   await expect(page.locator('#branch')).toHaveValue(branchName);
-  const context=page.locator('.v17-branch-summary');
+  const context=page.locator('.people-branch-summary');
   await expect(context).toBeVisible();
   await expect(context.locator('.eyebrow')).toHaveText(`${branchName.toUpperCase()} FAMILY`);
   await expect(context.getByRole('link',{name:'Stories'})).toBeVisible();
