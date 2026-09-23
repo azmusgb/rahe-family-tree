@@ -1,11 +1,13 @@
-/* Consolidated stylesheet.
- * Source sections are kept in the previous cascade order so this refactor changes
- * ownership and file count without intentionally changing visual precedence.
- */
-
 /* ==========================================================================
-   Source: mobile-experience.css
+   Family Archive OS — Experience
+   ==========================================================================
+   Route-experience composition for mobile Family navigation, Family Graph,
+   lineage navigation, and relationship-path comprehension.
+
+   Preserve evidence semantics and runtime selectors here. New generic shell,
+   control, or component primitives belong in their canonical owners.
    ========================================================================== */
+
 /* Mobile Family experience: bottom-sheet navigation and tree-first composition.
  * Presentation-only; genealogy/evidence semantics are unchanged. */
 
@@ -17,7 +19,7 @@
   body.mobile-sheet-open{overflow:hidden;overscroll-behavior:none}
   .mobile-more-backdrop[hidden]{display:none}
 
-  body[data-route="people"] :where(.workspace,.main,#content,.route-shell,.people-directory,.people-grid,.people-grid),body[data-route="tree"] :where(.workspace,.main,#content,.route-shell,.v17-tree,.graph-shell,.tree-graph-shell){
+  body[data-route="people"] :where(.workspace,.main,#content,.route-shell,.people-directory,.people-grid),body[data-route="tree"] :where(.workspace,.main,#content,.route-shell,.v17-tree,.graph-shell,.tree-graph-shell){
     min-width:0;
     max-width:100%;
     box-sizing:border-box;
@@ -58,7 +60,7 @@
     background:var(--brand-soft);
     color:var(--green);
   }
-  
+
   #family-mobile-dock .mobile-more>div>a:active,#family-mobile-dock .mobile-more>div>button:active{background:var(--brand-soft)}
   .mobile-more-head{
     position:sticky;
@@ -112,7 +114,7 @@
   }
   body[data-route="tree"] #content.mobile-tree-surface .v161-tree-toolbar{
     position:sticky;
-    top:0;
+    top:58px;
     z-index:24;
     width:100%;
     max-width:100%;
@@ -121,8 +123,8 @@
     margin:0;
     padding:8px 8px 7px;
     border:1px solid var(--line);
-    border-radius:14px;
-    background:rgba(250,248,242,.96);
+    border-radius:16px;
+    background:rgba(247,243,234,.94);
     -webkit-backdrop-filter:blur(14px);
     backdrop-filter:blur(14px);
     box-shadow:0 8px 22px rgba(18,47,39,.08);
@@ -162,10 +164,6 @@
   }
 }
 
-
-/* ==========================================================================
-   Source: family-graph-v19.css
-   ========================================================================== */
 /* v19 Family Graph. Presentation-only hierarchy layered on the existing tree SVG. */
 body[data-family-graph="v19"] .family-graph-summary{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 0 10px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface-soft);box-shadow:0 6px 18px rgba(18,47,39,.05)}
 .family-graph-summary>div:first-child{display:grid;gap:2px}.family-graph-summary strong{font-size:1rem;color:var(--text)}.family-graph-summary small{font-size:.78rem;color:var(--muted)}
@@ -187,9 +185,6 @@ body[data-family-graph="v19"] .family-graph-summary{display:flex;align-items:cen
 }
 @media(prefers-reduced-motion:reduce){.family-person-preview,#family-graph .graph-node.family-graph-direct>rect{transition:none!important;animation:none!important}}
 
-/* ==========================================================================
-   Source: family-graph-navigation.css
-   ========================================================================== */
 /* Family Graph navigation composition. Navigation-only; genealogy semantics live elsewhere. */
 .family-graph-commandbar{position:sticky;top:0;z-index:18;display:grid;gap:8px;margin:0 0 10px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--surface) 94%,transparent);box-shadow:0 8px 24px rgba(18,47,39,.08);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .family-graph-commandbar-main,.family-graph-commandbar-secondary{display:flex;align-items:center;gap:8px;min-width:0}.family-graph-commandbar-main{flex-wrap:wrap}.family-graph-commandbar-secondary{justify-content:space-between}
@@ -204,9 +199,6 @@ body[data-family-graph="v19"] .family-graph-summary{display:flex;align-items:cen
  .family-graph-commandbar{top:0;margin:0 -2px 8px;padding:8px;border-radius:12px}.family-graph-commandbar-main{display:grid;grid-template-columns:1fr;gap:6px}.family-graph-person-picker{min-width:0;width:100%}.family-graph-person-picker select{width:100%;max-width:none;min-height:44px}.family-graph-scope-tabs{width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:none}.family-graph-scope-tabs::-webkit-scrollbar{display:none}.family-graph-scope-tabs button{min-height:44px;padding-inline:12px}.family-graph-depth{overflow-x:auto;width:100%}.family-graph-depth button{min-height:44px}.family-graph-commandbar-secondary{justify-content:flex-start}.family-graph-commandbar summary{min-height:44px}.family-graph-relationship-panel{position:fixed;left:10px;right:10px;top:auto;bottom:calc(80px + env(safe-area-inset-bottom,0px));max-width:none;min-width:0}.family-graph-relationship-panel select{width:100%;max-width:none;min-height:44px}.family-graph-tools>[data-family-graph-tools-slot]{position:fixed;left:10px;right:10px;top:auto;bottom:calc(80px + env(safe-area-inset-bottom,0px));max-width:none;min-width:0;max-height:55dvh;overflow:auto}.family-graph-commandbar [data-family-graph-tools-slot] button,.family-graph-commandbar [data-family-graph-tools-slot] select{min-height:44px}.family-graph-summary{position:relative;z-index:1}}
 @media(prefers-reduced-motion:reduce){.family-graph-commandbar *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
-/* ==========================================================================
-   Source: family-graph-layout.css
-   ========================================================================== */
 /* Readable Family Graph layout. Presentation-only relative generations + lineage rail. */
 .family-lineage-rail{display:grid;gap:10px;margin:10px 0 12px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:0 5px 18px rgba(18,47,39,.04)}
 .family-lineage-rail-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.family-lineage-rail-head strong{color:var(--text);font-size:.95rem}.family-lineage-rail-head small{color:var(--muted);font-size:.76rem}
@@ -224,9 +216,6 @@ body[data-family-graph="v19"] .family-graph-summary{display:flex;align-items:cen
 }
 @media(prefers-reduced-motion:reduce){.family-lineage-generations{scroll-behavior:auto!important}}
 
-/* ==========================================================================
-   Source: relationship-path-comprehension.css
-   ========================================================================== */
 /* Relationship-path comprehension. Presentation-only; evidence colors mirror canonical state tokens. */
 .relationship-path-card{display:grid;gap:12px;margin:0 0 12px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--surface);box-shadow:var(--shadow-sm)}
 .relationship-path-heading{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.relationship-path-heading h3{margin:2px 0 0;font-family:var(--family-font-display);font-size:clamp(1.05rem,1.7vw,1.35rem);line-height:1.2;color:var(--text)}.relationship-path-eyebrow{display:block;font-size:var(--family-text-eyebrow);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
