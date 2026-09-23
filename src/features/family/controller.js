@@ -27,7 +27,7 @@ function nativeMarkup(route){
   return'';
 }
 function enforcePublicPrivacy(route,content){
-  if(route==='people'){const summary=content.querySelector('.v17-branch-summary>div:first-child>p:not(.eyebrow)');if(summary&&summary.textContent.includes(' · '))summary.textContent=summary.textContent.split(' · ')[0];return;}
+  if(route==='people'){const summary=content.querySelector('.people-branch-summary>div:first-child>p:not(.eyebrow)');if(summary&&summary.textContent.includes(' · '))summary.textContent=summary.textContent.split(' · ')[0];return;}
   if(route!=='person')return;
   const root=content.querySelector('.person-profile[data-person-id]'),person=personById(root?.dataset.personId||'');if(!person?.living)return;
   content.querySelector('.person-places')?.remove();
