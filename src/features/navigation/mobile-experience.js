@@ -118,11 +118,11 @@ function enhanceHome(){
   if(!home||!isMobile())return;
   injectContinueCard();
   injectRecentRail(home,'afterhero');
-  home.querySelector('.v17-home-tree')?.setAttribute('data-mobile-chapter','tree');
-  home.querySelector('.v17-home-story')?.setAttribute('data-mobile-chapter','story');
-  home.querySelector('.v17-featured-people')?.setAttribute('data-mobile-chapter','people');
-  home.querySelector('.v17-home-media')?.setAttribute('data-mobile-chapter','media');
-  home.querySelector('.v17-research-door')?.setAttribute('data-mobile-chapter','research');
+  home.querySelector('.family-home-tree')?.setAttribute('data-mobile-chapter','tree');
+  home.querySelector('.family-home-story')?.setAttribute('data-mobile-chapter','story');
+  home.querySelector('.family-featured-people')?.setAttribute('data-mobile-chapter','people');
+  home.querySelector('.family-home-media')?.setAttribute('data-mobile-chapter','media');
+  home.querySelector('.family-research-door')?.setAttribute('data-mobile-chapter','research');
 }
 
 function activatePersonSection(root,target,{scroll=false}={}){
