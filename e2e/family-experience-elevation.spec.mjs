@@ -18,7 +18,7 @@ test('Home keeps the compact editorial discovery instead of the legacy continuat
   const home=page.locator('[data-v17-native="home"]');
   await expect(home.locator('.home-editorial-discovery')).toBeVisible();
   await expect(home.locator('.v174-discovery')).toHaveCount(0);
-  await expect(home.locator('.v17-featured-people .v17-home-person')).toHaveCount(3);
+  await expect(home.locator('.home-featured-people .home-person')).toHaveCount(3);
 });
 
 test('historical Person shows elevated summary and active navigation',async({page})=>{
