@@ -161,7 +161,7 @@ test.describe('v26.2 tablet and desktop refinement',()=>{
       const collision=await page.evaluate(()=>{
         const mast=document.querySelector('.site-header.sidebar')?.getBoundingClientRect();
         const nav=document.querySelector('.person-nav');
-        const research=document.querySelector('.v17-person-research');
+        const research=document.querySelector('.person-research-door');
         return{
           top:parseFloat(getComputedStyle(nav).top),
           mastHeight:mast?.height||0,

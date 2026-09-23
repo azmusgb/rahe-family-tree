@@ -76,7 +76,7 @@ body[data-v158-context="family"] :where(.action,button,.person-card,.v157-person
 .family-branch-card:hover{transform:none}
 :where(.family-branch-card,.dashboard-person,.media-library-card,.search-hit.human){transition:none}
 .family-card{transition:none}
-:where(.person-card,.source-card,.directory-person-card>button,.v17-relative,.media-library-card,.dashboard-person,.family-primary-actions .action,.family-home-actions a,.dashboard-hero-actions .action){
+:where(.person-card,.source-card,.directory-person-card>button,.relative-card,.media-library-card,.dashboard-person,.family-primary-actions .action,.family-home-actions a,.dashboard-hero-actions .action){
 transform:none;
 transition-duration:.01ms;
 }

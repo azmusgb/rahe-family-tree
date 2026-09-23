@@ -47,7 +47,7 @@ test('family person profile keeps platform provenance out of the foreground but 
   const profile=page.locator('[data-v17-native="person"]');
   await expect(profile).toBeVisible();
   await expect(profile.locator('[data-platform-v13="person-graph-context"]')).toHaveCount(0);
-  const research=profile.locator('.v17-person-research');
+  const research=profile.locator('.person-research-door');
   await expect(research).toBeVisible();
   const details=research.locator('.v173-research-details');
   const cta=research.getByRole('link',{name:/Open Research Center/});

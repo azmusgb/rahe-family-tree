@@ -17,8 +17,8 @@ test('home keeps the native archive story canonical while v22 compacts phone pre
   const home=page.locator('[data-v17-native="home"]');
   await expect(home).toBeVisible();
   await expect(home.getByRole('heading',{name:'Our family, connected.'})).toBeVisible();
-  await expect(home.locator('.v17-home-tree')).toBeVisible();
-  const story=home.locator('.v17-home-story');
+  await expect(home.locator('.home-tree')).toBeVisible();
+  const story=home.locator('.home-story');
   const isPhone=await page.evaluate(()=>matchMedia('(max-width: 720px)').matches);
   if(isPhone){
     await expect(story).toBeHidden();
@@ -28,8 +28,8 @@ test('home keeps the native archive story canonical while v22 compacts phone pre
     await expect(story).toBeVisible();
     await expect(story.getByRole('heading',{name:'One moment from the family story.'})).toBeVisible();
   }
-  await expect(story.locator('.v17-story-moment')).toHaveCount(1);
-  await expect(home.locator('.v17-featured-people .v17-home-person')).toHaveCount(3);
+  await expect(story.locator('.home-story-moment')).toHaveCount(1);
+  await expect(home.locator('.home-featured-people .home-person')).toHaveCount(3);
   await expect(home.locator('.v172-home-branches,.v174-discovery')).toHaveCount(0);
   await expect(page.locator('.v157-home')).toHaveCount(0);
 });

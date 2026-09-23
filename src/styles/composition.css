@@ -94,18 +94,18 @@
   background:#fff;
   box-shadow:0 0 0 4px rgba(18,63,52,.07);
 }
-:where(.person-card,.source-card,.claim-card,.queue-card,.dossier-section,.family-overview-card,.directory-person-card>button,.v17-relative,.v17-family-summary,.tree-context,.v174-profile-snapshot,.graph-panel,.media-library-card,.dashboard-person){
+:where(.person-card,.source-card,.claim-card,.queue-card,.dossier-section,.family-overview-card,.directory-person-card>button,.relative-card,.v17-family-summary,.tree-context,.v174-profile-snapshot,.graph-panel,.media-library-card,.dashboard-person){
   border-color:var(--line);
   background:rgba(255,253,248,.92);
   box-shadow:var(--family-shadow-card);
 }
-:where(.person-card,.source-card,.directory-person-card>button,.v17-relative,.media-library-card,.dashboard-person){
+:where(.person-card,.source-card,.directory-person-card>button,.relative-card,.media-library-card,.dashboard-person){
   transition:
     transform var(--family-motion-normal,220ms) ease,
     border-color var(--family-motion-normal,220ms) ease,
     box-shadow var(--family-motion-normal,220ms) ease;
 }
-:where(.person-card,.source-card,.directory-person-card>button,.v17-relative,.media-library-card,.dashboard-person):where(:hover,:focus-within){
+:where(.person-card,.source-card,.directory-person-card>button,.relative-card,.media-library-card,.dashboard-person):where(:hover,:focus-within){
   transform:translateY(-2px);
   border-color:#b9c3b8;
   border-color:color-mix(in srgb,var(--green) 24%,var(--line));
@@ -117,10 +117,10 @@
 :where(.panel,.family-overview-card,.v17-family-summary,.v174-profile-snapshot,.graph-panel,.dossier-section){
   box-shadow:none;
 }
-:where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.directory-person-card>button,.v17-relative){
+:where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.directory-person-card>button,.relative-card){
   box-shadow:var(--family-shadow-card);
 }
-:where(.person-card,.source-card,.directory-person-card>button,.v17-relative,.media-library-card,.dashboard-person):where(:hover,:focus-within){
+:where(.person-card,.source-card,.directory-person-card>button,.relative-card,.media-library-card,.dashboard-person):where(:hover,:focus-within){
   transform:none;
   box-shadow:var(--family-shadow-card-hover);
 }
@@ -290,7 +290,7 @@ body[data-experience="family"][data-route="dashboard"] :is(.v17-home-stat small,
 .person-header h2{font-size:clamp(3rem,6.5vw,5.8rem)}
 .person-header{gap:24px;padding-block:18px 28px}
 .person-header h2{font-size:clamp(2.7rem,5.2vw,4.8rem);line-height:.98}
-.v17-life-event>div{background:transparent;border:0;border-radius:0;padding:0}
+.person-life-event>div{background:transparent;border:0;border-radius:0;padding:0}
 .directory-person-card .v17-avatar{
   border-radius:16px;
   background:linear-gradient(145deg,#17483c,#102f27);
@@ -410,7 +410,7 @@ body[data-route="tree"][data-v158-context="family"] .v154-tree-controls{backgrou
   body[data-route="tree"][data-v158-context="family"] .graph-shell{min-height:60dvh!important;border-radius:14px!important}
   body[data-route="tree"][data-v158-context="family"] .graph-stage,
   body[data-route="tree"][data-v158-context="family"] .graph-scroll{min-height:56dvh!important}
-  :where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.directory-person-card>button,.v17-relative){box-shadow:none}
+  :where(.person-card,.source-card,.claim-card,.queue-card,.media-library-card,.dashboard-person,.directory-person-card>button,.relative-card){box-shadow:none}
 }
 @media(max-width:430px){
   .family-home-hero{min-height:350px;padding:22px 18px}

@@ -24,8 +24,8 @@ test('Home stays compact while dedicated Tree retains branch navigation',async({
   const home=page.locator('[data-v17-native="home"]');
   await expect(home.locator('.v172-home-branches')).toHaveCount(0);
   await expect(home.locator('.v174-discovery')).toHaveCount(0);
-  await expect(home.locator('.v17-home-tree')).toBeVisible();
-  await expect(home.locator('.v17-featured-people .v17-home-person')).toHaveCount(3);
+  await expect(home.locator('.home-tree')).toBeVisible();
+  await expect(home.locator('.home-featured-people .home-person')).toHaveCount(3);
 });
 
 test('plain Tree opens the connected family network and offers branch shortcuts',async({page})=>{

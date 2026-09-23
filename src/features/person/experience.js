@@ -46,8 +46,8 @@ function makeResearchProgressive(root){
 }
 function tuneLifeSection(root,person){
   const life=root.querySelector('#v17-life');if(!life)return;
-  const title=life.querySelector('.v17-section-head h2');
-  const intro=life.querySelector('.v17-section-head p:not(.eyebrow)');
+  const title=life.querySelector('.family-section-head h2');
+  const intro=life.querySelector('.family-section-head p:not(.eyebrow)');
   if(title)title.textContent=person.living?'Living family member':'Life through the years';
   if(intro&&!person.living)intro.textContent='A chronological view of documented moments and places. Qualified events remain visibly qualified.';
 }
