@@ -1,5 +1,5 @@
 const MOBILE_QUERY='(max-width: 720px)';
-const MOBILE_HOME_COLLAPSED_SURFACES=['.family-home-story','.family-featured-people','.family-home-media','.family-research-door'];
+const MOBILE_HOME_COLLAPSED_SURFACES=['.home-story','.home-featured-people','.home-media','.home-research-door'];
 const MOBILE_ROUTE_TRAIL_LIMIT=12;
 let pendingPeopleSearchValue='';
 let pendingPeopleSearchFocus=false;
@@ -226,10 +226,10 @@ function composeHome(){
   if(actions.parentNode!==launcher)launcher.append(actions);
   if(search.nextElementSibling!==launcher)search.insertAdjacentElement('afterend',launcher);
 
-  const surfaceMap=[['.family-home-tree','connections'],['.family-home-story','stories'],['.family-featured-people','people'],['.family-home-media','media'],['.family-research-door','research']];
+  const surfaceMap=[['.home-tree','connections'],['.home-story','stories'],['.home-featured-people','people'],['.home-media','media'],['.home-research-door','research']];
   surfaceMap.forEach(([selector,value])=>{const node=home.querySelector(selector);if(node&&node.dataset.v21Surface!==value)node.dataset.v21Surface=value;});
 
-  const treePreview=home.querySelector('.family-home-tree');
+  const treePreview=home.querySelector('.home-tree');
   setMobileHomePreviewState(home,true);
   composeHomeDiscover(home,treePreview||launcher);
 }
