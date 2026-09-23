@@ -60,11 +60,11 @@ test.describe('mobile v20 app experience',()=>{
 
   test('Home keeps source-backed story content available behind compact mobile discovery',async({page})=>{
     await openMobile(page,'dashboard');
-    const story=page.locator('.v17-home-story');
-    await expect(story.locator('.v17-section-head h2')).toHaveText('One moment from the family story.');
+    const story=page.locator('.home-story');
+    await expect(story.locator('.family-section-head h2')).toHaveText('One moment from the family story.');
     await expect(story).toBeHidden();
     await expect(story).toHaveAttribute('data-v22-mobile-collapsed','true');
-    const first=story.locator('.v17-story-moment').first();
+    const first=story.locator('.home-story-moment').first();
     await expect(first).toHaveCount(1);
     const text=await first.textContent();
     expect(text||'').not.toMatch(/\[birth detail withheld\]|\bSUPPORTED\b|\|/i);
