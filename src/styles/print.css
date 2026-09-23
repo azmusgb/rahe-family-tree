@@ -78,16 +78,16 @@ a{color:#000;text-decoration:none}
 body{padding-bottom:0}
 .v155-desktop-actions,.v155-mobile-actions{display:none!important}
 body{background:#fff!important}
-.v162-journey-head>a,.v162-branch-actions,.v162-media-quick,.person-nav,.family-primary-actions,.family-section-head>a,.family-research-door .action,.person-research-door .action{display:none!important}
-  body[data-v158-context="family"] :where(.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card,.family-story-moment,.v17-person-card>button,.family-relative){box-shadow:none!important}
+.v162-journey-head>a,.v162-branch-actions,.v162-media-quick,.person-nav,.family-primary-actions,.family-section-head>a,.home-research-door .action,.person-research-door .action{display:none!important}
+  body[data-v158-context="family"] :where(.v162-moment,.v162-branch-context,.v162-family-path,.media-library-card,.home-story-moment,.v17-person-card>button,.relative-card){box-shadow:none!important}
 
 /* home-editorial.css */
 .v17-home-hero h2,
-  .v17-home-hero .family-home-metrics,
-  .v17-home-hero .family-home-metrics b,
-  .v17-home-hero .family-home-metrics strong,
-  .v17-home-hero .family-home-metrics span,
-  .v17-home-hero .family-home-metrics small{
+  .v17-home-hero .home-metrics,
+  .v17-home-hero .home-metrics b,
+  .v17-home-hero .home-metrics strong,
+  .v17-home-hero .home-metrics span,
+  .v17-home-hero .home-metrics small{
     color:#000;
   }
 
