@@ -1,11 +1,13 @@
-/* Consolidated stylesheet.
- * Source sections are kept in the previous cascade order so this refactor changes
- * ownership and file count without intentionally changing visual precedence.
- */
-
 /* ==========================================================================
-   Source: home-editorial-layout.css
+   Family Archive OS — Home Responsive
+   ==========================================================================
+   Responsive and mobile presentation for the Family Home/dashboard experience.
+
+   Preserve runtime-scoped variants (including v20/mobile-app-ui) until their
+   corresponding runtime consumers are migrated. Generic mobile shell behavior
+   belongs outside this file.
    ========================================================================== */
+
 /* Structural Family Home composition. The native renderer owns these classes. */
 body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{max-width:1180px;margin-inline:auto}
 
@@ -43,9 +45,6 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
  body[data-experience="family"][data-route="dashboard"] .home-editorial-research-link{margin-top:28px}
 }
 
-/* ==========================================================================
-   Source: home-mobile-polish.css
-   ========================================================================== */
 /* Family Home — mobile editorial composition.
  * This is the authoritative dashboard presentation at phone sizes.
  * Genealogy, evidence, privacy, routing and runtime semantics remain untouched. */
@@ -176,13 +175,6 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
   body[data-experience="family"][data-route="dashboard"] :is(.v17-story-moments,.v17-home-people-grid,.v17-home-tree-row,.dashboard-people-grid,.dashboard-story-grid){grid-auto-columns:82vw}
 }
 
-/* ==========================================================================
-   Mobile Home stability and density
-   Canonical owner: home-responsive.css
-   ========================================================================== */
-/* ==========================================================================
-   Source: mobile-home-stability.css
-   ========================================================================== */
 /* Mobile Home stability and density contract.
  * Final phone-only composition: bounded hero, compact dock, denser chapters,
  * readable story cards, and a relationship preview that uses its space.
@@ -357,12 +349,9 @@ body[data-experience="family"][data-route="dashboard"] .home-editorial-layout{ma
   body[data-route="dashboard"] .v17-home-person>button{min-height:150px!important;padding:16px!important}
   body[data-route="dashboard"] .v17-home-person em{font-size:11px!important;line-height:1.25!important}
   body[data-route="dashboard"] .v17-home-person p{font-size:11.5px!important;line-height:1.32!important}
-
-  /* Footer leaves only the space actually required by the compact dock. */
   }
 
 @media (max-width:430px){
   body[data-route="dashboard"].mobile-app-ui [data-v17-native="home"]>.family-home-hero,body[data-route="dashboard"].v20-mobile-app [data-v17-native="home"]>.family-home-hero{padding:30px 16px 22px!important}
   body[data-route="dashboard"].mobile-app-ui .family-home-hero h1,body[data-route="dashboard"].mobile-app-ui .family-home-hero h2,body[data-route="dashboard"].v20-mobile-app .family-home-hero h1,body[data-route="dashboard"].v20-mobile-app .family-home-hero h2{font-size:clamp(42px,11.7vw,52px)!important}
 }
-
