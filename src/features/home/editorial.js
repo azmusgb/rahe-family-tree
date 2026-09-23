@@ -6,12 +6,12 @@ const keepFirst=(root,selector,count=1)=>{[...root.querySelectorAll(selector)].s
 function normalizeCompactHome(root){
   if(!root?.matches?.('.family-home.home-editorial-layout'))return;
   root.querySelectorAll('.v172-home-branches,.v174-discovery').forEach(node=>node.remove());
-  const tree=root.querySelector('.family-home-tree');
+  const tree=root.querySelector('.home-tree');
   if(tree){tree.classList.add('home-editorial-lead');setText(tree,'.eyebrow','EXPLORE THE FAMILY');setText(tree,'h2','See how the family connects.');tree.querySelector('.family-section-head>div>p:not(.eyebrow)')?.remove();}
-  const story=root.querySelector('.family-home-story');
-  if(story){story.classList.add('home-editorial-story');setText(story,'.eyebrow','FROM THE ARCHIVE');setText(story,'h2','One moment from the family story.');keepFirst(story,'.family-story-moment',1);story.querySelector('.family-place-strip')?.remove();story.querySelector('.family-section-head>div>p:not(.eyebrow)')?.remove();}
-  const people=root.querySelector('.family-featured-people');
-  if(people){people.classList.add('home-editorial-people');setText(people,'.eyebrow','PEOPLE TO DISCOVER');setText(people,'h2','Faces in the family archive.');keepFirst(people,'.family-home-person',3);}
+  const story=root.querySelector('.home-story');
+  if(story){story.classList.add('home-editorial-story');setText(story,'.eyebrow','FROM THE ARCHIVE');setText(story,'h2','One moment from the family story.');keepFirst(story,'.home-story-moment',1);story.querySelector('.home-place-strip')?.remove();story.querySelector('.family-section-head>div>p:not(.eyebrow)')?.remove();}
+  const people=root.querySelector('.home-featured-people');
+  if(people){people.classList.add('home-editorial-people');setText(people,'.eyebrow','PEOPLE TO DISCOVER');setText(people,'h2','Faces in the family archive.');keepFirst(people,'.home-person',3);}
   root.querySelector('[data-v17-home-gallery]')?.remove();
   if(story&&people){let discovery=root.querySelector('.home-editorial-discovery');if(!discovery){discovery=document.createElement('section');discovery.className='home-editorial-discovery';discovery.setAttribute('aria-label','Discover the family archive');tree?.insertAdjacentElement('afterend',discovery);}if(story.parentElement!==discovery||people.parentElement!==discovery)discovery.append(story,people);}
 }
@@ -40,7 +40,7 @@ export function renderEditorialHome(){
 
   normalizeCompactHome(root);
 
-  const research=root.querySelector('.family-research-door');
+  const research=root.querySelector('.home-research-door');
   if(research){
     research.className='home-editorial-research-link';
     research.innerHTML='<a href="#research">Sources &amp; evidence are available in the Research Center →</a>';
