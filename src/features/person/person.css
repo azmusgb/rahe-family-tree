@@ -68,11 +68,8 @@ body[data-experience="family"] .person-open h3{font-size:20px;margin:2px 0}
 
 body[data-experience="family"] .person-open p,body[data-experience="family"] .person-open small{font-size:12px;margin:0;line-height:1.45}
 
-@media(max-width:1024px){.dashboard-people-strip,}
 
-@media(max-width:768px){.dashboard-people-strip,}
 
-@media(max-width:480px){.dashboard-people-strip,}
 
 @media(max-width:480px){.dashboard-person-open{min-height:86px}}
 
